@@ -1,0 +1,49 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{% if page.summary %}{{ page.summary | strip_html | strip_newlines | truncate: 160 }}{% endif %}">
+<meta name="keywords" content="{% if page.tags %}{{ page.tags | join: ', ' | escape }}{% endif %}">
+{% if page.block_search or page.url contains 'v1.0' or page.url contains 'v1.1' or page.url contains 'v2.0' or page.url contains 'v2.1' or page.url contains 'v19.1' %}
+  <meta name="robots" content="noindex">
+  <meta name="robots" content="nofollow">
+  <meta name="robots" content="noarchive">
+  <meta name="robots" content="nocache">
+{% endif %}
+<title>{{ page.title }} | {{ site.site_title }}</title>
+<link rel="canonical" href="{{ page.canonical | absolute_url }}">
+<link rel="shortcut icon" href="{{ 'images/favicon.png' | relative_url }}" type="image/png">
+
+{% if page.comparison == true %}<link rel="stylesheet" type="text/css" href="{{ 'css/select2.min.css' | relative_url }}">{% endif %}
+<link rel="stylesheet" type="text/css" href="{{ 'css/customstyles.css' | relative_url }}">
+
+<script>
+var pageConfig = {
+  tocNotNested: {% if page.toc_not_nested %}true{% else %}false{% endif %}
+};
+</script>
+
+<script src="{{ 'js/jquery.min.js' | relative_url }}"></script>
+
+{% if page.comparison == true %}
+  <script src="{{ 'js/comparison-chart.js' | relative_url }}"></script>
+  <script src="{{ 'js/select2.min.js' | relative_url }}"></script>
+{% endif %}
+{% if page.license == true %}
+  <script src="{{ 'js/license-on-page.js' | relative_url }}"></script>
+{% endif %}
+
+<link rel="preconnect dns-prefetch" href="//go.cockroachlabs.com" />
+<link rel="preconnect dns-prefetch" href="//cockroach-labs-docs.imgix.net" />
+
+<link rel="preload" href="//go.cockroachlabs.com/js/forms2/js/forms2.min.js" as="script" />
+<script src="//go.cockroachlabs.com/js/forms2/js/forms2.min.js"></script>
+
+<link rel="preload" href="{{ "/fonts/SourceSansPro-Regular.ttf" | relative_url }}" as="font" crossorigin="anonymous" />
+<link rel="preload" href="{{ "/fonts/SourceSansPro-SemiBold.ttf" | relative_url }}" as="font" crossorigin="anonymous" />
+<link rel="preload" href="{{ "/fonts/Poppins-SemiBold.ttf" | relative_url }}" as="font" crossorigin="anonymous" />
+
+<link rel="preconnect dns-prefetch" href="https://app.convertflow.co/" >
+<link rel="preconnect dns-prefetch" href="https://js.convertflow.co/" data-proofer-ignore>
+
+<link rel="preload" as="image" href="https://cockroach-labs-docs.imgix.net/bg-3-1.png?auto=format,compress&w=1200&q=40" />
+<link rel="preload" as="image" href="https://cockroach-labs-docs.imgix.net/bg-early-3-1.png?auto=format,compress&w=1200&q=40" />
