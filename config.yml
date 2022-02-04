@@ -1,0 +1,100 @@
+algolia:
+  application_id: 7RXZLDVR5F
+  files_to_exclude:
+  - index.html
+  - index.md
+  - search.html
+  index_name: cockroachcloud_docs
+  search_api_key: 372a10456f4ed7042c531ff3a658771b
+defaults:
+- scope:
+    path: ''
+    type: pages
+  values:
+    layout: page
+exclude:
+- __tests__
+- netlify
+- scripts
+- vendor
+- jekyll-algolia-dev
+- archived
+- package.json
+- package-lock.json
+include:
+- _redirects
+keep_files:
+- _internal
+markdown: Redcarpet
+plugins:
+- jekyll-include-cache
+release_info:
+  v1.0:
+    build_time: 2017/02/13 15:13:51 (go1.8.3)
+    docker_image: cockroachdb/cockroach
+    name: v1.0.7
+    start_time: 2017-02-13 13:33:22.046027038 -0400 EDT
+    version: v1.0.7
+  v1.1:
+    build_time: 2018/10/01 14:48:26 (go1.8.3)
+    docker_image: cockroachdb/cockroach
+    name: v1.1.9
+    start_time: 2018-10-01 15:10:52.34274101 +0000 UTC
+    version: v1.1.9
+  v19.1:
+    build_time: 2020/07/07 14:48:26 (go1.11.6)
+    docker_image: cockroachdb/cockroach
+    name: v19.1.11
+    start_time: 2020-07-07 15:10:52.34274101 +0000 UTC
+    version: v19.1.11
+  v19.2:
+    build_time: 2021/01/19 11:00:26 (go1.12.12)
+    docker_image: cockroachdb/cockroach
+    name: v19.2.12
+    start_time: 2021-01-19 11:01:26.34274101 +0000 UTC
+    version: v19.2.12
+  v2.0:
+    build_time: 2018/12/10 14:48:26 (go1.10)
+    docker_image: cockroachdb/cockroach
+    name: v2.0.7
+    start_time: 2018-12-10 15:10:52.34274101 +0000 UTC
+    version: v2.0.7
+  v2.1:
+    build_time: 2019/01/29 14:48:26 (go1.10.3)
+    docker_image: cockroachdb/cockroach
+    name: v2.1.11
+    start_time: 2019-01-29 15:10:52.34274101 +0000 UTC
+    version: v2.1.11
+  v20.1:
+    build_time: 2021/05/17 11:00:26 (go1.13.4)
+    docker_image: cockroachdb/cockroach
+    name: v20.1.17
+    start_time: 2021-05-17 11:01:26.34274101 +0000 UTC
+    version: v20.1.17
+  v20.2:
+    build_time: 2021/11/08 11:00:26 (go1.13.4)
+    docker_image: cockroachdb/cockroach
+    name: v20.2.18
+    start_time: 2021-11-08 11:01:26.34274101 +0000 UTC
+    version: v20.2.18
+  v21.1:
+    build_time: 2022/1/10 11:00:26 (go1.15.5)
+    docker_image: cockroachdb/cockroach
+    name: v21.1.13
+    start_time: 2022-1-10 11:01:26.34274101 +0000 UTC
+    version: v21.1.13
+  v21.2:
+    build_time: 2022/01/10 11:00:26 (go1.16.6)
+    docker_image: cockroachdb/cockroach
+    name: v21.2.4
+    start_time: 2022-01-10 11:01:26.34274101 +0000 UTC
+    version: v21.2.4
+  v22.1:
+    build_time: 2022/01/24 11:00:26 (go1.16.6)
+    docker_image: cockroachdb/cockroach-unstable
+    name: v22.1.0-alpha.1
+    start_time: 2022-01-24 11:01:26.34274101 +0000 UTC
+    version: v22.1.0-alpha.1
+site_title: CockroachDB Docs
+url: https://www.cockroachlabs.com
+operator_version: v2.4.0

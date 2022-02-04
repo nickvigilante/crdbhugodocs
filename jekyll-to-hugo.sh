@@ -50,4 +50,8 @@ echo "Done"
 
 # Hugoify the existing Jekyll docs
 
+echo "Hugoifying content"
+
 find . -name "*.md" -exec sed -i '' -E 's/(\{\{)/\1 /g; s/(\{%)/\1 /g; s/(\}\})/ \1/g; s/(\}%)/ \1/g' {} \;
+
+echo "Done"
