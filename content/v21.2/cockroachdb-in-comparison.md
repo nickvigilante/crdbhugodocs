@@ -1,7 +1,7 @@
 ---
 title: CockroachDB in Comparison
 summary: Learn how CockroachDB compares to other popular databases like PostgreSQL, Cassandra, MongoDB, Google Cloud Spanner, and more.
-tags: mongodb, mysql, dynamodb
+tags: [mongodb, mysql, dynamodb]
 toc: false
 comparison: true
 docs_area: get_started

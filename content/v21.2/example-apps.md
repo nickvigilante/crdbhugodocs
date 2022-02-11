@@ -1,7 +1,7 @@
 ---
 title: Example Apps
 summary: Examples that show you how to build simple applications with CockroachDB
-tags: golang, python, java
+tags: [golang, python, java]
 toc: true
 docs_area: develop
 ---

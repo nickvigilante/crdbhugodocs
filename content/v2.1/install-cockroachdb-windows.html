@@ -1,7 +1,7 @@
 ---
 title: Install CockroachDB on Windows
 summary: Install CockroachDB on Mac, Linux, or Windows. Sign up for product release notes.
-tags: download, binary, homebrew
+tags: [download, binary, homebrew]
 toc: true
 key: install-cockroachdb.html
 ---

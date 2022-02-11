@@ -22,6 +22,7 @@ echo "Copying configuration..."
 
 cp $JEKYLLDOCS/_config_base.yml $HUGODOCS/config.yml
 echo theme: ananke >> config.yml
+echo uglyurls: true >> config.yml
 
 echo "Done"
 
@@ -30,7 +31,7 @@ echo "Done"
 echo "Copying content..."
 
 cp -R $JEKYLLDOCS/_includes/ $HUGODOCS/assets
-cp -R $JEKYLLDOCS/_layouts/ $HUGODOCS/layouts
+# cp -R $JEKYLLDOCS/_layouts/ $HUGODOCS/layouts
 cp -R $JEKYLLDOCS/v1.0 $HUGODOCS/content
 cp -R $JEKYLLDOCS/v1.1 $HUGODOCS/content
 cp -R $JEKYLLDOCS/v19.1 $HUGODOCS/content
@@ -45,6 +46,7 @@ cp -R $JEKYLLDOCS/cockroachcloud $HUGODOCS/content
 cp -R $JEKYLLDOCS/releases $HUGODOCS/content
 cp -R $JEKYLLDOCS/api $HUGODOCS/content
 cp -R $JEKYLLDOCS/tutorials $HUGODOCS/content
+cp -R $JEKYLLDOCS/tutorials $HUGODOCS/content
 
 echo "Done"
 
@@ -56,7 +58,7 @@ arr=($HUGODOCS/content $HUGODOCS/layouts)
 
 for x in "${arr[@]}";
 do
-find $x -type f \( -name "*.md" -o -name "*.html" \) -exec sed -i '' -E 's/(\{\{)([^\s])/\1 \2/g; s/(\{%)([^\s])/\1 \2/g; s/([^\s])(\}\})/\1 \2/g; s/([^\s])(%\})/\1 \2/g; s/(\{\{ ) /\1/g; s/(\{% ) /\1/g; s/ ( \}\})/\1/g; s/ ( %\})/\1/g; s/\{\{ content \}\}/\{\{ .Content \}\}/g; s/\{% include (.*) %\}/\{\{ partial "\1" . \}\}/g' {} \;
+find $x -type f \( -name "*.md" -o -name "*.html" \) -exec sed -i '' -E 's/(\{\{)([^\s])/\1 \2/g; s/(\{%)([^\s])/\1 \2/g; s/([^\s])(\}\})/\1 \2/g; s/([^\s])(%\})/\1 \2/g; s/(\{\{ ) /\1/g; s/(\{% ) /\1/g; s/ ( \}\})/\1/g; s/ ( %\})/\1/g; s/\{\{ content \}\}/\{\{ .Content \}\}/g; s/\{% include (.*) %\}/\{\{ partial "\1" . \}\}/g; s/(tags:) (.*)$/\1 \[\2\]/g' {} \;
 
 done
 
