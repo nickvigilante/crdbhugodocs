@@ -41,8 +41,9 @@ cp -R $JEKYLLDOCS/v21.2 $HUGODOCS/content
 cp -R $JEKYLLDOCS/cockroachcloud $HUGODOCS/content
 cp -R $JEKYLLDOCS/releases $HUGODOCS/content
 cp -R $JEKYLLDOCS/tutorials $HUGODOCS/content
-
 cp -R $JEKYLLDOCS/_includes/ $HUGODOCS/assets
+cp -R $JEKYLLDOCS/index.md $HUGODOCS/content/_index.md
+
 # cp -R $JEKYLLDOCS/_layouts/ $HUGODOCS/layouts
 
 echo "Done"
@@ -68,6 +69,6 @@ find $x -type f \( -name "*.md" -o -name "*.html" \) -exec sed -i '' -E 's/(\{\{
   s/\{% remote_include https:\/\/raw.githubusercontent.com\/cockroachdb\/generated-diagrams\/release-.*\/grammar_svg\/(.*) %\}/\{\{< sql-diagram "\1" >\}\}/g' {} \;
 done
 
-
+find $HUGODOCS/content -type f -name "index.md" -execdir mv index.md _index.md \;
 
 echo "Done"
