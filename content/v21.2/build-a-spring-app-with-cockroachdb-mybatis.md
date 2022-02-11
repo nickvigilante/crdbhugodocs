@@ -9,13 +9,13 @@ filter_sort: 4
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how to build a simple [Spring Boot](https://spring.io/projects/spring-boot) application with CockroachDB, using the [MyBatis-Spring-Boot-Starter module](http://mybatis.org/spring-boot-starter) for data access.
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install JDK
 

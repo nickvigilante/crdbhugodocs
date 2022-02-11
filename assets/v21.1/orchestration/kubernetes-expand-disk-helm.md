@@ -1,9 +1,9 @@
 You can expand certain [types of persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/#types-of-persistent-volumes
 ) (including GCE Persistent Disk and Amazon Elastic Block Store) by editing their persistent volume claims.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 These steps assume you followed the tutorial [Deploy CockroachDB on Kubernetes](deploy-cockroachdb-with-kubernetes.html).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 1. Get the persistent volume claims for the volumes:
 
@@ -52,13 +52,13 @@ These steps assume you followed the tutorial [Deploy CockroachDB on Kubernetes](
 
 1. Edit one of the persistent volume claims to request more space:
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     The requested `storage` value must be larger than the previous value. You cannot use this method to decrease the disk size.
-	{{site.data.alerts.end}}
+	{{site.data.alerts.end }}
 
 	{% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ kubectl patch pvc datadir-my-release-cockroachdb-0 -p '{"spec": {"resources": {"requests": {"storage": "200Gi"}}}}'
+    $ kubectl patch pvc datadir-my-release-cockroachdb-0 -p '{"spec": {"resources": {"requests": {"storage": "200Gi" }}}}'
     ~~~
 
     ~~~
@@ -81,7 +81,7 @@ These steps assume you followed the tutorial [Deploy CockroachDB on Kubernetes](
 
     {{site.data.alerts.callout_success}}
     Running `kubectl get pv` will display the persistent volumes with their *requested* capacity and not their actual capacity. This can be misleading, so it's best to use `kubectl get pvc`.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 1. Examine the persistent volume claim. If the volume has a file system, you will see a `FileSystemResizePending` condition with an accompanying message:
 

@@ -10,7 +10,7 @@ filter_sort: 2
 docs_area: 
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page shows you how to start and stop a 3-node CockroachDB insecure test cluster in a single [Kubernetes](http://kubernetes.io/) cluster, using one of the following:
 
@@ -18,11 +18,11 @@ This page shows you how to start and stop a 3-node CockroachDB insecure test clu
 
 - [Helm](https://helm.sh/) package manager for Kubernetes
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-flag.md %}
 
 The steps below demonstrate how to quickly deploy and interact with an insecure test cluster. To learn about authenticating, configuring, scaling, and upgrading a CockroachDB cluster on Kubernetes, see [Kubernetes Overview](kubernetes-overview.html).
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 ## Before you begin
 
@@ -42,11 +42,11 @@ Feature | Description
 
 ### Limitations
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-limitations.md %}
 
 ## Step 1. Start Kubernetes
 
-{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
+{% include {{ page.version.version }}/orchestration/start-kubernetes.md %}
 
 ## Step 2. Start CockroachDB
 
@@ -58,24 +58,24 @@ Choose how you want to deploy and maintain the CockroachDB cluster.
 </div>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-insecure.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-helm-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-helm-insecure.md %}
 </section>
 
 ## Step 3. Use the built-in SQL client
 
-{{ partial "{{ page.version.version }}/orchestration/test-cluster-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/test-cluster-insecure.md %}
 
 ## Step 4. Access the DB Console
 
-{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/monitor-cluster.md %}
 
 ## Step 5. Simulate node failure
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-simulate-failure.md %}
 
 ## Step 6. Stop the cluster
 

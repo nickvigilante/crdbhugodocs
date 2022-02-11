@@ -22,7 +22,7 @@ In CockroachDB, the following are aliases for `SHOW INDEX`:
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_indexes.html %}
+{{< sql-diagram "show_indexes.html" >}}
 </div>
 
 ## Parameters
@@ -49,16 +49,16 @@ Field | Description
 
 ## Example
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Show indexes for a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON users (name);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -79,7 +79,7 @@ Field | Description
 
 ### Show indexes for a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM DATABASE movr;
 ~~~

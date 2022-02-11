@@ -27,12 +27,12 @@ You can restore:
 
 ### Source privileges
 
-{{ partial "{{ page.version.version }}/misc/source-privileges.md" . }}
+{% include {{ page.version.version }}/misc/source-privileges.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/restore.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/restore.html %}
 </div>
 
 ## Parameters
@@ -174,11 +174,11 @@ If initiated correctly, the statement returns when the restore is finished or if
 
 ## Known limitations
 
-{{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }}
+{% include {{ page.version.version }}/known-limitations/restore-aost.md %}
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
+{% include {{ page.version.version }}/backups/bulk-auth-options.md %}
 
 <div class="filters clearfix">
   <button class="filter-button" data-scope="s3">Amazon S3</button>

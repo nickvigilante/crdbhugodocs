@@ -20,13 +20,13 @@ For a more realistic use of SQLAlchemy with CockroachDB, see our [`examples-orms
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install the SQLAlchemy ORM
 
 To install SQLAlchemy, as well as a [CockroachDB Python package](https://github.com/cockroachdb/sqlalchemy-cockroachdb) that accounts for some minor differences between CockroachDB and PostgreSQL, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 ~~~
@@ -41,13 +41,13 @@ For other ways to install SQLAlchemy, see the [official documentation](http://do
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -64,14 +64,14 @@ The <a href="https://github.com/cockroachdb/sqlalchemy-cockroachdb">sqlalchemy-c
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/sqlalchemy-basic-sample.py" download>download it directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/sqlalchemy-basic-sample.py" . }}
+{% include {{ page.version.version }}/app/sqlalchemy-basic-sample.py %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python sqlalchemy-basic-sample.py
 ~~~
@@ -85,14 +85,14 @@ The output should be:
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank
 ~~~
 
 Then, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -113,7 +113,7 @@ Then, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Python code
 
@@ -127,14 +127,14 @@ The <a href="https://github.com/cockroachdb/sqlalchemy-cockroachdb">sqlalchemy-c
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/insecure/sqlalchemy-basic-sample.py" download>download it directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/insecure/sqlalchemy-basic-sample.py" . }}
+{% include {{ page.version.version }}/app/insecure/sqlalchemy-basic-sample.py %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python sqlalchemy-basic-sample.py
 ~~~
@@ -148,14 +148,14 @@ The output should be:
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 Then, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -176,4 +176,4 @@ Then, issue the following statement:
 
 Read more about using the [SQLAlchemy ORM](https://docs.sqlalchemy.org/en/latest/), or check out a more realistic implementation of SQLAlchemy with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

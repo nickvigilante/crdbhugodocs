@@ -11,7 +11,7 @@ For the list of privileges that can be granted to and revoked from users and rol
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/revoke_privileges.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/revoke_privileges.html %}
 </div>
 
 ## Required privileges
@@ -33,7 +33,7 @@ Parameter | Description
 
 ### Revoke privileges on databases
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE db1, db2;
 ~~~
@@ -52,12 +52,12 @@ Parameter | Description
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE CREATE ON DATABASE db1, db2 FROM maxroach, betsyroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE db1, db2;
 ~~~
@@ -76,7 +76,7 @@ Parameter | Description
 
 ### Revoke privileges on specific tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db1.t1, db1.t2;
 ~~~
@@ -97,12 +97,12 @@ Parameter | Description
 (8 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE CREATE ON TABLE db1.t1, db1,t2 FROM betsyroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db1.t1, db1.t2;
 ~~~
@@ -123,7 +123,7 @@ Parameter | Description
 
 ### Revoke privileges on all tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db2.t1, db2.t2;
 ~~~
@@ -140,7 +140,7 @@ Parameter | Description
 (4 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE DELETE ON db2.* FROM betsyroach;
 ~~~

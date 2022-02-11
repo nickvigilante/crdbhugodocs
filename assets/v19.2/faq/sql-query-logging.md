@@ -30,7 +30,7 @@ $ cockroach start --insecure --listen-addr=localhost --vmodule=exec_log=2 --join
 
 {{site.data.alerts.callout_success}}
 To log CockroachDB-generated SQL queries as well, use `--vmodule=exec_log=3`.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 From the SQL prompt on a running node, execute the `crdb_internal.set_vmodule()` [function](functions-and-operators.html):
 

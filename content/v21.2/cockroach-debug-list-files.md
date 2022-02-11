@@ -14,7 +14,7 @@ The files listed include logs, heap profiles, goroutine dumps, and CPU profiles.
 
 ## Subcommands
 
-{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
+{% include {{ page.version.version }}/misc/debug-subcommands.md %}
 
 ## Synopsis
 
@@ -40,13 +40,13 @@ Flag | Description
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 `--cluster-name` | The cluster name to use to verify the cluster's identity. If the cluster has a cluster name, you must include this flag. For more information, see [`cockroach start`](cockroach-start.html#general).
 `--disable-cluster-name-verification` | Disables the cluster name check for this command. This flag must be paired with `--cluster-name`. For more information, see [`cockroach start`](cockroach-start.html#general).
 
 ### Logging
 
-{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
+{% include {{ page.version.version }}/misc/debug-subcommands.md %}
 
 ## Examples
 

@@ -14,7 +14,7 @@ When planning your deployment, it's important to carefully review and choose the
 
 Also keep in mind some basic topology recommendations:
 
-{{ partial "{{ page.version.version }}/prod-deployment/topology-recommendations.md" . }}
+{% include {{ page.version.version }}/prod-deployment/topology-recommendations.md %}
 
 ## Software
 
@@ -22,7 +22,7 @@ We recommend running a [glibc](https://www.gnu.org/software/libc/)-based Linux d
 
 ## Hardware
 
-{{ partial "{{ page.version.version }}/prod-deployment/terminology-vcpu.md" . }}
+{% include {{ page.version.version }}/prod-deployment/terminology-vcpu.md %}
 
 ### Sizing
 
@@ -46,7 +46,7 @@ Carefully consider the following tradeoffs:
 
 In general, distribute your total vCPUs into the **largest possible nodes and smallest possible cluster** that meets your fault tolerance goals.
 
-- Each node should have at least {{ partial "{{ page.version.version }}/prod-deployment/provision-cpu.md" . }}. For greater stability, we recommend at least 8 vCPUs per node.
+- Each node should have at least {% include {{ page.version.version }}/prod-deployment/provision-cpu.md %}. For greater stability, we recommend at least 8 vCPUs per node.
 
 - Avoid "burstable" or "shared-core" virtual machines that limit the load on CPU resources.
 
@@ -75,7 +75,7 @@ Before deploying to production, test and tune your hardware setup for your appli
 
 #### Memory
 
-Provision at least {{ partial "{{ page.version.version }}/prod-deployment/provision-memory.md" . }}. The minimum acceptable ratio is 2 GiB of RAM per vCPU, which is only suitable for testing.
+Provision at least {% include {{ page.version.version }}/prod-deployment/provision-memory.md %}. The minimum acceptable ratio is 2 GiB of RAM per vCPU, which is only suitable for testing.
 
 {{site.data.alerts.callout_info }}
 The benefits to having more RAM decrease as the [number of vCPUs](#sizing) increases.
@@ -85,9 +85,9 @@ The benefits to having more RAM decrease as the [number of vCPUs](#sizing) incre
 
 - To ensure consistent SQL performance, make sure all nodes have a uniform configuration.
 
-- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-disable-swap.md" . }}
+- {% include {{ page.version.version }}/prod-deployment/prod-guidance-disable-swap.md %}
 
-- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md" . }} For more details, see [Cache and SQL memory size](#cache-and-sql-memory-size).
+- {% include {{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md %} For more details, see [Cache and SQL memory size](#cache-and-sql-memory-size).
 
 - Monitor [CPU](common-issues-to-monitor.html#cpu-usage) and [memory](common-issues-to-monitor.html#database-memory-usage) usage. Ensure that they remain within acceptable limits.
 
@@ -97,13 +97,13 @@ Under-provisioning RAM results in reduced performance (due to reduced caching an
 
 #### Storage
 
-We recommend provisioning volumes with {{ partial "{{ page.version.version }}/prod-deployment/provision-storage.md" . }}. It's fine to have less storage per vCPU if your workload does not have significant capacity needs.
+We recommend provisioning volumes with {% include {{ page.version.version }}/prod-deployment/provision-storage.md %}. It's fine to have less storage per vCPU if your workload does not have significant capacity needs.
 
 - The maximum recommended storage capacity per node is 2.5 TiB, regardless of the number of vCPUs.
 
-- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-store-volume.md" . }}
+- {% include {{ page.version.version }}/prod-deployment/prod-guidance-store-volume.md %}
 
-- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-log-volume.md" . }}
+- {% include {{ page.version.version }}/prod-deployment/prod-guidance-log-volume.md %}
 
 - The recommended Linux filesystems are [ext4](https://ext4.wiki.kernel.org/index.php/Main_Page) and [XFS](https://xfs.wiki.kernel.org/).
 
@@ -123,13 +123,13 @@ Under-provisioning storage leads to node crashes when the disks fill up. Once th
 
 ##### Disk I/O
 
-Disks must be able to achieve {{ partial "{{ page.version.version }}/prod-deployment/provision-disk-io.md" . }}.
+Disks must be able to achieve {% include {{ page.version.version }}/prod-deployment/provision-disk-io.md %}.
 
 - [Monitor IOPS](common-issues-to-monitor.html#disk-iops) using the DB Console and `iostat`. Ensure that they remain within acceptable values.
 
 - Use [sysbench](https://github.com/akopytov/sysbench) to benchmark IOPS on your cluster. If IOPS decrease, add more nodes to your cluster to increase IOPS.
 
-- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-lvm.md" . }}
+- {% include {{ page.version.version }}/prod-deployment/prod-guidance-lvm.md %}
 
 - The optimal configuration for striping more than one device is [RAID 10](https://en.wikipedia.org/wiki/Nested_RAID_levels#RAID_10_(RAID_1+0)). RAID 0 and 1 are also acceptable from a performance perspective.
 
@@ -287,17 +287,17 @@ Environment | Featured Approach
 
 Creating the appropriate size pool of connections is critical to gaining maximum performance in an application. Too few connections in the pool will result in high latency as each operation waits for a connection to open up. But adding too many connections to the pool can also result in high latency as each connection thread is being run in parallel by the system. The time it takes for many threads to complete in parallel is typically higher than the time it takes a smaller number of threads to run sequentially.
 
-{{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-connection-pooling.md" . }}.
+{% include {{ page.version.version }}/prod-deployment/prod-guidance-connection-pooling.md %}.
 
 For guidance on sizing, validating, and using connection pools with CockroachDB, see [Use Connection Pools](connection-pooling.html).
 
 ## Monitoring and alerting
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Clock synchronization
 
-{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
+{% include {{ page.version.version }}/faq/clock-synchronization-effects.md %}
 
 ## Cache and SQL memory size
 
@@ -322,7 +322,7 @@ $ cockroach start --cache=.35 --max-sql-memory=.35 {other start flags}
 ~~~
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md %}
 
 Because CockroachDB manages its own memory caches, disable Linux memory swapping to avoid over-allocating memory.
 {{site.data.alerts.end }}
@@ -619,4 +619,4 @@ When running CockroachDB on Kubernetes, making the following minimal customizati
 
 For more information and additional customization suggestions, see our full detailed guide to [CockroachDB Performance on Kubernetes](kubernetes-performance.html).
 
-{{ partial "common/transaction-retries.md" . }}
+{% include common/transaction-retries.md %}

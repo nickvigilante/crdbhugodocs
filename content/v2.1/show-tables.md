@@ -12,7 +12,7 @@ The `SHOW TABLES` [statement](sql-statements.html) lists the tables or [views](v
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/show_tables.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/show_tables.html %}
 </div>
 
 ## Required privileges
@@ -33,7 +33,7 @@ These example assumes that the `bank` database has been set as the current datab
 
 ### Show tables in the current database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -52,12 +52,12 @@ This uses the [current schema](sql-name-resolution.html#current-schema) `public`
 
 ### Show tables in a different schema
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM information_schema;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM bank.information_schema; -- also possible
 ~~~
@@ -92,12 +92,12 @@ This uses the [current schema](sql-name-resolution.html#current-schema) `public`
 
 ### Show tables in a different database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM startrek.public;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM startrek; -- also possible
 ~~~

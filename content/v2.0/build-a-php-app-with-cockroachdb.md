@@ -11,7 +11,7 @@ We have tested the [php-pgsql driver](https://www.php.net/manual/en/book.pgsql.p
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install the php-pgsql driver
 
@@ -21,13 +21,13 @@ Install the php-pgsql driver as described in the [official documentation](https:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -42,9 +42,9 @@ First, use the following code to connect as the `maxroach` user and execute some
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/basic-sample.php" download><code>basic-sample.php</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ php
-{{ partial "{{ page.version.version }}/app/basic-sample.php" . }}
+{% include {{ page.version.version }}/app/basic-sample.php %}
 ~~~
 
 The output should be:
@@ -65,9 +65,9 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 With the default `SERIALIZABLE` isolation level, CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ php
-{{ partial "{{ page.version.version }}/app/txn-sample.php" . }}
+{% include {{ page.version.version }}/app/txn-sample.php %}
 ~~~
 
 The output should be:
@@ -80,7 +80,7 @@ Account balances after transfer:
 
 To verify that funds were transferred from one account to another, use the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -101,7 +101,7 @@ $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --databa
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the PHP code
 
@@ -113,9 +113,9 @@ First, use the following code to connect as the `maxroach` user and execute some
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/basic-sample.php" download><code>basic-sample.php</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ php
-{{ partial "{{ page.version.version }}/app/insecure/basic-sample.php" . }}
+{% include {{ page.version.version }}/app/insecure/basic-sample.php %}
 ~~~
 
 The output should be:
@@ -136,9 +136,9 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 With the default `SERIALIZABLE` isolation level, CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ php
-{{ partial "{{ page.version.version }}/app/insecure/txn-sample.php" . }}
+{% include {{ page.version.version }}/app/insecure/txn-sample.php %}
 ~~~
 
 The output should be:
@@ -151,7 +151,7 @@ Account balances after transfer:
 
 To verify that funds were transferred from one account to another, use the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -172,4 +172,4 @@ $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 
 Read more about using the [php-pgsql driver](https://www.php.net/manual/en/book.pgsql.php).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

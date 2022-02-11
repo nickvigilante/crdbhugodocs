@@ -16,11 +16,11 @@ This tutorial shows you how run a simple application built with [TypeORM](https:
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database
 
-{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
+{% include {{ page.version.version }}/app/create-a-database.md %}
 
 ## Step 3. Get the code
 
@@ -58,21 +58,21 @@ Open the `ormconfig.ts` file, and edit the ORM configuration parameters:
 
 Open a terminal window, and install the [Node.js pg driver](https://www.npmjs.com/package/pg):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ npm install pg --save
 ~~~
 
 Navigate to the top directory of the application project (e.g., `hello-world-typescript-typeorm`), and initialize the project:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ npm i
 ~~~
 
 Start the application:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ npm start
 ~~~
@@ -100,4 +100,4 @@ Account { id: 2, balance: 750 }
 
 Read more about using the [TypeORM](https://typeorm.io/#/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

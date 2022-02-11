@@ -33,7 +33,7 @@ To start a new cluster with the correct `--locality` flags:
 
 Start Node 1:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -46,7 +46,7 @@ $ cockroach start \
 
 Start Node 2:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -59,7 +59,7 @@ $ cockroach start \
 
 Start Node 3:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -72,7 +72,7 @@ $ cockroach start \
 
 Start Node 4:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -85,7 +85,7 @@ $ cockroach start \
 
 Use the [`cockroach init`](initialize-a-cluster.html) command to perform a one-time initialization of the cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init --insecure --host=<address of any node>
 ~~~
@@ -104,14 +104,14 @@ The following page should be displayed:
 
 Launch the built-in SQL client:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --host=<address of any node>
 ~~~
 
 Insert the approximate latitudes and longitudes of each region into the `system.locations` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.locations VALUES
   ('region', 'us-east-1', 37.478397, -76.453077),
@@ -166,22 +166,22 @@ The **Node Map** is displayed only for the locality levels that have latitude/lo
 
 ### Unable to assign latitude/longitude coordinates to localities
 
-{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
+{% include {{ page.version.version }}/known-limitations/node-map.md %}
 
 ### **Capacity Used** value displayed is more than configured Capacity
 
-{{ partial "v2.1/misc/available-capacity-metric.md" . }}
+{% include v2.1/misc/available-capacity-metric.md %}
 
 ## Location coordinates for reference
 
 ### AWS locations
 
-{{ partial "{{ page.version.version }}/misc/aws-locations.md" . }}
+{% include {{ page.version.version }}/misc/aws-locations.md %}
 
 ### Azure locations
 
-{{ partial "{{ page.version.version }}/misc/azure-locations.md" . }}
+{% include {{ page.version.version }}/misc/azure-locations.md %}
 
 ### Google Cloud locations
 
-{{ partial "{{ page.version.version }}/misc/gce-locations.md" . }}
+{% include {{ page.version.version }}/misc/gce-locations.md %}

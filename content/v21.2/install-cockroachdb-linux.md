@@ -15,7 +15,7 @@ docs_area: deploy
 
 <p>See <a href="../releases/{{ page.release_info.version }}.html" class="mac-releasenotes-download" id="mac-releasenotes-download-{{ page.version.version }}" data-eventcategory="mac-releasenotes-download">Release Notes</a> for what's new in the latest release, {{ page.release_info.version }}. To upgrade to this release from an older version, see <a href="upgrade-cockroach-version.html">Cluster Upgrade</a>.</p>
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 <h2>Install options</h2>
 
@@ -23,7 +23,7 @@ Use one of the options below to install CockroachDB.
 
 <div id="download-the-binary-linux" class="install-option">
   <h3>Download the binary</h3>
-  {{ partial "{{ page.version.version }}/misc/linux-binary-prereqs.md" . }}
+  {% include {{ page.version.version }}/misc/linux-binary-prereqs.md %}
   <ol>
     <li>
       <p>Download the <a href="https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz" class="linux-binary-step1" id="linux-binary-step1-{{ page.version.version }}" data-eventcategory="linux-binary-step1">CockroachDB archive</a> for Linux and the supporting libraries that are used to provide <a href="spatial-features.html">spatial features</a>, and copy the binary into your <code>PATH</code> so you can execute <a href="cockroach-commands.html">cockroach commands</a> from any shell:</p>
@@ -102,7 +102,7 @@ true
       </ol>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="1"" . }}
+{% include marketo-install.html uid="1" %}
     </li>
   </ol>
 </div>
@@ -152,7 +152,7 @@ true
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="2"" . }}
+{% include marketo-install.html uid="2" %}
     </li>
   </ol>
 </div>
@@ -164,6 +164,6 @@ true
 
 <h2 id="whats-next">What&#39;s next?</h2>
 
-{{ partial "{{ page.version.version }}/misc/install-next-steps.html" . }}
+{% include {{ page.version.version }}/misc/install-next-steps.html %}
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}

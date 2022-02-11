@@ -20,18 +20,18 @@ For a more realistic use of GORM with CockroachDB, see our [`examples-orms`](htt
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install the GORM ORM
 
 To install [GORM](http://gorm.io), run the following commands:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ go get -u github.com/lib/pq # dependency
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ go get -u github.com/jinzhu/gorm
 ~~~
@@ -40,13 +40,13 @@ $ go get -u github.com/jinzhu/gorm
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -58,14 +58,14 @@ The following code uses the [GORM](http://gorm.io) ORM to map Go-specific object
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/gorm-basic-sample.go" download>download it directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
-{{ partial "{{ page.version.version }}/app/gorm-basic-sample.go" . }}
+{% include {{ page.version.version }}/app/gorm-basic-sample.go %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ go run gorm-basic-sample.go
 ~~~
@@ -80,7 +80,7 @@ Initial balances:
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -101,7 +101,7 @@ $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --databa
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Go code
 
@@ -110,14 +110,14 @@ The following code uses the [GORM](http://gorm.io) ORM to map Go-specific object
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/gorm-basic-sample.go" download>download it directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
-{{ partial "{{ page.version.version }}/app/insecure/gorm-basic-sample.go" . }}
+{% include {{ page.version.version }}/app/insecure/gorm-basic-sample.go %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ go run gorm-basic-sample.go
 ~~~
@@ -132,7 +132,7 @@ Initial balances:
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -153,4 +153,4 @@ $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 
 Read more about using the [GORM ORM](http://gorm.io), or check out a more realistic implementation of GORM with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

@@ -75,7 +75,7 @@ Suppose you want to change the status of all of the vehicles owned by a particul
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 UPDATE vehicle SET status = 'unavailable' WHERE owner_id = 'bd70a3d7-0a3d-4000-8000-000000000025';
 ~~~
@@ -84,7 +84,7 @@ UPDATE vehicle SET status = 'unavailable' WHERE owner_id = 'bd70a3d7-0a3d-4000-8
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
 // 'conn' is an open database connection
 
@@ -101,7 +101,7 @@ err = conn.QueryRow(context.Background(), "UPDATE vehicle SET status = 'unavaila
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -122,7 +122,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -177,7 +177,7 @@ Suppose you want to add some promo codes to the MovR platform, and overwrite any
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 UPSERT INTO promo_codes (code, description, rules)
   VALUES ('0_explain_theory_something','Fifteen percent off.', '{"type": "percent_discount", "value": "15%"}'),
@@ -189,7 +189,7 @@ UPSERT INTO promo_codes (code, description, rules)
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
 // 'db' is an open database connection
 
@@ -216,7 +216,7 @@ return nil
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -254,7 +254,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -326,7 +326,7 @@ Suppose you want to record a particular user's promo code usage count. The `user
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 INSERT INTO user_promo_codes (city, user_id, code, "timestamp", usage_count)
     VALUES ('new york', '147ae147-ae14-4b00-8000-000000000004', 'promo_code', now(), 1)
@@ -338,7 +338,7 @@ INSERT INTO user_promo_codes (city, user_id, code, "timestamp", usage_count)
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
 // 'db' is an open database connection
 
@@ -361,7 +361,7 @@ return nil
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -390,7 +390,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 # conn is a psycopg2 connection
 

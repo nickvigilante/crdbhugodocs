@@ -22,7 +22,7 @@ Another way of describing `ST_Equals(A, B)` is that it will return `true` if bot
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/misc/geojson_geometry_note.md" . }}
+{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
 
 ### True
 
@@ -32,7 +32,7 @@ In this example, `{{ page.title }}` returns `true` because:
 
 As mentioned above, the ordering of the points in _A_ and _B_ does not matter.  Below, there are two triangles with the same vertices, which are ordered differently.  In the screenshot, one triangle is drawn in yellow, and the other blue.  The blue and yellow strokes of the two separate triangles' boundaries are visible. Because the images are overlaid on each other, the yellow and blue combine to make part of the exterior outline of the image a green color.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT st_equals(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))'), st_geomfromtext('SRID=4326;POLYGON((-95.992775 36.153980, -87.906471 43.038902, -75.704722 36.076944, -95.992775 36.153980))'));
 ~~~
@@ -53,7 +53,7 @@ In this example, `{{ page.title }}` returns `false` because:
 
 - It's obvious that not every Point that makes up the set of Points in Polygon _A_ is not also in Polygon _B_.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT st_equals(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))'), st_geomfromtext('SRID=4326;POLYGON((-84.191605 39.758949, -75.165222 39.952583, -78.878738 42.880230, -84.191605 39.758949))'));
 ~~~

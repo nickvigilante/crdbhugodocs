@@ -6,12 +6,12 @@ toc: true
 
 The `TRUNCATE` [statement](sql-statements.html) removes all rows from a table. At a high level, it works by dropping the table and recreating a new table with the same name.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/truncate.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/truncate.html %}
 </div>
 
 ## Required privileges
@@ -32,13 +32,13 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
 ### Truncate a table (no foreign key dependencies)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t1;
 ~~~
@@ -53,12 +53,12 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > TRUNCATE t1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t1;
 ~~~
@@ -79,7 +79,7 @@ In these examples, the `orders` table has a [Foreign Key](foreign-key.html) rela
 
 {{site.data.alerts.callout_danger }}<code>CASCADE</code> truncates <em>all</em> dependent tables without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend truncating tables explicitly in most cases. See <a href="#truncate-dependent-tables-explicitly">Truncate Dependent Tables Explicitly</a> for more details.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > TRUNCATE customers;
 ~~~
@@ -88,12 +88,12 @@ In these examples, the `orders` table has a [Foreign Key](foreign-key.html) rela
 pq: "customers" is referenced by foreign key from table "orders"
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > TRUNCATE customers CASCADE;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -106,7 +106,7 @@ pq: "customers" is referenced by foreign key from table "orders"
 (0 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM orders;
 ~~~
@@ -121,12 +121,12 @@ pq: "customers" is referenced by foreign key from table "orders"
 
 #### Truncate dependent tables explicitly
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > TRUNCATE customers, orders;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -139,7 +139,7 @@ pq: "customers" is referenced by foreign key from table "orders"
 (0 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM orders;
 ~~~

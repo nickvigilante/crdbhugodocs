@@ -9,11 +9,11 @@ filter_sort: 1
 docs_area: deploy
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page shows you how to connect to your {{ site.data.products.serverless }} cluster. If you'd like to follow along with a video walkthrough, see [How to connect to {{ site.data.products.db }} and Import Data](https://www.youtube.com/watch?v=XJZD1rorEQE).
 
-{{ partial "cockroachcloud/free-limitations.md" . }}
+{% include cockroachcloud/free-limitations.md %}
 
 ## Before you start
 
@@ -44,7 +44,7 @@ This page shows you how to connect to your {{ site.data.products.serverless }} c
 
 ## Step 2. Connect to your cluster
 
-{{ partial "cockroachcloud/cc-cert-expire.md" . }}
+{% include cockroachcloud/cc-cert-expire.md %}
 
   <section class="filter-content" markdown="1" data-scope="command-line">
 
@@ -60,21 +60,21 @@ To connect to your cluster with the [built-in SQL client](../{{site.versions["st
 
 1. If you have not done so already, run the first command in the dialog to install the CockroachDB binary and copy it into the `PATH`:
 
-    {{ partial "cockroachcloud/download-the-binary.md" . }}
+    {% include cockroachcloud/download-the-binary.md %}
 
 1. In your terminal, run the second command from the dialog to create a new `certs` directory on your local machine and download the CA certificate to that directory:
 
-    {{ partial "cockroachcloud/download-the-cert-free.md" . }}
+    {% include cockroachcloud/download-the-cert-free.md %}
 
 1. Copy the [`cockroach sql`](../{{site.versions["stable"] }}/cockroach-sql.html) command and connection string provided in the **Connect** modal, which will be used in the next step (and to connect to your cluster in the future):
 
-    {{ partial "cockroachcloud/sql-connection-string-free.md" . }}
+    {% include cockroachcloud/sql-connection-string-free.md %}
 
 1. In your terminal, enter the copied `cockroach sql` command and connection string to start the [built-in SQL client](../{{site.versions["stable"] }}/cockroach-sql.html).
 
 1. Enter the SQL user's password and hit enter.
 
-    {{ partial "cockroachcloud/postgresql-special-characters.md" . }}
+    {% include cockroachcloud/postgresql-special-characters.md %}
 
     A welcome message displays:
 
@@ -103,7 +103,7 @@ To connect to your cluster with your application, use the connection string prov
 
 1. In your terminal, run the first command from the dialog to create a new `certs` directory on your local machine and download the CA certificate to that directory:
 
-    {{ partial "cockroachcloud/download-the-cert-free.md" . }}
+    {% include cockroachcloud/download-the-cert-free.md %}
 
 1. Copy the connection string provided in the **Connect** modal, which will be used to connect your application to {{ site.data.products.serverless }}:
 
@@ -139,7 +139,7 @@ To connect to your cluster with your application, use the connection string prov
 
 1. Add your copied connection string to your application code.
 
-    {{ partial "cockroachcloud/postgresql-special-characters.md" . }}
+    {% include cockroachcloud/postgresql-special-characters.md %}
 
     {{site.data.alerts.callout_info }}
     If you forget your SQL user's password, a Console Admin can change the password on the **SQL Users** page.

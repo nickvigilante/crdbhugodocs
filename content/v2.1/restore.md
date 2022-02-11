@@ -64,7 +64,7 @@ Restore Type | Parameters
 
 ### Point-in-time restore
 
-{{ partial "{{ page.version.version }}/misc/beta-warning.md" . }}
+{% include {{ page.version.version }}/misc/beta-warning.md %}
 
 If the full or incremental backup was taken [with revision history](backup.html#backups-with-revision-history), you can restore the data as it existed at the specified point-in-time within the revision history captured by that backup.
 
@@ -85,7 +85,7 @@ After the restore has been initiated, you can control it with [`PAUSE JOB`](paus
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/restore.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/restore.html %}
 </div>
 
 {{site.data.alerts.callout_info }}The <code>RESTORE</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end }}
@@ -109,7 +109,7 @@ Only members of the `admin` role can run `RESTORE`. By default, the `root` user 
 
 The URL for your backup's locations must use the following format:
 
-{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
+{% include {{ page.version.version }}/misc/external-urls.md %}
 
 ### Restore option list
 
@@ -140,21 +140,21 @@ You can include the following options as key-value pairs in the `kv_option_list`
 
 ### Restore a single table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
 
 ### Restore multiple tables
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers, bank.accounts FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
 
 ### Restore an entire database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE DATABASE bank FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
@@ -163,7 +163,7 @@ You can include the following options as key-value pairs in the `kv_option_list`
 
 ### Point-in-time restore
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
 AS OF SYSTEM TIME '2017-02-26 10:00:00';
@@ -171,7 +171,7 @@ AS OF SYSTEM TIME '2017-02-26 10:00:00';
 
 ### Restore from incremental backups
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup/database-bank-2017-03-28-nightly', 'gs://acme-co-backup/database-bank-2017-03-29-nightly';
@@ -179,7 +179,7 @@ FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup
 
 ### Point-in-time restore from incremental backups
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup/database-bank-2017-03-28-nightly', 'gs://acme-co-backup/database-bank-2017-03-29-nightly' \
@@ -190,7 +190,7 @@ AS OF SYSTEM TIME '2017-02-28 10:00:00';
 
 By default, tables and views are restored to the database they originally belonged to. However, using the [`into_db`](#into_db) option, you can control the target database.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -201,7 +201,7 @@ WITH into_db = 'newdb';
 
 By default, tables with [Foreign Key](foreign-key.html) constraints must be restored at the same time as the tables they reference. However, using the [`skip_missing_foreign_keys`](#skip_missing_foreign_keys) option you can remove the Foreign Key constraint from the table and then restore it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.accounts \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -214,19 +214,19 @@ Every full backup contains the `system.users` table, which you can use to restor
 
 After it's restored into a new database, you can write the restored `users` table data to the cluster's existing `system.users` table.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE system.users \
 FROM 'azure://acme-co-backup/table-users-2017-03-27-full?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' \
 WITH into_db = 'newdb';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.users SELECT * FROM newdb.users;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE newdb.users;
 ~~~

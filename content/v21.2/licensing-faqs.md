@@ -95,13 +95,13 @@ Cockroach Labs is willing to offer self-hosted CockroachDB Enterprise features f
 
 ## Set a license
 
-{{ partial "{{ page.version.version }}/misc/set-enterprise-license.md" . }}
+{% include {{ page.version.version }}/misc/set-enterprise-license.md %}
 
 ## Verify a license
 
 To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use the [`SHOW CLUSTER SETTING`](show-cluster-setting.html) command to check the organization name and license key:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 >  SHOW CLUSTER SETTING cluster.organization;
 ~~~
@@ -112,7 +112,7 @@ To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use t
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 >  SHOW CLUSTER SETTING enterprise.license;
 ~~~
@@ -125,7 +125,7 @@ To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use t
 
 The license setting is also logged in the cockroach.log on the node where the command is run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 $ cat cockroach.log | grep license
 ~~~

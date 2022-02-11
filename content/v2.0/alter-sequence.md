@@ -15,7 +15,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the parent datab
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/alter_sequence_options.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/alter_sequence_options.html %}</section>
 
 ## Parameters
 
@@ -41,19 +41,19 @@ table td:first-child {
 
 In this example, we're going to change the increment value of a sequence from its current state (i.e., `1`) to `2`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER SEQUENCE customer_seq INCREMENT 2;
 ~~~
 
 Next, we'll add another record to the table and check that the new record adheres to the new sequence.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customer_list (customer, address) VALUES ('Marie', '333 Ocean Ave');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customer_list;
 ~~~
@@ -74,7 +74,7 @@ In this example, we're going to change the next value of the example sequence (`
 
 {{site.data.alerts.callout_info }}You cannot set a value outside the <code>MAXVALUE</code> or <code>MINVALUE</code> of the sequence. {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT setval('customer_seq', 20, false);
 ~~~

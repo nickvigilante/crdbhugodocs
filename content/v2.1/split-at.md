@@ -10,11 +10,11 @@ The `SPLIT AT` [statement](sql-statements.html) forces a key-value layer range s
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/split_table_at.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/split_table_at.html %}
 </div>
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/split_index_at.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/split_index_at.html %}
 </div>
 
 ## Required privileges
@@ -61,7 +61,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 
 ### Split a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE kv;
 ~~~
@@ -75,7 +75,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE kv SPLIT AT VALUES (10), (20), (30);
 ~~~
@@ -91,7 +91,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE kv;
 ~~~
@@ -114,14 +114,14 @@ You may want to split a table with a composite primary key (e.g., when working w
 
 Given the table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE t (k1 INT, k2 INT, v INT, w INT, PRIMARY KEY (k1, k2));
 ~~~
 
 we can split it at its primary key like so:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE t SPLIT AT VALUES (5,1), (5,2), (5,3);
 ~~~
@@ -139,7 +139,7 @@ ALTER TABLE t SPLIT AT VALUES (5,1), (5,2), (5,3);
 
 To see more information about the range splits, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 ~~~
@@ -158,7 +158,7 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 
 Alternatively, you could split at a prefix of the primary key columns. For example, to add a split before all keys that start with `3`, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE t SPLIT AT VALUES (3);
 ~~~
@@ -174,7 +174,7 @@ Alternatively, you could split at a prefix of the primary key columns. For examp
 
 Conceptually, this means that the second range will include keys that start with `3` through `∞`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 ~~~
@@ -191,12 +191,12 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 
 ### Split an index
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX secondary ON kv (v);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM INDEX kv@secondary;
 ~~~
@@ -210,7 +210,7 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX kv@secondary SPLIT AT (SELECT v FROM kv LIMIT 3);
 ~~~
@@ -226,7 +226,7 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM INDEX kv@secondary;
 ~~~

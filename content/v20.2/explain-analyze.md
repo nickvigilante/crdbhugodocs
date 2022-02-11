@@ -7,7 +7,7 @@ toc: true
 The `EXPLAIN ANALYZE` [statement](sql-statements.html) **executes a SQL query** and generates a URL for a physical query plan with execution statistics, or a URL to download a bundle with more details about the query plan. Query plans provide information around SQL execution, which can be used to troubleshoot slow queries by figuring out where time is being spent, how long a processor (i.e., a component that takes streams of input rows and processes them according to a specification) is not doing work, etc. For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }}
+{% include {{ page.version.version }}/sql/physical-plan-url.md %}
 {{site.data.alerts.end }}
 
 ## Aliases
@@ -18,7 +18,7 @@ In CockroachDB, the following are aliases for `EXPLAIN ANALYZE`:
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/explain_analyze.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/explain_analyze.html %}</div>
 
 ## Parameters
 
@@ -39,7 +39,7 @@ Successful `EXPLAIN ANALYZE` (and `EXPLAIN ANALYZE (DISTSQL)`) statements return
  Column | Description
 --------|------------
 **automatic** | If `true`, the query is distributed. For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
-**url** | The URL generated for a physical query plan that provides high level information about how a query will be executed. For details about reading the physical query plan, see [DistSQL Plan Viewer](#distsql-plan-viewer).<br><br>{{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }}
+**url** | The URL generated for a physical query plan that provides high level information about how a query will be executed. For details about reading the physical query plan, see [DistSQL Plan Viewer](#distsql-plan-viewer).<br><br>{% include {{ page.version.version }}/sql/physical-plan-url.md %}
 
 If you use the [`DEBUG` option](#debug-option), the statement will return a single `text` column with a URL and instructions to download the `DEBUG` bundle, which includes the physical query plan.
 
@@ -100,7 +100,7 @@ Response | The response back to the client. | Both
 
 You can obtain this ZIP file by following the link provided in the `EXPLAIN ANALYZE (DEBUG)` output, or by activating [statement diagnostics](ui-statements-page.html#diagnostics) in the DB Console.
 
-{{ partial "{{ page.version.version }}/sql/statement-bundle-warning.md" . }}
+{% include {{ page.version.version }}/sql/statement-bundle-warning.md %}
 
 ## Examples
 
@@ -110,7 +110,7 @@ Use `EXPLAIN ANALYZE` without an option, or equivalently with the `DISTSQL` opti
 
 For example, the following `EXPLAIN ANALYZE` statement executes a simple query against the [TPC-H database](http://www.tpc.org/tpch/) loaded to a 3-node CockroachDB cluster, and then generates a link to a physical query plan with execution statistics:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE SELECT l_shipmode, AVG(l_extendedprice) FROM lineitem GROUP BY l_shipmode;
 ~~~
@@ -130,7 +130,7 @@ To view the [DistSQL Plan Viewer](#distsql-plan-viewer), point your browser to t
 
 Use the [`DEBUG`](#debug-option) option to generate a ZIP file containing files with information about the query and the database objects referenced in the query. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE (DEBUG) SELECT l_shipmode, AVG(l_extendedprice) FROM lineitem GROUP BY l_shipmode;
 ~~~

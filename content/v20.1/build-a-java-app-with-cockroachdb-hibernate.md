@@ -14,7 +14,7 @@ twitter: false
 
 This tutorial shows you how build a simple Java application with CockroachDB and the Hibernate ORM.
 
-{{ partial "{{ page.version.version }}/app/java-version-note.md" . }}
+{% include {{ page.version.version }}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JPA (Hibernate) and CockroachDB, see [Build a Spring App with CockroachDB and JPA](build-a-spring-app-with-cockroachdb-jpa.html).
@@ -24,7 +24,7 @@ For another use of Hibernate with CockroachDB, see our [`examples-orms`](https:/
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install the Gradle build tool
 
@@ -32,21 +32,21 @@ This tutorial uses the [Gradle build tool](https://gradle.org/) to get all depen
 
 To install Gradle on Mac, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ brew install gradle
 ~~~
 
 To install Gradle on a Debian-based Linux distribution like Ubuntu:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ apt-get install gradle
 ~~~
 
 To install Gradle on a Red Hat-based Linux distribution like Fedora:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dnf install gradle
 ~~~
@@ -57,7 +57,7 @@ For other ways to install Gradle, see [its official documentation](https://gradl
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -65,7 +65,7 @@ Create a certificate and key for the `maxroach` user by running the following co
 
 You can pass the [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) to generate a key in [PKCS#8 format](https://tools.ietf.org/html/rfc5208), which is the standard key encoding format in Java. In this case, the generated PKCS8 key will be named `client.maxroach.key.pk8`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key --also-generate-pkcs8-key
 ~~~
@@ -93,7 +93,7 @@ To run it:
 
 2. Compile and run the code using [`build.gradle`](https://github.com/cockroachdb/docs/raw/master/_includes/{{ page.version.version }}/app/hibernate-basic-sample/build.gradle), which will also download the dependencies.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gradle run
     ~~~
@@ -106,9 +106,9 @@ To clone a version of the code below that connects to insecure clusters, run the
 
 The contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/hibernate-basic-sample/Sample.java):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/hibernate-basic-sample/Sample.java" . }}
+{% include {{ page.version.version }}/app/hibernate-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -141,14 +141,14 @@ APP: getAccountBalance(2) --> 350
 
 To verify that the account balances were updated successfully, start the [built-in SQL client](cockroach-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT id, balance FROM accounts;
 ~~~
@@ -168,7 +168,7 @@ SELECT id, balance FROM accounts;
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -187,23 +187,23 @@ To run it:
 
 1. Clone the `example-app-java-hibernate` repo to your machine:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     git clone https://github.com/cockroachlabs/example-app-java-hibernate/
     ~~~
 
 2. Compile and run the code using [`build.gradle`](https://github.com/cockroachdb/docs/raw/master/_includes/{{ page.version.version }}/app/insecure/hibernate-basic-sample/build.gradle), which will also download the dependencies.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gradle run
     ~~~
 
 The contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java" . }}
+{% include {{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -236,14 +236,14 @@ APP: getAccountBalance(2) --> 350
 
 To verify that the account balances were updated successfully, start the [built-in SQL client](cockroach-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT id, balance FROM accounts;
 ~~~
@@ -287,4 +287,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Hibernate ORM](http://hibernate.org/orm/), or check out a more realistic implementation of Hibernate with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

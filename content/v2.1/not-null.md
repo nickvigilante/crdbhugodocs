@@ -31,7 +31,7 @@ The `NOT NULL` [constraint](constraints.html) specifies a column may not contain
 You can only apply the `NOT NULL` constraint to individual columns.
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/not_null_column_level.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/not_null_column_level.html %}
 </div>
 
  Parameter | Description
@@ -45,7 +45,7 @@ You can only apply the `NOT NULL` constraint to individual columns.
 
 ## Usage example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS customers (
     customer_id INT         PRIMARY KEY,
@@ -54,7 +54,7 @@ You can only apply the `NOT NULL` constraint to individual columns.
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (customer_id, cust_name, cust_email) VALUES (1, 'Smith', NULL);
 ~~~
@@ -63,7 +63,7 @@ You can only apply the `NOT NULL` constraint to individual columns.
 pq: null value in column "cust_email" violates not-null constraint
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (customer_id, cust_name) VALUES (1, 'Smith');
 ~~~

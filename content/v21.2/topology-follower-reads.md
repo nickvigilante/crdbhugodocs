@@ -20,11 +20,11 @@ If reads from a table must be exactly up-to-date, use [global tables](global-tab
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -42,7 +42,7 @@ You configure your application to use [follower reads](follower-reads.html) by a
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table like the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE postal_codes (
     id INT PRIMARY KEY,
@@ -52,7 +52,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 Insert some data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO postal_codes (ID, code) VALUES (1, '10001'), (2, '10002'), (3, '10003'), (4,'60601'), (5,'60602'), (6,'60603'), (7,'90001'), (8,'90002'), (9,'90003');
 ~~~
@@ -63,7 +63,7 @@ Insert some data:
 
    - To use [_exact staleness_ follower reads](follower-reads.html#exact-staleness-reads), configure your app to use [`AS OF SYSTEM TIME`](as-of-system-time.html) with the [`follower_read_timestamp()` function](functions-and-operators.html) whenever reading from the table:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT code FROM postal_codes
         AS OF SYSTEM TIME follower_read_timestamp()
@@ -72,7 +72,7 @@ Insert some data:
 
     You can also set the `AS OF SYSTEM TIME` value for all operations in a read-only transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
 
@@ -140,4 +140,4 @@ Because this pattern balances the replicas for the table across regions, one ent
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

@@ -10,15 +10,15 @@ filter_sort: 2
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
-{{ partial "cockroach_u_pydev.md" . }}
+{% include cockroach_u_pydev.md %}
 
 This tutorial shows you how build a simple CRUD Python application with CockroachDB and the [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) ORM.
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -92,7 +92,7 @@ The `main.py` uses SQLAlchemy to map Python methods to SQL operations:
 
 ## Step 4. Initialize the database
 
-{{ partial "{{ page.version.version }}/app/init-bank-sample.md" . }}
+{% include {{ page.version.version }}/app/init-bank-sample.md %}
 
 ## Step 5. Run the code
 
@@ -193,7 +193,7 @@ If you see an error message like `transaction is too large to complete; try spli
 Instead, we recommend breaking your transaction into smaller units of work (or "chunks"). A pattern that works for inserting large numbers of objects using `run_transaction` to handle retries automatically for you is shown below.
 
 ~~~ python
-{{ partial "{{ page.version.version }}/app/python/sqlalchemy/sqlalchemy-large-txns.py" . }}
+{% include {{ page.version.version }}/app/python/sqlalchemy/sqlalchemy-large-txns.py %}
 ~~~
 
 ### Use `IMPORT` to read in large data sets
@@ -220,7 +220,7 @@ SQLAlchemy relies on the existence of [foreign keys](foreign-key.html) to genera
 - The [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) docs
 - [Transactions](transactions.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}
 
 <!-- Reference Links -->
 

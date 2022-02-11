@@ -11,7 +11,7 @@ The `ALTER SEQUENCE` [statement](sql-statements.html) applies a [schema change](
 This page documents all supported sequence changes except for changing the name of a sequence and changing the schema of a sequence. For information about changing the name of a sequence, see [`RENAME SEQUENCE`](rename-sequence.html). For information about changing the schema of a sequence, see [`SET SCHEMA`](set-schema.html).
 {{site.data.alerts.end }}
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -19,7 +19,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/alter_sequence_options.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/alter_sequence_options.html %}</div>
 
 ## Parameters
 
@@ -46,12 +46,12 @@ table td:first-child {
 
 In this example, we're going to change the increment value of a sequence from its current state (i.e., `1`) to `2`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE customer_seq;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE customer_seq;
 ~~~
@@ -63,7 +63,7 @@ In this example, we're going to change the increment value of a sequence from it
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER SEQUENCE customer_seq INCREMENT 2;
 ~~~

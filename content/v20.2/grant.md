@@ -27,7 +27,7 @@ Parameter       | Description
 
 Roles and users can be granted the following privileges:
 
-{{ partial "{{ page.version.version }}/sql/privileges.md" . }}
+{% include {{ page.version.version }}/sql/privileges.md %}
 
 ## Required privileges
 
@@ -47,21 +47,21 @@ The user granting privileges must also have the privilege being granted on the t
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Grant privileges on databases
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE USER max WITH PASSWORD roach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON DATABASE movr TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE movr;
 ~~~
@@ -92,12 +92,12 @@ The user granting privileges must also have the privilege being granted on the t
 
 ### Grant privileges on specific tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT DELETE ON TABLE rides TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE rides;
 ~~~
@@ -113,12 +113,12 @@ The user granting privileges must also have the privilege being granted on the t
 
 ### Grant privileges on all tables in a database or schema
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE movr.public.* TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE movr.public.*;
 ~~~
@@ -150,12 +150,12 @@ The user granting privileges must also have the privilege being granted on the t
 
 ### Make a table readable to every user in the system
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE vehicles TO public;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE vehicles;
 ~~~
@@ -172,17 +172,17 @@ The user granting privileges must also have the privilege being granted on the t
 
 ### Grant privileges on schemas
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA cockroach_labs;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON SCHEMA cockroach_labs TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON SCHEMA cockroach_labs;
 ~~~
@@ -198,17 +198,17 @@ The user granting privileges must also have the privilege being granted on the t
 
 ### Grant privileges on user-defined types
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE status AS ENUM ('available', 'unavailable');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON TYPE status TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TYPE status;
 ~~~
@@ -225,7 +225,7 @@ The user granting privileges must also have the privilege being granted on the t
 
 ### Grant the privilege to manage the replication zones for a database or table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ZONECONFIG ON TABLE rides TO max;
 ~~~

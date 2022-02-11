@@ -22,7 +22,7 @@ Once you've [installed the official CockroachDB Docker image](install-cockroachd
 <div id="toc" style="display: none"></div>
 
 <div class="filter-content current" markdown="1" data-scope="os-mac">
-{{ partial "{{ page.version.version }}/start-in-docker/mac-linux-steps.md" . }}
+{% include {{ page.version.version }}/start-in-docker/mac-linux-steps.md %}
 
 ## Step 5. Monitor the cluster
 
@@ -42,26 +42,26 @@ The replica count on each node is identical, indicating that all data in the clu
 
 Use the `docker stop` and `docker rm` commands to stop and remove the containers (and therefore the cluster):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ docker stop roach1 roach2 roach3
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ docker rm roach1 roach2 roach3
 ~~~
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ rm -rf cockroach-data
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="os-linux">
-{{ partial "{{ page.version.version }}/start-in-docker/mac-linux-steps.md" . }}
+{% include {{ page.version.version }}/start-in-docker/mac-linux-steps.md %}
 
 ## Step 5. Monitor the cluster
 
@@ -81,19 +81,19 @@ The replica count on each node is identical, indicating that all data in the clu
 
 Use the `docker stop` and `docker rm` commands to stop and remove the containers (and therefore the cluster):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ docker stop roach1 roach2 roach3
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ docker rm roach1 roach2 roach3
 ~~~
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ rm -rf cockroach-data
 ~~~

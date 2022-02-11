@@ -8,7 +8,7 @@ filter_sort: 2
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page shows you how to deploy a CockroachDB cluster on {{ site.data.products.dedicated }} (free for a 30-day trial for your first cluster), connect to it using a sample workload, and run your first query.
 
@@ -74,11 +74,11 @@ Once your cluster is created, you will be redirected to the **Cluster Overview**
 
 1. If you have not done so already, run the first command in the dialog to install the CockroachDB binary and copy it into the `PATH`:
 
-    {{ partial "cockroachcloud/download-the-binary.md" . }}
+    {% include cockroachcloud/download-the-binary.md %}
 
 1. In your terminal, run the second command from the dialog to create a new `certs` directory on your local machine and download the CA certificate to that directory.
 
-    {{ partial "cockroachcloud/download-the-cert.md" . }}
+    {% include cockroachcloud/download-the-cert.md %}
 
 ## Step 5. Use the built-in SQL client
 
@@ -88,11 +88,11 @@ Once your cluster is created, you will be redirected to the **Cluster Overview**
     This connection string contains your password, which will be provided only once. Save it in a secure place (e.g., in a password manager) to connect to your cluster in the future. If you forget your password, you can reset it by going to the [**SQL Users** page](user-authorization.html).
     {{site.data.alerts.end }}
 
-    {{ partial "cockroachcloud/sql-connection-string.md" . }}
+    {% include cockroachcloud/sql-connection-string.md %}
 
 1. Enter the SQL user's password and hit enter.
 
-    {{ partial "cockroachcloud/postgresql-special-characters.md" . }}
+    {% include cockroachcloud/postgresql-special-characters.md %}
 
     A welcome message displays:
 

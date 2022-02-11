@@ -59,21 +59,21 @@ Upgrade only one node at a time, and wait at least one minute after a node rejoi
 
     Without a process manager like `systemd`, use this command:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ pkill cockroach
     ~~~
 
     If you are using `systemd` as the process manager, use this command to stop a node without `systemd` restarting it:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ systemctl stop <systemd config filename>
     ~~~
 
     Then verify that the process has stopped:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ps aux | grep cockroach
     ~~~
@@ -89,24 +89,24 @@ Upgrade only one node at a time, and wait at least one minute after a node rejoi
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ tar -xzf cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ tar -xzf cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
@@ -121,24 +121,24 @@ Upgrade only one node at a time, and wait at least one minute after a node rejoi
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/cockroach
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/cockroach
     ~~~
@@ -148,7 +148,7 @@ Upgrade only one node at a time, and wait at least one minute after a node rejoi
 
     Without a process manager like `systemd`, use this command:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start --join=[IP address of any other node] [other flags]
     ~~~
@@ -156,7 +156,7 @@ Upgrade only one node at a time, and wait at least one minute after a node rejoi
 
     If you are using `systemd` as the process manager, run this command to start the node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ systemctl start <systemd config filename>
     ~~~
@@ -165,7 +165,7 @@ Upgrade only one node at a time, and wait at least one minute after a node rejoi
 
 7. If you use `cockroach` in your `$PATH`, you can remove the old binary:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm /usr/local/bin/cockroach_old
     ~~~
@@ -200,7 +200,7 @@ These final steps are required after upgrading from v1.1.x to v2.0. For upgrades
 
 2. Use the `crdb_internal.node_executable_version()` [built-in function](functions-and-operators.html) to check the CockroachDB version running on the node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT crdb_internal.node_executable_version();
     ~~~
@@ -209,7 +209,7 @@ These final steps are required after upgrading from v1.1.x to v2.0. For upgrades
 
 3. Use the same function to finalize the upgrade:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING version = crdb_internal.node_executable_version();
     ~~~

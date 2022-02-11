@@ -14,7 +14,7 @@ The file produced by `cockroach debug zip` can contain highly [sensitive, identi
 
 ## Subcommands
 
-{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
+{% include {{ page.version.version }}/misc/debug-subcommands.md %}
 
 ## Synopsis
 

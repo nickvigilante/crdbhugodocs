@@ -19,11 +19,11 @@ This pattern is compatible with all of the other multi-region patterns except [G
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -41,7 +41,7 @@ Using this pattern, you configure your application to use the [follower reads](f
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table like the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE postal_codes (
     id INT PRIMARY KEY,
@@ -51,7 +51,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 Insert some data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO postal_codes (ID, code) VALUES (1, '10001'), (2, '10002'), (3, '10003'), (4,'60601'), (5,'60602'), (6,'60603'), (7,'90001'), (8,'90002'), (9,'90003');
 ~~~
@@ -64,7 +64,7 @@ Insert some data:
     The `follower_read_timestamp()` [function](functions-and-operators.html) returns the [`TIMESTAMP`](timestamp.html) `statement_timestamp() - 4.8s`.
     {{site.data.alerts.end }}
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT code FROM postal_codes
         AS OF SYSTEM TIME follower_read_timestamp()
@@ -73,7 +73,7 @@ Insert some data:
 
     Alternately, instead of modifying individual read queries on the table, you can set the `AS OF SYSTEM TIME` value for all operations in a read-only transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
 
@@ -138,4 +138,4 @@ Because this pattern balances the replicas for the table across regions, one ent
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

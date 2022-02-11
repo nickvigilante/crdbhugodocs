@@ -15,17 +15,17 @@ This page shows you how to manually deploy an insecure multi-node CockroachDB cl
 
 If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select **Secure** above for instructions.
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 ## Before you begin
 
 ### Requirements
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-requirements.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-requirements.md %}
 
 ### Recommendations
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-recommendations.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-recommendations.md %}
 
 - All Amazon EC2 instances running CockroachDB should be members of the same [security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html).
 
@@ -56,11 +56,11 @@ For more details, see [Hardware Recommendations](recommended-production-settings
 - `26257` for inter-node and client-node communication. This enables the nodes to work as a cluster, the load balancer to route traffic to the nodes, and applications to connect to the load balancer.
 - `8080` for exposing the Admin UI to the user, and for routing the load balancer to the health check endpoint.
 
-{{ partial "{{ page.version.version }}/prod-deployment/aws-inbound-rules.md" . }}
+{% include {{ page.version.version }}/prod-deployment/aws-inbound-rules.md %}
 
 ## Step 3. Synchronize clocks
 
-{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
+{% include {{ page.version.version }}/prod-deployment/synchronize-clocks.md %}
 
 ## Step 4. Set up load balancing
 
@@ -85,31 +85,31 @@ AWS offers fully-managed load balancing to distribute traffic between instances.
 
 ## Step 5. Start nodes
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-start-nodes.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-start-nodes.md %}
 
 ## Step 6. Initialize the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-initialize-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-initialize-cluster.md %}
 
 ## Step 7. Test the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-test-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-test-cluster.md %}
 
 ## Step 8. Run a sample workload
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-test-load-balancing.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-test-load-balancing.md %}
 
 ## Step 9. Monitor the cluster
 
 In the Target Groups section of the Amazon EC2 console, [check the health](https://docs.aws.amazon.com/elasticloadbalancing/latest/network/target-group-health-checks.html) of your instances by inspecting your target group and opening the Targets tab.
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Step 10. Scale the cluster
 
 Before adding a new node, [create a new instance](#step-1-create-instances) as you did earlier.
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-scale-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-scale-cluster.md %}
 
 ## Step 11. Use the cluster
 
@@ -121,4 +121,4 @@ Now that your deployment is working, you can:
 
 ## See also
 
-{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-see-also.md %}

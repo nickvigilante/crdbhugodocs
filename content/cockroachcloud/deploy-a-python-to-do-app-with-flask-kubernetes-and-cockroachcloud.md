@@ -48,7 +48,7 @@ Once you are [logged in](https://cockroachlabs.cloud/), you can use the Console 
 
 ### Step 2. Create a SQL user
 
-{{ partial "cockroachcloud/cockroachcloud-ask-admin.md" . }}
+{% include cockroachcloud/cockroachcloud-ask-admin.md %}
 
 1. Navigate to your cluster's **SQL Users** page.
 2. Click the **Add User** button in the top right corner. The **Add User** dialog displays.
@@ -69,7 +69,7 @@ Once you are [logged in](https://cockroachlabs.cloud/), you can use the Console 
       <button style="width: 15%" class="filter-button" data-scope="linux">Linux</button>
       <button style="width: 15%" class="filter-button" data-scope="windows">Windows</button>
     </div>
-    {{ partial "cockroachcloud/download-the-cert.md" . }}
+    {% include cockroachcloud/download-the-cert.md %}
     
 1. On the **Command Line** tab, copy the connection string.
 
@@ -88,11 +88,11 @@ On your local workstation's terminal:
     </div>
     <p></p>
 
-    {{ partial "cockroachcloud/download-the-binary.md" . }}
+    {% include cockroachcloud/download-the-binary.md %}
 
 1. Use the connection string generated in Step 3 to connect to CockroachDB's built-in SQL client:
 
-    {{ partial "cockroachcloud/sql-connection-string.md" . }}
+    {% include cockroachcloud/sql-connection-string.md %}
 
 1. Create a database `todos`:
 
@@ -444,7 +444,7 @@ You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.creat
     
 1. Enter the SQL user's username and password you created while [preparing the cluster](#step-2-create-a-sql-user).
     
-    {{ partial "cockroachcloud/postgresql-special-characters.md" . }}
+    {% include cockroachcloud/postgresql-special-characters.md %}
     
 1. Click **Log In**.
 

@@ -10,7 +10,7 @@ For privileges required by specific statements, see the documentation for the re
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/grant_privileges.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/grant_privileges.html %}</section>
 
 ## Required privileges
 
@@ -54,12 +54,12 @@ Parameter | Description
 
 ### Grant privileges on databases
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT CREATE ON DATABASE db1, db2 TO maxroach, betsyroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE db1, db2;
 ~~~
@@ -80,12 +80,12 @@ Parameter | Description
 
 ### Grant privileges on specific tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT DELETE ON TABLE db1.t1, db1.t2 TO betsyroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db1.t1, db1.t2;
 ~~~
@@ -104,12 +104,12 @@ Parameter | Description
 
 ### Grant privileges on all tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE db2.* TO henryroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db2.*;
 ~~~
@@ -128,12 +128,12 @@ Parameter | Description
 
 ### Make a table readable to every user in the system
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE myTable TO public;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE myTable;
 ~~~
@@ -149,7 +149,7 @@ Parameter | Description
 
 ### Grant the privilege to manage the replication zones for a database or table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ZONECONFIG ON TABLE mytable TO myuser;
 ~~~

@@ -6,12 +6,12 @@ toc: true
 
 The `RENAME TO` clause is part of [`ALTER DATABASE`](alter-database.html), and changes the name of a database. 
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/rename_database.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/rename_database.html %}
 </div>
 
 ## Required privileges
@@ -26,7 +26,7 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Limitations
 
@@ -37,7 +37,7 @@ It is not possible to rename a database if:
 
     For example, suppose you create a database `db`, and in that database, a sequence `seq`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE db;
       USE db;
@@ -46,7 +46,7 @@ It is not possible to rename a database if:
 
     Then you reference the sequence in a table `tab`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE tab (
       id UUID DEFAULT gen_random_uuid(),
@@ -56,7 +56,7 @@ It is not possible to rename a database if:
 
     Attempting to rename the database will result in an error:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET sql_safe_updates=false;
       ALTER DATABASE db RENAME TO mydb;
@@ -70,12 +70,12 @@ It is not possible to rename a database if:
 
     In order to rename the database `db`, you need to drop or change the reference in the default value for the `seq` column to not explicitly name the database `db`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER TABLE tab ALTER COLUMN count SET DEFAULT nextval('seq');
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > USE defaultdb;
       ALTER DATABASE db RENAME TO mydb;
@@ -85,12 +85,12 @@ It is not possible to rename a database if:
 
 ### Rename a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE db1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -106,12 +106,12 @@ It is not possible to rename a database if:
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER DATABASE db1 RENAME TO db2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -129,7 +129,7 @@ It is not possible to rename a database if:
 
 ### Rename fails (new name already in use)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER DATABASE db2 RENAME TO movr;
 ~~~

@@ -161,7 +161,7 @@ To back up a self-hosted CockroachDB cluster into a {{ site.data.products.db }} 
       <button class="filter-button page-level" data-scope="windows">Windows</button>
     </div>
 
-    {{ partial "cockroachcloud/sql-connection-string.md" . }}
+    {% include cockroachcloud/sql-connection-string.md %}
 
 
 1. [Restore](../{{site.versions["stable"] }}/restore.html) to your {{ site.data.products.db }} cluster.

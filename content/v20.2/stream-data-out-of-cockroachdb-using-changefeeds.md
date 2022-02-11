@@ -28,7 +28,7 @@ Changefeeds connect to a long-lived request (i.e., a rangefeed), which pushes ch
 
 **Rangefeeds must be enabled for a changefeed to work.** To [enable the cluster setting](set-cluster-setting.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING kv.rangefeed.enabled = true;
 ~~~
@@ -132,7 +132,7 @@ For an example of a schema change with column backfill, start with the changefee
 
 Add a column to the watched table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE office_dogs ADD COLUMN likes_treats BOOL DEFAULT TRUE;
 ~~~
@@ -157,7 +157,7 @@ A core changefeed streams row-level changes to the client indefinitely until the
 
 To create a core changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPERIMENTAL CHANGEFEED FOR name;
 ~~~
@@ -172,12 +172,12 @@ An Enterprise changefeed streams row-level changes in a configurable format to a
 
 To create an Enterprise changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE table_name, table_name2 INTO '{scheme}://{host}:{port}?{query_parameters}';
 ~~~
 
-{{ partial "{{ page.version.version }}/cdc/url-encoding.md" . }}
+{% include {{ page.version.version }}/cdc/url-encoding.md %}
 
 For more information, see [`CREATE CHANGEFEED`](create-changefeed.html).
 
@@ -185,7 +185,7 @@ For more information, see [`CREATE CHANGEFEED`](create-changefeed.html).
 
 To pause an Enterprise changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -196,7 +196,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 To resume a paused Enterprise changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -207,7 +207,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 To cancel an Enterprise changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -216,7 +216,7 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 ### Configuring all changefeeds
 
-{{ partial "{{ page.version.version }}/cdc/configure-all-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/configure-all-changefeed.md %}
 
 ## Monitor a changefeed
 
@@ -230,7 +230,7 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
 - On the [Jobs page](ui-jobs-page.html) of the DB Console. Hover over the high-water timestamp to view the [system time](as-of-system-time.html).
 - Using `crdb_internal.jobs`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM crdb_internal.jobs WHERE job_id = <job_id>;
     ~~~
@@ -265,14 +265,14 @@ I190312 18:56:53.537686 585 vendor/github.com/Shopify/sarama/client.go:170  [kaf
 
 For Enterprise changefeeds, you can check the status by using:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * FROM [SHOW JOBS] WHERE job_type='CHANGEFEED';
 ~~~
 
 Or:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * from crdb_internal.jobs WHERE job_type='CHANGEFEED';
 ~~~
@@ -292,11 +292,11 @@ For more information, see [`SHOW JOBS`](show-jobs.html).
 
 ### Create a core changefeed
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed.md %}
 
 ### Create a core changefeed using Avro
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed-avro.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed-avro.md %}
 
 ### Create a changefeed connected to Kafka
 
@@ -310,7 +310,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 2. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
@@ -319,7 +319,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 4. Move into the extracted `confluent-<version>` directory and start Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services start
     ~~~
@@ -328,7 +328,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 5. Create two Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -338,7 +338,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -354,75 +354,75 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 6. As the `root` user, open the [built-in SQL client](cockroach-sql.html):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 7. Set your organization name and [Enterprise license](enterprise-licensing.html) key that you received via email:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<organization name>';
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<secret>';
     ~~~
 
 8. Enable the `kv.rangefeed.enabled` [cluster setting](cluster-settings.html):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING kv.rangefeed.enabled = true;
     ~~~
 
 9. Create a database called `cdc_demo`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE cdc_demo;
     ~~~
 
 10. Set the database as the default:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET DATABASE = cdc_demo;
     ~~~
 
 11. Create a table and add data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE office_dogs (
          id INT PRIMARY KEY,
          name STRING);
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES
        (1, 'Petee'),
        (2, 'Carl');
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > UPDATE office_dogs SET name = 'Petee H' WHERE id = 1;
     ~~~
 
 12. Create another table and add data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE employees (
          dog_id INT REFERENCES office_dogs (id),
          employee_name STRING);
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO employees VALUES
        (1, 'Lauren'),
@@ -431,7 +431,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 13. Start the changefeed:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs, employees INTO 'kafka://localhost:9092';
     ~~~
@@ -447,7 +447,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 14. In a new terminal, move into the extracted `confluent-<version>` directory and start watching the Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-console-consumer \
     --bootstrap-server=localhost:9092 \
@@ -464,11 +464,11 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
     The initial scan displays the state of the tables as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
 
-    {{ partial "{{ page.version.version }}/cdc/print-key.md" . }}
+    {% include {{ page.version.version }}/cdc/print-key.md %}
 
 15. Back in the SQL client, insert more data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES (3, 'Ernie');
     ~~~
@@ -483,14 +483,14 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 18. To stop `cockroach`, run:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 19. To stop Kafka, move into the extracted `confluent-<version>` directory and stop Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services stop
     ~~~
@@ -507,7 +507,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 2. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
@@ -516,7 +516,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 4. Move into the extracted `confluent-<version>` directory and start Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services start
     ~~~
@@ -525,7 +525,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 5. Create two Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -535,7 +535,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -551,75 +551,75 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 6. As the `root` user, open the [built-in SQL client](cockroach-sql.html):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 7. Set your organization name and [Enterprise license](enterprise-licensing.html) key that you received via email:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<organization name>';
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<secret>';
     ~~~
 
 8. Enable the `kv.rangefeed.enabled` [cluster setting](cluster-settings.html):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING kv.rangefeed.enabled = true;
     ~~~
 
 9. Create a database called `cdc_demo`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE cdc_demo;
     ~~~
 
 10. Set the database as the default:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET DATABASE = cdc_demo;
     ~~~
 
 11. Create a table and add data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE office_dogs (
          id INT PRIMARY KEY,
          name STRING);
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES
        (1, 'Petee'),
        (2, 'Carl');
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > UPDATE office_dogs SET name = 'Petee H' WHERE id = 1;
     ~~~
 
 12. Create another table and add data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE employees (
          dog_id INT REFERENCES office_dogs_avro (id),
          employee_name STRING);
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO employees VALUES
        (1, 'Lauren'),
@@ -628,7 +628,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 13. Start the changefeed:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs, employees INTO 'kafka://localhost:9092' WITH format = experimental_avro, confluent_schema_registry = 'http://localhost:8081';
     ~~~
@@ -644,7 +644,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 14. In a new terminal, move into the extracted `confluent-<version>` directory and start watching the Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-avro-console-consumer \
     --bootstrap-server=localhost:9092 \
@@ -661,11 +661,11 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
     The initial scan displays the state of the table as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
 
-    {{ partial "{{ page.version.version }}/cdc/print-key.md" . }}
+    {% include {{ page.version.version }}/cdc/print-key.md %}
 
 15. Back in the SQL client, insert more data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES (3, 'Ernie');
     ~~~
@@ -680,14 +680,14 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 18. To stop `cockroach`, run:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 19. To stop Kafka, move into the extracted `confluent-<version>` directory and stop Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services stop
     ~~~
@@ -698,7 +698,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 [`CREATE CHANGEFEED`](create-changefeed.html) is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [the `CHANGEFEED FOR` example above](#create-a-core-changefeed).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 In this example, you'll set up a changefeed for a single-node cluster that is connected to an AWS S3 sink. The changefeed watches two tables. Note that you can set up changefeeds for any of [these cloud storage providers](create-changefeed.html#cloud-storage-sink).
 
@@ -706,82 +706,82 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 2. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
 
 3. As the `root` user, open the [built-in SQL client](cockroach-sql.html):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 4. Set your organization name and [Enterprise license](enterprise-licensing.html) key that you received via email:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<organization name>';
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<secret>';
     ~~~
 
 5. Enable the `kv.rangefeed.enabled` [cluster setting](cluster-settings.html):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING kv.rangefeed.enabled = true;
     ~~~
 
 6. Create a database called `cdc_demo`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE cdc_demo;
     ~~~
 
 7. Set the database as the default:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET DATABASE = cdc_demo;
     ~~~
 
 8. Create a table and add data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE office_dogs (
          id INT PRIMARY KEY,
          name STRING);
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES
        (1, 'Petee'),
        (2, 'Carl');
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > UPDATE office_dogs SET name = 'Petee H' WHERE id = 1;
     ~~~
 
 9. Create another table and add data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE employees (
          dog_id INT REFERENCES office_dogs (id),
          employee_name STRING);
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO employees VALUES
        (1, 'Lauren'),
@@ -790,7 +790,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 10. Start the changefeed:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs, employees INTO 'experimental-s3://example-bucket-name/test?AWS_ACCESS_KEY_ID=enter_key-here&AWS_SECRET_ACCESS_KEY=enter_key_here' with updated, resolved='10s';
     ~~~
@@ -810,14 +810,14 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 13. To stop `cockroach`, run:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 ## Known limitations
 
-{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
+{% include {{ page.version.version }}/known-limitations/cdc.md %}
 
 ## See also
 

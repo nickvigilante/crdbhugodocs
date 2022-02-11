@@ -11,7 +11,7 @@ For privileges required by specific statements, see the documentation for the re
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/grant_privileges.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/grant_privileges.html %}</section>
 
 ## Required Privileges
 
@@ -49,12 +49,12 @@ Parameter | Description
 
 ### Grant Privileges on Databases
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT CREATE ON DATABASE db1, db2 TO maxroach, betsyroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE db1, db2;
 ~~~
@@ -75,12 +75,12 @@ Parameter | Description
 
 ### Grant Privileges on Specific Tables in a Database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT DELETE ON TABLE db1.t1, db1.t2 TO betsyroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db1.t1, db1.t2;
 ~~~
@@ -99,12 +99,12 @@ Parameter | Description
 
 ### Grant Privileges on All Tables in a Database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE db2.* TO henryroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE db2.*;
 ~~~

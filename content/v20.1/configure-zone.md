@@ -17,31 +17,31 @@ Adding replication zones for secondary indexes and partitions is an [enterprise-
 **alter_zone_database_stmt ::=**
 
 <div class=horizontal-scroll>
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_database.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_database.html %}
 </div>
 
 **alter_zone_table_stmt ::=**
 
 <div class=horizontal-scroll>
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_table.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_table.html %}
 </div>
 
 **alter_zone_index_stmt ::=**
 
 <div class=horizontal-scroll>
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_index.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_index.html %}
 </div>
 
 **alter_zone_partition_stmt ::=**
 
 <div class=horizontal-scroll>
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_partition.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_partition.html %}
 </div>
 
 **alter_zone_range_stmt ::=**
 
 <div class=horizontal-scroll>
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_range.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_range.html %}
 </div>
 
 ## Required privileges
@@ -67,19 +67,19 @@ Required privileges for `CONFIGURE ZONE` statements in CockroachDB v20.1 may be 
 
 ### Variables
 
-{{ partial "{{ page.version.version }}/zone-configs/variables.md" . }}
+{% include {{ page.version.version }}/zone-configs/variables.md %}
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 ### Edit a replication zone
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 4;
 ~~~
@@ -90,35 +90,35 @@ CONFIGURE ZONE 1
 
 ### Edit the default replication zone
 
-{{ partial "{{ page.version.version }}/zone-configs/edit-the-default-replication-zone.md" . }}
+{% include {{ page.version.version }}/zone-configs/edit-the-default-replication-zone.md %}
 
 ### Create a replication zone for a database
 
-{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-database.md" . }}
+{% include {{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-database.md %}
 
 ### Create a replication zone for a table
 
-{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table.md" . }}
+{% include {{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table.md %}
 
 ### Create a replication zone for a secondary index
 
-{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-secondary-index.md" . }}
+{% include {{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-secondary-index.md %}
 
 ### Create a replication zone for a partition
 
-{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table-partition.md" . }}
+{% include {{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table-partition.md %}
 
 ### Create a replication zone for a system range
 
-{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-system-range.md" . }}
+{% include {{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-system-range.md %}
 
 ### Reset a replication zone
 
-{{ partial "{{ page.version.version }}/zone-configs/reset-a-replication-zone.md" . }}
+{% include {{ page.version.version }}/zone-configs/reset-a-replication-zone.md %}
 
 ### Remove a replication zone
 
-{{ partial "{{ page.version.version }}/zone-configs/remove-a-replication-zone.md" . }}
+{% include {{ page.version.version }}/zone-configs/remove-a-replication-zone.md %}
 
 ## See also
 

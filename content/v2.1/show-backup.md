@@ -13,7 +13,7 @@ Only members of the `admin` role can run `SHOW BACKUP`. By default, the `root` u
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/show_backup.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/show_backup.html %}
 </div>
 
 ## Parameters
@@ -36,7 +36,7 @@ Field | Description
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW BACKUP 'azure://acme-co-backup/tpch-2017-03-27-full?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co';
 ~~~

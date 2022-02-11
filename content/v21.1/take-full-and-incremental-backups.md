@@ -139,7 +139,7 @@ To take incremental backups, you need an [Enterprise license](enterprise-licensi
   <button class="filter-button" data-scope="gcs">Google Cloud Storage</button>
 </div>
 
-{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
+{% include {{ page.version.version }}/backups/bulk-auth-options.md %}
 
 <section class="filter-content" markdown="1" data-scope="s3">
 
@@ -214,7 +214,7 @@ For more examples on how to schedule backups that take full and incremental back
 
 ### Advanced examples
 
-{{ partial "{{ page.version.version }}/backups/advanced-examples-list.md" . }}
+{% include {{ page.version.version }}/backups/advanced-examples-list.md %}
 
 {{site.data.alerts.callout_info }}
 To take incremental backups, backups with revision history, locality-aware backups, and encrypted backups, you need an [Enterprise license](enterprise-licensing.html).

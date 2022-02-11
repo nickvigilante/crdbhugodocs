@@ -34,6 +34,6 @@ By default, the generated configuration file is called `haproxy.cfg` and looks a
     `option httpchk` | The HTTP endpoint that HAProxy uses to check node health. [`/health?ready=1`](monitoring-and-alerting.html#health-ready-1) ensures that HAProxy doesn't direct traffic to nodes that are live but not ready to receive requests.
     `server` | For each included node, this field specifies the address the node advertises to other nodes in the cluster, i.e., the addressed pass in the [`--advertise-addr` flag](cockroach-start.html#networking) on node startup. Make sure hostnames are resolvable and IP addresses are routable from HAProxy.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     For full details on these and other configuration settings, see the [HAProxy Configuration Manual](http://cbonte.github.io/haproxy-dconv/1.7/configuration.html).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}

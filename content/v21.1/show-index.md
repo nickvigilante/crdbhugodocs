@@ -21,7 +21,7 @@ In CockroachDB, the following are aliases for `SHOW INDEX`:
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_indexes.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_indexes.html %}
 </div>
 
 ## Parameters
@@ -48,16 +48,16 @@ Field | Description
 
 ## Example
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Show indexes for a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON users (name);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -75,7 +75,7 @@ Field | Description
 
 ### Show indexes for a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM DATABASE movr;
 ~~~

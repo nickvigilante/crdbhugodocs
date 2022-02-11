@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `ALTER TABLE` [statement](sql-statements.html) applies a schema change to a table. For information on using `ALTER TABLE`, see the pages for its relevant [subcommands](#subcommands).
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Subcommands
 
@@ -37,4 +37,4 @@ Subcommand | Description | Can combine with other subcommands?
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}

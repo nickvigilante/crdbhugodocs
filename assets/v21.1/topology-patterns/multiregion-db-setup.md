@@ -17,9 +17,9 @@ USE test;
 ALTER DATABASE test PRIMARY REGION "us-east";
 ~~~
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Every multi-region database must have a primary region.  For more information, see [Database regions](multiregion-overview.html#database-regions).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 Next, issue the following [`ADD REGION`](add-region.html) statements to add the remaining regions to the database.
 

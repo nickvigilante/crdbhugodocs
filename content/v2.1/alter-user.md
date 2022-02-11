@@ -21,7 +21,7 @@ The user must have the `INSERT` and `UPDATE` [privileges](authorization.html#ass
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/alter_user_password.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/alter_user_password.html %}</div>
 
 ## Parameters
 
@@ -40,7 +40,7 @@ Parameter | Description
 
 ### Change password using a string literal
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER USER carl WITH PASSWORD 'ilov3beefjerky';
 ~~~
@@ -52,7 +52,7 @@ ALTER USER 1
 
 The following statement changes the password to `ilov3beefjerky`, as above:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER USER carl WITH PASSWORD ilov3beefjerky;
 ~~~
@@ -61,14 +61,14 @@ This is equivalent to the example in the previous section because the password c
 
 In contrast, the following statement changes the password to `thereisnotomorrow`, even though the password in the syntax contains capitals, because identifiers are normalized automatically:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER USER carl WITH PASSWORD ThereIsNoTomorrow;
 ~~~
 
 To preserve case in a password specified using identifier syntax, use double quotes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER USER carl WITH PASSWORD "ThereIsNoTomorrow";
 ~~~

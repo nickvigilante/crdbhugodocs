@@ -21,7 +21,7 @@ You can also add the `DEFAULT` value constraint to an existing table through [`A
 {{site.data.alerts.end }}
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/default_value_column_level.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/default_value_column_level.html %}
 </div>
 
  Parameter | Description
@@ -36,7 +36,7 @@ You can also add the `DEFAULT` value constraint to an existing table through [`A
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE inventories (
     product_id        INT,
@@ -46,17 +46,17 @@ You can also add the `DEFAULT` value constraint to an existing table through [`A
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories (product_id, warehouse_id) VALUES (1,20);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories (product_id, warehouse_id, quantity_on_hand) VALUES (2,30, NULL);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM inventories;
 ~~~

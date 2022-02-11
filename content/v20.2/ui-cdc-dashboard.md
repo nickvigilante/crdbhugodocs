@@ -6,7 +6,7 @@ toc: true
 
 The **Changefeeds** dashboard in the DB Console lets you monitor the [changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html) created across your cluster. To view this dashboard, [access the DB Console](ui-overview.html#db-console-access), click **Metrics** on the left-hand navigation bar, and then select **Dashboard** > **Changefeeds**.
 
-{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
 The **Changefeeds** dashboard displays the following time series graphs:
 
@@ -64,7 +64,7 @@ This graph displays the number of times changefeeds restarted due to retryable e
 
 <img src="{{ 'images/v20.2/ui_changefeed_restarts.png' | relative_url }}" alt="DB Console Changefeed Restarts graph" style="border:1px solid #eee;max-width:100%" />
 
-{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
+{% include {{ page.version.version }}/ui/ui-summary-events.md %}
 
 ## See also
 

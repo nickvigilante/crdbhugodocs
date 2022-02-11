@@ -336,7 +336,7 @@ See also [the separate section on supported built-in functions](functions-and-op
 
 In addition, the following SQL special forms are also supported:
 
-{{ partial "{{ page.version.version }}/sql/function-special-forms.md" . }}
+{% include {{ page.version.version }}/sql/function-special-forms.md %}
 
 #### Typing rule
 

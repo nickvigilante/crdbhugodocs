@@ -9,12 +9,12 @@ The `GRANT` [statement](sql-statements.html) controls each [role](authorization.
 
 You can use `GRANT` to directly grant privileges to a role or user, or you can grant membership to an existing role, which grants that role's privileges to the grantee.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Syntax
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/grant.html %}
+{{< sql-diagram "grant.html" >}}
 </div>
 
 ### Parameters
@@ -34,7 +34,7 @@ Parameter                 | Description
 
 Roles and users can be granted the following privileges:
 
-{{ partial "{{ page.version.version }}/sql/privileges.md" . }}
+{% include {{ page.version.version }}/sql/privileges.md %}
 
 ## Required privileges
 
@@ -65,21 +65,21 @@ Roles and users can be granted the following privileges:
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Grant privileges on databases
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE USER max WITH PASSWORD roach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON DATABASE movr TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE movr;
 ~~~
@@ -95,12 +95,12 @@ Roles and users can be granted the following privileges:
 
 ### Grant privileges on specific tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT DELETE ON TABLE rides TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE rides;
 ~~~
@@ -116,12 +116,12 @@ Roles and users can be granted the following privileges:
 
 ### Grant privileges on all tables in a database or schema
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE movr.public.* TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE movr.public.*;
 ~~~
@@ -153,12 +153,12 @@ Roles and users can be granted the following privileges:
 
 ### Make a table readable to every user in the system
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT SELECT ON TABLE vehicles TO public;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE vehicles;
 ~~~
@@ -175,17 +175,17 @@ Roles and users can be granted the following privileges:
 
 ### Grant privileges on schemas
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA cockroach_labs;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON SCHEMA cockroach_labs TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON SCHEMA cockroach_labs;
 ~~~
@@ -201,17 +201,17 @@ Roles and users can be granted the following privileges:
 
 ### Grant privileges on user-defined types
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE status AS ENUM ('available', 'unavailable');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON TYPE status TO max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TYPE status;
 ~~~
@@ -229,7 +229,7 @@ Roles and users can be granted the following privileges:
 
 ### Grant the privilege to manage the replication zones for a database or table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ZONECONFIG ON TABLE rides TO max;
 ~~~
@@ -238,22 +238,22 @@ The user `max` can then use the [`CONFIGURE ZONE`](configure-zone.html) statemen
 
 ### Grant role membership
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE developer WITH CREATEDB;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE USER abbey WITH PASSWORD lincoln;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT developer TO abbey;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE developer;
 ~~~
@@ -267,12 +267,12 @@ The user `max` can then use the [`CONFIGURE ZONE`](configure-zone.html) statemen
 
 ### Grant the admin option
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT developer TO abbey WITH ADMIN OPTION;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE developer;
 ~~~

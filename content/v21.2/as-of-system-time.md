@@ -47,7 +47,7 @@ negative [`INTERVAL`](interval.html) | Added to `statement_timestamp()`, and thu
 
 Imagine this example represents the database's current data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name, balance
     FROM accounts
@@ -64,7 +64,7 @@ Imagine this example represents the database's current data:
 
 We could instead retrieve the values as they were on October 3, 2016 at 12:45 UTC:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name, balance
     FROM accounts
@@ -85,27 +85,27 @@ We could instead retrieve the values as they were on October 3, 2016 at 12:45 UT
 
 Assuming the following statements are run at `2016-01-01 12:00:00`, they would execute as of `2016-01-01 08:00:00`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME '2016-01-01 08:00:00'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME 1451635200000000000
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME '1451635200000000000'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM t AS OF SYSTEM TIME '-4h'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME INTERVAL '-4h'
 ~~~
@@ -122,17 +122,17 @@ entire `SELECT` clause.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM t, u, v AS OF SYSTEM TIME '-4h';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM t JOIN u ON t.x = u.y AS OF SYSTEM TIME '-4h';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM (SELECT * FROM t), (SELECT * FROM u) AS OF SYSTEM TIME '-4h';
 ~~~
@@ -158,7 +158,7 @@ following conditions:
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM (SELECT * FROM t AS OF SYSTEM TIME '-4h') tp
            JOIN u ON tp.x = u.y
@@ -170,17 +170,17 @@ For example:
 
 You can use the [`BEGIN`](begin-transaction.html) statement to execute the transaction using the database contents "as of" a specified time in the past.
 
-{{ partial "{{ page.version.version }}/sql/begin-transaction-as-of-system-time-example.md" . }}
+{% include {{ page.version.version }}/sql/begin-transaction-as-of-system-time-example.md %}
 
 Alternatively, you can use the [`SET`](set-transaction.html) statement to execute the transaction using the database contents "as of" a specified time in the past.
 
-{{ partial "{{ page.version.version }}/sql/set-transaction-as-of-system-time-example.md" . }}
+{% include {{ page.version.version }}/sql/set-transaction-as-of-system-time-example.md %}
 
 ### Using `AS OF SYSTEM TIME` to recover recently lost data
 
 It is possible to recover lost data as a result of an online schema change prior to when [garbage collection](architecture/storage-layer.html#garbage-collection) begins:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > CREATE DATABASE foo;
 ~~~
@@ -190,7 +190,7 @@ CREATE DATABASE
 
 Time: 3ms total (execution 3ms / network 0ms)
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > CREATE TABLE foo.bar (id INT PRIMARY KEY);
 ~~~
@@ -200,7 +200,7 @@ CREATE TABLE
 
 Time: 4ms total (execution 3ms / network 0ms)
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > INSERT INTO foo.bar VALUES (1), (2);
 ~~~
@@ -210,7 +210,7 @@ INSERT 2
 
 Time: 5ms total (execution 5ms / network 0ms)
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT now();
 ~~~
@@ -223,7 +223,7 @@ Time: 5ms total (execution 5ms / network 0ms)
 
 Time: 1ms total (execution 0ms / network 0ms)
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > DROP TABLE foo.bar;
 ~~~
@@ -233,7 +233,7 @@ DROP TABLE
 
 Time: 45ms total (execution 45ms / network 0ms)
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM foo.bar AS OF SYSTEM TIME '2022-02-01 21:11:53.63771+00';
 ~~~
@@ -247,7 +247,7 @@ Time: 45ms total (execution 45ms / network 0ms)
 
 Time: 2ms total (execution 2ms / network 0ms)
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM foo.bar;
 ~~~

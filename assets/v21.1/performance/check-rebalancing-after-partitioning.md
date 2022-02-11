@@ -9,7 +9,7 @@ To check at a more granular level, SSH to one of the instances not running Cockr
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{page.certs}} \
+{{ page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SELECT * FROM \

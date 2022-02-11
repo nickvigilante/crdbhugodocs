@@ -12,7 +12,7 @@ Limiting the number of queries that require full table scans can help you optimi
 ## Syntax
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_full_scans.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_full_scans.html %}
 </div>
 
 ## Required privileges
@@ -23,14 +23,14 @@ The [`admin` role](authorization.html#admin-role) is required to run `SHOW FULL 
 
 To follow along, run [`cockroach demo`](cockroach-demo.html) to start a temporary, in-memory cluster with the sample [`movr` dataset](movr.html) preloaded:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo
 ~~~
 
 Now, suppose that you want to query the `rides` table for all rides that cost above 90 (i.e., `WHERE revenue > 90`):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM rides WHERE revenue > 90;
 ~~~
@@ -49,7 +49,7 @@ Now, suppose that you want to query the `rides` table for all rides that cost ab
 
 This `SELECT` statement requires a full table scan at execution. As a result, the query will show up in the `SHOW FULL TABLE SCANS` output, with all of the other queries that performed full table scans:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW FULL TABLE SCANS] WHERE query LIKE 'SELECT * FROM rides WHERE revenue > %';
 ~~~
@@ -63,14 +63,14 @@ This `SELECT` statement requires a full table scan at execution. As a result, th
 
 To limit the number of rows scanned by `SELECT` queries that filter on the `revenue` column, you can add a secondary index to the `rides` table, on the `revenue` column:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON rides (revenue);
 ~~~
 
 Now, if you execute a similar query, the query will not perform a full table scan.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM rides WHERE revenue < 10;
 ~~~
@@ -84,7 +84,7 @@ Now, if you execute a similar query, the query will not perform a full table sca
 (32 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW FULL TABLE SCANS] WHERE query LIKE 'SELECT * FROM rides WHERE revenue < %';
 ~~~

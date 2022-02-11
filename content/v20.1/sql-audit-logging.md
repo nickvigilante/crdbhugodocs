@@ -16,7 +16,7 @@ For a detailed description of the audit log file format, see [Audit log file for
 
 Note that enabling SQL audit logs can negatively impact performance. As a result, we recommend using SQL audit logs for security purposes only. For more details, see [Performance considerations](experimental-audit.html#performance-considerations), on the [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html) reference page.
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 {{site.data.alerts.callout_success}}
 To learn about other SQL query logging options, see [SQL logging](query-behavior-troubleshooting.html#sql-logging).
@@ -31,7 +31,7 @@ Use the statements below to create:
 
 Later, we'll show how to turn on audit logs for the `customers` table.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -43,7 +43,7 @@ Later, we'll show how to turn on audit logs for the `customers` table.
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -57,7 +57,7 @@ Later, we'll show how to turn on audit logs for the `customers` table.
 
 We turn on auditing for a table using the [`EXPERIMENTAL_AUDIT`](experimental-audit.html) subcommand of [`ALTER TABLE`](alter-table.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
@@ -70,7 +70,7 @@ To turn on auditing for more than one table, issue a separate `ALTER` statement 
 
 Now that we have auditing turned on, let's add some customer data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (name, address, national_id, telephone, email) VALUES (
     'Pritchard M. Cleveland',
@@ -81,7 +81,7 @@ Now that we have auditing turned on, let's add some customer data:
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (name, address, national_id, telephone, email) VALUES (
     'Vainglorious K. Snerptwiddle III',
@@ -94,7 +94,7 @@ Now that we have auditing turned on, let's add some customer data:
 
 Now let's verify that our customers were added successfully:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -125,7 +125,7 @@ For reference documentation of the audit log file format, see [`ALTER TABLE ... 
 {{site.data.alerts.end }}
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-log-files.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-log-files.md %}
 {{site.data.alerts.end }}
 
 ## Step 5. Populate the `orders` table
@@ -134,14 +134,14 @@ Unlike the `customers` table, `orders` doesn't have any PII, just a Product ID a
 
 Let's populate the `orders` table with some placeholder data using [`CREATE SEQUENCE`](create-sequence.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE product_ids_asc START 1 INCREMENT 1;
 ~~~
 
 Evaluate the below a few times to generate data; note that this would error if [`SELECT`](select-clause.html) returned multiple results, but it doesn't in this case.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO orders (product_id, delivery_status, customer_id) VALUES (
     nextval('product_ids_asc'),
@@ -152,7 +152,7 @@ Evaluate the below a few times to generate data; note that this would error if [
 
 Let's verify that our orders were added successfully:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM orders ORDER BY product_id;
 ~~~
@@ -183,7 +183,7 @@ For reference documentation of the audit log file format, see [`ALTER TABLE ... 
 {{site.data.alerts.end }}
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-log-files.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-log-files.md %}
 {{site.data.alerts.end }}
 
 ## Known limitations

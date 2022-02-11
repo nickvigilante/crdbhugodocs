@@ -17,7 +17,7 @@ docs_area: deploy
 
 ## Step 1. Start the cluster
 
-{{ partial "{{ page.version.version }}/sql/start-a-multi-region-demo-cluster.md" . }}
+{% include {{ page.version.version }}/sql/start-a-multi-region-demo-cluster.md %}
 
 ## Step 2. Enter SQL statements at the prompt
 
@@ -29,27 +29,27 @@ root@127.0.0.1:26257/defaultdb>
 
 You can run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > USE bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO bank.accounts VALUES (1, 1000.50);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM bank.accounts;
 ~~~
@@ -85,7 +85,7 @@ You may also find the following pages useful:
 
 When you're done with your demo cluster, you can wipe the cluster by typing the command shown below at the SQL prompt. Note that because this is a temporary, in-memory cluster, this will wipe any data you have added to the cluster. For more information, see the [`cockroach demo`](cockroach-demo.html) documentation.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 \quit
 ~~~

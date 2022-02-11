@@ -18,7 +18,7 @@ To view this dashboard, [access the Admin UI](admin-ui-overview.html#admin-ui-ac
 
 For more details, see [Scalable SQL Made Easy: How CockroachDB Automates Operations](https://www.cockroachlabs.com/blog/automated-rebalance-and-repair/)
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md %}
 
 The **Replication** dashboard displays the following time series graphs:
 
@@ -52,7 +52,7 @@ Metric | Description
 **Logical Bytes per Store** | Number of logical bytes stored in [key-value pairs](architecture/distribution-layer.html#table-data) on each node. This includes historical and deleted data.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/admin-ui/logical-bytes.md" . }}
+{% include {{ page.version.version }}/admin-ui/logical-bytes.md %}
 {{site.data.alerts.end }}
 
 ## Replicas Per Store
@@ -104,7 +104,7 @@ The **Replication** dashboard shows other time series graphs that are important 
 
 For monitoring CockroachDB, it is sufficient to use the [**Ranges**](#ranges), [**Replicas per Store**](#replicas-per-store), and [**Replica Quiescence**](#replica-quiescence) graphs.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-summary-events.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-summary-events.md %}
 
 ## See also
 

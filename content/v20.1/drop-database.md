@@ -6,7 +6,7 @@ toc: true
 
 The `DROP DATABASE` [statement](sql-statements.html) removes a database and all its objects from a CockroachDB cluster.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_database.html" . }} </section>
+<section>{% include {{ page.version.version }}/sql/diagrams/drop_database.html %} </section>
 
 ## Parameters
 
@@ -27,7 +27,7 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
@@ -35,7 +35,7 @@ Parameter | Description
 
 For non-interactive sessions (e.g., client applications), `DROP DATABASE` applies the `CASCADE` option by default, which drops all tables and views in the database as well as all objects (such as [constraints](constraints.html) and [views](views.html)) that depend on those tables.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db2;
 ~~~
@@ -50,12 +50,12 @@ For non-interactive sessions (e.g., client applications), `DROP DATABASE` applie
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP DATABASE db2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db2;
 ~~~
@@ -70,7 +70,7 @@ For interactive sessions from the [built-in SQL client](cockroach-sql.html), eit
 
 When a database is not empty, the `RESTRICT` option prevents the database from being dropped:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db2;
 ~~~
@@ -85,7 +85,7 @@ When a database is not empty, the `RESTRICT` option prevents the database from b
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP DATABASE db2 RESTRICT;
 ~~~

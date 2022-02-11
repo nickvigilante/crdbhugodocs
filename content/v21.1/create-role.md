@@ -37,7 +37,7 @@ Unless a role is a member of the admin role, additional [privileges](#parameters
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/generated/diagrams/create_role.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/generated/diagrams/create_role.html %}</section>
 
 ## Parameters
 
@@ -127,7 +127,7 @@ root       |                                       | {admin}
 
 The following statement prevents the role from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE no_password WITH PASSWORD NULL;
 ~~~

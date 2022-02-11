@@ -30,12 +30,12 @@ The different integer types place different constraints on the range of allowabl
 
 ## Examples
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE ints (a INT PRIMARY KEY, b SMALLINT);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM ints;
 ~~~
@@ -50,7 +50,7 @@ The different integer types place different constraints on the range of allowabl
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO ints VALUES (1, 32);
 ~~~
@@ -59,7 +59,7 @@ The different integer types place different constraints on the range of allowabl
 INSERT 1
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM ints;
 ~~~

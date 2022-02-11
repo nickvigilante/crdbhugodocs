@@ -12,7 +12,7 @@ When using [client-side transaction retries](transactions.html#client-side-trans
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/rollback_transaction.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/rollback_transaction.html %}
 </div>
 
 ## Required Privileges

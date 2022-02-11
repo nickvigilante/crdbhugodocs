@@ -18,31 +18,31 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 ## Requirements
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-requirements.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-requirements.md %}
 
 ## Recommendations
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-recommendations.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-recommendations.md %}
 
 ## Step 1. Synchronize clocks
 
-{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
+{% include {{ page.version.version }}/prod-deployment/synchronize-clocks.md %}
 
 ## Step 2. Generate certificates
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-generate-certificates.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-generate-certificates.md %}
 
 ## Step 3. Start nodes
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-start-nodes.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-start-nodes.md %}
 
 ## Step 4. Initialize the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-initialize-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-initialize-cluster.md %}
 
 ## Step 5. Test the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-test-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-test-cluster.md %}
 
 ## Step 6. Set up HAProxy load balancers
 
@@ -57,7 +57,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 1. On your local machine, run the [`cockroach gen haproxy`](generate-cockroachdb-resources.html) command with the `--host` flag set to the address of any node and security flags pointing to the CA cert and the client cert and key:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach gen haproxy \
   	--certs-dir=certs \
@@ -105,7 +105,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 2. Upload the `haproxy.cfg` file to the machine where you want to run HAProxy:
 
-	{{ partial "copy-clipboard.html" . }}
+	{% include copy-clipboard.html %}
 	~~~ shell
 	$ scp haproxy.cfg <username>@<haproxy address>:~/
 	~~~
@@ -114,14 +114,14 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 4. Install HAProxy:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
 	~~~ shell
 	$ apt-get install haproxy
 	~~~
 
 5. Start HAProxy, with the `-f` flag pointing to the `haproxy.cfg` file:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
 	~~~ shell
 	$ haproxy -f haproxy.cfg
 	~~~
@@ -130,20 +130,20 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 ## Step 7. Run a sample workload
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-test-load-balancing.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-test-load-balancing.md %}
 
 ## Step 8. Set up monitoring and alerting
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Step 9. Scale the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-scale-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-scale-cluster.md %}
 
 ## Step 10. Use the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/use-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/use-cluster.md %}
 
 ## See Also
 
-{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-see-also.md %}

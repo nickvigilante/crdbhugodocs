@@ -21,7 +21,7 @@ To resume a job, the user must be a member of the `admin` role or must have the 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/resume_job.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/resume_job.html %}
 </div>
 
 ## Parameters
@@ -36,7 +36,7 @@ Parameter | Description
 
 ### Pause a job
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW JOBS;
 ~~~
@@ -47,14 +47,14 @@ Parameter | Description
   27536791415282 |  RESTORE  | RESTORE db.* FROM 'azure://backup/db/tbl' |...
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE JOB 27536791415282;
 ~~~
 
 ### Resume a single job
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOB 27536791415282;
 ~~~
@@ -63,7 +63,7 @@ Parameter | Description
 
 To resume multiple jobs, nest a [`SELECT` clause](select-clause.html) that retrieves `job_id`(s) inside the `RESUME JOBS` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOBS (SELECT job_id FROM [SHOW JOBS]
       WHERE user_name = 'maxroach');
@@ -75,7 +75,7 @@ All jobs created by `maxroach` will be resumed.
 
  To resume jobs for a specific [backup schedule](create-schedule-for-backup.html), use the schedule's `id`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOBS FOR SCHEDULE 590204387299262465;
 ~~~
@@ -85,7 +85,7 @@ RESUME JOBS FOR SCHEDULES 1
 
 You can also resume multiple schedules by nesting a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `PAUSE JOBS` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOBS FOR SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'test_schedule';
 ~~~

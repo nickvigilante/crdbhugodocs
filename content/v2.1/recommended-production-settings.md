@@ -80,7 +80,7 @@ Nodes should have sufficient CPU, RAM, network, and storage capacity to handle y
     This is especially recommended if you are using local disks with no RAID protection rather than a cloud provider's network-attached disks that are often replicated under the hood, because local disks have a greater risk of failure. You can do this for the [entire cluster](configure-replication-zones.html#edit-the-default-replication-zone) or for specific [databases](configure-replication-zones.html#create-a-replication-zone-for-a-database), [tables](configure-replication-zones.html#create-a-replication-zone-for-a-table), or [rows](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition) (enterprise-only).
 
     {{site.data.alerts.callout_info }}
-    {{ partial "{{ page.version.version }}/known-limitations/system-range-replication.md" . }}
+    {% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
     {{site.data.alerts.end }}
 
 - The optimal configuration for striping more than one device is [RAID 10](https://en.wikipedia.org/wiki/Nested_RAID_levels#RAID_10_(RAID_1+0)). RAID 0 and 1 are also acceptable from a performance perspective.
@@ -214,11 +214,11 @@ Environment | Featured Approach
 
 ## Monitoring and alerting
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Clock synchronization
 
-{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
+{% include {{ page.version.version }}/faq/clock-synchronization-effects.md %}
 
 ## Cache and SQL memory size
 
@@ -229,7 +229,7 @@ By default, each node's cache size and temporary SQL memory size is `128MiB` res
 
 To manually increase a node's cache size and SQL memory size, start the node using the [`--cache`](start-a-node.html#flags) and [`--max-sql-memory`](start-a-node.html#flags) flags:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --cache=.25 --max-sql-memory=.25 <other start flags>
 ~~~
@@ -351,7 +351,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -392,7 +392,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Check the current limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -408,7 +408,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -428,7 +428,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Verify the new limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~

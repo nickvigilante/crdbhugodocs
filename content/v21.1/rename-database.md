@@ -6,12 +6,12 @@ toc: true
 
 The `RENAME TO` clause is part of [`ALTER DATABASE`](alter-database.html), and changes the name of a database.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/rename_database.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/rename_database.html %}
 </div>
 
 ## Required privileges
@@ -26,7 +26,7 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Limitations
 
@@ -36,12 +36,12 @@ Parameter | Description
 
 ### Rename a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE db1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -57,12 +57,12 @@ Parameter | Description
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER DATABASE db1 RENAME TO db2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -80,7 +80,7 @@ Parameter | Description
 
 ### Rename fails (new name already in use)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER DATABASE db2 RENAME TO movr;
 ~~~

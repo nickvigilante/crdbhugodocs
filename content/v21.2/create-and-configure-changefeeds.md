@@ -13,7 +13,7 @@ A core changefeed streams row-level changes to the client indefinitely until the
 
 To create a core changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPERIMENTAL CHANGEFEED FOR name;
 ~~~
@@ -28,12 +28,12 @@ An {{ site.data.products.enterprise }} changefeed streams row-level changes in a
 
 To create an {{ site.data.products.enterprise }} changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE table_name, table_name2 INTO '{scheme}://{host}:{port}?{query_parameters}';
 ~~~
 
-{{ partial "{{ page.version.version }}/cdc/url-encoding.md" . }}
+{% include {{ page.version.version }}/cdc/url-encoding.md %}
 
 For more information, see [`CREATE CHANGEFEED`](create-changefeed.html).
 
@@ -41,7 +41,7 @@ For more information, see [`CREATE CHANGEFEED`](create-changefeed.html).
 
 To pause an {{ site.data.products.enterprise }} changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -52,7 +52,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 To resume a paused {{ site.data.products.enterprise }} changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -63,7 +63,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 To cancel an {{ site.data.products.enterprise }} changefeed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -72,7 +72,7 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 ### Configuring all changefeeds
 
-{{ partial "{{ page.version.version }}/cdc/configure-all-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/configure-all-changefeed.md %}
 
 ## See also
 

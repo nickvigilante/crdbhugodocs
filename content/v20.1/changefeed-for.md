@@ -12,7 +12,7 @@ The `EXPERIMENTAL CHANGEFEED FOR` [statement](sql-statements.html) creates a new
 
 For more information, see [Change Data Capture](change-data-capture.html).
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 ## Required privileges
 
@@ -70,11 +70,11 @@ Currently, support for Avro is limited and experimental. Below is a list of unsu
 
 ### Create a changefeed
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed.md %}
 
 ### Create a changefeed with Avro
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed-avro.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed-avro.md %}
 
 <!-- ### Pause and resume a changefeed
 

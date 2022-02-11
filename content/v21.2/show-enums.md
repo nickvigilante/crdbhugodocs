@@ -10,7 +10,7 @@ docs_area: reference.sql
 ## Syntax
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_enums.html %}
+{{< sql-diagram "show_enums.html" >}}
 </div>
 
 ## Parameters
@@ -21,17 +21,17 @@ Parameter | Description
 
 ## Examples
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE weekday AS ENUM ('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE weekend AS ENUM ('sunday', 'saturday');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS;
 ~~~
@@ -44,7 +44,7 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS FROM movr.public;
 ~~~

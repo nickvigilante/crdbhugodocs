@@ -9,7 +9,7 @@ docs_area: migrate
 
 This page has instructions for exporting spatial data from CockroachDB and converting it to other spatial formats using the [`ogr2ogr`](https://gdal.org/programs/ogr2ogr.html) command.
 
-{{ partial "{{ page.version.version }}/spatial/ogr2ogr-supported-version.md" . }}
+{% include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
 
 ## Step 1. Export data to CSV
 
@@ -19,7 +19,7 @@ In the example statement below, we export the tornadoes database used in [Workin
 
 The statement will place the CSV file in the node's [store directory](cockroach-start.html#store), in a subdirectory named `extern/tornadoes`. The file's name is automatically generated, and will be displayed as output in the [SQL shell](cockroach-sql.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 EXPORT INTO CSV 'nodelocal://self/tornadoes' WITH nullas = '' FROM SELECT * from "1950-2018-torn-initpoint";
 ~~~
@@ -43,7 +43,7 @@ To combine multiple CSVs into one file:
 
 1. Open the CSV file where you will be storing the combined output in a text editor.  You will need to manually add the CSV header columns to that file so that the `ogr2ogr` output we generate below will have the proper column names.  Start by running the statement below on the table you are exporting to get the necessary column names:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     SELECT string_agg(column_name, ',') FROM [SHOW COLUMNS FROM "1950-2018-torn-initpoint"];
     ~~~
@@ -62,7 +62,7 @@ To combine multiple CSVs into one file:
 
 2. Concatenate the non-header data from all of the exported CSV files, and append the output to the target CSV file as shown below.  The node's store directory on this machine is `/tmp/node0`.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     cat /tmp/node0/extern/tornadoes/*.csv >> tornadoes.csv
     ~~~
@@ -73,7 +73,7 @@ Now that you have your data in CSV format, you can convert it to other spatial f
 
 For example, to convert the data to SQL, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 ogr2ogr -f PGDUMP tornadoes.sql -lco LAUNDER=NO -lco DROP_TABLE=OFF -oo GEOM_POSSIBLE_NAMES=geom -oo KEEP_GEOM_COLUMNS=off tornadoes.csv
 ~~~
@@ -82,7 +82,7 @@ Note that the options `-oo GEOM_POSSIBLE_NAMES=<geom_column_name> -oo KEEP_GEOM_
 
 For more information about the formats supported by `ogr2ogr`, see the [`ogr2ogr` documentation](https://gdal.org/programs/ogr2ogr.html).
 
-{{ partial "{{ page.version.version }}/spatial/ogr2ogr-supported-version.md" . }}
+{% include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
 
 Finally, note that SQL type information is lost in the conversion to CSV, such that the `tornadoes.sql` file output by the `ogr2ogr` command above lists every non-geometry field as a [`VARCHAR`](string.html).
 

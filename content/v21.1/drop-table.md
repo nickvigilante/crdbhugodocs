@@ -6,7 +6,7 @@ toc: true
 
 The `DROP TABLE` [statement](sql-statements.html) removes a table and all its indexes from a database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/generated/diagrams/drop_table.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/generated/diagrams/drop_table.html %}</section>
 
 ## Parameters
 
@@ -27,17 +27,17 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Remove a table (no dependencies)
 
 In this example, other objects do not depend on the table being dropped.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -54,7 +54,7 @@ In this example, other objects do not depend on the table being dropped.
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE promo_codes;
 ~~~
@@ -63,7 +63,7 @@ In this example, other objects do not depend on the table being dropped.
 DROP TABLE
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -85,7 +85,7 @@ In this example, a [foreign key](foreign-key.html) from a different table refere
 
 {{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -101,7 +101,7 @@ In this example, a [foreign key](foreign-key.html) from a different table refere
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE users;
 ~~~
@@ -112,7 +112,7 @@ pq: "users" is referenced by foreign key from table "vehicles"
 
 To see how `users` is referenced from `vehicles`, you can use the [`SHOW CREATE`](show-create.html) statement. `SHOW CREATE` shows how the columns in a table are created, including data types, default values, indexes, and constraints.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -138,7 +138,7 @@ To see how `users` is referenced from `vehicles`, you can use the [`SHOW CREATE`
 ~~~
 
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > DROP TABLE users CASCADE;
 ~~~
@@ -147,7 +147,7 @@ To see how `users` is referenced from `vehicles`, you can use the [`SHOW CREATE`
 DROP TABLE
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -164,7 +164,7 @@ DROP TABLE
 
 Use a `SHOW CREATE TABLE` statement to verify that the foreign key constraint has been removed from `vehicles`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~

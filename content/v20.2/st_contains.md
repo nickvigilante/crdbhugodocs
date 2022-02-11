@@ -30,7 +30,7 @@ This function is the inverse of [`ST_Within`](st_within.html).
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/misc/geojson_geometry_note.md" . }}
+{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
 
 ### True
 
@@ -39,7 +39,7 @@ In this example, `{{ page.title }}` returns `true` because:
 - No point in the LineString _B_ lies outside of the Polygon _A_, and
 - At least one point in the interior of _B_ lies in the interior of _A_.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT ST_Contains(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))'), st_geomfromtext('SRID=4326;LINESTRING(-88.243385 40.116421, -87.906471 43.038902, -95.992775 36.153980)'));
 ~~~
@@ -62,7 +62,7 @@ In this example, `{{ page.title }}` returns `false` because:
 
 Note that A query against these shapes with [`ST_Covers`](st_covers.html) will return `true`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT st_contains(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))'), st_geomfromtext('SRID=4326;LINESTRING( -87.906471 43.038902, -95.992775 36.153980)'));
 ~~~

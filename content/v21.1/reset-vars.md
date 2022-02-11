@@ -13,7 +13,7 @@ No [privileges](authorization.html#assign-privileges) are required to reset a se
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/generated/diagrams/reset_session.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/generated/diagrams/reset_session.html %}</section>
 
 ## Parameters
 
@@ -25,12 +25,12 @@ No [privileges](authorization.html#assign-privileges) are required to reset a se
 
 {{site.data.alerts.callout_success}}You can use <a href="set-vars.html#reset-a-variable-to-its-default-value"><code>SET .. TO DEFAULT</code></a> to reset a session variable as well.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET extra_float_digits = -10;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW extra_float_digits;
 ~~~
@@ -42,7 +42,7 @@ No [privileges](authorization.html#assign-privileges) are required to reset a se
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT random();
 ~~~
@@ -54,12 +54,12 @@ No [privileges](authorization.html#assign-privileges) are required to reset a se
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESET extra_float_digits;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW extra_float_digits;
 ~~~
@@ -71,7 +71,7 @@ No [privileges](authorization.html#assign-privileges) are required to reset a se
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT random();
 ~~~

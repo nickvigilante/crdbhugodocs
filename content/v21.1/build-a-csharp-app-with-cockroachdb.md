@@ -11,7 +11,7 @@ We have tested the [.NET Npgsql driver](http://www.npgsql.org/) enough to claim 
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a .NET project
 
@@ -40,7 +40,7 @@ $ dotnet add package Npgsql
 
 ## Step 4. Create a database
 
-{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
+{% include {{ page.version.version }}/app/create-a-database.md %}
 
 ## Step 5. Run the C# code
 
@@ -205,4 +205,4 @@ $ cockroach sql --insecure  --database=bank -e 'SELECT id, balance FROM accounts
 
 Read more about using the [.NET Npgsql driver](http://www.npgsql.org/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

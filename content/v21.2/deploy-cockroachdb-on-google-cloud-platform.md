@@ -10,25 +10,25 @@ filter_sort: 1
 docs_area: 
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page shows you how to manually deploy a secure multi-node CockroachDB cluster on Google Cloud Platform's Compute Engine (GCE), using Google's TCP Proxy Load Balancing service to distribute client traffic.
 
 If you are only testing CockroachDB, or you are not concerned with protecting network communication with TLS encryption, you can use an insecure cluster instead. Select **Insecure** above for instructions.
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 ## Before you begin
 
 ### Requirements
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-requirements.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-requirements.md %}
 
 - This article covers the use of Linux instances with GCE. You may wish to review the instructions for [connecting to Windows instances](https://cloud.google.com/compute/docs/instances/connecting-to-instance#windows).
 
 ### Recommendations
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-recommendations.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-recommendations.md %}
 
 ## Step 1. Configure your network
 
@@ -69,7 +69,7 @@ For more details, see [Hardware Recommendations](recommended-production-settings
 
 ## Step 3. Synchronize clocks
 
-{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
+{% include {{ page.version.version }}/prod-deployment/synchronize-clocks.md %}
 
 ## Step 4. Set up load balancing
 
@@ -99,7 +99,7 @@ To use GCE's TCP Proxy Load Balancing service:
 
 ## Step 5. Generate certificates
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-generate-certificates.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-generate-certificates.md %}
 
 ## Step 6. Start nodes
 
@@ -107,32 +107,32 @@ To use GCE's TCP Proxy Load Balancing service:
 By default, inter-node communication uses the internal IP addresses of your GCE instances.
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-start-nodes.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-start-nodes.md %}
 
 ## Step 7. Initialize the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-initialize-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-initialize-cluster.md %}
 
 ## Step 8. Test the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-test-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-test-cluster.md %}
 
 ## Step 9. Run a sample workload
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-test-load-balancing.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-test-load-balancing.md %}
 
 ## Step 10. Monitor the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Step 11. Scale the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/secure-scale-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/secure-scale-cluster.md %}
 
 ## Step 12. Use the database
 
-{{ partial "{{ page.version.version }}/prod-deployment/use-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/use-cluster.md %}
 
 ## See also
 
-{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-see-also.md %}

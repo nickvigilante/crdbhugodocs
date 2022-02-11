@@ -1,5 +1,5 @@
 {% if page.cloud == true %}
-  {% capture link_prefix %}../{{site.versions["stable"]}}/{% endcapture %}
+  {% capture link_prefix %}../{{site.versions["stable"] }}/{% endcapture %}
   {% assign page_prefix = "" %}
 {% else %}
   {% assign link_prefix = "" %}
@@ -13,7 +13,7 @@ The **Transactions** page helps you:
 
 {{site.data.alerts.callout_success}}
 In contrast to the [**Statements** page]({{ page_prefix }}statements-page.html), which displays [SQL statement fingerprints]({{ page_prefix }}statements-page.html#sql-statement-fingerprints), the **Transactions** page displays SQL statement fingerprints grouped by [transaction]({{ link_prefix }}transactions.html).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 {% if page.cloud != true %}
 To view this page, click **SQL Activity** in the left-hand navigation of the DB Console. Click the **Transactions** tab.
@@ -41,11 +41,11 @@ It's possible to select a date range for which no transaction statistics exist. 
 
 To filter the transactions by [`application_name`]({{ link_prefix }}connection-parameters.html#additional-connection-parameters), select **App** and choose one or more applications. When no application is selected internal transactions **are not** displayed.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 - Internal transactions are displayed under the `$ internal` app.
 - Transactions from the SQL shell are displayed under the `$ cockroach` app.
 - If you haven't set `application_name` in a client connection string, it appears as `unset`.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 To filter transactions in which a SQL statement fingerprint exceeds a specified latency value, fill in the fields in **Query fingerprint runs longer than**.
 
@@ -57,7 +57,7 @@ The following screenshot shows the transactions that contain the string `rides` 
 
 {% include common/ui/statistics.md %}
 
-For an example of querying the statistics table, see [Example]({{ page_prefix}}statements-page.html#example).
+For an example of querying the statistics table, see [Example]({{ page_prefix }}statements-page.html#example).
 
 ## Understand the Transactions page
 
@@ -65,7 +65,7 @@ Use the Transactions page to identify transactions that you want to [troubleshoo
 
 {{site.data.alerts.callout_success}}
 If you haven't yet executed any transactions in the cluster as a user, this page will be blank.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 <a id="statement-fingerprint-properties"></a>
 
@@ -91,9 +91,9 @@ Retries | Cumulative number of [retries]({{ link_prefix }}transactions.html#tran
 Regions/Nodes | The region and nodes in which the transaction was executed. <br><br>**Regions/Nodes** are not visible for {{ site.data.products.serverless }} clusters.
 Statements | Number of SQL statements in the transaction.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Significant transactions on your database are likely to have a high execution count or number of rows read.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 ## Transaction Details page
 

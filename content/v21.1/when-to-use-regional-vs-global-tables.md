@@ -24,10 +24,10 @@ Use [`GLOBAL` tables](multiregion-overview.html#global-tables) if:
 For more information about how to choose an overall multi-region configuration, see [Choosing a multi-region configuration](choosing-a-multi-region-configuration.html).
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
 {{site.data.alerts.end }}
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 ## See also
 

@@ -10,7 +10,7 @@ The `RENAME TO` [statement](sql-statements.html) is part of [`ALTER TABLE`](alte
 It is not possible to rename a table referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.
 {{site.data.alerts.end }}
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -19,7 +19,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/rename_table.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/rename_table.html %}
 </div>
 
 ## Parameters
@@ -32,13 +32,13 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
 ### Rename a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db1;
 ~~~
@@ -53,12 +53,12 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE db1.t1 RENAME TO db1.t3
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db1;
 ~~~
@@ -75,7 +75,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 To avoid an error in case the table does not exist, you can include `IF EXISTS`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE IF EXISTS db1.table1 RENAME TO db1.table2;
 ~~~
@@ -84,7 +84,7 @@ To avoid an error in case the table does not exist, you can include `IF EXISTS`:
 
 To move a table from one database to another, use the above syntax but specify the source database after `ALTER TABLE` and the target database after `RENAME TO`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db1;
 ~~~
@@ -99,7 +99,7 @@ To move a table from one database to another, use the above syntax but specify t
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db2;
 ~~~
@@ -112,12 +112,12 @@ To move a table from one database to another, use the above syntax but specify t
 (0 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE db1.t3 RENAME TO db2.t3;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db1;
 ~~~
@@ -130,7 +130,7 @@ To move a table from one database to another, use the above syntax but specify t
 +--------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM db2;
 ~~~

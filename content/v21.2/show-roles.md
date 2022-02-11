@@ -14,7 +14,7 @@ The `SHOW ROLES` [statement](sql-statements.html) lists the roles for all databa
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_roles.html %}
+{{< sql-diagram "show_roles.html" >}}
 </div>
 
 ## Required privileges
@@ -23,7 +23,7 @@ The role must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ROLES;
 ~~~

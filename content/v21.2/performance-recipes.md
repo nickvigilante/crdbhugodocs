@@ -83,7 +83,7 @@ Transaction contention occurs when transactions issued from multiple clients at 
 
 #### Fix transaction contention problems
 
-{{ partial "{{ page.version.version }}/performance/statement-contention.md" . }}
+{% include {{ page.version.version }}/performance/statement-contention.md %}
 
 ### Statements with full table scans
 

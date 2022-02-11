@@ -11,7 +11,7 @@ toc: true
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/grant_roles.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/grant_roles.html %}</section>
 
 ## Required Privileges
 
@@ -36,12 +36,12 @@ Parameter | Description
 
 ### Grant Role Membership
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT design TO ernie;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~
@@ -58,11 +58,11 @@ Parameter | Description
 
 ### Grant the Admin Option
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT design TO ERNIE WITH ADMIN OPTION;
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~

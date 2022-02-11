@@ -18,11 +18,11 @@ In a multi-region deployment, the geo-partitioned replicas topology is a good ch
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -40,7 +40,7 @@ Using this pattern, you design your table schema to allow for [partitioning](par
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table and secondary index like the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
     id UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -52,7 +52,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX users_last_name_index ON users (city, last_name);
 ~~~
@@ -65,7 +65,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
 
 2. Partition the table by `city`. For example, assuming there are three possible `city` values, `los angeles`, `chicago`, and `new york`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER TABLE users PARTITION BY LIST (city) (
         PARTITION la VALUES IN ('los angeles'),
@@ -78,7 +78,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
 
 3. Partition the secondary index by `city` as well:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER INDEX users_last_name_index PARTITION BY LIST (city) (
         PARTITION la VALUES IN ('los angeles'),
@@ -95,7 +95,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
     The `<table>@*` syntax lets you create zone configurations for all identically named partitions of a table, saving you multiple steps.
     {{site.data.alerts.end }}
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER PARTITION la OF INDEX users@*
         CONFIGURE ZONE USING constraints = '[+region=us-west]';
@@ -107,7 +107,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
 
 5. To confirm that partitions are in effect, you can use the [`SHOW CREATE TABLE`](show-create.html) or [`SHOW PARTITIONS`](show-partitions.html) statement:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SHOW CREATE TABLE users;
     ~~~
@@ -148,7 +148,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
     (1 row)
     ~~~    
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SHOW PARTITIONS FROM TABLE users;
     ~~~
@@ -169,7 +169,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
 As you scale and add more cities, you can repeat steps 2 and 3 with the new complete list of cities to re-partition the table and its secondary indexes, and then repeat step 4 to create replication zones for the new partitions.
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/sql/crdb-internal-partitions.md" . }}
+{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
 
 ## Characteristics
 
@@ -221,4 +221,4 @@ For a step-by-step demonstration of how this pattern gets you low-latency reads 
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

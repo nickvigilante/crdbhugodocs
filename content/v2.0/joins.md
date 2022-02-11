@@ -13,7 +13,7 @@ Join expressions define a data source in the `FROM` sub-clause of [simple `SELEC
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/joined_table.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/joined_table.html %}
 </div>
 
 <div markdown="1"></div>

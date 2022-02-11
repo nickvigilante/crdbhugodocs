@@ -10,4 +10,4 @@ The **Sessions** page of the {{ site.data.products.db }} Console provides detail
 
 To view this page, click **SQL Activity** in the left-hand navigation of the {{ site.data.products.db }} Console. Click the **Sessions** tab.
 
-{{ partial "common/ui/sessions-page.md" . }}
+{% include common/ui/sessions-page.md %}

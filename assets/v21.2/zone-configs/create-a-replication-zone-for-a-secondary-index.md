@@ -1,6 +1,6 @@
 {{site.data.alerts.callout_success}}
 The [Cost-based Optimizer](cost-based-optimizer.html) can take advantage of replication zones for secondary indexes when optimizing queries.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 {% include enterprise-feature.md %}
 
@@ -10,7 +10,7 @@ To control replication for a specific secondary index, use the `ALTER INDEX ... 
 
 {{site.data.alerts.callout_success}}
 To get the name of a secondary index, which you need for the `CONFIGURE ZONE` statement, use the [`SHOW INDEX`](show-index.html) or [`SHOW CREATE TABLE`](show-create.html) statements.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 {% include copy-clipboard.html %}
 ~~~ sql

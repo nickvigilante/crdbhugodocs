@@ -20,7 +20,7 @@ For compatibility with PostgreSQL, CockroachDB supports the `ANALYZE`/`ANALYSE` 
 ## Syntax
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_stats.html %}
+{{< sql-diagram "create_stats.html" >}}
 </div>
 
 ## Parameters
@@ -43,7 +43,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 ### Alias syntax
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/analyze.html %}
+{{< sql-diagram "analyze.html" >}}
 </div>
 
 ### Alias parameters
@@ -54,16 +54,16 @@ Parameter | Description
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Create statistics on a single column
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE STATISTICS revenue_stats ON revenue FROM rides;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE rides;
 ~~~
@@ -92,12 +92,12 @@ Statistics are automatically collected for all columns in the `rides` table, mak
 
 ### Create statistics on multiple columns
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE STATISTICS city_revenue_stats ON city, revenue FROM rides;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE rides;
 ~~~
@@ -129,14 +129,14 @@ Multi-column statistics are automatically collected for all columns that prefix 
 
 The `CREATE STATISTICS` statement shown below automatically figures out which columns to get statistics on.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE STATISTICS users_stats FROM users;
 ~~~
 
 This statement creates statistics identical to the statistics that CockroachDB creates automatically.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE users;
 ~~~
@@ -163,7 +163,7 @@ This statement creates statistics identical to the statistics that CockroachDB c
 
 To create statistics as of a given time (in this example, 1 minute ago to avoid interfering with the production workload), run a statement like the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE STATISTICS vehicle_stats_1 FROM vehicles AS OF SYSTEM TIME '-1m';
 ~~~
@@ -172,7 +172,7 @@ For more information about how the `AS OF SYSTEM TIME` clause works, including s
 
 ### Delete statistics
 
-{{ partial "{{ page.version.version }}/misc/delete-statistics.md" . }}
+{% include {{ page.version.version }}/misc/delete-statistics.md %}
 
 ### View statistics jobs
 
@@ -182,7 +182,7 @@ To view statistics jobs, there are two options:
 
 1. Use  [`SHOW JOBS`](show-jobs.html) to see all statistics jobs that were created by user queries (i.e., someone entering `CREATE STATISTICS` at the SQL prompt or via application code):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM [SHOW JOBS] WHERE job_type LIKE '%CREATE STATS%';
     ~~~
@@ -199,7 +199,7 @@ To view statistics jobs, there are two options:
 
 2. Use `SHOW AUTOMATIC JOBS` to see statistics jobs that were created by the [automatic statistics feature](cost-based-optimizer.html#table-statistics):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM [SHOW AUTOMATIC JOBS] WHERE job_type LIKE '%CREATE STATS%';
     ~~~

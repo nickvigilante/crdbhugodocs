@@ -64,7 +64,7 @@ Note the following restrictions:
 
 ### Backups with revision history
 
-{{ partial "{{ page.version.version }}/misc/beta-warning.md" . }}
+{% include {{ page.version.version }}/misc/beta-warning.md %}
 
 You can create full or incremental backups with revision history:
 
@@ -102,7 +102,7 @@ After the backup has been initiated, you can control it with [`PAUSE JOB`](pause
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/backup.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/backup.html %}
 </div>
 
 {{site.data.alerts.callout_info }}
@@ -129,7 +129,7 @@ Only members of the `admin` role can run `BACKUP`. By default, the `root` user b
 
 We will use the URL provided to construct a secure API call to the service you specify. The path to each backup must be unique, and the URL for your backup's destination/locations must use the following format:
 
-{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
+{% include {{ page.version.version }}/misc/external-urls.md %}
 
 ## Examples
 
@@ -137,7 +137,7 @@ Per our guidance in the [Performance](#performance) section, we recommend starti
 
 ### Backup a single table or view
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP bank.customers \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -146,7 +146,7 @@ AS OF SYSTEM TIME '-10s';
 
 ### Backup multiple tables
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP bank.customers, bank.accounts \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -155,7 +155,7 @@ AS OF SYSTEM TIME '-10s';
 
 ### Backup an entire database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -164,7 +164,7 @@ AS OF SYSTEM TIME '-10s';
 
 ### Backup with revision history
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -175,7 +175,7 @@ AS OF SYSTEM TIME '-10s' WITH revision_history;
 
 Incremental backups must be based off of full backups you've already created.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/db/bank/2017-03-29-nightly' \
@@ -185,7 +185,7 @@ INCREMENTAL FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://ac
 
 ### Create incremental backups with revision history
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-29-nightly' \

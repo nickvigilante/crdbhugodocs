@@ -28,12 +28,12 @@ You can restore:
 
 ### Source privileges
 
-{{ partial "{{ page.version.version }}/misc/source-privileges.md" . }}
+{% include {{ page.version.version }}/misc/source-privileges.md %}
 
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/restore.html %}
+{{< sql-diagram "restore.html" >}}
 </div>
 
 ## Parameters
@@ -180,7 +180,7 @@ When a `RESTORE` fails or is canceled, partially restored data is properly clean
 
 - Restoring a [partition](partitioning.html) of a `REGIONAL BY ROW` table is not supported.
 
-- {{ partial "{{ page.version.version }}/known-limitations/restore-multiregion-match.md" . }}
+- {% include {{ page.version.version }}/known-limitations/restore-multiregion-match.md %}
 
 The ordering of regions and how region matching is determined is a known limitation. See the [Known Limitations](#known-limitations) section for the tracking issues on limitations around `RESTORE` and multi-region support.
 
@@ -198,7 +198,7 @@ If initiated correctly, the statement returns when the restore is finished or if
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
+{% include {{ page.version.version }}/backups/bulk-auth-options.md %}
 
 <div class="filters clearfix">
   <button class="filter-button" data-scope="s3">Amazon S3</button>
@@ -745,9 +745,9 @@ After the restore completes, add the `users` to the existing `system.users` tabl
 
 ## Known limitations
 
-- {{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }} [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/53044)
+- {% include {{ page.version.version }}/known-limitations/restore-aost.md %} [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/53044)
 - To successfully [restore a table into a multi-region database](#restoring-to-multi-region-databases), it is necessary for the order and regions to match between the source and destination database. See the [Known Limitations](known-limitations.html#using-restore-with-multi-region-table-localities) page for detail on ordering and matching regions. [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/71071)
-- {{ partial "{{ page.version.version }}/known-limitations/restore-tables-non-multi-reg.md" . }}
+- {% include {{ page.version.version }}/known-limitations/restore-tables-non-multi-reg.md %}
 
 ## See also
 

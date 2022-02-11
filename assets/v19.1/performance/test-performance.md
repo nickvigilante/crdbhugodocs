@@ -10,7 +10,7 @@ For example, imagine we are a Movr administrator in New York, and we want to get
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ {{page.app}} \
+    $ {{ page.app }} \
     --host=<address of a node in us-east1-b> \
     --statement="SELECT id, ext FROM vehicles \
     WHERE city = 'new york' \
@@ -48,7 +48,7 @@ For contrast, imagine we are now a Movr administrator in Los Angeles, and we wan
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ {{page.app}} \
+    $ {{ page.app }} \
     --host=<address of a node in us-west2-a> \
     --statement="SELECT id, ext FROM vehicles \
     WHERE city = 'los angeles' \
@@ -86,7 +86,7 @@ The geographic distribution of data impacts write performance as well. For examp
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    {{page.app}} \
+    {{ page.app }} \
     --host=<address of a node in us-west1-a> \
     --statement="INSERT INTO users VALUES (gen_random_uuid(), 'seattle', 'Seatller', '111 East Street', '1736352379937347')" \
     --repeat=100 \
@@ -107,7 +107,7 @@ The geographic distribution of data impacts write performance as well. For examp
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    {{page.app}} \
+    {{ page.app }} \
     --host=<address of a node in us-east1-b> \
     --statement="INSERT INTO users VALUES (gen_random_uuid(), 'new york', 'New Yorker', '111 West Street', '9822222379937347')" \
     --repeat=100 \
@@ -127,7 +127,7 @@ It took 48.40ms to create a user in Seattle and 116.86ms to create a user in New
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{page.certs}} \
+{{ page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SHOW EXPERIMENTAL_RANGES FROM TABLE users;"

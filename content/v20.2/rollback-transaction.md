@@ -15,12 +15,12 @@ There are two ways to use `ROLLBACK`:
   - [Rollback a nested transaction](#rollback-a-nested-transaction)
   - [Retry a transaction](#retry-a-transaction)
 
-{{ partial "{{ page.version.version }}/sql/savepoint-ddl-rollbacks.md" . }}
+{% include {{ page.version.version }}/sql/savepoint-ddl-rollbacks.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/rollback_transaction.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/rollback_transaction.html %}
 </div>
 
 ## Required privileges
@@ -36,11 +36,11 @@ No [privileges](authorization.html#assign-privileges) are required to rollback a
 
 ## Savepoints and row locks
 
-{{ partial "{{ page.version.version }}/sql/savepoints-and-row-locks.md" . }}
+{% include {{ page.version.version }}/sql/savepoints-and-row-locks.md %}
 
 ## Savepoints and high priority transactions
 
-{{ partial "{{ page.version.version }}/sql/savepoints-and-high-priority-transactions.md" . }}
+{% include {{ page.version.version }}/sql/savepoints-and-high-priority-transactions.md %}
 
 ## Examples
 
@@ -48,7 +48,7 @@ No [privileges](authorization.html#assign-privileges) are required to rollback a
 
 Typically, an application conditionally executes rollbacks, but we can see their behavior by using `ROLLBACK` instead of `COMMIT` directly through SQL:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -61,22 +61,22 @@ Typically, an application conditionally executes rollbacks, but we can see their
 +----------+---------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > UPDATE accounts SET balance = 2500 WHERE name = 'Marciela';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ROLLBACK;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -99,7 +99,7 @@ For examples showing how to use `ROLLBACK TO SAVEPOINT` to rollback a nested tra
 
 When using [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), use `ROLLBACK TO SAVEPOINT` to handle a transaction that needs to be retried (identified via the `40001` error code or `restart transaction` string in the error message), and then re-execute the statements you want the transaction to contain.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ROLLBACK TO SAVEPOINT cockroach_restart;
 ~~~

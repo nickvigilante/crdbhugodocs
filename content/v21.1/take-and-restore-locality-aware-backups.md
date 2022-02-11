@@ -31,7 +31,7 @@ During locality-aware backups, backup file placement is determined by leaseholde
 
 For example, to create a locality-aware backup where nodes with the locality `region=us-west` write backup files to `s3://us-west-bucket`, and all other nodes write to `s3://us-east-bucket` by default, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
@@ -39,7 +39,7 @@ For example, to create a locality-aware backup where nodes with the locality `re
 
 can be restored by running:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM ('s3://us-east-bucket', 's3://us-west-bucket');
 ~~~
@@ -71,7 +71,7 @@ And the restored cluster does not have [nodes with the locality](partitioning.ht
 
 For example, a locality-aware backup created with:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west')
@@ -79,7 +79,7 @@ For example, a locality-aware backup created with:
 
 The backup above can be restored by running:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM
   	('s3://us-east-bucket/{path/to/backup/subdirectory}', 's3://us-west-bucket/{path/to/backup/subdirectory}');
@@ -95,7 +95,7 @@ To view the available subdirectories, use [`SHOW BACKUPS`](restore.html#view-the
 
 If you backup to a destination already containing a [full backup](take-full-and-incremental-backups.html#full-backups), an [incremental backup](take-full-and-incremental-backups.html#incremental-backups) will be appended to the full backup in a subdirectory. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO LATEST IN
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
@@ -109,7 +109,7 @@ It is recommended that the same localities be included for every incremental bac
 
 And if you want to explicitly control where your incremental backups go, specify the subdirectory in the `BACKUP` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO {subdirectory} IN
 		('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
@@ -123,7 +123,7 @@ A locality-aware backup URI can also be used in place of any incremental backup 
 
 For example, an incremental locality-aware backup created with
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO LATEST IN
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west')
@@ -131,7 +131,7 @@ For example, an incremental locality-aware backup created with
 
 can be restored by running:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM
   	('s3://us-east-bucket/{path/to/backup/subdirectory}', 's3://us-west-bucket/{path/to/backup/subdirectory}');
@@ -149,14 +149,14 @@ During a [locality-aware restore](#restore-from-a-locality-aware-backup), some d
 
 Once the locality-aware restore has started, [pause the restore](pause-job.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE JOB 27536791415282;
 ~~~
 
 The `system.zones` table stores your cluster's [zone configurations](configure-replication-zones.html), which will prevent the data from rebalancing. To restore them, you must restore the `system.zones` table into a new database because you cannot drop the existing `system.zones` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE system.zones \
 FROM 'azure://acme-co-backup?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' \
@@ -165,21 +165,21 @@ WITH into_db = 'newdb';
 
 After it's restored into a new database, you can write the restored `zones` table data to the cluster's existing `system.zones` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.zones SELECT * FROM newdb.zones;
 ~~~
 
 Then drop the temporary table you created:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE newdb.zones;
 ~~~
 
 Then, [resume the restore](resume-job.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOB 27536791415282;
 ~~~

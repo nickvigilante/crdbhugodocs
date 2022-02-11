@@ -8,7 +8,7 @@ The **Storage** dashboard lets you monitor the storage utilization of your clust
 
 To view this dashboard, [access the Admin UI](admin-ui-overview.html#admin-ui-access), click **Metrics** in the left-hand navigation, and select **Dashboard** > **Storage**.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md %}
 
 The **Storage** dashboard displays the following time series graphs:
 
@@ -36,7 +36,7 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 {{site.data.alerts.end }}
 
 ## Live Bytes
@@ -51,7 +51,7 @@ Metric | Description
 **System** | Number of physical bytes stored in [system key-value pairs](architecture/distribution-layer.html#meta-ranges). This includes historical and deleted data that has not been [garbage collected](architecture/storage-layer.html#garbage-collection).
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/admin-ui/logical-bytes.md" . }}
+{% include {{ page.version.version }}/admin-ui/logical-bytes.md %}
 {{site.data.alerts.end }}
 
 ## File Descriptors
@@ -84,7 +84,7 @@ The **Storage** dashboard shows other time series graphs that are important for 
 
 For monitoring CockroachDB, it is sufficient to use the [**Capacity**](#capacity) and [**File Descriptors**](#file-descriptors) graphs.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-summary-events.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-summary-events.md %}
 
 ## See also
 

@@ -13,7 +13,7 @@ To view and cancel a session, the user must be a member of the `admin` role or m
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/cancel_session.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/cancel_session.html %}</div>
 
 ## Parameters
 
@@ -28,7 +28,7 @@ Parameter | Description
 
 In this example, we use the [`SHOW SESSIONS`](show-sessions.html) statement to get the ID of a session and then pass the ID into the `CANCEL SESSION` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SESSIONS;
 ~~~
@@ -42,14 +42,14 @@ In this example, we use the [`SHOW SESSIONS`](show-sessions.html) statement to g
 +---------+----------------------------------+-----------+...
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL SESSION '1530fe0e46d2692e0000000000000001';
 ~~~
 
 You can also cancel a session using a subquery that returns a single session ID:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL SESSIONS (SELECT session_id FROM [SHOW SESSIONS]
       WHERE user_name = 'root');
@@ -59,7 +59,7 @@ You can also cancel a session using a subquery that returns a single session ID:
 
 Use the [`SHOW SESSIONS`](show-sessions.html) statement to view all active sessions:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SESSIONS;
 ~~~
@@ -77,7 +77,7 @@ Use the [`SHOW SESSIONS`](show-sessions.html) statement to view all active sessi
 
 To cancel multiple sessions, nest a [`SELECT` clause](select-clause.html) that retrieves `session_id`(s) inside the `CANCEL SESSIONS` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL SESSIONS (SELECT session_id FROM [SHOW SESSIONS]
       WHERE user_name = 'maxroach');

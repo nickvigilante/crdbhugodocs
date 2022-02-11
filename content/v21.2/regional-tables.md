@@ -13,20 +13,20 @@ In a [multi-region deployment](multiregion-overview.html), [regional table local
 Tables with regional table locality can survive zone or region failures, depending on the database-level [survival goal](multiregion-overview.html#survival-goals) setting.
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
 {{site.data.alerts.end }}
 
 ## Prerequisites
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/multiregion-fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multiregion-fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -36,11 +36,11 @@ To use this pattern, you tell CockroachDB to set the [table locality](multiregio
 
 #### Regional tables
 
-{{ partial "{{ page.version.version }}/sql/regional-table-description.md" . }}
+{% include {{ page.version.version }}/sql/regional-table-description.md %}
 
 #### Regional by row tables
 
-{{ partial "{{ page.version.version }}/sql/regional-by-row-table-description.md" . }}
+{% include {{ page.version.version }}/sql/regional-by-row-table-description.md %}
 
 ### Steps
 
@@ -48,11 +48,11 @@ To use this pattern, you tell CockroachDB to set the [table locality](multiregio
 By default, all tables in a multi-region database are [Regional tables](#regional-tables).  Therefore, the steps below show how to set up [Regional by row tables](#regional-by-row-tables).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/topology-patterns/multiregion-db-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multiregion-db-setup.md %}
 
 Next, create a `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE users (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -65,7 +65,7 @@ CREATE TABLE users (
 
 By default, all tables in a multi-region cluster default to the [`REGIONAL BY TABLE`](#regional-tables) locality setting.  To verify this, issue a [`SHOW CREATE`](show-create.html) on the `users` table you just created:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW CREATE TABLE users;
 ~~~
@@ -86,7 +86,7 @@ SHOW CREATE TABLE users;
 
 Next, set the table's locality to [`REGIONAL BY ROW`](#regional-by-row-tables) using the [`ALTER TABLE ... SET LOCALITY`](set-locality.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE users SET LOCALITY REGIONAL BY ROW;
 ~~~
@@ -100,7 +100,7 @@ Now that the table is regional by row, we need to tell CockroachDB which rows ne
 
 Issue the statements below to associate each row with a home region that depends on its `city` column:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 UPDATE users SET crdb_region = 'us-central'   WHERE city IN ('chicago', 'milwaukee', 'dallas');
 UPDATE users SET crdb_region = 'us-east'      WHERE city IN ('washington dc', 'boston', 'new york');
@@ -109,7 +109,7 @@ UPDATE users SET crdb_region = 'us-west'      WHERE city IN ('los angeles', 'san
 
 By default, the region column will get auto-assigned on insert; this is also known as "auto-homing".  For more information about how the `crdb_region` column works, see [`ALTER TABLE ... SET LOCALITY REGIONAL BY ROW`](set-locality.html#regional-by-row).
 
-{{ partial "{{ page.version.version }}/sql/locality-optimized-search.md" . }}
+{% include {{ page.version.version }}/sql/locality-optimized-search.md %}
 
 {{site.data.alerts.callout_success}}
 A good way to check that your [table locality settings](multiregion-overview.html#table-locality) are having the expected effect is by monitoring how the performance metrics of a workload change as the settings are applied to a running cluster.  For a tutorial showing how table localities can improve performance metrics across a multi-region cluster, see [Low Latency Reads and Writes in a Multi-Region Cluster](demo-low-latency-multi-region-deployment.html).
@@ -140,4 +140,4 @@ For a step-by-step demonstration showing how CockroachDB's multi-region capabili
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

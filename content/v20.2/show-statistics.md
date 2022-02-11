@@ -14,7 +14,7 @@ The `SHOW STATISTICS` [statement](sql-statements.html) lists [table statistics](
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/show_stats.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/show_stats.html %}
 </div>
 
 ## Required Privileges
@@ -29,11 +29,11 @@ Parameter      | Description
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### List table statistics
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE rides;
 ~~~
@@ -59,7 +59,7 @@ Parameter      | Description
 
 ### Delete statistics
 
-{{ partial "{{ page.version.version }}/misc/delete-statistics.md" . }}
+{% include {{ page.version.version }}/misc/delete-statistics.md %}
 
 ## See Also
 

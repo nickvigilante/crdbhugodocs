@@ -12,7 +12,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/comment.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/comment.html %}</section>
 
 ## Parameters
 
@@ -26,20 +26,20 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Add a comment to a database
 
 To add a comment to a database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > COMMENT ON DATABASE movr IS 'This database contains information about users, vehicles, and rides.';
 ~~~
 
 To view database comments, use [`SHOW DATABASES`](show-databases.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES WITH COMMENT;
 ~~~
@@ -58,14 +58,14 @@ To view database comments, use [`SHOW DATABASES`](show-databases.html):
 
 To add a comment to a table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > COMMENT ON TABLE vehicles IS 'This table contains information about vehicles registered with MovR.';
 ~~~
 
 To view table comments, use [`SHOW TABLES`](show-tables.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr WITH COMMENT;
 ~~~
@@ -84,7 +84,7 @@ To view table comments, use [`SHOW TABLES`](show-tables.html):
 
 <span class="version-tag">New in v20.1:</span> You can also view comments on a table with [`SHOW CREATE`](show-create.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -114,14 +114,14 @@ To view table comments, use [`SHOW TABLES`](show-tables.html):
 
 To add a comment to a column:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > COMMENT ON COLUMN users.credit_card IS 'This column contains user payment information.';
 ~~~
 
 To view column comments, use [`SHOW COLUMNS`](show-columns.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM users WITH COMMENT;
 ~~~
@@ -141,21 +141,21 @@ To view column comments, use [`SHOW COLUMNS`](show-columns.html):
 
 Suppose we [create an index](create-index.html) on the `name` column of the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON users(name);
 ~~~
 
 To add a comment to the index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > COMMENT ON INDEX users_name_idx IS 'This index improves performance on queries that filter by name.';
 ~~~
 
 To view column comments, use [`SHOW INDEXES ... WITH COMMENT`](show-index.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users WITH COMMENT;
 ~~~

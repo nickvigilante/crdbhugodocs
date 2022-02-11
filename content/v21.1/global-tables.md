@@ -15,7 +15,7 @@ In general, this pattern is suited well for reference tables that are rarely upd
 Tables with the `GLOBAL` locality can survive zone or region failures, depending on the database-level [survival goal](multiregion-overview.html#survival-goals) setting.
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
 {{site.data.alerts.end }}
 
 {{site.data.alerts.callout_info }}
@@ -26,11 +26,11 @@ Tables with the `GLOBAL` locality can survive zone or region failures, depending
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/multiregion-fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multiregion-fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -38,15 +38,15 @@ Tables with the `GLOBAL` locality can survive zone or region failures, depending
 
 To use this pattern, you tell CockroachDB to set the [table locality](multiregion-overview.html#table-locality) to `GLOBAL`.
 
-{{ partial "{{ page.version.version }}/sql/global-table-description.md" . }}
+{% include {{ page.version.version }}/sql/global-table-description.md %}
 
 ### Steps
 
-{{ partial "{{ page.version.version }}/topology-patterns/multiregion-db-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multiregion-db-setup.md %}
 
 Next, create a [`GLOBAL` table](multiregion-overview.html#global-tables) by issuing the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE postal_codes (
   id INT PRIMARY KEY,
@@ -56,7 +56,7 @@ CREATE TABLE postal_codes (
 
 Alternatively, you can set an existing table's locality to `GLOBAL` using [`ALTER TABLE ... SET LOCALITY`](set-locality.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE postal_codes SET LOCALITY GLOBAL;
 ~~~
@@ -95,4 +95,4 @@ For a step-by-step demonstration showing how CockroachDB's multi-region capabili
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

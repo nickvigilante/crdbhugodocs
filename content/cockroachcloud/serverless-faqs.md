@@ -11,7 +11,7 @@ docs_area: get_started
 
 This page answers the frequently asked questions about {{ site.data.products.serverless }} and {{ site.data.products.dedicated }}.
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 ## General
 
@@ -45,7 +45,7 @@ No, you can create a Serverless cluster that is free forever. If you choose to s
 
 ### How can I estimate how many RUs my workload will consume?
 
-{{ partial "cockroachcloud/serverless-usage.md" . }}
+{% include cockroachcloud/serverless-usage.md %}
 
 ### What can I use {{ site.data.products.serverless }} for?
 

@@ -253,11 +253,11 @@ For the full list of functions and operators we support, see [Functions and Oper
 
 ### Create a table with a `JSONB` column and a computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/jsonb.md" . }}
+{% include {{ page.version.version }}/computed-columns/jsonb.md %}
 
 ### Create a table with a `JSONB` column and a virtual computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/virtual.md" . }}
+{% include {{ page.version.version }}/computed-columns/virtual.md %}
 
 ## Supported casting and conversion
 

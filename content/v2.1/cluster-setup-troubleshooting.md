@@ -29,19 +29,19 @@ Proceed through the following steps until you locate the source of the issue wit
 
 1. Terminate any running `cockroach` processes and remove any old data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ pkill -9 cockroach
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm -r testStore
     ~~~
 
 2. Start a single insecure node and log all activity to your terminal:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start --insecure --logtostderr --store=testStore
     ~~~
@@ -57,7 +57,7 @@ Proceed through the following steps until you locate the source of the issue wit
 
 3. If the node appears to have started successfully, open a new terminal window, and attempt to execute the following SQL statement:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --insecure -e "SHOW DATABASES"
     ~~~
@@ -85,12 +85,12 @@ Proceed through the following steps until you locate the source of the issue wit
 
 1. Terminate any running `cockroach` processes and remove any old data on the additional machines::
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ pkill -9 cockroach
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm -r testStore
     ~~~
@@ -99,7 +99,7 @@ Proceed through the following steps until you locate the source of the issue wit
 
 2. On each machine, start the CockroachDB node, joining it to the first node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start --insecure --logtostderr --store=testStore \
     --join=<host of first node>
@@ -164,7 +164,7 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 
 - Choose a different directory to store the CockroachDB data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Store this node's data in [new directory]
     $ cockroach start --store=<new directory> --join=<cluster host> <other flags>
@@ -172,13 +172,13 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 
 - Remove the existing directory and start a node joining the cluster again:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Remove the directory
     $ rm -r cockroach-data/
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Start a node joining the cluster
     $ cockroach start --join=<cluster host>:26257 <other flags>

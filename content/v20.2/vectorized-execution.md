@@ -64,7 +64,7 @@ You can also configure a node's total budget for in-memory query processing at n
 
 ### Unordered aggregation operations
 
-{{ partial "{{ page.version.version }}/known-limitations/unordered-operations.md" . }}
+{% include {{ page.version.version }}/known-limitations/unordered-operations.md %}
 
 ### Unsupported queries
 

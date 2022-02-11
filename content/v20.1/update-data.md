@@ -15,7 +15,7 @@ Make sure you have already:
 - [Connected to the database](connect-to-the-database.html).
 - [Inserted data](insert-data.html) that you now want to update.
 
-{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
+{% include {{ page.version.version }}/app/retry-errors.md %}
 
 ## Update a row
 
@@ -28,7 +28,7 @@ Make sure you have already:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 UPDATE accounts SET balance = 900 WHERE id = 1;
 ~~~
@@ -39,7 +39,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
 // tx is a *sql.Tx from "database/sql"
 
@@ -51,13 +51,13 @@ if _, err := tx.Exec("UPDATE accounts SET balance = balance - $1 WHERE id = $2",
 }
 ~~~
 
-{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
+{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -74,13 +74,13 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
+{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -93,7 +93,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
+{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
 
 </section>
 

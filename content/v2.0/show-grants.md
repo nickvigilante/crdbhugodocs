@@ -10,7 +10,7 @@ The `SHOW GRANTS` [statement](sql-statements.html) lists the [privileges](privil
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/show_grants.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/show_grants.html %}</section>
 
 ## Required Privileges
 
@@ -31,7 +31,7 @@ Parameter | Description
 
 To list all grants for all users and roles on all databases and tables:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS;
 ~~~
@@ -50,7 +50,7 @@ To list all grants for all users and roles on all databases and tables:
 
 ### Show a Specific User or Role's Grants <span class="version-tag">New in v2.0</span>
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS FOR maxroach;
 ~~~
@@ -69,7 +69,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **Specific database, all users and roles:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE db2:
 ~~~
@@ -94,7 +94,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **Specific database, specific user or role:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON DATABASE db2 FOR betsyroach;
 ~~~
@@ -113,7 +113,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **Specific tables, all users and roles:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE test_roles.employees;
 ~~~
@@ -130,7 +130,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **Specific tables, specific role or user:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE test_roles.employees FOR system_ops;
 ~~~
@@ -144,7 +144,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **All tables, all users and roles:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE test_roles.*;
 ~~~
@@ -161,7 +161,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **All tables, specific users or roles:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON TABLE test_roles.* FOR system_ops;
 ~~~
@@ -178,7 +178,7 @@ To list all grants for all users and roles on all databases and tables:
 
 **All members of all roles:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW GRANTS ON ROLE;
 ~~~
@@ -199,7 +199,7 @@ SHOW GRANTS ON ROLE;
 
 **Members of a specific role:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW GRANTS ON ROLE design;
 ~~~
@@ -214,7 +214,7 @@ SHOW GRANTS ON ROLE design;
 
 **Roles of a specific user or role:**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW GRANTS ON ROLE FOR carl;
 ~~~

@@ -9,7 +9,7 @@ The **Runtime** dashboard in the DB Console lets you monitor runtime metrics for
 
 To view this dashboard, [access the DB Console](ui-overview.html#db-console-access), click **Metrics** on the left-hand navigation bar, and select **Dashboard** > **Runtime**.
 
-{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
 The **Runtime** dashboard displays the following time series graphs:
 
@@ -39,11 +39,11 @@ Go Total | Total memory managed by the Go layer.
 CGo Allocated | Memory allocated by the C layer.
 CGo Total | Total memory managed by the C layer.
 
-{{ partial "{{ page.version.version }}/prod-deployment/healthy-crdb-memory.md" . }}
+{% include {{ page.version.version }}/prod-deployment/healthy-crdb-memory.md %}
 
 ## Runnable Goroutines per CPU
 
-{{ partial "{{ page.version.version }}/ui/runnable-goroutines-graph.md" . }}
+{% include {{ page.version.version }}/ui/runnable-goroutines-graph.md %}
 
 ## CPU Time
 
@@ -76,7 +76,7 @@ The **Runtime** dashboard shows other time series graphs that are important for 
 
 For monitoring CockroachDB, it is sufficient to use the [**Live Node Count**](#live-node-count), [**Memory Usage**](#memory-usage), [**CPU Time**](#cpu-time), and [**Clock Offset**](#clock-offset) graphs.
 
-{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
+{% include {{ page.version.version }}/ui/ui-summary-events.md %}
 
 ## See also
 

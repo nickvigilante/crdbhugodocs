@@ -1,3 +1,3 @@
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Cockroach Cloud does not yet support certificate-based user authentication.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

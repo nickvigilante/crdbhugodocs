@@ -5,7 +5,7 @@ toc: true
 docs_area: manage
 ---
 
-{{ partial "{{ page.version.version }}/ui/admin-access.md" . }}
+{% include {{ page.version.version }}/ui/admin-access.md %}
 
 The **Node Map** is useful for:
 
@@ -15,7 +15,7 @@ The **Node Map** is useful for:
 
 This page walks you through the process of setting up and enabling the Node Map.
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 <img src="{{ 'images/v21.2/ui-node-map-navigation3.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
@@ -42,7 +42,7 @@ To start a new cluster with the correct `--locality` flags:
 
 1. Start Node 1:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~
     $ cockroach start \
     --insecure \
@@ -55,7 +55,7 @@ To start a new cluster with the correct `--locality` flags:
 
 1. Start Node 2:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~
     $ cockroach start \
     --insecure \
@@ -68,7 +68,7 @@ To start a new cluster with the correct `--locality` flags:
 
 1. Start Node 3:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~
     $ cockroach start \
     --insecure \
@@ -81,7 +81,7 @@ To start a new cluster with the correct `--locality` flags:
 
 1. Start Node 4:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~
     $ cockroach start \
     --insecure \
@@ -94,7 +94,7 @@ To start a new cluster with the correct `--locality` flags:
 
 1. Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node>
     ~~~
@@ -121,14 +121,14 @@ To be displayed on the world map, localities must be assigned a corresponding la
 
 1. Launch the built-in SQL client:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --insecure --host=<address of any node>
     ~~~
 
 1. Insert the approximate latitude and longitude of each region into the `system.locations` table:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO system.locations VALUES
       ('region', 'us-east-1', 37.478397, -76.453077),
@@ -184,7 +184,7 @@ If a locality (e.g., region) is not assigned latitude and longitude coordinates,
 
 ### Displayed Used Capacity value is more than configured Capacity
 
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 
 ## Location coordinates
 
@@ -192,12 +192,12 @@ This section lists the latitudes and longitudes of AWS, Azure, and Google Cloud 
 
 ### AWS locations
 
-{{ partial "{{ page.version.version }}/misc/aws-locations.md" . }}
+{% include {{ page.version.version }}/misc/aws-locations.md %}
 
 ### Azure locations
 
-{{ partial "{{ page.version.version }}/misc/azure-locations.md" . }}
+{% include {{ page.version.version }}/misc/azure-locations.md %}
 
 ### Google Cloud locations
 
-{{ partial "{{ page.version.version }}/misc/gce-locations.md" . }}
+{% include {{ page.version.version }}/misc/gce-locations.md %}

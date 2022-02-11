@@ -35,7 +35,7 @@ In CockroachDB, a transaction is set up by surrounding SQL statements with the [
 
 To use [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), you should also include the [`SAVEPOINT`](savepoint.html), [`ROLLBACK TO SAVEPOINT`](rollback-transaction.html) and [`RELEASE SAVEPOINT`](release-savepoint.html) statements.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 
@@ -66,7 +66,7 @@ Type | Description
 
 Transactions may require retries if they experience deadlock or [read/write contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention) with other concurrent transactions which cannot be resolved without allowing potential [serializable anomalies](https://en.wikipedia.org/wiki/Serializability).
 
-{{ partial "{{ page.version.version }}/misc/mitigate-contention-note.md" . }}
+{% include {{ page.version.version }}/misc/mitigate-contention-note.md %}
 
 There are two cases in which transaction retries occur:
 
@@ -134,7 +134,7 @@ transaction and so you should write your transactions to use
 
 Your application should include client-side retry handling when the statements are sent individually, such as:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 
@@ -158,11 +158,11 @@ To handle these types of errors, you have the following options:
 - If you're building an application with a language and framework for which we do not provide example retry logic, you might need to write your own retry logic. For an example, see the [Client-side intervention example](#client-side-intervention-example).
 - **Advanced users, such as library authors**: See [Advanced Client-Side Transaction Retries](advanced-client-side-transaction-retries.html).
 
-{{ partial "{{ page.version.version }}/misc/mitigate-contention-note.md" . }}
+{% include {{ page.version.version }}/misc/mitigate-contention-note.md %}
 
 #### Client-side intervention example
 
-{{ partial "{{ page.version.version }}/misc/client-side-intervention-example.md" . }}
+{% include {{ page.version.version }}/misc/client-side-intervention-example.md %}
 
 ## Transaction contention
 

@@ -8,7 +8,7 @@ docs_area: reference.sql
 The `EXPLAIN ANALYZE` [statement](sql-statements.html) **executes a SQL query** and generates a statement plan with execution statistics. The `(DEBUG)` option generates a URL to download a bundle with more details about the statement plan for advanced debugging. Statement plans provide information around SQL execution, which can be used to troubleshoot slow queries by figuring out where time is being spent, how long a processor (i.e., a component that takes streams of input rows and processes them according to a specification) is not doing work, etc. For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }}
+{% include {{ page.version.version }}/sql/physical-plan-url.md %}
 {{site.data.alerts.end }}
 
 ## Aliases
@@ -19,7 +19,7 @@ In CockroachDB, the following are aliases for `EXPLAIN ANALYZE`:
 
 ## Synopsis
 
-<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/explain_analyze.html %}</div>
+<div>{{< sql-diagram "explain_analyze.html" >}}</div>
 
 ## Parameters
 
@@ -45,7 +45,7 @@ Successful `EXPLAIN ANALYZE` statements return tables with the following details
 Node details | The properties, columns, and ordering details for the current statement plan node in the tree.
 Time | The time details for the statement. The total time is the planning and execution time of the statement. The execution time is the time it took for the final statement plan to complete. The network time is the amount of time it took to distribute the statement across the relevant nodes in the cluster. Some statements do not need to be distributed, so the network time is 0ms.
 
-If you use the [`DISTSQL` option](#distsql-option), the statement will also return a URL generated for a physical statement plan that provides high level information about how a statement will be executed. {{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }} For details about reading the physical statement plan, see [DistSQL plan diagram](#distsql-plan-diagram).
+If you use the [`DISTSQL` option](#distsql-option), the statement will also return a URL generated for a physical statement plan that provides high level information about how a statement will be executed. {% include {{ page.version.version }}/sql/physical-plan-url.md %} For details about reading the physical statement plan, see [DistSQL plan diagram](#distsql-plan-diagram).
 
 If you use the [`DEBUG` option](#debug-option), the statement will return a single `text` column with a URL and instructions to download the `DEBUG` bundle, which includes the physical statement plan.
 
@@ -153,11 +153,11 @@ File                | Description
 
 You can obtain this ZIP file by following the link provided in the `EXPLAIN ANALYZE (DEBUG)` output, or by activating [statement diagnostics](ui-statements-page.html#diagnostics) in the DB Console.
 
-{{ partial "common/sql/statement-bundle-warning.md" . }}
+{% include common/sql/statement-bundle-warning.md %}
 
 ## Examples
 
-To run the examples, initialize a demo cluster with the MovR workload. {{ partial "{{ page.version.version }}/demo_movr.md" . }}
+To run the examples, initialize a demo cluster with the MovR workload. {% include {{ page.version.version }}/demo_movr.md %}
 
 ### `EXPLAIN ANALYZE`
 

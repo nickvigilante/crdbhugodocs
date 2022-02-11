@@ -137,7 +137,7 @@ Flag | Description
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 
 The `node decommission`, `node recommission`, and `node drain` subcommands also support the following client connection flags:
 
@@ -150,7 +150,7 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
 ### Logging
 
-{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
+{% include {{ page.version.version }}/misc/logging-defaults.md %}
 
 ## Response
 
@@ -216,7 +216,7 @@ To follow along with the examples, start [an insecure cluster](start-a-local-clu
 
 ### List node IDs
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node ls --insecure
 ~~~
@@ -232,7 +232,7 @@ $ cockroach node ls --insecure
 
 ### Show the status of a single node
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status 1 --host=localhost:26257 --insecure
 ~~~
@@ -246,7 +246,7 @@ $ cockroach node status 1 --host=localhost:26257 --insecure
 
 ### Show the status of all nodes
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --host=localhost:26257 --insecure
 ~~~
@@ -264,12 +264,12 @@ $ cockroach node status --host=localhost:26257 --insecure
 
 The `is_live` and `is_available` fields are marked as `true` as long as a majority of the nodes are up, and a quorum can be reached:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach quit --host=localhost:26258 --insecure
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --host=localhost:26257 --insecure
 ~~~
@@ -285,12 +285,12 @@ $ cockroach node status --host=localhost:26257 --insecure
 
 If a majority of nodes are down and a quorum cannot be reached, the `is_live` field is marked as `true` for the nodes that are up, but the `is_available` field is marked as `false` for all nodes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach quit --host=localhost:26259 --insecure
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --host=localhost:26257 --insecure
 ~~~

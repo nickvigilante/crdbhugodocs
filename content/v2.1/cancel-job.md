@@ -18,7 +18,7 @@ Only members of the `admin` role can cancel a job. By default, the `root` user b
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/cancel_job.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/cancel_job.html %}
 </div>
 
 ## Parameters
@@ -50,7 +50,7 @@ Parameter | Description
 
 <span class="version-tag">New in v2.1:</span> To cancel multiple jobs, nest a [`SELECT` clause](select-clause.html) that retrieves `job_id`(s) inside the `CANCEL JOBS` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL JOBS (SELECT job_id FROM [SHOW JOBS]
       WHERE user_name = 'maxroach');

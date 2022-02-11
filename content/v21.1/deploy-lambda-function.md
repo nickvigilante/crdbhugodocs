@@ -24,7 +24,7 @@ Before starting the tutorial, do the following:
 
 ## Step 1. Create a {{ site.data.products.serverless }} cluster
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
 <a name="connection-string"></a>
 
@@ -163,4 +163,4 @@ This step is optional, as you do not need to create a new deployment package to 
 - [Build a Simple Django App with CockroachDB](build-a-python-app-with-cockroachdb-django.html)
 - [Deploy a Global, Serverless Application](movr-flask-deployment.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

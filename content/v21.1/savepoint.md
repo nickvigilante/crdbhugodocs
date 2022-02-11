@@ -8,12 +8,12 @@ A savepoint is a marker that defines the beginning of a [nested transaction](tra
 
  CockroachDB supports [general purpose savepoints for nested transactions](#savepoints-for-nested-transactions), in addition to continued support for [special-purpose retry savepoints](#savepoints-for-client-side-transaction-retries).
 
-{{ partial "{{ page.version.version }}/sql/savepoint-ddl-rollbacks.md" . }}
+{% include {{ page.version.version }}/sql/savepoint-ddl-rollbacks.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/savepoint.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/savepoint.html %}
 </div>
 
 ## Required privileges
@@ -28,17 +28,17 @@ name      | The name of the savepoint.  [Nested transactions](savepoint.html#sav
 
 ## Savepoints and row locks
 
-{{ partial "{{ page.version.version }}/sql/savepoints-and-row-locks.md" . }}
+{% include {{ page.version.version }}/sql/savepoints-and-row-locks.md %}
 
 ## Savepoints and high priority transactions
 
-{{ partial "{{ page.version.version }}/sql/savepoints-and-high-priority-transactions.md" . }}
+{% include {{ page.version.version }}/sql/savepoints-and-high-priority-transactions.md %}
 
 ## Examples
 
 The examples below use the following table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE kv (k INT PRIMARY KEY, v INT);
 ~~~
@@ -47,7 +47,7 @@ The examples below use the following table:
 
 To establish a savepoint inside a transaction:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SAVEPOINT foo;
 ~~~
@@ -58,21 +58,21 @@ Due to the [rules for identifiers in our SQL grammar](keywords-and-identifiers.h
 
 To roll back a transaction partially to a previously established savepoint:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ROLLBACK TO SAVEPOINT foo;
 ~~~
 
 To forget a savepoint, and keep the effects of statements executed after the savepoint was established, use [`RELEASE SAVEPOINT`](release-savepoint.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RELEASE SAVEPOINT foo;
 ~~~
 
 For example, the transaction below will insert the values `(1,1)` and `(3,3)` into the table, but not `(2,2)`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 INSERT INTO kv VALUES (1,1);
@@ -99,7 +99,7 @@ Savepoints can be arbitrarily nested, and rolled back to the outermost level so 
 
 For example, this transaction does not insert anything into the table.  Both `INSERT`s are rolled back:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT foo;
@@ -116,7 +116,7 @@ Changes committed by releasing a savepoint commit all of the statements entered 
 
 For example, the following transaction inserts both `(2,2)` and `(4,4)` into the table when it releases the outermost savepoint:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT foo;
@@ -133,7 +133,7 @@ Changes partially committed by a savepoint release can be rolled back by an oute
 
 For example, the following transaction inserts only value `(5, 5)`. The values `(6,6)` and `(7,7)` are rolled back.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 INSERT INTO kv VALUES (5,5);
@@ -160,7 +160,7 @@ In addition, you can check the status of a nested transaction using the `SHOW TR
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT error1;
@@ -172,7 +172,7 @@ ERROR: duplicate key value (k)=(5) violates unique constraint "primary"
 SQLSTATE: 23505
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW TRANSACTION STATUS;
 ~~~
@@ -184,7 +184,7 @@ SHOW TRANSACTION STATUS;
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ROLLBACK TO SAVEPOINT error1;
 INSERT INTO kv VALUES (6,6);
@@ -197,7 +197,7 @@ The name of a savepoint that was rolled back over is no longer visible afterward
 
 For example, in the transaction below, the name "bar" is not visible after it was rolled back over:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT foo;
@@ -214,7 +214,7 @@ SQLSTATE: 3B001
 
 The [SQL client](cockroach-sql.html) prompt will now display an error state, which you can clear by entering [`ROLLBACK`](rollback-transaction.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ? ERROR> ROLLBACK;
 ~~~
@@ -227,7 +227,7 @@ ROLLBACK
 
 Prepared statements (`PREPARE` / `EXECUTE`) are not transactional.  Therefore, prepared statements are not invalidated upon savepoint rollback.  As a result, the prepared statement was saved and executed inside the transaction, despite the rollback to the prior savepoint:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT foo;
@@ -246,11 +246,11 @@ COMMIT;
 
 ### Savepoints for client-side transaction retries
 
-{{ partial "{{ page.version.version }}/sql/retry-savepoints.md" . }}
+{% include {{ page.version.version }}/sql/retry-savepoints.md %}
 
 The example below shows basic usage of a retry savepoint.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT cockroach_restart;
@@ -266,13 +266,13 @@ Note that you can [customize the retry savepoint name](#customizing-the-retry-sa
 
 #### Customizing the retry savepoint name
 
-{{ partial "{{ page.version.version }}/misc/customizing-the-savepoint-name.md" . }}
+{% include {{ page.version.version }}/misc/customizing-the-savepoint-name.md %}
 
 ### Showing savepoint status
 
 Use the [`SHOW SAVEPOINT STATUS`](show-savepoint-status.html) statement to see how many savepoints are active in the current transaction:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SAVEPOINT STATUS;
 ~~~

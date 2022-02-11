@@ -14,7 +14,7 @@ Make sure you have already:
 - [Installed a Postgres client](install-client-drivers.html).
 - [Connected to the database](connect-to-the-database.html).
 
-{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
+{% include {{ page.version.version }}/app/retry-errors.md %}
 
 ## Insert rows
 
@@ -29,7 +29,7 @@ When inserting multiple rows, a single [multi-row insert statement](insert.html#
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT);
 INSERT INTO accounts (id, balance) VALUES (1, 1000), (2, 250);
@@ -41,7 +41,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
 // 'db' is an open database connection
 
@@ -52,13 +52,13 @@ if _, err := db.Exec(
 }
 ~~~
 
-{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
+{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -78,13 +78,13 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
+{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -94,7 +94,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
+{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
 
 </section>
 

@@ -57,7 +57,7 @@ As noted in [Limitations](#limitations), you cannot run schema changes inside tr
 
 However, as of version v2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
   SAVEPOINT cockroach_restart;
@@ -101,7 +101,7 @@ As of v19.1, some schema changes can be used in combination in a single `ALTER T
 
 You can check on the status of the schema change jobs on your system at any time using the [`SHOW JOBS`][show-jobs] statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'SCHEMA CHANGE';
 ~~~
@@ -135,15 +135,15 @@ Specifically, this behavior is necessary because making schema changes transacti
 
 ### Limited support for schema changes within transactions
 
-{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
+{% include {{ page.version.version }}/known-limitations/schema-changes-within-transactions.md %}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
+{% include {{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
 
 ### No schema changes between executions of prepared statements
 
-{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
+{% include {{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md %}
 
 ### Examples of statements that fail
 
@@ -151,7 +151,7 @@ The following statements fail due to [limited support for schema changes within 
 
 #### Create an index and then run a select against that index inside a transaction
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE foo (id INT PRIMARY KEY, name VARCHAR);
   BEGIN;
@@ -174,7 +174,7 @@ ROLLBACK
 
 #### Add a column and then add a constraint against that column inside a transaction
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;
@@ -197,7 +197,7 @@ ROLLBACK
 
 #### Add a column and then select against that column inside a transaction
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;

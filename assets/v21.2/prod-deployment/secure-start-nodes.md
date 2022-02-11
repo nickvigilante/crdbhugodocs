@@ -10,9 +10,9 @@ You can start the nodes manually or automate the process using [systemd](https:/
 
 For each initial node of your cluster, complete the following steps:
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 After completing these steps, nodes will not yet be live. They will complete the startup process and join together to form a cluster as soon as the cluster is initialized in the next step.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 1. SSH to the machine where you want the node to run.
 
@@ -87,9 +87,9 @@ After completing these steps, nodes will not yet be live. They will complete the
 
 For each initial node of your cluster, complete the following steps:
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 After completing these steps, nodes will not yet be live. They will complete the startup process and join together to form a cluster as soon as the cluster is initialized in the next step.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 1. SSH to the machine where you want the node to run. Ensure you are logged in as the `root` user.
 
@@ -188,8 +188,8 @@ After completing these steps, nodes will not yet be live. They will complete the
 
 11. Repeat these steps for each additional node that you want in your cluster.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 `systemd` handles node restarts in case of node failure. To stop a node without `systemd` restarting it, run `systemctl stop securecockroachdb`
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 </section>

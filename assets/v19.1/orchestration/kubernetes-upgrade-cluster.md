@@ -4,9 +4,9 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 1. Decide how the upgrade will be finalized.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     This step is relevant only when upgrading from v2.1.x to v19.1. For upgrades within the v19.1.x series, skip this step.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain performance improvements and bug fixes introduced in v19.1. After finalization, however, it will no longer be possible to perform a downgrade to v2.1. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade.
 
@@ -99,9 +99,9 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
     <section class="filter-content" markdown="1" data-scope="helm">
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     For Helm, you must remove the cluster initialization job from when the cluster was created before the cluster version can be changed.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -147,9 +147,9 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
     ...
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     Ignore the pod for cluster initialization. It is re-created as a byproduct of the StatefulSet configuration but does not impact your existing cluster.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
     </section>    
 
 4. This will continue until all of the pods have restarted and are running the new image. To check the image of each pod to determine whether they've all be upgraded, run:
@@ -186,9 +186,9 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 5. Finish the upgrade.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     This step is relevant only when upgrading from v2.1.x to v19.1. For upgrades within the v19.1.x series, skip this step.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     If you disabled auto-finalization in step 1 above, monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 

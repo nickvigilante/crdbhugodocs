@@ -22,11 +22,11 @@ Note that if you start using the [multi-region SQL abstractions](multiregion-ove
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -84,4 +84,4 @@ Because this pattern balances the replicas for the table across regions, one ent
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

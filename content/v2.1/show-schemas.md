@@ -13,7 +13,7 @@ No [privileges](authorization.html#assign-privileges) are required to list the s
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/show_schemas.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/show_schemas.html %}
 </div>
 
 ## Parameters
@@ -24,12 +24,12 @@ Parameter | Description
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET DATABASE = bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~

@@ -39,13 +39,13 @@ A database cannot be converted to a schema if:
 
 ## Example
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Convert a database to a schema
 
 By default, tables are stored in the `public` schema:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM public;
 ~~~
@@ -66,26 +66,26 @@ Suppose that you want to convert `movr` to a schema, with a new database named `
 
 First, create the new database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE cockroach_labs;
 ~~~
 
 Then, set the new database as the current database (recall that you cannot convert the current database to a schema):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > USE cockroach_labs;
 ~~~
 
 Convert the `movr` database to a schema, with `cockroach_labs` as its parent database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER DATABASE movr CONVERT TO SCHEMA WITH PARENT cockroach_labs;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -102,7 +102,7 @@ Convert the `movr` database to a schema, with `cockroach_labs` as its parent dat
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -119,7 +119,7 @@ Convert the `movr` database to a schema, with `cockroach_labs` as its parent dat
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM public;
 ~~~

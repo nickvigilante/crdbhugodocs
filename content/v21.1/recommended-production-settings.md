@@ -13,7 +13,7 @@ When planning your deployment, it's important to carefully review and choose the
 
 Also keep in mind some basic topology recommendations:
 
-{{ partial "{{ page.version.version }}/prod-deployment/topology-recommendations.md" . }}
+{% include {{ page.version.version }}/prod-deployment/topology-recommendations.md %}
 
 ## Software
 
@@ -260,11 +260,11 @@ For guidance on sizing, validating, and using connection pools with CockroachDB,
 
 ## Monitoring and alerting
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Clock synchronization
 
-{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
+{% include {{ page.version.version }}/faq/clock-synchronization-effects.md %}
 
 ## Cache and SQL memory size
 
@@ -277,7 +277,7 @@ Each node has a default SQL memory size of `25%`. This memory is used as-needed 
 
 To manually increase a node's cache size and SQL memory size, start the node using the [`--cache`](cockroach-start.html#flags) and [`--max-sql-memory`](cockroach-start.html#flags) flags:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --cache=.25 --max-sql-memory=.25 <other start flags>
 ~~~
@@ -399,7 +399,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -440,7 +440,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Check the current limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -456,7 +456,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -476,7 +476,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Verify the new limits:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~

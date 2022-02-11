@@ -88,7 +88,7 @@ Flag | Description
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
@@ -110,12 +110,12 @@ These examples use our sample `startrek` database, which you can add to a cluste
 
 ### Dump a table's schema and data
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach dump startrek episodes --insecure --user=maxroach > backup.sql
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cat backup.sql
 ~~~
@@ -149,12 +149,12 @@ INSERT INTO episodes (id, season, num, title, stardate) VALUES
 
 ### Dump just a table's schema
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach dump startrek episodes --insecure --user=maxroach --dump-mode=schema > backup.sql
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cat backup.sql
 ~~~
@@ -175,12 +175,12 @@ CREATE TABLE episodes (
 
 ### Dump just a table's data
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach dump startrek episodes --insecure --user=maxroach --dump-mode=data > backup.sql
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cat backup.sql
 ~~~
@@ -202,12 +202,12 @@ INSERT INTO episodes (id, season, num, title, stardate) VALUES
 
 ### Dump all tables in a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach dump startrek --insecure --user=maxroach > backup.sql
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cat backup.sql
 ~~~
@@ -261,7 +261,7 @@ INSERT INTO quotes (quote, characters, stardate, episode) VALUES
 
 In this example, the `dump` command fails for a user that does not have the `SELECT` privilege on the `episodes` table.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach dump startrek episodes --insecure --user=leslieroach > backup.sql
 ~~~
@@ -275,7 +275,7 @@ Failed running "dump"
 
 In this example, a user that has the `CREATE` privilege on the `startrek` database uses the [`cockroach sql`](cockroach-sql.html) command to recreate a table, based on a file created by the `dump` command.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cat backup.sql
 ~~~
@@ -300,7 +300,7 @@ INSERT INTO quotes (quote, characters, stardate, episode) VALUES
     ...
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --database=startrek --user=maxroach < backup.sql
 ~~~
@@ -317,7 +317,7 @@ In this example, we assume there were several inserts into a table both before a
 
 First, let's use the built-in SQL client to view the table at the current time:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --execute="SELECT * FROM db1.dump_test"
 ~~~
@@ -348,7 +348,7 @@ $ cockroach sql --insecure --execute="SELECT * FROM db1.dump_test"
 
 Next, let's use a [time-travel query](select-clause.html#select-historical-data-time-travel) to view the contents of the table as of `2017-03-07 19:55:00`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --execute="SELECT * FROM db1.dump_test AS OF SYSTEM TIME '2017-03-07 19:55:00'"
 ~~~
@@ -371,7 +371,7 @@ $ cockroach sql --insecure --execute="SELECT * FROM db1.dump_test AS OF SYSTEM T
 
 Finally, let's use `cockroach dump` with the `--as-of` flag set to dump the contents of the table as of `2017-03-07 19:55:00`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach dump db1 dump_test --insecure --dump-mode=data --as-of='2017-03-07 19:55:00'
 ~~~
@@ -394,11 +394,11 @@ As you can see, the results of the dump are identical to the earlier time-travel
 
 ### Dumping a table with no user-visible columns
 
-{{ partial "{{ page.version.version }}/known-limitations/dump-table-with-no-columns.md" . }}
+{% include {{ page.version.version }}/known-limitations/dump-table-with-no-columns.md %}
 
 ### Dumping a table with collations
 
-{{ partial "{{ page.version.version }}/known-limitations/dump-table-with-collations.md" . }}
+{% include {{ page.version.version }}/known-limitations/dump-table-with-collations.md %}
 
 ## See also
 

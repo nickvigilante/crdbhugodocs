@@ -216,7 +216,7 @@ spec:
 
 	Now you can run SQL commands against the cluster.
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-basic-sql.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-basic-sql.md %}
 
 **Note:** If you cannot access the SQL client, this may be related to your `--certs-dir` or `--host` flags. 
 
@@ -296,7 +296,7 @@ To access the CockroachDB cluster's [DB Console](ui-overview.html):
 
 1. Go to <a href="https://localhost:8080/" data-proofer-ignore>https://localhost:8080</a> and log in with the username and password you created earlier.
 
-    {{ partial "{{ page.version.version }}/misc/chrome-localhost.md" . }}
+    {% include {{ page.version.version }}/misc/chrome-localhost.md %}
 
 ## Step 7. Run a sample workload
 

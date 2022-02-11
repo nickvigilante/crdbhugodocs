@@ -30,7 +30,7 @@ The `SET` statement can set a session variable for the duration of the current s
 ### SET SESSION
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/set_var.html %}
+{{< sql-diagram "set_var.html" >}}
 </div>
 
 {{site.data.alerts.callout_info }}
@@ -40,7 +40,7 @@ By default, session variables are set for the duration of the current session. A
 ### SET LOCAL
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/generated/diagrams/set_local.html" . }}
+  {% include {{ page.version.version }}/sql/generated/diagrams/set_local.html %}
 </div>
 
 {{site.data.alerts.callout_info }}
@@ -56,7 +56,7 @@ Parameter   | Description
 
 ### Supported variables
 
-{{ partial "{{ page.version.version }}/misc/session-vars.html" . }}
+{% include {{ page.version.version }}/misc/session-vars.html %}
 
 ### Special syntax cases
 
@@ -449,7 +449,7 @@ When setting a time zone, note the following:
 
 ## Known Limitations
 
-{{ partial "{{ page.version.version }}/known-limitations/set-transaction-no-rollback.md" . }}
+{% include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
 
 ## See also
 

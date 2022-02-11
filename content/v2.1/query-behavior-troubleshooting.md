@@ -100,7 +100,7 @@ Because this kind of behavior is entirely unexpected, you should [file an issue]
 
 ## SQL logging
 
-{{ partial "{{ page.version.version }}/faq/sql-query-logging.md" . }}
+{% include {{ page.version.version }}/faq/sql-query-logging.md %}
 
 ## Something else?
 

@@ -65,4 +65,4 @@ You might also be interested in the following pages:
 - [Build a Spring App with CockroachDB](build-a-spring-app-with-cockroachdb-jdbc.html)
 - [Develop and Deploy a Multi-Region Web Application](multi-region-overview.html)
 
-{{ partial "cockroach_u_pydev.md" . }}
+{% include cockroach_u_pydev.md %}

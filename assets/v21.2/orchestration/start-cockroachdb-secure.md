@@ -17,15 +17,15 @@
       secretName: cockroachdb.node
     ~~~
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 By default, this manifest specifies CPU and memory resources that are appropriate for the virtual machines used in this deployment example. On a production cluster, you should substitute values that are appropriate for your machines and workload. For details on configuring your deployment, see [Configure the Cluster](configure-cockroachdb-kubernetes.html?filters=manual).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 ### Create certificates
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 {% include {{ page.version.version }}/orchestration/kubernetes-cockroach-cert.md %}
 

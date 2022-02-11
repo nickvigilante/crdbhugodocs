@@ -28,7 +28,7 @@ For these formats, we recommend splitting your data into as many files as there 
 
 For example, if you have a 3-node cluster, split your data into 3 files and [import](import.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE customers (
         id UUID PRIMARY KEY,
@@ -66,13 +66,13 @@ However, `MYSQLDUMP` and `PGDUMP` run a single thread to parse their data, and t
 - [Provide the table schema in-line](#provide-the-table-schema-in-line)
 - [Import the schema separately from the data](#import-the-schema-separately-from-the-data)
 
-{{ partial "{{ page.version.version }}/import-table-deprecate.md" . }}
+{% include {{ page.version.version }}/import-table-deprecate.md %}
 
 ### Provide the table schema in-line
 
 When importing bundled data formats, it is often faster to provide schema for the imported table in-line. For example, instead of importing both the table schema and data from the same file:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE employees
 FROM PGDUMP
@@ -82,7 +82,7 @@ FROM PGDUMP
 
 You can dump the table data into a CSV file and provide the table schema in the statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE employees (
         id UUID PRIMARY KEY,

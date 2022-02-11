@@ -4,7 +4,7 @@
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/crds.yaml
+    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/crds.yaml
     ~~~
 
     ~~~
@@ -19,7 +19,7 @@
 
         {% include_cached copy-clipboard.html %}
         ~~~ shell
-        $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/operator.yaml
+        $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
         ~~~
 
     1. To use a custom namespace, edit all instances of `namespace: cockroach-operator-system` with your desired namespace.
@@ -37,7 +37,7 @@
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/operator.yaml
+    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
     ~~~
 
     ~~~
@@ -67,20 +67,20 @@
 
 ### Initialize the cluster
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 By default, the Operator will generate and sign 1 client and 1 node certificate to secure the cluster. To authenticate using your own CA, see [Operate CockroachDB on Kubernetes](operate-cockroachdb-kubernetes.html#use-a-custom-ca).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 1. Download `example.yaml`, a custom resource that tells the Operator how to configure the Kubernetes cluster.
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/examples/example.yaml
+    $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/examples/example.yaml
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     By default, this manifest specifies CPU and memory resources that are appropriate for the virtual machines used in this deployment example. On a production cluster, you should [substitute values](operate-cockroachdb-kubernetes.html#allocate-resources) that are appropriate for your machines and workload.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 1. Apply `example.yaml`:
 
@@ -112,6 +112,6 @@ By default, the Operator will generate and sign 1 client and 1 node certificate 
 
     Each pod should have `READY` status soon after being created.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/575), in rare cases the Operator can crash while installing CockroachDB. This causes the CockroachDB pods to fail to start, while the version checker [job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) continues to run. If this happens, run `kubectl get jobs` to find the names of any running `cockroachdb-vcheck` jobs, and delete these jobs with `kubectl delete job {cockroachdb-vcheck-job}`. Then reapply the custom resource (e.g., `kubectl apply -f example.yaml`).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}

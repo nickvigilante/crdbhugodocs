@@ -119,14 +119,14 @@ Note that `sql_sequence_cached` will perform fewer distributed calls to incremen
 
 In this example, we create a table with the `SERIAL` column as the primary key so we can auto-generate unique IDs on insert.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE serial (a SERIAL PRIMARY KEY, b STRING, c BOOL);
 ~~~
 
 The [`SHOW COLUMNS`](show-columns.html) statement shows that the `SERIAL` type is just an alias for `INT` with `unique_rowid()` as the default.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM serial;
 ~~~
@@ -142,17 +142,17 @@ The [`SHOW COLUMNS`](show-columns.html) statement shows that the `SERIAL` type i
 
 When we insert rows without values in column `a` and display the new rows, we see that each row has defaulted to a unique value in column `a`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO serial (b,c) VALUES ('red', true), ('yellow', false), ('pink', true);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO serial (a,b,c) VALUES (123, 'white', false);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM serial;
 ~~~
@@ -180,35 +180,35 @@ To experience this for yourself, run through the following example in PostgreSQL
 
 1. Create a table with a `SERIAL` column:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE increment (a SERIAL PRIMARY KEY);
     ~~~
 
 2. Run four transactions for inserting rows:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     > INSERT INTO increment DEFAULT VALUES;
     > ROLLBACK;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     > INSERT INTO increment DEFAULT VALUES;
     > COMMIT;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     > INSERT INTO increment DEFAULT VALUES;
     > ROLLBACK;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     > INSERT INTO increment DEFAULT VALUES;
@@ -217,7 +217,7 @@ To experience this for yourself, run through the following example in PostgreSQL
 
 3. View the rows created:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * from increment;
     ~~~

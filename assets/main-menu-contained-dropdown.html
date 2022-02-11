@@ -37,8 +37,8 @@
                   <!-- Loop over menus.main where why -->
                   {% for item in site.data.menus.why %}
                     <li class="nav-item mb-3 pb-1 small">
-                        <a href="{{item.url}}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                        ><div class="item-title">{{item.pre}}</div><span class="font-weight-bold">{{item.name}}</span></a>
+                        <a href="{{ item.url }}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                        ><div class="item-title">{{ item.pre }}</div><span class="font-weight-bold">{{ item.name }}</span></a>
                       </li> 
                   {% endfor %} 
                 </ul>
@@ -49,8 +49,8 @@
                     <!-- Loop over menus.main where why -->
                     {% for item in site.data.menus.survive %}
                     <li class="nav-item mb-3 pb-1 small">
-                        <a href="{{item.url}}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                        ><div class="item-title">{{item.pre}}</div><span class="font-weight-bold">{{item.name}}</span></a>
+                        <a href="{{ item.url }}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                        ><div class="item-title">{{ item.pre }}</div><span class="font-weight-bold">{{ item.name }}</span></a>
                       </li> 
                   {% endfor %} 
                   </ul>
@@ -61,8 +61,8 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.thrive %}
                       <li class="nav-item mb-3 pb-1 small">
-                          <a href="{{item.url}}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                          ><div class="item-title">{{item.pre}}</div><span class="font-weight-bold">{{item.name}}</span></a>
+                          <a href="{{ item.url }}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                          ><div class="item-title">{{ item.pre }}</div><span class="font-weight-bold">{{ item.name }}</span></a>
                         </li> 
                     {% endfor %} 
                       </ul>
@@ -134,10 +134,10 @@
                     <!-- Loop over menus.main where why -->
                     {% for item in site.data.menus.product_quicklinks %}
                       <li class="nav-item mb-3 pb-1 small">
-                        <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                        <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
                             >  
-                        <div class="font-weight-bold item-title">{{item.pre}}</div>
-                          {{item.name}}</a
+                        <div class="font-weight-bold item-title">{{ item.pre }}</div>
+                          {{ item.name }}</a
                           >
                         </li>
                     {% endfor %}
@@ -171,9 +171,9 @@
                     <!-- Loop over menus.main where why -->
                     {% for item in site.data.menus.resources_started %}
                       <li class="nav-item mb-3 pb-1 small">
-                          <div class="font-weight-medium item-title">{{item.pre}}</div>
-                          <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                            >{{item.name}}</a
+                          <div class="font-weight-medium item-title">{{ item.pre }}</div>
+                          <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                            >{{ item.name }}</a
                           >
                         </li>
                     {% endfor %}
@@ -184,9 +184,9 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.resources_technical %}
                       <li class="nav-item mb-3 pb-1 small">
-                        <div class="font-weight-medium item-title">{{item.pre}}</div>
-                        <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                          >{{item.name}}</a
+                        <div class="font-weight-medium item-title">{{ item.pre }}</div>
+                        <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                          >{{ item.name }}</a
                         >
                       </li>
                       {% endfor %}
@@ -197,9 +197,9 @@
                         <!-- Loop over menus.main where why -->
                         {% for item in site.data.menus.resources_learn %}
                         <li class="nav-item mb-3 pb-1 small">
-                          <div class="font-weight-medium item-title">{{item.pre}}</div>
-                          <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                            >{{item.name}}</a
+                          <div class="font-weight-medium item-title">{{ item.pre }}</div>
+                          <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                            >{{ item.name }}</a
                           >
                         </li>
                         {% endfor %}
@@ -262,8 +262,8 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.why %}
                         <li class="nav-item mb-3 pb-1 small">
-                          <a href="{{ item.url}}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                          ><div class="item-title">{{item.pre}}</div><span class="font-weight-bold">{{item.name}}</span></a>
+                          <a href="{{ item.url }}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                          ><div class="item-title">{{ item.pre }}</div><span class="font-weight-bold">{{ item.name }}</span></a>
                           </li>
                       {% endfor %}
                     </ul>
@@ -276,8 +276,8 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.survive %}
                       <li class="nav-item mb-3 pb-1 small">
-                        <a href="{{ item.url}}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                        ><div class="item-title">{{item.pre}}</div><span class="font-weight-bold">{{item.name}}</span></a>
+                        <a href="{{ item.url }}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                        ><div class="item-title">{{ item.pre }}</div><span class="font-weight-bold">{{ item.name }}</span></a>
                         </li>
                       {% endfor %}
                   </div>
@@ -289,8 +289,8 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.thrive %}
                       <li class="nav-item mb-3 pb-1 small">
-                        <a href="{{ item.url}}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                        ><div class="item-title">{{item.pre}}</div><span class="font-weight-bold">{{item.name}}</span></a>
+                        <a href="{{ item.url }}" class="text-black {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                        ><div class="item-title">{{ item.pre }}</div><span class="font-weight-bold">{{ item.name }}</span></a>
                         </li>
                       {% endfor %}
                   </div>
@@ -371,10 +371,10 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.product_quicklinks %}
                         <li class="nav-item mb-3 pb-1 small">
-                          <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                          <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
                               >  
-                          <div class="font-weight-bold item-title">{{item.pre}}</div>
-                            {{item.name}}</a
+                          <div class="font-weight-bold item-title">{{ item.pre }}</div>
+                            {{ item.name }}</a
                             >
                           </li>
                       {% endfor %}
@@ -411,9 +411,9 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.resources_started %}
                         <li class="nav-item mb-3 pb-1 small">
-                            <div class="font-weight-medium item-title">{{item.pre}}</div>
-                            <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                              >{{item.name}}</a
+                            <div class="font-weight-medium item-title">{{ item.pre }}</div>
+                            <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                              >{{ item.name }}</a
                             >
                           </li>
                       {% endfor %}
@@ -427,9 +427,9 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.resources_technical %}
                         <li class="nav-item mb-3 pb-1 small">
-                            <div class="font-weight-medium item-title">{{item.pre}}</div>
-                            <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                              >{{item.name}}</a
+                            <div class="font-weight-medium item-title">{{ item.pre }}</div>
+                            <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                              >{{ item.name }}</a
                             >
                           </li>
                       {% endfor %}
@@ -443,9 +443,9 @@
                       <!-- Loop over menus.main where why -->
                       {% for item in site.data.menus.resources_learn %}
                       <li class="nav-item mb-3 pb-1 small">
-                          <div class="font-weight-medium item-title">{{item.pre}}</div>
-                          <a href="{{item.url}}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                            >{{item.name}}</a
+                          <div class="font-weight-medium item-title">{{ item.pre }}</div>
+                          <a href="{{ item.url }}" class="text-black pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                            >{{ item.name }}</a
                           >
                         </li>
                     {% endfor %}

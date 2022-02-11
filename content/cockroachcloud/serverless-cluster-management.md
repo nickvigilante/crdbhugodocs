@@ -8,13 +8,13 @@ filter_sort: 1
 docs_area: manage
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page describes the cluster management and cluster deletion workflows for {{ site.data.products.serverless }}.
 
 ## Planning your cluster
 
-{{ partial "cockroachcloud/planning-your-serverless-cluster.md" . }}
+{% include cockroachcloud/planning-your-serverless-cluster.md %}
 
 ## View Clusters page
 

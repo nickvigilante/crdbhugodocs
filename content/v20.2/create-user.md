@@ -18,7 +18,7 @@ See [Authorization](authorization.html) for more information on privilege manage
 
 ## Considerations
 
-{{ partial "{{ page.version.version }}/sql/role-considerations.md" . }}
+{% include {{ page.version.version }}/sql/role-considerations.md %}
 
 ## Required privileges
 
@@ -30,7 +30,7 @@ Unless a role is a member of the admin role, additional [privileges](#parameters
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_user.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/create_user.html %}</section>
 
 ## Parameters
 
@@ -129,7 +129,7 @@ with_password | VALID UNTIL=2021-10-10 00:00:00+00:00 | {}
 
 The following statement prevents the user from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 root@:26257/defaultdb> CREATE USER no_password WITH PASSWORD NULL;
 ~~~

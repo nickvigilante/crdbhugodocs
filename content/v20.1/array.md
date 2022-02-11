@@ -14,7 +14,7 @@ The `ARRAY` data type is useful for ensuring compatibility with ORMs and other t
 CockroachDB does not support nested arrays or ordering by arrays.
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/sql/vectorized-support.md" . }}
+{% include {{ page.version.version }}/sql/vectorized-support.md %}
 
 ## Syntax
 
@@ -35,17 +35,17 @@ For the list of supported `ARRAY` functions, see [Functions and Operators](funct
 
 ### Creating an array column by appending square brackets
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE a (b STRING[]);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO a VALUES (ARRAY['sky', 'road', 'car']);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM a;
 ~~~
@@ -59,17 +59,17 @@ For the list of supported `ARRAY` functions, see [Functions and Operators](funct
 
 ### Creating an array column by adding the term `ARRAY`
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE c (d INT ARRAY);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO c VALUES (ARRAY[10,20,30]);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c;
 ~~~
@@ -87,7 +87,7 @@ For the list of supported `ARRAY` functions, see [Functions and Operators](funct
 Arrays in CockroachDB are 1-indexed.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c;
 ~~~
@@ -99,7 +99,7 @@ Arrays in CockroachDB are 1-indexed.
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT d[2] FROM c;
 ~~~
@@ -114,7 +114,7 @@ Arrays in CockroachDB are 1-indexed.
 ### Accessing an array column using containment queries
 You can use the [operators](functions-and-operators.html#supported-operations) `<@` ("is contained by") and `@>` ("contains") to run containment queries on `ARRAY` columns.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c WHERE d <@ ARRAY[10,20,30,40,50];
 ~~~
@@ -126,7 +126,7 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c WHERE d @> ARRAY[10,20];
 ~~~
@@ -142,7 +142,7 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 
 #### Using the `array_append` function
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c;
 ~~~
@@ -155,12 +155,12 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 ~~~
 
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > UPDATE c SET d = array_append(d, 40) WHERE d[3] = 30;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c;
 ~~~
@@ -174,7 +174,7 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 
 #### Using the append (`||`) operator
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c;
 ~~~
@@ -186,12 +186,12 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > UPDATE c SET d = d || 50 WHERE d[4] = 40;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM c;
 ~~~
@@ -207,7 +207,7 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 
 [Casting](data-types.html#data-type-conversions-and-casts) between `ARRAY` values is supported when the data types of the arrays support casting. For example, it is possible to cast from a `BOOL` array to an `INT` array but not from a `BOOL` array to a `TIMESTAMP` array:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT ARRAY[true,false,true]::INT[];
 ~~~
@@ -219,7 +219,7 @@ You can use the [operators](functions-and-operators.html#supported-operations) `
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT ARRAY[true,false,true]::TIMESTAMP[];
 ~~~
@@ -230,7 +230,7 @@ pq: invalid cast: bool[] -> TIMESTAMP[]
 
 You can cast an array to a `STRING` value, for compatibility with PostgreSQL:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT ARRAY[1,NULL,3]::string;
 ~~~
@@ -242,7 +242,7 @@ You can cast an array to a `STRING` value, for compatibility with PostgreSQL:
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT ARRAY[(1,'a b'),(2,'c"d')]::string;
 ~~~
@@ -260,21 +260,21 @@ You can cast an array to a `STRING` value, for compatibility with PostgreSQL:
 
 For example, if you create a table with a column of type `INT[]`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE x (a UUID DEFAULT gen_random_uuid() PRIMARY KEY, b INT[]);
 ~~~
 
 And then insert a string containing a comma-delimited set of integers contained in brackets:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO x(b) VALUES ('{1,2,3}'), (ARRAY[4,5,6]);
 ~~~
 
 CockroachDB implicitly casts the string literal as an `INT[]`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM x;
 ~~~

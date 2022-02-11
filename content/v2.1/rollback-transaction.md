@@ -12,7 +12,7 @@ When using [client-side transaction retries](transactions.html#client-side-trans
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/rollback_transaction.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/rollback_transaction.html %}
 </div>
 
 ## Required privileges
@@ -31,7 +31,7 @@ No [privileges](authorization.html#assign-privileges) are required to rollback a
 
 Typically, an application conditionally executes rollbacks, but we can see their behavior by using `ROLLBACK` instead of `COMMIT` directly through SQL:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -44,22 +44,22 @@ Typically, an application conditionally executes rollbacks, but we can see their
 +----------+---------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > UPDATE accounts SET balance = 2500 WHERE name = 'Marciela';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ROLLBACK;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -76,7 +76,7 @@ Typically, an application conditionally executes rollbacks, but we can see their
 
 To use [client-side transaction retries](transactions.html#client-side-transaction-retries), an application must execute `ROLLBACK TO SAVEPOINT cockroach_restart` after detecting a `40001` / `retry transaction` error:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ROLLBACK TO SAVEPOINT cockroach_restart;
 ~~~

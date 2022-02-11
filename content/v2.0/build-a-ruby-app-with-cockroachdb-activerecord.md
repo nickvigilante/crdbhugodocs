@@ -20,13 +20,13 @@ For a more realistic use of ActiveRecord with CockroachDB, see our [`examples-or
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install the ActiveRecord ORM
 
 To install ActiveRecord as well as the [pg driver](https://rubygems.org/gems/pg) and a [CockroachDB Ruby package](https://github.com/cockroachdb/activerecord-cockroachdb-adapter) that accounts for some minor differences between CockroachDB and PostgreSQL, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ gem install activerecord pg activerecord-cockroachdb-adapter
 ~~~
@@ -39,13 +39,13 @@ The exact command above will vary depending on the desired version of ActiveReco
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -57,14 +57,14 @@ The following code uses the [ActiveRecord](http://guides.rubyonrails.org/active_
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/activerecord-basic-sample.rb" download>download it directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ ruby
-{{ partial "{{ page.version.version }}/app/activerecord-basic-sample.rb" . }}
+{% include {{ page.version.version }}/app/activerecord-basic-sample.rb %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ ruby activerecord-basic-sample.rb
 ~~~
@@ -80,14 +80,14 @@ The output should be:
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank
 ~~~
 
 Then, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -108,7 +108,7 @@ Then, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Ruby code
 
@@ -117,14 +117,14 @@ The following code uses the [ActiveRecord](http://guides.rubyonrails.org/active_
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/insecure/activerecord-basic-sample.rb" download>download it directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ ruby
-{{ partial "{{ page.version.version }}/app/insecure/activerecord-basic-sample.rb" . }}
+{% include {{ page.version.version }}/app/insecure/activerecord-basic-sample.rb %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ ruby activerecord-basic-sample.rb
 ~~~
@@ -140,14 +140,14 @@ The output should be:
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 Then, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -168,4 +168,4 @@ Then, issue the following statement:
 
 Read more about using the [ActiveRecord ORM](http://guides.rubyonrails.org/active_record_basics.html), or check out a more realistic implementation of ActiveRecord with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

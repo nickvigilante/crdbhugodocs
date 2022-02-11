@@ -6,7 +6,7 @@ toc: true
 
 This page has high-level information about how to configure a [multi-region cluster's](multiregion-overview.html) [survival goals](multiregion-overview.html#survival-goals) and [table locality](multiregion-overview.html#table-locality).
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 The options for configuring your multi-region cluster include:
 
@@ -50,7 +50,7 @@ Different databases and tables within the same cluster can each use different co
 {{site.data.alerts.end }}
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
 {{site.data.alerts.end }}
 
 ## See also

@@ -16,13 +16,13 @@ We have tested the [Python psycopg2 driver](http://initd.org/psycopg/docs/) and 
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install the psycopg2 driver
 
 To install the Python psycopg2 driver, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ pip install psycopg2
 ~~~
@@ -33,13 +33,13 @@ For other ways to install psycopg2, see the [official documentation](http://init
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -57,14 +57,14 @@ First, use the following code to connect as the `maxroach` user and execute some
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/basic-sample.py" download><code>basic-sample.py</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/basic-sample.py" . }}
+{% include {{ page.version.version }}/app/basic-sample.py %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python basic-sample.py
 ~~~
@@ -85,14 +85,14 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 
 {{site.data.alerts.callout_info }}With the default <code>SERIALIZABLE</code> isolation level, CockroachDB may require the <a href="transactions.html#transaction-retries">client to retry a transaction</a> in case of read/write contention. CockroachDB provides a generic <strong>retry function</strong> that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/txn-sample.py" . }}
+{% include {{ page.version.version }}/app/txn-sample.py %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python txn-sample.py
 ~~~
@@ -107,14 +107,14 @@ Balances after transfer:
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -135,7 +135,7 @@ To check the account balances, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Python code
 
@@ -150,14 +150,14 @@ First, use the following code to connect as the `maxroach` user and execute some
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/insecure/basic-sample.py" download><code>basic-sample.py</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/insecure/basic-sample.py" . }}
+{% include {{ page.version.version }}/app/insecure/basic-sample.py %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python basic-sample.py
 ~~~
@@ -178,14 +178,14 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 
 {{site.data.alerts.callout_info }}With the default <code>SERIALIZABLE</code> isolation level, CockroachDB may require the <a href="transactions.html#transaction-retries">client to retry a transaction</a> in case of read/write contention. CockroachDB provides a generic <strong>retry function</strong> that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/insecure/txn-sample.py" . }}
+{% include {{ page.version.version }}/app/insecure/txn-sample.py %}
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python txn-sample.py
 ~~~
@@ -200,14 +200,14 @@ Balances after transfer:
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -228,4 +228,4 @@ To check the account balances, issue the following statement:
 
 Read more about using the [Python psycopg2 driver](http://initd.org/psycopg/docs/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

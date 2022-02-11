@@ -8,7 +8,7 @@ filter_sort: 2
 docs_area: deploy
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page walks you through the process of creating a {{ site.data.products.dedicated }} cluster. Note that only [{{ site.data.products.db }} Console Administrators](console-access-management.html#console-admin) can create clusters. If you are a Developer and need to create a cluster, contact your {{ site.data.products.db }} Administrator.
 
@@ -32,7 +32,7 @@ In the **Cloud provider** section, select either **Google Cloud** or **AWS** as 
 
 For GCP clusters, each GiB of storage costs  $0.0011986 per hour, and 30 IOPS per GiB are provisioned. For AWS clusters, each GiB of storage costs $0.0005088 per hour, and 15 IOPS per GiB are provisioned at an additional cost of $0.0000196 per IOPS per hour. 
 
-{{ partial "cockroachcloud/cockroachcloud-pricing.md" . }}
+{% include cockroachcloud/cockroachcloud-pricing.md %}
 
 ## Step 3. Select the region(s)
 
@@ -63,7 +63,7 @@ In the **Regions & nodes** section, select the number of nodes.
 - For multi-region deployments, we require a minimum of 3 nodes per region. For best performance and stability, you should use the same number of nodes in each region.
 - See [Planning your cluster](cluster-management.html?filters=dedicated#planning-your-cluster) for more information about our requirements and recommendations for cluster configuration.
 
-{{ partial "cockroachcloud/nodes-limitation.md" . }}
+{% include cockroachcloud/nodes-limitation.md %}
 
 Currently, you can add a maximum of 150 nodes to your cluster. For larger configurations, [contact us](https://support.cockroachlabs.com/hc/en-us/requests/new).
 

@@ -19,49 +19,49 @@ The user must have the `CREATE` [privilege](privileges.html) on the parent datab
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/create_table.html %}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/create_table.html %}
 </div>
 
 **column_def ::=**
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/column_def.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/column_def.html %}
 </div>
 
 **col_qualification ::=**
 
 <div class="horizontal-scroll">
-{{ partial "{{ page.version.version }}/sql/diagrams/col_qualification.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/col_qualification.html %}
 </div>
 
 **index_def ::=**
 
 <div class="horizontal-scroll">
-{{ partial "{{ page.version.version }}/sql/diagrams/index_def.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/index_def.html %}
 </div>
 
 **family_def ::=**
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/family_def.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/family_def.html %}
 </div>
 
 **table_constraint ::=**
 
 <div class="horizontal-scroll">
-{{ partial "{{ page.version.version }}/sql/diagrams/table_constraint.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/table_constraint.html %}
 </div>
 
 **opt_interleave ::=**
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/opt_interleave.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/opt_interleave.html %}
 </div>
 
 </div>
@@ -180,7 +180,7 @@ In this example, we create two secondary indexes during table creation. Secondar
 
 This example also demonstrates a number of column-level and table-level [constraints](constraints.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE product_information (
     product_id           INT PRIMARY KEY NOT NULL,
@@ -232,7 +232,7 @@ We also have other resources on indexes:
 
 ### Create a Table with Auto-Generated Unique Row IDs
 
-{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
+{% include {{ page.version.version }}/faq/auto-generate-unique-ids.html %}
 
 ### Create a Table with a Foreign Key Constraint
 
@@ -248,7 +248,7 @@ There are a [number of rules](foreign-key.html#rules-for-creating-foreign-keys) 
 
 In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a foreign key constraint is deleted, all dependent rows are also deleted).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > CREATE TABLE customers (
     id INT PRIMARY KEY,
@@ -256,7 +256,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
   );
 ```
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > CREATE TABLE orders (
     id INT PRIMARY KEY,
@@ -264,7 +264,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
   );
 ```
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > SHOW CREATE TABLE orders;
 ```
@@ -283,22 +283,22 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 +--------+---------------------------------------------------------------------------------------------------------------------+
 ```
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > INSERT INTO customers VALUES (1, 'Lauren');
 ```
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > INSERT INTO orders VALUES (1,1);
 ```
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > DELETE FROM customers WHERE id = 1;
 ```
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ``` sql
 > SELECT * FROM orders;
 ```
@@ -311,13 +311,13 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 
 ### Create a Table that Mirrors Key-Value Storage
 
-{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
+{% include {{ page.version.version }}/faq/simulate-key-value-store.html %}
 
 ### Create a Table from a `SELECT` Statement
 
 You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a new table from the results of a `SELECT` statement, for example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers WHERE state = 'NY';
 ~~~
@@ -330,7 +330,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 +----+---------+-------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers_ny AS SELECT * FROM customers WHERE state = 'NY';
 
@@ -347,7 +347,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a Table with a Computed Column <span class="version-tag">New in v2.0</span>
 
-{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
+{% include {{ page.version.version }}/computed-columns/simple.md %}
 
 ### Create a Table with Partitions <span class="version-tag">New in v2.0</span>
 
@@ -357,7 +357,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 In this example, we create a table and [define partitions by list](partitioning.html#partition-by-list).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE students_by_list (
     id INT DEFAULT unique_rowid(),
@@ -376,7 +376,7 @@ In this example, we create a table and [define partitions by list](partitioning.
 
 In this example, we create a table and [define partitions by range](partitioning.html#partition-by-range).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE students_by_range (
    id INT DEFAULT unique_rowid(),
@@ -394,7 +394,7 @@ In this example, we create a table and [define partitions by range](partitioning
 
 To show the definition of a table, use the [`SHOW CREATE TABLE`](show-create-table.html) statement. The contents of the `CreateTable` column in the response is a string with embedded line breaks that, when echoed, produces formatted output.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE logoff;
 ~~~

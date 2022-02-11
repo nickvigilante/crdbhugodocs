@@ -20,7 +20,7 @@ Selection queries can occur:
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/select.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/select.html %}</div>
 
 <div markdown="1"></div>
 
@@ -55,7 +55,7 @@ Form | Usage
 ### Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/select_clause.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/select_clause.html %}
 </div>
 
 <div markdown="1"></div>
@@ -68,7 +68,7 @@ Form | Usage
 #### Syntax
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/values_clause.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/values_clause.html %}
 </div>
 
 A `VALUES` clause defines tabular data defined by the expressions
@@ -82,7 +82,7 @@ names. [These names can be modified with
 
 #### Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > VALUES (1, 2, 3), (4, 5, 6);
 ~~~
@@ -101,7 +101,7 @@ names. [These names can be modified with
 #### Syntax
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/table_clause.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/table_clause.html %}
 </div>
 
 <div markdown="1"></div>
@@ -118,7 +118,7 @@ shorter to type.
 
 #### Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > CREATE TABLE employee_copy AS TABLE employee;
 ~~~
@@ -131,12 +131,12 @@ will likely have a simpler schema than `employee`.
 
 Other examples:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > TABLE employee;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > INSERT INTO employee_copy TABLE employee;
 ~~~
@@ -154,7 +154,7 @@ set operations or as main component in a selection query.
 
 ### Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/set_operation.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/set_operation.html %}</div>
 
 <div markdown="1"></div>
 
@@ -172,7 +172,7 @@ By default, each of these comparisons displays only one copy of each value (simi
 
 `UNION` combines the results of two queries into one result.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -195,7 +195,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 To show duplicate rows, you can use `ALL`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -222,7 +222,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 `INTERSECT` finds only values that are present in both query operands.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -244,7 +244,7 @@ FROM mortgages;
 
 `EXCEPT` finds values that are present in the first query operand but not the second.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM mortgages
@@ -460,11 +460,11 @@ in a future version of CockroachDB.{{site.data.alerts.end }}
 
 ### Using `VALUES` Clauses with Common Table Expressions
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-in-values-clause.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-in-values-clause.md %}
 
 ### Using Set Operations with Common Table Expressions
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-in-set-expression.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-in-set-expression.md %}
 
 ## See Also
 

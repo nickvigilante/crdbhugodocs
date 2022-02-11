@@ -1,4 +1,4 @@
 {{ $file := .Get 0 }}
-{{ $version := substr .Type 1 }}
-{{ $url := delimit (slice "https://raw.githubusercontent.com/cockroachdb/generated-diagrams/" $version "/grammar_svg/" $file ) "" }}
+{{ $version := substr .Page.Type 1 }}
+{{ $url := delimit (slice "https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-" $version "/grammar_svg/" $file ) "" }}
 {{ (resources.GetRemote $url).Content | safeHTML }}

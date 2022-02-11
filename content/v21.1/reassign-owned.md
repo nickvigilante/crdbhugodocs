@@ -18,7 +18,7 @@ To change the ownership of any single object (e.g., a table or a database), use 
 ## Syntax
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/reassign_owned_by.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/reassign_owned_by.html %}
 </div>
 
 ## Parameters
@@ -30,7 +30,7 @@ Parameter | Description
 
 ## Example
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Change the owner of all tables in a database
 

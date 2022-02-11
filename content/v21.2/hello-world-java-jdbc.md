@@ -11,13 +11,13 @@ This tutorial shows you how build a simple Hello World Java application with Coc
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-java-jdbc/
 ~~~
@@ -62,7 +62,7 @@ ds.setPassword("{password}");
 ds.setSslRootCert(System.getenv("{path to the CA certificate}"));
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 {{site.data.alerts.callout_success}}
 For guidance on connection pooling, with an example using JDBC and [HikariCP](https://github.com/brettwooldridge/HikariCP), see [Connection Pooling](connection-pooling.html).
@@ -102,4 +102,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 
 - [Build a Simple CRUD Java App with CockroachDB](build-a-java-app-with-cockroachdb.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

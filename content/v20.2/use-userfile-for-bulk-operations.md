@@ -14,7 +14,7 @@ Once a userfile is uploaded, you can run [`IMPORT`](#import-from-userfile).
 
 ## Upload a file
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile upload /Users/maxroach/Desktop/test-data.csv /test-data.csv --certs-dir=certs
 ~~~
@@ -27,7 +27,7 @@ For more information, see [`cockroach userfile upload`](cockroach-userfile-uploa
 
 ## List files
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile list '*.csv' --certs-dir=certs
 ~~~
@@ -41,7 +41,7 @@ For more information, see [`cockroach userfile list`](cockroach-userfile-list.ht
 
 ## Delete files
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile delete test-data.csv --certs-dir=certs
 ~~~
@@ -54,7 +54,7 @@ For more information, see [`cockroach userfile delete`](cockroach-userfile-delet
 
 ## Import from `userfile`
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE customers (
 		id INT,

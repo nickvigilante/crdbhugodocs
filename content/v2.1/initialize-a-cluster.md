@@ -14,14 +14,14 @@ When [starting a single-node cluster](start-a-node.html#start-a-single-node-clus
 
 Perform a one-time initialization of a cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init <flags>
 ~~~
 
 View help:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init --help
 ~~~
@@ -32,7 +32,7 @@ The `cockroach init` command supports the following [client connection](#client-
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 
 See [Client Connection Parameters](connection-parameters.html) for details.
 
@@ -60,7 +60,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 3. Run the `cockroach init` command with the `--certs-dir` flag set to the directory containing the `ca.crt` file and the files for the `root` user, and with the `--host` flag set to the address of the current node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=<address of this node>
     ~~~
@@ -73,7 +73,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 2. Run the `cockroach init` command with the `--host` flag set to the address of the current node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init --insecure --host=<address of this node>
     ~~~
@@ -95,7 +95,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 3. Run the `cockroach init` command with the `--certs-dir` flag set to the directory containing the `ca.crt` file and the files for the `root` user, and with the `--host` flag set to the address of any node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=<address of any node>
     ~~~
@@ -108,7 +108,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 2. Run the `cockroach init` command with the `--host` flag set to the address of any node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node>
     ~~~

@@ -29,12 +29,12 @@ A `DATE` column supports values up to 16 bytes in width, but the total storage s
 
 ## Examples
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE dates (a DATE PRIMARY KEY, b INT);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM dates;
 ~~~
@@ -49,19 +49,19 @@ A `DATE` column supports values up to 16 bytes in width, but the total storage s
 
 Explicitly typed `DATE` literal:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO dates VALUES (DATE '2016-03-26', 12345);
 ~~~
 
 String literal implicitly typed as `DATE`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO dates VALUES ('03-27-16', 12345);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM dates;
 ~~~

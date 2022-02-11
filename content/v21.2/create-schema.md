@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `CREATE SCHEMA` [statement](sql-statements.html) creates a user-defined [schema](sql-name-resolution.html#naming-hierarchy).
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 {{site.data.alerts.callout_info }}
 You can also create a user-defined schema by converting an existing database to a schema using [`ALTER DATABASE ... CONVERT TO SCHEMA`](convert-to-schema.html).
@@ -22,7 +22,7 @@ You can also create a user-defined schema by converting an existing database to 
 ## Syntax
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_schema.html %}
+{{< sql-diagram "create_schema.html" >}}
 </div>
 
 ### Parameters
@@ -35,16 +35,16 @@ Parameter | Description
 
 ## Example
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Create a schema
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA org_one;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -65,7 +65,7 @@ By default, the user executing the `CREATE SCHEMA` statement is the owner of the
 
 ### Create a schema if one does not exist
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA org_one;
 ~~~
@@ -74,14 +74,14 @@ By default, the user executing the `CREATE SCHEMA` statement is the owner of the
 ERROR: schema "org_one" already exists
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA IF NOT EXISTS org_one;
 ~~~
 
 SQL does not generate an error, even though a new schema wasn't created.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -102,17 +102,17 @@ SQL does not generate an error, even though a new schema wasn't created.
 
 You can create tables of the same name in the same database if they are in separate schemas.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA IF NOT EXISTS org_one;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA IF NOT EXISTS org_two;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -130,7 +130,7 @@ You can create tables of the same name in the same database if they are in separ
 (7 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE org_one.employees (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -139,7 +139,7 @@ You can create tables of the same name in the same database if they are in separ
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE org_two.employees (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -148,7 +148,7 @@ You can create tables of the same name in the same database if they are in separ
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW TABLES] WHERE table_name='employees';
 ~~~
@@ -165,17 +165,17 @@ You can create tables of the same name in the same database if they are in separ
 
 To specify the owner of a schema, add an `AUTHORIZATION` clause to the `CREATE SCHEMA` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE USER max WITH PASSWORD 'roach';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA org_two AUTHORIZATION max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -194,12 +194,12 @@ To specify the owner of a schema, add an `AUTHORIZATION` clause to the `CREATE S
 
 If no schema name is specified in a `CREATE SCHEMA` statement with an `AUTHORIZATION` clause, the schema will be named after the user specified:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEMA AUTHORIZATION max;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -221,19 +221,19 @@ When you [use a table without specifying a schema](sql-name-resolution.html#sear
 
 For example, suppose that you [grant the `root` role](grant.html) (i.e., the role of the current user `root`) to the `max` user:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT root TO max;
 ~~~
 
 Then, `max` [accesses the cluster](cockroach-sql.html) and creates two tables of the same name, in the same database, one in the `max` schema, and one in the `public` schema:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --url 'postgres://max:roach@host:port/db?sslmode=require'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE max.accounts (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -242,7 +242,7 @@ $ cockroach sql --url 'postgres://max:roach@host:port/db?sslmode=require'
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE public.accounts (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -251,7 +251,7 @@ $ cockroach sql --url 'postgres://max:roach@host:port/db?sslmode=require'
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -266,12 +266,12 @@ $ cockroach sql --url 'postgres://max:roach@host:port/db?sslmode=require'
 
 `max` then inserts some values into the `accounts` table, without specifying a schema:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (name, balance) VALUES ('checking', 1000), ('savings', 15000);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -286,7 +286,7 @@ $ cockroach sql --url 'postgres://max:roach@host:port/db?sslmode=require'
 
 Because `max` is the current user, all unqualified `accounts` table names resolve as `max.accounts`, and not `public.accounts`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM public.accounts;
 ~~~

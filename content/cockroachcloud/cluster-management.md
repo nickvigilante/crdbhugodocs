@@ -8,7 +8,7 @@ filter_sort: 2
 docs_area: manage
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page describes the cluster management and cluster deletion workflows for {{ site.data.products.dedicated }}.
 
@@ -16,7 +16,7 @@ This page describes the cluster management and cluster deletion workflows for {{
 
 Before making any changes to your cluster's nodes or regions, review our requirements and recommendations for {{ site.data.products.db }} cluster configuration.
 
-{{ partial "cockroachcloud/planning-your-cluster.md" . }}
+{% include cockroachcloud/planning-your-cluster.md %}
 
 ## View Clusters page
 

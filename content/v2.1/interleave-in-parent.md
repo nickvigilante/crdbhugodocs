@@ -44,7 +44,7 @@ By writing data in this way, related data is more likely to remain on the same k
 
 ## When to interleave tables
 
-{{ partial "{{ page.version.version }}/faq/when-to-interleave-tables.html" . }}
+{% include {{ page.version.version }}/faq/when-to-interleave-tables.html %}
 
 ### Interleaved hierarchy
 
@@ -91,7 +91,7 @@ For an example showing how to create tables that meet these criteria, see [Inter
 ## Syntax
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/interleave.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/interleave.html %}
 </div>
 
 ## Parameters
@@ -128,7 +128,7 @@ For an example showing how to create tables that meet these criteria, see [Inter
 
 This example creates an interleaved hierarchy between `customers`, `orders`, and `packages`, as well as the appropriate Foreign Key constraints. You can see that each child table uses its parent table's Primary Key as a prefix of its own Primary Key (the **interleave prefix**).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers (
     id INT PRIMARY KEY,
@@ -136,7 +136,7 @@ This example creates an interleaved hierarchy between `customers`, `orders`, and
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     customer INT,
@@ -147,7 +147,7 @@ This example creates an interleaved hierarchy between `customers`, `orders`, and
   ) INTERLEAVE IN PARENT customers (customer);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE packages (
     customer INT,
@@ -165,12 +165,12 @@ This example creates an interleaved hierarchy between `customers`, `orders`, and
 
 This example shows how to create interleaved tables that enable our SQL engine to use a code path optimized to run much faster when deleting rows from these tables.  For more information about the criteria for enabling this optimization, see [fast path deletes](#fast-path-deletes) above.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE items (id INT PRIMARY KEY);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS bundles (
     id INT,
@@ -181,7 +181,7 @@ This example shows how to create interleaved tables that enable our SQL engine t
   INTERLEAVE IN PARENT items (item_id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS suppliers (
     id INT,
@@ -192,7 +192,7 @@ This example shows how to create interleaved tables that enable our SQL engine t
   INTERLEAVE IN PARENT items (item_id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS orders (
     id INT,
@@ -206,7 +206,7 @@ This example shows how to create interleaved tables that enable our SQL engine t
 
 The following statement will delete some rows from the `parent` table, very quickly:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DELETE FROM items WHERE id <= 5;
 ~~~
@@ -215,14 +215,14 @@ The following statement will delete some rows from the `parent` table, very quic
 
 It can be easier to understand what interleaving tables does by seeing what it looks like in the key-value store. For example, using the above example of interleaving `orders` in `customers`, we could insert the following values:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (id, name) VALUES
     (1, 'Ha-Yun'),
     (2, 'Emanuela');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO orders (customer, id, total) VALUES
     (1, 1000, 100.00),

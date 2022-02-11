@@ -153,13 +153,13 @@ The [`SESSIONS`](logging.html#sessions) channel logs SQL session events. This in
 These logs perform one disk I/O per event. Enabling each setting will impact performance.
 {{site.data.alerts.end }}
 
-{{ partial "common/experimental-warning.md" . }}
+{% include common/experimental-warning.md %}
 
 #### Example: Client connection events
 
 To log SQL client connection events to the `SESSIONS` channel, enable the `server.auth_log.sql_connections.enabled` [cluster setting](cluster-settings.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING server.auth_log.sql_connections.enabled = true;
 ~~~
@@ -183,7 +183,7 @@ I210323 21:53:58.305074 53298 4@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]
 
 To log SQL session authentication events to the `SESSIONS` channel, enable the `server.auth_log.sql_sessions.enabled` [cluster setting](cluster-settings.html) on every cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING server.auth_log.sql_sessions.enabled = true;
 ~~~
@@ -228,7 +228,7 @@ The [`SENSITIVE_ACCESS`](logging.html#sensitive_access) channel logs SQL audit e
 Enabling these logs can negatively impact performance. We recommend using `SENSITIVE_ACCESS` for security purposes only.
 {{site.data.alerts.end }}
 
-{{ partial "common/experimental-warning.md" . }}
+{% include common/experimental-warning.md %}
 
 To log all queries against a specific table, enable auditing on the table with [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
 
@@ -236,7 +236,7 @@ To log all queries against a specific table, enable auditing on the table with [
 
 This command enables auditing on a `customers` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
@@ -314,7 +314,7 @@ The [`SQL_EXEC`](logging.html#sql_exec) channel reports all SQL executions on th
 
 To log cluster-wide executions, enable the `sql.trace.log_statement_execute` [cluster setting](cluster-settings.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING sql.trace.log_statement_execute = true;
 ~~~
@@ -344,7 +344,7 @@ I210330 16:09:04.966129 1885738 9@util/log/event_log.go:32 ⋮ [n1,intExec=‹fi
 
 If you no longer need to log queries across the cluster, you can disable the setting:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING sql.trace.log_statement_execute = false;
 ~~~
@@ -369,7 +369,7 @@ To log all queries that perform full table or index scans to `SQL_PERF`, regardl
 
 For example, to enable the slow query log for all queries with a latency above 100 milliseconds:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING sql.log.slow_query.latency_threshold = '100ms';
 ~~~

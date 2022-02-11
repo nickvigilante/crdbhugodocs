@@ -31,7 +31,7 @@ The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authoriza
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_role.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/create_role.html %}</section>
 
 ## Parameters
 
@@ -45,7 +45,7 @@ The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authoriza
 
 ## Examples
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE dev_ops;
 ~~~
@@ -57,14 +57,14 @@ After creating roles, you can [add users to the role](grant-roles.html) and [gra
 
 ### Allow the role to create other roles
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE dev with CREATEROLE;
 ~~~
 
 ### Create a role with a password using a string literal
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD 'ilov3beefjerky';
 ~~~
@@ -77,7 +77,7 @@ CREATE ROLE 1
 
 The following statement sets the password to `ilov3beefjerky`, as above:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD ilov3beefjerky;
 ~~~
@@ -86,14 +86,14 @@ This is equivalent to the example in the previous section because the password c
 
 In contrast, the following statement sets the password to `thereisnotomorrow`, even though the password in the syntax contains capitals, because identifiers are normalized automatically:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD ThereIsNoTomorrow;
 ~~~
 
 To preserve case in a password specified using identifier syntax, use double quotes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD "ThereIsNoTomorrow";
 ~~~
@@ -102,7 +102,7 @@ To preserve case in a password specified using identifier syntax, use double quo
 
 The following statement prevents the role from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD NULL;
 ~~~

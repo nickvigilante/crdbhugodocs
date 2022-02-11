@@ -7,7 +7,7 @@ docs_area: reference.db_console
 
 The **Jobs** page of the DB Console provides details about long-running tasks performed by your cluster. These can include:
 
-{{ partial "{{ page.version.version }}/sql/schema-changes.md" . }}.
+{% include {{ page.version.version }}/sql/schema-changes.md %}.
 - [`IMPORT`](import.html).
 - {{ site.data.products.enterprise }} [`BACKUP`](backup.html) and [`RESTORE`](restore.html).
 - [User-created table statistics](create-statistics.html) created for use by the [cost-based optimizer](cost-based-optimizer.html).

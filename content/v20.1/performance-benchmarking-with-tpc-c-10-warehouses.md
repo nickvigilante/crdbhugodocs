@@ -31,7 +31,7 @@ Warehouses | Data size | Cluster size
 
 1. Use the [`cockroach start`](cockroach-start.html) command to start 3 nodes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -42,7 +42,7 @@ Warehouses | Data size | Cluster size
     --background
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -53,7 +53,7 @@ Warehouses | Data size | Cluster size
     --background
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -66,7 +66,7 @@ Warehouses | Data size | Cluster size
 
 2. Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init \
     --insecure \
@@ -79,7 +79,7 @@ CockroachDB comes with built-in load generators for simulating different types o
 
 Use [`cockroach workload`](cockroach-workload.html) to load the initial schema and data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach workload init tpcc \
 --warehouses=10 \
@@ -104,7 +104,7 @@ I191024 03:46:51.682670 1 workload/workloadsql/dataload.go:135  imported order_l
 
 Run the workload for ten "warehouses" of data for ten minutes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach workload run tpcc \
 --warehouses=10 \
@@ -151,12 +151,12 @@ The [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/
 
 1. When you're done with your test cluster, use the [`cockroach quit`](cockroach-quit.html) command to gracefully shut down each node.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26257
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26258
     ~~~
@@ -165,7 +165,7 @@ The [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/
     For the last node, the shutdown process will take longer (about a minute each) and will eventually force the node to stop. This is because, with only 1 of 3 nodes left, all ranges no longer have a majority of replicas available, and so the cluster is no longer operational.
     {{site.data.alerts.end }}
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26259
     ~~~
@@ -174,7 +174,7 @@ The [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/
 
     If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm -rf tpcc-local1 tpcc-local2 tpcc-local3
     ~~~

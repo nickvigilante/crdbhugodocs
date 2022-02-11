@@ -14,7 +14,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 Use the [`cockroach start`](start-a-node.html) command to start 3 nodes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 # In a new terminal, start node 1:
 $ cockroach start \
@@ -25,7 +25,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 # In a new terminal, start node 2:
 $ cockroach start \
@@ -36,7 +36,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 # In a new terminal, start node 3:
 $ cockroach start \
@@ -51,7 +51,7 @@ $ cockroach start \
 
 In a new terminal, use the [`cockroach init`](initialize-a-cluster.html) command to perform a one-time initialization of the cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init \
 --insecure \
@@ -62,12 +62,12 @@ $ cockroach init \
 
 In a new terminal, connect the [built-in SQL shell](use-the-built-in-sql-client.html) to any node to verify that the cluster is live:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --host=localhost:26257
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -83,7 +83,7 @@ $ cockroach sql --insecure --host=localhost:26257
 
 Exit the SQL shell:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \q
 ~~~
@@ -94,7 +94,7 @@ CockroachDB comes with [built-in load generators](cockroach-workload.html) for s
 
 1. Load the initial schema and data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach workload init tpcc \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -102,7 +102,7 @@ CockroachDB comes with [built-in load generators](cockroach-workload.html) for s
 
 2. The initial data is enough for the purpose of this tutorial, but you can run the workload for as long as you like to increase the data size, adjusting the `--duration` flag as appropriate:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach workload run tpcc \
     --duration=30s \
@@ -121,7 +121,7 @@ Open the Admin UI at <a href="http://localhost:8080" data-proofer-ignore>http://
 
 Adding capacity is as simple as starting more nodes and joining them to the running cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 # In a new terminal, start node 4:
 $ cockroach start \
@@ -132,7 +132,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 # In a new terminal, start node 5:
 $ cockroach start \
@@ -163,7 +163,7 @@ For the last node, the shutdown process will take longer (about a minute) and wi
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ rm -rf scale-node1 scale-node2 scale-node3 scale-node4 scale-node5
 ~~~
@@ -172,4 +172,4 @@ $ rm -rf scale-node1 scale-node2 scale-node3 scale-node4 scale-node5
 
 Explore other core CockroachDB benefits and features:
 
-{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}
+{% include {{ page.version.version }}/misc/explore-benefits-see-also.md %}

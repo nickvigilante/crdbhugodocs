@@ -15,7 +15,7 @@ statements.
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/sort_clause.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/sort_clause.html %}
 </div>
 
 ## Parameters

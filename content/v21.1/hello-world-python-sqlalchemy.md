@@ -12,7 +12,7 @@ This tutorial shows you how build a simple Hello World Python application with C
 
 To install SQLAlchemy, as well as a [CockroachDB Python package](https://github.com/cockroachdb/sqlalchemy-cockroachdb) that accounts for some differences between CockroachDB and PostgreSQL, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 ~~~
@@ -25,13 +25,13 @@ For other ways to install SQLAlchemy, see the [official documentation](http://do
 
 ## Step 2. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 3. Get the code
 
 Clone the code's GitHub repo:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-python-sqlalchemy/
 ~~~
@@ -52,7 +52,7 @@ The `main` method of this program does the following:
 
 To run the app:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python3 main.py
 ~~~
@@ -111,7 +111,7 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) docs
 - [Transactions](transactions.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}
 
 <!-- Reference Links -->
 

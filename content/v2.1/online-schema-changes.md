@@ -45,7 +45,7 @@ As noted in [Limitations](#limitations), you cannot run schema changes inside tr
 
 However, as of version 2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
   SAVEPOINT cockroach_restart;
@@ -85,7 +85,7 @@ COMMIT
 
 You can check on the status of the schema change jobs on your system at any time using the [`SHOW JOBS`][show-jobs] statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'SCHEMA CHANGE';
 ~~~
@@ -115,11 +115,11 @@ As of version 2.1, you can run schema changes inside the same transaction as a [
 
 ### No schema changes within transactions
 
-{{ partial "v2.1/misc/schema-changes-within-transactions.md" . }}
+{% include v2.1/misc/schema-changes-within-transactions.md %}
 
 ### No schema changes between executions of prepared statements
 
-{{ partial "v2.1/misc/schema-changes-between-prepared-statements.md" . }}
+{% include v2.1/misc/schema-changes-between-prepared-statements.md %}
 
 ### Examples of statements that fail
 
@@ -127,7 +127,7 @@ The following statements fail due to the [no schema changes within transactions]
 
 #### Create an index and then run a select against that index inside a transaction
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE foo (id INT PRIMARY KEY, name VARCHAR);
   BEGIN;
@@ -150,7 +150,7 @@ ROLLBACK
 
 #### Add a column and then add a constraint against that column inside a transaction
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;
@@ -173,7 +173,7 @@ ROLLBACK
 
 #### Add a column and then select against that column inside a transaction
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;

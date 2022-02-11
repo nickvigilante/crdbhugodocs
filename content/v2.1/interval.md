@@ -39,12 +39,12 @@ An `INTERVAL` column supports values up to 24 bytes in width, but the total stor
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE intervals (a INT PRIMARY KEY, b INTERVAL);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM intervals;
 ~~~
@@ -59,7 +59,7 @@ An `INTERVAL` column supports values up to 24 bytes in width, but the total stor
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO intervals VALUES
   (1, INTERVAL '1h2m3s4ms5us6ns'),
@@ -71,7 +71,7 @@ An `INTERVAL` column supports values up to 24 bytes in width, but the total stor
 INSERT 3
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM intervals;
 ~~~

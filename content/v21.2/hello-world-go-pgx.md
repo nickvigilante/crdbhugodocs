@@ -10,13 +10,13 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Hello World Go application with CockroachDB and the [Go pgx driver](https://pkg.go.dev/github.com/jackc/pgx).
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -90,4 +90,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [pgx](https://pkg.go.dev/github.com/jackc/pgx) docs
 - [Transactions](transactions.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

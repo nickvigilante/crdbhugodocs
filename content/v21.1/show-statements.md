@@ -32,7 +32,7 @@ All users can see their own currently active queries. All users belonging to the
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_statements.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_statements.html %}
 </div>
 
 - To list the active queries across all nodes of the cluster, use `SHOW STATEMENTS` or `SHOW CLUSTER STATEMENTS`.
@@ -59,7 +59,7 @@ Field | Description
 
 ### List queries across the cluster
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER STATEMENTS;
 ~~~
@@ -77,7 +77,7 @@ Alternatively, you can use `SHOW STATEMENTS` to receive the same response.
 
 ### List queries on the local node
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW LOCAL STATEMENTS;
 ~~~
@@ -96,7 +96,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 #### Show all queries on node 2
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER STATEMENTS]
       WHERE node_id = 2;
@@ -111,7 +111,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 #### Show all queries from a specific address and user
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER STATEMENTS]
       WHERE client_address = '127.0.0.1:65196' AND user_name = 'maxroach';
@@ -128,7 +128,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 To exclude queries from the [built-in SQL client](cockroach-sql.html), filter for queries that do not show `$ cockroach sql` as the `application_name`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER STATEMENTS]
       WHERE application_name != '$ cockroach sql';
@@ -149,7 +149,7 @@ When you see a query that is taking too long to complete, you can use the [`CANC
 
 For example, let's say you use `SHOW CLUSTER STATEMENTS` to find queries that have been running for more than 3 hours:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER STATEMENTS]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -164,7 +164,7 @@ For example, let's say you use `SHOW CLUSTER STATEMENTS` to find queries that ha
 
 To cancel this long-running query, and stop it from consuming resources, you note the `query_id` and use it with the `CANCEL QUERY` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL QUERY '15f92c745fe203600000000000000001';
 ~~~

@@ -13,7 +13,7 @@ The user must have the `DROP` [privilege](privileges.html) on the specified sequ
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_sequence.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/drop_sequence.html %}</section>
 
 ## Parameters
 
@@ -38,7 +38,7 @@ table td:first-child {
 
 In this example, other objects do not depend on the sequence being dropped.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -54,7 +54,7 @@ In this example, other objects do not depend on the sequence being dropped.
 (4 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP SEQUENCE customer_seq;
 ~~~
@@ -62,7 +62,7 @@ In this example, other objects do not depend on the sequence being dropped.
 DROP SEQUENCE
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.sequences
 ~~~

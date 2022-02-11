@@ -16,7 +16,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the table.
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/validate_constraint.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/validate_constraint.html %}
 </div>
 
 ## Parameters

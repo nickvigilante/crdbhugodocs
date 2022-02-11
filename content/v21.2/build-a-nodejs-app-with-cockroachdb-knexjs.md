@@ -10,7 +10,7 @@ filter_sort: 3
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Node.js application with CockroachDB and [Knex.js](https://knexjs.org/).
 
@@ -23,9 +23,9 @@ This tutorial shows you how build a simple Node.js application with CockroachDB 
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
-{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection-no-cert.md" . }}
+{% include cockroachcloud/quickstart/set-up-your-cluster-connection-no-cert.md %}
 
 </section>
 
@@ -41,7 +41,7 @@ This tutorial shows you how build a simple Node.js application with CockroachDB 
 
     This starts an insecure, single-node cluster.
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-flag.md %}
 
 </section>
 
@@ -104,4 +104,4 @@ Update the configuration settings in the `app.js` file using the connection info
 
 ## What's next?
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

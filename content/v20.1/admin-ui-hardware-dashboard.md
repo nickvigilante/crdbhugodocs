@@ -8,7 +8,7 @@ The **Hardware** dashboard lets you monitor the hardware utilization of your clu
 
 To view this dashboard, [access the Admin UI](admin-ui-overview.html#admin-ui-access), click **Metrics** in the left-hand navigation, and select **Dashboard** > **Hardware**.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md %}
 
 The **Hardware** dashboard displays the following time series graphs:
 
@@ -102,7 +102,7 @@ The **available** disk capacity equals the amount of empty disk space, up to the
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Available Disk Capacity** graph.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 {{site.data.alerts.end }}
 
 ## Network Bytes Received
@@ -121,7 +121,7 @@ The disk usage of the Cockroach binary, operating system, and other system files
 
 - In the cluster view, the graph shows the 10-second average of the number of network bytes sent per second by all processes, including CockroachDB, across all nodes.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-summary-events.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-summary-events.md %}
 
 ## See also
 

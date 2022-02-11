@@ -16,7 +16,7 @@ The user must have the `DROP` [privilege](privileges.html) on the view and the `
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/alter_view.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/alter_view.html %}
 </div>
 
 ## Parameters
@@ -29,7 +29,7 @@ Parameter | Description
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -44,7 +44,7 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER VIEW bank.user_emails RENAME TO bank.user_email_addresses;
 ~~~
@@ -53,7 +53,7 @@ Parameter | Description
 RENAME VIEW
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~

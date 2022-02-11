@@ -189,7 +189,7 @@ You do not need to create or specify node and client certificates in `sql` or `s
 
 When running a multi-node demo cluster, use the `\demo ls` [shell command](#commands) to list the connection parameters for all nodes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \demo ls
 ~~~
@@ -218,7 +218,7 @@ node 3:
 
 #### General
 
-{{ partial "{{ page.version.version }}/sql/shell-commands.md" . }}
+{% include {{ page.version.version }}/sql/shell-commands.md %}
 
 #### Demo-specific
 
@@ -234,15 +234,15 @@ Command | Usage
 
 ### Client-side options
 
-{{ partial "{{ page.version.version }}/sql/shell-options.md" . }}
+{% include {{ page.version.version }}/sql/shell-options.md %}
 
 ### Help
 
-{{ partial "{{ page.version.version }}/sql/shell-help.md" . }}
+{% include {{ page.version.version }}/sql/shell-help.md %}
 
 ### Shortcuts
 
-{{ partial "{{ page.version.version }}/sql/shell-shortcuts.md" . }}
+{% include {{ page.version.version }}/sql/shell-shortcuts.md %}
 
 ## Diagnostics reporting
 
@@ -254,14 +254,14 @@ In these examples, we demonstrate how to start a shell with `cockroach demo`. Fo
 
 ### Start a single-node demo cluster
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo
 ~~~
 
 By default, `cockroach demo` loads the `movr` dataset in to the demo cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -280,7 +280,7 @@ By default, `cockroach demo` loads the `movr` dataset in to the demo cluster:
 
 You can query the pre-loaded data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name FROM users LIMIT 10;
 ~~~
@@ -303,7 +303,7 @@ You can query the pre-loaded data:
 
 You can also create and query new tables:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE drivers (
     id UUID DEFAULT gen_random_uuid(),
@@ -315,12 +315,12 @@ You can also create and query new tables:
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO drivers (city, name) VALUES ('new york', 'Catherine Nelson');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM drivers;
 ~~~
@@ -334,7 +334,7 @@ You can also create and query new tables:
 
 ### Start a multi-node demo cluster
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo --nodes=3
 ~~~
@@ -343,12 +343,12 @@ $ cockroach demo --nodes=3
 
 By default, `cockroach demo` loads the `movr` dataset in to the demo cluster. To pre-load any of the other [available datasets](#datasets) using `cockroach demo <dataset>`. For example, to load the `ycsb` dataset:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo ycsb
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -362,7 +362,7 @@ $ cockroach demo ycsb
 
 ### Run load against a demo cluster
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo --with-load
 ~~~
@@ -373,7 +373,7 @@ When running a multi-node demo cluster, load is balanced across all nodes.
 
 ### Execute SQL from the command-line against a demo cluster
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo \
 --execute="CREATE TABLE drivers (
@@ -403,7 +403,7 @@ In addition to the interactive SQL shell that opens when you run `cockroach demo
 
 First, use `\demo ls` to list the connection parameters for each node in the demo cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \demo ls
 ~~~
@@ -427,7 +427,7 @@ node 3:
 
 Then open a new terminal and run [`cockroach sql`](cockroach-sql.html) with the `--url` flag set to the `sql/tcp` connection URL of the node to which you want to connect:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --url='postgres://root:admin@127.0.0.1:54885?sslmode=require'
 ~~~
@@ -436,7 +436,7 @@ You can also use this URL to connect an application to the demo cluster.
 
 ### Start a multi-region demo cluster with automatic geo-partitioning
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo --geo-partitioned-replicas
 ~~~
@@ -447,16 +447,16 @@ This command starts a 9-node demo cluster with the `movr` database preloaded, an
 
 In a multi-node demo cluster, you can use `\demo` [shell commands](#commands) to shut down, restart, decommission, and recommission individual nodes.
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo --nodes=3
 ~~~
 
 You can shutdown the 3rd node and then restart it:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \demo shutdown 3
 ~~~
@@ -465,7 +465,7 @@ You can shutdown the 3rd node and then restart it:
 node 3 has been shutdown
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \demo restart 3
 ~~~
@@ -476,7 +476,7 @@ node 3 has been restarted
 
 You can also decommission the 3rd node and then recommission it:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \demo decommission 3
 ~~~
@@ -485,7 +485,7 @@ You can also decommission the 3rd node and then recommission it:
 node 3 has been decommissioned
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \demo recommission 3
 ~~~

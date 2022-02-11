@@ -20,7 +20,7 @@ This page explains how to add and remove CockroachDB nodes on Kubernetes.
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
+{% include {{ page.version.version }}/orchestration/operator-check-namespace.md %}
 
 {{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
@@ -142,11 +142,11 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster-manual.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-scale-cluster-manual.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster-helm.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-scale-cluster-helm.md %}
 </section>
 
 ## Remove nodes
@@ -250,9 +250,9 @@ This workflow is unsupported and should be enabled at your own risk.
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-manual.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-remove-nodes-manual.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-helm.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-remove-nodes-helm.md %}
 </section>

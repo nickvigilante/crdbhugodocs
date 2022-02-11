@@ -7,7 +7,7 @@ toc: true
 
 Once you [create a table](create-table.html) and load data into it (e.g., [`INSERT`](insert.html), [`IMPORT`](import.html)), table statistics can be generated. Table statistics help the cost-based optimizer determine the cardinality of the rows used in each query, which helps to predict more accurate costs.
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 ## Considerations
 
@@ -16,7 +16,7 @@ Each time `CREATE STATISTICS` is used, a new statistic is created without removi
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/create_stats.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/create_stats.html %}
 </div>
 
 ## Required Privileges
@@ -35,7 +35,7 @@ Parameter            | Description
 
 ### Create statistics
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE STATISTICS students ON id FROM students_by_list;
 ~~~
@@ -52,7 +52,7 @@ Multi-column statistics are not supported yet.
 
 To delete statistics for all tables in all databases:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DELETE FROM system.table_statistics WHERE true;
 ~~~

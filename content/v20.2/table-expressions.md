@@ -15,7 +15,7 @@ expression.
 ## Synopsis
 
 <div class="horizontal-scroll">
-{{ partial "{{ page.version.version }}/sql/diagrams/table_ref.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/table_ref.html %}
 </div>
 
 ## Parameters
@@ -73,19 +73,19 @@ If the name is composed of two or more identifiers, [name resolution](sql-name-r
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users; -- uses table `users` in the current database
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM mydb.users; -- uses table `users` in database `mydb`
 ~~~
 
 #### Force index selection
 
-{{ partial "{{ page.version.version }}/misc/force-index-selection.md" . }}
+{% include {{ page.version.version }}/misc/force-index-selection.md %}
 
 {{site.data.alerts.callout_info }}
 You can also force index selection for [`DELETE`](delete.html#force-index-selection-for-deletes) and [`UPDATE`](update.html#force-index-selection-for-updates) statements.
@@ -99,7 +99,7 @@ earlier.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > WITH a AS (SELECT * FROM users)
   SELECT * FROM a; -- "a" refers to "WITH a AS .."
@@ -133,7 +133,7 @@ single column and single row containing the function results.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM sin(3.2)
 ~~~
@@ -156,7 +156,7 @@ function".
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM generate_series(1, 3);
 ~~~
@@ -177,7 +177,7 @@ Set-returning functions (SRFs) can now be accessed using `(SRF).x` where `x` is 
 
 For example (note that the output of queries against [`information_schema`](information-schema.html) will vary per database):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT (i.keys).* FROM (SELECT information_schema._pg_expandarray(indkey) AS keys FROM pg_index) AS i;
 ~~~
@@ -220,12 +220,12 @@ In the second form, the columns are also renamed.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT c.x FROM (SELECT COUNT(*) AS x FROM users) AS c;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT c.x FROM (SELECT COUNT(*) FROM users) AS c(x);
 ~~~
@@ -243,7 +243,7 @@ an extra "Ordinality" column that enumerates every row in the data source.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM (VALUES('a'),('b'),('c'));
 ~~~
@@ -257,7 +257,7 @@ For example:
 +---------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM (VALUES ('a'), ('b'), ('c')) WITH ORDINALITY;
 ~~~
@@ -303,17 +303,17 @@ Syntax:
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT c+2                          FROM (SELECT COUNT(*) AS c FROM users);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT *                            FROM (VALUES(1), (2), (3));
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT firstname || ' ' || lastname FROM (TABLE employees);
 ~~~
@@ -351,7 +351,7 @@ This CockroachDB extension syntax complements the [subquery syntax using parenth
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT "column_name" FROM [SHOW COLUMNS FROM customer];
 ~~~
@@ -372,7 +372,7 @@ immediately creates a matching entry in the `management` table with the
 auto-generated employee ID, without requiring a round trip with the SQL
 client:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO management(manager, reportee)
     VALUES ((SELECT id FROM employee WHERE name = 'Diana'),
@@ -386,7 +386,7 @@ Table expressions are used in the [`SELECT`](select-clause.html) and
 clauses](selection-queries.html#selection-clauses), and thus can appear everywhere where
 a selection clause is possible. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT ... FROM <table expr>, <table expr>, ...
 > TABLE <table expr>

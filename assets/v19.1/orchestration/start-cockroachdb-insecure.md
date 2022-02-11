@@ -7,11 +7,11 @@
     $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/cockroachdb-statefulset.yaml
     ~~~
 
-    {{site.data.alerts.callout_danger}}
+    {{site.data.alerts.callout_danger }}
     To avoid running out of memory when CockroachDB is not the only pod on a Kubernetes node, you must set memory limits explicitly. This is because CockroachDB does not detect the amount of memory allocated to its pod when run in Kubernetes. Specify this amount by adjusting `resources.requests.memory` and `resources.limits.memory` in `cockroachdb-statefulset.yaml`. Their values should be identical.
 
     We recommend setting `cache` and `max-sql-memory` each to 1/4 of your memory allocation. For example, if you are allocating 8Gi of memory to each CockroachDB node, substitute the following values in [this line](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/cockroachdb-statefulset.yaml#L146):
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -118,4 +118,4 @@
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

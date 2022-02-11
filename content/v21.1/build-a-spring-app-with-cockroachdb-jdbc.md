@@ -33,11 +33,11 @@ Choose whether to run a local cluster or a free CockroachDB cluster on {{ site.d
 
 ### Create a free cluster
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
 ### Set up your cluster connection
 
-{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection.md" . }}
+{% include cockroachcloud/quickstart/set-up-your-cluster-connection.md %}
 
   </section>
 
@@ -216,7 +216,7 @@ datasource:
 ...
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 

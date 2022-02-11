@@ -8,9 +8,9 @@ As a result, using `SELECT FOR UPDATE` leads to increased throughput and decreas
 
 CockroachDB currently does not support the `FOR SHARE`/`FOR KEY SHARE` [locking strengths](select-for-update.html#locking-strengths), or the `SKIP LOCKED` [wait policy](select-for-update.html#wait-policies).
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 By default, CockroachDB uses the `SELECT FOR UPDATE` locking mechanism during the initial row scan performed in [`UPDATE`](update.html) and [`UPSERT`](upsert.html) statement execution. To turn off implicit `SELECT FOR UPDATE` locking for `UPDATE` and `UPSERT` statements, set `enable_implicit_select_for_update` to `false`.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 <!-- Reference Links -->
 

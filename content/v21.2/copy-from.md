@@ -14,7 +14,7 @@ CockroachDB currently only supports `COPY FROM` statements issued from third-par
 ## Syntax
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/copy_from.html %}
+{{< sql-diagram "copy_from.html" >}}
 </div>
 
 ### Parameters
@@ -42,11 +42,11 @@ Only members of the `admin` role can run `COPY` statements. By default, the `roo
 
 ### `COPY FROM` statements are not supported in the CockroachDB SQL shell
 
-{{ partial "{{ page.version.version }}/known-limitations/copy-from-clients.md" . }}
+{% include {{ page.version.version }}/known-limitations/copy-from-clients.md %}
 
 ### `COPY` syntax not supported by CockroachDB
 
-{{ partial "{{ page.version.version }}/known-limitations/copy-syntax.md" . }}
+{% include {{ page.version.version }}/known-limitations/copy-syntax.md %}
 
 ## Example
 
@@ -54,7 +54,7 @@ The following example copies data from the PostgreSQL [`psql` client](https://ww
 
 Run [`cockroach demo`](cockroach-demo.html) to start a temporary, in-memory cluster with the [`movr` database](movr.html) preloaded:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo
 ~~~
@@ -69,14 +69,14 @@ Take note of the `(sql)` connection string listed under `Connection parameters` 
 
 Open a new terminal window, and connect to your demo cluster with `psql`, using the connection string provided for the demo cluster, with the `movr` database specified:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ psql postgres://demo:demo11762@127.0.0.1:26257?sslmode=require
 ~~~
 
 In the `psql` shell, run the following command to start copying data from `psql` to the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > movr=# COPY users FROM STDIN;
 ~~~
@@ -90,7 +90,7 @@ End with a backslash and a period on a line by itself, or an EOF signal.
 
 Enter some tab-delimited data that you want copied to the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 >> 8a3d70a3-d70a-4000-8000-00000000001d seattle	Hannah	400 Broad St	0987654321
 >> 9eb851eb-851e-4800-8000-00000000001e	new york	Carl	53 W 23rd St	5678901234
@@ -103,7 +103,7 @@ COPY 2
 
 In the demo cluster's shell, query the `users` table for the rows that you just inserted:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users WHERE id IN ('8a3d70a3-d70a-4000-8000-00000000001d', '9eb851eb-851e-4800-8000-00000000001e');
 ~~~

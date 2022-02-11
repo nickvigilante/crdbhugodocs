@@ -14,4 +14,4 @@ The **Statements** page helps you:
 
 To view this page, click **SQL Activity** in the left-hand navigation of the {{ site.data.products.db }} Console. The **Statements** tab is selected.
 
-{{ partial "common/ui/statements-page.md" . }}
+{% include common/ui/statements-page.md %}

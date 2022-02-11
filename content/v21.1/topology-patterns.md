@@ -53,4 +53,4 @@ The following anti-patterns are ineffective or risky:
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

@@ -21,7 +21,7 @@ The `ALTER USER` [statement](sql-statements.html) can be used to add, change, or
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/generated/diagrams/alter_user_password.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/generated/diagrams/alter_user_password.html %}</div>
 
 ## Parameters
 
@@ -62,7 +62,7 @@ root@:26257/defaultdb> ALTER USER carl WITH PASSWORD 'An0ther$tr0nGpassW0rD' VAL
 
 The following statement prevents the user from using password authentication and mandates certificate-based [client authentication](authentication.html#client-authentication):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 root@:26257/defaultdb> ALTER USER carl WITH PASSWORD NULL;
 ~~~

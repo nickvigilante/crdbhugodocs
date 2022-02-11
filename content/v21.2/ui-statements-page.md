@@ -5,7 +5,7 @@ toc: true
 docs_area: reference.db_console
 ---
 
-{{ partial "{{ page.version.version }}/ui/admin-access.md" . }}
+{% include {{ page.version.version }}/ui/admin-access.md %}
 
 The **Statements** page helps you:
 
@@ -15,4 +15,4 @@ The **Statements** page helps you:
 
 To view this page, click **SQL Activity** in the left-hand navigation of the DB Console. The **Statements** tab is selected.
 
-{{ partial "common/ui/statements-page.md" . }}
+{% include common/ui/statements-page.md %}

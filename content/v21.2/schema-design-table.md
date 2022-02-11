@@ -69,7 +69,7 @@ Suppose you want to create a table to store information about users of the [MovR
 
 Create an empty `.sql` file for `max`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ touch max_init.sql
 ~~~
@@ -78,7 +78,7 @@ This file will initialize the objects in the `max_schema` user-defined schema th
 
 In a text editor, open `max_init.sql`, and add an empty `CREATE TABLE` statement for the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
 );
@@ -120,7 +120,7 @@ Here are some best practices to follow when defining table columns:
 
 In the `max_init.sql` file, add a few column definitions to the `users` table's `CREATE TABLE` statement, for user names and email addresses:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -137,7 +137,7 @@ Let's add another example table to our `max_schema` schema, with more column dat
 
 As a vehicle-sharing platform, MovR needs to store data about its vehicles. In `max_init.sql`, add a `CREATE TABLE` statement for a `vehicles` table, under the `CREATE TABLE` statement for `users`. This table should probably include information about the type of vehicle, when it was created, what its availability is, and where it is located:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.vehicles (
       id UUID,
@@ -160,7 +160,7 @@ Note that values in the `type` column will likely only be `STRING` values from a
 
 To create a user-defined type, use a `CREATE TYPE` statement. For example, above the `CREATE TABLE` statement for the `vehicles` table, add the following statements:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TYPE movr.max_schema.vtype AS ENUM ('bike', 'scooter', 'skateboard');
 ~~~
@@ -171,7 +171,7 @@ For detailed reference documentation on the `CREATE TYPE` statement, including a
 
 You can then use `vtype` as the `type` column's data type:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.vehicles (
       id UUID,
@@ -232,7 +232,7 @@ To follow a [primary key best practice](#primary-key-best-practices), the `CREAT
 
 In the `max_init.sql` file, add a composite primary key on the `first_name` and `last_name` columns of the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -250,7 +250,7 @@ Primary key columns can also be single columns, if those columns are guaranteed 
 
 In the `vehicles` table definition, add a `PRIMARY KEY` constraint on the `id` column:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.vehicles (
       id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -283,7 +283,7 @@ When combined with [supported SQL functions](functions-and-operators.html), defa
 
 For example, in the `vehicles` table definition in `max_init.sql`, you added a `DEFAULT gen_random_uuid()` clause to the `id` column definition. This set the default value to a generated `UUID` value. Now, add a default value to the `creation_time` column:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.vehicles (
       id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -308,7 +308,7 @@ For example, suppose you want to add a new table that contains data about the ri
 
 In `max_init.sql`, under the `CREATE TABLE` statement for `vehicles`, add a definition for a `rides` table, with a foreign key dependency on the `vehicles` table. To define a foreign key constraint, use the `REFERENCES` keyword:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.rides (
       id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -328,7 +328,7 @@ Suppose that you want to introduce promotional codes for users on the MovR platf
 
 Create an empty `.sql` initialization file for `abbey`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ touch abbey_init.sql
 ~~~
@@ -337,7 +337,7 @@ This file will initialize the objects in the `abbey_schema` user-defined schema 
 
 In a text editor, open `abbey_init.sql`, and add a `CREATE TABLE` statement for a table called `user_promo_codes`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.abbey_schema.user_promo_codes (
     code STRING,
@@ -363,7 +363,7 @@ To prevent duplicate values in a column, use the `UNIQUE` constraint.
 
 For example, suppose that you want to ensure that the email addresses of all users are different, to prevent users from registering for two accounts with the same email address. Add a `UNIQUE` constraint to the `email` column of the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -391,7 +391,7 @@ To prevent `NULL` values in a column, use the `NOT NULL` constraint. If you spec
 
 For example, if you require all users of the MovR platform to have an email on file, you can add a `NOT NULL` constraint to the `email` column of the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -419,15 +419,15 @@ Here are some general best practices to follow when executing `CREATE TABLE` sta
 
 - Do not create tables as the `root` user. Instead, create tables as a [different user](schema-design-overview.html#control-access-to-objects), with fewer privileges, following [authorization best practices](authorization.html#authorization-best-practices). The user that creates an object becomes that [object's owner](authorization.html#object-ownership).
 
-- {{ partial "{{ page.version.version }}/sql/dev-schema-changes.md" . }}
+- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
 
-- {{ partial "{{ page.version.version }}/sql/dev-schema-change-limits.md" . }}
+- {% include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
 
 #### Execute the example `CREATE TABLE` statements
 
 After following the examples provided in the sections above, the `max_init.sql` file should look similar to the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -458,7 +458,7 @@ CREATE TABLE movr.max_schema.rides (
 
 To execute the statements in the `max_init.sql` file, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -473,7 +473,7 @@ After the statements have been executed, you can see the tables in the [Cockroac
 
 Open the SQL shell to your cluster, with `movr` as the database and `max` as the user:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -483,7 +483,7 @@ $ cockroach sql \
 
 To view the tables in the `max_schema` user-defined schema, issue a [`SHOW TABLES`](show-tables.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM max_schema;
 ~~~
@@ -499,7 +499,7 @@ To view the tables in the `max_schema` user-defined schema, issue a [`SHOW TABLE
 
 To see the individual `CREATE TABLE` statements for each table, use a [`SHOW CREATE`](show-create.html) statement. For example, to see the `vehicles` `CREATE TABLE` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE movr.max_schema.vehicles;
 ~~~
@@ -521,7 +521,7 @@ To see the individual `CREATE TABLE` statements for each table, use a [`SHOW CRE
 
 After following the examples provided in the sections above, the `abbey_init.sql` file should look similar to the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.abbey_schema.user_promo_codes (
     code STRING,
@@ -533,7 +533,7 @@ CREATE TABLE movr.abbey_schema.user_promo_codes (
 
 To execute the statement in the `abbey_init.sql` file, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -546,7 +546,7 @@ After the statements have been executed, you can see the table in the [Cockroach
 
 Open the SQL shell to your cluster, with `movr` as the database and `abbey` as the user, and view the table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -554,7 +554,7 @@ $ cockroach sql \
 --database=movr
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM abbey_schema;
 ~~~
@@ -566,7 +566,7 @@ $ cockroach sql \
 (1 row
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE movr.abbey_schema.user_promo_codes;
 ~~~

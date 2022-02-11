@@ -114,9 +114,9 @@ Locality optimized search is supported for scans that are guaranteed to return 1
 
 ### Limitations
 
-{{ partial "{{ page.version.version }}/sql/locality-optimized-search-limited-records.md" . }}
+{% include {{ page.version.version }}/sql/locality-optimized-search-limited-records.md %}
 
-{{ partial "{{ page.version.version }}/sql/locality-optimized-search-virtual-computed-columns.md" . }}
+{% include {{ page.version.version }}/sql/locality-optimized-search-virtual-computed-columns.md %}
 
 ## Query plan cache
 
@@ -254,13 +254,13 @@ SELECT * FROM abc@{NO_ZIGZAG_JOIN};
 
 ### Inverted join examples
 
-{{ partial "{{ page.version.version }}/sql/inverted-joins.md" . }}
+{% include {{ page.version.version }}/sql/inverted-joins.md %}
 
 ## Known Limitations
 
-* {{ partial "{{ page.version.version }}/known-limitations/old-multi-col-stats.md" . }}
-* {{ partial "{{ page.version.version }}/known-limitations/single-col-stats-deletion.md" . }}
-* {{ partial "{{ page.version.version }}/known-limitations/stats-refresh-upgrade.md" . }}
+* {% include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
+* {% include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
+* {% include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
 
 ## See also
 

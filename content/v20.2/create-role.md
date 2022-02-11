@@ -18,7 +18,7 @@ See [Authorization](authorization.html) for more information on privilege manage
 
 ## Considerations
 
-{{ partial "{{ page.version.version }}/sql/role-considerations.md" . }}
+{% include {{ page.version.version }}/sql/role-considerations.md %}
 
 ## Required privileges
 
@@ -31,7 +31,7 @@ Unless a role is a member of the admin role, additional [privileges](#parameters
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/create_role.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/create_role.html %}
 </div>
 
 ## Parameters
@@ -128,7 +128,7 @@ root       |                                       | {admin}
 
 The following statement prevents the role from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE no_password WITH PASSWORD NULL;
 ~~~

@@ -5,12 +5,12 @@ toc: true
 ---
 <span class="version-tag">New in v2.1:</span> The `SHOW STATISTICS` [statement](sql-statements.html) lists [table statistics](create-statistics.html) used by the [cost-based optimizer](cost-based-optimizer.html).
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/show_stats.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/show_stats.html %}
 </div>
 
 ## Required Privileges
@@ -27,7 +27,7 @@ Parameter      | Description
 
 ### List table statistics
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE STATISTICS students ON id FROM students_by_list;
 ~~~
@@ -36,7 +36,7 @@ Parameter      | Description
 CREATE STATISTICS
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE students_by_list;
 ~~~

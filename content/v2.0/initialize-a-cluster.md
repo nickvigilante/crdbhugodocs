@@ -25,7 +25,7 @@ The `cockroach init` command supports the following [client connection](#client-
 
 ### Client Connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 
 See [Client Connection Parameters](connection-parameters.html) for details.
 

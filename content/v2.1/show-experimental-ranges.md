@@ -16,12 +16,12 @@ This information is useful for verifying that:
 - The ["follow-the-workload"](demo-follow-the-workload.html) feature is operating as expected.
 - Range splits specified by the [`SPLIT AT`](split-at.html) statement were created as expected.
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/show_ranges.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/show_ranges.html %}
 </div>
 
 ## Required privileges
@@ -39,7 +39,7 @@ Parameter | Description
 
 The examples in this section operate on a hypothetical "user credit information" table filled with placeholder data, running on a 5-node cluster.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE credit_users (
        id INT PRIMARY KEY,
@@ -53,19 +53,19 @@ The examples in this section operate on a hypothetical "user credit information"
 
 We added a secondary [index](indexes.html) to the table on the `area_code` column:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX areaCode on credit_users(area_code);
 ~~~
 
 Next, we ran a couple of [`SPLIT AT`s](split-at.html) on the table and the index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE credit_users SPLIT AT VALUES (5), (10), (15);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX credit_users@areaCode SPLIT AT VALUES (400), (600), (999);
 ~~~
@@ -77,7 +77,7 @@ A `NULL` in the *End Key* column means "end of table".
 
 ### Show ranges for a table (primary index)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE credit_users;
 ~~~
@@ -96,7 +96,7 @@ A `NULL` in the *End Key* column means "end of table".
 
 ### Show ranges for an index
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM INDEX credit_users@areaCode;
 ~~~

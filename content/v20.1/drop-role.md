@@ -23,7 +23,7 @@ Roles can only be dropped by super users, i.e., members of the `admin` role.
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_role.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/drop_role.html %}</section>
 
 
 ## Parameters
@@ -36,7 +36,7 @@ Roles can only be dropped by super users, i.e., members of the `admin` role.
 
 In this example, first check a role's privileges. Then, revoke the role's privileges and remove the role.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON documents FOR dev_ops;
 ~~~
@@ -48,14 +48,14 @@ In this example, first check a role's privileges. Then, revoke the role's privil
 +------------+--------+-----------+---------+------------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE INSERT ON documents FROM dev_ops;
 ~~~
 
 {{site.data.alerts.callout_info }}All of a role's privileges must be revoked before the role can be dropped.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP ROLE dev_ops;
 ~~~

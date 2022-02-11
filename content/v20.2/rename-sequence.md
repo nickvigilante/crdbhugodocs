@@ -16,7 +16,7 @@ You cannot rename a sequence that's being used in a table. To rename the sequenc
 Note that, in a future release, `ALTER SEQUENCE ... RENAME TO` will be limited to changing the name of a sequence, and will not have to the ability to change a sequence's database.
 {{site.data.alerts.end }}
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -24,7 +24,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/rename_sequence.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/rename_sequence.html %}</div>
 
 ## Parameters
 
@@ -46,12 +46,12 @@ table td:first-child {
 
 In this example, we will change the name of sequence.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE even_numbers INCREMENT 2 START 2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~
@@ -63,12 +63,12 @@ In this example, we will change the name of sequence.
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER SEQUENCE even_numbers RENAME TO even_sequence;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~
@@ -84,7 +84,7 @@ In this example, we will change the name of sequence.
 
 In this example, we will move the sequence we renamed in the first example (`even_sequence`) from `defaultdb` (i.e., the default database) to a different database.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES FROM defaultdb;
 ~~~
@@ -96,17 +96,17 @@ In this example, we will move the sequence we renamed in the first example (`eve
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE mydb;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER SEQUENCE even_sequence RENAME TO newdb.even_sequence;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES FROM defaultdb;
 ~~~
@@ -117,7 +117,7 @@ In this example, we will move the sequence we renamed in the first example (`eve
 (0 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES FROM mydb;
 ~~~

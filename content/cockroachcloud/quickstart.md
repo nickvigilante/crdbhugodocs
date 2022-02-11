@@ -8,13 +8,13 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page guides you through the quickest way to get started with CockroachDB. You'll start a free {{ site.data.products.serverless }} cluster, connect with the CockroachDB SQL client, insert some data, and then read the data from a sample application.
 
 To run CockroachDB on your local machine instead, see [Start a Local Cluster](../stable/secure-a-cluster.html).
 
-{{ partial "cockroachcloud/free-limitations.md" . }}
+{% include cockroachcloud/free-limitations.md %}
 
 ## Step 1. Create a free cluster
 

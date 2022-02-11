@@ -14,7 +14,7 @@ key: install-cockroachdb.html
 
 <p>See <a href="../releases/{{ page.release_info.version }}.html" class="mac-releasenotes-download" id="mac-releasenotes-download-{{ page.version.version }}" data-eventcategory="mac-releasenotes-download">Release Notes</a> for what's new in the latest release, {{ page.release_info.version }}. To upgrade to this release from an older version, see <a href="upgrade-cockroach-version.html">Cluster Upgrade</a>.</p>
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 <h2>Install options</h2>
 
@@ -23,7 +23,7 @@ Use one of the options below to install CockroachDB.
 <div id="download-the-binary-windows" class="install-option">
   <h3>Download the executable</h3>
 
-  {{ partial "windows_warning.md" . }}
+  {% include windows_warning.md %}
 
   <ol>
     <li>
@@ -42,7 +42,7 @@ Use one of the options below to install CockroachDB.
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="1"" . }}
+{% include marketo-install.html uid="1" %}
     </li>
   </ol>
 </div>
@@ -88,13 +88,13 @@ Use one of the options below to install CockroachDB.
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="2"" . }}
+{% include marketo-install.html uid="2" %}
     </li>
   </ol>
 </div>
 
 <h2 id="whats-next">What&#39;s next?</h2>
 
-{{ partial "{{ page.version.version }}/misc/install-next-steps.html" . }}
+{% include {{ page.version.version }}/misc/install-next-steps.html %}
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}

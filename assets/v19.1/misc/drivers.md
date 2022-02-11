@@ -1,6 +1,6 @@
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 This page features drivers that we have tested enough to claim **beta-level** support. This means that applications using advanced or obscure features of a driver may encounter incompatibilities. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 | App Language | Driver                                                                                                                                                                                                                                  | ORM                                                                 |
 |--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------|

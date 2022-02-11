@@ -8,7 +8,7 @@ toc: true
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/explain_analyze.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/explain_analyze.html %}</section>
 
 ## Required privileges
 
@@ -61,7 +61,7 @@ Any or all of the above fields may display for a given query plan.
 
 `EXPLAIN ANALYZE` will execute the query and generate a physical query plan with execution statistics:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE SELECT l_shipmode, AVG(l_extendedprice) FROM lineitem GROUP BY l_shipmode;
 ~~~

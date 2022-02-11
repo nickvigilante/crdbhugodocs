@@ -22,7 +22,7 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
+{% include {{ page.version.version }}/orchestration/operator-check-namespace.md %}
 
 {{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
@@ -125,9 +125,9 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-manual.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-manual.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-helm.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-helm.md %}
 </section>

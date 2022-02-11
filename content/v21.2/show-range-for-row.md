@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `SHOW RANGE ... FOR ROW` [statement](sql-statements.html) shows information about a [range](architecture/overview.html#glossary) for a single row in a table or index. This information is useful for verifying how SQL data maps to underlying ranges, and where the replicas for a range are located.
 
-{{ partial "common/experimental-warning.md" . }}
+{% include common/experimental-warning.md %}
 
 {{site.data.alerts.callout_info }}
 To show information about the ranges for all data in a table, index, or database, use the [`SHOW RANGES`](show-ranges.html) statement.
@@ -48,13 +48,13 @@ Field | Description
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Show range information for a row in a table
 
 To show information about a row in a table, you must know the values of the columns in the row's primary key:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM vehicles;
 ~~~
@@ -70,7 +70,7 @@ To show information about a row in a table, you must know the values of the colu
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT city, id FROM vehicles LIMIT 5;
 ~~~
@@ -86,7 +86,7 @@ To show information about a row in a table, you must know the values of the colu
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW RANGE FROM TABLE vehicles FOR ROW (
     'boston',
@@ -105,7 +105,7 @@ To show information about a row in a table, you must know the values of the colu
 
 To show information about a row in a secondary index, you must know the values of the indexed columns:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM vehicles;
 ~~~
@@ -121,7 +121,7 @@ To show information about a row in a secondary index, you must know the values o
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT city, owner_id, id FROM vehicles@vehicles_auto_index_fk_city_ref_users LIMIT 5;
 ~~~
@@ -137,7 +137,7 @@ To show information about a row in a secondary index, you must know the values o
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW RANGE FROM INDEX vehicles@vehicles_auto_index_fk_city_ref_users FOR ROW (
     'boston',

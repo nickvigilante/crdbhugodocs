@@ -7,7 +7,7 @@ docs_area: reference.sql
 
  The `ALTER DATABASE .. ADD REGION` [statement](sql-statements.html) adds a [region](multiregion-overview.html#database-regions) to a [multi-region database](multiregion-overview.html).
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 {{site.data.alerts.callout_info }}
 `ADD REGION` is a subcommand of [`ALTER DATABASE`](alter-database.html).
@@ -20,7 +20,7 @@ In order to add a region with `ADD REGION`, you must first set a primary databas
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/alter_database_add_region.html %}
+{{< sql-diagram "alter_database_add_region.html" >}}
 </div>
 
 ## Parameters
@@ -39,7 +39,7 @@ To add a region to a database, the user must have one of the following:
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/multiregion-example-setup.md" . }}
+{% include {{ page.version.version }}/sql/multiregion-example-setup.md %}
 
 ### Set the primary region
 
@@ -47,7 +47,7 @@ Suppose you have a database `foo` in your cluster, and you want to make it a mul
 
 To add the first region to the database, or to set an already-added region as the primary region, use a [`SET PRIMARY REGION`](set-primary-region.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE foo SET PRIMARY REGION "us-east1";
 ~~~
@@ -65,7 +65,7 @@ Given a cluster with multiple regions, any databases in that cluster that have n
 
 To add more regions to a database that already has at least one region, use an `ADD REGION` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER database foo ADD region "us-west1";
 ~~~
@@ -74,7 +74,7 @@ ALTER database foo ADD region "us-west1";
 ALTER DATABASE ADD REGION
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER database foo ADD region "europe-west1";
 ~~~
@@ -87,7 +87,7 @@ ALTER DATABASE ADD REGION
 
 To view the regions associated with a multi-region database, use a [`SHOW REGIONS FROM DATABASE`](show-regions.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW REGIONS FROM DATABASE foo;
 ~~~
@@ -105,7 +105,7 @@ SHOW REGIONS FROM DATABASE foo;
 
 To [drop a region](drop-region.html) from a multi-region database, use a [`DROP REGION`](drop-region.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE foo DROP REGION "us-west1";
 ~~~
@@ -114,7 +114,7 @@ ALTER DATABASE foo DROP REGION "us-west1";
 ALTER DATABASE DROP REGION
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW REGIONS FROM DATABASE foo;
 ~~~

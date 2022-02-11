@@ -56,7 +56,7 @@ For `SHOW TRACE FOR <stmt>`, the user must have the appropriate [privileges](pri
 
 ## Syntax
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/show_trace.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/show_trace.html %}</section>
 
 ## Parameters
 
@@ -164,19 +164,19 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 1. In terminal 1, create a table:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE t (k INT);
     ~~~
 
 2. Still in terminal 1, open a transaction and perform a write without closing the transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO t VALUES (1);
     ~~~
@@ -185,7 +185,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 3. In terminal 2, execute and trace a conflicting read:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT age, span, message FROM [SHOW TRACE FOR SELECT * FROM t];
     ~~~
@@ -194,7 +194,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4. Back in terminal 1, finish the transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > COMMIT;
     ~~~
@@ -276,18 +276,18 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 1. In terminal 1, unset the `smart_prompt` shell option, turn on trace recording, and then start a transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
 
     ~~~ sql
     > \unset smart_prompt
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET tracing = cluster;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     ~~~
@@ -296,7 +296,7 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 2. In terminal 2, perform a read:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM t;
     ~~~
@@ -305,7 +305,7 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 3. Back in terminal 1, execute and trace a conflicting write:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO t VALUES (1);
     ~~~
@@ -314,12 +314,12 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 4. Turn off trace recording and request the trace:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
 	~~~ sql
 	> SET tracing = off;
 	~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
 	~~~ sql
 	> SELECT age, message FROM [SHOW TRACE FOR SESSION];
 	~~~

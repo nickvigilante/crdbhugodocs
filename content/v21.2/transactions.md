@@ -34,7 +34,7 @@ In CockroachDB, a transaction is set up by surrounding SQL statements with the [
 
 To use [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), you should also include the [`SAVEPOINT`](savepoint.html), [`ROLLBACK TO SAVEPOINT`](rollback-transaction.html) and [`RELEASE SAVEPOINT`](release-savepoint.html) statements.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 
@@ -134,7 +134,7 @@ In the event [bounded staleness reads](follower-reads.html#bounded-staleness-rea
 
 Your application should include client-side retry handling when the statements are sent individually, such as:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 
@@ -160,7 +160,7 @@ To handle these types of errors, you have the following options:
 
 #### Client-side intervention example
 
-{{ partial "{{ page.version.version }}/misc/client-side-intervention-example.md" . }}
+{% include {{ page.version.version }}/misc/client-side-intervention-example.md %}
 
 ## Transaction contention
 

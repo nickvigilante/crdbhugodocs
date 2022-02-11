@@ -9,7 +9,7 @@ The `DROP COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and 
 
 ## Synopsis
 
-<section> {{ partial "{{ page.version.version }}/sql/diagrams/drop_column.html" . }} </section>
+<section> {% include {{ page.version.version }}/sql/diagrams/drop_column.html %} </section>
 
 ## Required privileges
 
@@ -26,7 +26,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
@@ -34,7 +34,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 If you no longer want a column in a table, you can drop it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders DROP COLUMN billing_zip;
 ~~~
@@ -43,7 +43,7 @@ If you no longer want a column in a table, you can drop it.
 
 If the column has dependent objects, such as [views](views.html), CockroachDB will not drop the column by default; however, if you want to be sure of the behavior you can include the `RESTRICT` clause.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders DROP COLUMN customer RESTRICT;
 ~~~
@@ -57,7 +57,7 @@ If you want to drop the column and all of its dependent options, include the `CA
 
 {{site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE customer_view;
 ~~~
@@ -70,12 +70,12 @@ If you want to drop the column and all of its dependent options, include the `CA
 +---------------+----------------------------------------------------------------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders DROP COLUMN customer CASCADE;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 > SHOW CREATE customer_view;
 ~~~

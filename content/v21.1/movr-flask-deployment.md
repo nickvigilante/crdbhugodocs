@@ -7,7 +7,7 @@ redirect_from: multi-region-deployment.html
 
 This page walks you through deploying an application and database in multiple regions. It is the fifth and final section of the [Develop and Deploy a Global Application](movr-flask-overview.html) tutorial.
 
-{{ partial "{{ page.version.version }}/misc/movr-live-demo.md" . }}
+{% include {{ page.version.version }}/misc/movr-live-demo.md %}
 
 ## Before you begin
 
@@ -119,17 +119,17 @@ We do not recommend deploying insecure web applications on public networks.
     `gcloud` is included with the [Google Cloud SDK](https://cloud.google.com/sdk) installation.
     {{site.data.alerts.end }}
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud init
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud auth login
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud auth application-default login
     ~~~
@@ -168,7 +168,7 @@ We do not recommend deploying insecure web applications on public networks.
 
 1. Build and run the Docker image locally.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ docker build -t gcr.io/<gcp_project>/movr-app:v1 .
     ~~~
@@ -177,7 +177,7 @@ We do not recommend deploying insecure web applications on public networks.
 
 1. Push the Docker image to the Google Cloud project's container registry.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ docker push gcr.io/<gcp_project>/movr-app:v1
     ~~~

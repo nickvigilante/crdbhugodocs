@@ -13,7 +13,7 @@ Click the links in the table below to see simple but complete example applicatio
 
 If you are looking to do a specific task such as connect to the database, insert data, or run multi-statement transactions, see [this list of tasks](#tasks).
 
-{{ partial "{{ page.version.version }}/misc/drivers.md" . }}
+{% include {{ page.version.version }}/misc/drivers.md %}
 
 ## See also
 

@@ -13,7 +13,7 @@ The `SHOW USERS` [statement](sql-statements.html) lists the users for all databa
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_users.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_users.html %}
 </div>
 
 ## Required privileges
@@ -22,7 +22,7 @@ The user must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW USERS;
 ~~~
@@ -39,7 +39,7 @@ The user must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 Alternatively, within the built-in SQL shell, you can use the `\du` [shell command](cockroach-sql.html#commands):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \du
 ~~~

@@ -42,7 +42,7 @@ $ cockroach userfile list --help
 
 If the file or directory is not specified, all files in the default user-scoped storage (`userfile://defaultdb.public.userfiles_$user/`) will be listed:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile list --certs-dir=certs
 ~~~
@@ -57,7 +57,7 @@ userfile://defaultdb.public.userfiles_root/test-upload/test-data.csv
 
 To list all files in a specified directory:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile list test-data.csv --certs-dir=certs
 ~~~
@@ -70,7 +70,7 @@ userfile://defaultdb.public.userfiles_root/test-data.csv
 
 To list all files that match a pattern, use `*`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile list '*.csv' --certs-dir=certs
 ~~~
@@ -84,14 +84,14 @@ userfile://defaultdb.public.userfiles_root/test-data.csv
 
 If you [uploaded a file to a non-default userfile URI](cockroach-userfile-upload.html#upload-a-file-to-a-non-default-userfile-uri) (e.g., `userfile://testdb.public.uploads`):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach userfile upload /Users/maxroach/Desktop/test-data.csv userfile://testdb.public.uploads/test-data.csv
 ~~~
 
 Use the same URI to view it:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach userfile list userfile://testdb.public.uploads
 ~~~

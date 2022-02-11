@@ -138,7 +138,7 @@ The `--store` flag supports the following fields. Note that commas are used to s
 In-memory storage is not suitable for production deployments at this time.
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/misc/multi-store-nodes.md" . }}
+{% include {{ page.version.version }}/misc/multi-store-nodes.md %}
 
 Field | Description
 ------|------------
@@ -151,7 +151,7 @@ Field | Description
 
 By default, `cockroach start` writes all messages to log files, and prints nothing to `stderr`. However, you can control the process's [logging](debug-and-error-logs.html) behavior with the following flags:
 
-{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
+{% include {{ page.version.version }}/misc/logging-flags.md %}
 
 #### Defaults
 
@@ -204,7 +204,7 @@ Field | Description
 
 ## Known limitations
 
-{{ partial "{{ page.version.version }}/known-limitations/adding-stores-to-node.md" . }}
+{% include {{ page.version.version }}/known-limitations/adding-stores-to-node.md %}
 
 ## Examples
 
@@ -217,10 +217,10 @@ Field | Description
 
 To start a multi-node cluster, run the `cockroach start` command for each node, setting the `--join` flag to the addresses of the initial nodes.
 
-{{ partial "{{ page.version.version }}/prod-deployment/join-flag-single-region.md" . }}
+{% include {{ page.version.version }}/prod-deployment/join-flag-single-region.md %}
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/prod-deployment/join-flag-multi-region.md" . }}
+{% include {{ page.version.version }}/prod-deployment/join-flag-multi-region.md %}
 {{site.data.alerts.end }}
 
 <div class="filter-content" markdown="1" data-scope="secure">
@@ -229,7 +229,7 @@ To start a multi-node cluster, run the `cockroach start` command for each node, 
 Before starting the cluster, use [`cockroach cert`](cockroach-cert.html) to generate node and client certificates for a secure cluster connection.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -239,7 +239,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -249,7 +249,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -261,7 +261,7 @@ $ cockroach start \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -271,7 +271,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -281,7 +281,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -295,7 +295,7 @@ $ cockroach start \
 Then run the [`cockroach init`](cockroach-init.html) command against any node to perform a one-time cluster initialization:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init \
 --certs-dir=certs \
@@ -304,7 +304,7 @@ $ cockroach init \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init \
 --insecure \
@@ -323,7 +323,7 @@ $ cockroach init \
 
 1. Start each node on GCE with `--locality` set to describe its location, `--locality-advertise-addr` set to advertise its private address to other nodes in on GCE, `--advertise-addr` set to advertise its public address to nodes on AWS, and `--join` set to the public addresses of 3-5 of the initial nodes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -337,7 +337,7 @@ $ cockroach init \
 
 2. Start each node on AWS with `--locality` set to describe its location, `--locality-advertise-addr` set to advertise its private address to other nodes on AWS, `--advertise-addr` set to advertise its public address to nodes on GCE, and `--join` set to the public addresses of 3-5 of the initial nodes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -351,7 +351,7 @@ $ cockroach init \
 
 3. Run the [`cockroach init`](cockroach-init.html) command against any node to perform a one-time cluster initialization:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach init \
     --certs-dir=certs \
@@ -368,7 +368,7 @@ $ cockroach init \
 To add a node to an existing cluster, run the `cockroach start` command, setting the `--join` flag to the same addresses you used when [starting the cluster](#start-a-multi-node-cluster):
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -380,7 +380,7 @@ $ cockroach start \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -395,29 +395,29 @@ $ cockroach start \
 
 Start a three-node cluster with locality information specified in the `cockroach start` commands:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --insecure --port=26257 --http-port=26258 --store=cockroach-data/1 --cache=256MiB --locality=region=eu-west-1,cloud=aws,zone=eu-west-1a
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --insecure --port=26259 --http-port=26260 --store=cockroach-data/2 --cache=256MiB --join=localhost:26257 --locality=region=eu-west-1,cloud=aws,zone=eu-west-1b
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --insecure --port=26261 --http-port=26262 --store=cockroach-data/3 --cache=256MiB --join=localhost:26257 --locality=region=eu-west-1,cloud=aws,zone=eu-west-1c
 ~~~
 
 You can use the [`crdb_internal.locality_value`](functions-and-operators.html#system-info-functions) built-in function to return the current node's locality information from inside a SQL shell. The example below uses the output of `crdb_internal.locality_value('zone')` as the `DEFAULT` value to use for the `zone` column of new rows. Other available locality keys for the running three-node cluster include `region` and `cloud`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE charges (
   zone STRING NOT NULL DEFAULT crdb_internal.locality_value('zone'),
@@ -425,12 +425,12 @@ $ cockroach sql --insecure
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO charges (id) VALUES (1);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM charges WHERE id = 1;
 ~~~
@@ -446,17 +446,17 @@ The `zone ` column has the zone of the node on which the row was created.
 
 In a separate terminal window, open a SQL shell to a different node on the cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --port 26259
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO charges (id) VALUES (2);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM charges WHERE id = 2;
 ~~~
@@ -470,17 +470,17 @@ $ cockroach sql --insecure --port 26259
 
 In a separate terminal window, open a SQL shell to the third node:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --port 26261
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO charges (id) VALUES (3);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM charges WHERE id = 3;
 ~~~
@@ -498,7 +498,7 @@ Separating the network addresses used for intra-cluster RPC traffic and applicat
 
 For example, suppose you want to use port `26257` for SQL connections and `26258` for intra-cluster traffic. Set up firewall rules so that the CockroachDB nodes can reach each other on port `26258`, but other machines cannot. Start the CockroachDB processes as follows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --sql-addr=:26257 --listen-addr=:26258 --join=node1:26258,node2:26258,node3:26258 --certs-dir=~/cockroach-certs
 ~~~

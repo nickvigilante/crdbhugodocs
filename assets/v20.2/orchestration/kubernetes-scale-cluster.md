@@ -14,9 +14,9 @@ Your Kubernetes cluster includes 3 worker nodes, or instances, that can run pods
     nodes: 4
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     Note that you must scale by updating the `nodes` value in the Operator configuration. Using `kubectl scale statefulset <cluster-name> --replicas=4` will result in new pods immediately being terminated.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 1. Apply `example.yaml` with the new configuration:
 

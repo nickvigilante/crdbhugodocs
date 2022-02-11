@@ -28,7 +28,7 @@ Window frames are defined in [`OVER` clauses](sql-grammar.html#over_clause) or [
 <div class="filter-content" markdown="1" data-scope="basic">
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/window_definition.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/window_definition.html %}
 </div>
 
 ### Parameters
@@ -46,13 +46,13 @@ Parameter | Description
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/window_definition.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/window_definition.html %}
 </div>
 
 **opt_frame_clause ::=**
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/opt_frame_clause.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/opt_frame_clause.html %}
 </div>
 
 ### Parameters
@@ -78,7 +78,7 @@ At a high level, window functions work by:
 
 For example, consider a query where the window frames are defined for each window function call:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT DISTINCT(city),
              SUM(revenue) OVER () AS total_revenue,
@@ -115,13 +115,13 @@ If you are running separate window functions over the same window frame, you can
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 ### Customers taking the most rides
 
 To see which customers have taken the most rides, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM
     (SELECT distinct(name) as "name",
@@ -150,7 +150,7 @@ To see which customers have taken the most rides, run:
 
 To see which customers have generated the most revenue, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT DISTINCT name,
     SUM(revenue) OVER (PARTITION BY name) AS "total rider revenue"
@@ -179,7 +179,7 @@ To see which customers have generated the most revenue, run:
 
 To add row numbers to the output, kick the previous query down into a subquery and run the `row_number()` window function.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT row_number() OVER (), *
   FROM (
@@ -214,7 +214,7 @@ To add row numbers to the output, kick the previous query down into a subquery a
 
 To see which customers have taken the most rides while generating the most revenue, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM (
     SELECT DISTINCT name,
@@ -250,7 +250,7 @@ Note that in the query above, a `WINDOW` clause defines the window frame, and th
 
 To see which customers have the highest average revenue per ride, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT DISTINCT name,
     COUNT(*)     OVER w AS "number of rides",
@@ -281,7 +281,7 @@ To see which customers have the highest average revenue per ride, run:
 
 To see which customers have the highest average revenue per ride, given that they have taken at least 10 rides, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM (
     SELECT DISTINCT name,
@@ -315,7 +315,7 @@ To see which customers have the highest average revenue per ride, given that the
 
 To find out the total number of riders and total revenue generated thus far by the app, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT
     COUNT("id") AS "total # of riders",
@@ -335,7 +335,7 @@ To find out the total number of riders and total revenue generated thus far by t
 
 ### How many vehicles of each type
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT DISTINCT type, COUNT(*) OVER (PARTITION BY type) AS cnt FROM vehicles ORDER BY cnt DESC;
 ~~~
@@ -351,7 +351,7 @@ To find out the total number of riders and total revenue generated thus far by t
 
 ### How much revenue per city
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT DISTINCT(city), SUM(revenue) OVER (PARTITION BY city) AS city_revenue FROM rides ORDER BY city_revenue DESC;
 ~~~

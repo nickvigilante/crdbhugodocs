@@ -20,11 +20,11 @@ Before starting the tutorial, do the following:
 
 ## Step 1. Create a {{ site.data.products.serverless }} cluster
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
 ## Step 2. Set up your cluster connection
 
-{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection.md" . }}
+{% include cockroachcloud/quickstart/set-up-your-cluster-connection.md %}
 
 ## Step 3. Create a database
 
@@ -338,4 +338,4 @@ After testing, we recommend that you update the [`ALLOWED_HOSTS` property in `se
 - [Build a Simple Django App with CockroachDB](build-a-python-app-with-cockroachdb-django.html)
 - [Deploy a Global, Serverless Application](movr-flask-deployment.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

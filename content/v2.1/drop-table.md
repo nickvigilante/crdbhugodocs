@@ -6,7 +6,7 @@ toc: true
 
 The `DROP TABLE` [statement](sql-statements.html) removes a table and all its indexes from a database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_table.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/drop_table.html %}</section>
 
 ## Parameters
 
@@ -31,7 +31,7 @@ Parameter | Description
 
 In this example, other objects do not depend on the table being dropped.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~
@@ -47,7 +47,7 @@ In this example, other objects do not depend on the table being dropped.
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE bank.branches;
 ~~~
@@ -56,7 +56,7 @@ In this example, other objects do not depend on the table being dropped.
 DROP TABLE
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~
@@ -77,7 +77,7 @@ In this example, a view depends on the table being dropped. Therefore, it's only
 
 {{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~
@@ -92,7 +92,7 @@ In this example, a view depends on the table being dropped. Therefore, it's only
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE bank.accounts;
 ~~~
@@ -101,7 +101,7 @@ In this example, a view depends on the table being dropped. Therefore, it's only
 pq: cannot drop table "accounts" because view "user_accounts_view" depends on it
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > DROP TABLE bank.accounts CASCADE;
 ~~~
@@ -110,7 +110,7 @@ pq: cannot drop table "accounts" because view "user_accounts_view" depends on it
 DROP TABLE
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~

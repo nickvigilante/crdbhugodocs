@@ -90,7 +90,7 @@ Flag | Description
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
@@ -159,7 +159,7 @@ Field | Description
 
 ### List node IDs
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node ls --host=165.227.60.76 --certs-dir=certs
 ~~~
@@ -178,7 +178,7 @@ $ cockroach node ls --host=165.227.60.76 --certs-dir=certs
 
 ### Show the status of a single node
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status 1 --host=165.227.60.76 --certs-dir=certs
 ~~~
@@ -194,7 +194,7 @@ $ cockroach node status 1 --host=165.227.60.76 --certs-dir=certs
 
 ### Show the status of all nodes
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --host=165.227.60.76 --certs-dir=certs
 ~~~
@@ -212,12 +212,12 @@ $ cockroach node status --host=165.227.60.76 --certs-dir=certs
 
 The `is_live` and `is_available` fields are marked as `true` as long as a majority of the nodes are up, and a quorum can be reached:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach quit --host=192.241.239.201 --certs-dir=certs
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --host=165.227.60.76 --certs-dir=certs
 ~~~
@@ -233,12 +233,12 @@ $ cockroach node status --host=165.227.60.76 --certs-dir=certs
 
 If a majority of nodes are down and a quorum cannot be reached, the `is_live` field is marked as `true` for the nodes that are up, but the `is_available` field is marked as `false` for all nodes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach quit --host=67.207.91.36 --certs-dir=certs
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --host=165.227.60.76 --certs-dir=certs
 ~~~

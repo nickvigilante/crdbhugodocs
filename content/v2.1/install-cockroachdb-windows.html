@@ -17,7 +17,7 @@ key: install-cockroachdb.html
 <div id="download-the-binary-windows" class="install-option">
   <h2>Download the executable</h2>
 
-  {{ partial "windows_warning.md" . }}
+  {% include windows_warning.md %}
 
   <ol>
     <li>
@@ -34,7 +34,7 @@ key: install-cockroachdb.html
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="1"" . }}
+{% include marketo-install.html uid="1" %}
     </li>
   </ol>
 </div>
@@ -76,13 +76,13 @@ key: install-cockroachdb.html
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="2"" . }}
+{% include marketo-install.html uid="2" %}
     </li>
   </ol>
 </div>
 
 <h2 id="whats-next">What&#39;s next?</h2>
 
-{{ partial "{{ page.version.version }}/misc/install-next-steps.html" . }}
+{% include {{ page.version.version }}/misc/install-next-steps.html %}
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}

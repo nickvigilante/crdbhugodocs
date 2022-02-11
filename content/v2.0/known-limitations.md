@@ -10,7 +10,7 @@ This page describes newly identified limitations in the CockroachDB {{ page.rele
 
 ### Changes to the default replication zone are not applied to existing replication zones
 
-{{ partial "{{ page.version.version }}/known-limitations/system-range-replication.md" . }}
+{% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
 
 ### Silent validation error with `DECIMAL` values
 
@@ -97,52 +97,52 @@ However, the same statement with `INSERT ... ON CONFLICT` incorrectly succeeds a
 
 ### Referring to a CTE by name more than once
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-by-name.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-by-name.md %}
 
 ### Using CTEs with data-modifying statements
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-with-dml.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-with-dml.md %}
 
 ### Using CTEs with views
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-with-view.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-with-view.md %}
 
 ### Using CTEs with `VALUES` clauses
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-in-values-clause.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-in-values-clause.md %}
 
 ### Using CTEs with Set Operations
 
-{{ partial "{{ page.version.version }}/known-limitations/cte-in-set-expression.md" . }}
+{% include {{ page.version.version }}/known-limitations/cte-in-set-expression.md %}
 
 ### Assigning latitude/longitude for the Node Map
 
-{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
+{% include {{ page.version.version }}/known-limitations/node-map.md %}
 
 ### Placeholders in `PARTITION BY`
 
-{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
+{% include {{ page.version.version }}/known-limitations/partitioning-with-placeholders.md %}
 
 ### Adding a column with sequence-based `DEFAULT` values
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -164,7 +164,7 @@ Specifically, when run inside a [`BEGIN`](begin-transaction.html) ... [`COMMIT`]
 
 ### Available capacity metric in the Admin UI
 
-{{ partial "v2.0/misc/available-capacity-metric.md" . }}
+{% include v2.0/misc/available-capacity-metric.md %}
 
 ### Schema changes within transactions
 
@@ -178,27 +178,27 @@ Within a single [transaction](transactions.html):
 
 When the schema of a table targeted by a prepared statement changes before the prepared statement is executed, CockroachDB allows the prepared statement to return results based on the changed table schema, for example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (id INT PRIMARY KEY);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PREPARE prep1 AS SELECT * FROM users;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ADD COLUMN name STRING;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO users VALUES (1, 'Max Roach');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXECUTE prep1;
 ~~~
@@ -258,7 +258,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -272,7 +272,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -307,4 +307,4 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### `cockroach dump` does not support cyclic foreign key references
 
-{{ partial "{{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md" . }}
+{% include {{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md %}

@@ -17,7 +17,7 @@ This tutorial shows you how build a simple CRUD Go application with CockroachDB 
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -56,7 +56,7 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
 ## Step 3. Initialize the database
 
-{{ partial "{{ page.version.version }}/app/init-bank-sample.md" . }}
+{% include {{ page.version.version }}/app/init-bank-sample.md %}
 
 ## Step 4. Run the code
 
@@ -158,4 +158,4 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
 Read more about using the [Go pgx driver](https://pkg.go.dev/github.com/jackc/pgx?tab=doc).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE DATABASE` [statement](sql-statements.html) creates a new CockroachDB database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -15,7 +15,7 @@ Only members of the `admin` role can create new databases. By default, the `root
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/create_database.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/create_database.html %}
 </div>
 
 ## Parameters
@@ -30,12 +30,12 @@ Parameter | Description
 
 ### Create a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 > SHOW DATABASES;
 ~~~
@@ -54,7 +54,7 @@ Parameter | Description
 
 ### Create fails (name already in use)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
@@ -63,14 +63,14 @@ Parameter | Description
 pq: database "bank" already exists
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS bank;
 ~~~
 
 SQL does not generate an error, but instead responds `CREATE DATABASE` even though a new database wasn't created.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~

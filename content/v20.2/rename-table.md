@@ -16,7 +16,7 @@ Note that, in a future release, `ALTER TABLE ... RENAME TO` will be limited to c
 It is not possible to rename a table referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.
 {{site.data.alerts.end }}
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -25,7 +25,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/rename_table.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/rename_table.html %}
 </div>
 
 ## Parameters
@@ -38,15 +38,15 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Rename a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -63,12 +63,12 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users RENAME TO riders;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -87,7 +87,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 To avoid an error in case the table does not exist, you can include `IF EXISTS`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE IF EXISTS customers RENAME TO clients;
 ~~~
@@ -96,7 +96,7 @@ To avoid an error in case the table does not exist, you can include `IF EXISTS`:
 
 To move a table from one database to another, use the above syntax but specify the source database after `ALTER TABLE` and the target database after `RENAME TO`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -113,7 +113,7 @@ To move a table from one database to another, use the above syntax but specify t
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM defaultdb;
 ~~~
@@ -124,12 +124,12 @@ To move a table from one database to another, use the above syntax but specify t
 (0 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE movr.promo_codes RENAME TO defaultdb.promos;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -145,7 +145,7 @@ To move a table from one database to another, use the above syntax but specify t
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM defaultdb;
 ~~~

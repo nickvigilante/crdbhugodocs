@@ -20,9 +20,9 @@
 
     Provide a "release" name to identify and track this particular deployment of the chart.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     This tutorial uses `my-release` as the release name. If you use a different value, be sure to adjust the release name in subsequent commands.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -62,4 +62,4 @@
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

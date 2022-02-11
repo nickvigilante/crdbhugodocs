@@ -14,7 +14,7 @@ The `SHOW USERS` [statement](sql-statements.html) lists the users for all databa
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_users.html %}
+{{< sql-diagram "show_users.html" >}}
 </div>
 
 ## Required privileges
@@ -23,7 +23,7 @@ The user must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW USERS;
 ~~~
@@ -40,7 +40,7 @@ The user must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 Alternatively, within the built-in SQL shell, you can use the `\du` [shell command](cockroach-sql.html#commands):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \du
 ~~~

@@ -95,17 +95,17 @@ The current schema is used as target schema when creating a new object if the na
 
 The examples below use the following logical schema as a starting point:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE mydb;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE mydb.mytable(x INT);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET database = mydb;
 ~~~
@@ -114,7 +114,7 @@ The examples below use the following logical schema as a starting point:
 
 An unqualified name is a name with no prefix, that is, a simple identifier.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM mytable;
 ~~~
@@ -123,12 +123,12 @@ This uses the search path over the current database. The search path
 is `public` by default, in the current database. The resolved name is
 `mydb.public.mytable`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET database = system;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM mytable;
 ~~~
@@ -146,7 +146,7 @@ look up fails with an error.
 A fully qualified name is a name with two prefix components, that is,
 three identifiers separated by periods.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM mydb.public.mytable;
 ~~~
@@ -160,7 +160,7 @@ A partially qualified name is a name with one prefix component, that is, two ide
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM public.mytable;
 ~~~
@@ -172,7 +172,7 @@ For compatibility with CockroachDB 1.x, and to ease development in
 multi-database scenarios, CockroachDB also allows queries to specify
 a database name in a partially qualified name. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM mydb.mytable;
 ~~~
@@ -190,17 +190,17 @@ Suppose that a client frequently accesses a stored table as well as a virtual ta
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM mydb.information_schema.schemata; -- valid
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.schemata; -- valid; uses mydb implicitly
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM schemata; -- invalid; information_schema not in search_path
 ~~~
@@ -208,12 +208,12 @@ For example:
 For clients that use `information_schema` often, you can add it to the
 search path to simplify queries. For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET search_path = public, information_schema;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM schemata; -- now valid, uses search_path
 ~~~

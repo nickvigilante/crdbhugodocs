@@ -52,7 +52,7 @@ In this example, you'll set up a core changefeed for a single-node cluster.
     ~~~
     ~~~
     table,key,value
-    foo,[0],"{""after"": {""a"": 0}}"
+    foo,[0],"{""after"": {""a"": 0 }}"
     ~~~
 
 7. In a new terminal, add another row:
@@ -65,7 +65,7 @@ In this example, you'll set up a core changefeed for a single-node cluster.
 8. Back in the terminal where the core changefeed is streaming, the following output has appeared:
 
     ~~~
-    foo,[1],"{""after"": {""a"": 1}}"
+    foo,[1],"{""after"": {""a"": 1 }}"
     ~~~
 
     Note that records may take a couple of seconds to display in the core changefeed.

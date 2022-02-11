@@ -13,7 +13,7 @@ This command takes in a source file to upload and a destination filename. It wil
 The source file is only uploaded to one node, not all of the nodes.
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/misc/userfile.md" . }}
+{% include {{ page.version.version }}/misc/userfile.md %}
 
 ## Required privileges
 
@@ -54,7 +54,7 @@ $ cockroach nodelocal upload --help
 
 To upload a file to the default node (i.e., the gateway node):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach nodelocal upload ./grants.csv test/grants.csv --certs-dir=certs
 ~~~
@@ -69,7 +69,7 @@ Then, you can use the file to [`IMPORT`](import.html) or [`IMPORT INTO`](import-
 
 To upload a file to a specific node (e.g., node 2), use the `--host` flag:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach nodelocal upload ./grants.csv grants.csv --host=localhost:26259 --insecure
 ~~~
@@ -80,7 +80,7 @@ successfully uploaded to nodelocal://2/grants.csv
 
 Or, use the `--url` flag:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach nodelocal upload ./grants.csv grants.csv --url=postgresql://root@localhost:26258?sslmode=disable --insecure
 ~~~

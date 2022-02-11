@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -20,49 +20,49 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/create_table.html %}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/create_table.html %}
 </div>
 
 **column_def ::=**
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/column_def.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/column_def.html %}
 </div>
 
 **col_qualification ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/col_qualification.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/col_qualification.html %}
 </div>
 
 **index_def ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/index_def.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/index_def.html %}
 </div>
 
 **family_def ::=**
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/family_def.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/family_def.html %}
 </div>
 
 **table_constraint ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/table_constraint.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/table_constraint.html %}
 </div>
 
 **opt_interleave ::=**
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/opt_interleave.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/opt_interleave.html %}
 </div>
 
 </div>
@@ -101,7 +101,7 @@ In CockroachDB, every table requires a [primary key](primary-key.html). If one i
 
 {{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logon (
     user_id INT,
@@ -109,7 +109,7 @@ In CockroachDB, every table requires a [primary key](primary-key.html). If one i
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM logon;
 ~~~
@@ -124,7 +124,7 @@ In CockroachDB, every table requires a [primary key](primary-key.html). If one i
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM logon;
 ~~~
@@ -142,7 +142,7 @@ In CockroachDB, every table requires a [primary key](primary-key.html). If one i
 
 In this example, we create a table with three columns. One column is the [`PRIMARY KEY`](primary-key.html), another is given the [`UNIQUE` constraint](unique.html), and the third has no constraints. The `PRIMARY KEY` and column with the `UNIQUE` constraint are automatically indexed.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logoff (
     user_id INT PRIMARY KEY,
@@ -151,7 +151,7 @@ In this example, we create a table with three columns. One column is the [`PRIMA
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM logoff;
 ~~~
@@ -167,7 +167,7 @@ In this example, we create a table with three columns. One column is the [`PRIMA
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM logoff;
 ~~~
@@ -191,7 +191,7 @@ In this example, we create two secondary indexes during table creation. Secondar
 
 This example also demonstrates a number of column-level and table-level [constraints](constraints.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE product_information (
     product_id           INT PRIMARY KEY NOT NULL,
@@ -214,7 +214,7 @@ This example also demonstrates a number of column-level and table-level [constra
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM product_information;
 ~~~
@@ -246,7 +246,7 @@ We also have other resources on indexes:
 
 ### Create a table with auto-generated unique row IDs
 
-{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
+{% include {{ page.version.version }}/faq/auto-generate-unique-ids.html %}
 
 ### Create a table with a foreign key constraint
 
@@ -262,7 +262,7 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a foreign key constraint is deleted, all dependent rows are also deleted).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers (
     id INT PRIMARY KEY,
@@ -270,7 +270,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     id INT PRIMARY KEY,
@@ -278,7 +278,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE orders;
 ~~~
@@ -308,22 +308,22 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers VALUES (1, 'Lauren');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO orders VALUES (1,1);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DELETE FROM customers WHERE id = 1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM orders;
 ~~~
@@ -336,13 +336,13 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 
 ### Create a table that mirrors key-value storage
 
-{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
+{% include {{ page.version.version }}/faq/simulate-key-value-store.html %}
 
 ### Create a table from a `SELECT` statement
 
 You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a new table from the results of a `SELECT` statement, for example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers WHERE state = 'NY';
 ~~~
@@ -356,12 +356,12 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 +----+---------+-------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers_ny AS SELECT * FROM customers WHERE state = 'NY';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers_ny;
 ~~~
@@ -377,7 +377,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with a computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
+{% include {{ page.version.version }}/computed-columns/simple.md %}
 
 ### Create a table with partitions
 
@@ -389,7 +389,7 @@ The primary key required for partitioning is different from the conventional pri
 
 In this example, we create a table and [define partitions by list](partitioning.html#partition-by-list).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE students_by_list (
     id INT DEFAULT unique_rowid(),
@@ -408,7 +408,7 @@ In this example, we create a table and [define partitions by list](partitioning.
 
 In this example, we create a table and [define partitions by range](partitioning.html#partition-by-range).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE students_by_range (
    id INT DEFAULT unique_rowid(),
@@ -426,7 +426,7 @@ In this example, we create a table and [define partitions by range](partitioning
 
 To show the definition of a table, use the [`SHOW CREATE`](show-create.html) statement. The contents of the `create_statement` column in the response is a string with embedded line breaks that, when echoed, produces formatted output.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE logoff;
 ~~~

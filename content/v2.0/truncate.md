@@ -11,7 +11,7 @@ The `TRUNCATE` [statement](sql-statements.html) deletes all rows from specified 
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/truncate.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/truncate.html %}</section>
 
 ## Required Privileges
 

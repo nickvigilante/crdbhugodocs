@@ -13,7 +13,7 @@ toc: true
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/alter_database_survival_goal.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/alter_database_survival_goal.html %}
 </div>
 
 ## Parameters
@@ -32,7 +32,7 @@ The user must be a member of the [`admin`](authorization.html#roles) or [owner](
 
 To change the survival goal of a multi-region database to survive zone failures, use the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE {db} SURVIVE ZONE FAILURE;
 ~~~
@@ -51,7 +51,7 @@ For more information about the zone survival goal, see [Surviving zone failures]
 
 To change the survival goal of a multi-region database to survive region failures, use the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE {db} SURVIVE REGION FAILURE;
 ~~~

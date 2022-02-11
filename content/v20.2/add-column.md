@@ -6,12 +6,12 @@ toc: true
 
 The `ADD COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and adds columns to tables.
 
-{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
+{% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/add_column.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/add_column.html %}
 </div>
 
 ## Required privileges
@@ -29,7 +29,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
@@ -39,19 +39,19 @@ The following examples use the [`bank` demo database schema](cockroach-demo.html
 
 To follow along, run [`cockroach demo bank`](cockroach-demo.html) to start a temporary, in-memory cluster with the `bank` schema and dataset preloaded:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo bank
 ~~~
 
 ### Add a single column
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN active BOOL;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -68,12 +68,12 @@ $ cockroach demo bank
 
 ### Add multiple columns
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN location STRING, ADD COLUMN currency STRING;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -92,12 +92,12 @@ $ cockroach demo bank
 
 ### Add a column with a `NOT NULL` constraint and a `DEFAULT` value
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN interest DECIMAL NOT NULL DEFAULT (DECIMAL '1.3');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -116,12 +116,12 @@ $ cockroach demo bank
 
 ### Add a column with a `UNIQUE` constraint
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN address STRING UNIQUE;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -141,7 +141,7 @@ $ cockroach demo bank
 
 ### <span class="version-tag">New in v20.2:</span> Add a column with a `FOREIGN KEY` constraint
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers (
   id INT PRIMARY KEY,
@@ -149,12 +149,12 @@ $ cockroach demo bank
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN cust_number INT REFERENCES customers(id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -173,7 +173,7 @@ $ cockroach demo bank
 (9 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS FROM bank;
 ~~~
@@ -188,12 +188,12 @@ $ cockroach demo bank
 
 ### Add a column with collation
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN more_names STRING COLLATE en;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -217,12 +217,12 @@ $ cockroach demo bank
 
 #### Add a column and assign it to a new column family
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN location1 STRING CREATE FAMILY f1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE bank;
 ~~~
@@ -252,12 +252,12 @@ $ cockroach demo bank
 
 #### Add a column and assign it to an existing column family
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN location2 STRING FAMILY f1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE bank;
 ~~~
@@ -288,12 +288,12 @@ $ cockroach demo bank
 
 #### Add a column and create a new column family if column family does not exist
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE bank ADD COLUMN new_name STRING CREATE IF NOT EXISTS FAMILY f2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE bank;
 ~~~

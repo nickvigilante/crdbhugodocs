@@ -7,7 +7,7 @@ docs_area: develop
 
 This page has information on planning, configuring, and using connection pools when using drivers or frameworks with CockroachDB.
 
-{{ partial "{{ page.version.version }}/prod-deployment/terminology-vcpu.md" . }}
+{% include {{ page.version.version }}/prod-deployment/terminology-vcpu.md %}
 
 ## About connection pools
 

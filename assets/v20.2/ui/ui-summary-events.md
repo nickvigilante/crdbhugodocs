@@ -14,9 +14,9 @@ Unavailable Ranges | The number of unavailable ranges in the cluster. A non-zero
 Queries per second | The total number of `SELECT`, `UPDATE`, `INSERT`, and `DELETE` queries executed per second across the cluster.
 P99 Latency | The 99th percentile of service latency.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 ### Events panel
 

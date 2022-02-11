@@ -17,7 +17,7 @@ For a comprehensive list of tuning recommendations, only some of which are demon
 
 ## Overview
 
-{{ partial "{{ page.version.version }}/performance/overview.md" . }}
+{% include {{ page.version.version }}/performance/overview.md %}
 
 ## Single-region deployment
 
@@ -40,7 +40,7 @@ For a comprehensive list of tuning recommendations, only some of which are demon
 
 ### Step 1. Configure your network
 
-{{ partial "{{ page.version.version }}/performance/configure-network.md" . }}
+{% include {{ page.version.version }}/performance/configure-network.md %}
 
 ### Step 2. Create instances
 
@@ -77,12 +77,12 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 2. Create two directories:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mkdir certs
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mkdir my-safe-directory
     ~~~
@@ -91,7 +91,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 3. Create the CA certificate and key:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach cert create-ca \
   	{{ page.certs}} \
@@ -100,7 +100,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 4. Create the certificate and key for the first node, issued to all common names you might use to refer to the node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach cert create-node \
   	<node1 internal IP address> \
@@ -115,13 +115,13 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 5. Upload certificates to the first instance:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	# Create the certs directory:
   	$ ssh <username>@<node1 address> "mkdir certs"
   	~~~
 
-  	{{ partial "copy-clipboard.html" . }}
+  	{% include copy-clipboard.html %}
   	~~~ shell
   	# Upload the CA certificate and node certificate and key:
   	$ scp certs/ca.crt \
@@ -132,7 +132,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 6. Delete the local copy of the node certificate and key:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm certs/node.crt certs/node.key
     ~~~
@@ -143,7 +143,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 7. Create the certificate and key for the second node, issued to all common names you might use to refer to the node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach cert create-node \
   	<node2 internal IP address> \
@@ -158,13 +158,13 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 8. Upload certificates to the second instance:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	# Create the certs directory:
   	$ ssh <username>@<node2 address> "mkdir certs"
   	~~~
 
-  	{{ partial "copy-clipboard.html" . }}
+  	{% include copy-clipboard.html %}
   	~~~ shell
   	# Upload the CA certificate and node certificate and key:
   	$ scp certs/ca.crt \
@@ -177,7 +177,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 10. Create a client certificate and key for the `root` user:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach cert create-client \
   	root \
@@ -187,13 +187,13 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 
 11. Upload certificates to the fourth instance, the one from which you will run a sample workload:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Create the certs directory:
     $ ssh <username>@<instance4 address> "mkdir certs"
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Upload the CA certificate and client certificate and key:
     $ scp certs/ca.crt \
@@ -206,11 +206,11 @@ As mentioned above, before beginning, it's useful to collect each instance's int
 On accessing the Admin UI in a later step, your browser will consider the CockroachDB-created certificate invalid and you’ll need to click through a warning message to get to the UI. You can avoid this issue by [using a certificate issued by a public CA](create-security-certificates-custom-ca.html#accessing-the-admin-ui-for-a-secure-cluster).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/performance/start-cluster.md" . }}
+{% include {{ page.version.version }}/performance/start-cluster.md %}
 
 ### Step 4. Import the Movr dataset
 
-{{ partial "{{ page.version.version }}/performance/import-movr.md" . }}
+{% include {{ page.version.version }}/performance/import-movr.md %}
 
 ### Step 5. Install the Python client
 
@@ -218,21 +218,21 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
 1. Still on the fourth instance, make sure all of the system software is up-to-date:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ sudo apt-get update && sudo apt-get -y upgrade
     ~~~
 
 2. Install the `psycopg2` driver:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ sudo apt-get install python-psycopg2
     ~~~
 
 3. Download the Python client:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ wget https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/performance/tuning-secure.py \
     && chmod +x tuning-secure.py
@@ -266,7 +266,7 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
 Retrieving a single row based on the primary key will usually return in 2ms or less:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -289,7 +289,7 @@ Median time (milliseconds):
 
 Retrieving a subset of columns will usually be even faster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -316,7 +316,7 @@ Median time (milliseconds):
 
 You'll get generally poor performance when retrieving a single row based on a column that is not in the primary key or any secondary index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -339,7 +339,7 @@ Median time (milliseconds):
 
 To understand why this query performs poorly, use the SQL client built into the `cockroach` binary to [`EXPLAIN`](explain.html) the query plan:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -363,7 +363,7 @@ The row with `spans | ALL` shows you that, without a secondary index on the `nam
 
 To speed up this query, add a secondary index on `name`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -374,7 +374,7 @@ $ cockroach sql \
 
 The query will now return much faster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -397,7 +397,7 @@ Median time (milliseconds):
 
 To understand why performance improved from 4.51ms (without index) to 1.72ms (with index), use [`EXPLAIN`](explain.html) to see the new query plan:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -428,7 +428,7 @@ When you have a query that filters by a specific column but retrieves a subset o
 
 For example, let's say you frequently retrieve a user's name and credit card number:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -451,7 +451,7 @@ Median time (milliseconds):
 
 With the current secondary index on `name`, CockroachDB still needs to scan the primary index to get the credit card number:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -474,7 +474,7 @@ $ cockroach sql \
 
 Let's drop and recreate the index on `name`, this time storing the `credit_card` value in the index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -483,7 +483,7 @@ $ cockroach sql \
 --execute="DROP INDEX users_name_idx;"
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -494,7 +494,7 @@ $ cockroach sql \
 
 Now that `credit_card` values are stored in the index on `name`, CockroachDB only needs to scan that index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -514,7 +514,7 @@ $ cockroach sql \
 
 This results in even faster performance, reducing latency from 1.77ms (index without storing) to 0.99ms (index with storing):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -541,7 +541,7 @@ Secondary indexes are crucial when [joining](joins.html) data from different tab
 
 For example, let's say you want to count the number of users who started rides on a given day. To do this, you need to use a join to get the relevant rides from the `rides` table and then map the `rider_id` for each of those rides to the corresponding `id` in the `users` table, counting each mapping only once:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -567,7 +567,7 @@ Median time (milliseconds):
 
 To understand what's happening, use [`EXPLAIN`](explain.html) to see the query plan:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -604,7 +604,7 @@ Given that the `rides` table is large, its data is split across several ranges. 
 
 To track this specifically, let's use the [`SHOW EXPERIMENTAL_RANGES`](show-experimental-ranges.html) statement to find out where the relevant leaseholders reside for `rides` and `users`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -626,7 +626,7 @@ $ cockroach sql \
 (7 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -649,7 +649,7 @@ The results above tell us:
 
 Now, given the `WHERE` condition of the join, the full table scan of `rides`, across all of its 7 ranges, is particularly wasteful. To speed up the query, you can create a secondary index on the `WHERE` condition (`rides.start_time`) storing the join key (`rides.rider_id`):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -664,7 +664,7 @@ The `rides` table contains 1 million rows, so adding this index will take a few 
 
 Adding the secondary index reduced the query time from 1573ms to 61.56ms:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -690,7 +690,7 @@ Median time (milliseconds):
 
 To understand why performance improved, again use [`EXPLAIN`](explain.html) to see the new query plan:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -725,7 +725,7 @@ Notice that CockroachDB now starts by using `rides@rides_start_time_idx` seconda
 
 Let's check the ranges for the new index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -748,7 +748,7 @@ This tells us that the index is stored in 2 ranges, with the leaseholders for bo
 
 Now let's say you want to get the latest ride of each of the 5 most used vehicles. To do this, you might think to use a subquery to get the IDs of the 5 most frequent vehicles from the `rides` table, passing the results into the `IN` list of another query to get the most recent ride of each of the 5 vehicles:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -784,7 +784,7 @@ Median time (milliseconds):
 
 However, as you can see, this query is slow because, currently, when the `WHERE` condition of a query comes from the result of a subquery, CockroachDB scans the entire table, even if there is an available index. Use `EXPLAIN` to see this in more detail:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -834,7 +834,7 @@ This is a complex query plan, but the important thing to note is the full table 
 
 Because CockroachDB will not use an available secondary index when using `IN (list)` with a subquery, it's much more performant to have your application first select the top 5 vehicles:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -865,7 +865,7 @@ Median time (milliseconds):
 
 And then put the results into the `IN` list to get the most recent rides of the vehicles:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -915,7 +915,7 @@ Moving on to writes, let's imagine that you have a batch of 100 new users to ins
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -938,7 +938,7 @@ Cumulative time (milliseconds):
 
 The 100 inserts took 910.98ms to complete, which isn't bad. However, it's significantly faster to use a single `INSERT` statement with 100 comma-separated `VALUES` clauses:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -973,7 +973,7 @@ Earlier, we saw how important secondary indexes are for read performance. For wr
 
 Let's consider the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -998,7 +998,7 @@ This table has the primary index (the full table) and a secondary index on `name
 
 To make this more concrete, let's count how many rows have a name that starts with `C` and then update those rows to all have the same name:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -1016,7 +1016,7 @@ Median time (milliseconds):
 2.52604484558
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -1035,7 +1035,7 @@ Because `name` is in both the `primary` and `users_name_idx` indexes, for each o
 
 Now, assuming that the `users_name_idx` index is no longer needed, lets drop the index and execute an equivalent query:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 {{ page.certs}} \
@@ -1044,7 +1044,7 @@ $ cockroach sql \
 --execute="DROP INDEX users_name_idx;"
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -1065,7 +1065,7 @@ Before, when both the primary and secondary indexes needed to be updated, the up
 
 Now let's focus on the common case of inserting a row into a table and then retrieving the ID of the new row to do some follow-up work. One approach is to execute two statements, an `INSERT` to insert the row and then a `SELECT` to get the new ID:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -1078,7 +1078,7 @@ Median time (milliseconds):
 10.4398727417
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -1097,7 +1097,7 @@ Median time (milliseconds):
 
 Combined, these statements are relatively fast, at 15.96ms, but an even more performant approach is to append `RETURNING id` to the end of the `INSERT`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ {{ page.app }} \
 --host=<address of any node> \
@@ -1169,7 +1169,7 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 1. On your local machine, where you generated certificates for your first nodes, create the certificate and key for one of the new nodes, issued to all common names you might use to refer to the node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach cert create-node \
   	<node internal IP address> \
@@ -1184,13 +1184,13 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 2. Upload certificates to the instance:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
   	~~~ shell
   	# Create the certs directory:
   	$ ssh <username>@<node address> "mkdir certs"
   	~~~
 
-  	{{ partial "copy-clipboard.html" . }}
+  	{% include copy-clipboard.html %}
   	~~~ shell
   	# Upload the CA certificate and node certificate and key:
   	$ scp certs/ca.crt \
@@ -1201,7 +1201,7 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 3. Delete the local copy of the node certificate and key:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm certs/node.crt certs/node.key
     ~~~
@@ -1214,13 +1214,13 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 5. Upload the client certificates you created earlier to the additional instances in the `us-west1-a` and `us-west2-a` zones for your client application workload:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Create the certs directory:
     $ ssh <username>@<instance address> "mkdir certs"
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Upload the CA certificate and client certificate and key:
     $ scp certs/ca.crt \
@@ -1231,7 +1231,7 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 #### Start the new nodes
 
-{{ partial "{{ page.version.version }}/performance/scale-cluster.md" . }}
+{% include {{ page.version.version }}/performance/scale-cluster.md %}
 
 ### Step 10. Install the Python client
 
@@ -1239,23 +1239,23 @@ In each of the new zones, SSH to the instance not running a CockroachDB node, an
 
 ### Step 11. Check rebalancing
 
-{{ partial "{{ page.version.version }}/performance/check-rebalancing.md" . }}
+{% include {{ page.version.version }}/performance/check-rebalancing.md %}
 
 ### Step 12. Test performance
 
-{{ partial "{{ page.version.version }}/performance/test-performance.md" . }}
+{% include {{ page.version.version }}/performance/test-performance.md %}
 
 ### Step 13. Partition data by city
 
-{{ partial "{{ page.version.version }}/performance/partition-by-city.md" . }}
+{% include {{ page.version.version }}/performance/partition-by-city.md %}
 
 ### Step 14. Check rebalancing after partitioning
 
-{{ partial "{{ page.version.version }}/performance/check-rebalancing-after-partitioning.md" . }}
+{% include {{ page.version.version }}/performance/check-rebalancing-after-partitioning.md %}
 
 ### Step 15. Test performance after partitioning
 
-{{ partial "{{ page.version.version }}/performance/test-performance-after-partitioning.md" . }}
+{% include {{ page.version.version }}/performance/test-performance-after-partitioning.md %}
 
 ## See also
 

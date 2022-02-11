@@ -13,7 +13,7 @@ You can only reference a user-defined type from the database that contains the t
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/alter_type.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/alter_type.html %}
 </div>
 
 ## Parameters
@@ -38,12 +38,12 @@ on the type.
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE status AS ENUM ('open', 'closed', 'inactive');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS;
 ~~~
@@ -55,22 +55,22 @@ on the type.
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TYPE status ADD VALUE 'pending';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TYPE status RENAME VALUE 'open' TO 'active';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TYPE status RENAME TO account_status;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS;
 ~~~

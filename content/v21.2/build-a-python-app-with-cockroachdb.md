@@ -10,9 +10,9 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
-{{ partial "cockroach_u_pydev.md" . }}
+{% include cockroach_u_pydev.md %}
 
 This tutorial shows you how build a simple Python application with CockroachDB and the psycopg2 driver. For the CockroachDB back-end, you'll use a temporary local cluster.
 
@@ -33,11 +33,11 @@ For other ways to install psycopg2, see the [official documentation](http://init
 
 ## Step 2. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 3. Create a database
 
-{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
+{% include {{ page.version.version }}/app/create-a-database.md %}
 
 ## Step 4. Run the Python code
 
@@ -120,4 +120,4 @@ Balances at Fri Oct 30 18:27:00 2020:
 
 Read more about using the [Python psycopg2 driver](http://initd.org/psycopg/docs/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

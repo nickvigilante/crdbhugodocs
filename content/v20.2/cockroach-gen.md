@@ -20,60 +20,60 @@ Subcommand | Usage
 
 Generate man pages:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen man
 ~~~
 
 Generate bash autocompletion script:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen autocomplete
 ~~~
 
 Generate example SQL data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen example-data intro | cockroach sql
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen example-data startrek | cockroach sql
 ~~~
 
 Generate an HAProxy config file for a running cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen haproxy
 ~~~
 
 View help:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen --help
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen man --help
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen autocomplete --help
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen example-data --help
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen haproxy --help
 ~~~
@@ -133,21 +133,21 @@ Flag | Description
 
 Generate man pages:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen man
 ~~~
 
 Move the man pages to the man directory:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ sudo mv man/man1/* /usr/share/man/man1
 ~~~
 
 Access man pages:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ man cockroach
 ~~~
@@ -156,19 +156,19 @@ $ man cockroach
 
 Generate bash autocompletion script:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen autocomplete
 ~~~
 
 Add the script to your `.bashrc` and `.bash_profle`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ printf "\n\n#cockroach bash autocomplete\nsource '<path to>cockroach.bash'" >> ~/.bashrc
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ printf "\n\n#cockroach bash autocomplete\nsource '<path to>cockroach.bash'" >> ~/.bash_profile
 ~~~
@@ -185,14 +185,14 @@ To test out CockroachDB, you can generate an example `startrek` database, which 
 
 First, start up [a demo cluster](cockroach-demo.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach demo
 ~~~
 
 Then, pipe the output from `cockroach gen` to [the URL to the demo cluster](cockroach-demo.html#connection-parameters):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen example-data startrek | cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 ~~~
@@ -212,12 +212,12 @@ INSERT 1
 
 Open a [SQL shell](cockroach-sql.html) to view it:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM startrek;
 ~~~
@@ -231,7 +231,7 @@ $ cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 
 You can also generate an example `intro` database, which contains 1 table, `mytable`, with a hidden message:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen example-data intro | cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 ~~~
@@ -248,13 +248,13 @@ INSERT 1
 ...
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 # Launch the built-in SQL client to view it:
 $ cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM intro;
 ~~~
@@ -266,7 +266,7 @@ $ cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM intro.mytable WHERE (l % 2) = 0;
 ~~~
@@ -310,7 +310,7 @@ $ cockroach sql --url='postgres://demo:pass@127.0.0.1:55531?sslmode=require'
 <div class="filter-content" markdown="1" data-scope="secure">
 To generate an HAProxy config file for an entire secure cluster, run the `cockroach gen haproxy` command, specifying the location of [certificate directory](cockroach-cert.html) and the address of any instance running a CockroachDB node:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen haproxy \
 --certs-dir=<path to certs directory> \
@@ -319,7 +319,7 @@ $ cockroach gen haproxy \
 
 To limit the HAProxy config file to nodes matching specific ["localities"](cockroach-start.html#locality), use the `--localities` flag, specifying the explicit locality tier(s) or a regular expression to match against:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen haproxy \
 --certs-dir=<path to certs directory> \
@@ -331,7 +331,7 @@ $ cockroach gen haproxy \
 <div class="filter-content" markdown="1" data-scope="insecure">
 To generate an HAProxy config file for an entire insecure cluster, run the `cockroach gen haproxy` command, specifying the address of any instance running a CockroachDB node:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen haproxy \
 --insecure \
@@ -340,7 +340,7 @@ $ cockroach gen haproxy \
 
 To limit the HAProxy config file to nodes matching specific ["localities"](cockroach-start.html#locality), use the `--localities` flag, specifying the explicit locality tier(s) or a regular expression to match against:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach gen haproxy \
 --insecure \

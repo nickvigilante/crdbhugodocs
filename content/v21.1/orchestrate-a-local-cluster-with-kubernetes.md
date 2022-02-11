@@ -18,7 +18,7 @@ This page walks you through a simple demonstration, using the open-source [Kuber
 To orchestrate a physically distributed cluster in production, see [Orchestrated Deployments](orchestration.html). To deploy a 30-day free {{ site.data.products.db }} cluster instead of running CockroachDB yourself, see the [Quickstart](../cockroachcloud/quickstart.html).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/orchestration/local-start-kubernetes.md" . }}
+{% include {{ page.version.version }}/orchestration/local-start-kubernetes.md %}
 
 ## Step 2. Start CockroachDB
 
@@ -35,30 +35,30 @@ Choose a way to deploy and maintain the CockroachDB cluster:
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-operator-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-operator-secure.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-secure.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-helm-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-helm-secure.md %}
 </section>
 
 ## Step 3. Use the built-in SQL client
 
-{{ partial "{{ page.version.version }}/orchestration/test-cluster-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/test-cluster-secure.md %}
 
 ## Step 4. Access the DB Console
 
-{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/monitor-cluster.md %}
 
 ## Step 8. Stop the cluster
 
 - **If you plan to restart the cluster**, use the `minikube stop` command. This shuts down the minikube virtual machine but preserves all the resources you created:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube stop
     ~~~
@@ -72,7 +72,7 @@ Choose a way to deploy and maintain the CockroachDB cluster:
 
 - **If you do not plan to restart the cluster**, use the `minikube delete` command. This shuts down and deletes the minikube virtual machine and all the resources you created, including persistent volumes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube delete
     ~~~
@@ -88,6 +88,6 @@ Choose a way to deploy and maintain the CockroachDB cluster:
 
 Explore other core CockroachDB benefits and features:
 
-{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}
+{% include {{ page.version.version }}/misc/explore-benefits-see-also.md %}
 
 You might also want to learn how to [orchestrate a production deployment of CockroachDB with Kubernetes](orchestrate-cockroachdb-with-kubernetes.html).

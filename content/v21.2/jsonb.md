@@ -75,7 +75,7 @@ If the execution of a [join](joins.html) query exceeds the limit set for [memory
 
 For details, see [tracking issue](https://github.com/cockroachdb/cockroach/issues/35706).
 
-{{ partial "{{ page.version.version }}/sql/jsonb-comparison.md" . }}
+{% include {{ page.version.version }}/sql/jsonb-comparison.md %}
 
 ## Examples
 
@@ -252,11 +252,11 @@ For the full list of functions and operators we support, see [Functions and Oper
 
 ### Create a table with a `JSONB` column and a computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/jsonb.md" . }}
+{% include {{ page.version.version }}/computed-columns/jsonb.md %}
 
 ### Create a table with a `JSONB` column and a virtual computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/virtual.md" . }}
+{% include {{ page.version.version }}/computed-columns/virtual.md %}
 
 ## Supported casting and conversion
 

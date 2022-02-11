@@ -45,12 +45,12 @@ To view the contents of an Enterprise backup created with the `BACKUP` statement
 
 ### Destination privileges
 
-{{ partial "{{ page.version.version }}/backups/destination-file-privileges.md" . }}
+{% include {{ page.version.version }}/backups/destination-file-privileges.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/backup.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/backup.html %}
 </div>
 
 ## Parameters
@@ -67,7 +67,7 @@ To view the contents of an Enterprise backup created with the `BACKUP` statement
 
 ### Options
 
-{{ partial "{{ page.version.version }}/backups/backup-options.md" . }}
+{% include {{ page.version.version }}/backups/backup-options.md %}
 
 ### Backup file URLs
 
@@ -154,7 +154,7 @@ Per our guidance in the [Performance](#performance) section, we recommend starti
 
  To backup a full cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP TO \
 'gs://acme-co-backup/test-cluster' \
@@ -165,7 +165,7 @@ AS OF SYSTEM TIME '-10s';
 
 To backup a single database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -174,7 +174,7 @@ AS OF SYSTEM TIME '-10s';
 
 To backup multiple databases:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP DATABASE bank, employees \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -185,7 +185,7 @@ AS OF SYSTEM TIME '-10s';
 
 To backup a single table or view:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP bank.customers \
 TO 'gs://acme-co-backup/bank-customers-2017-03-27-weekly' \
@@ -194,7 +194,7 @@ AS OF SYSTEM TIME '-10s';
 
 To backup multiple tables:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP bank.customers, bank.accounts \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -205,7 +205,7 @@ AS OF SYSTEM TIME '-10s';
 
 If you backup to a destination already containing a full backup, an incremental backup will be produced in a subdirectory with a date-based name (e.g., `destination/day/time_1`, `destination/day/time_2`):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP TO \
 'gs://acme-co-backup/test-cluster' \
@@ -220,7 +220,7 @@ This incremental backup syntax does not work for backups using HTTP storage; you
 
 <span class="version-tag">New in v20.2:</span> Use the `DETACHED` [option](#options) to execute the backup job asynchronously:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BACKUP TO \
 'gs://acme-co-backup/test-cluster' \
@@ -248,13 +248,13 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 ### Advanced examples
 
-{{ partial "{{ page.version.version }}/backups/advanced-examples-list.md" . }}
+{% include {{ page.version.version }}/backups/advanced-examples-list.md %}
 
 ## Known limitations
 
 ### Slow (or hung) backups and queries due to write intent buildup
 
-{{ partial "{{ page.version.version }}/known-limitations/write-intent-buildup.md" . }}
+{% include {{ page.version.version }}/known-limitations/write-intent-buildup.md %}
 
 ## See also
 

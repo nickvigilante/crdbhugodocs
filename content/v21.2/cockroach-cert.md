@@ -17,7 +17,7 @@ To secure your CockroachDB cluster's inter-node and client-node communication, y
 
 To create these certificates and keys, use the `cockroach cert` [commands](cockroach-commands.html) with the appropriate subcommands and flags, use [`openssl` commands](https://wiki.openssl.org/index.php/), or use a [custom CA](create-security-certificates-custom-ca.html) (for example, a public CA or your organizational CA).
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 {{site.data.alerts.callout_success}}For details about when and how to change security certificates without restarting nodes, see <a href="rotate-certificates.html">Rotate Security Certificates</a>.{{site.data.alerts.end }}
 
@@ -170,7 +170,7 @@ Flag | Description
 
 ### Logging
 
-{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
+{% include {{ page.version.version }}/misc/logging-defaults.md %}
 
 ## Examples
 
@@ -178,12 +178,12 @@ Flag | Description
 
 1. Create two directories:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mkdir certs
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mkdir my-safe-directory
     ~~~
@@ -192,14 +192,14 @@ Flag | Description
 
 2. Generate the CA certificate and key:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ls -l certs
     ~~~
@@ -213,7 +213,7 @@ Flag | Description
 
 1. Generate the certificate and key for the first node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-node \
     node1.example.com \
@@ -223,7 +223,7 @@ Flag | Description
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ls -l certs
     ~~~
@@ -237,13 +237,13 @@ Flag | Description
 
 2. Upload certificates to the first node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Create the certs directory:
     $ ssh <username>@<node1 address> "mkdir certs"
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Upload the CA certificate and node certificate and key:
     $ scp certs/ca.crt \
@@ -254,7 +254,7 @@ Flag | Description
 
 3. Delete the local copy of the first node's certificate and key:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm certs/node.crt certs/node.key
     ~~~
@@ -263,7 +263,7 @@ Flag | Description
 
 4. Create the certificate and key for the second node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-node \
     node2.example.com \
@@ -272,7 +272,7 @@ Flag | Description
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ls -l certs
     ~~~
@@ -286,13 +286,13 @@ Flag | Description
 
 5. Upload certificates to the second node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Create the certs directory:
     $ ssh <username>@<node2 address> "mkdir certs"
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     # Upload the CA certificate and node certificate and key:
     $ scp certs/ca.crt \
@@ -305,7 +305,7 @@ Flag | Description
 
 ### Create the certificate and key pair for a client
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client \
 maxroach \
@@ -313,7 +313,7 @@ maxroach \
 --ca-key=my-safe-directory/ca.key
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ ls -l certs
 ~~~
@@ -329,7 +329,7 @@ total 40
 
 ### List certificates and keys
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert list \
 --certs-dir=certs

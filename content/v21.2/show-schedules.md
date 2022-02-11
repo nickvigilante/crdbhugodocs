@@ -45,7 +45,7 @@ Field | Description
 
 ### Show schedules
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEDULES;
 ~~~
@@ -68,7 +68,7 @@ To view the `CREATE SCHEDULE` statements for scheduled jobs, use [`SHOW CREATE S
 
 ### Show running schedules
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW RUNNING SCHEDULES;
 ~~~
@@ -88,7 +88,7 @@ To view the `CREATE SCHEDULE` statements for scheduled jobs, use [`SHOW CREATE S
 
 ### Show paused schedules
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW PAUSED SCHEDULES;
 ~~~
@@ -103,7 +103,7 @@ To view the `CREATE SCHEDULE` statements for scheduled jobs, use [`SHOW CREATE S
 
 To view a specific schedule, use the schedule's `id`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SCHEDULE 588796190012702721;
 ~~~

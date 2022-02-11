@@ -33,11 +33,11 @@ Choose whether to run a local cluster or a free CockroachDB cluster on {{ site.d
 
 ### Create a free cluster
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
 ### Set up your cluster connection
 
-{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection.md" . }}
+{% include cockroachcloud/quickstart/set-up-your-cluster-connection.md %}
 
   </section>
 
@@ -101,7 +101,7 @@ The [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) generates
 
     In the connection string copied from the {{ site.data.products.db }} Console, your username, password and cluster name are pre-populated. Replace the `{certs_dir}` placeholder with the path to the `certs` directory that you created [earlier](#set-up-your-cluster-connection).
 
-    {{ partial "cockroachcloud/cc-no-user-certs.md" . }}
+    {% include cockroachcloud/cc-no-user-certs.md %}
 
 1. In the SQL shell, create the `roach_data` database that your application will use:
 
@@ -226,7 +226,7 @@ datasource:
 ...
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 

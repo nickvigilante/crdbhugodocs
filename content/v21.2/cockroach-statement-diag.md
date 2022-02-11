@@ -71,13 +71,13 @@ Flag | Description
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
 ### Logging
 
-{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
+{% include {{ page.version.version }}/misc/logging-defaults.md %}
 
 ## Examples
 
@@ -89,7 +89,7 @@ These examples assume you are running [an insecure cluster](start-a-local-cluste
 
 List statement diagnostics bundles and/or activation requests:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach statement-diag list --insecure
 ~~~
@@ -122,7 +122,7 @@ $ cockroach statement-diag delete --all --insecure
 
 List statement diagnostics bundles and/or activation requests:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach statement-diag list --insecure
 ~~~

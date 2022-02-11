@@ -11,15 +11,15 @@ HTTP&nbsp;[<sup>3</sup>](#considerations)                   | `http`      | Remo
 NFS/Local&nbsp;[<sup>4</sup>](#considerations)              | `nodelocal` | `nodeID` or `self` [<sup>5</sup>](#considerations) (see [Example file URLs](#example-file-urls)) | N/A
 S3-compatible services&nbsp;[<sup>6</sup>](#considerations) | `s3`        | Bucket name                                      | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`, `AWS_REGION`&nbsp;[<sup>7</sup>](#considerations) (optional), `AWS_ENDPOINT`
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 The location parameters often contain special characters that need to be URI-encoded. Use Javascript's [`encodeURIComponent`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) function or Go language's [`url.QueryEscape`](https://golang.org/pkg/net/url/#QueryEscape) function to URI-encode the parameters. Other languages provide similar functions to URI-encode special characters.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 If your environment requires an HTTP or HTTPS proxy server for outgoing connections, you can set the standard `HTTP_PROXY` and `HTTPS_PROXY` environment variables when starting CockroachDB.
 
  If you cannot run a full proxy, you can disable external HTTP(S) access (as well as custom HTTP(S) endpoints) when performing bulk operations (e.g., [`BACKUP`](backup.html), [`RESTORE`](restore.html), etc.) by using the [`--external-io-disable-http` flag](cockroach-start.html#security). You can also disable the use of implicit credentials when accessing external cloud storage services for various bulk operations by using the [`--external-io-disable-implicit-credentials` flag](cockroach-start.html#security).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 <a name="considerations"></a>
 

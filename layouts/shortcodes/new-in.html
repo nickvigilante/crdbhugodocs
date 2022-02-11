@@ -1,0 +1,5 @@
+{{ $version := .Get 0 }}
+{{ range where .Page ".Type" $version }}
+<span class="version-tag">New in {{ $version }}:</span>
+{{ else }}
+{{ end }}

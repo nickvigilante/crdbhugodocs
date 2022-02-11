@@ -6,4 +6,4 @@ cloud: true
 docs_area: manage
 ---
 
-{{ partial "common/ui/transactions-page.md" . }}
+{% include common/ui/transactions-page.md %}

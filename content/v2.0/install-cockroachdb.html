@@ -73,13 +73,13 @@ $(document).ready(function(){
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="1"" . }}
+{% include marketo-install.html uid="1" %}
     </li>
   </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster.html">Quick start</a> a single- or multi-node cluster locally and talk to it via the built-in SQL client.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 {% endif %}
@@ -98,18 +98,18 @@ $(document).ready(function(){
     <li>
       <p>Copy the binary into your <code>PATH</code> so it's easy to execute <a href="cockroach-commands.html">cockroach commands</a> from any shell:</p>
 
-      {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/</code></pre></div>
+      {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/</code></pre></div>
       <p>If you get a permissions error, prefix the command with <code>sudo</code>.</p>
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="2"" . }}
+{% include marketo-install.html uid="2" %}
     </li>
   </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster.html">Quick start</a> a single- or multi-node cluster locally and talk to it via the built-in SQL client.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 
@@ -153,9 +153,9 @@ $(document).ready(function(){
   </li>
   <li><p>In the extracted directory, run <code>make build</code>:</p>
 
-    {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span><span class="nb">cd </span>cockroach-{{ page.release_info.version }}</code></pre></div>
+    {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span><span class="nb">cd </span>cockroach-{{ page.release_info.version }}</code></pre></div>
 
-    {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make build</code></pre></div>
+    {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make build</code></pre></div>
 
     <p>The build process can take 10+ minutes, so please be patient.</p>
 
@@ -164,20 +164,20 @@ $(document).ready(function(){
   <li>
   <p>Install the <code>cockroach</code> binary into <code>/usr/local/bin/</code> so it's easy to execute <a href="cockroach-commands.html">cockroach commands</a> from any directory:</p>
 
-  {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make install</code></pre></div>
+  {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make install</code></pre></div>
   <p>If you get a permissions error, prefix the command with <code>sudo</code>.</p>
 
   <p>You can also execute the <code>cockroach</code> binary directly from its built location, <code>./src/github.com/cockroachdb/cockroach/cockroach</code>, but the rest of the documentation assumes you have the binary on your <code>PATH</code>.</p>
   </li>
   <li>
     <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="3"" . }}
+{% include marketo-install.html uid="3" %}
   </li>
 </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster.html">Quick start</a> a single- or multi-node cluster locally and talk to it via the built-in SQL client.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 
@@ -211,13 +211,13 @@ $(document).ready(function(){
   </li>
   <li>
     <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="4"" . }}
+{% include marketo-install.html uid="4" %}
   </li>
 </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster-in-docker.html">Quick start</a> a multi-node cluster across multiple Docker containers on a single host, using Docker volumes to persist node data, or explore running a physically distributed cluster in containers using <a href="orchestration.html">orchestration</a> tools.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 </div>
@@ -233,7 +233,7 @@ $(document).ready(function(){
 
 <div id="download-the-binary-linux" class="install-option">
 
-{{ partial "{{ page.version.version }}/misc/linux-binary-prereqs.md" . }}
+{% include {{ page.version.version }}/misc/linux-binary-prereqs.md %}
 
   <ol>
     <li>
@@ -248,19 +248,19 @@ $(document).ready(function(){
     <li>
       <p>Copy the binary into your <code>PATH</code> so it's easy to execute <a href="cockroach-commands.html">cockroach commands</a> from any shell:</p>
 
-      {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/</code></pre></div>
+      {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/</code></pre></div>
       <p>If you get a permissions error, prefix the command with <code>sudo</code>.</p>
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="5"" . }}
+{% include marketo-install.html uid="5" %}
     </li>
   </ol>
 
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster.html">Quick start</a> a single- or multi-node cluster locally and talk to it via the built-in SQL client.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 
@@ -311,9 +311,9 @@ $(document).ready(function(){
   </li>
   <li><p>In the extracted directory, run <code>make build</code>:</p>
 
-    {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span><span class="nb">cd </span>cockroach-{{ page.release_info.version }}</code></pre></div>
+    {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span><span class="nb">cd </span>cockroach-{{ page.release_info.version }}</code></pre></div>
 
-    {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make build</code></pre></div>
+    {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make build</code></pre></div>
 
     <p>The build process can take 10+ minutes, so please be patient.</p>
 
@@ -323,20 +323,20 @@ $(document).ready(function(){
 
   <p>Install the <code>cockroach</code> binary into <code>/usr/local/bin/</code> so it's easy to execute <a href="cockroach-commands.html">cockroach commands</a> from any directory:</p>
 
-  {{ partial "copy-clipboard.html" . }}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make install</code></pre></div>
+  {% include copy-clipboard.html %}<div class="highlight"><pre class="highlight"><code><span class="nv language-shell"></span>make install</code></pre></div>
   <p>If you get a permissions error, prefix the command with <code>sudo</code>.</p>
 
   <p>You can also execute the <code>cockroach</code> binary directly from its built location, <code>./src/github.com/cockroachdb/cockroach/cockroach</code>, but the rest of the documentation assumes you have the binary on your <code>PATH</code>.</p>
   </li>
   <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="6"" . }}
+{% include marketo-install.html uid="6" %}
     </li>
 </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster.html">Quick start</a> a single- or multi-node cluster locally and talk to it via the built-in SQL client.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 
@@ -372,13 +372,13 @@ $(document).ready(function(){
   </li>
   <li>
     <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="7"" . }}
+{% include marketo-install.html uid="7" %}
   </li>
 </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster-in-docker.html#os-linux">Quick start</a> a multi-node cluster across multiple Docker containers on a single host, using Docker volumes to persist node data, or explore running a physically distributed cluster in containers using <a href="orchestration.html">orchestration</a> tools.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 </div>
@@ -394,7 +394,7 @@ $(document).ready(function(){
 
 <div id="download-the-binary-windows" class="install-option">
 
-{{ partial "windows_warning.md" . }}
+{% include windows_warning.md %}
 
 <ol>
   <li>
@@ -411,13 +411,13 @@ $(document).ready(function(){
   </li>
   <li>
     <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="8"" . }}
+{% include marketo-install.html uid="8" %}
   </li>
 </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster.html">Quick start</a> a single- or multi-node cluster locally and talk to it via the built-in SQL client.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 
@@ -451,13 +451,13 @@ $(document).ready(function(){
   </li>
   <li>
     <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{{ partial "marketo-install.html uid="9"" . }}
+{% include marketo-install.html uid="9" %}
   </li>
 </ol>
 <h2 id="whats-next">What's Next?</h2>
 <p><a href="start-a-local-cluster-in-docker.html#os-windows">Quick start</a> a multi-node cluster across multiple Docker containers on a single host, using Docker volumes to persist node data, or explore running a physically distributed cluster in containers using <a href="orchestration.html">orchestration</a> tools.</p>
 
-{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}
+{% include {{ page.version.version }}/misc/diagnostics-callout.html %}
 
 </div>
 </div>

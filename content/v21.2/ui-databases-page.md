@@ -5,7 +5,7 @@ toc: true
 docs_area: reference.db_console
 ---
 
-{{ partial "{{ page.version.version }}/ui/admin-access.md" . }}
+{% include {{ page.version.version }}/ui/admin-access.md %}
 
 The **Databases** page of the DB Console provides details of the following:
 

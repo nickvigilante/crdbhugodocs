@@ -12,7 +12,7 @@ If you haven't already, [review the full range of topology patterns](topology-pa
 
 ## Prerequisites
 
-{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/fundamentals.md %}
 
 ## Configuration
 
@@ -36,4 +36,4 @@ In a single-node cluster, CockroachDB does not replicate data and, therefore, is
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

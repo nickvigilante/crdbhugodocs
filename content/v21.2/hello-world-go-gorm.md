@@ -10,13 +10,13 @@ filter_sort: 2
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Hello World Go application with CockroachDB and the [GORM ORM](https://gorm.io/index.html).
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -89,4 +89,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [GORM](https://gorm.io/index.html) docs
 - [Transactions](transactions.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

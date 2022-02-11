@@ -10,7 +10,7 @@ filter_sort: 2
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Ruby application with CockroachDB and [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html). CockroachDB provides an ActiveRecord adapter for CockroachDB as a [RubyGem](https://rubygems.org/gems/activerecord-cockroachdb-adapter).
 
@@ -20,11 +20,11 @@ For a more realistic use of ActiveRecord with CockroachDB in a Rails app, see ou
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database
 
-{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
+{% include {{ page.version.version }}/app/create-a-database.md %}
 
 ## Step 3. Get the code
 
@@ -116,7 +116,7 @@ Where `{port}` is the port number from the connection string you noted earlier, 
 {% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-ruby-activerecord/cockroachcloud/main.rb|# BEGIN connect|# END connect %}
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 
@@ -142,4 +142,4 @@ account: 2 balance: 250
 
 Read more about using [ActiveRecord](http://guides.rubyonrails.org/active_record_basics.html), or check out a more realistic implementation of ActiveRecord with CockroachDB in a Rails app in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

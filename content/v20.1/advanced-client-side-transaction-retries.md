@@ -21,7 +21,7 @@ To improve the performance of transactions that fail due to [contention](perform
 
 A retryable transaction goes through the process described below, which maps to the following SQL statements:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;                                  -- #1
 > SAVEPOINT cockroach_restart;            -- #2
@@ -58,7 +58,7 @@ Note that you can [customize the retry savepoint name](#customizing-the-retry-sa
 
 ## Customizing the retry savepoint name
 
-{{ partial "{{ page.version.version }}/misc/customizing-the-savepoint-name.md" . }}
+{% include {{ page.version.version }}/misc/customizing-the-savepoint-name.md %}
 
 ## Examples
 

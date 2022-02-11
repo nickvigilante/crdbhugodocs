@@ -24,7 +24,7 @@ After the export has been initiated, you can cancel it with [`CANCEL QUERY`](can
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/export.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/export.html %}</div>
 
 {{site.data.alerts.callout_info }}The <code>EXPORT</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end }}
 
@@ -45,7 +45,7 @@ Only members of the `admin` role can run `EXPORT`. By default, the `root` user b
 
 URLs for the file directory location you want to export to must use the following format:
 
-{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
+{% include {{ page.version.version }}/misc/external-urls.md %}
 
 You can specify the base directory where you want to store the exported .csv files. CockroachDB will create several files in the specified directory with programmatically generated names (e.g., n1.1.csv, n1.2.csv, n2.1.csv, ...).
 
@@ -107,7 +107,7 @@ Convert SQL *NULL* values so they match the specified string.
 
 ### Export a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPORT INTO CSV
   'azure://acme-co/customer-export-data?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co'
@@ -116,7 +116,7 @@ Convert SQL *NULL* values so they match the specified string.
 
 ### Export using a `SELECT` statement
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPORT INTO CSV
   'azure://acme-co/customer-export-data?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co'
@@ -125,7 +125,7 @@ Convert SQL *NULL* values so they match the specified string.
 
 ### Non-distributed export using the SQL shell
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql -e "SELECT * from bank.customers WHERE id>=100;" --format=csv > my.csv
 ~~~
@@ -134,7 +134,7 @@ $ cockroach sql -e "SELECT * from bank.customers WHERE id>=100;" --format=csv > 
 
 View running exports by using [`SHOW QUERIES`](show-queries.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW QUERIES;
 ~~~
@@ -143,7 +143,7 @@ View running exports by using [`SHOW QUERIES`](show-queries.html):
 
 Use [`SHOW QUERIES`](show-queries.html) to get a running export's `query_id`, which can be used to [cancel the export](cancel-query.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CANCEL QUERY '14dacc1f9a781e3d0000000000000001';
 ~~~

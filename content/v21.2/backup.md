@@ -43,12 +43,12 @@ To view the contents of an Enterprise backup created with the `BACKUP` statement
 
 ### Destination privileges
 
-{{ partial "{{ page.version.version }}/backups/destination-file-privileges.md" . }}
+{% include {{ page.version.version }}/backups/destination-file-privileges.md %}
 
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/backup.html %}
+{{< sql-diagram "backup.html" >}}
 </div>
 
 ## Parameters
@@ -72,7 +72,7 @@ N/A                                | Backup the cluster. For an example of a ful
 
 ### Options
 
-{{ partial "{{ page.version.version }}/backups/backup-options.md" . }}
+{% include {{ page.version.version }}/backups/backup-options.md %}
 
 ### Backup file URLs
 
@@ -118,7 +118,7 @@ This improves performance by decreasing the likelihood that the `BACKUP` will be
 
 `BACKUP` will initially ask individual ranges to backup but to skip if they encounter an intent. Any range that is skipped is placed at the end of the queue. When `BACKUP` has completed its initial pass and is revisiting ranges, it will ask any range that did not resolve within the given time limit (default 1 minute) to attempt to resolve any intents that it encounters and to _not_ skip. Additionally, the backup's transaction priority is then set to `high`, which causes other transactions to abort until the intents are resolved and the backup is finished.
 
-{{ partial "{{ page.version.version }}/backups/file-size-setting.md" . }}
+{% include {{ page.version.version }}/backups/file-size-setting.md %}
 
 ## Viewing and controlling backups jobs
 
@@ -141,7 +141,7 @@ The presence of the `BACKUP MANIFEST` file in the backup destination is an indic
 
 Per our guidance in the [Performance](#performance) section, we recommend starting backups from a time at least 10 seconds in the past using [`AS OF SYSTEM TIME`](as-of-system-time.html). Each example below follows this guidance.
 
-{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
+{% include {{ page.version.version }}/backups/bulk-auth-options.md %}
 
 <div class="filters clearfix">
   <button class="filter-button" data-scope="s3">Amazon S3</button>
@@ -542,7 +542,7 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 ### Advanced examples
 
-{{ partial "{{ page.version.version }}/backups/advanced-examples-list.md" . }}
+{% include {{ page.version.version }}/backups/advanced-examples-list.md %}
 
 ## See also
 

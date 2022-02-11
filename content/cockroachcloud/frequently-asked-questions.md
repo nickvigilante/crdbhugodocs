@@ -10,7 +10,7 @@ docs_area: get_started
 
 This page answers the frequently asked questions about {{ site.data.products.serverless }} and {{ site.data.products.dedicated }}.
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 ## General
 
@@ -82,7 +82,7 @@ Contact [Support](https://support.cockroachlabs.com/hc/en-us) to change your clu
 
 You can add nodes by accessing the **Clusters** page on the [{{ site.data.products.db }} Console](https://cockroachlabs.cloud/) and clicking the **...** button for the cluster you want to add or delete nodes for. See [Cluster Mangement](cluster-management.html?filters=dedicated#add-or-remove-nodes-from-a-cluster) for more details.
 
-{{ partial "cockroachcloud/nodes-limitation.md" . }}
+{% include cockroachcloud/nodes-limitation.md %}
 
 ### Do you auto-scale?
 

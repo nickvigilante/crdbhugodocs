@@ -54,16 +54,16 @@ In this case, you will also need to add a new column to the `rides` table that s
 
 For example, you could create a column named `discounted`, of data type [`BOOL`](bool.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE rides ADD COLUMN discounted BOOL DEFAULT false;
 ~~~
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 In Python, a batch-update script might look similar to the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 #!/usr/bin/env python3
 

@@ -21,7 +21,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
     --net=roachnet \
     -p 26257:26257 -p 8080:8080  \
     -v "${PWD}/cockroach-data/roach1:/cockroach/cockroach-data"  \
-    {{page.release_info.docker_image}}:{{page.release_info.version}} start \
+    {{ page.release_info.docker_image }}:{{ page.release_info.version }} start \
     --insecure \
     --join=roach1,roach2,roach3
     ~~~
@@ -34,7 +34,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
     - `--net`: The bridge network for the container to join. See step 1 for more details.
     - `-p 26257:26257 -p 8080:8080`: These flags map the default port for inter-node and client-node communication (`26257`) and the default port for HTTP requests to the DB Console (`8080`) from the container to the host. This enables inter-container communication and makes it possible to call up the DB Console from a browser.
     - `-v "${PWD}/cockroach-data/roach1:/cockroach/cockroach-data"`: This flag mounts a host directory as a data volume. This means that data and logs for this node will be stored in `${PWD}/cockroach-data/roach1` on the host and will persist after the container is stopped or deleted. For more details, see Docker's <a href="https://docs.docker.com/engine/admin/volumes/bind-mounts/">Bind Mounts</a> topic.
-    - `{{page.release_info.docker_image}}:{{page.release_info.version}} start --insecure --join`: The CockroachDB command to [start a node](cockroach-start.html) in the container in insecure mode. The `--join` flag specifies the `hostname` of each node that will initially comprise your cluster. Otherwise, all [`cockroach start`](cockroach-start.html) defaults are accepted. Note that since each node is in a unique container, using identical default ports won’t cause conflicts.
+    - `{{ page.release_info.docker_image }}:{{ page.release_info.version }} start --insecure --join`: The CockroachDB command to [start a node](cockroach-start.html) in the container in insecure mode. The `--join` flag specifies the `hostname` of each node that will initially comprise your cluster. Otherwise, all [`cockroach start`](cockroach-start.html) defaults are accepted. Note that since each node is in a unique container, using identical default ports won’t cause conflicts.
 
 3. Start two more nodes:
 
@@ -45,7 +45,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
     --hostname=roach2 \
     --net=roachnet \
     -v "${PWD}/cockroach-data/roach2:/cockroach/cockroach-data" \
-    {{page.release_info.docker_image}}:{{page.release_info.version}} start \
+    {{ page.release_info.docker_image }}:{{ page.release_info.version }} start \
     --insecure \
     --join=roach1,roach2,roach3
     ~~~
@@ -57,7 +57,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
     --hostname=roach3 \
     --net=roachnet \
     -v "${PWD}/cockroach-data/roach3:/cockroach/cockroach-data" \
-    {{page.release_info.docker_image}}:{{page.release_info.version}} start \
+    {{ page.release_info.docker_image }}:{{ page.release_info.version }} start \
     --insecure \
     --join=roach1,roach2,roach3
     ~~~
@@ -86,7 +86,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
     ~~~
     CockroachDB node starting at {{ now | date: "%Y-%m-%d %H:%M:%S.%6 +0000 UTC" }}
-    build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}} (go1.12.6)
+    build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }} (go1.12.6)
     webui:               http://roach1:8080
     sql:                 postgresql://root@roach1:26257?sslmode=disable
     client flags:        /cockroach/cockroach <client cmd> --host=roach1:26257 --insecure
@@ -207,9 +207,9 @@ The CockroachDB [DB Console](ui-overview.html) gives you insight into the overal
 
     This demonstrates CockroachDB's [automated replication](demo-replication-and-rebalancing.html) of data via the Raft consensus protocol.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this [limitation](known-limitations.html#available-capacity-metric-in-the-db-console).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 3. Click [**Metrics**](ui-overview-dashboard.html) to access a variety of time series dashboards, including graphs of SQL queries and service latency over time:
 

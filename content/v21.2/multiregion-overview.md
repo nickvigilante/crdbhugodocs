@@ -29,7 +29,7 @@ At a high level, the simplest process for running a multi-region cluster is:
 These steps describe the simplest case, where you accept all of the default settings. If your application has performance or availability needs that are different than what the default settings provide you can explore customization options.
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
 {{site.data.alerts.end }}
 
 ## Cluster regions
@@ -38,14 +38,14 @@ You define a cluster region at the node level using the `region` key and the zon
 
 For example, the following command adds `us-east-1` to the list of cluster regions and `us-east-1b` to the list of zones:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach start --locality=region=us-east-1,zone=us-east-1b # ... other required flags go here
 ~~~
 
 To show all of a cluster's regions, execute the following SQL statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SHOW REGIONS FROM CLUSTER;
 ~~~
@@ -77,7 +77,7 @@ The following survival goals are available:
 
 Surviving zone failures is the default. You can upgrade a database to survive region failures at the cost of slower write performance (due to network hops) using the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE <db> SURVIVE REGION FAILURE;
 ~~~
@@ -124,15 +124,15 @@ Table locality settings are used for optimizing latency under different read/wri
 
 ### Regional tables
 
-{{ partial "{{ page.version.version }}/sql/regional-table-description.md" . }}
+{% include {{ page.version.version }}/sql/regional-table-description.md %}
 
 ### Regional by row tables
 
-{{ partial "{{ page.version.version }}/sql/regional-by-row-table-description.md" . }}
+{% include {{ page.version.version }}/sql/regional-by-row-table-description.md %}
 
 ### Global tables
 
-{{ partial "{{ page.version.version }}/sql/global-table-description.md" . }}
+{% include {{ page.version.version }}/sql/global-table-description.md %}
 
 ## Additional Features
 
@@ -140,7 +140,7 @@ The features listed in this section make working with multi-region clusters easi
 
 ### Indexes on `REGIONAL BY ROW` tables
 
-{{ partial "{{ page.version.version }}/sql/indexes-regional-by-row.md" . }}
+{% include {{ page.version.version }}/sql/indexes-regional-by-row.md %}
 
 This behavior also applies to [GIN indexes](inverted-indexes.html).
 

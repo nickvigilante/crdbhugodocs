@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authorization.html#create-and-manage-roles), which are groups containing any number of roles and users as members. You can assign [privileges](authorization.html#privileges) to roles, and all members of the role (regardless of whether if they are direct or indirect members) will inherit the role's privileges.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 {{site.data.alerts.callout_info }}
 The keywords `ROLE` and `USER` can be used interchangeably in SQL statements for enhanced Postgres compatibility.
@@ -43,7 +43,7 @@ Unless a role is a member of the admin role, additional [privileges](#parameters
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_role.html %}
+{{< sql-diagram "create_role.html" >}}
 </div>
 
 ## Parameters
@@ -148,7 +148,7 @@ root       |                                       | {admin}
 
 The following statement prevents the role from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE no_password WITH PASSWORD NULL;
 ~~~

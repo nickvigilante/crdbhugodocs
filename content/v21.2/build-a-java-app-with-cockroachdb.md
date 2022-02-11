@@ -10,11 +10,11 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how to build a simple CRUD Java application with CockroachDB and the Java JDBC driver.
 
-{{ partial "{{ page.version.version }}/app/java-version-note.md" . }}
+{% include {{ page.version.version }}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JDBC and CockroachDB, see [Build a Spring App with CockroachDB and JDBC](build-a-spring-app-with-cockroachdb-jdbc.html).
@@ -22,7 +22,7 @@ For a sample app and tutorial that uses Spring Data JDBC and CockroachDB, see [B
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -183,7 +183,7 @@ ds.setPassword("{password}");
 ds.setSslRootCert(System.getenv("{path to the CA certificate}"));
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 
@@ -262,11 +262,11 @@ BUILD SUCCESSFUL in 8s
 
 ### Generate PKCS8 keys for user authentication
 
-{{ partial "{{ page.version.version }}/app/pkcs8-gen.md" . }}
+{% include {{ page.version.version }}/app/pkcs8-gen.md %}
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{{ partial "cockroachcloud/cc-no-user-certs.md" . }}
+{% include cockroachcloud/cc-no-user-certs.md %}
 
 </section>
 
@@ -328,4 +328,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Java JDBC driver](https://jdbc.postgresql.org/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

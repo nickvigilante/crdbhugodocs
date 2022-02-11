@@ -13,4 +13,4 @@ The **Sessions** page provides details of all open sessions in the cluster.
 
 To view this page, click **SQL Activity** in the left-hand navigation of the DB Console. Click the **Sessions** tab.
 
-{{ partial "common/ui/sessions-page.md" . }}
+{% include common/ui/sessions-page.md %}

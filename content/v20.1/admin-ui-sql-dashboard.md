@@ -6,7 +6,7 @@ toc: true
 
 The **SQL** dashboard in the CockroachDB Admin UI lets you monitor the performance of your SQL queries. To view this dashboard, [access the Admin UI](admin-ui-overview.html#admin-ui-access), click **Metrics** on the left-hand navigation bar, and then select **Dashboard** > **SQL**.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md %}
 
 The **SQL** dashboard displays the following time series graphs:
 
@@ -80,7 +80,7 @@ The **SQL** dashboard shows other time series graphs that are important for Cock
 
 For monitoring CockroachDB, it is sufficient to use the [**SQL Connections**](#sql-connections), [**SQL Byte Traffic**](#sql-byte-traffic), [**SQL Queries**](#sql-queries), [**Service Latency**](#service-latency-sql-99th-percentile), and [**Transactions**](#transactions) graphs.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-summary-events.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-summary-events.md %}
 
 ## See also
 

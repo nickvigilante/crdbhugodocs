@@ -20,7 +20,7 @@ Since the keywords `ROLE` and `USER` can now be used interchangeably in SQL stat
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/alter_role.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/alter_role.html %}</div>
 
 ## Parameters
 
@@ -42,7 +42,7 @@ Parameter | Description
 
 ### Change password using a string literal
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl WITH PASSWORD 'ilov3beefjerky';
 ~~~
@@ -54,7 +54,7 @@ ALTER ROLE 1
 
 The following statement changes the password to `ilov3beefjerky`, as above:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl WITH PASSWORD ilov3beefjerky;
 ~~~
@@ -63,14 +63,14 @@ This is equivalent to the example in the previous section because the password c
 
 In contrast, the following statement changes the password to `thereisnotomorrow`, even though the password in the syntax contains capitals, because identifiers are normalized automatically:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl WITH PASSWORD ThereIsNoTomorrow;
 ~~~
 
 To preserve case in a password specified using identifier syntax, use double quotes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl WITH PASSWORD "ThereIsNoTomorrow";
 ~~~
@@ -79,7 +79,7 @@ To preserve case in a password specified using identifier syntax, use double quo
 
 The following statement sets the date and time after which the password is not valid:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl VALID UNTIL '2021-01-01';
 ~~~
@@ -88,7 +88,7 @@ The following statement sets the date and time after which the password is not v
 
 The following statement prevents the role from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl WITH PASSWORD NULL;
 ~~~
@@ -97,12 +97,12 @@ The following statement prevents the role from using password authentication and
 
 The following statement prevents the role from logging in with any [client authentication method](authentication.html#client-authentication):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl NOLOGIN;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ROLES;
 ~~~
@@ -118,12 +118,12 @@ The following statement prevents the role from logging in with any [client authe
 
 The following statement allows the role to log in with one of the client authentication methods:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl LOGIN;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ROLES;
 ~~~
@@ -139,7 +139,7 @@ The following statement allows the role to log in with one of the client authent
 
 ### Allow the role to create other roles
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ROLES;
 ~~~
@@ -153,12 +153,12 @@ The following statement allows the role to log in with one of the client authent
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER ROLE carl with CREATEROLE;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ROLES;
 ~~~

@@ -43,7 +43,7 @@ When converting interleaved tables with `ALTER PRIMARY KEY`, note the following:
 
 For example, suppose you created an interleaved hierarchy between the `customers`, `orders`, and `packages` tables, using the following [`CREATE TABLE`](create-table.html) statements:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers (
    id INT PRIMARY KEY,
@@ -51,7 +51,7 @@ For example, suppose you created an interleaved hierarchy between the `customers
  );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
    customer INT,
@@ -62,7 +62,7 @@ For example, suppose you created an interleaved hierarchy between the `customers
  ) INTERLEAVE IN PARENT customers (customer);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE packages (
    customer INT,
@@ -78,7 +78,7 @@ For example, suppose you created an interleaved hierarchy between the `customers
 
 The `INTERLEAVE IN PARENT` clauses will appear in `SHOW CREATE` statements for the `packages` and `orders` tables:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE orders;
 ~~~
@@ -97,7 +97,7 @@ The `INTERLEAVE IN PARENT` clauses will appear in `SHOW CREATE` statements for t
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE packages;
 ~~~
@@ -121,17 +121,17 @@ The `INTERLEAVE IN PARENT` clauses will appear in `SHOW CREATE` statements for t
 
 To convert these tables to non-interleaved tables, use `ALTER PRIMARY KEY` statements, starting at the bottom of the hierarchy (i.e., with `packages`):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE packages ALTER PRIMARY KEY USING COLUMNS (customer, "order", id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders ALTER PRIMARY KEY USING COLUMNS (customer, id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE orders;
 ~~~
@@ -151,7 +151,7 @@ To convert these tables to non-interleaved tables, use `ALTER PRIMARY KEY` state
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE packages;
 ~~~

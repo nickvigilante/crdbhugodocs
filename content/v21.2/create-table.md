@@ -8,7 +8,7 @@ docs_area: reference.sql
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -26,67 +26,67 @@ To create a table, the user must have one of the following:
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_table.html %}
+{{< sql-diagram "create_table.html" >}}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_table.html %}
+{{< sql-diagram "create_table.html" >}}
 </div>
 
 **opt_persistence_temp_table ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_persistence_temp_table.html %}
+{{< sql-diagram "opt_persistence_temp_table.html" >}}
 </div>
 
 **column_def ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/column_def.html %}
+{{< sql-diagram "column_def.html" >}}
 </div>
 
 **col_qualification ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/col_qualification.html %}
+{{< sql-diagram "col_qualification.html" >}}
 </div>
 
 **index_def ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/index_def.html %}
+{{< sql-diagram "index_def.html" >}}
 </div>
 
 **family_def ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/family_def.html %}
+{{< sql-diagram "family_def.html" >}}
 </div>
 
 **table_constraint ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/table_constraint.html %}
+{{< sql-diagram "table_constraint.html" >}}
 </div>
 
 **like_table_option_list::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/like_table_option_list.html %}
+{{< sql-diagram "like_table_option_list.html" >}}
 </div>
 
 **opt_with_storage_parameter_list ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_with_storage_parameter_list.html %}
+{{< sql-diagram "opt_with_storage_parameter_list.html" >}}
 </div>
 
 **opt_locality ::=**
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_locality.html %}
+{{< sql-diagram "opt_locality.html" >}}
 </div>
 
 </div>
@@ -111,7 +111,7 @@ Parameter | Description
 `opt_where_clause` |  An optional `WHERE` clause that defines the predicate boolean expression of a [partial index](partial-indexes.html).
 `opt_with_storage_parameter_list` |  A comma-separated list of [spatial index tuning parameters](spatial-indexes.html#index-tuning-parameters). Supported parameters include `fillfactor`, `s2_max_level`, `s2_level_mod`, `s2_max_cells`, `geometry_min_x`, `geometry_max_x`, `geometry_min_y`, and `geometry_max_y`. The `fillfactor` parameter is a no-op, allowed for PostgreSQL-compatibility.<br><br>For details, see [Spatial index tuning parameters](spatial-indexes.html#index-tuning-parameters). For an example, see [Create a spatial index that uses all of the tuning parameters](spatial-indexes.html#create-a-spatial-index-that-uses-all-of-the-tuning-parameters).
 `ON COMMIT PRESERVE ROWS` | This clause is a no-op, allowed by the parser for PostgresSQL compatibility. CockroachDB only supports session-scoped [temporary tables](temporary-tables.html), and does not support the clauses `ON COMMIT DELETE ROWS` and `ON COMMIT DROP`, which are used to define transaction-scoped temporary tables in PostgreSQL.
-`opt_interleave` | {{ partial "{{ page.version.version }}/misc/interleave-deprecation-note.md" . }}
+`opt_interleave` | {% include {{ page.version.version }}/misc/interleave-deprecation-note.md %}
 
 ## Column qualifications
 
@@ -206,7 +206,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 
 {{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY,
@@ -218,7 +218,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -235,7 +235,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -251,7 +251,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 
 In this example, we create secondary and GIN indexes during table creation. Secondary indexes allow efficient access to data with keys other than the primary key. [GIN indexes](inverted-indexes.html) allow efficient access to the schemaless data in a [`JSONB`](jsonb.html) column.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles (
         id UUID NOT NULL,
@@ -269,7 +269,7 @@ In this example, we create secondary and GIN indexes during table creation. Seco
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM vehicles;
 ~~~
@@ -295,7 +295,7 @@ We also have other resources on indexes:
 
 ### Create a table with auto-generated unique row IDs
 
-{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
+{% include {{ page.version.version }}/faq/auto-generate-unique-ids.html %}
 
 ### Create a table with a foreign key constraint
 
@@ -307,7 +307,7 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a foreign key constraint is deleted, all dependent rows are also deleted).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -319,7 +319,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles (
         id UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -337,7 +337,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -364,12 +364,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO users (name, dl) VALUES ('Annika', 'ABC-123');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -381,12 +381,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO vehicles (city, owner_id) VALUES ('seattle', '26da1fce-59e1-4290-a786-9068242dd195');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM vehicles;
 ~~~
@@ -398,12 +398,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DELETE FROM users WHERE id = '26da1fce-59e1-4290-a786-9068242dd195';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM vehicles;
 ~~~
@@ -418,7 +418,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 
 In this example, we create the `users` table, but with some column [constraints](constraints.html). One column is the [primary key](primary-key.html), and another column is given a [unique constraint](unique.html) and a [check constraint](check.html) that limits the length of the string. Primary key columns and columns with unique constraints are automatically indexed.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY,
@@ -430,7 +430,7 @@ In this example, we create the `users` table, but with some column [constraints]
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -447,7 +447,7 @@ In this example, we create the `users` table, but with some column [constraints]
 (6 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -463,13 +463,13 @@ In this example, we create the `users` table, but with some column [constraints]
 
 ### Create a table that mirrors key-value storage
 
-{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
+{% include {{ page.version.version }}/faq/simulate-key-value-store.html %}
 
 ### Create a table from a `SELECT` statement
 
 You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a new table from the results of a `SELECT` statement. For example, suppose you have a number of rows of user data in the `users` table, and you want to create a new table from the subset of users that are located in New York.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users WHERE city = 'new york';
 ~~~
@@ -485,12 +485,12 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (5 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users_ny AS SELECT * FROM users WHERE city = 'new york';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users_ny;
 ~~~
@@ -508,18 +508,18 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with a computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
+{% include {{ page.version.version }}/computed-columns/simple.md %}
 
 ### Create a table with a hash-sharded primary index
 
-{{ partial "{{ page.version.version }}/performance/use-hash-sharded-indexes.md" . }}
+{% include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET experimental_enable_hash_sharded_indexes=on;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE events (
     ts DECIMAL PRIMARY KEY USING HASH WITH BUCKET_COUNT=8,
@@ -527,7 +527,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
     );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM events;
 ~~~
@@ -541,7 +541,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM events;
 ~~~
@@ -556,12 +556,12 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with a hash-sharded secondary index
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET experimental_enable_hash_sharded_indexes=on;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE events (
     product_id INT8,
@@ -575,7 +575,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM events;
 ~~~
@@ -597,7 +597,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (11 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM events;
 ~~~
@@ -619,7 +619,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 #### Create a table including all supported source specifiers
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -645,14 +645,14 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (1 row
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles2 (
         LIKE vehicles INCLUDING ALL
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles2;
 ~~~
@@ -681,7 +681,7 @@ Note that the foreign key constraint `fk_owner_id_ref_users` in the source table
 
 #### Create a table with some source specifiers and a foreign key constraint
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles3 (
         LIKE vehicles INCLUDING DEFAULTS INCLUDING INDEXES,
@@ -689,7 +689,7 @@ Note that the foreign key constraint `fk_owner_id_ref_users` in the source table
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles3;
 ~~~
@@ -733,7 +733,7 @@ The `GLOBAL` locality is useful for "read-mostly" tables of reference data that 
 
 For example, the `promo_codes` table of the [`movr` database](movr.html) is rarely updated after being initialized, but it needs to be read by nodes in all regions.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE promo_codes (
     code STRING PRIMARY KEY,
@@ -744,7 +744,7 @@ For example, the `promo_codes` table of the [`movr` database](movr.html) is rare
     LOCALITY GLOBAL;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW TABLES] WHERE table_name='promo_codes';
 ~~~
@@ -768,7 +768,7 @@ The `REGIONAL BY TABLE` locality is useful for tables that require low-latency r
 
 For example, suppose you want to create a table for your application's end users in a specific state:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users_ny (
     id UUID PRIMARY KEY,
@@ -777,7 +777,7 @@ For example, suppose you want to create a table for your application's end users
     LOCALITY REGIONAL BY TABLE IN "us-east1";
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW TABLES] WHERE table_name='users_ny';
 ~~~
@@ -801,7 +801,7 @@ The `REGIONAL BY ROW` locality is useful for tables that require low-latency rea
 
 For example, the `vehicles` table of the [`movr` database](movr.html) is read to and written from nodes in different regions.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles (
     id UUID PRIMARY KEY,
@@ -829,7 +829,7 @@ The region value for `crdb_region` must be one of the regions added to the datab
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles (
     id UUID PRIMARY KEY,
@@ -869,7 +869,7 @@ For example:
 
 You can then manually set the values of the region with each [`INSERT`](insert.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO vehicles (crdb_region, ...) VALUES ('us-east1', ...);
 ~~~
@@ -888,7 +888,7 @@ Using the `LOCALITY REGIONAL BY ROW AS <region>` clause, you can assign rows to 
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE vehicles (
     id UUID PRIMARY KEY,
@@ -916,7 +916,7 @@ CockroachDB will then assign a region to each row, based on the value of the `re
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE bank (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -929,7 +929,7 @@ For example:
 
 CockroachDB creates a sequence to use as the `numerical` column's default value.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~
@@ -941,7 +941,7 @@ CockroachDB creates a sequence to use as the `numerical` column's default value.
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -959,12 +959,12 @@ CockroachDB creates a sequence to use as the `numerical` column's default value.
 
 When a new row is added to the table, CockroachDB populates the `numerical` column with the result of the `nextval('bank_numerical_seq')` [built-in function](functions-and-operators.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO bank (order_index, balance) VALUES (1, 0), (2, 0), (3, 0);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, order_index, balance, numerical FROM bank ORDER BY order_index;
 ~~~
@@ -980,12 +980,12 @@ When a new row is added to the table, CockroachDB populates the `numerical` colu
 
 The `numerical` column in this example follows the `BY DEFAULT` rule. According to this rule, if the value of an identity is explicitly updated, the sequence value is overwritten:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > UPDATE bank SET numerical = 500 WHERE id = '0b533801-052e-4837-8e13-0ef2fa6f8883';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, order_index, balance, numerical FROM bank ORDER BY order_index;
 ~~~
@@ -1001,17 +1001,17 @@ The `numerical` column in this example follows the `BY DEFAULT` rule. According 
 
 Inserting explicit values does not affect the next value of the sequence:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO bank (order_index, balance, numerical) VALUES (4, 0, 3);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO bank (order_index, balance) VALUES (5, 0);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, order_index, balance, numerical FROM bank ORDER BY order_index;
 ~~~

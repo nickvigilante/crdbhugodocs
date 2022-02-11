@@ -39,7 +39,7 @@ Before you begin, connect to your cluster. For guidance on connecting to your {{
 
 <section class="filter-content" markdown="1" data-scope="userfile">
 
-{{ partial "cockroachcloud/userfile-examples/backup-userfile.md" . }}
+{% include cockroachcloud/userfile-examples/backup-userfile.md %}
 
 </section>
 
@@ -49,9 +49,9 @@ Cockroach Labs runs [full backups](../{{site.versions["stable"] }}/take-full-and
 
 The following examples show how to run manual backups and restores:
 
-{{ partial "cockroachcloud/backup-examples.md" . }}
+{% include cockroachcloud/backup-examples.md %}
 
-{{ partial "cockroachcloud/restore-examples.md" . }}
+{% include cockroachcloud/restore-examples.md %}
 
 For more information on taking backups and restoring to your cluster, read the following pages:
 
@@ -71,7 +71,7 @@ For more information on taking backups and restoring to your cluster, read the f
 
 <section class="filter-content" markdown="1" data-scope="userfile">
 
-{{ partial "cockroachcloud/userfile-examples/import-into-userfile.md" . }}
+{% include cockroachcloud/userfile-examples/import-into-userfile.md %}
 
 </section>
 

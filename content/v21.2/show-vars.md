@@ -14,7 +14,7 @@ No [privileges](authorization.html#assign-privileges) are required to display th
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_session.html %}
+{{< sql-diagram "show_session.html" >}}
 </div>
 
 {{site.data.alerts.callout_info }}
@@ -29,7 +29,7 @@ The `SHOW` statement for session variables is unrelated to the other `SHOW` stat
 
 ### Supported variables
 
-{{ partial "{{ page.version.version }}/misc/session-vars.html" . }}
+{% include {{ page.version.version }}/misc/session-vars.html %}
 
 For session variables on experimental features, see [Experimental Features](experimental-features.html).
 

@@ -16,7 +16,7 @@ To secure your CockroachDB cluster's inter-node and client-node communication, y
 
 To create these certificates and keys, use the `cockroach cert` [commands](cockroach-commands.html) with the appropriate subcommands and flags, use [`openssl` commands](https://wiki.openssl.org/index.php/), or use a [custom CA](create-security-certificates-custom-ca.html) (for example, a public CA or your organizational CA).
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This document discusses the following advanced use cases for using security certificates with CockroachDB:
 
@@ -37,7 +37,7 @@ For secure clusters, you can avoid getting the warning message by using a certif
 3. Add the `ui.crt` and `ui.key` to the [certificate directory](cockroach-cert.html#certificate-directory). `ui.key` must meet the [permission requirements check](cockroach-cert.html#key-file-permissions) on macOS, Linux, and other UNIX-like systems.
  .
 4. For nodes that are already running, load the `ui.crt` certificate without restarting the node by issuing a `SIGHUP` signal to the cockroach process:
-   {{ partial "copy-clipboard.html" . }}
+   {% include copy-clipboard.html %}
    ~~~ shell
    pkill -SIGHUP -x cockroach
    ~~~
@@ -140,7 +140,7 @@ To enable certificate revocation:
 1. Ensure that your Certificate Authority sets the OCSP server address in the `authorityInfoAccess` field in the certificate.
 2. [Set the cluster setting](set-cluster-setting.html) `security.ocsp.mode` to `lax` (by default, the cluster setting is set to `off`).
 
-      {{ partial "copy-clipboard.html" . }}
+      {% include copy-clipboard.html %}
       ~~~ sql
       > SHOW CLUSTER SETTING security.ocsp.mode;
       ~~~
@@ -155,7 +155,7 @@ To enable certificate revocation:
       Network Latency: 181µs
       ~~~
 
-      {{ partial "copy-clipboard.html" . }}
+      {% include copy-clipboard.html %}
       ~~~ sql
       > SET CLUSTER SETTING security.ocsp.mode = lax;
       ~~~

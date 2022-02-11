@@ -2,9 +2,9 @@ Schema change [DDL](https://en.wikipedia.org/wiki/Data_definition_language#ALTER
 
 If such a failure occurs, CockroachDB will emit the Postgres error code `40003`, `"statement completion unknown"`.
 
-{{site.data.alerts.callout_danger}}
+{{site.data.alerts.callout_danger }}
 If you must execute schema change DDL statements inside a multi-statement transaction, we **strongly recommend** checking for this error code and handling it appropriately every time you execute such transactions.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 This error will occur in various scenarios, including but not limited to:
 

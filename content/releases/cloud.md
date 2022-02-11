@@ -10,7 +10,7 @@ CockroachDB Cloud supports the latest major version of CockroachDB and the versi
 
 Get future release notes emailed to you:
 
-{{ partial "marketo.html" . }}
+{% include marketo.html %}
 
 {{site.data.alerts.callout_version }}
 As of January 12, 2021, new {{ site.data.products.dedicated }} clusters and all {{ site.data.products.serverless }} clusters are running CockroachDB [v21.2.4](v21.2.4.html).

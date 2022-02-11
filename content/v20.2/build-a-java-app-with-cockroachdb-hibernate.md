@@ -15,7 +15,7 @@ referral_id: docs_hello_world_java_hibernate
 
 This tutorial shows you how build a simple Java application with CockroachDB and the Hibernate ORM.
 
-{{ partial "{{ page.version.version }}/app/java-version-note.md" . }}
+{% include {{ page.version.version }}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JPA (Hibernate) and CockroachDB, see [Build a Spring App with CockroachDB and JPA](build-a-spring-app-with-cockroachdb-jpa.html).
@@ -25,11 +25,11 @@ For another use of Hibernate with CockroachDB, see our [`examples-orms`](https:/
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database
 
-{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
+{% include {{ page.version.version }}/app/create-a-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -95,7 +95,7 @@ Modify the `hibernate.connection.url` property with the information from the con
 <property name="hibernate.connection.url">jdbc:postgresql://{globalhost}:26257/{cluster_name}.bank?sslmode=verify-full&amp;sslrootcert={path to the CA certificate}</property>
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 
@@ -168,11 +168,11 @@ id |  balance
 
 ### Generate PKCS8 keys for client authentication
 
-{{ partial "{{ page.version.version }}/app/pkcs8-gen.md" . }}
+{% include {{ page.version.version }}/app/pkcs8-gen.md %}
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{{ partial "cockroachcloud/cc-no-user-certs.md" . }}
+{% include cockroachcloud/cc-no-user-certs.md %}
 
 </section>
 
@@ -202,4 +202,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Hibernate ORM](http://hibernate.org/orm/), or check out a more realistic implementation of Hibernate with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

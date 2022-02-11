@@ -36,7 +36,7 @@ The following example uses the [sample `bank` database](cockroach-workload.html#
 
 Suppose that you create a materialized view on the `bank` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE MATERIALIZED VIEW overdrawn_accounts
   AS SELECT id, balance
@@ -44,7 +44,7 @@ Suppose that you create a materialized view on the `bank` table:
   WHERE balance < 0;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM overdrawn_accounts;
 ~~~
@@ -61,7 +61,7 @@ Suppose that you create a materialized view on the `bank` table:
 
 Now suppose that you update the `balance` values of the `bank` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > UPDATE bank SET balance = 0 WHERE balance < 0;
 ~~~
@@ -72,7 +72,7 @@ UPDATE 402
 
 The changes can be seen in the table with a simple `SELECT` statement against the table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance
 FROM bank
@@ -88,7 +88,7 @@ WHERE balance < 0;
 
 Recall that materialized views do not automatically update their stored results. Selecting from `overdrawn_accounts` returns stored results, which are outdated:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM overdrawn_accounts;
 ~~~
@@ -105,12 +105,12 @@ Recall that materialized views do not automatically update their stored results.
 
 To update the materialized view's results, use a [`REFRESH`](refresh.html) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REFRESH MATERIALIZED VIEW overdrawn_accounts;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM overdrawn_accounts;
 ~~~

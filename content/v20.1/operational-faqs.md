@@ -46,12 +46,12 @@ Yes. By default, CockroachDB stores timeseries data for the last 10 days for dis
 
 To reduce the interval for storage of timeseries data, change the `timeseries.storage.resolution_10s.ttl` cluster setting to an [`INTERVAL`](interval.html) value less than `240h0m0s` (10 days). For example, to store timeseries data for the last 5 days, run the following [`SET CLUSTER SETTING`](set-cluster-setting.html) command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING timeseries.storage.resolution_10s.ttl = '120h0m0s';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER SETTING timeseries.storage.resolution_10s.ttl;
 ~~~
@@ -71,12 +71,12 @@ Disabling timeseries storage is recommended only if you exclusively use a third-
 
 To disable the storage of timeseries data entirely, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING timeseries.storage.enabled = false;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER SETTING timeseries.storage.enabled;
 ~~~
@@ -90,7 +90,7 @@ To disable the storage of timeseries data entirely, run the following command:
 
 If you want all existing timeseries data to be deleted, change the `timeseries.storage.resolution_10s.ttl` cluster setting as well:     
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING timeseries.storage.resolution_10s.ttl = '0s';
 ~~~
@@ -120,17 +120,17 @@ Collecting information about CockroachDB's real world usage helps us prioritize 
 
 ## What happens when node clocks are not properly synchronized?
 
-{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
+{% include {{ page.version.version }}/faq/clock-synchronization-effects.md %}
 
 ## How can I tell how well node clocks are synchronized?
 
-{{ partial "{{ page.version.version }}/faq/clock-synchronization-monitoring.html" . }}
+{% include {{ page.version.version }}/faq/clock-synchronization-monitoring.html %}
 
 You can also see these metrics in [the Clock Offset graph](admin-ui-runtime-dashboard.html#clock-offset) on the Admin UI's Runtime dashboard.
 
 ## How do I prepare for planned node maintenance?
 
-{{ partial "{{ page.version.version }}/faq/planned-maintenance.md" . }}
+{% include {{ page.version.version }}/faq/planned-maintenance.md %}
 
 ## See also
 

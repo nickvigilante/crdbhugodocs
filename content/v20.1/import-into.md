@@ -20,7 +20,7 @@ Only members of the `admin` role can run `IMPORT INTO`. By default, the `root` u
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/import_into.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/import_into.html %}
 </div>
 
 {{site.data.alerts.callout_info }}
@@ -40,7 +40,7 @@ Parameter | Description
 
 URLs for the files you want to import must use the format shown below. For examples, see [Example file URLs](#example-file-urls).
 
-{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
+{% include {{ page.version.version }}/misc/external-urls.md %}
 
 ### CSV import options
 
@@ -78,7 +78,7 @@ Before using `IMPORT INTO`, you should have:
 - An existing table to import into (use [`CREATE TABLE`](create-table.html)).
 - The CSV or Avro data you want to import, preferably hosted on cloud storage. This location must be equally accessible to all nodes using the same import file location. This is necessary because the `IMPORT INTO` statement is issued once by the client, but is executed concurrently across all nodes of the cluster. For more information, see the [Import file location](#import-file-location) section below.
 
-{{ partial "{{ page.version.version }}/sql/import-into-default-value.md" . }}
+{% include {{ page.version.version }}/sql/import-into-default-value.md %}
 
 ### Available storage
 
@@ -123,7 +123,7 @@ Pausing and then resuming an `IMPORT INTO` job will cause it to restart from the
 
 Amazon S3:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers (id, name)
     CSV DATA (
@@ -133,7 +133,7 @@ Amazon S3:
 
 Azure:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers (id, name)
     CSV DATA (
@@ -143,7 +143,7 @@ Azure:
 
 Google Cloud:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers (id, name)
     CSV DATA (
@@ -159,7 +159,7 @@ The column order in your statement must match the column order in the CSV being 
 
 Amazon S3:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers (id, name)
     CSV DATA (
@@ -172,7 +172,7 @@ Amazon S3:
 
 Azure:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers (id, name)
     CSV DATA (
@@ -186,7 +186,7 @@ Azure:
 
 Google Cloud:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers (id, name)
     CSV DATA (
@@ -206,7 +206,7 @@ To specify the table schema in-line:
 
 Amazon S3:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers
     AVRO DATA (
@@ -216,7 +216,7 @@ Amazon S3:
 
 Azure:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers
     AVRO DATA (
@@ -226,7 +226,7 @@ Azure:
 
 Google Cloud:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > IMPORT INTO customers
     AVRO DATA (
@@ -244,7 +244,7 @@ For more detailed information about importing data from Avro and examples, see [
 - `IMPORT INTO` works for only a single existing table, and the table must not be [interleaved](interleave-in-parent.html).
 - `IMPORT INTO` cannot be used within a [transaction](transactions.html).
 - `IMPORT INTO` can sometimes fail with a "context canceled" error, or can restart itself many times without ever finishing. If this is happening, it is likely due to a high amount of disk contention. This can be mitigated by setting the `kv.bulk_io_write.max_rate` [cluster setting](cluster-settings.html) to a value below your max disk write speed. For example, to set it to 10MB/s, execute:
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING kv.bulk_io_write.max_rate = '10MB';
     ~~~

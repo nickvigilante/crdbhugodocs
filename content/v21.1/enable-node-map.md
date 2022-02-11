@@ -16,7 +16,7 @@ This page walks you through the process of setting up and enabling the Node Map.
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
 {{site.data.alerts.end }}
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 <img src="{{ 'images/v21.1/ui-node-map-navigation3.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
@@ -43,7 +43,7 @@ To start a new cluster with the correct `--locality` flags:
 
 Start Node 1:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -56,7 +56,7 @@ $ cockroach start \
 
 Start Node 2:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -69,7 +69,7 @@ $ cockroach start \
 
 Start Node 3:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -82,7 +82,7 @@ $ cockroach start \
 
 Start Node 4:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -95,7 +95,7 @@ $ cockroach start \
 
 Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach init --insecure --host=<address of any node>
 ~~~
@@ -118,14 +118,14 @@ To be displayed on the world map, localities must be assigned a corresponding la
 
 Launch the built-in SQL client:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --host=<address of any node>
 ~~~
 
 Insert the approximate latitude and longitude of each region into the `system.locations` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.locations VALUES
   ('region', 'us-east-1', 37.478397, -76.453077),
@@ -181,18 +181,18 @@ If a locality (e.g., region) is not assigned latitude/longitude coordinates, it 
 
 ### Displayed Used Capacity value is more than configured capacity
 
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 
 ## Location coordinates
 
 ### AWS locations
 
-{{ partial "{{ page.version.version }}/misc/aws-locations.md" . }}
+{% include {{ page.version.version }}/misc/aws-locations.md %}
 
 ### Azure locations
 
-{{ partial "{{ page.version.version }}/misc/azure-locations.md" . }}
+{% include {{ page.version.version }}/misc/azure-locations.md %}
 
 ### Google Cloud locations
 
-{{ partial "{{ page.version.version }}/misc/gce-locations.md" . }}
+{% include {{ page.version.version }}/misc/gce-locations.md %}

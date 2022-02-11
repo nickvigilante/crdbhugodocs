@@ -13,7 +13,7 @@ The file produced by `cockroach debug zip` can contain highly [sensitive, identi
 
 ## Subcommands
 
-{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
+{% include {{ page.version.version }}/misc/debug-subcommands.md %}
 
 ## Synopsis
 
@@ -36,42 +36,42 @@ Flag | Description
 
 Generate a debug zip file:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --insecure
 ~~~
 
 Unzip the file:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ unzip ./cockroach-data/logs/debug.zip
 ~~~
 
 Merge the logs in the debug folder:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug merge-logs debug/nodes/*/logs/*
 ~~~
 
 Alternatively, filter the merged logs for a specified time range:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug merge-logs debug/nodes/*/logs/* --from= "18:36:28.208553" --to= "18:36:29.232864"
 ~~~
 
 You can also filter the merged logs for a regular expression:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach debug merge-logs debug/nodes/*/logs/* --filter="RUNNING IN INSECURE MODE"
 ~~~
 
 You can redact sensitive information from the merged logs:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach debug merge-logs --redact debug/nodes/*/logs/*
 ~~~

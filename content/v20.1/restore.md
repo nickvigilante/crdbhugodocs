@@ -25,7 +25,7 @@ Only members of the `admin` role can run `RESTORE`. By default, the `root` user 
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/restore.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/restore.html %}
 </div>
 
 ## Parameters
@@ -59,7 +59,7 @@ You can include the following options as key-value pairs in the `kv_option_list`
 
 The URL for your backup's locations must use the following format:
 
-{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
+{% include {{ page.version.version }}/misc/external-urls.md %}
 
 ## Functional details
 
@@ -165,14 +165,14 @@ If initiated correctly, the statement returns when the restore is finished or if
 
 <span class="version-tag">New in v20.1:</span> To restore a full cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM 'gs://acme-co-backup/test-cluster';
 ~~~
 
 ### Restore a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE DATABASE bank FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
@@ -185,14 +185,14 @@ If initiated correctly, the statement returns when the restore is finished or if
 
 To restore a single table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
 
 To restore multiple tables:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers, bank.accounts FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
@@ -201,14 +201,14 @@ To restore multiple tables:
 
 <span class="version-tag">New in v20.1:</span> Restoring from incremental backups requires previous full and incremental backups. To restore from a destination containing the full backup, as well as the incremental backups (stored as subdirectories):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM 'gs://acme-co-backup/test-cluster';
 ~~~
 
 To explicitly point to where your incremental backups are, provide the previous full and incremental backup locations in a comma-separated list. In this example, `-weekly` is the full backup and the two `-nightly` are incremental backups.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup/database-bank-2017-03-28-nightly', 'gs://acme-co-backup/database-bank-2017-03-29-nightly';
@@ -220,7 +220,7 @@ If you are restoring from HTTP storage, provide the previous full and incrementa
 
 ### Advanced examples
 
-{{ partial "{{ page.version.version }}/backups/advanced-examples-list.md" . }}
+{% include {{ page.version.version }}/backups/advanced-examples-list.md %}
 
 ## See also
 

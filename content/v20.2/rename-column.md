@@ -10,12 +10,12 @@ The `RENAME COLUMN` [statement](sql-statements.html) changes the name of a colum
 It is not possible to rename a column referenced by a view. For more details, see [View Dependencies](views.html#view-dependencies).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
+{% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/rename_column.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/rename_column.html %}
 </div>
 
 ## Required privileges
@@ -33,13 +33,13 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
 ### Rename a column
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
     id INT PRIMARY KEY,
@@ -48,7 +48,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users RENAME COLUMN family_name TO last_name;
 ~~~
@@ -70,7 +70,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 Some subcommands can be used in combination in a single [`ALTER TABLE`](alter-table.html) statement. For example, let's say you create a `users` table with 2 columns, an `id` column for the primary key and a `name` column for each user's last name:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
     id INT PRIMARY KEY,
@@ -80,7 +80,7 @@ Some subcommands can be used in combination in a single [`ALTER TABLE`](alter-ta
 
 Then you decide you want distinct columns for each user's first name, last name, and full name, so you execute a single `ALTER TABLE` statement renaming `name` to `last_name`, adding `first_name`, and adding a [computed column](computed-columns.html) called `name` that concatenates `first_name` and `last_name`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users
     RENAME COLUMN name TO last_name,
@@ -89,7 +89,7 @@ Then you decide you want distinct columns for each user's first name, last name,
       AS (CONCAT(first_name, ' ', last_name)) STORED;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~

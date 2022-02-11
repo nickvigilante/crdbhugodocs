@@ -141,7 +141,7 @@ If the `AUTH` parameter is set to:
 
   - If `AUTH` is not provided, use the key provided in the `cloudstorage.gs.default.key` [cluster setting](cluster-settings.html). Otherwise, use environment data.
 
-    {{ partial "{{ page.version.version }}/backups/gcs-default-deprec.md" . }}
+    {% include {{ page.version.version }}/backups/gcs-default-deprec.md %}
 
 ### Azure Storage
 

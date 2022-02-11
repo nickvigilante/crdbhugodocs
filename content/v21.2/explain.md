@@ -35,7 +35,7 @@ For more information about indexing and table scans, see [Find the Indexes and K
 
 ## Synopsis
 
-<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/explain.html %}</div>
+<div>{{< sql-diagram "explain.html" >}}</div>
 
 ## Required privileges
 
@@ -68,7 +68,7 @@ Time | The time details for the query. The total time is the planning and execut
 
 The following examples use the [`movr` example dataset](cockroach-demo.html#datasets).
 
-{{ partial "{{ page.version.version }}/demo_movr.md" . }}
+{% include {{ page.version.version }}/demo_movr.md %}
 
 ### Default statement plans
 
@@ -676,7 +676,7 @@ Time: 1ms total (execution 1ms / network 0ms)
 
 To view a physical statement plan that provides high level information about how a query will be executed, use the `DISTSQL` option. For more information about distributed SQL queries, see the [DistSQL section of our SQL layer architecture](architecture/sql-layer.html#distsql).
 
-{{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }}
+{% include {{ page.version.version }}/sql/physical-plan-url.md %}
 
 For example, the following `EXPLAIN (DISTSQL)` statement generates a physical plan for a simple query against the [TPC-H database](http://www.tpc.org/tpch/) loaded to a 3-node CockroachDB cluster:
 

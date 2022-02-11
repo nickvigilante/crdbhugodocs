@@ -26,14 +26,14 @@ Service latency is the time taken to execute a query once it is received by the 
 
 2. Set the `sql.log.slow_query.latency_threshold` [cluster setting](cluster-settings.html) to a threshold of your choosing. For example, 100 milliseconds represents [the limit where a user feels the system is reacting instantaneously](https://www.nngroup.com/articles/response-times-3-important-limits/).
 
-  	{{ partial "copy-clipboard.html" . }}
+  	{% include copy-clipboard.html %}
   	~~~ sql
   	> SET CLUSTER SETTING sql.log.slow_query.latency_threshold = '100ms';
     ~~~
 
 3. <span class="version-tag">New in v20.2:</span> To write slow internal queries to a separate log, set the `sql.log.slow_query.internal_queries.enabled` cluster setting to `true`.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING sql.log.slow_query.internal_queries.enabled = 'true';
     ~~~
@@ -67,7 +67,7 @@ Setting `sql.log.slow_query.latency_threshold` to a non-zero value enables traci
 {{site.data.alerts.end }}
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/ui/ui-log-files.md" . }}
+{% include {{ page.version.version }}/ui/ui-log-files.md %}
 {{site.data.alerts.end }}
 
 ### Using the DB Console
@@ -84,7 +84,7 @@ You can look more closely at the behavior of a statement by visualizing a statem
 
 1. Start Jaeger:
 
-  {{ partial "copy-clipboard.html" . }}
+  {% include copy-clipboard.html %}
   ~~~ shell
   docker run -d --name jaeger -p 16686:16686 jaegertracing/all-in-one:1.17
   ~~~
@@ -203,7 +203,7 @@ Because this kind of behavior is entirely unexpected, you should [file an issue]
 
 ## SQL logging
 
-{{ partial "{{ page.version.version }}/faq/sql-query-logging.md" . }}
+{% include {{ page.version.version }}/faq/sql-query-logging.md %}
 
 ## Something else?
 

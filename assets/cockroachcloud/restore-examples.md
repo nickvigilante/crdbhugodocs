@@ -1,6 +1,6 @@
 #### View the backup subdirectories
 
-`BACKUP ... INTO` adds a backup to a collection within the backup destination. The path to the backup is created using a date-based naming scheme by default, unless an [explicit subdirectory](../{{site.versions["stable"]}}/backup.html#specify-a-subdirectory-for-backups) is passed with the `BACKUP` statement. To view the backup paths in a given destination, use [`SHOW BACKUPS`](../{{site.versions["stable"]}}/restore.html#view-the-backup-subdirectories):
+`BACKUP ... INTO` adds a backup to a collection within the backup destination. The path to the backup is created using a date-based naming scheme by default, unless an [explicit subdirectory](../{{site.versions["stable"] }}/backup.html#specify-a-subdirectory-for-backups) is passed with the `BACKUP` statement. To view the backup paths in a given destination, use [`SHOW BACKUPS`](../{{site.versions["stable"] }}/restore.html#view-the-backup-subdirectories):
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -31,9 +31,9 @@ In the following example `/2021/12/21-142943.73` contains the full backup. The i
            |—— 144639.97/
 ~~~
 
-To output more detail about the backups contained within a directory, see [View a list of the full and incremental backups in a specific full backup subdirectory](../{{site.versions["stable"]}}/show-backup.html#view-a-list-of-the-full-and-incremental-backups-in-a-specific-full-backup-subdirectory)
+To output more detail about the backups contained within a directory, see [View a list of the full and incremental backups in a specific full backup subdirectory](../{{site.versions["stable"] }}/show-backup.html#view-a-list-of-the-full-and-incremental-backups-in-a-specific-full-backup-subdirectory)
 
-See [Incremental backups with explicitly specified destinations](../{{site.versions["stable"]}}/take-full-and-incremental-backups.html#incremental-backups-with-explicitly-specified-destinations) to control where your backups go.
+See [Incremental backups with explicitly specified destinations](../{{site.versions["stable"] }}/take-full-and-incremental-backups.html#incremental-backups-with-explicitly-specified-destinations) to control where your backups go.
 
 #### Restore a cluster
 
@@ -44,7 +44,7 @@ To restore a full cluster:
 RESTORE FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
 
-To view the available subdirectories, use [`SHOW BACKUPS`](../{{site.versions["stable"]}}/restore.html#view-the-backup-subdirectories).
+To view the available subdirectories, use [`SHOW BACKUPS`](../{{site.versions["stable"] }}/restore.html#view-the-backup-subdirectories).
 
 #### Restore a database
 
@@ -55,11 +55,11 @@ To restore a database:
 RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
 
-To view the available subdirectories, use [`SHOW BACKUPS`](../{{site.versions["stable"]}}/restore.html#view-the-backup-subdirectories).
+To view the available subdirectories, use [`SHOW BACKUPS`](../{{site.versions["stable"] }}/restore.html#view-the-backup-subdirectories).
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 `RESTORE DATABASE` can only be used if the entire database was backed up.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 #### Restore a table
 
@@ -77,4 +77,4 @@ To restore multiple tables:
 > RESTORE TABLE bank.customers, bank.accounts FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
 
-To view the available subdirectories, use [`SHOW BACKUPS`](../{{site.versions["stable"]}}/restore.html#view-the-backup-subdirectories).
+To view the available subdirectories, use [`SHOW BACKUPS`](../{{site.versions["stable"] }}/restore.html#view-the-backup-subdirectories).

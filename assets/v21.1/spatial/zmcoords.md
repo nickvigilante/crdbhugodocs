@@ -1,8 +1,8 @@
-<span class="version-tag">New in v21.1:</span> You can also store a `{{page.title}}` with the following additional dimensions:
+<span class="version-tag">New in v21.1:</span> You can also store a `{{ page.title }}` with the following additional dimensions:
 
-- A third dimension coordinate `Z` (`{{page.title}}Z`).
-- A measure coordinate `M` (`{{page.title}}M`).
-- Both a third dimension and a measure coordinate (`{{page.title}}ZM`).
+- A third dimension coordinate `Z` (`{{ page.title }}Z`).
+- A measure coordinate `M` (`{{ page.title }}M`).
+- Both a third dimension and a measure coordinate (`{{ page.title }}ZM`).
 
 The `Z` and `M` dimensions can be accessed or modified using a number of [built-in functions](functions-and-operators.html#spatial-functions), including:
 

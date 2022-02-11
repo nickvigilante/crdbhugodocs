@@ -14,7 +14,7 @@ No [privileges](authorization.html#assign-privileges) are required to display th
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_var.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_var.html %}
 </div>
 
 {{site.data.alerts.callout_info }}The <code>SHOW</code> statement for session settings is unrelated to the other <code>SHOW</code> statements: <a href="cluster-settings.html#view-current-cluster-settings"><code>SHOW CLUSTER SETTING</code></a>, <a href="show-create.html"><code>SHOW CREATE</code></a>, <a href="show-users.html"><code>SHOW USERS</code></a>, <a href="show-databases.html"><code>SHOW DATABASES</code></a>, <a href="show-columns.html"><code>SHOW COLUMNS</code></a>, <a href="show-grants.html"><code>SHOW GRANTS</code></a>, and <a href="show-constraints.html"><code>SHOW CONSTRAINTS</code></a>.{{site.data.alerts.end }}
@@ -27,7 +27,7 @@ The variable name is case insensitive. It may be enclosed in double quotes; this
 
 ### Supported variables
 
-{{ partial "{{ page.version.version }}/misc/session-vars.html" . }}
+{% include {{ page.version.version }}/misc/session-vars.html %}
 
 For session variables on experimental features, see [Experimental Features](experimental-features.html).
 
@@ -44,7 +44,7 @@ Special syntax cases supported for compatibility:
 
 ### Showing the value of a single session variable
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASE;
 ~~~
@@ -58,7 +58,7 @@ Special syntax cases supported for compatibility:
 
 ### Showing the value of all session variables
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ALL;
 ~~~

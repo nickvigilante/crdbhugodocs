@@ -21,7 +21,7 @@ Selection queries can occur:
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/select.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/select.html %}
 </div>
 
 ## Parameters
@@ -56,7 +56,7 @@ Form | Usage
 ### Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/select_clause.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/select_clause.html %}
 </div>
 
 ### `VALUES` clause
@@ -64,7 +64,7 @@ Form | Usage
 #### Syntax
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/values_clause.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/values_clause.html %}
 </div>
 
 A `VALUES` clause defines tabular data defined by the expressions
@@ -78,7 +78,7 @@ names. [These names can be modified with
 
 #### Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > VALUES (1, 2, 3), (4, 5, 6);
 ~~~
@@ -97,7 +97,7 @@ names. [These names can be modified with
 #### Syntax
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/table_clause.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/table_clause.html %}
 </div>
 
 A `TABLE` clause reads tabular data from a specified table. The
@@ -111,7 +111,7 @@ shorter to type.
 
 #### Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE employee_copy AS TABLE employee;
 ~~~
@@ -124,12 +124,12 @@ will likely have a simpler schema than `employee`.
 
 Other examples:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > TABLE employee;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO employee_copy TABLE employee;
 ~~~
@@ -148,7 +148,7 @@ set operations or as main component in a selection query.
 ### Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/set_operation.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/set_operation.html %}
 </div>
 
 ### Set operators
@@ -165,7 +165,7 @@ By default, each of these comparisons displays only one copy of each value (simi
 
 `UNION` combines the results of two queries into one result.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -188,7 +188,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 To show duplicate rows, you can use `ALL`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -215,7 +215,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 `INTERSECT` finds only values that are present in both query operands.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -237,7 +237,7 @@ FROM mortgages;
 
 `EXCEPT` finds values that are present in the first query operand but not the second.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT name
 FROM mortgages
@@ -261,7 +261,7 @@ The following sections provide examples. For more details, see [Ordering Query R
 
 ### Order retrieved rows by one column
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT *
 FROM accounts
@@ -287,7 +287,7 @@ ORDER BY balance DESC;
 
 Columns are sorted in the order you list them in `sortby_list`. For example, `ORDER BY a, b` sorts the rows by column `a` and then sorts rows with the same `a` value by their column `b` values.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT *
 FROM accounts
@@ -317,7 +317,7 @@ The following sections provide examples. For more details, see [Limiting Query R
 
 You can reduce the number of results with `LIMIT`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, name
 FROM accounts
@@ -346,7 +346,7 @@ Keyset pagination (also known as the "seek method") is used to fetch a subset of
 
 The general pattern for keyset pagination queries is:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * FROM t AS OF SYSTEM TIME ${time}
   WHERE key > ${value}
@@ -364,7 +364,7 @@ CockroachDB does not have cursors. To support a cursor-like use case, namely "op
 
 The examples in this section use the [employees data set](https://github.com/datacharmer/test_db), which you can load into CockroachDB as follows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE DATABASE IF NOT EXISTS employees;
 USE employees;
@@ -373,7 +373,7 @@ IMPORT PGDUMP 'https://s3-us-west-1.amazonaws.com/cockroachdb-movr/datasets/empl
 
 To get the first page of results using keyset pagination, run the statement below.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * FROM employees AS OF SYSTEM TIME '-1m' WHERE emp_no > 10000 ORDER BY emp_no LIMIT 25;
 ~~~
@@ -401,7 +401,7 @@ We use [`AS OF SYSTEM TIME`](as-of-system-time.html) in these examples to ensure
 
 To get the second page of results, run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * FROM employees AS OF SYSTEM TIME '-1m' WHERE emp_no > 10025 ORDER BY emp_no LIMIT 25;
 ~~~
@@ -421,7 +421,7 @@ Time: 1.473ms
 
 To get an arbitrary page of results showing employees whose IDs (`emp_no`) are in a much higher range, run the following query. Note that it takes about the same amount of time to run as the previous queries.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * FROM employees AS OF SYSTEM TIME '-1m' WHERE emp_no > 300025 ORDER BY emp_no LIMIT 25;
 ~~~
@@ -441,7 +441,7 @@ Time: 1.319ms
 
 Compare the execution speed of the previous keyset pagination queries with the query below that uses `LIMIT` / `OFFSET` to get the same page of results:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT * FROM employees AS OF SYSTEM TIME '-1m' LIMIT 25 OFFSET 200024;
 ~~~
@@ -461,7 +461,7 @@ Time: 118.114ms
 
 The query using `LIMIT`/`OFFSET` for pagination is almost 100 times slower. To see why, let's use [`EXPLAIN`](explain.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 EXPLAIN SELECT * FROM employees LIMIT 25 OFFSET 200024;
 ~~~
@@ -484,7 +484,7 @@ The culprit is this: because we used `LIMIT`/`OFFSET`, we are performing a limit
 
 Meanwhile, the keyset pagination queries are looking at a much smaller range of table spans, which is much faster (see `spans` = `300026-` + 25 below). Because [there is an index on every column in the `WHERE` clause](indexes.html#best-practices), these queries are doing an index lookup to jump to the start of the page of results, and then getting an additional 25 rows from there. This is much faster.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 EXPLAIN SELECT * FROM employees WHERE emp_no > 300025 ORDER BY emp_no LIMIT 25;
 ~~~
@@ -507,7 +507,7 @@ Using a sequential (i.e., non-[UUID](uuid.html)) primary key creates hot spots i
 
 ## Row-level locking for concurrency control with `SELECT FOR UPDATE`
 
-{{ partial "{{ page.version.version }}/sql/select-for-update-overview.md" . }}
+{% include {{ page.version.version }}/sql/select-for-update-overview.md %}
 
 For an example showing how to use it, see  [`SELECT FOR UPDATE`](select-for-update.html).
 
@@ -522,7 +522,7 @@ selection query with no change.
 
 For example, the construct [`SELECT * FROM accounts`](select-clause.html) is a selection clause. It is also a valid selection query, and thus can be used as a stand-alone statement by appending a semicolon:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -540,7 +540,7 @@ For example, the construct [`SELECT * FROM accounts`](select-clause.html) is a s
 Likewise, the construct [`VALUES (1), (2), (3)`](#values-clause) is also a selection
 clause and thus can also be used as a selection query on its own:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > VALUES (1), (2), (3);
 ~~~
@@ -563,12 +563,12 @@ For example, the [simple table name](table-expressions.html#table-or-view-names)
 
 Likewise, the [SQL join expression](joins.html) `customers c JOIN orders o ON c.id = o.customer_id` is a table expression. You can turn it into a valid selection clause, and thus a valid selection query as follows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > TABLE (customers c JOIN orders o ON c.id = o.customer_id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers c JOIN orders o ON c.id = o.customer_id;
 ~~~
@@ -581,19 +581,19 @@ expression](table-expressions.html) by enclosing it between parentheses, which f
 
 For example, the following construct is a selection query, but is not a valid table expression:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers ORDER BY name LIMIT 5
 ~~~
 
 To make it valid as operand to `FROM` or another table expression, you can enclose it between parentheses as follows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id FROM (SELECT * FROM customers ORDER BY name LIMIT 5);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT o.id
     FROM orders o

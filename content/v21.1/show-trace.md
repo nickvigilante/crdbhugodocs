@@ -30,7 +30,7 @@ For `SHOW TRACE FOR SESSION`, no privileges are required.
 ## Syntax
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_trace.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_trace.html %}
 </div>
 
 ## Parameters
@@ -99,7 +99,7 @@ Column | Type | Description
 
 ### Trace a session
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET tracing = on;
 ~~~
@@ -108,7 +108,7 @@ Column | Type | Description
 SET TRACING
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TRACE FOR SESSION;
 ~~~
@@ -133,19 +133,19 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 1. In terminal 1, create a table:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE t (k INT);
     ~~~
 
 2. Still in terminal 1, open a transaction and perform a write without closing the transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO t VALUES (1);
     ~~~
@@ -160,7 +160,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4.  Still in terminal 2, execute a conflicting read:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM t;
     ~~~
@@ -169,7 +169,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4. Back in terminal 1, finish the transaction:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > COMMIT;
     ~~~
@@ -185,12 +185,12 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 6. Still in terminal 2, stop tracing and then view the completed trace:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET tracing = off;
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SHOW TRACE FOR SESSION;
     ~~~

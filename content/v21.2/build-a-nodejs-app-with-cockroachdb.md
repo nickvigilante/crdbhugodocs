@@ -10,13 +10,13 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Node.js application with CockroachDB and the [node-postgres driver](https://node-postgres.com/).
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -54,7 +54,7 @@ All of the database operations are wrapped in a helper function named `retryTxn`
 
 ## Step 3. Initialize the database
 
-{{ partial "{{ page.version.version }}/app/init-bank-sample.md" . }}
+{% include {{ page.version.version }}/app/init-bank-sample.md %}
 
 ## Step 4. Run the code
 
@@ -125,4 +125,4 @@ New account balances:
 
 Read more about using the [node-postgres driver](https://www.npmjs.com/package/pg).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

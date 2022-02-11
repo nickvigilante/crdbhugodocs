@@ -54,7 +54,7 @@ Term | Definition
     - Use many smaller nodes instead of fewer larger ones. Recovery from a failed node is faster when data is spread across more nodes.
     - Use [zone configs](configure-replication-zones.html) to increase the replication factor from 3 (the default) to 5. This is especially recommended if you are using local disks rather than a cloud providers' network-attached disks that are often replicated underneath the covers, because local disks have a greater risk of failure. You can do this for the [entire cluster](configure-replication-zones.html#edit-the-default-replication-zone) or for specific [databases](configure-replication-zones.html#create-a-replication-zone-for-a-database), [tables](configure-replication-zones.html#create-a-replication-zone-for-a-table), or [rows](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition-new-in-v2-0) (enterprise-only).
         {{site.data.alerts.callout_danger }}
-        {{ partial "{{ page.version.version }}/known-limitations/system-range-replication.md" . }}
+        {% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
         {{site.data.alerts.end }}
 
 ### Cloud-Specific Recommendations
@@ -160,11 +160,11 @@ Environment | Featured Approach
 
 ## Monitoring and Alerting
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Clock Synchronization
 
-{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
+{% include {{ page.version.version }}/faq/clock-synchronization-effects.md %}
 
 ## Cache and SQL Memory Size
 

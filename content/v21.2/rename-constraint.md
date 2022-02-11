@@ -7,18 +7,18 @@ docs_area: reference.sql
 
 The `RENAME CONSTRAINT` [statement](sql-statements.html) changes the name of a constraint on a column.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 {{site.data.alerts.callout_info }}
 It is not possible to rename a constraint for a column referenced by a view. For more details, see [View Dependencies](views.html#view-dependencies).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
+{% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/rename_constraint.html %}
+{{< sql-diagram "rename_constraint.html" >}}
 </div>
 
 ## Required privileges
@@ -36,13 +36,13 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Example
 
 ### Rename a constraint
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logon (
     login_id INT PRIMARY KEY,
@@ -52,7 +52,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS FROM logon;
 ~~~
@@ -65,12 +65,12 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE logon RENAME CONSTRAINT logon_customer_id_sales_id_key TO unique_customer_id_sales_id;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS FROM logon;
 ~~~

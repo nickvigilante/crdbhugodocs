@@ -19,7 +19,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 ### Column level
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_column_level.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/primary_key_column_level.html %}
 </div>
 
  Parameter | Description
@@ -33,7 +33,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -47,7 +47,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 ### Table level
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_table_level.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/primary_key_table_level.html %}
 </div>
 
  Parameter | Description
@@ -60,7 +60,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -110,7 +110,7 @@ For optimal performance, we recommend that you do the following:
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -120,12 +120,12 @@ For optimal performance, we recommend that you do the following:
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -134,7 +134,7 @@ For optimal performance, we recommend that you do the following:
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~

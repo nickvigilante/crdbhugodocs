@@ -1,8 +1,8 @@
 You can use the hosted [Google Kubernetes Engine (GKE)](#hosted-gke) service or the hosted [Amazon Elastic Kubernetes Service (EKS)](#hosted-eks) to quickly start Kubernetes.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 GKE or EKS are not required to run CockroachDB on Kubernetes. A manual GCE or AWS cluster with the [minimum recommended Kubernetes version](#kubernetes-version) and at least 3 pods, each presenting [sufficient resources](#resources) to start a CockroachDB node, can also be used.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 ### Hosted GKE
 
@@ -12,13 +12,13 @@ GKE or EKS are not required to run CockroachDB on Kubernetes. A manual GCE or AW
 
     {{site.data.alerts.callout_success}}
     The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the DB Console using the steps in this guide.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 2. From your local workstation, start the Kubernetes cluster, specifying one of the available [regions](https://cloud.google.com/compute/docs/regions-zones#available) (e.g., `us-east1`):
 
     {{site.data.alerts.callout_success}}
     Since this region can differ from your default `gcloud` region, be sure to include the `--region` flag to run `gcloud` commands against this cluster.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -46,9 +46,9 @@ GKE or EKS are not required to run CockroachDB on Kubernetes. A manual GCE or AW
     Account: [your.google.cloud.email@example.org]
     ~~~
 
-    {{site.data.alerts.callout_danger}}
+    {{site.data.alerts.callout_danger }}
     This command returns your email address in all lowercase. However, in the next step, you must enter the address using the accurate capitalization. For example, if your address is YourName@example.com, you must use YourName@example.com and not yourname@example.com.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 4. [Create the RBAC roles](https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#prerequisites_for_using_role-based_access_control) CockroachDB needs for running on GKE, using the address from the previous step:
 
@@ -69,15 +69,15 @@ GKE or EKS are not required to run CockroachDB on Kubernetes. A manual GCE or AW
 
     This includes installing and configuring the AWS CLI and `eksctl`, which is the command-line tool used to create and delete Kubernetes clusters on EKS, and `kubectl`, which is the command-line tool used to manage Kubernetes from your workstation.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     If you are running [EKS-Anywhere](https://aws.amazon.com/eks/eks-anywhere/), CockroachDB requires that you [configure your default storage class](https://kubernetes.io/docs/tasks/administer-cluster/change-default-storage-class/) to auto-provision persistent volumes. Alternatively, you can define a custom storage configuration as required by your install pattern.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
     
 2. From your local workstation, start the Kubernetes cluster:
 
     {{site.data.alerts.callout_success}}
     To ensure that all 3 nodes can be placed into a different availability zone, you may want to first [confirm that at least 3 zones are available in the region](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#availability-zones-describe) for your account.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell

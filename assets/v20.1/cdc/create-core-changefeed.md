@@ -51,7 +51,7 @@ In this example, you'll set up a core changefeed for a single-node cluster.
     ~~~
     ~~~
     table,key,value
-    foo,[0],"{""after"": {""a"": 0}}"
+    foo,[0],"{""after"": {""a"": 0 }}"
     NULL,NULL,"{""resolved"":""1590611959605806000.0000000000""}"
     ~~~
 
@@ -68,9 +68,9 @@ In this example, you'll set up a core changefeed for a single-node cluster.
 
     ~~~
     table,key,value
-    foo,[0],"{""after"": {""a"": 0}}"
+    foo,[0],"{""after"": {""a"": 0 }}"
     NULL,NULL,"{""resolved"":""1590611959605806000.0000000000""}"
-    foo,[1],"{""after"": {""a"": 1}}"
+    foo,[1],"{""after"": {""a"": 1 }}"
     NULL,NULL,"{""resolved"":""1590611970141415000.0000000000""}"
     ~~~
 

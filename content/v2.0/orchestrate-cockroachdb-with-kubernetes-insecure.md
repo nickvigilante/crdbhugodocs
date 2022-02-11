@@ -31,45 +31,45 @@ instance | A physical or virtual machine. In this tutorial, you'll create GCE or
 
 ### Limitations
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-limitations.md %}
 
 ## Step 1. Start Kubernetes
 
-{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
+{% include {{ page.version.version }}/orchestration/start-kubernetes.md %}
 
 ## Step 2. Start CockroachDB nodes
 
-{{ partial "{{ page.version.version }}/orchestration/start-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cluster.md %}
 
 ## Step 3. Initialize the cluster
 
-{{ partial "{{ page.version.version }}/orchestration/initialize-cluster-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/initialize-cluster-insecure.md %}
 
 ## Step 4. Use the built-in SQL client
 
-{{ partial "{{ page.version.version }}/orchestration/test-cluster-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/test-cluster-insecure.md %}
 
 ## Step 5. Access the Admin UI
 
-{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/monitor-cluster.md %}
 
 ## Step 6. Simulate node failure
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-simulate-failure.md %}
 
 ## Step 7. Set up monitoring and alerting
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md %}
 
 ## Step 8. Maintain the cluster
 
 ### Scale the cluster
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-scale-cluster.md %}
 
 3. Verify that a fourth pod was added successfully:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -89,7 +89,7 @@ instance | A physical or virtual machine. In this tutorial, you'll create GCE or
 
 ### Upgrade the cluster
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md %}
 
 ### Stop the cluster
 
@@ -97,7 +97,7 @@ To shut down the CockroachDB cluster:
 
 1. Delete all of the resources you created, including the logs and remote persistent volumes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete pods,statefulsets,services,persistentvolumeclaims,persistentvolumes,poddisruptionbudget,jobs,rolebinding,clusterrolebinding,role,clusterrole,serviceaccount,alertmanager,prometheus,prometheusrule,serviceMonitor -l app=cockroachdb
     ~~~
@@ -127,10 +127,10 @@ To shut down the CockroachDB cluster:
 
 2. Stop Kubernetes:
 
-{{ partial "{{ page.version.version }}/orchestration/stop-kubernetes.md" . }}
+{% include {{ page.version.version }}/orchestration/stop-kubernetes.md %}
 
 ## See also
 
 - [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-see-also.md %}

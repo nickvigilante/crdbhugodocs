@@ -107,14 +107,14 @@ In the Admin UI, click **Metrics** on the left, select the **Replication** dashb
 Run the [`cockroach node decommission`](cockroach-node.html) command with the ID of the node to decommission:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node decommission 4 --certs-dir=certs --host=<address of any live node>
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node decommission 4 --insecure --host=<address of any live node>
 ~~~
@@ -162,7 +162,7 @@ Even with zero replicas on a node, its [status](admin-ui-cluster-overview-page.h
 
 Drain and stop the node using one of the following methods:
 
-{{ partial "{{ page.version.version }}/prod-deployment/node-shutdown.md" . }}
+{% include {{ page.version.version }}/prod-deployment/node-shutdown.md %}
 
 After the duration configured via [`server.time_until_store_dead`](cluster-settings.html), you'll see the stopped node listed under **Recently Decommissioned Nodes**:
 
@@ -192,14 +192,14 @@ Open the Admin UI and scroll to the [**Node List**](admin-ui-cluster-overview-pa
 Run the [`cockroach node decommission`](cockroach-node.html) command with the ID of the node to officially decommission:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node decommission 4 --certs-dir=certs --host=<address of any live node>
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node decommission 4 --insecure --host=<address of any live node>
 ~~~
@@ -258,14 +258,14 @@ In the Admin UI, click **Metrics** on the left, select the **Replication** dashb
 Run the [`cockroach node decommission`](cockroach-node.html) command with the IDs of the nodes to decommission:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node decommission 4 5 --certs-dir=certs --host=<address of any live node>
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node decommission 4 5 --insecure --host=<address of any live node>
 ~~~
@@ -315,7 +315,7 @@ Even with zero replicas on a node, its [status](admin-ui-cluster-overview-page.h
 
 Drain and stop each node using one of the following methods:
 
-{{ partial "{{ page.version.version }}/prod-deployment/node-shutdown.md" . }}
+{% include {{ page.version.version }}/prod-deployment/node-shutdown.md %}
 
 After the duration configured via [`server.time_until_store_dead`](cluster-settings.html), you'll see the stopped nodes listed under **Recently Decommissioned Nodes**:
 
@@ -349,14 +349,14 @@ Press `ctrl-c` in each terminal with an ongoing decommissioning process that you
 Execute the [`cockroach node recommission`](cockroach-node.html) command with the IDs of the nodes to recommission:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node recommission 4 --certs-dir=certs --host=<address of any live node>
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node recommission 4 --insecure --host=<address of any live node>
 ~~~
@@ -383,14 +383,14 @@ To check the progress of decommissioning nodes, run the [`cockroach node status`
 </div><br>
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --decommission --certs-dir=certs --host=<address of any live node>
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach node status --decommission --insecure --host=<address of any live node>
 ~~~

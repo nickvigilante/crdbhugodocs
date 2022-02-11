@@ -12,7 +12,7 @@ The `RENAME INDEX` [statement](sql-statements.html) changes the name of an index
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/rename_index.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/rename_index.html %}
 </div>
 
 ## Required privileges
@@ -32,7 +32,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ### Rename an Index
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~
@@ -48,12 +48,12 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX users@name_idx RENAME TO users_name_idx;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~

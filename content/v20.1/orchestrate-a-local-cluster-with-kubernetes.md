@@ -18,7 +18,7 @@ This page walks you through a simple demonstration, using the open-source [Kuber
 To orchestrate a physically distributed cluster in production, see [Orchestrated Deployments](orchestration.html). To deploy a 30-day free CockroachCloud cluster instead of running CockroachDB yourself, see the [Quickstart](../cockroachcloud/quickstart.html).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/orchestration/local-start-kubernetes.md" . }}
+{% include {{ page.version.version }}/orchestration/local-start-kubernetes.md %}
 
 ## Step 2. Start CockroachDB
 
@@ -30,31 +30,31 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 </div>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-local-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-local-secure.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-local-helm-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-local-helm-secure.md %}
 </section>
 
 ## Step 3. Use the built-in SQL client
 
-{{ partial "{{ page.version.version }}/orchestration/test-cluster-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/test-cluster-secure.md %}
 
 ## Step 4. Access the Admin UI
 
-{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/monitor-cluster.md %}
 
 ## Step 5. Simulate node failure
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-simulate-failure.md %}
 
 ## Step 6. Add nodes
 
 1. Add a pod for another CockroachDB node:
 
     <section class="filter-content" markdown="1" data-scope="manual">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl scale statefulset cockroachdb --replicas=4
     ~~~
@@ -65,7 +65,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
     </section>
 
     <section class="filter-content" markdown="1" data-scope="helm">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ helm upgrade \
     my-release \
@@ -81,7 +81,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 2. Get the name of the `Pending` CSR for the new pod:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get csr
     ~~~
@@ -111,7 +111,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 3. Approve the CSR for the new pod:
 
     <section class="filter-content" markdown="1" data-scope="manual">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl certificate approve default.node.cockroachdb-3
     ~~~
@@ -122,7 +122,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
     </section>
 
     <section class="filter-content" markdown="1" data-scope="helm">
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl certificate approve default.node.my-release-cockroachdb-3
     ~~~
@@ -134,7 +134,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 4. Confirm that pod for the fourth node, `cockroachdb-3`, is `Running` successfully:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -163,13 +163,13 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 ## Step 7. Remove nodes
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-remove-nodes-secure.md %}
 
 ## Step 8. Stop the cluster
 
 - **If you plan to restart the cluster**, use the `minikube stop` command. This shuts down the minikube virtual machine but preserves all the resources you created:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube stop
     ~~~
@@ -183,7 +183,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 - **If you do not plan to restart the cluster**, use the `minikube delete` command. This shuts down and deletes the minikube virtual machine and all the resources you created, including persistent volumes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube delete
     ~~~
@@ -199,6 +199,6 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 Explore other core CockroachDB benefits and features:
 
-{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}
+{% include {{ page.version.version }}/misc/explore-benefits-see-also.md %}
 
 You might also want to learn how to [orchestrate a production deployment of CockroachDB with Kubernetes](orchestrate-cockroachdb-with-kubernetes.html).

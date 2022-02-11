@@ -11,11 +11,11 @@ docs_area: reference.sql
 
 The `EXPERIMENTAL CHANGEFEED FOR` [statement](sql-statements.html) creates a new core changefeed, which streams row-level changes to the client indefinitely until the underlying connection is closed or the changefeed is canceled. A core changefeed can watch one table or multiple tables in a comma-separated list.
 
-{{ partial "{{ page.version.version }}/cdc/core-url.md" . }}
+{% include {{ page.version.version }}/cdc/core-url.md %}
 
 For more information, see [Stream Data Out of CockroachDB Using Changefeeds](change-data-capture-overview.html).
 
-{{ partial "common/experimental-warning.md" . }}
+{% include common/experimental-warning.md %}
 
 ## Required privileges
 
@@ -64,17 +64,17 @@ Below are clarifications for particular SQL types and values for Avro changefeed
 - [Decimals](decimal.html) must have precision specified.
 - [`BIT`](bit.html) and [`VARBIT`](bit.html) types are encoded as arrays of 64-bit integers.
 
-  {{ partial "{{ page.version.version }}/cdc/avro-bit-varbit.md" . }}
+  {% include {{ page.version.version }}/cdc/avro-bit-varbit.md %}
 
 ## Examples
 
 ### Create a changefeed
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed.md %}
 
 ### Create a changefeed with Avro
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed-avro.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed-avro.md %}
 
 <!-- ### Pause and resume a changefeed
 

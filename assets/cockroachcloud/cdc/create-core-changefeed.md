@@ -1,6 +1,6 @@
 In this example, you'll set up a core changefeed on your {{ site.data.products.serverless }} cluster.
 
-2. As the `root` user, open the [built-in SQL client](../{{site.versions["stable"]}}/cockroach-sql.html):
+2. As the `root` user, open the [built-in SQL client](../{{site.versions["stable"] }}/cockroach-sql.html):
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -11,7 +11,7 @@ In this example, you'll set up a core changefeed on your {{ site.data.products.s
 
     {% include cockroachcloud/cdc/core-csv.md %}
 
-3. Enable the `kv.rangefeed.enabled` [cluster setting](../{{site.versions["stable"]}}/cluster-settings.html):
+3. Enable the `kv.rangefeed.enabled` [cluster setting](../{{site.versions["stable"] }}/cluster-settings.html):
 
     {% include_cached copy-clipboard.html %}
     ~~~ sql
@@ -40,7 +40,7 @@ In this example, you'll set up a core changefeed on your {{ site.data.products.s
     ~~~
     ~~~
     table,key,value
-    foo,[0],"{""after"": {""a"": 0}}"
+    foo,[0],"{""after"": {""a"": 0 }}"
     ~~~
 
 7. In a new terminal, add another row:
@@ -53,7 +53,7 @@ In this example, you'll set up a core changefeed on your {{ site.data.products.s
 8. Back in the terminal where the core changefeed is streaming, the following output has appeared:
 
     ~~~
-    foo,[1],"{""after"": {""a"": 1}}"
+    foo,[1],"{""after"": {""a"": 1 }}"
     ~~~
 
     Note that records may take a couple of seconds to display in the core changefeed.

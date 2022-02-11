@@ -13,7 +13,7 @@ The user must have any [privilege](authorization.html#assign-privileges) on the 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_create.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_create.html %}
 </div>
 
 ## Parameters
@@ -32,11 +32,11 @@ Field | Description
 
 ## Example
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Show the `CREATE TABLE` statement for a table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE drivers (
     id UUID NOT NULL,
@@ -48,7 +48,7 @@ Field | Description
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE drivers;
 ~~~
@@ -71,7 +71,7 @@ Field | Description
 
 To return just the `create_statement` value:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT create_statement FROM [SHOW CREATE TABLE drivers];
 ~~~
@@ -98,12 +98,12 @@ To return just the `create_statement` value:
 
 ### Show the `CREATE VIEW` statement for a view
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE VIEW user_view (city, name) AS SELECT city, name FROM users;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE user_view;
 ~~~
@@ -117,7 +117,7 @@ To return just the `create_statement` value:
 
 To return just the `create_statement` value:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT create_statement FROM [SHOW CREATE VIEW user_view];
 ~~~
@@ -133,7 +133,7 @@ To return just the `create_statement` value:
 
 To get just a view's `SELECT` statement, you can query the `views` table in the built-in `information_schema` database and filter on the view name:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT view_definition
   FROM information_schema.views
@@ -149,12 +149,12 @@ To get just a view's `SELECT` statement, you can query the `views` table in the 
 
 ### Show the `CREATE SEQUENCE` statement for a sequence
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE desc_customer_list;
 ~~~
@@ -168,7 +168,7 @@ To get just a view's `SELECT` statement, you can query the `views` table in the 
 
 To return just the `create_statement` value:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT create_statement FROM [SHOW CREATE desc_customer_list];
 ~~~
@@ -184,12 +184,12 @@ To return just the `create_statement` value:
 
 If you [add a comment](comment-on.html) on a table, `SHOW CREATE TABLE` will display the comment.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > COMMENT ON TABLE users IS 'This table contains information about users.';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -212,7 +212,7 @@ If you [add a comment](comment-on.html) on a table, `SHOW CREATE TABLE` will dis
 
 To return just the `create_statement` value:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT create_statement FROM [SHOW CREATE TABLE users];
 ~~~
@@ -241,17 +241,17 @@ For more information, see [`COMMENT ON`](comment-on.html).
 
 Note that this statement also returns the [`ALTER` statements](alter-table.html) that add, modify, and validate an object's [constraints](constraints.html).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE VIEW user_view (city, name) AS SELECT city, name FROM users;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE ALL TABLES;
 ~~~

@@ -13,7 +13,7 @@ This page summarizes how to configure and monitor your cluster to prevent issues
 
 ## CPU
 
-{{ partial "{{ page.version.version }}/prod-deployment/terminology-vcpu.md" . }}
+{% include {{ page.version.version }}/prod-deployment/terminology-vcpu.md %}
 
 Issues with CPU most commonly arise when there is insufficient CPU to suppport the scale of the workload.
 
@@ -23,7 +23,7 @@ Provision enough CPU to support your operational and workload concurrency requir
 
 | Category | Recommendations                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
 |----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| CPU      | <ul><li>Each node should have at least {{ partial "{{ page.version.version }}/prod-deployment/provision-cpu.md %}.</li><li>Use larger VMs to handle temporary workload spikes and processing hotspots.</li><li>Use connection pooling to manage workload concurrency. {% include {{ page.version.version }}/prod-deployment/prod-guidance-connection-pooling.md" . }} For more details, see [Sizing connection pools](connection-pooling.html#sizing-connection-pools).</li><li>See additional CPU recommendations in the [Production Checklist](recommended-production-settings.html#sizing).</li></ul> |
+| CPU      | <ul><li>Each node should have at least {% include {{ page.version.version }}/prod-deployment/provision-cpu.md %}.</li><li>Use larger VMs to handle temporary workload spikes and processing hotspots.</li><li>Use connection pooling to manage workload concurrency. {% include {{ page.version.version }}/prod-deployment/prod-guidance-connection-pooling.md %} For more details, see [Sizing connection pools](connection-pooling.html#sizing-connection-pools).</li><li>See additional CPU recommendations in the [Production Checklist](recommended-production-settings.html#sizing).</li></ul> |
 
 ### CPU monitoring
 
@@ -54,7 +54,7 @@ Compaction on the [storage layer](architecture/storage-layer.html) uses CPU to r
 
 - The [**CPU Percent**](ui-overload-dashboard.html#cpu-percent) graph on the Hardware and Overload dashboards shows the CPU consumption by the CockroachDB process, and excludes other processes on the node.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-cpu-percent.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-cpu-percent.md %}
 
 If CPU usage is high, check whether [workload concurrency](#workload-concurrency) is exceeding CPU resources.
 
@@ -64,7 +64,7 @@ The number of concurrent active SQL statements should be proportionate to your p
 
 - The [**SQL Statements**](ui-sql-dashboard.html#sql-statements) graph on the Overview and SQL dashboards shows the 10-second average of `SELECT`, `UPDATE`, `INSERT`, and `DELETE` statements being executed per second on the cluster or node. The latest QPS value for the cluster is also displayed with the **Queries per second** counter on the Metrics page.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-workload-concurrency.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-workload-concurrency.md %}
 
 If workload concurrency exceeds CPU resources, you will observe:
 
@@ -73,7 +73,7 @@ If workload concurrency exceeds CPU resources, you will observe:
 - Over time, an [unhealthy LSM](#lsm-health) and [cluster instability](#node-health).
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/prod-deployment/resolution-excessive-concurrency.md" . }}
+{% include {{ page.version.version }}/prod-deployment/resolution-excessive-concurrency.md %}
 {{site.data.alerts.end }}
 
 #### LSM health
@@ -82,7 +82,7 @@ Issues at the [storage layer](architecture/storage-layer.html), including a miss
 
 - The [**LSM L0 Health**](ui-overload-dashboard.html#lsm-l0-health) graph on the Overload dashboard shows the health of the [persistent stores](architecture/storage-layer.html), which are implemented as log-structured merge (LSM) trees. Level 0 is the highest level of the LSM tree and consists of files containing the latest data written to the [Pebble storage engine](cockroach-start.html#storage-engine).
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-lsm.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-lsm.md %}
 
     {{site.data.alerts.callout_info }}
     An unhealthy LSM can be caused by other factors, including [under-provisioned storage](#storage-and-disk-i-o). To correlate this symptom with CPU starvation, check for high [CPU usage](#cpu-usage) and excessive [workload concurrency](#workload-concurrency).
@@ -90,7 +90,7 @@ Issues at the [storage layer](architecture/storage-layer.html), including a miss
 
 - The **Read Amplification** graph on the [Storage Dashboard](ui-storage-dashboard.html) shows the average number of disk reads per logical SQL statement, also known as the read amplification factor.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-read-amplification.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-read-amplification.md %}
 
 - The `STORAGE` [logging channel](logging-overview.html#logging-channels) indicates an unhealthy LSM with the following:
 
@@ -99,7 +99,7 @@ Issues at the [storage layer](architecture/storage-layer.html), including a miss
     - High-read-amplification warnings, e.g., `sstables (read amplification = 54)`.
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/prod-deployment/resolution-inverted-lsm.md" . }}
+{% include {{ page.version.version }}/prod-deployment/resolution-inverted-lsm.md %}
 {{site.data.alerts.end }}
 
 #### Node health
@@ -114,7 +114,7 @@ If [issues at the storage layer](#lsm-health) remain unresolved, affected nodes 
 
 If nodes have shut down, this can also be caused by [insufficient storage capacity](#storage-capacity).
 
-{{ partial "{{ page.version.version }}/prod-deployment/cluster-unavailable-monitoring.md" . }}
+{% include {{ page.version.version }}/prod-deployment/cluster-unavailable-monitoring.md %}
 
 ## Memory
 
@@ -126,7 +126,7 @@ Provision enough memory and allocate an appropriate portion for data caching:
 
 | Category | Recommendations                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 |----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Memory   | <ul><li>Provision at least {{ partial "{{ page.version.version }}/prod-deployment/provision-memory.md %}.</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md %} For more details, see the [Production Checklist](recommended-production-settings.html#cache-and-sql-memory-size).</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-disable-swap.md" . }}</li><li>See additional memory recommendations in the [Production Checklist](recommended-production-settings.html#memory).</li> |
+| Memory   | <ul><li>Provision at least {% include {{ page.version.version }}/prod-deployment/provision-memory.md %}.</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md %} For more details, see the [Production Checklist](recommended-production-settings.html#cache-and-sql-memory-size).</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-disable-swap.md %}</li><li>See additional memory recommendations in the [Production Checklist](recommended-production-settings.html#memory).</li> |
 
 ### Memory monitoring
 
@@ -170,7 +170,7 @@ If you observe nodes frequently restarting, confirm that the crashes are caused 
 - When deploying on [Kubernetes](kubernetes-overview.html), run `kubectl logs {pod-name}` and look for OOM errors in the log messages.
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/prod-deployment/resolution-oom-crash.md" . }}
+{% include {{ page.version.version }}/prod-deployment/resolution-oom-crash.md %}
 {{site.data.alerts.end }}
 
 If you confirm that nodes are crashing due to OOM errors, also check whether [SQL queries](#sql-memory-usage) may be responsible.
@@ -181,7 +181,7 @@ An untuned SQL query can consume significant resources and impact the performanc
 
 - The [**SQL Memory**](ui-sql-dashboard.html#sql-memory) graph on the SQL dashboard shows the current amount of memory in KiB allocated to the SQL layer.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-sql-memory.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-sql-memory.md %}
 
 - <span class="version-tag">New in v21.2</span>: The "active query dump", enabled by default with the `diagnostics.active_query_dumps.enabled` [cluster setting](cluster-settings.html), is a record of anonymized active queries that is written to disk when a node is detected to be under memory pressure.
 
@@ -192,7 +192,7 @@ An untuned SQL query can consume significant resources and impact the performanc
 - A [`memory budget exceeded`](common-errors.html#memory-budget-exceeded) error in the logs indicates that `--max-sql-memory`, the memory allocated to the SQL layer, was exceeded by the operation referenced in the error. For guidance on resolving this issue, see [Common Errors](common-errors.html#memory-budget-exceeded).
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/prod-deployment/resolution-untuned-query.md" . }}
+{% include {{ page.version.version }}/prod-deployment/resolution-untuned-query.md %}
 {{site.data.alerts.end }}
 
 #### Database memory usage
@@ -201,7 +201,7 @@ CockroachDB memory usage includes both accounted memory, such as the amount allo
 
 - The [**Memory Usage**](ui-runtime-dashboard.html#memory-usage) graph on the Runtime dashboard shows the total memory in use by CockroachDB processes. The RSS (resident set size) metric represents actual CockroachDB memory usage from the OS/Linux/pod point of view. The Go and CGo metrics represent memory allocation and total usage from a CockroachDB point of view.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-crdb-memory.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-crdb-memory.md %}
 
 For more context on acceptable memory usage, see [Suspected memory leak](cluster-setup-troubleshooting.html#suspected-memory-leak).
 
@@ -215,8 +215,8 @@ Provision enough storage capacity for CockroachDB data, and configure your volum
 
 | Category | Recommendations                                                                                                                                                                                                                                                                                                                                                                                                                            |
 |----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Storage  | <ul><li>Provision volumes with {{ partial "{{ page.version.version }}/prod-deployment/provision-storage.md %}.</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-store-volume.md %}</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-log-volume.md" . }}</li><li>See additional storage recommendations in the [Production Checklist](recommended-production-settings.html#storage).</li> |
-| Disk I/O | <ul><li>Disks must be able to achieve {{ partial "{{ page.version.version }}/prod-deployment/provision-disk-io.md %}.</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-lvm.md" . }}</li><li>See additional disk I/O recommendations in the [Production Checklist](recommended-production-settings.html#disk-i-o).</li>                                                                                              |
+| Storage  | <ul><li>Provision volumes with {% include {{ page.version.version }}/prod-deployment/provision-storage.md %}.</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-store-volume.md %}</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-log-volume.md %}</li><li>See additional storage recommendations in the [Production Checklist](recommended-production-settings.html#storage).</li> |
+| Disk I/O | <ul><li>Disks must be able to achieve {% include {{ page.version.version }}/prod-deployment/provision-disk-io.md %}.</li><li>{% include {{ page.version.version }}/prod-deployment/prod-guidance-lvm.md %}</li><li>See additional disk I/O recommendations in the [Production Checklist](recommended-production-settings.html#disk-i-o).</li>                                                                                              |
 
 ### Storage and disk monitoring
 
@@ -235,7 +235,7 @@ CockroachDB requires disk space in order to accept writes and report node livene
 
 - The [**Capacity**](ui-storage-dashboard.html#capacity) graph on the Overview and Storage dashboards shows the available and used disk capacity in the CockroachDB [store](cockroach-start.html#store).
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-storage-capacity.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-storage-capacity.md %}
 
 - A [Prometheus alert](monitoring-and-alerting.html#node-is-running-low-on-disk-space) can notify when a node has less than 15% of free space remaining.
 
@@ -249,7 +249,7 @@ Insufficient disk I/O can cause [poor SQL performance](#service-latency) and pot
 
 - The [**Disk Ops In Progress**](ui-hardware-dashboard.html#disk-ops-in-progress) graph on the Hardware dashboard shows the number of disk reads and writes in queue.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-disk-ops-in-progress.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-disk-ops-in-progress.md %}
 
 - The Linux tool `iostat` (part of `sysstat`) can be used to monitor IOPS. In the device status output, `avgqu-sz` corresponds to the **Disk Ops In Progress** metric. If service times persist in double digits on any node, this means that your storage device is saturated and is likely under-provisioned or misconfigured.
 
@@ -268,13 +268,13 @@ Because each node needs to update a liveness record on disk, maxing out disk ban
 
 - The **Node Heartbeat Latency: 99th percentile** and **Node Heartbeat Latency: 90th percentile** graphs on the Distributed Dashboard show the time elapsed between [node liveness](cluster-setup-troubleshooting.html#node-liveness-issues) heartbeats.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-node-heartbeat-latency.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-node-heartbeat-latency.md %}
 
 #### Command commit latency
 
 - The **Command Commit Latency: 50th percentile** and **Command Commit Latency: 99th percentile** graphs on the [Storage dashboard](ui-storage-dashboard.html) show how quickly [Raft commands](architecture/replication-layer.html) are being committed by nodes in the cluster. This is a good signal of I/O load.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-command-commit-latency.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-command-commit-latency.md %}
 
 ## See also
 

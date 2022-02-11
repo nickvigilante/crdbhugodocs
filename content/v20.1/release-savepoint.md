@@ -9,7 +9,7 @@ toc: true
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/release_savepoint.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/release_savepoint.html %}
 </div>
 
 ## Required privileges
@@ -44,7 +44,7 @@ This example uses the [MovR data set](movr.html).
 
 In the example below, we roll back the inner [nested transaction](transactions.html#nested-transactions) (marked by the savepoint `lower`) and release (commit) the outer savepoint `higher`, which raises the promo code discount to 15% using CockroachDB's [JSONB functions](jsonb.html#functions).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT higher;
@@ -62,11 +62,11 @@ COMMIT
 
 ### Commit a transaction by releasing a retry savepoint
 
-{{ partial "{{ page.version.version }}/sql/retry-savepoints.md" . }}
+{% include {{ page.version.version }}/sql/retry-savepoints.md %}
 
 After declaring a retry savepoint, commit the transaction with `RELEASE SAVEPOINT` and then prepare the connection for the next transaction with [`COMMIT`](commit-transaction.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 SAVEPOINT cockroach_restart;

@@ -6,7 +6,7 @@ toc: true
 
 The `ALTER TABLE` [statement](sql-statements.html) applies a schema change to a table.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Subcommands
 
@@ -30,4 +30,4 @@ Subcommand | Description
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}

@@ -26,4 +26,4 @@ See [Ordering Guarantees](use-changefeeds.html#ordering-guarantees) for detail o
 
 ## Known limitations
 
-{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
+{% include {{ page.version.version }}/known-limitations/cdc.md %}

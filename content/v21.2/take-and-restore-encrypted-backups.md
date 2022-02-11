@@ -115,7 +115,7 @@ For example, the encrypted backup created in the [first example](#take-an-encryp
 
 ## Use a passphrase
 
-{{ partial "{{ page.version.version }}/backups/encrypted-backup-description.md" . }}
+{% include {{ page.version.version }}/backups/encrypted-backup-description.md %}
 
 ### Examples
 
@@ -125,7 +125,7 @@ For example, the encrypted backup created in the [first example](#take-an-encryp
   <button class="filter-button" data-scope="gcs">Google Cloud Storage</button>
 </div>
 
-{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
+{% include {{ page.version.version }}/backups/bulk-auth-options.md %}
 
 <section class="filter-content" markdown="1" data-scope="s3">
 

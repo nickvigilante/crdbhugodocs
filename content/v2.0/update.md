@@ -16,7 +16,7 @@ The user must have the `SELECT` and `UPDATE` [privileges](privileges.html) on th
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/update.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/update.html %}
 </div>
 
 <div markdown="1"></div>

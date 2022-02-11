@@ -35,9 +35,9 @@ For example, to enable the slow query log for all queries with a latency above 1
 
 After the threshold is set, each gateway node records slow SQL queries to a `cockroach-sql-slow` log file. Log files are written to CockroachDB's standard [log directory](debug-and-error-logs.html#write-to-file).
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Setting `sql.log.slow_query.latency_threshold` to a non-zero time enables tracing on all queries, which impacts performance. After debugging, set the value back to `0s` to disable the log.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 <span class="version-tag">New in v20.2:</span> To log all queries that perform full table or index scans to the slow query log, regardless of query latency, set the `sql.log.slow_query.experimental_full_table_scans.enabled` [cluster setting](cluster-settings.html) to `true`. The end of each line in the slow query log indicates if the query was logged for surpassing the threshold (`LATENCY_THRESHOLD`), or if it was logged because of a full scan (`FULL_TABLE_SCAN` or `FULL_SECONDARY_INDEX_SCAN`).
 
@@ -58,9 +58,9 @@ SQL client connections can be logged by turning on the `server.auth_log.sql_conn
 
 This will log connection established and connection terminated events to a `cockroach-auth` log file. Use the symlink `cockroach-auth.log` to open the most recent log.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 In addition to SQL sessions, connection events can include SQL-based liveness probe attempts, as well as attempts to use the [PostgreSQL cancel protocol](https://www.postgresql.org/docs/current/protocol-flow.html#id-1.10.5.7.9).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 This example log shows both types of connection events over a `hostssl` (TLS certificate over TCP) connection:
 
@@ -101,9 +101,9 @@ I200219 05:02:18.154168 1036 sql/pgwire/conn.go:216  [n1,client,local,user=root]
 
 For complete logging of client connections, we recommend enabling both `server.auth_log.sql_connections.enabled` and `server.auth_log.sql_sessions.enabled`.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Be aware that both logs perform one disk I/O per event and will impact performance when enabled.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 For more details on authentication and certificates, see [Authentication](authentication.html).
 
@@ -121,7 +121,7 @@ $ cockroach start --insecure --listen-addr=localhost --vmodule=exec_log=2 --join
 
 {{site.data.alerts.callout_success}}
 To log CockroachDB-generated SQL queries as well, use `--vmodule=exec_log=3`.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 From the SQL prompt on a running node, execute the `crdb_internal.set_vmodule()` [function](functions-and-operators.html):
 

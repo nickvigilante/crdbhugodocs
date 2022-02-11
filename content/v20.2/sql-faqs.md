@@ -16,19 +16,19 @@ toc_not_nested: true
 
 ## How do I auto-generate unique row IDs in CockroachDB?
 
-{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
+{% include {{ page.version.version }}/faq/auto-generate-unique-ids.html %}
 
 ## How do I generate unique, slowly increasing sequential numbers in CockroachDB?
 
-{{ partial "{{ page.version.version }}/faq/sequential-numbers.md" . }}
+{% include {{ page.version.version }}/faq/sequential-numbers.md %}
 
 ## What are the differences between `UUID`, sequences, and `unique_rowid()`?
 
-{{ partial "{{ page.version.version }}/faq/differences-between-numberings.md" . }}
+{% include {{ page.version.version }}/faq/differences-between-numberings.md %}
 
 ## How do I order writes to a table to closely follow time in CockroachDB?
 
-{{ partial "{{ page.version.version }}/faq/sequential-transactions.md" . }}
+{% include {{ page.version.version }}/faq/sequential-transactions.md %}
 
 ## How do I get the last ID/SERIAL value inserted into a table?
 
@@ -36,12 +36,12 @@ There’s no function in CockroachDB for returning last inserted values, but you
 
 For example, this is how you’d use `RETURNING` to return a value auto-generated via `unique_rowid()` or [`SERIAL`](serial.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (id INT DEFAULT unique_rowid(), name STRING);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO users (name) VALUES ('mike') RETURNING id;
 ~~~
@@ -70,21 +70,21 @@ Yes, the [`JSONB`](jsonb.html) data type is supported.
 
 To see which indexes CockroachDB is using for a given query, you can use the [`EXPLAIN`](explain.html) statement, which will print out the query plan, including any indexes that are being used:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN SELECT col1 FROM tbl1;
 ~~~
 
 If you'd like to tell the query planner which index to use, you can do so via some [special syntax for index hints](table-expressions.html#force-index-selection):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT col1 FROM tbl1@idx1;
 ~~~
 
 ## How do I log SQL queries?
 
-{{ partial "{{ page.version.version }}/faq/sql-query-logging.md" . }}
+{% include {{ page.version.version }}/faq/sql-query-logging.md %}
 
 ## Does CockroachDB support a UUID type?
 
@@ -103,7 +103,7 @@ In CockroachDB, all `INT`s are represented with 64 bits of precision, but JavaSc
 
 To avoid this loss of precision, Node's [`pg` driver](https://github.com/brianc/node-postgres) will, by default, return all CockroachDB `INT`s as strings.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ javascript
 // Schema: CREATE TABLE users (id INT DEFAULT unique_rowid(), name STRING);
 pgClient.query("SELECT id FROM users WHERE name = 'Roach' LIMIT 1", function(err, res) {
@@ -115,7 +115,7 @@ pgClient.query("SELECT id FROM users WHERE name = 'Roach' LIMIT 1", function(err
 
 To perform another query using the value of `idString`, you can simply use `idString` directly, even where an `INT` type is expected. The string will automatically be coerced into a CockroachDB `INT`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ javascript
 pgClient.query("UPDATE users SET name = 'Ms. Roach' WHERE id = $1", [idString], function(err, res) {
   // All should be well!
@@ -124,7 +124,7 @@ pgClient.query("UPDATE users SET name = 'Ms. Roach' WHERE id = $1", [idString], 
 
 If you instead need to perform arithmetic on `INT`s in JavaScript, you will need to use a big integer library like [Long.js](https://www.npmjs.com/package/long). Do _not_ use the built-in `parseInt` function.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ javascript
 parseInt(idString, 10) + 1; // WRONG: returns 235191684988928000
 require('long').fromString(idString).add(1).toString(); // GOOD: returns '235191684988928002'
@@ -132,7 +132,7 @@ require('long').fromString(idString).add(1).toString(); // GOOD: returns '235191
 
 ## Can I use CockroachDB as a key-value store?
 
-{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
+{% include {{ page.version.version }}/faq/simulate-key-value-store.html %}
 
 
 ## See also

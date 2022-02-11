@@ -6,9 +6,9 @@ toc: true
 
 This page walks you through developing a multi-region application. It is the fourth section of the [Develop and Deploy a Multi-Region Web Application](multi-region-overview.html) tutorial.
 
-{{ partial "{{ page.version.version }}/misc/movr-flask-211.md" . }}
+{% include {{ page.version.version }}/misc/movr-flask-211.md %}
 
-{{ partial "{{ page.version.version }}/misc/movr-live-demo.md" . }}
+{% include {{ page.version.version }}/misc/movr-live-demo.md %}
 
 ## Before you begin
 

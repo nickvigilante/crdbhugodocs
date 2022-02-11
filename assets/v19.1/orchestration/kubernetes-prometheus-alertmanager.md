@@ -6,9 +6,9 @@ Every node of a CockroachDB cluster exports granular timeseries metrics formatte
 
 This guidance is based on [CoreOS's Prometheus Operator](https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md), which allows a Prometheus instance to be managed using built-in Kubernetes concepts.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 If you're on Hosted GKE, before starting, make sure the email address associated with your Google Cloud account is part of the `cluster-admin` RBAC group, as shown in [Step 1. Start Kubernetes](#hosted-gke).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 1. From your local workstation, edit the `cockroachdb` service to add the `prometheus: cockroachdb` label:
 
@@ -104,7 +104,7 @@ If you're on Hosted GKE, before starting, make sure the email address associated
     Prometheus auto-completes CockroachDB time series metrics for you, but if you want to see a full listing, with descriptions, port-forward as described in {% if page.secure == true %}[Access the Admin UI](#step-4-access-the-admin-ui){% else %}[Access the Admin UI](#step-4-access-the-admin-ui){% endif %} and then point your browser to <a href="http://localhost:8080/_status/vars" data-proofer-ignore>http://localhost:8080/_status/vars</a>.
 
     For more details on using the Prometheus UI, see their [official documentation](https://prometheus.io/docs/introduction/getting_started/).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 ### Configure Alertmanager
 
@@ -141,9 +141,9 @@ Active monitoring helps you spot problems early, but it is also essential to sen
     secret/alertmanager-cockroachdb labeled
     ~~~
 
-    {{site.data.alerts.callout_danger}}
+    {{site.data.alerts.callout_danger }}
     The name of the secret, `alertmanager-cockroachdb`, must match the name used in the `altermanager.yaml` file. If they differ, the Alertmanager instance will start without configuration, and nothing will happen.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 4. Use our [`alertmanager.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/prometheus/alertmanager.yaml) file to create the various objects necessary to run an Alertmanager instance, including a ClusterIP service so that Prometheus can forward alerts:
 

@@ -9,39 +9,39 @@ filter_sort: 2
 docs_area: 
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how to manually deploy an insecure multi-node CockroachDB cluster on multiple machines, using [HAProxy](http://www.haproxy.org/) load balancers to distribute client traffic.
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-flag.md %}
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 ## Before you begin
 
 ### Requirements
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-requirements.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-requirements.md %}
 
 ### Recommendations
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-recommendations.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-recommendations.md %}
 
 ## Step 1. Synchronize clocks
 
-{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
+{% include {{ page.version.version }}/prod-deployment/synchronize-clocks.md %}
 
 ## Step 2. Start nodes
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-start-nodes.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-start-nodes.md %}
 
 ## Step 3. Initialize the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-initialize-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-initialize-cluster.md %}
 
 ## Step 4. Test the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-test-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-test-cluster.md %}
 
 ## Step 5. Set up load balancing
 
@@ -58,14 +58,14 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 2. Install HAProxy:
 
-  {{ partial "copy-clipboard.html" . }}
+  {% include copy-clipboard.html %}
   ~~~ shell
   $ apt-get install haproxy
   ~~~
 
 3. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, and extract the binary:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
@@ -73,7 +73,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 4. Copy the binary into the `PATH`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
@@ -82,18 +82,18 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 5. Run the [`cockroach gen haproxy`](cockroach-gen.html) command, specifying the address of any CockroachDB node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach gen haproxy --insecure \
     --host=<address of any node> \
     --port=26257
     ~~~
 
-      {{ partial "{{ page.version.version }}/misc/haproxy.md" . }}
+      {% include {{ page.version.version }}/misc/haproxy.md %}
 
 6. Start HAProxy, with the `-f` flag pointing to the `haproxy.cfg` file:
 
-  {{ partial "copy-clipboard.html" . }}
+  {% include copy-clipboard.html %}
   ~~~ shell
   $ haproxy -f haproxy.cfg
   ~~~
@@ -102,20 +102,20 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 ## Step 6. Run a sample workload
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-test-load-balancing.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-test-load-balancing.md %}
 
 ## Step 7. Monitor the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/monitor-cluster.md %}
 
 ## Step 8. Scale the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/insecure-scale-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/insecure-scale-cluster.md %}
 
 ## Step 9. Use the cluster
 
-{{ partial "{{ page.version.version }}/prod-deployment/use-cluster.md" . }}
+{% include {{ page.version.version }}/prod-deployment/use-cluster.md %}
 
 ## See also
 
-{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-see-also.md %}

@@ -6,7 +6,7 @@ toc: true
 
 The `DROP VIEW` [statement](sql-statements.html) removes a [view](views.html) from a database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/generated/diagrams/drop_view.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/generated/diagrams/drop_view.html %}</div>
 
 ## Parameters
 
@@ -32,7 +32,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 In this example, other views do not depend on the view being dropped.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -47,7 +47,7 @@ In this example, other views do not depend on the view being dropped.
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP VIEW bank.user_emails;
 ~~~
@@ -56,7 +56,7 @@ In this example, other views do not depend on the view being dropped.
 DROP VIEW
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -76,7 +76,7 @@ In this example, another view depends on the view being dropped. Therefore, it's
 
 {{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent views without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -91,7 +91,7 @@ In this example, another view depends on the view being dropped. Therefore, it's
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP VIEW bank.user_accounts;
 ~~~
@@ -100,7 +100,7 @@ In this example, another view depends on the view being dropped. Therefore, it's
 pq: cannot drop view "user_accounts" because view "user_emails" depends on it
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~sql
 > DROP VIEW bank.user_accounts CASCADE;
 ~~~
@@ -109,7 +109,7 @@ pq: cannot drop view "user_accounts" because view "user_emails" depends on it
 DROP VIEW
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~

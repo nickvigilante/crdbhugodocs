@@ -6,11 +6,11 @@ toc: true
 
 The `DROP INDEX` [statement](sql-statements.html) removes indexes from tables.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/drop_index.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/drop_index.html %}</div>
 
 ## Required privileges
 
@@ -29,22 +29,22 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements.md %}
 
 ### Remove an index with no dependencies
 
 Suppose you create an index on the `name` and `city` columns of the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON users (name, city);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~
@@ -62,12 +62,12 @@ Suppose you create an index on the `name` and `city` columns of the `users` tabl
 
 You can drop this index with the `DROP INDEX` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP INDEX users@users_name_city_idx;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~
@@ -88,12 +88,12 @@ You can drop this index with the `DROP INDEX` statement:
 
 Suppose you create a [`UNIQUE`](unique.html) constraint on the `id` and `name` columns of the `users` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ADD CONSTRAINT id_name_unique UNIQUE (id, name);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS from users;
 ~~~
@@ -108,7 +108,7 @@ Suppose you create a [`UNIQUE`](unique.html) constraint on the `id` and `name` c
 
 If no index exists on `id` and `name`, CockroachDB automatically creates an index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES from users;
 ~~~
@@ -126,7 +126,7 @@ If no index exists on `id` and `name`, CockroachDB automatically creates an inde
 
 The `UNIQUE` constraint is dependent on the `id_name_unique` index, so you cannot drop the index with a simple `DROP INDEX` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP INDEX id_name_unique;
 ~~~
@@ -139,12 +139,12 @@ HINT: use CASCADE if you really want to drop it.
 
 To drop an index and its dependent objects, you can use `CASCADE`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP INDEX id_name_unique CASCADE;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES from users;
 ~~~
@@ -157,7 +157,7 @@ To drop an index and its dependent objects, you can use `CASCADE`:
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS from users;
 ~~~

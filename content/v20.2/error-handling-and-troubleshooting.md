@@ -30,7 +30,7 @@ If your language's client driver or ORM implements transaction retry logic inter
 
 If your driver or ORM does not implement this logic, then you will need to implement a retry loop in your application.
 
-{{ partial "{{ page.version.version }}/misc/client-side-intervention-example.md" . }}
+{% include {{ page.version.version }}/misc/client-side-intervention-example.md %}
 
 {{site.data.alerts.callout_info }}
 If a consistently high percentage of your transactions are resulting in transaction retry errors, then you may need to evaluate your schema design and data access patterns to find and remove sources of contention. For more information about contention, see [Understanding and Avoiding Transaction Contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention).
@@ -48,7 +48,7 @@ Additionally, CockroachDB supports [the PostgreSQL wire protocol and the majorit
 
 However, you may encounter features of SQL or the Postgres dialect that are not supported by CockroachDB. For example, the following Postgres features are not supported:
 
-{{ partial "{{ page.version.version }}/sql/unsupported-postgres-features.md" . }}
+{% include {{ page.version.version }}/sql/unsupported-postgres-features.md %}
 
 For more information about the differences between CockroachDB and Postgres feature support, see [PostgreSQL Compatibility](postgresql-compatibility.html).
 

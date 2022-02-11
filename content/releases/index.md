@@ -27,7 +27,7 @@ After downloading your desired release, learn how to [Install CockroachDB](../{{
 ## {{ v.major_version }}
 
 <section class="filter-content" data-scope="windows">
-{{ partial "windows_warning.md" . }}
+{% include windows_warning.md %}
 </section>
 
 {% for s in sections %}

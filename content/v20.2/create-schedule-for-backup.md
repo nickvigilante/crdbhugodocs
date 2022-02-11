@@ -53,7 +53,7 @@ For schedules that include both [full and incremental backups](take-full-and-inc
 
 ### Backup options
 
-{{ partial "{{ page.version.version }}/backups/backup-options.md" . }}
+{% include {{ page.version.version }}/backups/backup-options.md %}
 
 ### Schedule options
 
@@ -109,7 +109,7 @@ You can also visit the [**Jobs** page](ui-jobs-page.html) of the DB Console to v
 
 Core users can only use backup scheduling for full backups of clusters, databases, or tables. Full backups are taken with the `FULL BACKUP ALWAYS` clause, for example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE core_schedule_label
   FOR BACKUP INTO 's3://test/schedule-test-core?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -130,7 +130,7 @@ To use the other backup features, you need an [Enterprise license](enterprise-li
 
 This example creates a schedule for a cluster backup with revision history that's taken every day at midnight:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE schedule_label
   FOR BACKUP INTO 's3://test/backups/schedule_test?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -152,7 +152,7 @@ Because the [`FULL BACKUP` clause](#full-backup-clause) was not included, Cockro
 
 This example creates a schedule for a backup of the database `movr` with revision history that's taken every day 1 minute past midnight (`00:00:01`):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE schedule_database
   FOR BACKUP DATABASE movr INTO 's3://test/schedule-database?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -174,7 +174,7 @@ Because the [`FULL BACKUP` clause](#full-backup-clause) was not included, Cockro
 
 This example creates a schedule for a backup of the table `movr.vehicles` with revision history that's taken every hour:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE schedule_table
   FOR BACKUP TABLE movr.vehicles INTO 's3://test/schedule-table?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -196,7 +196,7 @@ Because the [`FULL BACKUP` clause](#full-backup-clause) was not included, Cockro
 
 This example creates a schedule for a backup of the table `movr.vehicles` with revision history that's taken every hour, with its first run scheduled for `2020-09-15 00:00:00.00` (UTC):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE scheduled_first_run
   FOR BACKUP TABLE movr.vehicles INTO 's3://test/schedule-table?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -224,7 +224,7 @@ When a [backup is created by a schedule](create-schedule-for-backup.html), it is
 
 For more details, see [`SHOW BACKUP`](show-backup.html).
 
-{{ partial "{{ page.version.version }}/backups/show-scheduled-backups.md" . }}
+{% include {{ page.version.version }}/backups/show-scheduled-backups.md %}
 
 ## See also
 

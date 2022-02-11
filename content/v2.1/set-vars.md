@@ -16,7 +16,7 @@ No [privileges](authorization.html#assign-privileges) are required to modify the
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/set_var.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/set_var.html %}
 </div>
 
 {{site.data.alerts.callout_info }}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{site.data.alerts.end }}
@@ -72,12 +72,12 @@ Special syntax cases:
 The following demonstrates how `SET` can be used to configure the
 default database for the current session:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET database = bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW database;
 ~~~
@@ -95,12 +95,12 @@ default database for the current session:
 
 The following demonstrates how to use quoting to use values containing spaces:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET database = "database name with spaces";
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW database;
 ~~~
@@ -118,12 +118,12 @@ The following demonstrates how to use quoting to use values containing spaces:
 
 The following demonstrates how to assign a list of values:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET search_path = pg_catalog,public;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -141,7 +141,7 @@ The following demonstrates how to assign a list of values:
 
 {{site.data.alerts.callout_success}}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -155,12 +155,12 @@ The following demonstrates how to assign a list of values:
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET search_path = 'app';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -174,12 +174,12 @@ The following demonstrates how to assign a list of values:
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET search_path = DEFAULT;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -212,12 +212,12 @@ negative numeric offset from UTC (e.g., `-7`, `+7`). Also, `DEFAULT`,
 
 ### Example: Set the default time zone via `SET TIME ZONE`
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET TIME ZONE 'EST'; -- same as SET "timezone" = 'EST'
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TIME ZONE;
 ~~~
@@ -231,12 +231,12 @@ negative numeric offset from UTC (e.g., `-7`, `+7`). Also, `DEFAULT`,
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET TIME ZONE DEFAULT; -- same as SET "timezone" = DEFAULT
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TIME ZONE;
 ~~~

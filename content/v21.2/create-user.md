@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `CREATE USER` [statement](sql-statements.html) creates SQL users, which let you control [privileges](authorization.html#assign-privileges) on your databases and tables.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 {{site.data.alerts.callout_info }}
 The keywords `ROLE` and `USER` can be used interchangeably in SQL statements for enhanced Postgres compatibility.
@@ -34,7 +34,7 @@ The keywords `ROLE` and `USER` can be used interchangeably in SQL statements for
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/generated/diagrams/create_user.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/generated/diagrams/create_user.html %}</section>
 
 ## Parameters
 
@@ -158,7 +158,7 @@ with_password | VALID UNTIL=2021-10-10 00:00:00+00:00 | {}
 
 The following statement prevents the user from using password authentication and mandates certificate-based client authentication:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 root@:26257/defaultdb> CREATE USER no_password WITH PASSWORD NULL;
 ~~~

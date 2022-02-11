@@ -12,7 +12,7 @@ The `RENAME COLUMN` [statement](sql-statements.html) changes the name of a colum
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/rename_column.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/rename_column.html %}
 </div>
 
 ## Required privileges
@@ -30,13 +30,13 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Example
 
 ### Rename a column
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -49,12 +49,12 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 +----+-------+-------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users RENAME COLUMN title TO species;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users;
 ~~~

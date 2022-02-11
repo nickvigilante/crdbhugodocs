@@ -7,4 +7,4 @@ Within a single [transaction](transactions.html):
 
 {{site.data.alerts.callout_success}}
 As of version v2.1, you can run schema changes inside the same transaction as a `CREATE TABLE` statement. For more information, [see this example](online-schema-changes.html#run-schema-changes-inside-a-transaction-with-create-table). Also, as of v19.1, some schema changes can be used in combination in a single `ALTER TABLE` statement. For a list of commands that can be combined, see [`ALTER TABLE`](alter-table.html). For a demonstration, see [Add and rename columns atomically](rename-column.html#add-and-rename-columns-atomically).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

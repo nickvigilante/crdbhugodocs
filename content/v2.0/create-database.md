@@ -14,7 +14,7 @@ Only the `root` user can create databases.
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/create_database.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/create_database.html %}
 </div>
 
 ## Parameters
@@ -29,12 +29,12 @@ Parameter | Description
 
 ### Create a Database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~
 > SHOW DATABASES;
 ~~~
@@ -50,7 +50,7 @@ Parameter | Description
 
 ### Create Fails (Name Already In Use)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -64,7 +64,7 @@ Parameter | Description
 +----------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
@@ -73,7 +73,7 @@ Parameter | Description
 pq: database "bank" already exists
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -87,14 +87,14 @@ pq: database "bank" already exists
 +----------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS bank;
 ~~~
 
 SQL does not generate an error, but instead responds `CREATE DATABASE` even though a new database wasn't created.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~

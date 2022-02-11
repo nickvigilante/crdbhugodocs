@@ -20,7 +20,7 @@ High latency SQL statements are displayed on the [**Statements page**](ui-statem
 You can also check the [service latency graph](ui-sql-dashboard.html#service-latency-sql-99th-percentile) and the [CPU graph](ui-hardware-dashboard.html#cpu-percent) on the SQL and Hardware Dashboards, respectively. If the graphs show latency spikes or CPU usage spikes, these might indicate slow queries in your cluster.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/prod-deployment/resolution-untuned-query.md" . }}
+{% include {{ page.version.version }}/prod-deployment/resolution-untuned-query.md %}
 {{site.data.alerts.end }}
 
 ## Visualize statement traces in Jaeger
@@ -31,7 +31,7 @@ You can look more closely at the behavior of a statement by visualizing a statem
 
 1. Start Jaeger:
 
-  {{ partial "copy-clipboard.html" . }}
+  {% include copy-clipboard.html %}
   ~~~ shell
   docker run -d --name jaeger -p 16686:16686 jaegertracing/all-in-one:1.17
   ~~~
@@ -164,7 +164,7 @@ To log CockroachDB-generated SQL queries as well, use `--vmodule=exec_log=3`.
 
 From the SQL prompt on a running node, execute the `crdb_internal.set_vmodule()` [function](functions-and-operators.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT crdb_internal.set_vmodule('exec_log=2');
 ~~~

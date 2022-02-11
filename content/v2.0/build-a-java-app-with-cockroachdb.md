@@ -16,7 +16,7 @@ We have tested the [Java JDBC driver](https://jdbc.postgresql.org/) and the [Hib
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 {{site.data.alerts.callout_danger }}
 The examples on this page assume you are using a Java version <= 9. They do not work with Java 10.
@@ -30,13 +30,13 @@ Download and set up the Java JDBC driver as described in the [official documenta
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -47,7 +47,7 @@ The private key generated for user `maxroach` by CockroachDB is [PEM encoded](ht
 
 To convert the key to PKCS#8 format, run the following OpenSSL command on the `maxroach` user's key file in the directory where you stored your certificates:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ openssl pkcs8 -topk8 -inform PEM -outform DER -in client.maxroach.key -out client.maxroach.pk8 -nocrypt
 ~~~
@@ -71,12 +71,12 @@ To run it:
 2. Download [the PostgreSQL JDBC driver](https://jdbc.postgresql.org/download.html).
 3. Compile and run the code (adding the PostgreSQL JDBC driver to your classpath):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ javac -classpath .:/path/to/postgresql.jar BasicSample.java
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ java -classpath .:/path/to/postgresql.jar BasicSample
     ~~~
@@ -91,9 +91,9 @@ To run it:
 
 The contents of [`BasicSample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/BasicSample.java):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/BasicSample.java" . }}
+{% include {{ page.version.version }}/app/BasicSample.java %}
 ~~~
 
 <a name="txn1"></a>
@@ -107,12 +107,12 @@ To run it:
 1. Download <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/TxnSample.java" download><code>TxnSample.java</code></a>, or create the file yourself and copy the code below.  Note the use of [`SQLException.getSQLState()`](https://docs.oracle.com/javase/tutorial/jdbc/basics/sqlexception.html) instead of `getErrorCode()`.
 2. Compile and run the code (again adding the PostgreSQL JDBC driver to your classpath):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ javac -classpath .:/path/to/postgresql.jar TxnSample.java
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ java -classpath .:/path/to/postgresql.jar TxnSample
     ~~~
@@ -124,23 +124,23 @@ To run it:
     account 2: 350
     ~~~
 
-{{ partial "v2.1/client-transaction-retry.md" . }}
+{% include v2.1/client-transaction-retry.md %}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/TxnSample.java" . }}
+{% include {{ page.version.version }}/app/TxnSample.java %}
 ~~~
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -161,7 +161,7 @@ To check the account balances, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -182,21 +182,21 @@ To run it:
 2. Download [the PostgreSQL JDBC driver](https://jdbc.postgresql.org/download.html).
 3. Compile and run the code (adding the PostgreSQL JDBC driver to your classpath):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ javac -classpath .:/path/to/postgresql.jar BasicSample.java
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ java -classpath .:/path/to/postgresql.jar BasicSample
     ~~~
 
 The contents of [`BasicSample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/insecure/BasicSample.java):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/insecure/BasicSample.java" . }}
+{% include {{ page.version.version }}/app/insecure/BasicSample.java %}
 ~~~
 
 <a name="txn2"></a>
@@ -210,33 +210,33 @@ To run it:
 1. Download <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v2.0/app/insecure/TxnSample.java" download><code>TxnSample.java</code></a>, or create the file yourself and copy the code below.  Note the use of [`SQLException.getSQLState()`](https://docs.oracle.com/javase/tutorial/jdbc/basics/sqlexception.html) instead of `getErrorCode()`.
 2. Compile and run the code (again adding the PostgreSQL JDBC driver to your classpath):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ javac -classpath .:/path/to/postgresql.jar TxnSample.java
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ java -classpath .:/path/to/postgresql.jar TxnSample
     ~~~
 
-{{ partial "v2.1/client-transaction-retry.md" . }}
+{% include v2.1/client-transaction-retry.md %}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/insecure/TxnSample.java" . }}
+{% include {{ page.version.version }}/app/insecure/TxnSample.java %}
 ~~~
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -257,4 +257,4 @@ To check the account balances, issue the following statement:
 
 Read more about using the [Java JDBC driver](https://jdbc.postgresql.org/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

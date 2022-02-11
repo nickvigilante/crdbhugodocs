@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE DATABASE` [statement](sql-statements.html) creates a new CockroachDB database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -15,7 +15,7 @@ To create a database, the user must be a member of the `admin` role or must have
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/create_database.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/create_database.html %}
 </div>
 
 ## Parameters
@@ -34,7 +34,7 @@ Parameter | Description
 
 ### Create a database
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
@@ -43,7 +43,7 @@ Parameter | Description
 CREATE DATABASE
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -60,7 +60,7 @@ CREATE DATABASE
 
 ### Create fails (name already in use)
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
@@ -70,7 +70,7 @@ ERROR: database "bank" already exists
 SQLSTATE: 42P04
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS bank;
 ~~~
@@ -81,7 +81,7 @@ CREATE DATABASE
 
 SQL does not generate an error, but instead responds `CREATE DATABASE` even though a new database wasn't created.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -98,18 +98,18 @@ SQL does not generate an error, but instead responds `CREATE DATABASE` even thou
 
 ### Create a multi-region database
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 Suppose you start a cluster with region and zone [localities specified at startup](cockroach-start.html#locality).
 
 For this example, let's use a [demo cluster](cockroach-demo.html), with the [`--demo-locality` flag](cockroach-demo.html#general) to simulate a multi-region cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach211 demo --nodes=6 --demo-locality=region=us-east1,zone=us-east1-a:region=us-east1,zone=us-east1-b:region=us-central1,zone=us-central1-a:region=us-central1,zone=us-central1-b:region=us-west1,zone=us-west1-a:region=us-west1,zone=us-west1-b --no-example-database
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW REGIONS;
 ~~~
@@ -127,12 +127,12 @@ If regions are set at cluster start-up, you can create multi-region databases in
 
 Use the following command to specify regions and survival goals at database creation:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank PRIMARY REGION "us-east1" REGIONS "us-east1", "us-central1", "us-west1" SURVIVE REGION FAILURE;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -147,7 +147,7 @@ Use the following command to specify regions and survival goals at database crea
 (4 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW REGIONS FROM DATABASE bank;
 ~~~

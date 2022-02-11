@@ -6,7 +6,7 @@ toc: true
 
 The **Overview** dashboard lets you monitor important SQL performance, replication, and storage metrics. To view this dashboard, [access the DB Console](ui-overview.html#db-console-access) and click **Metrics** on the left-hand navigation bar. The **Overview** dashboard is displayed by default.
 
-{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
 {{site.data.alerts.callout_info }}
 All timestamps in the DB Console are shown in Coordinated Universal Time (UTC).
@@ -24,7 +24,7 @@ See the [Statements page](ui-statements-page.html) for more details on the clust
 
 ## Service Latency: SQL, 99th percentile
 
-{{ partial "{{ page.version.version }}/ui/ui-sql-latency-99th-percentile.md" . }}
+{% include {{ page.version.version }}/ui/ui-sql-latency-99th-percentile.md %}
 
 ## Replicas per Node
 
@@ -66,10 +66,10 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
+{% include {{ page.version.version }}/ui/ui-summary-events.md %}
 
 ## See also
 

@@ -7,13 +7,13 @@ docs_area: reference.sql
 
 The `CREATE SEQUENCE` [statement](sql-statements.html) creates a new sequence in a database. Use a sequence to auto-increment integers in a table.
 
-{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Considerations
 
 - Using a sequence is slower than [auto-generating unique IDs with the `gen_random_uuid()`, `uuid_v4()` or `unique_rowid()` built-in functions](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb). Incrementing a sequence requires a write to persistent storage, whereas auto-generating a unique ID does not. Therefore, use auto-generated unique IDs unless an incremental sequence is preferred or required.
 - A column that uses a sequence can have a gap in the sequence values if a transaction advances the sequence and is then rolled back. Sequence updates are committed immediately and aren't rolled back along with their containing transaction. This is done to avoid blocking concurrent transactions that use the same sequence.
-- {{ partial "{{ page.version.version }}/performance/use-hash-sharded-indexes.md" . }}
+- {% include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
 -  By default, you cannot create sequences that are [owned by](authorization.html#object-ownership) columns in tables in other databases. You can enable such sequence creation by setting the `sql.cross_db_sequence_owners.enabled` [cluster setting](cluster-settings.html) to `true`.
 
 ## Required privileges
@@ -23,7 +23,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_sequence.html %}
+{{< sql-diagram "create_sequence.html" >}}
 </div>
 
 ## Parameters
@@ -87,17 +87,17 @@ To create a temporary sequence, add [`TEMP`/`TEMPORARY`](sql-grammar.html#opt_te
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET experimental_enable_temp_tables=on;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TEMP SEQUENCE temp_seq START 1 INCREMENT 1;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE temp_seq;
 ~~~
@@ -115,12 +115,12 @@ For example:
 
 In this example, we create a sequence with default settings.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE customer_seq;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE customer_seq;
 ~~~
@@ -136,7 +136,7 @@ In this example, we create a sequence with default settings.
 
 In this example, we [create a table](create-table.html), using the [`nextval()` function](functions-and-operators.html#sequence-functions) for a [default value](default-value.html), with the `customer_seq` sequence as its input:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE customers (
     uid UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -147,12 +147,12 @@ CREATE TABLE customers (
 
 Inserting into this table with an `INSERT` statement that relies on default values will call `nextval`, which increments the sequence.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (name) VALUES ('Max'), ('Alice');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -169,7 +169,7 @@ Inserting into this table with an `INSERT` statement that relies on default valu
 
 To view the current value without incrementing the sequence, use:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customer_seq;
 ~~~
@@ -204,7 +204,7 @@ In this example, we're going to change the next value of `customer_seq` using th
 You cannot set a value outside the <code>MAXVALUE</code> or <code>MINVALUE</code> of the sequence.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT setval('customer_seq', 5, false);
 ~~~
@@ -222,12 +222,12 @@ The `setval('seq_name', value, is_called)` function in CockroachDB SQL mimics th
 
 Let's add another record to the table to check that the new record adheres to the new next value.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customers (name) VALUES ('Sam');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -245,12 +245,12 @@ Let's add another record to the table to check that the new record adheres to th
 
 In this example, we create a sequence that starts at -1 and descends in increments of 2.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE desc_customer_list;
 ~~~
@@ -264,7 +264,7 @@ In this example, we create a sequence that starts at -1 and descends in incremen
 
 ### List all sequences
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~
@@ -284,12 +284,12 @@ In this example, we create a sequence that starts at -1 and descends in incremen
 
 For example, to cache 10 sequence values in memory:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE customer_seq_cached CACHE 10;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE customer_seq_cached;
 ~~~

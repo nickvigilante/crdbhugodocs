@@ -19,7 +19,7 @@ CockroachDB supports Django versions 2.2 and 3.0.
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 {{site.data.alerts.callout_info }}
 The example code and instructions on this page use Python 3 and Django 3.0.
@@ -29,7 +29,7 @@ The example code and instructions on this page use Python 3 and Django 3.0.
 
 Install [Django](https://docs.djangoproject.com/en/3.0/topics/install/):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python -m pip install django==3.0.*
 ~~~
@@ -42,7 +42,7 @@ Before installing the [CockroachDB backend for Django](https://github.com/cockro
 
 After you install the psycopg2 prerequisite, install the CockroachDB Django backend:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python -m pip install django-cockroachdb==3.0.*
 ~~~
@@ -57,40 +57,40 @@ The major version of `django-cockroachdb` must correspond to the major version o
 
 Open a [SQL shell](cockroach-sql.html) to the running CockroachDB cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --host=localhost:26257
 ~~~
 
 In the SQL shell, issue the following statements to create the `django` user and `bank` database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE USER IF NOT EXISTS django;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
 Give the `django` user the necessary permissions:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON DATABASE bank TO django;
 ~~~
 
 Exit the SQL shell:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \q
 ~~~
 
 Create a certificate and key for the `django` user by running the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client django --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -103,33 +103,33 @@ $ cockroach cert create-client django --certs-dir=certs --ca-key=my-safe-directo
 
 Open a [SQL shell](cockroach-sql.html) to the running CockroachDB cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --host=localhost:26257
 ~~~
 
 In the SQL shell, issue the following statements to create the `django` user and `bank` database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE USER IF NOT EXISTS django;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
 Give the `django` user the necessary permissions:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT ALL ON DATABASE bank TO django;
 ~~~
 
 Exit the SQL shell:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \q
 ~~~
@@ -140,7 +140,7 @@ Exit the SQL shell:
 
 In the directory where you'd like to store your code, use the [`django-admin` command-line tool](https://docs.djangoproject.com/en/3.0/ref/django-admin/) to create an application project:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ django-admin startproject myproject
 ~~~
@@ -149,14 +149,14 @@ This creates a new project directory called `myproject`. `myproject` contains th
 
 Open `myproject/myproject/settings.py`, and add `0.0.0.0` to the `ALLOWED_HOSTS` in your `settings.py` file, so that it reads as follows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 ALLOWED_HOSTS = ['0.0.0.0']
 ~~~
 
 In `myproject/myproject/settings.py`, add `myproject` to the list of `INSTALLED_APPS`, so that it reads as follows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -175,7 +175,7 @@ In `myproject/myproject/settings.py`, change `DATABASES` to the following:
 
 <section class="filter-content" markdown="1" data-scope="secure">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 DATABASES = {
     'default': {
@@ -198,7 +198,7 @@ DATABASES = {
 
 <section class="filter-content" markdown="1" data-scope="insecure">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 DATABASES = {
     'default': {
@@ -223,9 +223,9 @@ After you generate the initial Django project files, you need to build out the a
 
 Start by building some [models](https://docs.djangoproject.com/en/3.0/topics/db/models/), defined in a file called `models.py`. You can copy the sample code below and paste it into a new file, or you can <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/django-basic-sample/models.py" download>download the file directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/django-basic-sample/models.py" . }}
+{% include {{ page.version.version }}/app/django-basic-sample/models.py %}
 ~~~
 
 In this file, we define some simple classes that map to the tables in the example database `bank`.
@@ -234,9 +234,9 @@ In this file, we define some simple classes that map to the tables in the exampl
 
 Next, build out some [class-based views](https://docs.djangoproject.com/en/3.0/topics/class-based-views/) for the application in a file called `views.py`. You can copy the sample code below and paste it into a new file, or you can <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/django-basic-sample/views.py" download>download the file directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/django-basic-sample/views.py" . }}
+{% include {{ page.version.version }}/app/django-basic-sample/views.py %}
 ~~~
 
 This file defines the application's views as classes. Each view class corresponds to one of the table classes defined in `models.py`. The methods of these classes define read and write transactions on the tables in the database.
@@ -247,9 +247,9 @@ Importantly, the file defines a [transaction retry loop](transactions.html#trans
 
 Lastly, define some [URL routes](https://docs.djangoproject.com/en/3.0/topics/http/urls/) in a file called `urls.py`. The `django-admin` command-line tool generated this file when you created the Django project, so it should already exist in `myproject/myproject`.  You can copy the sample code below and paste it into the existing `urls.py` file, or you can <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/django-basic-sample/urls.py" download>download the file directly</a> and replace the existing one.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/django-basic-sample/urls.py" . }}
+{% include {{ page.version.version }}/app/django-basic-sample/urls.py %}
 ~~~
 
 </section>
@@ -260,9 +260,9 @@ Lastly, define some [URL routes](https://docs.djangoproject.com/en/3.0/topics/ht
 
 Start by building some [models](https://docs.djangoproject.com/en/3.0/topics/db/models/), defined in a file called `models.py`. You can copy the sample code below and paste it into a new file, or you can <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/django-basic-sample/models.py" download>download the file directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/insecure/django-basic-sample/models.py" . }}
+{% include {{ page.version.version }}/app/insecure/django-basic-sample/models.py %}
 ~~~
 
 In this file, we define some simple classes that map to the tables in the example database `bank`.
@@ -271,9 +271,9 @@ In this file, we define some simple classes that map to the tables in the exampl
 
 Next, build out some [class-based views](https://docs.djangoproject.com/en/3.0/topics/class-based-views/) for the application in a file called `views.py`. You can copy the sample code below and paste it into a new file, or you can <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/django-basic-sample/views.py" download>download the file directly</a>.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/insecure/django-basic-sample/views.py" . }}
+{% include {{ page.version.version }}/app/insecure/django-basic-sample/views.py %}
 ~~~
 
 This file defines the application's views as classes. Each view class corresponds to one of the table classes defined in `models.py`. The methods of these classes define read and write transactions on the tables in the database.
@@ -284,9 +284,9 @@ Importantly, the file defines a [transaction retry loop](transactions.html#trans
 
 Lastly, define some [URL routes](https://docs.djangoproject.com/en/3.0/topics/http/urls/) in a file called `urls.py`. The `django-admin` command-line tool generated this file when you created the Django project, so it should already exist in `myproject/myproject`.  You can copy the sample code below and paste it into the existing `urls.py` file, or you can <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/django-basic-sample/urls.py" download>download the file directly</a> and replace the existing one.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
-{{ partial "{{ page.version.version }}/app/insecure/django-basic-sample/urls.py" . }}
+{% include {{ page.version.version }}/app/insecure/django-basic-sample/urls.py %}
 ~~~
 
 </section>
@@ -295,12 +295,12 @@ Lastly, define some [URL routes](https://docs.djangoproject.com/en/3.0/topics/ht
 
 In the top `myproject` directory, use the [`manage.py` script](https://docs.djangoproject.com/en/3.0/ref/django-admin/) to create [Django migrations](https://docs.djangoproject.com/en/3.0/topics/migrations/) that initialize the database for the application:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python manage.py makemigrations myproject
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python manage.py migrate
 ~~~
@@ -311,7 +311,7 @@ This initializes the `bank` database with the tables defined in `models.py`, in 
 
 To verify that the migration succeeded, open a [SQL shell](cockroach-sql.html) to the running CockroachDB cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --host=localhost:26257
 ~~~
@@ -322,19 +322,19 @@ $ cockroach sql --certs-dir=certs --host=localhost:26257
 
 To verify that the migration succeeded, open a [SQL shell](cockroach-sql.html) to the running CockroachDB cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --host=localhost:26257
 ~~~
 
 </section>
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > USE bank;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -361,7 +361,7 @@ $ cockroach sql --insecure --host=localhost:26257
 
 In a new terminal, navigate to the top of the `myproject` directory, and start the app:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ python manage.py runserver 0.0.0.0:8000
 ~~~
@@ -370,7 +370,7 @@ To perform simple reads and writes to the database, you can send HTTP requests t
 
 For example, in a new terminal, you can use `curl` to send a POST request to the application that inserts a new row into the `customers` table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ curl --header "Content-Type: application/json" \
 --request POST \
@@ -379,7 +379,7 @@ $ curl --header "Content-Type: application/json" \
 
 You can then send a GET request to read from that table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ curl http://0.0.0.0:8000/customer/
 ~~~
@@ -390,7 +390,7 @@ $ curl http://0.0.0.0:8000/customer/
 
 You can also query the tables directly in the SQL shell to see the changes:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM myproject_customers;
 ~~~
@@ -407,4 +407,4 @@ You can also query the tables directly in the SQL shell to see the changes:
 
 Read more about writing a [Django app](https://docs.djangoproject.com/en/3.0/intro/tutorial01/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

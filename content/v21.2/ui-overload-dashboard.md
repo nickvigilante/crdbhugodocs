@@ -9,17 +9,17 @@ docs_area: reference.db_console
 
 To view this dashboard, [access the DB Console](ui-overview.html#db-console-access), click **Metrics** in the left-hand navigation, and select **Dashboard** > **Overload**.
 
-{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
 The **Overload** dashboard displays the following time series graphs:
 
 ## CPU percent
 
-{{ partial "{{ page.version.version }}/ui/cpu-percent-graph.md" . }}
+{% include {{ page.version.version }}/ui/cpu-percent-graph.md %}
 
 ## Runnable Goroutines per CPU
 
-{{ partial "{{ page.version.version }}/ui/runnable-goroutines-graph.md" . }}
+{% include {{ page.version.version }}/ui/runnable-goroutines-graph.md %}
 
 ## LSM L0 Health
 
@@ -28,7 +28,7 @@ This graph shows the health of the [persistent stores](architecture/storage-laye
 - In the node view, the graph shows the health of the persistent store on the selected node.
 - In the cluster view, the graph shows the health of the persistent stores across all nodes in the cluster.
 
-{{ partial "{{ page.version.version }}/prod-deployment/healthy-lsm.md" . }}
+{% include {{ page.version.version }}/prod-deployment/healthy-lsm.md %}
 
 ## KV Admission Slots
 
@@ -71,4 +71,4 @@ This 75th percentile is computed over requests that waited in the admission queu
 - In the node view, the graph shows the 75th percentile of latency within the work queues on the selected node. Over the last minute the admission control system admitted 75% of operations within this time.
 - In the cluster view, the graph shows the 75th percentile of latency within the work queues across all nodes in the cluster. Over the last minute the admission control system admitted 75% of operations within this time.
 
-{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
+{% include {{ page.version.version }}/ui/ui-summary-events.md %}

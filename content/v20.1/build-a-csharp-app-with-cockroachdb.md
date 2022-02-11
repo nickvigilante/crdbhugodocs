@@ -11,16 +11,16 @@ We have tested the [.NET Npgsql driver](http://www.npgsql.org/) enough to claim 
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Create a .NET project
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dotnet new console -o cockroachdb-test-app
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cd cockroachdb-test-app
 ~~~
@@ -31,7 +31,7 @@ The `dotnet` command creates a new app of type `console`. The `-o` parameter cre
 
 Install the latest version of the [Npgsql driver](https://www.nuget.org/packages/Npgsql/) into the .NET project using the built-in nuget package manager:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dotnet add package Npgsql
 ~~~
@@ -40,13 +40,13 @@ $ dotnet add package Npgsql
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -57,7 +57,7 @@ The private key generated for user `maxroach` by CockroachDB is [PEM encoded](ht
 
 To convert the key to PKCS#12 format, run the following OpenSSL command on the `maxroach` user's key file in the directory where you stored your certificates:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ openssl pkcs12 -inkey client.maxroach.key -password pass: -in client.maxroach.crt -export -out client.maxroach.pfx
 ~~~
@@ -75,14 +75,14 @@ Now that you have created a database and set up encryption keys, in this section
 
 Replace the contents of `cockroachdb-test-app/Program.cs` with the following code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ csharp
-{{ partial "{{ page.version.version }}/app/basic-sample.cs" . }}
+{% include {{ page.version.version }}/app/basic-sample.cs %}
 ~~~
 
 Then, run the code to connect as the `maxroach` user.  This time, execute a batch of statements as an atomic transaction to transfer funds from one account to another, where all included statements are either committed or aborted:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dotnet run
 ~~~
@@ -99,16 +99,16 @@ Initial balances:
 
 Open `cockroachdb-test-app/Program.cs` again and replace the contents with the code shown below.
 
-{{ partial "{{ page.version.version }}/client-transaction-retry.md" . }}
+{% include {{ page.version.version }}/client-transaction-retry.md %}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ csharp
-{{ partial "{{ page.version.version }}/app/txn-sample.cs" . }}
+{% include {{ page.version.version }}/app/txn-sample.cs %}
 ~~~
 
 Then, run the code to connect as the `maxroach` user.  This time, execute a batch of statements as an atomic transaction to transfer funds from one account to another, where all included statements are either committed or aborted:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dotnet run
 ~~~
@@ -126,7 +126,7 @@ Final balances:
 
 However, if you want to verify that funds were transferred from one account to another, use the [built-in SQL client](cockroach-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank -e 'SELECT id, balance FROM accounts'
 ~~~
@@ -145,7 +145,7 @@ $ cockroach sql --certs-dir=certs --database=bank -e 'SELECT id, balance FROM ac
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Run the C# code
 
@@ -160,14 +160,14 @@ Now that you have created a database and set up encryption keys, in this section
 
 Replace the contents of `cockroachdb-test-app/Program.cs` with the following code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ csharp
-{{ partial "{{ page.version.version }}/app/insecure/basic-sample.cs" . }}
+{% include {{ page.version.version }}/app/insecure/basic-sample.cs %}
 ~~~
 
 Then, run the code to connect as the `maxroach` user and execute some basic SQL statements: creating a table, inserting rows, and reading and printing the rows:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dotnet run
 ~~~
@@ -186,16 +186,16 @@ Initial balances:
 
 Open `cockroachdb-test-app/Program.cs` again and replace the contents with the code shown below.
 
-{{ partial "{{ page.version.version }}/client-transaction-retry.md" . }}
+{% include {{ page.version.version }}/client-transaction-retry.md %}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ csharp
-{{ partial "{{ page.version.version }}/app/insecure/txn-sample.cs" . }}
+{% include {{ page.version.version }}/app/insecure/txn-sample.cs %}
 ~~~
 
 Then, run the code to connect as the `maxroach` user.  This time, execute a batch of statements as an atomic transaction to transfer funds from one account to another, where all included statements are either committed or aborted:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ dotnet run
 ~~~
@@ -213,7 +213,7 @@ Final balances:
 
 However, if you want to verify that funds were transferred from one account to another, use the [built-in SQL client](cockroach-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure  --database=bank -e 'SELECT id, balance FROM accounts'
 ~~~
@@ -232,4 +232,4 @@ $ cockroach sql --insecure  --database=bank -e 'SELECT id, balance FROM accounts
 
 Read more about using the [.NET Npgsql driver](http://www.npgsql.org/).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

@@ -19,20 +19,20 @@ To follow along with the example below, you will need the following prerequisite
 - [`ogr2ogr`](https://gdal.org/programs/ogr2ogr.html)
 - [Python 3](https://www.python.org)
 
-{{ partial "{{ page.version.version }}/spatial/ogr2ogr-supported-version.md" . }}
+{% include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
 
 ## Step 1. Download the GeoPackage data
 
 First, download the zip file containing the spring location data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 wget https://resources.gisdata.mn.gov/pub/gdrs/data/pub/us_mn_state_dnr/env_mn_springs_inventory/gpkg_env_mn_springs_inventory.zip
 ~~~
 
 Next, unzip the file:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 unzip gpkg_env_mn_springs_inventory.zip
 ~~~
@@ -41,7 +41,7 @@ unzip gpkg_env_mn_springs_inventory.zip
 
 To load the GeoPackage into CockroachDB, we must first convert it to SQL using the `ogr2ogr` tool.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 ogr2ogr -f PGDUMP springs.sql -lco LAUNDER=NO -lco DROP_TABLE=OFF env_mn_springs_inventory.gpkg
 ~~~
@@ -52,7 +52,7 @@ This particular data set emits a warning  due to some date formatting.
 Warning 1: Non-conformant content for record 1 in column field_ch_1, 2017/05/04, successfully parsed
 ~~~
 
-{{ partial "{{ page.version.version }}/spatial/ogr2ogr-supported-version.md" . }}
+{% include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
 
 ## Step 3. Host the files where the cluster can access them
 
@@ -60,7 +60,7 @@ Each node in the CockroachDB cluster needs to have access to the files being imp
 
 For local testing, you can [start a local file server](use-a-local-file-server-for-bulk-operations.html).  The following command will start a local file server listening on port 3000:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 python3 -m http.server 3000
 ~~~
@@ -69,12 +69,12 @@ python3 -m http.server 3000
 
 Next, create a database to hold the natural spring location data:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach sql --insecure
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 CREATE DATABASE springs;
 USE springs;
@@ -84,7 +84,7 @@ USE springs;
 
 Since the file is being served from a local server and is formatted as Postgres-compatible SQL, we can import the data using the following [`IMPORT PGDUMP`](import.html#import-a-postgres-database-dump) statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 IMPORT PGDUMP ('http://localhost:3000/springs.sql');
 ~~~

@@ -7,4 +7,4 @@ docs_area: reference.sql
 
 The `ALTER PARTITION` [statement](sql-statements.html) is used to configure replication zones for [partitioning](partitioning.html). See the [`CONFIGURE ZONE`](configure-zone.html) subcommand for more details.
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}

@@ -42,9 +42,9 @@
 
     3. Start the Helm server and [install Tiller](https://docs.helm.sh/using_helm/#installing-tiller):
 
-        {{site.data.alerts.callout_info}}
+        {{site.data.alerts.callout_info }}
         Tiller does not currently support [Kubernetes 1.16.0](https://kubernetes.io/blog/2019/07/18/api-deprecations-in-1-16/). The following command includes a workaround to install Tiller for use with 1.16.0.
-        {{site.data.alerts.end}}
+        {{site.data.alerts.end }}
 
 
         {% include copy-clipboard.html %}
@@ -61,9 +61,9 @@
 
 4. Install the CockroachDB Helm chart, providing a "release" name to identify and track this particular deployment of the chart:
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     This tutorial uses `my-release` as the release name. If you use a different value, be sure to adjust the release name in subsequent commands.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -72,20 +72,20 @@
 
     Behind the scenes, this command uses our `cockroachdb-statefulset.yaml` file to create the StatefulSet that automatically creates 3 pods, each with a CockroachDB node running inside it, where each pod has distinguishable network identity and always binds back to the same persistent storage on restart.
 
-    {{site.data.alerts.callout_danger}}
+    {{site.data.alerts.callout_danger }}
     To avoid running out of memory when CockroachDB is not the only pod on a Kubernetes node, you must set memory limits explicitly. This is because CockroachDB does not detect the amount of memory allocated to its pod when run in Kubernetes.
 
     We recommend setting `CacheSize` and `MaxSQLMemory` each to 1/4 of the memory allocation specified in your `Resources.requests.memory` parameter. For example, if you are allocating 8GiB of memory to each CockroachDB node, use the following values with the `--set` flag in the `helm install` command:
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include copy-clipboard.html %}
     ~~~ shell
     Requests.resources.memory="8GiB",CacheSize="2GiB",MaxSQLMemory="2GiB"
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     You can customize your deployment by passing [configuration parameters](https://github.com/cockroachdb/helm-charts/tree/master/cockroachdb#configuration) to `helm install` using the `--set key=value[,key=value]` flag. For a production cluster, you should consider modifying the `Storage` and `StorageClass` parameters. This chart defaults to 100 GiB of disk space per pod, but you may want more or less depending on your use case, and the default persistent volume `StorageClass` in your environment may not be what you want for a database (e.g., on GCE and Azure the default is not SSD).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 5. Confirm that three pods are `Running` successfully and that the one-time cluster initialization has `Completed`:
 
@@ -118,4 +118,4 @@
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

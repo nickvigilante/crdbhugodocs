@@ -315,7 +315,7 @@ Column | Description
 
 ### Retrieve all columns from an information schema table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM db_name.information_schema.table_constraints;
 ~~~
@@ -329,7 +329,7 @@ Column | Description
 
 ### Retrieve specific columns from an information schema table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT table_name, constraint_name FROM db_name.information_schema.table_constraints;
 ~~~

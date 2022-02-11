@@ -13,9 +13,9 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
     pod/cockroachdb-client-secure created
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     The pod uses the `root` client certificate created earlier to initialize the cluster, so there's no CSR approval required. If you issue client certificates for other users, however, be sure your SQL usernames contain only lowercase alphanumeric characters, `-`, or `.` so as to comply with [CSR naming requirements](orchestrate-cockroachdb-with-kubernetes.html#csr-names).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 2. Get a shell into the pod and start the CockroachDB [built-in SQL client](use-the-built-in-sql-client.html):
 
@@ -112,9 +112,9 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
         pod "cockroachdb-client-secure" created
         ~~~
 
-        {{site.data.alerts.callout_info}}
+        {{site.data.alerts.callout_info }}
         The pod uses the `root` client certificate created earlier to initialize the cluster, so there's no CSR approval required. If you issue client certificates for other users, however, be sure your SQL usernames contain only lowercase alphanumeric characters, `-`, or `.` so as to comply with [CSR naming requirements](orchestrate-cockroachdb-with-kubernetes.html#csr-names).
-        {{site.data.alerts.end}}
+        {{site.data.alerts.end }}
 
 2. Get a shell into the pod and start the CockroachDB [built-in SQL client](use-the-built-in-sql-client.html):
 
@@ -191,4 +191,4 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other [`cockroach` client commands](cockroach-commands.html) (e.g., `cockroach node`), repeat step 2 using the appropriate `cockroach` command.
 
 If you'd prefer to delete the pod and recreate it when needed, run `kubectl delete pod cockroachdb-client-secure`.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

@@ -31,11 +31,11 @@ instance | A physical or virtual machine. In this tutorial, you'll create GCE or
 
 ### Limitations
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-limitations.md %}
 
 ## Step 1. Start Kubernetes
 
-{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
+{% include {{ page.version.version }}/orchestration/start-kubernetes.md %}
 
 ## Step 2. Start CockroachDB
 
@@ -47,38 +47,38 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 </div>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-secure.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-helm-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cockroachdb-helm-secure.md %}
 </section>
 
 ## Step 3. Use the built-in SQL client
 
-{{ partial "{{ page.version.version }}/orchestration/test-cluster-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/test-cluster-secure.md %}
 
 ## Step 4. Access the Admin UI
 
-{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/monitor-cluster.md %}
 
 ## Step 5. Simulate node failure
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-simulate-failure.md %}
 
 ## Step 6. Set up monitoring and alerting
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md %}
 
 ## Step 7. Maintain the cluster
 
 ### Add nodes
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-scale-cluster.md %}
 
 3. Get the name of the `Pending` CSR for the new pod:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get csr
     ~~~
@@ -99,7 +99,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 4. Examine the CSR for the new pod:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl describe csr default.node.cockroachdb-3
     ~~~
@@ -126,7 +126,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 5. If everything looks correct, approve the CSR for the new pod:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl certificate approve default.node.cockroachdb-3
     ~~~
@@ -137,7 +137,7 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 6. Verify that the new pod started successfully:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -155,11 +155,11 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 ### Remove nodes
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-secure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-remove-nodes-secure.md %}
 
 ### Upgrade the cluster
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md %}
 
 ### Stop the cluster
 
@@ -167,7 +167,7 @@ To shut down the CockroachDB cluster:
 
 1. Delete all of the resources associated with the `cockroachdb` label, including the logs, remote persistent volumes, and Prometheus and Alertmanager resources:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete pods,statefulsets,services,persistentvolumeclaims,persistentvolumes,poddisruptionbudget,jobs,rolebinding,clusterrolebinding,role,clusterrole,serviceaccount,alertmanager,prometheus,prometheusrule,serviceMonitor -l app=cockroachdb
     ~~~
@@ -200,7 +200,7 @@ To shut down the CockroachDB cluster:
 
 2. Delete the pod created for `cockroach` client commands, if you didn't do so earlier:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete pod cockroachdb-client-secure
     ~~~
@@ -211,7 +211,7 @@ To shut down the CockroachDB cluster:
 
 3. Get the names of the CSRs for the cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get csr
     ~~~
@@ -230,7 +230,7 @@ To shut down the CockroachDB cluster:
 
 4. Delete the CSRs that you created:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete csr default.client.root default.node.cockroachdb-0 default.node.cockroachdb-1 default.node.cockroachdb-2 default.node.cockroachdb-3
     ~~~
@@ -245,7 +245,7 @@ To shut down the CockroachDB cluster:
 
 5. Get the names of the secrets for the cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get secrets
     ~~~
@@ -264,7 +264,7 @@ To shut down the CockroachDB cluster:
 
 6. Delete the secrets that you created:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete secrets alertmanager-cockroachdb default.client.root default.node.cockroachdb-0 default.node.cockroachdb-1 default.node.cockroachdb-2 default.node.cockroachdb-3
     ~~~
@@ -281,19 +281,19 @@ To shut down the CockroachDB cluster:
 7. Stop Kubernetes:
     - Hosted GKE:
 
-        {{ partial "copy-clipboard.html" . }}
+        {% include copy-clipboard.html %}
         ~~~ shell
         $ gcloud container clusters delete cockroachdb
         ~~~
     - Manual GCE:
 
-        {{ partial "copy-clipboard.html" . }}
+        {% include copy-clipboard.html %}
         ~~~ shell
         $ cluster/kube-down.sh
         ~~~
     - Manual AWS:
 
-        {{ partial "copy-clipboard.html" . }}
+        {% include copy-clipboard.html %}
         ~~~ shell
         $ cluster/kube-down.sh
         ~~~
@@ -306,4 +306,4 @@ To shut down the CockroachDB cluster:
 
 - [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}
+{% include {{ page.version.version }}/prod-deployment/prod-see-also.md %}

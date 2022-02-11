@@ -22,7 +22,7 @@ The `UNIQUE` [constraint](constraints.html) specifies that each non-`NULL` value
 
 - You can define the `UNIQUE` constraint when [creating a table](#syntax), or you can add it to existing tables through [`ADD CONSTRAINT`](add-constraint.html#add-the-unique-constraint).
 
-{{ partial "{{ page.version.version }}/sql/indexes-regional-by-row.md" . }}
+{% include {{ page.version.version }}/sql/indexes-regional-by-row.md %}
 
 For an example that uses unique indexes, see [Add a unique index to a `REGIONAL BY ROW` table](add-constraint.html#add-a-unique-index-to-a-regional-by-row-table).
 
@@ -33,7 +33,7 @@ For an example that uses unique indexes, see [Add a unique index to a `REGIONAL 
 ### Column level
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/unique_column_level.html %}
+{{< sql-diagram "unique_column_level.html" >}}
 </div>
 
 Parameter | Description
@@ -47,7 +47,7 @@ Parameter | Description
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE warehouses (
     warehouse_id    INT        PRIMARY KEY NOT NULL,
@@ -59,7 +59,7 @@ Parameter | Description
 ### Table level
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/unique_table_level.html %}
+{{< sql-diagram "unique_table_level.html" >}}
 </div>
 
 Parameter | Description
@@ -72,7 +72,7 @@ Parameter | Description
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logon (
     login_id  INT PRIMARY KEY,
@@ -84,7 +84,7 @@ Parameter | Description
 
 ## Usage example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS logon (
     login_id INT PRIMARY KEY,
@@ -94,12 +94,12 @@ Parameter | Description
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO logon (login_id, customer_id, sales_id) VALUES (1, 2, 1);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO logon (login_id, customer_id, sales_id) VALUES (2, 2, 1);
 ~~~
@@ -110,17 +110,17 @@ duplicate key value (customer_id,sales_id)=(2,1) violates unique constraint "log
 
 As mentioned in the [details](#details) above, it is possible when using the `UNIQUE` constraint alone to insert *NULL* values in a way that causes rows to appear to have rows with duplicate values.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO logon (login_id, customer_id, sales_id) VALUES (3, 2, NULL);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO logon (login_id, customer_id, sales_id) VALUES (4, 2, NULL);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT customer_id, sales_id FROM logon;
 ~~~

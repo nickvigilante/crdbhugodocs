@@ -8,7 +8,7 @@ filter_sort: 2
 docs_area: deploy
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This page shows you how to connect to your {{ site.data.products.dedicated }} cluster.
 
@@ -148,21 +148,21 @@ To connect to your cluster with the [built-in SQL client](../{{site.versions["st
 
 1. If you have not done so already, run the first command in the dialog to install the CockroachDB binary and copy it into the `PATH`:
 
-    {{ partial "cockroachcloud/download-the-binary.md" . }}
+    {% include cockroachcloud/download-the-binary.md %}
 
 1. In your terminal, run the second command from the dialog to create a new `certs` directory on your local machine and download the CA certificate to that directory:
 
-    {{ partial "cockroachcloud/download-the-cert.md" . }}
+    {% include cockroachcloud/download-the-cert.md %}
 
 1. Copy the [`cockroach sql`](../{{site.versions["stable"] }}/cockroach-sql.html) command and connection string provided in the Console, which will be used in the next step (and to connect to your cluster in the future):
 
-    {{ partial "cockroachcloud/sql-connection-string.md" . }}
+    {% include cockroachcloud/sql-connection-string.md %}
 
 1. In your terminal, enter the copied `cockroach sql` command and connection string to start the [built-in SQL client](../{{site.versions["stable"] }}/cockroach-sql.html).
 
 1. Enter the SQL user's password and hit enter.
 
-    {{ partial "cockroachcloud/postgresql-special-characters.md" . }}
+    {% include cockroachcloud/postgresql-special-characters.md %}
 
     {{site.data.alerts.callout_info }}
     If you forget your SQL user's password, a Console Admin can change the password on the **SQL Users** page.
@@ -186,7 +186,7 @@ To connect to your cluster with your application, use the connection string prov
 
 1. In your terminal, run the first command from the dialog to create a new `certs` directory on your local machine and download the CA certificate to that directory:
 
-    {{ partial "cockroachcloud/download-the-cert.md" . }}
+    {% include cockroachcloud/download-the-cert.md %}
 
 1. Copy the connection string provided in the Console, which will be used to connect your application to {{ site.data.products.db }}:
 
@@ -213,7 +213,7 @@ To connect to your cluster with your application, use the connection string prov
 
 1. Add your copied connection string to your application code.
 
-    {{ partial "cockroachcloud/postgresql-special-characters.md" . }}
+    {% include cockroachcloud/postgresql-special-characters.md %}
 
     {{site.data.alerts.callout_info }}
     If you forget your SQL user's password, a Console Admin can change the password on the **SQL Users** page.

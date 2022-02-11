@@ -29,7 +29,7 @@ The table below the chart shows which metrics are being queried, and how they'll
 
 Options include:
 
-{{ partial "{{ page.version.version }}/admin-ui-custom-chart-debug-page-00.html" . }}
+{% include {{ page.version.version }}/admin-ui-custom-chart-debug-page-00.html %}
 
 ## Examples
 
@@ -52,7 +52,7 @@ Checking **Per Node** displays statistics for each node, which could show whethe
 This list is taken directly from the source code and is subject to change. Some of the metrics listed below are already visible in other areas of the [Admin UI](admin-ui-overview.html).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/metric-names.md" . }}
+{% include {{ page.version.version }}/metric-names.md %}
 
 ## See Also
 

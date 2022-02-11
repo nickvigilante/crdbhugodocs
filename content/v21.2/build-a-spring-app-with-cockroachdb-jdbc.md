@@ -10,7 +10,7 @@ filter_sort: 1
 docs_area: develop
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how to build a [Spring Boot](https://spring.io/projects/spring-boot) web application with CockroachDB, using the [Spring Data JDBC](https://spring.io/projects/spring-data-jdbc) module for data access. The code for the example application is available for download from [GitHub](https://github.com/cockroachlabs/roach-data/tree/master), along with identical examples that use [JPA](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-jpa), [jOOQ](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-jooq), and [MyBatis](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-mybatis) for data access.
 
@@ -34,11 +34,11 @@ Choose whether to run a local cluster or a free {{ site.data.products.db }} clus
 
 ### Create a free cluster
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
 ### Set up your cluster connection
 
-{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection.md" . }}
+{% include cockroachcloud/quickstart/set-up-your-cluster-connection.md %}
 
   </section>
 
@@ -217,7 +217,7 @@ datasource:
 ...
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 

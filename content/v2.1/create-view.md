@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE VIEW` statement creates a new [view](views.html), which is a stored query represented as a virtual table.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section> {{ partial "{{ page.version.version }}/sql/diagrams/create_view.html" . }} </section>
+<section> {% include {{ page.version.version }}/sql/diagrams/create_view.html %} </section>
 
 ## Parameters
 
@@ -30,7 +30,7 @@ Parameter | Description
 
 Let's say you're using our [sample `startrek` database](generate-cockroachdb-resources.html#generate-example-data), which contains two tables, `episodes` and `quotes`. There's a foreign key constraint between the `episodes.id` column and the `quotes.episode` column. To count the number of famous quotes per season, you could run the following join:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT startrek.episodes.season, count(*)
   FROM startrek.quotes
@@ -52,7 +52,7 @@ Let's say you're using our [sample `startrek` database](generate-cockroachdb-res
 
 Alternatively, to make it much easier to run this complex query, you could create a view:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE VIEW startrek.quotes_per_season (season, quotes)
   AS SELECT startrek.episodes.season, count(*)
@@ -68,7 +68,7 @@ CREATE VIEW
 
 The view is then represented as a virtual table alongside other tables in the database:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM startrek;
 ~~~
@@ -86,7 +86,7 @@ The view is then represented as a virtual table alongside other tables in the da
 
 Executing the query is as easy as `SELECT`ing from the view, as you would from a standard table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM startrek.quotes_per_season;
 ~~~

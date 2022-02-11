@@ -21,7 +21,7 @@ In CockroachDB, the following are aliases for `SHOW INDEX`:
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/show_index.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/show_index.html %}
 </div>
 
 ## Parameters
@@ -47,7 +47,7 @@ Field | Description
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE t1 (
     a INT PRIMARY KEY,
@@ -57,12 +57,12 @@ Field | Description
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX b_c_idx ON t1 (b, c) STORING (d);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEX FROM t1;
 ~~~

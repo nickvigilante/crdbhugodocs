@@ -20,7 +20,7 @@ The user must have the `INSERT` [privilege](authorization.html#assign-privileges
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/insert.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/insert.html %}
 </div>
 
 ## Parameters
@@ -38,7 +38,7 @@ Parameter | Description
 ### `ON CONFLICT` clause
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/on_conflict.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/on_conflict.html %}
 </div>
 
 Normally, when inserted values
@@ -67,7 +67,7 @@ key. Using `ON CONFLICT` is therefore more flexible.
 
 All of the examples below assume you've already created a table `accounts`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE accounts(
     id INT DEFAULT unique_rowid(),
@@ -77,12 +77,12 @@ All of the examples below assume you've already created a table `accounts`:
 
 ### Insert a single row
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (balance, id) VALUES (10000.50, 1);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -97,7 +97,7 @@ All of the examples below assume you've already created a table `accounts`:
 
 If you do not list column names, the statement will use the columns of the table in their declared order:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM accounts;
 ~~~
@@ -112,12 +112,12 @@ If you do not list column names, the statement will use the columns of the table
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts VALUES (2, 20000.75);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -135,12 +135,12 @@ If you do not list column names, the statement will use the columns of the table
 
 {{site.data.alerts.callout_success}} Multi-row inserts are faster than multiple single-row <code>INSERT</code> statements. As a performance best practice, we recommend batching multiple rows in one multi-row <code>INSERT</code> statement instead of using multiple single-row <code>INSERT</code> statements. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance) VALUES (3, 8100.73), (4, 9400.10);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -162,7 +162,7 @@ The [`IMPORT`](import.html) statement performs better than `INSERT` when inserti
 
 ### Insert from a `SELECT` statement
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMS FROM other_accounts;
 ~~~
@@ -177,12 +177,12 @@ The [`IMPORT`](import.html) statement performs better than `INSERT` when inserti
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance) SELECT number, amount FROM other_accounts WHERE id > 4;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -203,17 +203,17 @@ The [`IMPORT`](import.html) statement performs better than `INSERT` when inserti
 
 ### Insert default values
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id) VALUES (8);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance) VALUES (9, DEFAULT);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id in (8, 9);
 ~~~
@@ -227,12 +227,12 @@ The [`IMPORT`](import.html) statement performs better than `INSERT` when inserti
 +----+---------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts DEFAULT VALUES;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -272,7 +272,7 @@ In this example, the `RETURNING` clause returns the `id` values of the rows inse
 
 <section class="filter-content" markdown="1" data-scope="shell">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance)
   VALUES (DEFAULT, 1000), (DEFAULT, 250)
@@ -293,7 +293,7 @@ In this example, the `RETURNING` clause returns the `id` values of the rows inse
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ python
 # Import the driver.
 import psycopg2
@@ -343,7 +343,7 @@ IDs:
 
 <section class="filter-content" markdown="1" data-scope="ruby">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ ruby
 # Import the driver.
 require 'pg'
@@ -387,7 +387,7 @@ IDs:
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
 package main
 
@@ -445,7 +445,7 @@ IDs:
 
 <section class="filter-content" markdown="1" data-scope="js">
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ js
 var async = require('async');
 
@@ -513,7 +513,7 @@ IDs:
 
 When a uniqueness conflict is detected, CockroachDB stores the row in a temporary table called `excluded`. This example demonstrates how you use the columns in the temporary `excluded` table to apply updates on conflict:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance)
     VALUES (8, 500.50)
@@ -521,7 +521,7 @@ When a uniqueness conflict is detected, CockroachDB stores the row in a temporar
     DO UPDATE SET balance = excluded.balance;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id = 8;
 ~~~
@@ -537,7 +537,7 @@ When a uniqueness conflict is detected, CockroachDB stores the row in a temporar
 
 You can also update the row using an existing value:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance)
     VALUES (8, 500.50)
@@ -545,7 +545,7 @@ You can also update the row using an existing value:
     DO UPDATE SET balance = accounts.balance + excluded.balance;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id = 8;
 ~~~
@@ -560,7 +560,7 @@ You can also update the row using an existing value:
 
 You can also use a `WHERE` clause to apply the `DO UPDATE SET` expression conditionally:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance)
     VALUES (8, 700)
@@ -569,7 +569,7 @@ You can also use a `WHERE` clause to apply the `DO UPDATE SET` expression condit
     WHERE excluded.balance > accounts.balance;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id = 8;
 ~~~
@@ -587,7 +587,7 @@ You can also use a `WHERE` clause to apply the `DO UPDATE SET` expression condit
 
 In this example, we get an error from a uniqueness conflict:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id = 8;
 ~~~
@@ -600,7 +600,7 @@ In this example, we get an error from a uniqueness conflict:
 +----+---------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance) VALUES (8, 125.50);
 ~~~
@@ -611,7 +611,7 @@ pq: duplicate key value (id)=(8) violates unique constraint "primary"
 
 In this example, we use `ON CONFLICT DO NOTHING` to ignore the uniqueness error and prevent the affected row from being updated:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance)
     VALUES (8, 125.50)
@@ -619,7 +619,7 @@ In this example, we use `ON CONFLICT DO NOTHING` to ignore the uniqueness error 
     DO NOTHING;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id = 8;
 ~~~
@@ -634,7 +634,7 @@ In this example, we use `ON CONFLICT DO NOTHING` to ignore the uniqueness error 
 
 In this example, `ON CONFLICT DO NOTHING` prevents the first row from updating while allowing the second row to be inserted:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts (id, balance)
     VALUES (8, 125.50), (10, 450)
@@ -642,7 +642,7 @@ In this example, `ON CONFLICT DO NOTHING` prevents the first row from updating w
     DO NOTHING;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE id in (8, 10);
 ~~~
@@ -665,7 +665,7 @@ duplicates.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > WITH
     -- the following data contains duplicates on the conflict column "id":
@@ -681,7 +681,7 @@ The `DISTINCT ON` clause does not guarantee which of the duplicates is
 considered. To force the selection of a particular duplicate, use an
 `ORDER BY` clause:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > WITH
     -- the following data contains duplicates on the conflict column "id":

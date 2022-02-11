@@ -98,7 +98,7 @@ By default, commands besides `cockroach start` discard messages with the `INFO` 
 
 ## Flags
 
-{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
+{% include {{ page.version.version }}/misc/logging-flags.md %}
 
 ## See also
 

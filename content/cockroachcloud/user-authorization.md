@@ -18,7 +18,7 @@ By default, a new SQL user created using a [Console Admin](console-access-manage
 <p></p>
 
 <section class="filter-content" markdown="1" data-scope="console">
-{{ partial "cockroachcloud/cockroachcloud-ask-admin.md" . }}
+{% include cockroachcloud/cockroachcloud-ask-admin.md %}
 
 Once you are [logged in](https://cockroachlabs.cloud/), you can use the Console to create a new user:
 

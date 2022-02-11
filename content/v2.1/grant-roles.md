@@ -11,7 +11,7 @@ The `GRANT <roles>` [statement](sql-statements.html) lets you add a [role](autho
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/grant_roles.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/grant_roles.html %}</section>
 
 ## Required privileges
 
@@ -36,12 +36,12 @@ Parameter | Description
 
 ### Grant role membership
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT design TO ernie;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~
@@ -58,11 +58,11 @@ Parameter | Description
 
 ### Grant the admin option
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > GRANT design TO ERNIE WITH ADMIN OPTION;
 ~~~
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~

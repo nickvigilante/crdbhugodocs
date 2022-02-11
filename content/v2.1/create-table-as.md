@@ -33,7 +33,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section> {{ partial "{{ page.version.version }}/sql/diagrams/create_table_as.html" . }} </section>
+<section> {% include {{ page.version.version }}/sql/diagrams/create_table_as.html %} </section>
 
 ## Parameters
 
@@ -61,7 +61,7 @@ default rules for [column families](column-families.html) apply.
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logoff (
     user_id INT PRIMARY KEY,
@@ -70,12 +70,12 @@ For example:
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logoff_copy AS TABLE logoff;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE logoff_copy;
 ~~~
@@ -102,12 +102,12 @@ It is however possible to
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX logoff_copy_id_idx ON logoff_copy(user_id);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE logoff_copy;
 ~~~
@@ -135,7 +135,7 @@ results.
 
 ### Create a table from a `SELECT` query
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers WHERE state = 'NY';
 ~~~
@@ -148,12 +148,12 @@ results.
 +----+---------+-------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers_ny AS SELECT * FROM customers WHERE state = 'NY';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers_ny;
 ~~~
@@ -170,12 +170,12 @@ results.
 
 This statement creates a copy of an existing table but with changed column names.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers_ny (id, first_name) AS SELECT id, name FROM customers WHERE state = 'NY';
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers_ny;
 ~~~
@@ -190,12 +190,12 @@ This statement creates a copy of an existing table but with changed column names
 
 ### Create a table from a `VALUES` clause
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE tech_states AS VALUES ('CA'), ('NY'), ('WA');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM tech_states;
 ~~~
@@ -213,12 +213,12 @@ This statement creates a copy of an existing table but with changed column names
 
 ### Create a copy of an existing table
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customers_ny_copy AS TABLE customers_ny;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customers_ny_copy;
 ~~~

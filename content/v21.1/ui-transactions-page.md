@@ -79,7 +79,7 @@ The statement table gives details for each SQL statement in the transaction:
 
 Column | Description
 -------|------------
-{{ partial "{{ page.version.version }}/ui/statement_table.md" . }}
+{% include {{ page.version.version }}/ui/statement_table.md %}
 
 ## See also
 

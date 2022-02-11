@@ -24,11 +24,11 @@ Only Core changefeeds are available on {{ site.data.products.serverless-plan }}.
 
 ### Create a core changefeed
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed.md %}
 
 ### Create a core changefeed using Avro
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed-avro.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed-avro.md %}
 
 For further information on Core changefeeds, see [`EXPERIMENTAL CHANGEFEED FOR`](changefeed-for.html).
 
@@ -48,7 +48,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 2. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
@@ -57,7 +57,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Move into the extracted `confluent-<version>` directory and start Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services start
     ~~~
@@ -66,7 +66,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Create two Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -76,7 +76,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -90,13 +90,13 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
     {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/cdc/sql-cluster-settings-example.md" . }}
+{% include {{ page.version.version }}/cdc/sql-cluster-settings-example.md %}
 
-{{ partial "{{ page.version.version }}/cdc/create-example-db-cdc.md" . }}
+{% include {{ page.version.version }}/cdc/create-example-db-cdc.md %}
 
 1. Start the changefeed:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs, employees INTO 'kafka://localhost:9092';
     ~~~
@@ -112,7 +112,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. In a new terminal, move into the extracted `confluent-<version>` directory and start watching the Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-console-consumer \
     --bootstrap-server=localhost:9092 \
@@ -129,11 +129,11 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
     The initial scan displays the state of the tables as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
 
-    {{ partial "{{ page.version.version }}/cdc/print-key.md" . }}
+    {% include {{ page.version.version }}/cdc/print-key.md %}
 
 1. Back in the SQL client, insert more data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES (3, 'Ernie');
     ~~~
@@ -148,14 +148,14 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. To stop `cockroach`, run:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 1. To stop Kafka, move into the extracted `confluent-<version>` directory and stop Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services stop
     ~~~
@@ -172,7 +172,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
@@ -181,7 +181,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Move into the extracted `confluent-<version>` directory and start Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services start
     ~~~
@@ -190,7 +190,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Create two Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -200,7 +200,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -214,13 +214,13 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
     {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/cdc/sql-cluster-settings-example.md" . }}
+{% include {{ page.version.version }}/cdc/sql-cluster-settings-example.md %}
 
-{{ partial "{{ page.version.version }}/cdc/create-example-db-cdc.md" . }}
+{% include {{ page.version.version }}/cdc/create-example-db-cdc.md %}
 
 1. Start the changefeed:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs, employees INTO 'kafka://localhost:9092' WITH format = avro, confluent_schema_registry = 'http://localhost:8081';
     ~~~
@@ -236,7 +236,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. In a new terminal, move into the extracted `confluent-<version>` directory and start watching the Kafka topics:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/kafka-avro-console-consumer \
     --bootstrap-server=localhost:9092 \
@@ -253,11 +253,11 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
     The initial scan displays the state of the table as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
 
-    {{ partial "{{ page.version.version }}/cdc/print-key.md" . }}
+    {% include {{ page.version.version }}/cdc/print-key.md %}
 
 1. Back in the SQL client, insert more data:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO office_dogs VALUES (3, 'Ernie');
     ~~~
@@ -272,14 +272,14 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. To stop `cockroach`, run:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 1. To stop Kafka, move into the extracted `confluent-<version>` directory and stop Confluent:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ./bin/confluent local services stop
     ~~~
@@ -296,18 +296,18 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
 
-{{ partial "{{ page.version.version }}/cdc/sql-cluster-settings-example.md" . }}
+{% include {{ page.version.version }}/cdc/sql-cluster-settings-example.md %}
 
-{{ partial "{{ page.version.version }}/cdc/create-example-db-cdc.md" . }}
+{% include {{ page.version.version }}/cdc/create-example-db-cdc.md %}
 
 1. Start the changefeed:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs, employees INTO 's3://example-bucket-name/test?AWS_ACCESS_KEY_ID=enter_key-here&AWS_SECRET_ACCESS_KEY=enter_key_here' with updated, resolved='10s';
     ~~~
@@ -327,7 +327,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. To stop `cockroach`, run:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
@@ -338,7 +338,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 [`CREATE CHANGEFEED`](create-changefeed.html) is an [enterprise-only](enterprise-licensing.html) feature. For the Core version, see [the `CHANGEFEED FOR` example above](#create-a-core-changefeed).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/cdc/webhook-beta.md" . }}
+{% include {{ page.version.version }}/cdc/webhook-beta.md %}
 
 <span class="version-tag">New in v21.2:</span> In this example, you'll set up a changefeed for a single-node cluster that is connected to a local HTTP server via a webhook. For this example, you'll use an [example HTTP server](https://github.com/cockroachlabs/cdc-webhook-sink-test-server/tree/master/go-https-server) to test out the webhook sink.
 
@@ -346,7 +346,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 1. Use the [`cockroach start-single-node`](cockroach-start-single-node.html) command to start a single-node cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --listen-addr=localhost --background
     ~~~
@@ -355,47 +355,47 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
      First create the schema for the workload:
 
-     {{ partial "copy-clipboard.html" . }}
+     {% include copy-clipboard.html %}
      ~~~shell
      cockroach workload init movr "postgresql://root@127.0.0.1:26257?sslmode=disable"
      ~~~
 
      Then run the workload:
 
-     {{ partial "copy-clipboard.html" . }}
+     {% include copy-clipboard.html %}
      ~~~shell
      cockroach workload run movr --duration=1m "postgresql://root@127.0.0.1:26257?sslmode=disable"
      ~~~
 
-{{ partial "{{ page.version.version }}/cdc/sql-cluster-settings-example.md" . }}
+{% include {{ page.version.version }}/cdc/sql-cluster-settings-example.md %}
 
 1. In a separate terminal window, set up your HTTP server. Clone the test repository:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~shell
     git clone https://github.com/cockroachlabs/cdc-webhook-sink-test-server.git
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~shell
     cd cdc-webhook-sink-test-server/go-https-server
     ~~~
 
 1. Next make the script executable and then run the server (passing a specific port if preferred, otherwise it will default to `:3000`):
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~shell
     chmod +x ./server.sh
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~shell
     ./server.sh <port>
     ~~~
 
 1. Back in your SQL shell, run the following statement to create a changefeed that emits to your webhook sink:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~sql
     CREATE CHANGEFEED FOR TABLE movr.vehicles INTO 'webhook-https://localhost:3000?insecure_tls_skip_verify=true' WITH updated;
     ~~~

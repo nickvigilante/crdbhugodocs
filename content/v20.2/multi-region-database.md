@@ -6,7 +6,7 @@ toc: true
 
 This page walks you through creating a database schema for an example multi-region application. It is the second section of the [Develop and Deploy a Multi-Region Web Application](multi-region-overview.html) tutorial.
 
-{{ partial "{{ page.version.version }}/misc/movr-flask-211.md" . }}
+{% include {{ page.version.version }}/misc/movr-flask-211.md %}
 
 ## Before you begin
 

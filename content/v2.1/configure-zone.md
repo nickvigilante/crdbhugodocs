@@ -17,25 +17,25 @@ Adding replication zones for rows and secondary indexes is an [enterprise-only](
 **alter_zone_range_stmt ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_range.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_range.html %}
 </div>
 
 **alter_zone_database_stmt ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_database.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_database.html %}
 </div>
 
 **alter_zone_table_stmt ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_table.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_table.html %}
 </div>
 
 **alter_zone_index_stmt ::=**
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_index.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/alter_zone_index.html %}
 </div>
 
 ## Required privileges
@@ -57,13 +57,13 @@ Currently, only the `root` user can configure replication zones.
 
 ### Variables
 
-{{ partial "v2.1/zone-configs/variables.md" . }}
+{% include v2.1/zone-configs/variables.md %}
 
 ## Examples
 
 ### Edit a replication zone
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE t CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 4, constraints = '[-region=west]';
 ~~~
@@ -74,35 +74,35 @@ CONFIGURE ZONE 1
 
 ### Edit the default replication zone
 
-{{ partial "v2.1/zone-configs/edit-the-default-replication-zone.md" . }}
+{% include v2.1/zone-configs/edit-the-default-replication-zone.md %}
 
 ### Create a replication zone for a database
 
-{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-database.md" . }}
+{% include v2.1/zone-configs/create-a-replication-zone-for-a-database.md %}
 
 ### Create a replication zone for a table
 
-{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-table.md" . }}
+{% include v2.1/zone-configs/create-a-replication-zone-for-a-table.md %}
 
 ### Create a replication zone for a secondary index
 
-{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-secondary-index.md" . }}
+{% include v2.1/zone-configs/create-a-replication-zone-for-a-secondary-index.md %}
 
 ### Create a replication zone for a table or secondary index partition
 
-{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-table-partition.md" . }}
+{% include v2.1/zone-configs/create-a-replication-zone-for-a-table-partition.md %}
 
 ### Create a replication zone for a system range
 
-{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-system-range.md" . }}
+{% include v2.1/zone-configs/create-a-replication-zone-for-a-system-range.md %}
 
 ### Reset a replication zone
 
-{{ partial "v2.1/zone-configs/reset-a-replication-zone.md" . }}
+{% include v2.1/zone-configs/reset-a-replication-zone.md %}
 
 ### Remove a replication zone
 
-{{ partial "v2.1/zone-configs/remove-a-replication-zone.md" . }}
+{% include v2.1/zone-configs/remove-a-replication-zone.md %}
 
 ## See also
 

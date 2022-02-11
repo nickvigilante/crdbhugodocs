@@ -35,7 +35,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 ### Column level
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_column_level.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/primary_key_column_level.html %}
 </div>
 
  Parameter | Description
@@ -49,7 +49,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        INT PRIMARY KEY,
@@ -63,7 +63,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 ### Table level
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_table_level.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/primary_key_table_level.html %}
 </div>
 
  Parameter | Description
@@ -76,7 +76,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -88,7 +88,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 ## Usage example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -98,12 +98,12 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -112,7 +112,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~

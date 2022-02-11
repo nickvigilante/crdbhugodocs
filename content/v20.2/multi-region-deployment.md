@@ -6,9 +6,9 @@ toc: true
 
 This page walks you through deploying an application and database in multiple regions. It is the fifth and final section of the [Develop and Deploy a Multi-Region Web Application](multi-region-overview.html) tutorial.
 
-{{ partial "{{ page.version.version }}/misc/movr-flask-211.md" . }}
+{% include {{ page.version.version }}/misc/movr-flask-211.md %}
 
-{{ partial "{{ page.version.version }}/misc/movr-live-demo.md" . }}
+{% include {{ page.version.version }}/misc/movr-live-demo.md %}
 
 ## Before you begin
 
@@ -46,7 +46,7 @@ In production, you want to start a secure CockroachDB cluster, with nodes on mac
 
 1. Open a new terminal, and run the `dbinit.sql` file on the running cluster to initialize the database. You can connect to the database from any node on the cluster for this step.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --url any-connection-string < dbinit.sql
     ~~~
@@ -87,31 +87,31 @@ To serve a secure web application, you also need a public domain name!
 
 1. Configure/authorize the `gcloud` CLI to use your project and region.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud init
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud auth login
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud auth application-default login
     ~~~
 
 1. If you haven't already, install `kubectl`.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud components install kubectl
     ~~~
 
 1. Build and run the Docker image locally.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ docker build -t gcr.io/<gcp_project>/movr-app:v1 .
     ~~~
@@ -120,26 +120,26 @@ To serve a secure web application, you also need a public domain name!
 
 1. Push the Docker image to the project’s gcloud container registry.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ docker push gcr.io/<gcp_project>/movr-app:v1
     ~~~
 
 1. Create a K8s cluster for all three regions.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud config set compute/zone us-east1-b && \
       gcloud container clusters create movr-us-east
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud config set compute/zone us-west1-b && \
       gcloud container clusters create movr-us-west
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell  
     $ gcloud config set compute/zone europe-west1-b && \
       gcloud container clusters create movr-europe-west
@@ -147,24 +147,24 @@ To serve a secure web application, you also need a public domain name!
 
 1. Add the container credentials to `kubeconfig`.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ KUBECONFIG=~/mcikubeconfig gcloud container clusters get-credentials --zone=us-east1-b movr-us-east
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ KUBECONFIG=~/mcikubeconfig gcloud container clusters get-credentials --zone=us-west1-b movr-us-west
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ KUBECONFIG=~/mcikubeconfig gcloud container clusters get-credentials --zone=europe-west1-b movr-europe-west
     ~~~
 
 1. For each cluster context, create a secret for the connection string, Google Maps API, and the certs, and then create the k8s deployment and service using the `movr.yaml` manifest file:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl config use-context <context-name> && \
     kubectl create secret generic movr-db-cert --from-file=cert=<full-path-to-cert> && \
@@ -187,14 +187,14 @@ To serve a secure web application, you also need a public domain name!
 
 1. Reserve a static IP address for the ingress.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud compute addresses create --global movr-ip
     ~~~
 
     To verify that you successfully created the new IP address, run the following command:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ gcloud compute addresses list
     ~~~
@@ -202,14 +202,14 @@ To serve a secure web application, you also need a public domain name!
 
 1. Download [`kubemci`](https://github.com/GoogleCloudPlatform/k8s-multicluster-ingress), and then make it executable:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ chmod +x ~/kubemci
     ~~~
 
 1. Use `kubemci` to make the ingress.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ~/kubemci create movr-mci \
     --ingress=<path>/movr-flask/mcingress.yaml \
@@ -239,7 +239,7 @@ To serve a secure web application, you also need a public domain name!
 
 1. Check the status of the ingress.
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ ~/kubemci list --gcp-project=<gcp_project>
     ~~~

@@ -10,7 +10,7 @@ toc: true
 [Partitioning](partitioning.html) is an [Enterprise-only](enterprise-licensing.html) feature. If you are looking for the `PARTITION BY` used in SQL window functions, see [Window Functions](window-functions.html).
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
+{% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
 ## Primary key requirements
 
@@ -23,13 +23,13 @@ If the primary key in your existing table does not meet the requirements, you ca
 **alter_table_partition_by_stmt ::=**
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/alter_table_partition_by.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/alter_table_partition_by.html %}
 </div>
 
 **alter_index_partition_by_stmt ::=**
 
 <div class="horizontal-scroll">
-{{ partial "{{ page.version.version }}/sql/diagrams/alter_index_partition_by.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/alter_index_partition_by.html %}
 </div>
 
 ## Parameters
@@ -48,10 +48,10 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 
-{{ partial "{{ page.version.version }}/sql/querying-partitions.md" . }}
+{% include {{ page.version.version }}/sql/querying-partitions.md %}
 
 ## Examples
 
@@ -59,7 +59,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 Suppose we have a table called `students_by_list`, and secondary index on the table called `name_idx`, in a global online learning portal, and the primary key of the table is defined as `(country, id)`. We can define partitions on the table and index by list:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE students_by_list PARTITION BY LIST (country) (
     PARTITION north_america VALUES IN ('CA','US'),
@@ -68,7 +68,7 @@ Suppose we have a table called `students_by_list`, and secondary index on the ta
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX students_by_list@name_idx PARTITION BY LIST (country) (
     PARTITION north_america VALUES IN ('CA','US'),
@@ -81,7 +81,7 @@ Suppose we have a table called `students_by_list`, and secondary index on the ta
 
 Suppose we have another table called `students_by_range`, also with a secondary index called `name_idx`, and the primary key of the table is defined as `(expected_graduation_date, id)`. We can define partitions on the table and index by range:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE students_by_range PARTITION BY RANGE (expected_graduation_date) (
     PARTITION graduated VALUES FROM (MINVALUE) TO ('2017-08-15'),
@@ -89,7 +89,7 @@ Suppose we have another table called `students_by_range`, also with a secondary 
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX students_by_range@name_idx PARTITION BY RANGE (expected_graduation_date) (
     PARTITION graduated VALUES FROM (MINVALUE) TO ('2017-08-15'),
@@ -101,7 +101,7 @@ Suppose we have another table called `students_by_range`, also with a secondary 
 
 Suppose we have an yet another table named `students`, again with a secondary index called `name_idx`, and the primary key is defined as `(country, expected_graduation_date, id)`. We can define partitions and subpartitions on the table and index:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE students PARTITION BY LIST (country) (
     PARTITION australia VALUES IN ('AU','NZ') PARTITION BY RANGE (expected_graduation_date) (
@@ -115,7 +115,7 @@ Suppose we have an yet another table named `students`, again with a secondary in
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX students@name_idx PARTITION BY LIST (country) (
     PARTITION australia VALUES IN ('AU','NZ') PARTITION BY RANGE (expected_graduation_date) (
@@ -131,7 +131,7 @@ Suppose we have an yet another table named `students`, again with a secondary in
 
 ### Repartition a table or secondary index
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE students_by_range PARTITION BY RANGE (expected_graduation_date) (
     PARTITION graduated VALUES FROM (MINVALUE) TO ('2018-08-15'),
@@ -139,7 +139,7 @@ Suppose we have an yet another table named `students`, again with a secondary in
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX students_by_range@name_idx PARTITION BY RANGE (expected_graduation_date) (
     PARTITION graduated VALUES FROM (MINVALUE) TO ('2018-08-15'),
@@ -149,12 +149,12 @@ Suppose we have an yet another table named `students`, again with a secondary in
 
 ### Unpartition a table or secondary index
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE students PARTITION BY NOTHING;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX students@name_idx PARTITION BY NOTHING;
 ~~~

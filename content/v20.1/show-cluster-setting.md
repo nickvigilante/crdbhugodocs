@@ -47,7 +47,7 @@ Only members of the `admin` role can display cluster settings. By default, the `
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/show_cluster_setting.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/show_cluster_setting.html %}
 </div>
 
 ## Parameters
@@ -74,7 +74,7 @@ Field | Description
 
 ### Show the value of a single cluster setting
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER SETTING diagnostics.reporting.enabled;
 ~~~
@@ -88,7 +88,7 @@ Field | Description
 
 ### Show the values of all public cluster settings
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER SETTINGS;
 ~~~
@@ -104,7 +104,7 @@ Field | Description
 
 ### Show the values of all cluster settings
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ALL CLUSTER SETTINGS;
 ~~~

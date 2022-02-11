@@ -14,7 +14,7 @@ Choose whether you want to orchestrate CockroachDB with Kubernetes using the hos
 
     {{site.data.alerts.callout_success}}
     The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the CockroachDB Admin UI using the steps in this guide.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 2. From your local workstation, start the Kubernetes cluster:
 
@@ -42,9 +42,9 @@ Choose whether you want to orchestrate CockroachDB with Kubernetes using the hos
     Account: [your.google.cloud.email@example.org]
     ~~~
 
-    {{site.data.alerts.callout_danger}}
+    {{site.data.alerts.callout_danger }}
     This command returns your email address in all lowercase. However, in the next step, you must enter the address using the accurate capitalization. For example, if your address is YourName@example.com, you must use YourName@example.com and not yourname@example.com.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 4. [Create the RBAC roles](https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#prerequisites_for_using_role-based_access_control) CockroachDB needs for running on GKE, using the address from the previous step:
 

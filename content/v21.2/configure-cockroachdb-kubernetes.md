@@ -18,7 +18,7 @@ These settings override the defaults used when [deploying CockroachDB on Kuberne
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
+{% include {{ page.version.version }}/orchestration/operator-check-namespace.md %}
 
 {{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
@@ -53,7 +53,7 @@ spec:
       memory: "16Gi"
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-custom-resource.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
@@ -73,7 +73,7 @@ spec:
           memory: "16Gi"
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-statefulset-manifest.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-statefulset-manifest.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
@@ -90,7 +90,7 @@ statefulset:
       memory: "16Gi"
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-helm-values.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-helm-values.md %}
 </section>
 
 We recommend using identical values for `resources.requests` and `resources.limits`. When setting the new values, note that not all of a pod's resources will be available to the CockroachDB container. This is because a fraction of the CPU and memory is reserved for Kubernetes.
@@ -116,7 +116,7 @@ spec:
   maxSQLMemory: "4Gi"
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-custom-resource.md %}
 
 {{site.data.alerts.callout_info }}
 Specifying these values is equivalent to using the `--cache` and `--max-sql-memory` flags with [`cockroach start`](cockroach-start.html#flags).
@@ -138,7 +138,7 @@ conf:
   max-sql-memory: "4Gi"
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-helm-values.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-helm-values.md %}
 </section>
 
 ## Persistent storage
@@ -203,7 +203,7 @@ spec:
             storage: "100Gi"
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-custom-resource.md %}
 
 The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new storage capacity. 
 
@@ -211,11 +211,11 @@ To verify that the storage capacity has been updated, run `kubectl get pvc` to v
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-manual.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-expand-disk-manual.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-helm.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-expand-disk-helm.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="operator">
@@ -236,7 +236,7 @@ spec:
   sqlPort: 5432
 ~~~
 
-{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
+{% include {{ page.version.version }}/orchestration/apply-custom-resource.md %}
 
 The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new port settings. 
 

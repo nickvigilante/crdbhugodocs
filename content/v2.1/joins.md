@@ -12,7 +12,7 @@ Join expressions define a data source in the `FROM` sub-clause of [simple `SELEC
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {{ partial "{{ page.version.version }}/sql/diagrams/joined_table.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/joined_table.html %}
 </div>
 
 <div markdown="1"></div>
@@ -130,7 +130,7 @@ Hash joins are performed on two tables as follows:
 
 ### Lookup joins
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 <span class="version-tag">New in v2.1:</span> A lookup join is beneficial to use when there is a large imbalance in size between the two tables, as it only reads the smaller table and then looks up matches in the larger table. A lookup join requires that the right-hand (i.e., larger) table is indexed on the equality column.
 
@@ -140,14 +140,14 @@ To use a lookup join:
 
 1. Open the [built-in SQL shell](use-the-built-in-sql-client.html) and enable the feature:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SET experimental_force_lookup_join = true;
     ~~~
 
 2. In your query, specify the indexes to use if not the default index. For example:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM weather@index_1 LEFT OUTER JOIN cities ON (weather.city = cities.name);
     ~~~

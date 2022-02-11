@@ -29,7 +29,7 @@ This page discusses:
 
 ## Replication zone patterns and multi-region SQL abstractions
 
-{{ partial "{{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md" . }}
+{% include {{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md %}
 
 {{site.data.alerts.callout_info }}
 CockroachDB will no longer provide the [Follow-the-Workload](topology-follow-the-workload.html) pattern's behavior for a database if you use the [multi-region SQL statements](multiregion-overview.html) with that database. In other words, the multi-region SQL statements do not provide a behavior that is analogous to Follow-the-Workload.
@@ -178,7 +178,7 @@ For each table in your database, apply the [table locality](multiregion-overview
 
 As described above, the mapping from legacy replication zone patterns to multi-region SQL abstractions is:
 
-{{ partial "{{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md" . }}
+{% include {{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md %}
 
 For example, to configure the `postal_codes` table from the [duplicate indexes example above](#duplicate-indexes) to use [multi-region SQL](multiregion-overview.html), you would enter the following statements to make the `postal_codes` table a [`GLOBAL` table](global-tables.html):
 

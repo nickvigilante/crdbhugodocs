@@ -73,7 +73,7 @@ pod/cockroachdb-client-secure created
     This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other [`cockroach` client commands](cockroach-commands.html) (e.g., `cockroach node`), repeat step 2 using the appropriate `cockroach` command.
 
     If you'd prefer to delete the pod and recreate it when needed, run `kubectl delete pod cockroachdb-client-secure`.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 {% include {{ page.version.version }}/orchestration/kubernetes-basic-sql.md %}
 </section>
@@ -131,7 +131,7 @@ pod/cockroachdb-client-secure created
     This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other [`cockroach` client commands](cockroach-commands.html) (e.g., `cockroach node`), repeat step 2 using the appropriate `cockroach` command.
 
     If you'd prefer to delete the pod and recreate it when needed, run `kubectl delete pod cockroachdb-client-secure`.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 {% include {{ page.version.version }}/orchestration/kubernetes-basic-sql.md %}
 </section>

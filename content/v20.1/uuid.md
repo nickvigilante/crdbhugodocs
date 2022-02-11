@@ -30,17 +30,17 @@ A `UUID` value is 128 bits in width, but the total storage size is likely to be 
 
 #### Create a table with `UUID` in standard [RFC4122](http://www.ietf.org/rfc/rfc4122.txt)-specified format
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE v (token uuid);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO v VALUES ('63616665-6630-3064-6465-616462656562');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM v;
 ~~~
@@ -56,12 +56,12 @@ A `UUID` value is 128 bits in width, but the total storage size is likely to be 
 
 #### Create a table with `UUID` in standard [RFC4122](http://www.ietf.org/rfc/rfc4122.txt)-specified format with braces
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO v VALUES ('{63616665-6630-3064-6465-616462656563}');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM v;
 ~~~
@@ -78,12 +78,12 @@ A `UUID` value is 128 bits in width, but the total storage size is likely to be 
 
 #### Create a table with `UUID` in byte format
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO v VALUES (b'kafef00ddeadbeed');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM v;
 ~~~
@@ -101,12 +101,12 @@ A `UUID` value is 128 bits in width, but the total storage size is likely to be 
 
 #### Create a table with `UUID` used as URN
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO v VALUES ('urn:uuid:63616665-6630-3064-6465-616462656564');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM v;
 ~~~
@@ -125,7 +125,7 @@ A `UUID` value is 128 bits in width, but the total storage size is likely to be 
 
 ### Create a table with auto-generated unique row IDs
 
-{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
+{% include {{ page.version.version }}/faq/auto-generate-unique-ids.html %}
 
 ## Supported casting and conversion
 

@@ -14,7 +14,7 @@ While a table or view is being [dropped](drop-table.html), `SHOW TABLES` will li
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_tables.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_tables.html %}
 </div>
 
 ## Required privileges
@@ -41,13 +41,13 @@ To optimize the performance of the `SHOW TABLES` statement, you can do the follo
 
 ## Examples
 
-{{ partial "{{ page.version.version }}/sql/movr-statements-nodes.md" . }}
+{% include {{ page.version.version }}/sql/movr-statements-nodes.md %}
 
 ### Show tables in the current database
 
 `SHOW TABLES` uses the [current schema](sql-name-resolution.html#current-schema) `public` set by default in `search_path`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -66,7 +66,7 @@ To optimize the performance of the `SHOW TABLES` statement, you can do the follo
 
 Alternatively, within the built-in SQL shell, you can use the `\dt` [shell command](cockroach-sql.html#commands):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > \dt
 ~~~
@@ -87,12 +87,12 @@ Alternatively, within the built-in SQL shell, you can use the `\dt` [shell comma
 
 You can show the tables in schemas other than the current schema. You can also show the schema by table:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr.information_schema;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM information_schema;
 ~~~
@@ -114,12 +114,12 @@ Because `movr` is the current database, these statements return the same output:
 
 You can also show tables from a different database.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM system.public;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM system;
 ~~~
@@ -141,14 +141,14 @@ Because `public` is the current schema, these statements return the same output:
 
 You can use [`COMMENT ON`](comment-on.html) to add comments on a table.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > COMMENT ON TABLE users IS 'This table contains information about users.';
 ~~~
 
 To view a table's comments:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr WITH COMMENT;
 ~~~
@@ -167,7 +167,7 @@ To view a table's comments:
 
  You can also view comments on a table with [`SHOW CREATE`](show-create.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -196,7 +196,7 @@ The virtual tables in the `pg_catalog`, `information_schema`, and `crdb_internal
 
 To view virtual tables with comments and documentation links, use `SHOW TABLES FROM <virtual schema> WITH COMMENT`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM information_schema WITH COMMENT;
 ~~~
@@ -224,11 +224,11 @@ To view virtual tables with comments and documentation links, use `SHOW TABLES F
 
 For [multi-region](multiregion-overview.html) tables, you can display the locality of each table using the `SHOW TABLES` command.
 
-{{ partial "enterprise-feature.md" . }}
+{% include enterprise-feature.md %}
 
 First, [set the primary region](set-primary-region.html) on `movr` to `us-east`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER DATABASE movr SET PRIMARY REGION "us-east";
 ~~~
@@ -237,12 +237,12 @@ All tables will be [`REGIONAL BY TABLE`](set-locality.html#set-the-table-localit
 
 Next, configure the `users` table to be [`REGIONAL BY ROW`](set-locality.html#set-the-table-locality-to-regional-by-row):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users SET LOCALITY REGIONAL BY ROW;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~

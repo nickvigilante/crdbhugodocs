@@ -10,11 +10,11 @@ toc: true
 
 The `EXPERIMENTAL CHANGEFEED FOR` [statement](sql-statements.html) creates a new core changefeed, which streams row-level changes to the client indefinitely until the underlying connection is closed or the changefeed is canceled. A core changefeed can watch one table or multiple tables in a comma-separated list.
 
-{{ partial "{{ page.version.version }}/cdc/core-url.md" . }}
+{% include {{ page.version.version }}/cdc/core-url.md %}
 
 For more information, see [Stream Data Out of CockroachDB Using Changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html).
 
-{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
+{% include {{ page.version.version }}/misc/experimental-warning.md %}
 
 ## Required privileges
 
@@ -66,11 +66,11 @@ Currently, support for Avro is limited and experimental. Below is a list of unsu
 
 ### Create a changefeed
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed.md %}
 
 ### Create a changefeed with Avro
 
-{{ partial "{{ page.version.version }}/cdc/create-core-changefeed-avro.md" . }}
+{% include {{ page.version.version }}/cdc/create-core-changefeed-avro.md %}
 
 <!-- ### Pause and resume a changefeed
 

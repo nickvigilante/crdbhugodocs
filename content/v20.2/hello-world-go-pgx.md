@@ -15,7 +15,7 @@ This tutorial shows you how build a simple Hello World Go application with Cockr
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
+{% include {{ page.version.version }}/app/sample-setup.md %}
 
 ## Step 2. Get the code
 
@@ -89,4 +89,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [pgx](https://pkg.go.dev/github.com/jackc/pgx) docs
 - [Transactions](transactions.html)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

@@ -9,13 +9,13 @@ The **Hardware** dashboard lets you monitor the hardware utilization of your clu
 
 To view this dashboard, [access the DB Console](ui-overview.html#db-console-access), click **Metrics** in the left-hand navigation, and select **Dashboard** > **Hardware**.
 
-{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
 The **Hardware** dashboard displays the following time series graphs:
 
 ## CPU Percent
 
-{{ partial "{{ page.version.version }}/ui/cpu-percent-graph.md" . }}
+{% include {{ page.version.version }}/ui/cpu-percent-graph.md %}
 
 ## Memory Usage
 
@@ -68,7 +68,7 @@ This graph shows the memory consumption by the CockroachDB process only and is u
 - In the cluster view, the graph shows the number of disk reads and writes in queue for all processes, including CockroachDB, across all nodes in the cluster.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/prod-deployment/healthy-disk-ops-in-progress.md" . }}
+{% include {{ page.version.version }}/prod-deployment/healthy-disk-ops-in-progress.md %}
 {{site.data.alerts.end }}
 
 {{site.data.alerts.callout_info }}
@@ -93,7 +93,7 @@ The **available** disk capacity equals the amount of empty disk space, up to the
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Available Disk Capacity** graph.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 {{site.data.alerts.end }}
 
 ## Network Bytes Received

@@ -9,7 +9,7 @@ toc: true
 ## Syntax
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_enums.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/show_enums.html %}
 </div>
 
 ## Parameters
@@ -20,17 +20,17 @@ Parameter | Description
 
 ## Examples
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE weekday AS ENUM ('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE weekend AS ENUM ('sunday', 'saturday');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS;
 ~~~
@@ -43,7 +43,7 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS FROM movr.public;
 ~~~

@@ -9,7 +9,7 @@ toc: true
 ## Synopsis
 
 <div class="horizontal-scroll">
-{{ partial "{{ page.version.version }}/sql/diagrams/show_zone.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/show_zone.html %}
 </div>
 
 ## Required privileges
@@ -30,27 +30,27 @@ Parameter | Description
 
 ### View all replication zones
 
-{{ partial "{{ page.version.version }}/zone-configs/view-all-replication-zones.md" . }}
+{% include {{ page.version.version }}/zone-configs/view-all-replication-zones.md %}
 
 ### View the default replication zone for the cluster
 
-{{ partial "{{ page.version.version }}/zone-configs/view-the-default-replication-zone.md" . }}
+{% include {{ page.version.version }}/zone-configs/view-the-default-replication-zone.md %}
 
 ### View the replication zone for a database
 
-{{ partial "{{ page.version.version }}/zone-configs/view-the-replication-zone-for-a-database.md" . }}
+{% include {{ page.version.version }}/zone-configs/view-the-replication-zone-for-a-database.md %}
 
 ### View the replication zone for a table
 
-{{ partial "{{ page.version.version }}/zone-configs/view-the-replication-zone-for-a-table.md" . }}
+{% include {{ page.version.version }}/zone-configs/view-the-replication-zone-for-a-table.md %}
 
 ### View the replication zone for an index
 
-{{ partial "{{ page.version.version }}/zone-configs/view-the-replication-zone-for-an-index.md" . }}
+{% include {{ page.version.version }}/zone-configs/view-the-replication-zone-for-an-index.md %}
 
 ### View the replication zone for a table partition
 
-{{ partial "{{ page.version.version }}/zone-configs/view-the-replication-zone-for-a-partition.md" . }}
+{% include {{ page.version.version }}/zone-configs/view-the-replication-zone-for-a-partition.md %}
 
 ## See also
 

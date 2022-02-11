@@ -6,7 +6,7 @@ toc: true
 
 The `DROP SEQUENCE` [statement](sql-statements.html) removes a sequence from a database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/diagrams/drop_sequence.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/diagrams/drop_sequence.html %}</div>
 
 ## Parameters
 
@@ -39,12 +39,12 @@ table td:first-child {
 
 In this example, other objects do not depend on the sequence being dropped.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE even_numbers INCREMENT 2 START 2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~
@@ -56,12 +56,12 @@ In this example, other objects do not depend on the sequence being dropped.
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP SEQUENCE even_numbers;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~

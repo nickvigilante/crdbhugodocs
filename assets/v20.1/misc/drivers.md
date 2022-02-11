@@ -1,6 +1,6 @@
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Applications may encounter incompatibilities when using advanced or obscure features of a driver or ORM with **beta-level** support. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 | App Language | Drivers                                                                                                                                                                                                                                  | ORMs         | Support level                                        |
 |--------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------------------+------|

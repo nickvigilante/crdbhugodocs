@@ -19,7 +19,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 ### Column level
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/primary_key_column_level.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/primary_key_column_level.html %}
 </div>
 
  Parameter | Description
@@ -33,7 +33,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -47,7 +47,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 ### Table level
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/primary_key_table_level.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/primary_key_table_level.html %}
 </div>
 
  Parameter | Description
@@ -60,7 +60,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 
 **Example**
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -80,7 +80,7 @@ For best practices, see [Schema Design: Select primary key columns](schema-desig
 
 ## Example
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -90,12 +90,12 @@ For best practices, see [Schema Design: Select primary key columns](schema-desig
   );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -104,7 +104,7 @@ For best practices, see [Schema Design: Select primary key columns](schema-desig
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~

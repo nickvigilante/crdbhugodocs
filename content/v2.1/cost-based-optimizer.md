@@ -11,7 +11,7 @@ In versions 2.1 and later, CockroachDB's **cost-based optimizer is enabled by de
 - If your query uses functionality that is not supported by the cost-based optimizer
 - If you explicitly [turn off the cost-based optimizer](#how-to-turn-the-optimizer-off)
 
-{{ partial "{{ page.version.version }}/misc/beta-warning.md" . }}
+{% include {{ page.version.version }}/misc/beta-warning.md %}
 
 ## How is cost calculated?
 
@@ -30,7 +30,7 @@ To see whether a query will be run with the cost-based optimizer, run the query 
 
 For example, the following query (which uses [CockroachDB's TPC-H data set](https://github.com/cockroachdb/cockroach/tree/b1a57102d8e99b301b74c97527c1b8ffd4a4f3f1/pkg/workload/tpch)) returns the query plan tree, which means that it will be run with the cost-based optimizer:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN(OPT) SELECT l_shipmode, avg(l_extendedprice) from lineitem GROUP BY l_shipmode;
 ~~~
@@ -59,7 +59,7 @@ group-by
 
 In contrast, this query returns `pq: unsupported statement: *tree.Insert`, which means that it will use the legacy heuristic planner instead of the cost-based optimizer:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN (OPT) INSERT INTO l_shipmode VALUES ("truck");
 ~~~
@@ -74,14 +74,14 @@ With the optimizer turned on, the performance of some workloads may change. If y
 
 To turn the cost-based optimizer off for the current session:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET optimizer = 'off';
 ~~~
 
 To turn the cost-based optimizer off for all sessions:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING sql.defaults.optimizer = 'off';
 ~~~

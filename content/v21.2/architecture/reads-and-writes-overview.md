@@ -13,7 +13,7 @@ For a more detailed information about how transactions work in CockroachDB, see 
 
 ## Important concepts
 
-{{ partial "{{ page.version.version }}/misc/basic-terms.md" . }}
+{% include {{ page.version.version }}/misc/basic-terms.md %}
 
 As mentioned above, when a query is executed, the cluster routes the request to the leaseholder for the range containing the relevant data. If the query touches multiple ranges, the request goes to multiple leaseholders. For a read request, only the leaseholder of the relevant range retrieves the data. For a write request, the Raft consensus protocol dictates that a majority of the replicas of the relevant range must agree before the write is committed.
 

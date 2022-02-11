@@ -41,7 +41,7 @@ Usable disk space is constrained by the following:
 The DB Console thus calculates **usable** disk space as the sum of empty disk space, up to the value of the maximum store size, and disk space that is already being **used** by CockroachDB data.
 
 {{site.data.alerts.callout_info }}
-{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
 {{site.data.alerts.end }}
 
 ## Node List

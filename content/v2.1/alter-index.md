@@ -6,7 +6,7 @@ toc: false
 
 The `ALTER INDEX` [statement](sql-statements.html) applies a schema change to an index.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 For information on using `ALTER INDEX`, see the documents for its relevant subcommands.
 

@@ -14,7 +14,7 @@ Only the `root` user can run `SHOW BACKUP`.
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/show_backup.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/show_backup.html %}
 </div>
 
 ## Parameters

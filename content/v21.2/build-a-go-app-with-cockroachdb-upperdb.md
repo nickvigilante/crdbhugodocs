@@ -9,25 +9,25 @@ filter_sort: 3
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Go application with CockroachDB and the [upper/db](https://upper.io/) data access layer.
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 <section class="filter-content" markdown="1" data-scope="secure">
 
 ## Step 1. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 2. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -46,9 +46,9 @@ The sample code shown below uses upper/db to map Go-specific objects to SQL oper
 - Updates the rows in the `accounts` table within an explicit [transaction](transactions.html).
 - Prints the rows in the `accounts` table to the terminal once more.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
-{{ partial "{{ page.version.version }}/app/upperdb-basic-sample/main.go" . }}
+{% include {{ page.version.version }}/app/upperdb-basic-sample/main.go %}
 ~~~
 
 Note that the sample code also includes a function that simulates a transaction error (`crdbForceRetry()`). Upper/db's CockroachDB adapter [automatically retries transactions](transactions.html#client-side-intervention) when transaction errors are thrown. As a result, this function forces a transaction retry.
@@ -69,7 +69,7 @@ Note that you will need to edit the connection string to use the certificates th
 
 ## Step 1. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 2. Run the Go code
 
@@ -83,9 +83,9 @@ The sample code shown below uses upper/db to map Go-specific objects to SQL oper
 - Updates the rows in the `accounts` table within an explicit [transaction](transactions.html).
 - Prints the rows in the `accounts` table to the terminal once more.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ go
-{{ partial "{{ page.version.version }}/app/insecure/upperdb-basic-sample/main.go" . }}
+{% include {{ page.version.version }}/app/insecure/upperdb-basic-sample/main.go %}
 ~~~
 
 Note that the sample code also includes a function that simulates a transaction error (`crdbForceRetry()`). Upper/db's CockroachDB adapter [automatically retries transactions](transactions.html#client-side-intervention) when transaction errors are thrown. As a result, this function forces a transaction retry.
@@ -102,14 +102,14 @@ To clone a version of the code below that connects to insecure clusters, run the
 
 Change to the directory where you cloned the repo and get the dependencies with `go mod init`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ go mod init hello-world-go-upperdb
 ~~~
 
 Then run the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ go run main.go
 ~~~
@@ -159,4 +159,4 @@ Read more about upper/db:
 - [The upper/db tour](https://tour.upper.io/)
 - [upper/db reference docs](https://pkg.go.dev/github.com/upper/db/v4)
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

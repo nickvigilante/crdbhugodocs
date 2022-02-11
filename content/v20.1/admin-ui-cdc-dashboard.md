@@ -6,7 +6,7 @@ toc: true
 
 The **Changefeeds** dashboard in the CockroachDB Admin UI lets you monitor the [changefeeds](change-data-capture.html) created across your cluster. To view this dashboard, [access the Admin UI](admin-ui-overview.html#admin-ui-access), click **Metrics** on the left-hand navigation bar, and then select **Dashboard** > **Changefeeds**.
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md %}
 
 The **Changefeeds** dashboard displays the following time series graphs:
 
@@ -64,7 +64,7 @@ This graph displays the number of times changefeeds restarted due to retryable e
 
 <img src="{{ 'images/v20.1/admin_ui_changefeed_restarts.png' | relative_url }}" alt="CockroachDB Admin UI Changefeed Restarts graph" style="border:1px solid #eee;max-width:100%" />
 
-{{ partial "{{ page.version.version }}/admin-ui/admin-ui-summary-events.md" . }}
+{% include {{ page.version.version }}/admin-ui/admin-ui-summary-events.md %}
 
 ## See also
 

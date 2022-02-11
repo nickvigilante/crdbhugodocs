@@ -179,7 +179,7 @@ The files generated for a group named `default` are named after the pattern `coc
 #### Access in DB Console
 
 {{site.data.alerts.callout_success}}
-{{ partial "{{ page.version.version }}/ui/ui-log-files.md" . }}
+{% include {{ page.version.version }}/ui/ui-log-files.md %}
 {{site.data.alerts.end }}
 
 #### Known limitations

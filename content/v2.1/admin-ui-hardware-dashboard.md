@@ -81,7 +81,7 @@ For Mac OS, this graph is not populated and shows zero disk IOPS in progress. Th
 - In the cluster view, the graph shows the available storage capacity across all nodes in the cluster.
 
 {{site.data.alerts.callout_info }}
-{{ partial "v2.1/misc/available-capacity-metric.md" . }}
+{% include v2.1/misc/available-capacity-metric.md %}
 {{site.data.alerts.end }}
 
 ## Network Bytes Received

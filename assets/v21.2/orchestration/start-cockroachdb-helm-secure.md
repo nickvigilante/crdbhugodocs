@@ -1,12 +1,12 @@
-{{site.data.alerts.callout_danger}}
+{{site.data.alerts.callout_danger }}
 The CockroachDB Helm chart is compatible with Kubernetes versions 1.22 and earlier (the latest version as of this writing). However, no new feature development is currently planned. If you are experiencing issues with a Helm deployment on production, contact our [Support team](https://support.cockroachlabs.com/).
 
 If you are already running a secure Helm deployment on Kubernetes 1.22 and later, you must migrate away from using the Kubernetes CA for cluster authentication. For details, see [Certificate management](secure-cockroachdb-kubernetes.html?filters=helm#migration-to-self-signer).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](https://github.com/cockroachdb/cockroach/issues/38847).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 1. [Install the Helm client](https://helm.sh/docs/intro/install) (version 3.0 or higher) and add the `cockroachdb` chart repository:
 
@@ -28,9 +28,9 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
 1. The cluster configuration is set in the Helm chart's [values file](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml).
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     By default, the Helm chart specifies CPU and memory resources that are appropriate for the virtual machines used in this deployment example. On a production cluster, you should substitute values that are appropriate for your machines and workload. For details on configuring your deployment, see [Configure the Cluster](configure-cockroachdb-kubernetes.html?filters=helm).
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     Before deploying, modify some parameters in our Helm chart's [values file](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml):
 
@@ -40,7 +40,7 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
         {{site.data.alerts.callout_success}}
         For example, if you are allocating 8Gi of `memory` to each CockroachDB node, allocate 2Gi to `cache` and 2Gi to `max-sql-memory`.
-        {{site.data.alerts.end}}
+        {{site.data.alerts.end }}
 
         {% include_cached copy-clipboard.html %}
         ~~~ yaml
@@ -57,17 +57,17 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
           enabled: true
         ~~~
 
-        {{site.data.alerts.callout_info}}
+        {{site.data.alerts.callout_info }}
         By default, the Helm chart will generate and sign 1 client and 1 node certificate to secure the cluster. To authenticate using your own CA, see [Secure the Cluster](secure-cockroachdb-kubernetes.html?filters=helm).
-        {{site.data.alerts.end}}
+        {{site.data.alerts.end }}
 
 1. Install the CockroachDB Helm chart, specifying your custom values file.
 
     Provide a "release" name to identify and track this particular deployment of the chart, and override the default values with those in `my-values.yaml`.
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     This tutorial uses `my-release` as the release name. If you use a different value, be sure to adjust the release name in subsequent commands.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -107,4 +107,4 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}

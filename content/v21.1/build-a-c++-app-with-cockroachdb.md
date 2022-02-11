@@ -12,17 +12,17 @@ We have tested the [C++ libpqxx driver](https://github.com/jtv/libpqxx) enough t
 
 ## Step 1. Start CockroachDB
 
-{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
+{% include {{ page.version.version }}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database and a user
 
-{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
+{% include {{ page.version.version }}/app/create-a-database.md %}
 
 ## Step 3. Install the libpq and libpqxx drivers
 
 1. Install `libpq` on your machine. For example, on macOS:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     brew install libpq
     ~~~
@@ -67,21 +67,21 @@ You will need to open `basic-sample.cpp`, and edit the following:
 
 </section>
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ cpp
-{{ partial "{{ page.version.version }}/app/basic-sample.cpp" . }}
+{% include {{ page.version.version }}/app/basic-sample.cpp %}
 ~~~
 
 To build the `basic-sample.cpp` source code to an executable file named `basic-sample`, run the following command from the directory that contains the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ g++ -std=c++17 basic-sample.cpp -lpq -lpqxx -o basic-sample
 ~~~
 
 Then run the `basic-sample` file from that directory:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ ./basic-sample
 ~~~
@@ -118,28 +118,28 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.cpp" download><code>txn-sample.cpp</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ cpp
-{{ partial "{{ page.version.version }}/app/txn-sample.cpp" . }}
+{% include {{ page.version.version }}/app/txn-sample.cpp %}
 ~~~
 
 To build the `txn-sample.cpp` source code to an executable file named `txn-sample`, run the following command from the  directory that contains the code:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ g++ -std=c++17 txn-sample.cpp -lpq -lpqxx -o txn-sample
 ~~~
 
 Then run the `txn-sample` file from that directory:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ ./txn-sample
 ~~~
 
 After running the code, use the [built-in SQL client](cockroach-sql.html) to verify that funds were transferred from one account to another:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --url 'postgresql://{username}:{password}@{host}:{port}/{cluster_name}.bank?sslmode=verify-full&sslrootcert={path/to/ca.crt}' -e 'SELECT id, balance FROM accounts'
 ~~~
@@ -156,4 +156,4 @@ id | balance
 
 Read more about using the [C++ libpqxx driver](https://github.com/jtv/libpqxx).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

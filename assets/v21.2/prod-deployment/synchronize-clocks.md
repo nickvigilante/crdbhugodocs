@@ -60,9 +60,9 @@ CockroachDB requires moderate levels of [clock synchronization](recommended-prod
     $ sudo service ntp start
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     We recommend Google's NTP service because it handles ["smearing" the leap second](https://developers.google.com/time/smear). If you use a different NTP service that doesn't smear the leap second, be sure to configure client-side smearing in the same way on each machine. See the [Production Checklist](recommended-production-settings.html#considerations) for details.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 6. Verify that the machine is using a Google NTP server:
 
@@ -161,9 +161,9 @@ Amazon provides the [Amazon Time Sync Service](http://docs.aws.amazon.com/AWSEC2
     $ sudo service ntp start
     ~~~
 
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     We recommend Google's NTP service because it handles ["smearing" the leap second](https://developers.google.com/time/smear). If you use a different NTP service that doesn't smear the leap second, be sure to configure client-side smearing in the same way on each machine. See the [Production Checklist](recommended-production-settings.html#considerations) for details.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
 
 7. Verify that the machine is using a Google NTP server:
 

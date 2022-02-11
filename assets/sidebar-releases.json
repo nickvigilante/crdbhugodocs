@@ -10,32 +10,15 @@
         "/releases/index.html"
       ]
     },
-    {
-      "title": "Production Releases",
-      "items": [
-        {% for x in v_prod %}
-          {% assign r_latest = site.data.releases | where_exp: "r_latest", "r_latest.major_version == x" | where: "withdrawn", "false" | sort: "release_date" | last | map: "version" %}
-          {
-            "title": "Latest {{ x }}",
-            "urls": [
-              "/releases/{{ r_latest }}.html"
-            ]
-          },
-        {% endfor %}
-        {
-          "title": "All Production Releases",
-          "urls": [
-            {% for x in v_prod %}
-              {% assign r_all = site.data.releases | where_exp: "r_all", "r_all.major_version == x" | where: "withdrawn", "false" | where: "release_type", "Production" | map: "version" %}
-              {% for r in r_all %}
-              "/releases/{{ r }}.html",
-              {% endfor %}
-            {% endfor %}
-            ""
-          ]
-        }
-      ]
-    },
+    {% for x in v_prod %}
+      {% assign r_latest = site.data.releases | where_exp: "r_latest", "r_latest.major_version == x" | where: "withdrawn", "false" | sort: "release_date" | last | map: "version" %}
+      {
+        "title": "Latest {{ x }}",
+        "urls": [
+          "/releases/{{ r_latest }}.html"
+        ]
+      },
+    {% endfor %}
     {% if v_test[0] %}
     {
       "title": "Testing Releases",

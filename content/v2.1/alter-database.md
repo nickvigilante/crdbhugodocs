@@ -6,7 +6,7 @@ toc: false
 
 The `ALTER DATABASE` [statement](sql-statements.html) applies a schema change to a database.
 
-{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
+{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
 
 For information on using `ALTER DATABASE`, see the documents for its relevant subcommands.
 

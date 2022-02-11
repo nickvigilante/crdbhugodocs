@@ -24,7 +24,7 @@ After an application establishes a connection to {{ site.data.products.db }}, th
 
 Make sure connection validation and retry logic is used by your application. Validating and retrying connections is typically handled by the driver, framework, or the connection pool used by an application. For guidance on connection pool sizing and connection validation, see [Use Connection Pools](../{{site.versions["stable"] }}/connection-pooling.html).
 
-{{ partial "common/transaction-retries.md" . }}
+{% include common/transaction-retries.md %}
 
 ## Authorize the right network (Dedicated)
 

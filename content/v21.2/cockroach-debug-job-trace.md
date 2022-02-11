@@ -23,7 +23,7 @@ See [`SHOW JOBS`](show-jobs.html#show-jobs) for details on capturing a `job_id`.
 
 ## Subcommands
 
-{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
+{% include {{ page.version.version }}/misc/debug-subcommands.md %}
 
 ## Flags
 
@@ -57,7 +57,7 @@ See the [`SHOW TRACE FOR SESSION`](show-trace.html#response) page for more infor
 
 To generate the `job-trace` zip file, use your [connection string](cockroach-start.html#standard-output) to pull the trace spans:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 cockroach debug job-trace 698977774875279361 --url=postgresql://root@localhost:26257?sslmode=disable
 ~~~

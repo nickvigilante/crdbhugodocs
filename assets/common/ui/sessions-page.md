@@ -1,5 +1,5 @@
 {% if page.cloud == true %}
-  {% capture link_prefix %}../{{site.versions["stable"]}}/{% endcapture %}
+  {% capture link_prefix %}../{{site.versions["stable"] }}/{% endcapture %}
   {% assign page_prefix = "" %}
 {% else %}
   {% assign link_prefix = "" %}
@@ -10,17 +10,17 @@
 
 Use the **Sessions** list to see the open sessions in the cluster. This includes active and idle sessions.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 A session is *active* if it has an open transaction (including implicit transactions, which are individual SQL statements), and *idle* if it has no open transaction. Active sessions consume hardware resources.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 - If a session is active, the most recent SQL statement is displayed in the **Statement** column.
 - If a session is idle, the **Transaction Duration**, **Statement Duration**, and **Statement** columns will display `N/A`.
 - To view [details of a session](#session-details), click **Session Duration**.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 An active session can have an open transaction that is not currently running SQL. In this case, the **Statement** and **Statement Duration** columns will display `N/A` and **Transaction Duration** will display a value. Transactions that are held open can cause [contention]({{ link_prefix }}performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention).
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 {% if page.cloud != true %}
 <img src="{{ 'images/v21.2/ui-sessions-page.png' | relative_url }}" alt="Sessions Page" style="border:1px solid #eee;max-width:100%" />
@@ -39,7 +39,7 @@ Actions | Options to terminate the active query and/or terminate the session. Th
 
 {{site.data.alerts.callout_success}}
 Sort by **Transaction Duration** to display all active sessions at the top.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 ## Session details
 

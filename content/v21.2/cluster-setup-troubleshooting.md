@@ -16,7 +16,7 @@ To use this guide, it's important to understand some of CockroachDB's terminolog
 
 Try running:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach start-single-node --insecure --logtostderr
 ~~~
@@ -30,16 +30,16 @@ When starting a node, the directory you choose to store the data in also contain
 **Solution:** Disassociate the node from the existing directory where you've stored CockroachDB data. For example, you can do either of the following:
 
 -   Choose a different directory to store the CockroachDB data:  
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --store=<new directory> --insecure
     ~~~
 -   Remove the existing directory and start the node again:
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --insecure --logtostderr
     ~~~
@@ -72,7 +72,7 @@ See [Why is my process hanging when I try to start it in the background?](operat
 
 If the CockroachDB node appeared to [start successfully](start-a-local-cluster.html), in a separate terminal run:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure -e "show databases"
 ~~~
@@ -136,17 +136,17 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 **Solution:** Disassociate the node from the existing directory where you've stored CockroachDB data. For example, you can do either of the following:
 
 -   Choose a different directory to store the CockroachDB data:  
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start --store=<new directory> --join=<cluster host> <other flags>
     ~~~
 -   Remove the existing directory and start a node joining the cluster again:
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start --join=<cluster host>:26257 <other flags>  
     ~~~
@@ -401,11 +401,11 @@ If these issues remain unresolved, affected nodes will miss their liveness heart
 
 - [Check your workload concurrency](common-issues-to-monitor.html#workload-concurrency) and compare it to your provisioned CPU.
 
-  - {{ partial "{{ page.version.version }}/prod-deployment/resolution-excessive-concurrency.md" . }}
+  - {% include {{ page.version.version }}/prod-deployment/resolution-excessive-concurrency.md %}
 
 - [Check LSM health](common-issues-to-monitor.html#lsm-health), which can be affected over time by CPU starvation.
 
-  - {{ partial "{{ page.version.version }}/prod-deployment/resolution-inverted-lsm.md" . }}
+  - {% include {{ page.version.version }}/prod-deployment/resolution-inverted-lsm.md %}
 
 ## Memory issues
 
@@ -437,7 +437,7 @@ If Go allocated memory is larger than a few hundred megabytes, you might have en
     CGo Allocated | Memory allocated by the C layer.
     CGo Total | Total memory managed by the C layer.
 
-    {{ partial "{{ page.version.version }}/prod-deployment/healthy-crdb-memory.md" . }}
+    {% include {{ page.version.version }}/prod-deployment/healthy-crdb-memory.md %}
 
     If you observe any of the following, [file an issue](file-an-issue.html):
       - CGo Allocated is larger than the configured `--cache` size.
@@ -454,7 +454,7 @@ CockroachDB attempts to restart nodes after they crash. Nodes that frequently re
 
 - [Confirm that the node restarts are caused by OOM crashes.](common-issues-to-monitor.html#verify-oom-errors)
 
-  - {{ partial "{{ page.version.version }}/prod-deployment/resolution-oom-crash.md" . }}
+  - {% include {{ page.version.version }}/prod-deployment/resolution-oom-crash.md %}
 
 - [Check whether SQL queries may be responsible.](common-issues-to-monitor.html#sql-memory-usage)
 

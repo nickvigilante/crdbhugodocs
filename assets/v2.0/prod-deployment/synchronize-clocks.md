@@ -60,7 +60,7 @@ CockroachDB requires moderate levels of [clock synchronization](recommended-prod
     $ sudo service ntp start
     ~~~
 
-    {{site.data.alerts.callout_info}}We recommend Google's external NTP service because they handle <a href="https://developers.google.com/time/smear">"smearing" the leap second</a>. If you use a different NTP service that doesn't smear the leap second, you must configure client-side smearing manually and do so in the same way on each machine.{{site.data.alerts.end}}
+    {{site.data.alerts.callout_info }}We recommend Google's external NTP service because they handle <a href="https://developers.google.com/time/smear">"smearing" the leap second</a>. If you use a different NTP service that doesn't smear the leap second, you must configure client-side smearing manually and do so in the same way on each machine.{{site.data.alerts.end }}
 
 6. Verify that the machine is using a Google NTP server:
 
@@ -157,7 +157,7 @@ Amazon provides the [Amazon Time Sync Service](http://docs.aws.amazon.com/AWSEC2
     $ sudo service ntp start
     ~~~
 
-    {{site.data.alerts.callout_info}}We recommend Google's NTP service because they handle <a href="https://developers.google.com/time/smear">"smearing" the leap second</a>. If you use a different NTP service that doesn't smear the leap second, be sure to configure client-side smearing in the same way on each machine.{{site.data.alerts.end}}
+    {{site.data.alerts.callout_info }}We recommend Google's NTP service because they handle <a href="https://developers.google.com/time/smear">"smearing" the leap second</a>. If you use a different NTP service that doesn't smear the leap second, be sure to configure client-side smearing in the same way on each machine.{{site.data.alerts.end }}
 
 7. Verify that the machine is using a Google NTP server:
 

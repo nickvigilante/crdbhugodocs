@@ -19,11 +19,11 @@ In a multi-region deployment, the geo-partitioned [leaseholders](architecture/re
 
 ### Fundamentals
 
-{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
+{% include {{ page.version.version }}/topology-patterns/fundamentals.md %}
 
 ### Cluster setup
 
-{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
+{% include {{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md %}
 
 ## Configuration
 
@@ -41,7 +41,7 @@ Using this pattern, you design your table schema to allow for [partitioning](par
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table and secondary index like the following:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
     id UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -53,7 +53,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 );
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX users_last_name_index ON users (city, last_name);
 ~~~
@@ -62,7 +62,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 2. Partition the table by `city`. For example, assuming there are three possible `city` values, `los angeles`, `chicago`, and `new york`:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER TABLE users PARTITION BY LIST (city) (
         PARTITION la VALUES IN ('los angeles'),
@@ -75,7 +75,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 3. Partition the secondary index by `city` as well:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER INDEX users_last_name_index PARTITION BY LIST (city) (
         PARTITION la VALUES IN ('los angeles'),
@@ -88,7 +88,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 4. For each partition of the table and its secondary index, [create a replication zone](configure-zone.html) that tells CockroachDB to put the partition's leaseholder in the relevant region:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > ALTER PARTITION la OF INDEX users@*
         CONFIGURE ZONE USING
@@ -109,7 +109,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 5. To confirm that partitions are in effect, you can use the [`SHOW CREATE TABLE`](show-create.html) or [`SHOW PARTITIONS`](show-partitions.html) statement:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SHOW CREATE TABLE users;
     ~~~
@@ -162,7 +162,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
     (1 row)
     ~~~    
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ sql
     > SHOW PARTITIONS FROM TABLE users;
     ~~~
@@ -195,7 +195,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 As you scale and add more cities, you can repeat steps 2 and 3 with the new complete list of cities to re-partition the table and its secondary indexes, and then repeat step 4 to create replication zones for the new partitions.
 {{site.data.alerts.end }}
 
-{{ partial "{{ page.version.version }}/sql/crdb-internal-partitions.md" . }}
+{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
 
 ## Characteristics
 
@@ -248,4 +248,4 @@ Because this pattern balances the replicas for each partition across regions, on
 
 ## See also
 
-{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}
+{% include {{ page.version.version }}/topology-patterns/see-also.md %}

@@ -10,7 +10,7 @@ filter_sort: 2
 docs_area: develop
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how to build a [Spring Boot](https://spring.io/projects/spring-boot) web application with CockroachDB, using the [Spring Data JPA](https://spring.io/projects/spring-data-jpa) module for data access. The code for the example application is available for download from [GitHub](https://github.com/cockroachlabs/roach-data/tree/master), along with identical examples that use [JDBC](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-jdbc), [jOOQ](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-jooq), and [MyBatis](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-mybatis) for data access.
 
@@ -34,11 +34,11 @@ Choose whether to run a local cluster or a free {{ site.data.products.db }} clus
 
 ### Create a free cluster
 
-{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
+{% include cockroachcloud/quickstart/create-a-free-cluster.md %}
 
 ### Set up your cluster connection
 
-{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection.md" . }}
+{% include cockroachcloud/quickstart/set-up-your-cluster-connection.md %}
 
   </section>
 
@@ -102,7 +102,7 @@ The [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) generates
 
     In the connection string copied from the {{ site.data.products.db }} Console, your username, password and cluster name are pre-populated. Replace the `{certs_dir}` placeholder with the path to the `certs` directory that you created [earlier](#set-up-your-cluster-connection).
 
-    {{ partial "cockroachcloud/cc-no-user-certs.md" . }}
+    {% include cockroachcloud/cc-no-user-certs.md %}
 
 1. In the SQL shell, create the `roach_data` database that your application will use:
 
@@ -227,7 +227,7 @@ datasource:
 ...
 ~~~
 
-{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
+{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
 
 </section>
 

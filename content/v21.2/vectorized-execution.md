@@ -85,7 +85,7 @@ The vectorized engine does not support [working with spatial data](spatial-data.
 
 ### Unordered distinct operations
 
-{{ partial "{{ page.version.version }}/known-limitations/unordered-distinct-operations.md" . }}
+{% include {{ page.version.version }}/known-limitations/unordered-distinct-operations.md %}
 
 ## See also
 

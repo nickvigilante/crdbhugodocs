@@ -194,13 +194,13 @@ To make the optimizer prefer lookup joins to merge joins when performing foreign
 
 ### Inverted join examples
 
-{{ partial "{{ page.version.version }}/sql/inverted-joins.md" . }}
+{% include {{ page.version.version }}/sql/inverted-joins.md %}
 
 ## Known Limitations
 
-* {{ partial "{{ page.version.version }}/known-limitations/old-multi-col-stats.md" . }}
-* {{ partial "{{ page.version.version }}/known-limitations/single-col-stats-deletion.md" . }}
-* {{ partial "{{ page.version.version }}/known-limitations/stats-refresh-upgrade.md" . }}
+* {% include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
+* {% include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
+* {% include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
 
 ## See also
 

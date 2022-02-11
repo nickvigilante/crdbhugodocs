@@ -64,7 +64,7 @@ The following information is also contained in the `.zip` file, and cannot be fi
 
 ## Subcommands
 
-{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
+{% include {{ page.version.version }}/misc/debug-subcommands.md %}
 
 ## Synopsis
 
@@ -96,13 +96,13 @@ Flag | Description
 
 ### Client connection
 
-{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
+{% include {{ page.version.version }}/sql/connection-parameters.md %}
 `--cluster-name` | The cluster name to use to verify the cluster's identity. If the cluster has a cluster name, you must include this flag. For more information, see [`cockroach start`](cockroach-start.html#general).
 `--disable-cluster-name-verification` | Disables the cluster name check for this command. This flag must be paired with `--cluster-name`. For more information, see [`cockroach start`](cockroach-start.html#general).
 
 ### Logging
 
-{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
+{% include {{ page.version.version }}/misc/logging-defaults.md %}
 
 ## Examples
 
@@ -110,14 +110,14 @@ Flag | Description
 
 Generate the debug zip file for an insecure cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --insecure --host=200.100.50.25
 ~~~
 
 Generate the debug zip file for a secure cluster:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --host=200.100.50.25
 ~~~
@@ -130,7 +130,7 @@ Secure examples assume you have the appropriate certificates in the default cert
 
 Generate a debug zip file containing only log files:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --include-files=*.log
 ~~~
@@ -145,7 +145,7 @@ server/server.go:1423 ⋮ password of user ‹admin› was set to ‹"s3cr34?!@x
 
 Enable log redaction:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --redact-logs --insecure --host=200.100.50.25
 ~~~

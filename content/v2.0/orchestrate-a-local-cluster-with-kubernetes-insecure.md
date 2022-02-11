@@ -31,7 +31,7 @@ Feature | Description
 
 2. Start a local Kubernetes cluster:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube start
     ~~~
@@ -40,21 +40,21 @@ Feature | Description
 
 When starting a cluster manually, you run the <code>cockroach start</code> command multiple times, once per node. In this step, you use a Kubernetes StatefulSet configuration instead, reducing the effort of starting 3 nodes to a single command.
 
-{{ partial "{{ page.version.version }}/orchestration/start-cluster.md" . }}
+{% include {{ page.version.version }}/orchestration/start-cluster.md %}
 
 ## Step 3. Initialize the cluster
 
-{{ partial "{{ page.version.version }}/orchestration/initialize-cluster-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/initialize-cluster-insecure.md %}
 
 ## Step 4. Test the cluster
 
 To test the cluster, launch a temporary pod for using the built-in SQL client, and then use a deployment configuration file to run a high-traffic load generator against the cluster from another pod.
 
-{{ partial "{{ page.version.version }}/orchestration/test-cluster-insecure.md" . }}
+{% include {{ page.version.version }}/orchestration/test-cluster-insecure.md %}
 
 4. Use our [`example-app.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/example-app.yaml) file to launch a pod and run a load generator against the cluster from the pod:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl create -f https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/example-app.yaml
     ~~~
@@ -65,7 +65,7 @@ To test the cluster, launch a temporary pod for using the built-in SQL client, a
 
 5. Verify that the pod for the load generator was added successfully:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -84,7 +84,7 @@ To access the [Admin UI](admin-ui-overview.html) and monitor the cluster's state
 
 1. Port-forward from your local machine to one of the pods:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl port-forward cockroachdb-0 8080
     ~~~
@@ -103,13 +103,13 @@ To access the [Admin UI](admin-ui-overview.html) and monitor the cluster's state
 
 ## Step 6. Simulate node failure
 
-{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
+{% include {{ page.version.version }}/orchestration/kubernetes-simulate-failure.md %}
 
 ## Step 7. Scale the cluster
 
 1. Use the `kubectl scale` command to add a pod for another CockroachDB node:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl scale statefulset cockroachdb --replicas=4
     ~~~
@@ -120,7 +120,7 @@ To access the [Admin UI](admin-ui-overview.html) and monitor the cluster's state
 
 2. Verify that the pod for a fourth node, `cockroachdb-3`, was added successfully:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -138,7 +138,7 @@ To access the [Admin UI](admin-ui-overview.html) and monitor the cluster's state
 
 - **If you plan to restart the cluster**, use the `minikube stop` command. This shuts down the minikube virtual machine but preserves all the resources you created:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube stop
     ~~~
@@ -152,7 +152,7 @@ To access the [Admin UI](admin-ui-overview.html) and monitor the cluster's state
 
 - **If you do not plan to restart the cluster**, use the `minikube delete` command. This shuts down and deletes the minikube virtual machine and all the resources you created, including persistent volumes:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ minikube delete
     ~~~

@@ -68,29 +68,29 @@ Parameter | Description
 
 ### Create a table with a stored computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
+{% include {{ page.version.version }}/computed-columns/simple.md %}
 
 ### Create a table with a `JSONB` column and a stored computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/jsonb.md" . }}
+{% include {{ page.version.version }}/computed-columns/jsonb.md %}
 
 ### Create a virtual computed column using `JSONB` data
 
-{{ partial "{{ page.version.version }}/computed-columns/virtual.md" . }}
+{% include {{ page.version.version }}/computed-columns/virtual.md %}
 
 ### Create a table with a secondary index on a computed column
 
-{{ partial "{{ page.version.version }}/computed-columns/secondary-index.md" . }}
+{% include {{ page.version.version }}/computed-columns/secondary-index.md %}
 
 ### Add a computed column to an existing table
 
-{{ partial "{{ page.version.version }}/computed-columns/add-computed-column.md" . }}
+{% include {{ page.version.version }}/computed-columns/add-computed-column.md %}
 
 For more information, see [`ADD COLUMN`](add-column.html).
 
 ### Convert a computed column into a regular column
 
-{{ partial "{{ page.version.version }}/computed-columns/convert-computed-column.md" . }}
+{% include {{ page.version.version }}/computed-columns/convert-computed-column.md %}
 
 ## See also
 

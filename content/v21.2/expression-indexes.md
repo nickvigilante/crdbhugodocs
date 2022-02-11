@@ -173,8 +173,8 @@ Expression indexes have the following limitations:
 
 - The expression cannot reference columns outside the index's table.
 - Functional expression output must be determined by the input arguments. For example, you can't use the function `now()` to create an index because its output depends on more than just the function arguments.
-- {{ partial "{{ page.version.version }}/sql/expression-indexes-cannot-reference-computed-columns.md" . }}
-- {{ partial "{{ page.version.version }}/sql/expressions-as-on-conflict-targets.md" . }}
+- {% include {{ page.version.version }}/sql/expression-indexes-cannot-reference-computed-columns.md %}
+- {% include {{ page.version.version }}/sql/expressions-as-on-conflict-targets.md %}
 
 ## See also
 

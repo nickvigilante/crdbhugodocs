@@ -1,5 +1,5 @@
 {% if page.cloud == true %}
-  {% capture link_prefix %}../{{site.versions["stable"]}}/{% endcapture %}
+  {% capture link_prefix %}../{{site.versions["stable"] }}/{% endcapture %}
   {% assign page_prefix = "" %}
 {% else %}
   {% assign link_prefix = "" %}
@@ -26,10 +26,10 @@ To filter the statements, click the **Filters** field.
 
 To filter by [application]({{ link_prefix }}connection-parameters.html#additional-connection-parameters), select **App** and choose one or more applications. When no application is selected internal statements **are not** displayed.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 - Queries from the SQL shell are displayed under the `$ cockroach` app.
 - If you haven't set `application_name` in a client connection string, it appears as `unset`.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 You can also filter by one or more databases (**Database**), SQL statement types (**Statement Type**), and for [statement fingerprints](#sql-statement-fingerprints) that take longer than a specified time to run. To display only statements with queries that cause full table scans, click **Only show statements that contain queries with full table scans**.
 
@@ -101,7 +101,7 @@ Use the Statements page to identify SQL statements that you want to [troubleshoo
 
 {{site.data.alerts.callout_success}}
 If you haven't yet executed any queries in the cluster as a user, this page will be blank.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 <a id="statement-fingerprint-properties"></a>
 
@@ -181,15 +181,15 @@ The **Overview** section displays the SQL statement fingerprint and essential st
 
 The **Diagnostics** section allows you to activate and download diagnostics for the SQL statement fingerprint.
 
-{{site.data.alerts.callout_info}}
+{{site.data.alerts.callout_info }}
 The **Diagnostics** tab is not enabled for {{ site.data.products.serverless }} clusters.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 When you activate diagnostics for a fingerprint, CockroachDB waits for the next SQL query that matches this fingerprint to be run on any node. On the next match, information about the SQL statement is written to a diagnostics bundle that you can download. This bundle consists of [statement traces]({{ link_prefix }}show-trace.html) in various formats (including a JSON file that can be [imported to Jaeger]({{ link_prefix }}query-behavior-troubleshooting.html#visualize-statement-traces-in-jaeger)), a physical query plan, execution statistics, and other information about the query. The bundle contents are identical to those produced by [`EXPLAIN ANALYZE (DEBUG)`]({{ link_prefix }}explain-analyze.html#debug-option). You can use the information collected in the bundle to diagnose problematic SQL statements, such as [slow queries]({{ link_prefix }}query-behavior-troubleshooting.html#query-is-always-slow). We recommend that you share the diagnostics bundle with our [support team]({{ link_prefix }}support-resources.html), which can help you interpret the results.
 
 {{site.data.alerts.callout_success}}
 Diagnostics will be collected a maximum of *N* times for a given activated fingerprint where *N* is the number of nodes in your cluster.
-{{site.data.alerts.end}}
+{{site.data.alerts.end }}
 
 {% include common/sql/statement-bundle-warning.md %}
 
@@ -250,9 +250,9 @@ The Execution Stats section has three subsections:
 - **Execution Latency by Phase** displays the service latency of statements matching this fingerprint, broken down by [phase]({{ link_prefix }}architecture/sql-layer.html#sql-parser-planner-executor) (parse, plan, run, overhead), as well as the overall service latency. Overhead comprises the statements that remain after subtracting parse, plan, and run latencies from the overall latency. These might include fetching table descriptors that were not cached, or other background tasks required to execute the query.
 
     {% if page.cloud != true %}
-    {{site.data.alerts.callout_info}}
+    {{site.data.alerts.callout_info }}
     Service latency can be affected by network latency, which is displayed for your cluster on the [Network Latency](ui-network-latency-page.html) page.
-    {{site.data.alerts.end}}
+    {{site.data.alerts.end }}
     {% endif %}
 
 - **Other Execution Statistics** displays the following statistics.

@@ -31,7 +31,7 @@ PAUSE SCHEDULE <scheduleID>
 
 ### Pause a single schedule
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE SCHEDULE 589963390487363585;
 ~~~
@@ -44,7 +44,7 @@ PAUSE SCHEDULES 1
 
 To pause multiple schedules, nest a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `PAUSE SCHEDULES` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'schedule_database';
 ~~~

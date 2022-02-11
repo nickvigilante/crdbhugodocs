@@ -9,13 +9,13 @@ filter_sort: 3
 docs_area: get_started
 ---
 
-{{ partial "filter-tabs.md" . }}
+{% include filter-tabs.md %}
 
 This tutorial shows you how build a simple Java application with CockroachDB and [jOOQ](https://www.jooq.org/).
 
 CockroachDB is supported in jOOQ [Professional and Enterprise editions](https://www.jooq.org/download/#databases).
 
-{{ partial "{{ page.version.version }}/app/java-version-note.md" . }}
+{% include {{ page.version.version }}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For another use of jOOQ with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
@@ -23,7 +23,7 @@ For another use of jOOQ with CockroachDB, see our [`examples-orms`](https://gith
 
 ## Before you begin
 
-{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
+{% include {{ page.version.version }}/app/before-you-begin.md %}
 
 ## Step 1. Install Maven
 
@@ -31,14 +31,14 @@ This tutorial uses the [Maven build tool](https://gradle.org/) to manage applica
 
 To install Maven on Mac, run the following command:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ brew install maven
 ~~~
 
 To install Maven on a Debian-based Linux distribution like Ubuntu:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ apt-get install maven
 ~~~
@@ -51,12 +51,12 @@ Download the free trial of jOOQ Professional or Enterprise edition from [jOOQ's 
 
 To install jOOQ to your machine's local Maven repository, run the `maven-install.sh` script included in the jOOQ install folder:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ chmod +x maven-install.sh
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ ./maven-install.sh
 ~~~
@@ -65,7 +65,7 @@ $ ./maven-install.sh
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Generate a certificate for the `maxroach` user
 
@@ -73,7 +73,7 @@ Create a certificate and key for the `maxroach` user by running the following co
 
 The [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) generates a key in [PKCS#8 format](https://tools.ietf.org/html/rfc5208), which is the standard key encoding format in Java. In this case, the generated PKCS8 key will be named `client.maxroach.key.pk8`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key --also-generate-pkcs8-key
 ~~~
@@ -95,26 +95,26 @@ To run it:
 2. Open `jooq-basic-sample/src/main/java/com/cockroachlabs/Sample.java`, and edit the connection string passed to `DriverManager.getConnection()` in the `Sample` class's `main()` method so that the certificate paths are fully and correctly specified.
 3. Compile and run the code using Maven:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cd jooq-basic-sample
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mvn compile
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mvn exec:java -Dexec.mainClass=com.cockroachlabs.Sample
     ~~~
 
 Here are the contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/jooq-basic-sample/Sample.java), the Java file containing the main `Sample` class:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/jooq-basic-sample/Sample.java" . }}
+{% include {{ page.version.version }}/app/jooq-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -147,14 +147,14 @@ APP: getAccountBalance(2) --> 350
 
 To verify that the account balances were updated successfully, start the [built-in SQL client](cockroach-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT id, balance FROM accounts;
 ~~~
@@ -174,7 +174,7 @@ SELECT id, balance FROM accounts;
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
+{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Run the Java code
 
@@ -192,26 +192,26 @@ To run it:
 1. Download and unzip [jooq-basic-sample.zip](https://github.com/cockroachdb/docs/raw/master/_includes/{{ page.version.version }}/app/insecure/jooq-basic-sample/jooq-basic-sample.zip).
 2. Compile and run the code using Maven:
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ cd jooq-basic-sample
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mvn compile
     ~~~
 
-    {{ partial "copy-clipboard.html" . }}
+    {% include copy-clipboard.html %}
     ~~~ shell
     $ mvn exec:java -Dexec.mainClass=com.cockroachlabs.Sample
     ~~~
 
 Here are the contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/jooq-basic-sample/Sample.java), the Java file containing the main `Sample` class:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ java
-{{ partial "{{ page.version.version }}/app/insecure/jooq-basic-sample/Sample.java" . }}
+{% include {{ page.version.version }}/app/insecure/jooq-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -244,14 +244,14 @@ APP: getAccountBalance(2) --> 350
 
 To verify that the account balances were updated successfully, start the [built-in SQL client](cockroach-sql.html):
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure
 ~~~
 
 To check the account balances, issue the following statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 SELECT id, balance FROM accounts;
 ~~~
@@ -272,4 +272,4 @@ SELECT id, balance FROM accounts;
 
 Read more about using [jOOQ](https://www.jooq.org/), or check out a more realistic implementation of jOOQ with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

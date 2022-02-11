@@ -16,7 +16,7 @@ Use the following guides to run CockroachDB with popular open-source orchestrati
 - [Kubernetes Performance Optimization](kubernetes-performance.html)
 - [Docker Swarm Deployment](orchestrate-cockroachdb-with-docker-swarm.html)
 
-{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
+{% include cockroachcloud/use-cockroachcloud-instead.md %}
 
 ## See also
 

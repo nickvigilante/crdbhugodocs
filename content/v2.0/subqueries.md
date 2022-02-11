@@ -24,7 +24,7 @@ notations, and those defined using
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT *
    FROM [INSERT INTO t(x) VALUES (1), (2), (3) RETURNING x]
@@ -45,7 +45,7 @@ If you find yourself wanting to use a correlated subquery, consider that a corre
 
 For example:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 # Find every customer with at least one order.
 > SELECT c.name
@@ -57,7 +57,7 @@ The subquery is correlated because it uses `c` defined in the
 surrounding query. It is thus not yet supported by CockroachDB;
 however, it can be transformed to the equivalent query:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT DISTINCT ON(c.id) c.name
     FROM customers c CROSS JOIN orders o

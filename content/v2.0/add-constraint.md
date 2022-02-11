@@ -17,7 +17,7 @@ The <a href="primary-key.html">Primary Key</a> and <a href="not-null.html">Not N
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/add_constraint.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/add_constraint.html %}
 </div>
 
 ## Required Privileges
@@ -34,7 +34,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the table.
 
 ## Viewing Schema Changes
 
-{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
+{% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
 ## Examples
 
@@ -42,7 +42,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the table.
 
 Adding the [Unique constraint](unique.html) requires that all of a column's values be distinct from one another (except for *NULL* values).
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders ADD CONSTRAINT id_customer_unique UNIQUE (id, customer);
 ~~~
@@ -51,7 +51,7 @@ Adding the [Unique constraint](unique.html) requires that all of a column's valu
 
 Adding the [Check constraint](check.html) requires that all of a column's values evaluate to `TRUE` for a Boolean expression.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders ADD CONSTRAINT total_0_check CHECK (total > 0);
 ~~~
@@ -62,7 +62,7 @@ Before you can add the [Foreign Key](foreign-key.html) constraint to columns, th
 
 For example, let's say you have two simple tables, `orders` and `customers`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE customers;
 ~~~
@@ -82,7 +82,7 @@ For example, let's say you have two simple tables, `orders` and `customers`:
 (1 row)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE orders;
 ~~~
@@ -105,7 +105,7 @@ For example, let's say you have two simple tables, `orders` and `customers`:
 
 To ensure that each value in the `orders.customer_id` column matches a unique value in the `customers.id` column, you want to add the Foreign Key constraint to `orders.customer_id`. So you first create an index on `orders.customer_id`:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON orders (customer_id);
 ~~~
@@ -120,7 +120,7 @@ In this example, let's use `ON DELETE CASCADE` (i.e., when referenced row is del
 `CASCADE` does not list objects it drops or updates, so it should be used cautiously.
 {{site.data.alerts.end }}
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE orders ADD CONSTRAINT customer_fk FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE;
 ~~~

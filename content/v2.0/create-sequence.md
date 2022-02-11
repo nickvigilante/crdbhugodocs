@@ -18,7 +18,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the parent datab
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_sequence.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/create_sequence.html %}</section>
 
 ## Parameters
 
@@ -54,7 +54,7 @@ We support the following [SQL sequence functions](functions-and-operators.html):
 
 ### List All Sequences
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -74,12 +74,12 @@ We support the following [SQL sequence functions](functions-and-operators.html):
 
 In this example, we create a sequence with default settings.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE customer_seq;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE SEQUENCE customer_seq;
 ~~~
@@ -95,12 +95,12 @@ In this example, we create a sequence with default settings.
 
 In this example, we create a sequence that starts at -1 and descends in increments of 2.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE SEQUENCE desc_customer_list;
 ~~~
@@ -117,7 +117,7 @@ In this example, we create a sequence that starts at -1 and descends in incremen
 
 In this example, we create a table using the sequence we created in the first example as the table's primary key.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE customer_list (
     id INT PRIMARY KEY DEFAULT nextval('customer_seq'),
@@ -128,7 +128,7 @@ In this example, we create a table using the sequence we created in the first ex
 
 Insert a few records to see the sequence.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO customer_list (customer, address)
   VALUES
@@ -137,7 +137,7 @@ Insert a few records to see the sequence.
     ('Amruta', '9876 Green Parkway');
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customer_list;
 ~~~
@@ -155,7 +155,7 @@ Insert a few records to see the sequence.
 
 To view the current value without incrementing the sequence, use:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM customer_seq;
 ~~~

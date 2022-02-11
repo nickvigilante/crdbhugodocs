@@ -17,7 +17,7 @@ This page describes how to configure the following, using the [Operator](https:/
 
 These settings control how CockroachDB pods can be identified or scheduled onto worker nodes.
 
-{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
+{% include {{ page.version.version }}/orchestration/operator-check-namespace.md %}
 
 ## Enable feature gates
 

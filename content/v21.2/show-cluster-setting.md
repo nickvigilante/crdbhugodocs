@@ -48,7 +48,7 @@ Only members of the `admin` role can display cluster settings. By default, the `
 ## Synopsis
 
 <div>
-{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_cluster_setting.html %}
+{{< sql-diagram "show_cluster_setting.html" >}}
 </div>
 
 ## Parameters
@@ -75,7 +75,7 @@ Field | Description
 
 ### Show the value of a single cluster setting
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER SETTING diagnostics.reporting.enabled;
 ~~~
@@ -89,7 +89,7 @@ Field | Description
 
 ### Show the values of all public cluster settings
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW CLUSTER SETTINGS;
 ~~~
@@ -106,7 +106,7 @@ Field | Description
 
 ### Show the values of all cluster settings
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW ALL CLUSTER SETTINGS;
 ~~~

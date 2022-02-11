@@ -16,7 +16,7 @@ Despite committing the transaction, you must still issue a [`COMMIT`](commit-tra
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/release_savepoint.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/release_savepoint.html %}
 </div>
 
 ## Required privileges
@@ -29,7 +29,7 @@ No [privileges](authorization.html#assign-privileges) are required to release a 
 
 After declaring `SAVEPOINT cockroach_restart`, commit the transaction with `RELEASE SAVEPOINT cockroach_restart` and then prepare the connection for the next transaction with `COMMIT`.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 

@@ -18,7 +18,7 @@ By default, only the `root` user can control a job.
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/diagrams/pause_job.html" . }}
+{% include {{ page.version.version }}/sql/diagrams/pause_job.html %}
 </div>
 
 ## Parameters

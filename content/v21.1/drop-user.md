@@ -20,7 +20,7 @@ Non-admin users cannot drop admin users. To drop non-admin users, the user must 
 
 ## Synopsis
 
-<div>{{ partial "{{ page.version.version }}/sql/generated/diagrams/drop_user.html" . }}</div>
+<div>{% include {{ page.version.version }}/sql/generated/diagrams/drop_user.html %}</div>
 
 ## Parameters
 
@@ -34,7 +34,7 @@ All of a user's privileges must be revoked before the user can be dropped.
 
 In this example, first check a user's privileges. Then, revoke the user's privileges before removing the user.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON test.customers FOR mroach;
 ~~~
@@ -50,12 +50,12 @@ In this example, first check a user's privileges. Then, revoke the user's privil
 (3 rows)
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE CREATE,INSERT,UPDATE ON test.customers FROM mroach;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > DROP USER mroach;
 ~~~

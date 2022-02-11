@@ -16,7 +16,7 @@ By default, only the `root` user can control a job.
 ## Synopsis
 
 <div>
-  {{ partial "{{ page.version.version }}/sql/diagrams/resume_job.html" . }}
+  {% include {{ page.version.version }}/sql/diagrams/resume_job.html %}
 </div>
 
 ## Parameters
@@ -30,7 +30,7 @@ Parameter | Description
 
 ### Pause a job
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW JOBS;
 ~~~
@@ -43,14 +43,14 @@ Parameter | Description
 +----------------+---------+-------------------------------------------+...
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > PAUSE JOB 27536791415282;
 ~~~
 
 ### Resume a single job
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOB 27536791415282;
 ~~~
@@ -59,7 +59,7 @@ Parameter | Description
 
 <span class="version-tag">New in v2.1:</span> To resume multiple jobs, nest a [`SELECT` clause](select-clause.html) that retrieves `job_id`(s) inside the `RESUME JOBS` statement:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > RESUME JOBS (SELECT job_id FROM [SHOW JOBS]
       WHERE user_name = 'maxroach');

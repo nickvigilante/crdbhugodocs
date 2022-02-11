@@ -18,7 +18,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 Install the C++ libpqxx driver as described in the [official documentation](https://github.com/jtv/libpqxx).
 
-{{ partial "{{ page.version.version }}/app/common-steps.md" . }}
+{% include {{ page.version.version }}/app/common-steps.md %}
 
 ## Step 5. Run the C++ code
 
@@ -30,9 +30,9 @@ First, use the following code to connect as the `maxroach` user and execute some
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/basic-sample.cpp" download><code>basic-sample.cpp</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ cpp
-{{ partial "{{ page.version.version }}/app/basic-sample.cpp" . }}
+{% include {{ page.version.version }}/app/basic-sample.cpp %}
 ~~~
 
 ### Transaction (with retry logic)
@@ -43,14 +43,14 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.cpp" download><code>txn-sample.cpp</code></a> file, or create the file yourself and copy the code into it.
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ cpp
-{{ partial "{{ page.version.version }}/app/txn-sample.cpp" . }}
+{% include {{ page.version.version }}/app/txn-sample.cpp %}
 ~~~
 
 After running the code, use the [built-in SQL client](use-the-built-in-sql-client.html) to verify that funds were transferred from one account to another:
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -69,4 +69,4 @@ $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 
 Read more about using the [C++ libpqxx driver](https://github.com/jtv/libpqxx).
 
-{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
+{% include {{ page.version.version }}/app/see-also-links.md %}

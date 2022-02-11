@@ -43,12 +43,12 @@ To view the contents of an Enterprise backup created with the `BACKUP` statement
 
 ### Destination privileges
 
-{{ partial "{{ page.version.version }}/backups/destination-file-privileges.md" . }}
+{% include {{ page.version.version }}/backups/destination-file-privileges.md %}
 
 ## Synopsis
 
 <div>
-{{ partial "{{ page.version.version }}/sql/generated/diagrams/backup.html" . }}
+{% include {{ page.version.version }}/sql/generated/diagrams/backup.html %}
 </div>
 
 ## Parameters
@@ -72,7 +72,7 @@ N/A                                | Backup the cluster. For an example of a ful
 
 ### Options
 
-{{ partial "{{ page.version.version }}/backups/backup-options.md" . }}
+{% include {{ page.version.version }}/backups/backup-options.md %}
 
 ### Backup file URLs
 
@@ -140,7 +140,7 @@ The presence of the `BACKUP MANIFEST` file in the backup destination is an indic
 
 Per our guidance in the [Performance](#performance) section, we recommend starting backups from a time at least 10 seconds in the past using [`AS OF SYSTEM TIME`](as-of-system-time.html). Each example below follows this guidance.
 
-{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
+{% include {{ page.version.version }}/backups/bulk-auth-options.md %}
 
 <div class="filters clearfix">
   <button class="filter-button" data-scope="s3">Amazon S3</button>
@@ -208,7 +208,7 @@ AS OF SYSTEM TIME '-10s';
 ~~~
 
 {{site.data.alerts.callout_danger }}
-{{ partial "{{ page.version.version }}/backups/no-multiregion-table-backups.md" . }}
+{% include {{ page.version.version }}/backups/no-multiregion-table-backups.md %}
 {{site.data.alerts.end }}
 
 ### Specify a subdirectory for backups
@@ -322,7 +322,7 @@ AS OF SYSTEM TIME '-10s';
 ~~~
 
 {{site.data.alerts.callout_danger }}
-{{ partial "{{ page.version.version }}/backups/no-multiregion-table-backups.md" . }}
+{% include {{ page.version.version }}/backups/no-multiregion-table-backups.md %}
 {{site.data.alerts.end }}
 
 ### Specify a subdirectory for backups
@@ -438,7 +438,7 @@ AS OF SYSTEM TIME '-10s';
 ~~~
 
 {{site.data.alerts.callout_danger }}
-{{ partial "{{ page.version.version }}/backups/no-multiregion-table-backups.md" . }}
+{% include {{ page.version.version }}/backups/no-multiregion-table-backups.md %}
 {{site.data.alerts.end }}
 
 ### Specify a subdirectory for backups
@@ -496,17 +496,17 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 ### Advanced examples
 
-{{ partial "{{ page.version.version }}/backups/advanced-examples-list.md" . }}
+{% include {{ page.version.version }}/backups/advanced-examples-list.md %}
 
 ## Known limitations
 
 ### Using interleaved tables in backups
 
-{{ partial "{{ page.version.version }}/known-limitations/backup-interleaved.md" . }}
+{% include {{ page.version.version }}/known-limitations/backup-interleaved.md %}
 
 ### `BACKUP` of multi-region tables
 
-{{ partial "{{ page.version.version }}/backups/no-multiregion-table-backups.md" . }}
+{% include {{ page.version.version }}/backups/no-multiregion-table-backups.md %}
 
 ## See also
 

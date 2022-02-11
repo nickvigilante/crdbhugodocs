@@ -11,7 +11,7 @@ toc: true
 
 ## Synopsis
 
-<section>{{ partial "{{ page.version.version }}/sql/diagrams/revoke_roles.html" . }}</section>
+<section>{% include {{ page.version.version }}/sql/diagrams/revoke_roles.html %}</section>
 
 ## Required Privileges
 
@@ -33,7 +33,7 @@ Parameter | Description
 
 ### Revoke Role Membership
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~
@@ -48,12 +48,12 @@ Parameter | Description
 +--------+---------+---------+
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE design FROM lola;
 ~~~
 
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~
@@ -70,7 +70,7 @@ Parameter | Description
 ### Revoke the Admin Option
 
 To revoke a user or role's admin option from a role (without revoking the membership):
-{{ partial "copy-clipboard.html" . }}
+{% include copy-clipboard.html %}
 ~~~ sql
 > REVOKE ADMIN OPTION FOR design FROM ernie;
 ~~~
