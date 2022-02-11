@@ -12,7 +12,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/comment.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/comment.html" . }}</section>
 
 ## Parameters
 
@@ -25,20 +25,20 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Add a comment to a database
 
 To add a comment to a database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > COMMENT ON DATABASE movr IS 'This database contains information about users, vehicles, and rides.';
 ~~~
 
 To view database comments, use [`SHOW DATABASES`](show-databases.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES WITH COMMENT;
 ~~~
@@ -57,14 +57,14 @@ To view database comments, use [`SHOW DATABASES`](show-databases.html):
 
 To add a comment to a table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > COMMENT ON TABLE vehicles IS 'This table contains information about vehicles registered with MovR.';
 ~~~
 
 To view table comments, use [`SHOW TABLES`](show-tables.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM movr WITH COMMENT;
 ~~~
@@ -85,14 +85,14 @@ To view table comments, use [`SHOW TABLES`](show-tables.html):
 
 To add a comment to a column:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > COMMENT ON COLUMN users.credit_card IS 'This column contains user payment information.';
 ~~~
 
 To view column comments, use [`SHOW COLUMNS`](show-columns.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users WITH COMMENT;
 ~~~

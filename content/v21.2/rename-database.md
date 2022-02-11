@@ -7,12 +7,12 @@ docs_area: reference.sql
 
 The `RENAME TO` clause is part of [`ALTER DATABASE`](alter-database.html), and changes the name of a database.
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/rename_database.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/rename_database.html %}
 </div>
 
 ## Required privileges
@@ -27,7 +27,7 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Limitations
 
@@ -37,12 +37,12 @@ Parameter | Description
 
 ### Rename a database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE db1;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -58,12 +58,12 @@ Parameter | Description
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER DATABASE db1 RENAME TO db2;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -81,7 +81,7 @@ Parameter | Description
 
 ### Rename fails (new name already in use)
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER DATABASE db2 RENAME TO movr;
 ~~~

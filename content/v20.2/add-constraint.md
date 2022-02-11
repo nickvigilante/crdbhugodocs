@@ -14,12 +14,12 @@ To add a primary key constraint to a table, you should explicitly define the pri
 
 The [`DEFAULT`](default-value.html) and [`NOT NULL`](not-null.html) constraints are managed through [`ALTER COLUMN`](alter-column.html).
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/add_constraint.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/add_constraint.html" . }}
 </div>
 
 ## Required privileges
@@ -36,7 +36,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Changing primary keys with `ADD CONSTRAINT ... PRIMARY KEY`
 
@@ -47,19 +47,19 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
   - No primary key was explicitly defined at [table creation](create-table.html). In this case, the table is created with a default [primary key on `rowid`](indexes.html#creation). Using `ADD CONSTRAINT ... PRIMARY KEY` drops the default primary key and replaces it with a new primary key.
   - A [`DROP CONSTRAINT`](drop-constraint.html) statement precedes the `ADD CONSTRAINT ... PRIMARY KEY` statement, in the same transaction. For an example, see [Drop and add the primary key constraint](#drop-and-add-a-primary-key-constraint) below.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `ALTER TABLE ... ADD PRIMARY KEY` is an alias for `ALTER TABLE ... ADD CONSTRAINT ... PRIMARY KEY`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Add the `UNIQUE` constraint
 
 Adding the [`UNIQUE` constraint](unique.html) requires that all of a column's values be distinct from one another (except for *NULL* values).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users ADD CONSTRAINT id_name_unique UNIQUE (id, name);
 ~~~
@@ -68,14 +68,14 @@ Adding the [`UNIQUE` constraint](unique.html) requires that all of a column's va
 
 Adding the [`CHECK` constraint](check.html) requires that all of a column's values evaluate to `TRUE` for a Boolean expression.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE rides ADD CONSTRAINT check_revenue_positive CHECK (revenue >= 0);
 ~~~
 
 Check constraints can be added to columns that were created earlier in the transaction. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 > ALTER TABLE users ADD COLUMN is_owner STRING;
@@ -90,12 +90,12 @@ ALTER TABLE
 COMMIT
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The entire transaction will be rolled back, including any new columns that were added, in the following cases:
 
 - If an existing column is found containing values that violate the new constraint.
 - If a new column has a default value or is a [computed column](computed-columns.html) that would have contained values that violate the new constraint.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Add the foreign key constraint with `CASCADE`
 
@@ -103,7 +103,7 @@ To add a foreign key constraint, use the steps shown below.
 
 Given two tables, `users` and `vehicles`, without foreign key constraints:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE users;
 ~~~
@@ -123,7 +123,7 @@ Given two tables, `users` and `vehicles`, without foreign key constraints:
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE vehicles;
 ~~~
@@ -150,24 +150,24 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 Using `ON DELETE CASCADE` will ensure that when the referenced row is deleted, all dependent objects are also deleted.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `CASCADE` does not list the objects it drops or updates, so it should be used with caution.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE vehicles ADD CONSTRAINT users_fk FOREIGN KEY (city, owner_id) REFERENCES users (city, id) ON DELETE CASCADE;
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v20.2:</span> By default, referenced columns must be in the same database as the referencing foreign key column. To enable cross-database foreign key references, set the `sql.cross_db_fks.enabled` [cluster setting](cluster-settings.html) to `true`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Drop and add a primary key constraint
 
 Suppose that you want to add `name` to the composite primary key of the `users` table, [without creating a secondary index of the existing primary key](#changing-primary-keys-with-add-constraint-primary-key).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -189,14 +189,14 @@ Suppose that you want to add `name` to the composite primary key of the `users` 
 
 First, add a [`NOT NULL`](not-null.html) constraint to the `name` column with [`ALTER COLUMN`](alter-column.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users ALTER COLUMN name SET NOT NULL;
 ~~~
 
 Then, in the same transaction, [`DROP`](drop-constraint.html) the old `"primary"` constraint and `ADD` the new one:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 > ALTER TABLE users DROP CONSTRAINT "primary";
@@ -208,7 +208,7 @@ Then, in the same transaction, [`DROP`](drop-constraint.html) the old `"primary"
 NOTICE: primary key changes are finalized asynchronously; further schema changes on this table may be restricted until the job completes
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~

@@ -14,7 +14,7 @@ No [privileges](privileges.html) are required to list the schemas in a database.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_schemas.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_schemas.html" . }}
 </div>
 
 ## Parameters

@@ -22,7 +22,7 @@ The user must have the `INSERT` and `UPDATE` [privileges](privileges.html) on th
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/upsert.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/upsert.html" . }}
 </div>
 
 <div markdown="1"></div>

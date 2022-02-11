@@ -13,9 +13,9 @@ docs_area: reference.sql
 
 Note that this statement does not allow you to opt out of placing [non-voting replicas](architecture/replication-layer.html#non-voting-replicas) entirely. For example, [`GLOBAL` tables](global-tables.html) in the database will remain unaffected by this statement. `GLOBAL` tables are designed to have replicas placed across all available [cluster regions](multiregion-overview.html#cluster-regions) to ensure fast local reads.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This is a subcommand of [`ALTER DATABASE`](alter-database.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
@@ -54,7 +54,7 @@ To follow along with the examples below:
 
 1. Start a [demo cluster](cockroach-demo.html) with the [`--global` flag](cockroach-demo.html#general) to simulate a multi-region cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     cockroach demo --global --nodes 9
     ~~~
@@ -65,14 +65,14 @@ To follow along with the examples below:
 
     1. To use the session variable:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ sql
         SET enable_multiregion_placement_policy = on;
         ~~~
 
     2. To use the cluster setting:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ sql
         SET CLUSTER SETTING sql.defaults.multiregion_placement_policy.enabled = on;
         ~~~
@@ -81,7 +81,7 @@ To follow along with the examples below:
 
 If you know at table creation time that you'd like to set the table's replica placement policy to ["restricted"](#parameters-restricted), you can do so in a [`CREATE TABLE`](create-table.html) statement as shown below:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE DATABASE movr2 PRIMARY REGION "us-east1" REGIONS "us-west1", "europe-west1" PLACEMENT RESTRICTED;
 ~~~
@@ -94,7 +94,7 @@ CREATE DATABASE
 
 When you set the database's placement policy to ["restricted"](#parameters-restricted), you are saying that you want the underlying data to be restricted to the table or partition's [home region](set-locality.html#crdb_region).
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE movr PLACEMENT RESTRICTED;
 ~~~
@@ -107,7 +107,7 @@ ALTER DATABASE PLACEMENT
 
 If previously you set the replica placement policy to ["restricted"](#set-the-replica-placement-policy-to-restricted), you can set it back to [the default](#parameters-default) by issuing the following statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE movr PLACEMENT DEFAULT;
 ~~~

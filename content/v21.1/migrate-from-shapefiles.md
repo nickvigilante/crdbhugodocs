@@ -8,18 +8,18 @@ toc: true
 
 This page has instructions for migrating data from ESRI [Shapefiles](spatial-glossary.html#shapefile) into CockroachDB using [`shp2pgsql`](https://manpages.debian.org/stretch/postgis/shp2pgsql.1.en.html) and [`IMPORT`][import].
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We are using `shp2pgsql` in the example below, but [`ogr2ogr`](https://gdal.org/programs/ogr2ogr.html) could also be used, e.g.
 `ogr2ogr -f PGDUMP file.sql -lco LAUNDER=NO -lco DROP_TABLE=OFF file.shp`
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
+{{ partial "{{ page.version.version }}/spatial/ogr2ogr-supported-version.md" . }}
 
 In the example below we will import a [tornadoes data set](http://web.archive.org/web/20201018170120/https://www.spc.noaa.gov/gis/svrgis/zipped/1950-2018-torn-initpoint.zip) that is [available from the US National Weather Service](https://www.spc.noaa.gov/gis/svrgis/) (NWS).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Please refer to the documentation of your GIS software for instructions on exporting GIS data to Shapefiles.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before You Begin
 
@@ -33,17 +33,17 @@ To follow along with the example below, you will need the following prerequisite
 
 First, download and unzip the tornado data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 wget http://web.archive.org/web/20201018170120/https://www.spc.noaa.gov/gis/svrgis/zipped/1950-2018-torn-initpoint.zip
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 unzip 1950-2018-torn-initpoint.zip
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 cd 1950-2018-torn-initpoint/
 ~~~
@@ -52,7 +52,7 @@ cd 1950-2018-torn-initpoint/
 
 To load the tornado Shapefile into CockroachDB, we must first convert it to SQL using the `shp2pgsql` tool:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 shp2pgsql 1950-2018-torn-initpoint.shp > tornado-points.sql &
 ~~~
@@ -63,7 +63,7 @@ Each node in the CockroachDB cluster needs to have access to the files being imp
 
 For local testing, you can [start a local file server](use-a-local-file-server-for-bulk-operations.html). The following command will start a local file server listening on port 3000:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 python3 -m http.server 3000
 ~~~
@@ -72,12 +72,12 @@ python3 -m http.server 3000
 
 Next, create a `tornadoes` database to store the data in, and switch to it:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 cockroach sql --insecure
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE DATABASE IF NOT EXISTS tornadoes;
 USE tornadoes;
@@ -87,7 +87,7 @@ USE tornadoes;
 
 Since the file is being served from a local server and is formatted as Postgres-compatible SQL, we can import the data using the following [`IMPORT PGDUMP`](import.html#import-a-postgres-database-dump) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 IMPORT PGDUMP ('http://localhost:3000/tornado-points.sql') WITH ignore_unsupported_statements;
 ~~~

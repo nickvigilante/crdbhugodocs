@@ -9,7 +9,7 @@ toc: true
 The `ARRAY` data type is useful for ensuring compatibility with ORMs and other tools. However, if such compatibility is not a concern, it's more flexible to design your schema with normalized tables.
 
 
-{{ site.data.alerts.callout_info }} CockroachDB does not support nested arrays, creating database indexes on arrays, and ordering by arrays.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }} CockroachDB does not support nested arrays, creating database indexes on arrays, and ordering by arrays.{{site.data.alerts.end }}
 
 ## Syntax
 
@@ -62,7 +62,7 @@ The size of an `ARRAY` value is variable, but it's recommended to keep values un
 ~~~
 
 ### Accessing an array element using array index
-{{ site.data.alerts.callout_info }} Arrays in CockroachDB are 1-indexed. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }} Arrays in CockroachDB are 1-indexed. {{site.data.alerts.end }}
 
 ~~~ sql
 > SELECT * FROM c;

@@ -4,7 +4,7 @@ summary: Restore your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{ site.data.alerts.callout_danger }}The <code>RESTORE</code> feature is only available to <a href="https://www.cockroachlabs.com/product/cockroachdb/">enterprise</a> users. For non-enterprise restores, see <a href="restore-data.html">Restore Data</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}The <code>RESTORE</code> feature is only available to <a href="https://www.cockroachlabs.com/product/cockroachdb/">enterprise</a> users. For non-enterprise restores, see <a href="restore-data.html">Restore Data</a>.{{site.data.alerts.end }}
 
 The `RESTORE` [statement](sql-statements.html) restores your cluster's schemas and data from [an enterprise `BACKUP`](backup.html) stored on a services such as AWS S3, Google Cloud Storage, NFS, or HTTP storage.
 
@@ -19,7 +19,7 @@ You can restore entire tables (which automatically includes their indexes) or [v
 
 The notion of "restoring a database" simply restores all of the tables and views that belong to the database, but does not create the database. For more information, see [Target Database](#target-database).
 
-{{ site.data.alerts.callout_info }}<code>RESTORE</code> only offers table-level granularity; it <em>does not</em> support restoring subsets of a table.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>RESTORE</code> only offers table-level granularity; it <em>does not</em> support restoring subsets of a table.{{site.data.alerts.end }}
 
 Because this process is designed for disaster recovery, CockroachDB expects that the tables do not currently exist in the [target database](#target-database). This means the target database must have not have tables or views with the same name as the restored table or view. If any of the restore target's names are being used, you can:
 
@@ -65,7 +65,7 @@ Restore Type | Parameters
 
 ### Point-in-time Restore <span class="version-tag">New in v2.0</span>
 
-{%  include {{  page.version.version  }}/misc/beta-warning.md %}
+{{ partial "{{ page.version.version }}/misc/beta-warning.md" . }}
 
 If the full or incremental backup was taken [with revision history](backup.html#backups-with-revision-history-new-in-v2-0), you can restore the data as it existed at the specified point-in-time within the revision history captured by that backup.
 
@@ -75,7 +75,7 @@ If you do not specify a point-in-time, the data will be restored to the backup t
 
 The `RESTORE` process minimizes its impact to the cluster's performance by distributing work to all nodes. Subsets of the restored data (known as ranges) are evenly distributed among randomly selected nodes, with each range initially restored to only one node. Once the range is restored, the node begins replicating it others.
 
-{{ site.data.alerts.callout_info }}When a <code>RESTORE</code> fails or is canceled, partially restored data is properly cleaned up. This can have a minor, temporary impact on cluster performance.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}When a <code>RESTORE</code> fails or is canceled, partially restored data is properly cleaned up. This can have a minor, temporary impact on cluster performance.{{site.data.alerts.end }}
 
 ## Viewing and Controlling Restore Jobs
 
@@ -86,10 +86,10 @@ After the restore has been initiated, you can control it with [`PAUSE JOB`](paus
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/restore.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/restore.html" . }}
 </div>
 
-{{ site.data.alerts.callout_info }}The <code>RESTORE</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>RESTORE</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end }}
 
 ## Required Privileges
 
@@ -110,7 +110,7 @@ Only the `root` user can run `RESTORE`.
 
 The URL for your backup's locations must use the following format:
 
-{%  include {{  page.version.version  }}/misc/external-urls.md %}
+{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
 
 ### Restore Option List
 
@@ -159,7 +159,7 @@ You can include the following options as key-value pairs in the `kv_option_list`
 > RESTORE DATABASE bank FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
 
-{{ site.data.alerts.callout_info }}<code>RESTORE DATABASE</code> can only be used if the entire database was backed up.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>RESTORE DATABASE</code> can only be used if the entire database was backed up.{{site.data.alerts.end }}
 
 ### Point-in-time Restore<span class="version-tag">New in v2.0</span>
 

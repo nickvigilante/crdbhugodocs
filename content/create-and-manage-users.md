@@ -6,7 +6,7 @@ toc: true
 
 To create, manage, and remove your cluster's users (which lets you control SQL-level [privileges](privileges.html)), use the `cockroach user` [command](cockroach-commands.html) with appropriate flags.
 
-{{ site.data.alerts.callout_success }}You can also use the <a href="create-user.html"><code>CREATE USER</code></a> statement to create users.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can also use the <a href="create-user.html"><code>CREATE USER</code></a> statement to create users.{{site.data.alerts.end }}
 
 
 ## Considerations
@@ -14,7 +14,7 @@ To create, manage, and remove your cluster's users (which lets you control SQL-l
 - Usernames are case-insensitive; must start with either a letter or underscore; must contain only letters, numbers, or underscores; and must be between 1 and 63 characters.
 - After creating users, you must [grant them privileges to databases and tables](grant.html).
 - On secure clusters, you must [create client certificates for users](create-security-certificates.html#create-the-certificate-and-key-pair-for-a-client) and users must [authenticate their access to the cluster](#user-authentication).
-- {%  include {{  page.version.version  }}/misc/remove-user-callout.html %}
+- {{ partial "{{ page.version.version }}/misc/remove-user-callout.html" . }}
 
 ## Subcommands
 
@@ -76,7 +76,7 @@ Secure clusters require users to authenticate their access to databases and tabl
 - [Client certificate and key authentication](#secure-clusters-with-client-certificates), which is available to all users. To ensure the highest level of security, we recommend only using client certificate and key authentication.
 - [Password authentication](#secure-clusters-with-passwords), which is available only to users who you've created passwords for. To set a password for a user, include the `--password` flag in the `cockroach user set` command. However, you *cannot* add password authentication to the `root` user. <br/><br/>You can use this password to authenticate users without supplying their client certificate and key; however, we recommend instead using client certificate and key authentication whenever possible.
 
-{{ site.data.alerts.callout_info }}Insecure clusters do not support user authentication, but you can still create passwords for users (besides <code>root</code>) through the <code>--password</code> flag.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Insecure clusters do not support user authentication, but you can still create passwords for users (besides <code>root</code>) through the <code>--password</code> flag.{{site.data.alerts.end }}
 
 ## Examples
 
@@ -98,7 +98,7 @@ After creating users, you must [grant them privileges to databases](grant.html).
 $ cockroach user set jpointsman --certs-dir=certs
 ~~~
 
-{{ site.data.alerts.callout_success }}If you want to allow password authentication for the user, include the <code>--password</code> flag and then enter and confirm the password at the command prompt.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}If you want to allow password authentication for the user, include the <code>--password</code> flag and then enter and confirm the password at the command prompt.{{site.data.alerts.end }}
 
 Usernames are case-insensitive; must start with either a letter or underscore; must contain only letters, numbers, or underscores; and must be between 1 and 63 characters.
 
@@ -141,7 +141,7 @@ $ cockroach user set jpointsman --certs-dir=certs --password
 
 After issuing this command, enter and confirm the user's new password at the command prompt.
 
-{{ site.data.alerts.callout_danger }}You cannot add password authentication to the <code>root</code> user.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}You cannot add password authentication to the <code>root</code> user.{{site.data.alerts.end }}
 
 ### List All Users
 

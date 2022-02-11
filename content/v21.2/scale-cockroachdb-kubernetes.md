@@ -7,9 +7,9 @@ secure: true
 docs_area: deploy
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This article assumes you have already [deployed CockroachDB on a single Kubernetes cluster](deploy-cockroachdb-with-kubernetes.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 This page explains how to add and remove CockroachDB nodes on Kubernetes.
 
@@ -20,11 +20,11 @@ This page explains how to add and remove CockroachDB nodes on Kubernetes.
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{%  include {{  page.version.version  }}/orchestration/operator-check-namespace.md %}
+{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
 ## Add nodes
@@ -41,7 +41,7 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
 1. If you need to add worker nodes, resize your GKE cluster by specifying the desired number of worker nodes in each zone:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     gcloud container clusters resize {cluster-name} --region {region-name} --num-nodes 2
     ~~~
@@ -50,13 +50,13 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. If you are adding nodes after previously [scaling down](#remove-nodes), and have not enabled [automatic PVC pruning](#automatic-pvc-pruning), you must first manually delete any persistent volumes that were orphaned by node removal.
 
-        {{ site.data.alerts.callout_info }}
+        {{site.data.alerts.callout_info }}
         Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod. 
-        {{ site.data.alerts.end }}
+        {{site.data.alerts.end }}
 
         View the PVCs on the cluster:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         kubectl get pvc
         ~~~
@@ -73,7 +73,7 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. The PVC names correspond to the pods they are bound to. For example, if the pods `cockroachdb-3`, `cockroachdb-4`, and `cockroachdb-5` had been removed by [scaling the cluster down](#remove-nodes) from 6 to 3 nodes, `datadir-cockroachdb-3`, `datadir-cockroachdb-4`, and `datadir-cockroachdb-5` would be the PVCs for the orphaned persistent volumes. To verify that a PVC is not currently bound to a pod:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         kubectl describe pvc datadir-cockroachdb-5
         ~~~
@@ -88,11 +88,11 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. Remove the orphaned persistent volumes by deleting their PVCs:
 
-        {{ site.data.alerts.callout_danger }}
+        {{site.data.alerts.callout_danger }}
         Before deleting any persistent volumes, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-        {{ site.data.alerts.end }}
+        {{site.data.alerts.end }}
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         kubectl delete pvc datadir-cockroachdb-3 datadir-cockroachdb-4 datadir-cockroachdb-5
         ~~~
@@ -109,20 +109,20 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
     nodes: 6
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Note that you must scale by updating the `nodes` value in the custom resource. Using `kubectl scale statefulset <cluster-name> --replicas=4` will result in new pods immediately being terminated.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Apply the new settings to the cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl apply -f example.yaml
     ~~~
 
 1. Verify that the new pods were successfully started:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl get pods
     ~~~
@@ -142,29 +142,29 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster-helm.md" . }}
 </section>
 
 ## Remove nodes
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Do **not** scale down to fewer than 3 nodes. This is considered an anti-pattern on CockroachDB and will cause errors.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod. 
 
 If you plan to eventually [scale up](#add-nodes) the cluster after scaling down, you will need to manually delete any PVCs that were orphaned by node removal before scaling up. For more information, see [Add nodes](#add-nodes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to enable the Operator to automatically prune PVCs when scaling down, see [Automatic PVC pruning](#automatic-pvc-pruning). However, note that this workflow is currently unsupported.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Before scaling down CockroachDB, note the following [topology recommendation](recommended-production-settings.html#topology):
 
@@ -178,13 +178,13 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
     nodes: 3
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Before removing a node, the Operator first decommissions the node. This lets a node finish in-flight requests, rejects any new requests, and transfers all range replicas and range leases off the node.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Apply the new settings to the cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl apply -f example.yaml
     ~~~
@@ -193,7 +193,7 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
     
 1. Verify that the pods were successfully removed:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl get pods
     ~~~
@@ -210,15 +210,15 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
 
 To enable the Operator to automatically remove persistent volumes when [scaling down](#remove-nodes) a cluster, turn on automatic PVC pruning through a feature gate.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 This workflow is unsupported and should be enabled at your own risk.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Download the Operator manifest:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{ site.operator_version }}/install/operator.yaml
+    $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
     ~~~
 
 1. Uncomment the following lines in the Operator manifest:
@@ -230,14 +230,14 @@ This workflow is unsupported and should be enabled at your own risk.
 
 1. Reapply the Operator manifest:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl apply -f operator.yaml
     ~~~
 
 1. Validate that the Operator is running:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -250,9 +250,9 @@ This workflow is unsupported and should be enabled at your own risk.
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-remove-nodes-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-remove-nodes-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-helm.md" . }}
 </section>

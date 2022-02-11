@@ -6,14 +6,14 @@ toc: true
 
 <span class="version-tag">New in v20.2:</span> The `ALTER TYPE` [statement](sql-statements.html) modifies a user-defined, [enumerated data type](enum.html) in the current database.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can only reference a user-defined type from the database that contains the type.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/alter_type.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/alter_type.html" . }}
 </div>
 
 ## Parameters
@@ -38,12 +38,12 @@ on the type.
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TYPE status AS ENUM ('open', 'closed', 'inactive');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ENUMS;
 ~~~
@@ -55,22 +55,22 @@ on the type.
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TYPE status ADD VALUE 'pending';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TYPE status RENAME VALUE 'open' TO 'active';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TYPE status RENAME TO account_status;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ENUMS;
 ~~~

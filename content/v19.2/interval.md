@@ -6,14 +6,14 @@ toc: true
 
 The `INTERVAL` [data type](data-types.html) stores a value that represents a span of time.
 
-{%  include {{ page.version.version }}/sql/vectorized-support.md %}
+{{ partial "{{ page.version.version }}/sql/vectorized-support.md" . }}
 
 ## Aliases
 
 - `INTERVAL(6)`
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `INTERVAL(6)` is supported as an alias for compatibility purposes only. This alias does not determine [the size of an `INTERVAL` value](#size).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 CockroachDB also supports using uninterpreted [string literals](sql-constants.html#string-literals) in contexts where an `INTERVAL` value is otherwise expected.
 
@@ -48,18 +48,18 @@ An `INTERVAL` column supports values up to 24 bytes in width, but the total stor
 
 Intervals are stored with microsecond precision instead of nanoseconds, and it is no longer possible to create intervals with nanosecond precision.  As a result, parsing from a [string](string.html) or converting from a [float](float.html) or [decimal](decimal.html) will round to the nearest microsecond, as will any arithmetic [operation](functions-and-operators.html#supported-operations) (add, sub, mul, div) on intervals. CockroachDB rounds (instead of truncating) to match the behavior of Postgres.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 When upgrading to 19.1, existing intervals with nanoseconds will no longer be able to return their nanosecond part. An existing table `t` with nanoseconds in intervals of column `s` can round them to the nearest microsecond with `UPDATE t SET s = s + '0s'`. Note that this could cause uniqueness problems if the interval is being used as a [primary key](primary-key.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE intervals (a INT PRIMARY KEY, b INTERVAL);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM intervals;
 ~~~
@@ -72,7 +72,7 @@ When upgrading to 19.1, existing intervals with nanoseconds will no longer be ab
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO
     intervals
@@ -81,7 +81,7 @@ When upgrading to 19.1, existing intervals with nanoseconds will no longer be ab
            (3, '1-2 3 4:5:6');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM intervals;
 ~~~

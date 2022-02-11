@@ -16,7 +16,7 @@ This page has instructions for updating existing rows of data in CockroachDB, us
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.dedicated  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.dedicated }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Install a Postgres client](install-client-drivers.html).
 - [Connect to the database](connect-to-the-database.html).
 - [Create a database schema](schema-design-overview.html).
@@ -28,11 +28,11 @@ Before reading this page, do the following:
 
 To update existing rows in a table, use an [`UPDATE` statement](update.html) with a `WHERE` clause that filters on the columns that identify the rows that you want to update.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To update a large number of rows (i.e., tens of thousands of rows or more), we recommend iteratively updating subsets of the rows that you want to update, until all of the rows have been updated. You can write a script to do this, or you can write a loop into your application.
 
 For guidance and an example, see [Bulk-update Data](bulk-update-data.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### `UPDATE` SQL syntax
 
@@ -50,9 +50,9 @@ Where:
 - `{filter_column}` is the column to filter on.
 - `{filter_value}` is the matching value for the filter.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For detailed reference documentation on the `UPDATE` statement, including additional examples, see the [`UPDATE` syntax page](update.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### `UPDATE` best practices
 
@@ -75,7 +75,7 @@ Suppose you want to change the status of all of the vehicles owned by a particul
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 UPDATE vehicle SET status = 'unavailable' WHERE owner_id = 'bd70a3d7-0a3d-4000-8000-000000000025';
 ~~~
@@ -84,7 +84,7 @@ UPDATE vehicle SET status = 'unavailable' WHERE owner_id = 'bd70a3d7-0a3d-4000-8
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'conn' is an open database connection
 
@@ -101,7 +101,7 @@ err = conn.QueryRow(context.Background(), "UPDATE vehicle SET status = 'unavaila
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -122,7 +122,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -153,9 +153,9 @@ Where:
 - `{upsert_columns}` is a comma-separated list of the columns to which you want to insert values.
 - `{upsert_values}` is a comma-separated list of values that you want to insert.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For detailed reference documentation on the `UPSERT` statement, including additional examples, see the [`UPSERT` syntax page](upsert.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### `UPSERT` best practices
 
@@ -177,7 +177,7 @@ Suppose you want to add some promo codes to the MovR platform, and overwrite any
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 UPSERT INTO promo_codes (code, description, rules)
   VALUES ('0_explain_theory_something','Fifteen percent off.', '{"type": "percent_discount", "value": "15%"}'),
@@ -189,7 +189,7 @@ UPSERT INTO promo_codes (code, description, rules)
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -216,7 +216,7 @@ return nil
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -254,7 +254,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -281,9 +281,9 @@ To insert new rows into a table, and to update rows with `UNIQUE`-constrained va
 
 `INSERT ... ON CONFLICT ... DO UPDATE` is semantically identical to `UPSERT`, when the conflicting values are in the primary key and the action to take on conflict is to update the conflicting rows with the new rows. `INSERT ... ON CONFLICT` is more flexible than `UPSERT`, and can be used to consider uniqueness for columns not in the primary key. With `INSERT ... ON CONFLICT`, you can also control how to update rows in the event of a conflict. This contrasts with the behavior of an `UPSERT` statement, which just overwrites conflicting rows with new rows.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  Note that if you are inserting to/updating all columns of a table, and the table has no secondary indexes, `UPSERT` will be faster than the equivalent `INSERT ON CONFLICT` statement, as it will write without first reading.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### `INSERT ON CONFLICT` SQL syntax
 
@@ -326,7 +326,7 @@ Suppose you want to record a particular user's promo code usage count. The `user
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 INSERT INTO user_promo_codes (city, user_id, code, "timestamp", usage_count)
     VALUES ('new york', '147ae147-ae14-4b00-8000-000000000004', 'promo_code', now(), 1)
@@ -338,7 +338,7 @@ INSERT INTO user_promo_codes (city, user_id, code, "timestamp", usage_count)
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -361,7 +361,7 @@ return nil
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -390,7 +390,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 

@@ -12,7 +12,7 @@ We have tested the [Clojure java.jdbc driver](http://clojure-doc.org/articles/ec
 
 ## Before you begin
 
-{%  include {{ page.version.version }}/app/before-you-begin.md %}
+{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
 
 ## Step 1. Install `leiningen`
 
@@ -22,7 +22,7 @@ Install the Clojure `lein` utility as described in its [official documentation](
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -30,7 +30,7 @@ Create a certificate and key for the `maxroach` user by running the following co
 
 Pass the [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) to generate a key in [PKCS#8 format](https://tools.ietf.org/html/rfc5208), which is the standard key encoding format in Java. In this case, the generated PKCS8 key will be named `client.maxroach.key.pk8`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key --also-generate-pkcs8-key
 ~~~
@@ -39,7 +39,7 @@ $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-direc
 
 As the `maxroach` user, use the [built-in SQL client](cockroach-sql.html) to create an `accounts` table in the new database.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir=certs \
@@ -55,29 +55,29 @@ Now that you have a database and a user, you'll run code to create a table and i
 ### Create a basic Clojure/JDBC project
 
 1. Create a new directory `myapp`.
-2. Create a file `myapp/project.clj` and populate it with the following code, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/project.clj" download>download it directly</a>.
+2. Create a file `myapp/project.clj` and populate it with the following code, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/project.clj" download>download it directly</a>.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ clojure
-    {%  include {{  page.version.version  }}/app/project.clj %}
+    {{ partial "{{ page.version.version }}/app/project.clj" . }}
     ~~~
 
-3. Create a file `myapp/src/test/util.clj` and populate it with the code from <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/util.clj" download>this file</a>. Be sure to place the file in the subdirectory `src/test` in your project.
+3. Create a file `myapp/src/test/util.clj` and populate it with the code from <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/util.clj" download>this file</a>. Be sure to place the file in the subdirectory `src/test` in your project.
 
 ### Basic statements
 
 First, use the following code to connect as the `maxroach` user and execute some basic SQL statements, inserting rows and reading and printing the rows.
 
-Create a file `myapp/src/test/test.clj` and copy the code below to it, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/basic-sample.clj" download>download it directly</a>. Be sure to rename this file to `test.clj` in the subdirectory `src/test` in your project.
+Create a file `myapp/src/test/test.clj` and copy the code below to it, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/basic-sample.clj" download>download it directly</a>. Be sure to rename this file to `test.clj` in the subdirectory `src/test` in your project.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ clojure
-{%  include {{  page.version.version  }}/app/basic-sample.clj %}
+{{ partial "{{ page.version.version }}/app/basic-sample.clj" . }}
 ~~~
 
 Run with:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ lein run
 ~~~
@@ -87,28 +87,28 @@ $ lein run
 Next, use the following code to again connect as the `maxroach` user but this time execute a batch of statements as an atomic transaction to transfer funds from one account to another, where all included statements are either committed or aborted.
 
 Copy the code below to `myapp/src/test/test.clj` or
-<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/txn-sample.clj" download>download it directly</a>. Again, preserve the file name `test.clj`.
+<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.clj" download>download it directly</a>. Again, preserve the file name `test.clj`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB may require the
 [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ clojure
-{%  include {{  page.version.version  }}/app/txn-sample.clj %}
+{{ partial "{{ page.version.version }}/app/txn-sample.clj" . }}
 ~~~
 
 Run with:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ lein run
 ~~~
 
 After running the code, use the [built-in SQL client](cockroach-sql.html) to verify that funds were transferred from one account to another:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -127,13 +127,13 @@ id | balance
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Create a table in the new database
 
 As the `maxroach` user, use the [built-in SQL client](cockroach-sql.html) to create an `accounts` table in the new database.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure \
 --database=bank \
@@ -148,29 +148,29 @@ Now that you have a database and a user, you'll run code to create a table and i
 ### Create a basic Clojure/JDBC project
 
 1. Create a new directory `myapp`.
-2. Create a file `myapp/project.clj` and populate it with the following code, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/project.clj" download>download it directly</a>.
+2. Create a file `myapp/project.clj` and populate it with the following code, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/project.clj" download>download it directly</a>.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ clojure
-    {%  include {{  page.version.version  }}/app/project.clj %}
+    {{ partial "{{ page.version.version }}/app/project.clj" . }}
     ~~~
 
-3. Create a file `myapp/src/test/util.clj` and populate it with the code from <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/util.clj" download>this file</a>. Be sure to place the file in the subdirectory `src/test` in your project.
+3. Create a file `myapp/src/test/util.clj` and populate it with the code from <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/util.clj" download>this file</a>. Be sure to place the file in the subdirectory `src/test` in your project.
 
 ### Basic statements
 
 First, use the following code to connect as the `maxroach` user and execute some basic SQL statements, inserting rows and reading and printing the rows.
 
-Create a file `myapp/src/test/test.clj` and copy the code below to it, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/insecure/basic-sample.clj" download>download it directly</a>. Be sure to rename this file to `test.clj` in the subdirectory `src/test` in your project.
+Create a file `myapp/src/test/test.clj` and copy the code below to it, or <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/basic-sample.clj" download>download it directly</a>. Be sure to rename this file to `test.clj` in the subdirectory `src/test` in your project.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ clojure
-{%  include {{  page.version.version  }}/app/insecure/basic-sample.clj %}
+{{ partial "{{ page.version.version }}/app/insecure/basic-sample.clj" . }}
 ~~~
 
 Run with:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ lein run
 ~~~
@@ -180,28 +180,28 @@ $ lein run
 Next, use the following code to again connect as the `maxroach` user but this time execute a batch of statements as an atomic transaction to transfer funds from one account to another, where all included statements are either committed or aborted.
 
 Copy the code below to `myapp/src/test/test.clj` or
-<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/insecure/txn-sample.clj" download>download it directly</a>. Again, preserve the file name `test.clj`.
+<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/txn-sample.clj" download>download it directly</a>. Again, preserve the file name `test.clj`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB may require the
 [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ clojure
-{%  include {{  page.version.version  }}/app/insecure/txn-sample.clj %}
+{{ partial "{{ page.version.version }}/app/insecure/txn-sample.clj" . }}
 ~~~
 
 Run with:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ lein run
 ~~~
 
 After running the code, use the [built-in SQL client](cockroach-sql.html) to verify that funds were transferred from one account to another:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~
@@ -220,4 +220,4 @@ id | balance
 
 Read more about using the [Clojure java.jdbc driver](http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html).
 
-{%  include {{  page.version.version  }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

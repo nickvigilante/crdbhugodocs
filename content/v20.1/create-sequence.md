@@ -6,13 +6,13 @@ toc: true
 
 The `CREATE SEQUENCE` [statement](sql-statements.html) creates a new sequence in a database. Use a sequence to auto-increment integers in a table.
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Considerations
 
 - Using a sequence is slower than [auto-generating unique IDs with the `gen_random_uuid()`, `uuid_v4()` or `unique_rowid()` built-in functions](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb). Incrementing a sequence requires a write to persistent storage, whereas auto-generating a unique ID does not. Therefore, use auto-generated unique IDs unless an incremental sequence is preferred or required.
 - A column that uses a sequence can have a gap in the sequence values if a transaction advances the sequence and is then rolled back. Sequence updates are committed immediately and aren't rolled back along with their containing transaction. This is done to avoid blocking concurrent transactions that use the same sequence.
-- {%  include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+- {{ partial "{{ page.version.version }}/performance/use-hash-sharded-indexes.md" . }}
 - If a table references a sequence, and the reference explicitly specifies a database name, that [database cannot be renamed](rename-database.html). In this case, you can drop the column in the table that references the sequence, or you can modify the reference so that it does not specify the database name.
 
 ## Required privileges
@@ -21,7 +21,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_sequence.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_sequence.html" . }}</section>
 
 ## Parameters
 
@@ -58,13 +58,13 @@ We support the following [SQL sequence functions](functions-and-operators.html):
 
 <span class="version-tag">New in v20.1:</span> CockroachDB supports session-scoped temporary sequences. Unlike persistent sequences, temporary sequences can only be accessed from the session in which they were created, and they are dropped at the end of the session. You can create temporary sequences on both persistent tables and [temporary tables](temporary-tables.html).
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This is an experimental feature**. The interface and output are subject to change. For details, see the tracking issue [cockroachdb/cockroach#46260](https://github.com/cockroachdb/cockroach/issues/46260).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Temporary tables must be enabled in order to use temporary sequences. By default, temporary tables are disabled in CockroachDB. To enable temporary tables, set the `experimental_enable_temp_tables` [session variable](set-vars.html) to `on`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Details
 
@@ -73,9 +73,9 @@ Temporary tables must be enabled in order to use temporary sequences. By default
 - Temporary sequences persist across transactions in the same session.
 - Temporary sequences cannot be converted to persistent sequences.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Like [temporary tables](temporary-tables.html), temporary sequences are not in the `public` schema. Instead, when you create the first temporary table, view, or sequence for a session, CockroachDB generates a single temporary schema (`pg_temp_<id>`) for all of the temporary objects in the current session for a database.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Usage
 
@@ -83,17 +83,17 @@ To create a temporary sequence, add [`TEMP`/`TEMPORARY`](sql-grammar.html#opt_te
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET experimental_enable_temp_tables=on;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TEMP SEQUENCE temp_seq START 1 INCREMENT 1;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE temp_seq;
 ~~~
@@ -111,12 +111,12 @@ For example:
 
 In this example, we create a sequence with default settings.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE customer_seq;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE customer_seq;
 ~~~
@@ -132,12 +132,12 @@ In this example, we create a sequence with default settings.
 
 In this example, we create a sequence that starts at -1 and descends in increments of 2.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE desc_customer_list;
 ~~~
@@ -153,7 +153,7 @@ In this example, we create a sequence that starts at -1 and descends in incremen
 
 To view the current value without incrementing the sequence, use:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customer_seq;
 ~~~
@@ -165,7 +165,7 @@ To view the current value without incrementing the sequence, use:
 (1 row)
 ~~~
 
-{{ site.data.alerts.callout_info }}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{site.data.alerts.end }}
 
 If a value has been obtained from the sequence in the current session, you can also use the `currval('seq_name')` function to get that most recently obtained value:
 
@@ -182,7 +182,7 @@ If a value has been obtained from the sequence in the current session, you can a
 
 ### List all sequences
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~

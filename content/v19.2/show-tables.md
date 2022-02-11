@@ -7,14 +7,14 @@ toc: true
 
 The `SHOW TABLES` [statement](sql-statements.html) lists the tables or [views](views.html) in a schema or database.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 While a table or view is being [dropped](drop-table.html), `SHOW TABLES` will list the object with a `(dropped)` suffix.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_tables.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_tables.html" . }}
 </div>
 
 ## Required privileges
@@ -34,13 +34,13 @@ When a `database_name` and `schema_name` are omitted, the tables of the [current
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Show tables in the current database
 
 `SHOW TABLES` uses the [current schema](sql-name-resolution.html#current-schema) `public` set by default in `search_path`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -59,7 +59,7 @@ When a `database_name` and `schema_name` are omitted, the tables of the [current
 
 <span class="version-tag">New in v19.2:</span> Alternatively, within the built-in SQL shell, you can use the `\dt` [shell command](cockroach-sql.html#commands):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \dt
 ~~~
@@ -80,12 +80,12 @@ When a `database_name` and `schema_name` are omitted, the tables of the [current
 
 You can show the tables in schemas other than the current schema. You can also show the schema by table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM movr.information_schema;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM information_schema;
 ~~~
@@ -123,12 +123,12 @@ Because `movr` is the current database, these statements return the same output:
 
 You can also show tables from a different database.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM system.public;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM system;
 ~~~
@@ -160,14 +160,14 @@ Because `public` is the current schema, these statements return the same output:
 
 You can use [`COMMENT ON`](comment-on.html) to add comments on a table.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > COMMENT ON TABLE users IS 'This table contains information about users.';
 ~~~
 
 To view a table's comments:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM movr WITH COMMENT;
 ~~~
@@ -192,7 +192,7 @@ For more information, see [`COMMENT ON`](comment-on.html).
 
 To view virtual tables with comments and documentation links, use `SHOW TABLES FROM <virtual schema> WITH COMMENT`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM information_schema WITH COMMENT;
 ~~~

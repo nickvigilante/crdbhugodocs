@@ -6,9 +6,9 @@ toc: true
 
 This page explains the `cockroach start` [command](cockroach-commands.html), which you use to start nodes as a new cluster or add nodes to an existing cluster. For a full walk-through of the cluster startup and initialization process, see one of the [Manual Deployment](manual-deployment.html) tutorials.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Node-level settings are defined by flags passed to the `cockroach start` command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see [Cluster Settings](cluster-settings.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
@@ -33,9 +33,9 @@ The `start` command supports the following [general-use](#general), [networking]
 node is started, as they will not be remembered, with the exception of the `--join` flag. Nevertheless, we recommend specifying _all_ flags every time, including the `--join` flag, as that will
 allow restarted nodes to join the cluster even if their data directory was destroyed.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 When adding a node to an existing cluster, include the `--join` flag.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### General
 
@@ -104,11 +104,11 @@ The `--locality` flag accepts arbitrary key-value pairs that describe the locati
 
 The `--store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In-memory storage is not suitable for production deployments at this time.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/misc/multi-store-nodes.md %}
+{{ partial "{{ page.version.version }}/misc/multi-store-nodes.md" . }}
 
 Field | Description
 ------|------------
@@ -121,7 +121,7 @@ Field | Description
 
 By default, `cockroach start` writes all messages to log files, and prints nothing to `stderr`. However, you can control the process's [logging](debug-and-error-logs.html) behavior with the following flags:
 
-{%  include {{  page.version.version  }}/misc/logging-flags.md %}
+{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
 
 #### Defaults
 
@@ -153,9 +153,9 @@ clusterID:           7b9329d0-580d-4035-8319-53ba8b74b213
 nodeID:              1
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 These details are also written to the `INFO` log in the `/logs` directory in case you need to refer to them at a later time.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Field | Description
 ------|------------
@@ -175,7 +175,7 @@ Field | Description
 
 ## Known limitations
 
-{%  include {{  page.version.version  }}/known-limitations/adding-stores-to-node.md %}
+{{ partial "{{ page.version.version }}/known-limitations/adding-stores-to-node.md" . }}
 
 ## Examples
 
@@ -189,7 +189,7 @@ Field | Description
 To start a single-node cluster, run the `cockroach start` command without the `--join` flag:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -200,7 +200,7 @@ $ cockroach start \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -220,7 +220,7 @@ $ cockroach start \
 To start a multi-node cluster, run the `cockroach start` command for each node, setting the `--join` flag to the addresses of 3-5 of the initial nodes:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -230,7 +230,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -240,7 +240,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -252,7 +252,7 @@ $ cockroach start \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -262,7 +262,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -272,7 +272,7 @@ $ cockroach start \
 --max-sql-memory=.25
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -286,7 +286,7 @@ $ cockroach start \
 Then run the [`cockroach init`](initialize-a-cluster.html) command against any node to perform a one-time cluster initialization:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init \
 --certs-dir=certs \
@@ -295,7 +295,7 @@ $ cockroach init \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init \
 --insecure \
@@ -314,7 +314,7 @@ $ cockroach init \
 
 1. Start each node on GCE with `--locality` set to describe its location, `--locality-advertise-addr` set to advertise its private address to other nodes in on GCE, `--advertise-addr` set to advertise its public address to nodes on AWS, and `--join` set to the public addresses of 3-5 of the initial nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -328,7 +328,7 @@ $ cockroach init \
 
 2. Start each node on AWS with `--locality` set to describe its location, `--locality-advertise-addr` set to advertise its private address to other nodes on AWS, `--advertise-addr` set to advertise its public address to nodes on GCE, and `--join` set to the public addresses of 3-5 of the initial nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -342,7 +342,7 @@ $ cockroach init \
 
 3. Run the [`cockroach init`](initialize-a-cluster.html) command against any node to perform a one-time cluster initialization:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init \
     --certs-dir=certs \
@@ -359,7 +359,7 @@ $ cockroach init \
 To add a node to an existing cluster, run the `cockroach start` command, setting the `--join` flag to the addresses of 3-5 of the nodes already in the cluster:
 
 <div class="filter-content" markdown="1" data-scope="secure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -371,7 +371,7 @@ $ cockroach start \
 </div>
 
 <div class="filter-content" markdown="1" data-scope="insecure">
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \

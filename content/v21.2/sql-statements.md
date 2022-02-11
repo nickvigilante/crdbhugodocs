@@ -7,9 +7,9 @@ docs_area: reference.sql
 
 CockroachDB supports the following SQL statements. Click a statement for more details.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 In the [built-in SQL shell](cockroach-sql.html#help), use `\h [statement]` to get inline help about a specific statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Data manipulation statements
 
@@ -195,9 +195,9 @@ Statement | Usage
 [`DROP SCHEDULES`](drop-schedules.html) |  Drop backup schedules.
 
 
-## Changefeed statements ({{  site.data.products.enterprise  }})
+## Changefeed statements ({{ site.data.products.enterprise }})
 
-[Change data capture](change-data-capture-overview.html) (CDC) provides an {{  site.data.products.enterprise  }} and core version of row-level change subscriptions for downstream processing.
+[Change data capture](change-data-capture-overview.html) (CDC) provides an {{ site.data.products.enterprise }} and core version of row-level change subscriptions for downstream processing.
 
 Statement | Usage
 ----------|------------

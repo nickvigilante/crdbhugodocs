@@ -14,7 +14,7 @@ Only members of the [`admin` role](authorization.html#admin-role) can show a [`C
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/master/grammar_svg/show_create_schedules.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/master/grammar_svg/show_create_schedules.html %}
 </div>
 
 ## Parameters
@@ -39,7 +39,7 @@ Field | Description
 
 Use the schedule `id` for a particular schedule to view its `CREATE` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW CREATE SCHEDULE 702856921622544385;
 ~~~
@@ -55,7 +55,7 @@ To list all the currently active schedules, use [`SHOW SCHEDULES`](show-schedule
 
 ### Show the `CREATE SCHEDULE` statement for all schedules
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW CREATE ALL SCHEDULES;
 ~~~

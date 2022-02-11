@@ -6,9 +6,9 @@ toc: true
 
 The `DECIMAL` [data type](data-types.html) stores exact, fixed-point numbers. This type is used when it is important to preserve exact precision, for example, with monetary data.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The [vectorized execution](vectorized-execution.html) engine does not support the serialization of `DECIMAL` data types in CockroachDB v19.2. As such, vectorized execution is not supported for `DECIMAL` data types that must be sent over a network.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Aliases
 
@@ -60,12 +60,12 @@ The size of a `DECIMAL` value is variable, starting at 9 bytes. It's recommended
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE decimals (a DECIMAL PRIMARY KEY, b DECIMAL(10,5), c NUMERIC);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM decimals;
 ~~~
@@ -81,12 +81,12 @@ The size of a `DECIMAL` value is variable, starting at 9 bytes. It's recommended
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO decimals VALUES (1.01234567890123456789, 1.01234567890123456789, 1.01234567890123456789);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM decimals;
 ~~~

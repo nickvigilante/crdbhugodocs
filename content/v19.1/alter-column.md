@@ -6,16 +6,16 @@ toc: true
 
 The `ALTER COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and sets, changes, or drops a column's [`DEFAULT` constraint](default-value.html) or drops the [`NOT NULL` constraint](not-null.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To manage other constraints, see [`ADD CONSTRAINT`](add-constraint.html) and [`DROP CONSTRAINT`](drop-constraint.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/alter_column.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/alter_column.html" . }}
 </div>
 
 ## Required privileges
@@ -32,7 +32,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
@@ -42,7 +42,7 @@ Setting the [`DEFAULT` value constraint](default-value.html) inserts the value w
 
 The below example inserts the Boolean value `true` whenever you inserted data to the `subscriptions` table without defining a value for the `newsletter` column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE subscriptions ALTER COLUMN newsletter SET DEFAULT true;
 ~~~
@@ -51,7 +51,7 @@ The below example inserts the Boolean value `true` whenever you inserted data to
 
 If the column has a defined [`DEFAULT` value](default-value.html), you can remove the constraint, which means the column will no longer insert a value by default if one is not explicitly defined for the column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE subscriptions ALTER COLUMN newsletter DROP DEFAULT;
 ~~~
@@ -60,14 +60,14 @@ If the column has a defined [`DEFAULT` value](default-value.html), you can remov
 
 If the column has the [`NOT NULL` constraint](not-null.html) applied to it, you can remove the constraint, which means the column becomes optional and can have *NULL* values written into it.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE subscriptions ALTER COLUMN newsletter DROP NOT NULL;
 ~~~
 
 ### Convert a computed column into a regular column
 
-{%  include {{  page.version.version  }}/computed-columns/convert-computed-column.md %}
+{{ partial "{{ page.version.version }}/computed-columns/convert-computed-column.md" . }}
 
 ## See also
 

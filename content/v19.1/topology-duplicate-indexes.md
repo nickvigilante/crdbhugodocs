@@ -15,37 +15,37 @@ In general, this pattern is suited well for immutable/reference tables that are 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/xde_Oz-dJxM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 **See It In Action** - Read about how a [financial software company](https://www.cockroachlabs.com/case-studies/top-u-s-financial-software-company-turns-to-cockroachdb-to-improve-its-application-login-experience/) is using the Duplicate Indexes topology for low latency reads in their identity access management layer.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
 ### Fundamentals
 
-{%  include {{  page.version.version  }}/topology-patterns/fundamentals.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
 
 ### Cluster setup
 
-{%  include {{  page.version.version  }}/topology-patterns/multi-region-cluster-setup.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
 
 ## Configuration
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Pinning secondary indexes requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Summary
 
 Using this pattern, you tell CockroachDB to put the leaseholder for the table itself (also called the primary index) in one region, create 2 secondary indexes on the table, and tell CockroachDB to put the leaseholder for each secondary index in one of the other regions. This means that reads will access the local leaseholder (either for the table itself or for one of the secondary indexes). Writes, however, will still leave the region to get consensus for the table and its secondary indexes.  
 
-<img src="{{  'images/v19.1/topology-patterns/topology_duplicate_indexes1.png' | relative_url  }}" alt="Duplicate Indexes topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_duplicate_indexes1.png' | relative_url }}" alt="Duplicate Indexes topology" style="max-width:100%" />
 
 ### Steps
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE postal_codes (
     id INT PRIMARY KEY,
@@ -57,7 +57,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 2. [Create a replication zone](configure-zone.html) for the table and set a leaseholder preference telling CockroachDB to put the leaseholder for the table in one of the regions, for example `us-west`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE postal_codes
         CONFIGURE ZONE USING
@@ -68,13 +68,13 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 3. [Create secondary indexes](create-index.html) on the table for each of your other regions, including all of the columns you wish to read either in the key or in the key and a [`STORING`](create-index.html#store-columns) clause:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE INDEX idx_central ON postal_codes (id)
         STORING (code);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE INDEX idx_east ON postal_codes (id)
         STORING (code);
@@ -82,7 +82,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 4. [Create a replication zone](configure-zone.html) for each secondary index, in each case setting a leaseholder preference telling CockroachDB to put the leaseholder for the index in a distinct region:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER INDEX postal_codes@idx_central
         CONFIGURE ZONE USING
@@ -90,7 +90,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
           lease_preferences = '[[+region=us-central]]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER INDEX postal_codes@idx_east
         CONFIGURE ZONE USING
@@ -114,7 +114,7 @@ For example, in the animation below:
 4. The leaseholder retrieves the results and returns to the gateway node.
 5. The gateway node returns the results to the client.
 
-<img src="{{  'images/v19.1/topology-patterns/topology_duplicate_indexes_reads.png' | relative_url  }}" alt="Pinned secondary indexes topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_duplicate_indexes_reads.png' | relative_url }}" alt="Pinned secondary indexes topology" style="max-width:100%" />
 
 #### Writes
 
@@ -130,17 +130,17 @@ For example, in the animation below:
 6. The leaseholders then return acknowledgement of the commit to the gateway node.
 7. The gateway node returns the acknowledgement to the client.
 
-<img src="{{  'images/v19.1/topology-patterns/topology_duplicate_indexes_writes.gif' | relative_url  }}" alt="Duplicate Indexes topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_duplicate_indexes_writes.gif' | relative_url }}" alt="Duplicate Indexes topology" style="max-width:100%" />
 
 ### Resiliency
 
 Because this pattern balances the replicas for the table and its secondary indexes across regions, one entire region can fail without interrupting access to the table:
 
-<img src="{{  'images/v19.1/topology-patterns/topology_duplicate_indexes_resiliency.png' | relative_url  }}" alt="Pinned Secondary Indexes topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_duplicate_indexes_resiliency.png' | relative_url }}" alt="Pinned Secondary Indexes topology" style="max-width:100%" />
 
 <!-- However, if an additional machine holding a replica for the table or any of its secondary indexes fails at the same time as the region failure, the range to which the replica belongs becomes unavailable for reads and writes:
 
-<img src="{{  'images/v19.1/topology-patterns/topology_pinned_index_leaseholders3.png' | relative_url  }}" alt="Pinned Secondary Indexes topology" style="max-width:100%" /> -->
+<img src="{{ 'images/v19.1/topology-patterns/topology_pinned_index_leaseholders3.png' | relative_url }}" alt="Pinned Secondary Indexes topology" style="max-width:100%" /> -->
 
 ## Alternatives
 
@@ -149,4 +149,4 @@ Because this pattern balances the replicas for the table and its secondary index
 
 ## See also
 
-{%  include {{  page.version.version  }}/topology-patterns/see-also.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}

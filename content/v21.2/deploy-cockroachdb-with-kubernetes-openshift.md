@@ -12,19 +12,19 @@ This page shows you how to start and stop a secure 3-node CockroachDB cluster on
 
 - A running OpenShift cluster
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This article assumes you have already installed the OpenShift Container Platform as your Kubernetes cluster. For details on this, see the [OpenShift documentation](https://docs.openshift.com/container-platform/4.7/installing/index.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Create a CockroachDB namespace
 
 1. Create a `cockroachdb` namespace. You will create the CockroachDB cluster in this namespace:
 
-	{{ site.data.alerts.callout_info }}
+	{{site.data.alerts.callout_info }}
 	`oc` runs `kubectl` commands on OpenShift clusters, using the same syntax.
-	{{ site.data.alerts.end }}
+	{{site.data.alerts.end }}
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc create namespace cockroachdb
 	~~~
@@ -35,7 +35,7 @@ This article assumes you have already installed the OpenShift Container Platform
 
 1.	Set `cockroachdb` as the default namespace:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc config set-context --current --namespace=cockroachdb
 	~~~
@@ -46,7 +46,7 @@ This article assumes you have already installed the OpenShift Container Platform
 
 	Validate that this was successful:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc config view --minify | grep namespace:
 	~~~
@@ -63,7 +63,7 @@ This article assumes you have already installed the OpenShift Container Platform
 
 1. Enter "cockroach" in the search box. There are two tiles called **CockroachDB Operator**. Find the tile _without_ the `Marketplace` label (which requires a subscription).
 
-	<img src="{{  'images/v21.2/cockroachdb-operator-openshift.png' | relative_url  }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v21.2/cockroachdb-operator-openshift.png' | relative_url }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
 
 	Click the **CockroachDB Operator** tile and then **Install**.
 
@@ -71,7 +71,7 @@ This article assumes you have already installed the OpenShift Container Platform
 
 1. Confirm that the Operator is running:
 
-	  {%  include_cached copy-clipboard.html %}
+	  {% include_cached copy-clipboard.html %}
 	  ~~~ shell
 	  $ oc get pods
 	  ~~~
@@ -87,7 +87,7 @@ This article assumes you have already installed the OpenShift Container Platform
 
 1. In the **CockroachDB Operator** tile, click **Create instance**.
 
-	<img src="{{  'images/v21.2/cockroachdb-operator-instance-openshift.png' | relative_url  }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v21.2/cockroachdb-operator-instance-openshift.png' | relative_url }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
 
 1. Make sure **CockroachDB Version** is set to an valid CockroachDB version. For a list of compatible image names, see `spec.containers.env` in the [Operator manifest](https://github.com/cockroachdb/cockroach-operator/blob/f096daf45086136387a75092c0763689cb2a5b59/manifests/operator.yaml) on GitHub.
 
@@ -95,11 +95,11 @@ This article assumes you have already installed the OpenShift Container Platform
 
 1. Navigate to **Workloads** > **Pods** and observe the pods being created:
 
-	<img src="{{  'images/v21.2/cockroachdb-operator-pods-openshift.png' | relative_url  }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v21.2/cockroachdb-operator-pods-openshift.png' | relative_url }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
 
 1. You can also use the command line to view the pods:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc get pods
 	~~~
@@ -112,9 +112,9 @@ This article assumes you have already installed the OpenShift Container Platform
 	crdb-tls-example-2                    1/1     Running   0          89s
 	~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/575), in rare cases the Operator can crash while installing CockroachDB. This causes the CockroachDB pods to fail to start, while the version checker [job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) continues to run. If this happens, run `oc get jobs` to find the names of any running `cockroachdb-vcheck` jobs, and delete these jobs with `oc delete job {cockroachdb-vcheck-job}`. Then wait for the version checker job to restart and succeed.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 4. Create a secure client pod
 
@@ -122,13 +122,13 @@ To use the CockroachDB SQL client, first launch a secure pod running the `cockro
 
 This can be defined with the following YAML, which mounts the Operator's generated certificates:
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 `spec.containers.image` should match the **Image** value that is displayed under the **Containers** section on the **Pods** page when you select a CockroachDB pod. Be sure to select a CockroachDB pod and not the Operator pod.
 
 Note that OpenShift may display the image SHA instead of the tag. In this case, you should use the SHA for `spec.containers.image`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 apiVersion: v1
 kind: Pod
@@ -174,7 +174,7 @@ spec:
 
 1. Click **Create**. Return to the **Pods** page and check that the client pod `crdb-client-secure` is running. This is also visible on the command-line:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc get pods
 	~~~
@@ -192,7 +192,7 @@ spec:
 
 1. Start the CockroachDB [built-in SQL client](cockroach-sql.html) from the client pod:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc exec -it crdb-client-secure -- ./cockroach sql --certs-dir=/cockroach/cockroach-certs/ --host=crdb-tls-example-public
 	~~~
@@ -213,22 +213,22 @@ spec:
 
 	Now you can run SQL commands against the cluster.
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-basic-sql.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-basic-sql.md" . }}
 
 **Note:** If you cannot access the SQL client, this may be related to your `--certs-dir` or `--host` flags. 
 
 1. Shell into the client pod and check for the necessary certs in the `--certs-dir` directory:
 
-	{{ site.data.alerts.callout_success }}
+	{{site.data.alerts.callout_success}}
 	You can also access the client pod by selecting it on the **Pods** page and clicking **Terminal**.
-	{{ site.data.alerts.end }}
+	{{site.data.alerts.end }}
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc exec -it crdb-client-secure sh
 	~~~
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	# cd /cockroach/cockroach-certs
 	# ls
@@ -241,12 +241,12 @@ spec:
 
 1. Check the name of the `public` service to use with the `--host` flag:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc get services
 	~~~
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	NAME                      TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)              AGE
 	crdb-tls-example          ClusterIP   None             <none>        26257/TCP,8080/TCP   14m
@@ -261,28 +261,28 @@ To access the CockroachDB cluster's [DB Console](ui-overview.html):
 
 	Start the CockroachDB [built-in SQL client](cockroach-sql.html) from the client pod:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc exec -it crdb-client-secure -- ./cockroach sql --certs-dir=/cockroach/cockroach-certs/ --host=crdb-tls-example-public
 	~~~
 
 1.  Assign `roach` to the `admin` role (you only need to do this once):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > GRANT admin TO roach;
     ~~~
 
 1. Exit the SQL shell and pod:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > \q
     ~~~
 
 1. In a new terminal window, port-forward from your local machine to the `crdb-tls-example-public` service:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc port-forward service/crdb-tls-example-public 8080
 	~~~
@@ -293,7 +293,7 @@ To access the CockroachDB cluster's [DB Console](ui-overview.html):
 
 1. Go to <a href="https://localhost:8080/" data-proofer-ignore>https://localhost:8080</a> and log in with the username and password you created earlier.
 
-    {%  include {{  page.version.version  }}/misc/chrome-localhost.md %}
+    {{ partial "{{ page.version.version }}/misc/chrome-localhost.md" . }}
 
 ## Step 7. Run a sample workload
 
@@ -301,41 +301,41 @@ To run a sample [CockroachDB workload](cockroach-workload.html):
 
 1. Use the secure client pod to load the `movr` schema on one of the CockroachDB pods:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc exec -it crdb-client-secure -- ./cockroach workload init movr 'postgresql://root@crdb-tls-example-0.crdb-tls-example.cockroachdb:26257?sslcert=%2Fcockroach%2Fcockroach-certs%2Fclient.root.crt&sslkey=%2Fcockroach%2Fcockroach-certs%2Fclient.root.key&sslmode=verify-full&sslrootcert=%2Fcockroach%2Fcockroach-certs%2Fca.crt'
 	~~~
 
 1. Initialize and run the workload for 3 minutes:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	oc exec -it crdb-client-secure -- ./cockroach workload run movr --duration=3m --tolerate-errors --max-rate=20 --concurrency=1 --display-every=10s 'postgresql://root@crdb-tls-example-0.crdb-tls-example.cockroachdb:26257?sslcert=%2Fcockroach%2Fcockroach-certs%2Fclient.root.crt&sslkey=%2Fcockroach%2Fcockroach-certs%2Fclient.root.key&sslmode=verify-full&sslrootcert=%2Fcockroach%2Fcockroach-certs%2Fca.crt'
 	~~~
 
 1. Select one of the CockroachDB pods on the **Pods** page and click **Logs**. This will reveal the JDBC URL that your application can use to connect to CockroachDB:
 
-	<img src="{{  'images/v21.2/cockroachdb-operator-logs-openshift.png' | relative_url  }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v21.2/cockroachdb-operator-logs-openshift.png' | relative_url }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 8. Delete the cluster
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to continue using this cluster, see the documentation on [configuring](configure-cockroachdb-kubernetes.html), [scaling](scale-cockroachdb-kubernetes.html), [monitoring](monitor-cockroachdb-kubernetes.html), and [upgrading](upgrade-cockroachdb-kubernetes.html) the cluster.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Go to the **Installed Operators** page and find the cluster name of the CockroachDB cluster. Select **Delete CrdbCluster** from the menu.
 
-	<img src="{{  'images/v21.2/cockroachdb-operator-delete-openshift.png' | relative_url  }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v21.2/cockroachdb-operator-delete-openshift.png' | relative_url }}" alt="OpenShift OperatorHub" style="border:1px solid #eee;max-width:100%" />
 
 This will delete the CockroachDB cluster being run by the Operator. It will *not* delete:
 
 - The persistent volumes that were attached to the pods. This can be done by deleting the PVCs via **Storage** > **Persistent Volume Claims**.
 - The opaque secrets used to authenticate the cluster. This can be done via **Workloads** > **Secrets**.
  
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you want to delete the persistent volumes and free up the storage used by CockroachDB, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For more information on managing secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}

@@ -9,7 +9,7 @@ The `DROP COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and 
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/drop_column.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/drop_column.html" . }}
 
 ## Required Privileges
 
@@ -49,7 +49,7 @@ pq: cannot drop column "customer" because view "customer_view" depends on it
 
 If you want to drop the column and all of its dependent options, include the `CASCADE` clause.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{site.data.alerts.end }}
 
 ``` sql
 > SHOW CREATE VIEW customer_view;

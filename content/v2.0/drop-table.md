@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](privileges.html) on the specified tabl
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/drop_table.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/drop_table.html" . }}
 </div>
 
 ## Parameters
@@ -73,7 +73,7 @@ DROP TABLE
 
 In this example, a view depends on the table being dropped. Therefore, it's only possible to drop the table while simultaneously dropping the dependent view using `CASCADE`.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
 ~~~ sql
 > SHOW TABLES FROM bank;

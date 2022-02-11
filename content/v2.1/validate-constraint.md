@@ -16,7 +16,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/validate_constraint.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/validate_constraint.html" . }}
 </div>
 
 ## Parameters
@@ -30,21 +30,21 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 In [`ADD CONSTRAINT`](add-constraint.html), we [added a foreign key constraint](add-constraint.html#add-the-foreign-key-constraint-with-cascade) like so:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders ADD CONSTRAINT customer_fk FOREIGN KEY (customer_id) REFERENCES customers (id) ON DELETE CASCADE;
 ~~~
 
 In order to ensure that the data added to the `orders` table prior to the creation of the `customer_fk` constraint conforms to that constraint, run the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders VALIDATE CONSTRAINT customer_fk;
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If present in a [`CREATE TABLE`](create-table.html) statement, the table is considered validated because an empty table trivially meets its constraints.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

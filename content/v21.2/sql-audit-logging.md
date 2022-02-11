@@ -17,11 +17,11 @@ This page provides an example of SQL audit logging in CockroachDB, including:
 
 Note that enabling SQL audit logs can negatively impact performance. As a result, we recommend using SQL audit logs for security purposes only. For more details, see the [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html#performance-considerations) reference page.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For the best visibility into security-related events on your cluster, we recommend configuring `SENSITIVE_ACCESS` together with the `USER_ADMIN`, `PRIVILEGES`, and `SESSIONS` logging channels. To learn more, see [Logging Use Cases](logging-use-cases.html#security-and-audit-monitoring).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include common/experimental-warning.md %}
+{{ partial "common/experimental-warning.md" . }}
 
 ## Step 1. Create sample tables
 
@@ -32,7 +32,7 @@ Use the statements below to create:
 
 Later, we'll show how to turn on auditing for the `customers` table.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE customers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -44,7 +44,7 @@ Later, we'll show how to turn on auditing for the `customers` table.
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -58,22 +58,22 @@ Later, we'll show how to turn on auditing for the `customers` table.
 
 We turn on auditing for a table using the [`EXPERIMENTAL_AUDIT`](experimental-audit.html) subcommand of [`ALTER TABLE`](alter-table.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
 
 This directs [SQL audit events](eventlog.html#sql-access-audit-events) for the `customers` table into the [`SENSITIVE_ACCESS`](logging.html#logging-channels) logging channel.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To turn on auditing for more than one table, issue a separate `ALTER` statement for each table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 3. Populate the `customers` table
 
 Now that we have auditing turned on, let's add some customer data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO customers (name, address, national_id, telephone, email) VALUES (
     'Pritchard M. Cleveland',
@@ -84,7 +84,7 @@ Now that we have auditing turned on, let's add some customer data:
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO customers (name, address, national_id, telephone, email) VALUES (
     'Vainglorious K. Snerptwiddle III',
@@ -97,7 +97,7 @@ Now that we have auditing turned on, let's add some customer data:
 
 Now let's verify that our customers were added successfully:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -125,13 +125,13 @@ I210323 18:50:07.591609 1182 8@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:
 I210323 18:50:10.951550 1182 8@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:49851›,hostnossl,user=root] 4 ={"Timestamp":1616525410949087000,"EventType":"sensitive_table_access","Statement":"‹SELECT * FROM \"\".\"\".customers›","User":"‹root›","DescriptorID":52,"ApplicationName":"‹$ cockroach sql›","ExecMode":"exec","NumRows":2,"Age":2.514,"FullTableScan":true,"TxnCounter":38,"TableName":"‹defaultdb.public.customers›","AccessMode":"r"}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The above example shows the default [`crdb-v2`](log-formats.html#format-crdb-v2) log format. This can be changed to another format (e.g., JSON). For details, see [Configure Logs](configure-logs.html#file-logging-format).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For descriptions of all SQL audit event types and their fields, see [Notable Event Types](eventlog.html#sql-access-audit-events).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 5. Populate the `orders` table
 
@@ -139,14 +139,14 @@ Unlike the `customers` table, `orders` doesn't have any PII, just a Product ID a
 
 Let's populate the `orders` table with some placeholder data using [`CREATE SEQUENCE`](create-sequence.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE product_ids_asc START 1 INCREMENT 1;
 ~~~
 
 Evaluate the below a few times to generate data; note that this would error if [`SELECT`](select-clause.html) returned multiple results, but it doesn't in this case.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO orders (product_id, delivery_status, customer_id) VALUES (
     nextval('product_ids_asc'),
@@ -157,7 +157,7 @@ Evaluate the below a few times to generate data; note that this would error if [
 
 Let's verify that our orders were added successfully:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM orders ORDER BY product_id;
 ~~~
@@ -186,13 +186,13 @@ I210323 19:12:14.228906 1182 8@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:
 I210323 19:12:14.228964 1182 8@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:49851›,hostnossl,user=root] 10 ={"Timestamp":1616526734201401000,"EventType":"sensitive_table_access","Statement":"‹INSERT INTO \"\".\"\".orders(product_id, delivery_status, customer_id) VALUES (nextval('product_ids_asc'), 'processing', (SELECT id FROM \"\".\"\".customers WHERE name ~ 'Cleve'))›","User":"‹root›","DescriptorID":52,"ApplicationName":"‹$ cockroach sql›","ExecMode":"exec","NumRows":1,"Age":27.554,"FullTableScan":true,"FullIndexScan":true,"TxnCounter":58,"TableName":"‹defaultdb.public.customers›","AccessMode":"r"}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The above example shows the default [`crdb-v2`](log-formats.html#format-crdb-v2) log format. This can be changed to another format (e.g., JSON). For details, see [Configure Logs](configure-logs.html#file-logging-format).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For descriptions of all SQL audit event types and their fields, see [Notable Event Types](eventlog.html#sql-access-audit-events).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

@@ -16,11 +16,11 @@ We have tested the [Java JDBC driver](https://jdbc.postgresql.org/) and the [Hib
 
 ## Before you begin
 
-{%  include {{ page.version.version }}/app/before-you-begin.md %}
+{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The examples on this page assume you are using a Java version <= 9. They do not work with Java 10.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Install the Java JDBC driver
 
@@ -30,7 +30,7 @@ Download and set up the Java JDBC driver as described in the [official documenta
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -38,7 +38,7 @@ Create a certificate and key for the `maxroach` user by running the following co
 
 <span class="version-tag">New in v19.1</span>: You can pass the [`--also-generate-pkcs8-key` flag](create-security-certificates.html#flag-pkcs8) to generate a key in [PKCS#8 format](https://tools.ietf.org/html/rfc5208), which is the standard key encoding format in Java. In this case, the generated PKCS8 key will be named `client.maxroach.key.pk8`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key --also-generate-pkcs8-key
 ~~~
@@ -68,21 +68,21 @@ To run it:
 1. Download [`BasicExample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v19.1/app/BasicExample.java), or create the file yourself and copy the code below.
 2. Compile and run the code (adding the PostgreSQL JDBC driver to your classpath):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ javac -classpath .:/path/to/postgresql.jar BasicExample.java
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ java -classpath .:/path/to/postgresql.jar BasicExample
     ~~~
 
 The contents of [`BasicExample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v19.1/app/BasicExample.java):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/BasicExample.java %}
+{{ partial "{{ page.version.version }}/app/BasicExample.java" . }}
 ~~~
 
 </section>
@@ -91,7 +91,7 @@ The contents of [`BasicExample.java`](https://raw.githubusercontent.com/cockroac
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Run the Java code
 
@@ -116,21 +116,21 @@ To run it:
 1. Download [the PostgreSQL JDBC driver](https://jdbc.postgresql.org/download.html).
 1. Compile and run the code (adding the PostgreSQL JDBC driver to your classpath):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ javac -classpath .:/path/to/postgresql.jar BasicExample.java
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ java -classpath .:/path/to/postgresql.jar BasicExample
     ~~~
 
 The contents of [`BasicExample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/v19.1/app/insecure/BasicExample.java):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/insecure/BasicExample.java %}
+{{ partial "{{ page.version.version }}/app/insecure/BasicExample.java" . }}
 ~~~
 
 </section>
@@ -260,4 +260,4 @@ try (PreparedStatement pstmt = connection.prepareStatement("INSERT INTO accounts
 
 Read more about using the [Java JDBC driver](https://jdbc.postgresql.org/).
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

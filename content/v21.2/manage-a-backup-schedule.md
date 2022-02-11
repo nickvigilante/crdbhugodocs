@@ -17,7 +17,7 @@ docs_area: manage
 
 To create a new backup schedule, use the [`CREATE SCHEDULE FOR BACKUP`](create-schedule-for-backup.html) statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SCHEDULE schedule_label
   FOR BACKUP INTO 's3://test/backups/test_schedule_1?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
@@ -30,9 +30,9 @@ In this example, a schedule labeled `schedule_label` is created to take daily (i
 
 For more information about the different options available when creating a backup schedule, see [`CREATE SCHEDULE FOR BACKUP`](create-schedule-for-backup.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Further guidance on connecting to Amazon S3, Google Cloud Storage, Azure Storage, and other storage options is outlined in [Use Cloud Storage for Bulk Operations](use-cloud-storage-for-bulk-operations.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Set up monitoring for the backup schedule
 
@@ -54,9 +54,9 @@ Metrics for scheduled backups fall into two categories:
 
     - `schedules.round.reschedule-skip`: The number of schedules that were skipped due to a currently running job. A value greater than 0 indicates that a previous backup was still running when a new scheduled backup was supposed to start. This corresponds to the [`on_previous_running=skip`](create-schedule-for-backup.html#on-previous-running-option) schedule option.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `schedules.round.reschedule-wait` and `schedules.round.reschedule-skip` are gauge metrics and can be graphed. A continual positive value for either of these metrics may indicate a misconfigured backup cadence, and you should consider adjusting the cadence to avoid waiting for or skipping the next backup.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For a tutorial on how to use Prometheus to set up monitoring and alerting, see [Monitor CockroachDB with Prometheus](monitor-cockroachdb-with-prometheus.html).
 
@@ -75,7 +75,7 @@ Once a backup schedule is successfully created, you can [view the schedule](#vie
 
 ### View the schedule
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~
 > SHOW SCHEDULES;
 ~~~~
@@ -86,14 +86,14 @@ For more information, see [`SHOW SCHEDULES`](show-schedules.html).
 
 To pause a schedule, you can either specify the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~ sql
 > PAUSE SCHEDULE 589963390487363585;
 ~~~~
 
 Or nest a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `PAUSE SCHEDULES` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~ sql
 > PAUSE SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'schedule_database';
 ~~~~
@@ -104,14 +104,14 @@ For more information, see [`PAUSE SCHEDULES`](pause-schedules.html).
 
 To resume a paused schedule, you can either specify the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~ sql
 > RESUME SCHEDULE 589963390487363585;
 ~~~~
 
 Or nest a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `RESUME SCHEDULES` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~ sql
 > RESUME SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'schedule_database';
 ~~~~
@@ -122,23 +122,23 @@ For more information, see [`RESUME SCHEDULES`](resume-schedules.html).
 
 To drop a schedule, you can either specify the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~ sql
 > DROP SCHEDULE 589963390487363585;
 ~~~~
 
 Or nest a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `DROP SCHEDULES` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~~ sql
 > DROP SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'schedule_database';
 ~~~~
 
 For more information, see [`DROP SCHEDULES`](drop-schedules.html).
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `DROP SCHEDULE` does **not** cancel any in-progress jobs started by the schedule. Before you drop a schedule, [cancel any in-progress jobs](cancel-job.html) first, as you will not be able to look up the job ID once the schedule is dropped.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## View and control a backup initiated by a schedule
 
@@ -148,7 +148,7 @@ After CockroachDB successfully initiates a scheduled backup, it registers the ba
 
 To view jobs for a specific [backup schedule](create-schedule-for-backup.html), use the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW JOBS FOR SCHEDULE 590204387299262465;
 ~~~
@@ -161,7 +161,7 @@ To view jobs for a specific [backup schedule](create-schedule-for-backup.html), 
 
 You can also view multiple schedules by nesting a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `SHOW JOBS` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW JOBS FOR SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'test_schedule';
 ~~~
@@ -180,7 +180,7 @@ For more information, see [`SHOW JOBS`](show-jobs.html).
 
 To pause jobs for a specific [backup schedule](create-schedule-for-backup.html), use the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOBS FOR SCHEDULE 590204387299262465;
 ~~~
@@ -190,7 +190,7 @@ PAUSE JOBS FOR SCHEDULES 1
 
 You can also pause multiple schedules by nesting a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `PAUSE JOBS` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOBS FOR SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'test_schedule';
 ~~~
@@ -205,7 +205,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 To resume jobs for a specific [backup schedule](create-schedule-for-backup.html), use the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOBS FOR SCHEDULE 590204387299262465;
 ~~~
@@ -215,7 +215,7 @@ RESUME JOBS FOR SCHEDULES 1
 
 You can also resume multiple schedules by nesting a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `PAUSE JOBS` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOBS FOR SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'test_schedule';
 ~~~
@@ -230,7 +230,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 To cancel jobs for a specific [backup schedule](create-schedule-for-backup.html), use the schedule's `id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOBS FOR SCHEDULE 590204387299262465;
 ~~~
@@ -240,7 +240,7 @@ CANCEL JOBS FOR SCHEDULES 1
 
 You can also CANCEL multiple schedules by nesting a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `CANCEL JOBS` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOBS FOR SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'test_schedule';
 ~~~
@@ -255,7 +255,7 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 To restore from a scheduled backup, use the [`RESTORE`](restore.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE
     FROM 's3://test/backups/test_schedule_1/2020/08/19-035600.00?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'

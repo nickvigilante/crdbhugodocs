@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authorization.html#create-and-manage-roles), which are groups containing any number of roles and users as members. You can assign privileges to roles, and all members of the role (regardless of whether if they are direct or indirect members) will inherit the role's privileges.
 
-{{ site.data.alerts.callout_info }}<code>CREATE ROLE</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>CREATE ROLE</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end }}
 
 
 ## Considerations
@@ -30,7 +30,7 @@ Roles can only be created by superusers, i.e., members of the `admin` role. The 
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_role.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_role.html" . }}</section>
 
 ## Parameters
 
@@ -40,7 +40,7 @@ Roles can only be created by superusers, i.e., members of the `admin` role. The 
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE dev_ops;
 ~~~

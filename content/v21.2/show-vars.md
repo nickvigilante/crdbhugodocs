@@ -14,12 +14,12 @@ No [privileges](authorization.html#assign-privileges) are required to display th
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_session.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_session.html %}
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `SHOW` statement for session variables is unrelated to the other `SHOW` statements like [`SHOW CLUSTER SETTING`](show-cluster-setting.html), [`SHOW CREATE`](show-create.html), and [`SHOW DATABASES`](show-databases.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -29,7 +29,7 @@ The `SHOW` statement for session variables is unrelated to the other `SHOW` stat
 
 ### Supported variables
 
-{%  include {{  page.version.version  }}/misc/session-vars.html %}
+{{ partial "{{ page.version.version }}/misc/session-vars.html" . }}
 
 For session variables on experimental features, see [Experimental Features](experimental-features.html).
 
@@ -46,7 +46,7 @@ Special syntax cases supported for compatibility:
 
 ### Showing the value of a single session variable
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW DATABASE;
 ~~~
@@ -60,7 +60,7 @@ Special syntax cases supported for compatibility:
 
 ### Showing the value of all session variables
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW ALL;
 ~~~

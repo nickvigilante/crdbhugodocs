@@ -145,7 +145,7 @@ PostgreSQL 13 system catalog | `pg_catalog` table
 
 To list the tables in `pg_catalog` for the [current database](sql-name-resolution.html#current-database), use the following [`SHOW TABLES`](show-tables.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM pg_catalog;
 ~~~
@@ -158,25 +158,25 @@ To list the tables in `pg_catalog` for the [current database](sql-name-resolutio
   ...
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To prohibit queries against empty tables, set the `stub_catalog_tables` [session variable](set-vars.html) to `off`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Query `pg_catalog` tables
 
 You can run [`SELECT` queries](selection-queries.html) on the tables in `pg_catalog`.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To ensure that you can view all of the tables in `pg_catalog`, query the tables as a user with [`admin` privileges](authorization.html#admin-role).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Unless specified otherwise, queries to `pg_catalog` assume the [current database](sql-name-resolution.html#current-database).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example, to return the `pg_catalog` table with additional information about indexes in [`movr` database](movr.html), you can query the `pg_catalog.pg_indexes` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM movr.pg_catalog.pg_indexes;
 ~~~

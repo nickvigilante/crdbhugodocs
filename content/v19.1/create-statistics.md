@@ -12,14 +12,14 @@ Once you [create a table](create-table.html) and load data into it (e.g., [`INSE
 - Columns that are part of the primary key or an index (in other words, all indexed columns).
 - Up to 100 non-indexed columns (unless you specify which columns to create statistics on, as shown in [this example](#create-statistics-on-a-specific-column)).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v19.1</span>: [Automatic statistics is enabled by default](cost-based-optimizer.html#table-statistics); most users do not need to issue `CREATE STATISTICS` statements directly.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/create_stats.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/create_stats.html" . }}
 </div>
 
 ## Required Privileges
@@ -39,14 +39,14 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ### Create statistics on a specific column
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE STATISTICS students ON id FROM students_by_list;
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Multi-column statistics are not supported yet.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Create statistics on a default set of columns
 
@@ -55,7 +55,7 @@ The `CREATE STATISTICS` statement shown below automatically figures out which co
 - Columns that are part of the primary key or an index (in other words, all indexed columns).
 - Up to 100 non-indexed columns.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE STATISTICS students FROM students_by_list;
 ~~~
@@ -64,7 +64,7 @@ The `CREATE STATISTICS` statement shown below automatically figures out which co
 
 To create statistics as of a given time (in this example, 1 minute ago to avoid interfering with the production workload), run a statement like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE STATISTICS employee_stats FROM employees AS OF SYSTEM TIME '-1m';
 ~~~
@@ -73,7 +73,7 @@ For more information about how the `AS OF SYSTEM TIME` clause works, including s
 
 ### Delete statistics
 
-{%  include {{  page.version.version  }}/misc/delete-statistics.md %}
+{{ partial "{{ page.version.version }}/misc/delete-statistics.md" . }}
 
 ### View statistics jobs
 
@@ -83,7 +83,7 @@ To view statistics jobs, there are two options:
 
 1. Use  [`SHOW JOBS`](show-jobs.html) to see all statistics jobs that were created by user queries (i.e., someone entering `CREATE STATISTICS` at the SQL prompt or via application code):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM [SHOW JOBS] WHERE job_type LIKE '%CREATE STATS%';
     ~~~
@@ -98,7 +98,7 @@ To view statistics jobs, there are two options:
 
 2. Use `SHOW AUTOMATIC JOBS` to see statistics jobs that were created by the [automatic statistics feature](cost-based-optimizer.html#table-statistics):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM [SHOW AUTOMATIC JOBS] WHERE job_type LIKE '%CREATE STATS%';
     ~~~

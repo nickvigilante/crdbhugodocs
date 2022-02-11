@@ -7,14 +7,14 @@ docs_area: reference.sql
 
  The `ALTER DATABASE ... SURVIVE {ZONE,REGION} FAILURE` [statement](sql-statements.html) sets the [survival goal](multiregion-overview.html#survival-goals) for a [multi-region database](multiregion-overview.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `SURVIVE {ZONE,REGION} FAILURE` is a subcommand of [`ALTER DATABASE`](alter-database.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/alter_database_survival_goal.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/alter_database_survival_goal.html %}
 </div>
 
 ## Parameters
@@ -33,7 +33,7 @@ The user must be a member of the [`admin`](authorization.html#roles) or [owner](
 
 To change the survival goal of a multi-region database to survive zone failures, use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER DATABASE {db} SURVIVE ZONE FAILURE;
 ~~~
@@ -42,9 +42,9 @@ ALTER DATABASE {db} SURVIVE ZONE FAILURE;
 ALTER DATABASE SURVIVE
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Surviving zone failures is the default setting for multi-region databases.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about the zone survival goal, see [Surviving zone failures](multiregion-overview.html#surviving-zone-failures).
 
@@ -52,7 +52,7 @@ For more information about the zone survival goal, see [Surviving zone failures]
 
 To change the survival goal of a multi-region database to survive region failures, use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER DATABASE {db} SURVIVE REGION FAILURE;
 ~~~

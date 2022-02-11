@@ -6,16 +6,16 @@ toc: true
 
 The `RENAME DATABASE` [statement](sql-statements.html) changes the name of a database.
 
-{{ site.data.alerts.callout_info }}It is not possible to rename a database referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not possible to rename a database referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Database renames **are not transactional**. For more information, see [Database renaming considerations](#database-renaming-considerations).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/rename_database.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/rename_database.html" . }}
 </div>
 
 ## Required Privileges

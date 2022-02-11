@@ -1,11 +1,11 @@
 ---
 title: Cluster Overview Page
-summary: How to use the Cluster Overview page to view cluster details on {{  site.data.products.serverless  }}.
+summary: How to use the Cluster Overview page to view cluster details on {{ site.data.products.serverless }}.
 toc: true
 docs_area: manage
 ---
 
-The **Cluster Overview** page displays key metrics about your {{  site.data.products.serverless  }} cluster.
+The **Cluster Overview** page displays key metrics about your {{ site.data.products.serverless }} cluster.
 
 ## Cluster settings
 
@@ -55,4 +55,4 @@ The **Request Units** graph displays the CPU and I/O resources being used by que
 
 ### SQL Statements
 
-The **SQL Statements** graph displays an average of the number of [`SELECT`](../{{ site.versions["stable"] }}/select-clause.html), [`INSERT`](../{{ site.versions["stable"] }}/insert.html), [`UPDATE`](../{{ site.versions["stable"] }}/update.html), and [`DELETE`](../{{ site.versions["stable"] }}/delete.html) statements successfully executed per second.
+The **SQL Statements** graph displays an average of the number of [`SELECT`](../{{site.versions["stable"] }}/select-clause.html), [`INSERT`](../{{site.versions["stable"] }}/insert.html), [`UPDATE`](../{{site.versions["stable"] }}/update.html), and [`DELETE`](../{{site.versions["stable"] }}/delete.html) statements successfully executed per second.

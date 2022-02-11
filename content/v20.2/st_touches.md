@@ -16,15 +16,15 @@ In other words, _A_ and _B_ have a point along their boundaries in common (i.e.,
 
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
-{%  if page.has_prefixed_variant %}
-{{ site.data.alerts.callout_info }}
+{% if page.has_prefixed_variant %}
+{{site.data.alerts.callout_info }}
 `{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{ site.data.alerts.end }}
-{%  endif %}
+{{site.data.alerts.end }}
+{% endif %}
 
 ## Examples
 
-{%  include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{{ partial "{{ page.version.version }}/misc/geojson_geometry_note.md" . }}
 
 ### True
 
@@ -33,7 +33,7 @@ In this example, `{{ page.title }}` returns `true` because both of the following
 - At least one point in the set of Points that comprise Polygon _A_ is a member of the set of points that make up the LineString _B_.
 - No points from the interior of _A_ are also part of the interior of _B_.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT st_touches(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902), (-87.623177 41.881832, -90.199402 38.627003, -82.446732 38.413651, -87.623177 41.881832))'), st_geomfromtext('SRID=4326;LINESTRING(-87.623177 41.881832, -90.199402 38.627003, -82.446732 38.413651, -87.623177 41.881832)'));
 ~~~
@@ -46,7 +46,7 @@ SELECT st_touches(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.
 (1 row)
 ~~~
 
-<img src="{{  'images/v20.2/geospatial/st_touches_true.png' | relative_url  }}" alt="ST_Touches - true" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/geospatial/st_touches_true.png' | relative_url }}" alt="ST_Touches - true" style="border:1px solid #eee;max-width:100%" />
 
 ### False
 
@@ -54,7 +54,7 @@ In this example, `{{ page.title }}` returns `false` because:
 
 - Some points from the interior of the LineString _B_ are also part of the interior of the Polygon _A_.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT st_touches(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))'), st_geomfromtext('SRID=4326;LINESTRING(-88.243385 40.116421, -87.906471 43.038902, -95.992775 36.153980, -95.235278 38.971667)'));
 ~~~
@@ -66,7 +66,7 @@ SELECT st_touches(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.
 (1 row)
 ~~~
 
-<img src="{{  'images/v20.2/geospatial/st_touches_false.png' | relative_url  }}" alt="ST_Touches - false" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/geospatial/st_touches_false.png' | relative_url }}" alt="ST_Touches - false" style="border:1px solid #eee;max-width:100%" />
 
 ## See also
 

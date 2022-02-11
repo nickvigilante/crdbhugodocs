@@ -6,9 +6,9 @@ toc: true
 
 The `ALTER USER` [statement](sql-statements.html) can be used to add, change, or remove a [user's](create-user.html) password and to change the role options for a user.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  Since the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `ALTER USER` is now an alias for [`ALTER ROLE`](alter-role.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Considerations
 
@@ -20,7 +20,7 @@ The `ALTER USER` [statement](sql-statements.html) can be used to add, change, or
 
 ## Synopsis
 
-<div>{%  include {{  page.version.version  }}/sql/diagrams/alter_user_password.html %}</div>
+<div>{{ partial "{{ page.version.version }}/sql/diagrams/alter_user_password.html" . }}</div>
 
 ## Parameters
 
@@ -47,9 +47,9 @@ Parameter | Description
 
 ## Examples
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The following statements are run by the `root` user that is a member of the `admin` role and has `ALL` privileges.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Change a user's password
 
@@ -61,7 +61,7 @@ root@:26257/defaultdb> ALTER USER carl WITH PASSWORD 'An0ther$tr0nGpassW0rD' VAL
 
 The following statement prevents the user from using password authentication and mandates certificate-based [client authentication](authentication.html#client-authentication):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 root@:26257/defaultdb> ALTER USER carl WITH PASSWORD NULL;
 ~~~

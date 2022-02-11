@@ -13,7 +13,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the parent datab
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/create_view.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_view.html" . }}
 
 ## Parameters
 
@@ -25,7 +25,7 @@ Parameter | Description
 
 ## Example
 
-{{ site.data.alerts.callout_success }}This example highlights one key benefit to using views: simplifying complex queries. For additional benefits and examples, see <a href="views.html">Views</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This example highlights one key benefit to using views: simplifying complex queries. For additional benefits and examples, see <a href="views.html">Views</a>.{{site.data.alerts.end }}
 
 Let's say you're using our [sample `startrek` database](generate-cockroachdb-resources.html#generate-example-data), which contains two tables, `episodes` and `quotes`. There's a foreign key constraint between the `episodes.id` column and the `quotes.episode` column. To count the number of famous quotes per season, you could run the following `JOIN`:
 

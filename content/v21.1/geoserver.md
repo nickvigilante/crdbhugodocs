@@ -21,9 +21,9 @@ Many of the instructions on this page come from the following GeoServer document
 
 These instructions assume you are running on a UNIX-like system.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Mac users who use [Homebrew](https://brew.sh) can install GeoServer by typing `brew install geoserver`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Start CockroachDB and connect to your cluster
 
@@ -35,21 +35,21 @@ Connect to the running cluster from the [SQL client](cockroach-sql.html) and ent
 
 First, [create](create-database.html) the `tutorial` database:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE DATABASE tutorial;
 ~~~
 
 Next, switch to the `tutorial` database:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 USE tutorial;
 ~~~
 
 Finally, load the spatial data set:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 IMPORT PGDUMP ('https://spatial-tutorial.s3.us-east-2.amazonaws.com/bookstores-and-roads-20210125.sql') WITH ignore_unsupported_statements;
 ~~~
@@ -58,7 +58,7 @@ IMPORT PGDUMP ('https://spatial-tutorial.s3.us-east-2.amazonaws.com/bookstores-a
 
 CockroachDB's support for GeoServer is still in development. To use CockroachDB with GeoServer, you will need to enable the use of certain experimental box2d comparison operators by changing the following [cluster setting](cluster-settings.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET CLUSTER SETTING sql.spatial.experimental_box2d_comparison_operators.enabled = ON;
 ~~~
@@ -77,14 +77,14 @@ The easiest place to create the GeoServer data directory is in your user's home 
 
 In the UNIX shell, run the following command:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 mkdir -p $HOME/geoserver
 ~~~
 
 Next, start GeoServer by running the following command:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 geoserver $HOME/geoserver
 ~~~
@@ -163,7 +163,7 @@ In the row for the `roads` layer, click the **OpenLayers** button under the **Co
 
 Your browser should open a new tab with the title **OpenLayers map preview**. It should show a map view that looks like the following:
 
-<img src="{{  'images/v21.1/geospatial/geoserver-us-atlas-00.png' | relative_url  }}" alt="GeoServer U.S. National Atlas preview" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/geospatial/geoserver-us-atlas-00.png' | relative_url }}" alt="GeoServer U.S. National Atlas preview" style="border:1px solid #eee;max-width:100%" />
 
 ## See also
 

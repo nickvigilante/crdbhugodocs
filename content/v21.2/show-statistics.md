@@ -5,16 +5,16 @@ toc: true
 ---
 The `SHOW STATISTICS` [statement](sql-statements.html) lists [table statistics](create-statistics.html) used by the [cost-based optimizer](cost-based-optimizer.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [By default, CockroachDB automatically generates statistics](cost-based-optimizer.html#table-statistics) on all indexed columns, and up to 100 non-indexed columns.
 
  CockroachDB also automatically collects [multi-column statistics](create-statistics.html#create-statistics-on-multiple-columns) on the columns that prefix each index.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_stats.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_stats.html %}
 </div>
 
 ## Required Privileges
@@ -29,11 +29,11 @@ Parameter      | Description
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### List table statistics
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE rides;
 ~~~
@@ -59,7 +59,7 @@ Parameter      | Description
 
 ### Delete statistics
 
-{%  include {{  page.version.version  }}/misc/delete-statistics.md %}
+{{ partial "{{ page.version.version }}/misc/delete-statistics.md" . }}
 
 ## See Also
 

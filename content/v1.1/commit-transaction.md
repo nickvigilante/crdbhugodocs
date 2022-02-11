@@ -13,7 +13,7 @@ For non-retryable transactions, if statements in the transaction [generated any 
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/commit_transaction.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/commit_transaction.html" . }}
 
 ## Required Privileges
 
@@ -47,7 +47,7 @@ When using [client-side transaction retries](transactions.html#client-side-trans
 > COMMIT;
 ~~~
 
-{{ site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
 
 #### Automatically Retried Transactions
 

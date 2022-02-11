@@ -12,9 +12,9 @@ The `LIMIT` and `OFFSET` clauses restrict the operation of:
 
 `OFFSET` instructs the operation to skip a specified number of rows. It is often used in conjunction with `LIMIT` to "paginate" through retrieved rows.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Using `LIMIT`/`OFFSET` to implement pagination can be very slow for large tables.  We recommend using [keyset pagination](selection-queries.html#pagination-example) instead.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Syntax
 

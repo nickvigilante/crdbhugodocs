@@ -10,7 +10,7 @@ The `SHOW GRANTS` [statement](sql-statements.html) lists the [privileges](privil
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/show_grants.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_grants.html" . }}
 
 ## Required Privileges
 

@@ -12,9 +12,9 @@ CockroachDB is a [distributed SQL](https://www.cockroachlabs.com/blog/what-is-di
 
 CockroachDB is inspired by Google's [Spanner](http://research.google.com/archive/spanner.html) and [F1](http://research.google.com/pubs/pub38125.html) technologies, and the [source code](https://github.com/cockroachdb/cockroach) is freely available.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a deeper dive into CockroachDB's capabilities and how it fits into the database landscape, take the free [**Intro to Distributed SQL and CockroachDB**](https://university.cockroachlabs.com/courses/course-v1:crl+intro-to-distributed-sql-and-cockroachdb+self-paced/about) course on Cockroach University.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## When is CockroachDB a good choice?
 
@@ -164,14 +164,14 @@ We also fully support [importing your data via CSV](migrate-from-csv.html).
 
 ## Does Cockroach Labs offer a cloud database as a service?
 
-Yes. The {{  site.data.products.db  }} offering is currently in Limited Availability and accepting customers on a qualified basis. The offering provides a running CockroachDB cluster suitable to your needs, fully managed by Cockroach Labs on GCP or AWS. Benefits include:
+Yes. The {{ site.data.products.db }} offering is currently in Limited Availability and accepting customers on a qualified basis. The offering provides a running CockroachDB cluster suitable to your needs, fully managed by Cockroach Labs on GCP or AWS. Benefits include:
 
 - No provisioning or deployment efforts for you
 - Daily full backups and hourly incremental backups of your data
 - Upgrades to the latest stable release of CockroachDB
 - Monitoring to provide SLA-level support
 
-For more details, see the [{{  site.data.products.db  }}](../cockroachcloud/quickstart.html) docs.
+For more details, see the [{{ site.data.products.db }}](../cockroachcloud/quickstart.html) docs.
 
 ## Why did Cockroach Labs change the license for CockroachDB?
 

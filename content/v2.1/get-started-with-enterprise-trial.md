@@ -15,25 +15,25 @@ If you haven't already, you'll need to [locally install](install-cockroachdb.htm
 
 As the CockroachDB `root` user, open the [built-in SQL shell](use-the-built-in-sql-client.html) in insecure or secure mode, as per your CockroachDB setup. In the following example, we assume that CockroachDB is running in insecure mode.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you've secured your deployment, you'll need to [include the flags for your certificates](create-security-certificates.html) instead of the `--insecure` flag.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Now, use the `SET CLUSTER SETTING` command to set the name of your organization and the license key:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SET CLUSTER SETTING cluster.organization = 'Acme Company'; SET CLUSTER SETTING enterprise.license = 'xxxxxxxxxxxx';
 ~~~
 
 Then verify your organization in response to the following query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SHOW CLUSTER SETTING cluster.organization;
 ~~~

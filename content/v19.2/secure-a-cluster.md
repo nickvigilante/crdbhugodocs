@@ -11,9 +11,9 @@ toc: true
 
 Once you've [installed CockroachDB](install-cockroachdb.html), it's simple to run a secure multi-node cluster locally, using [TLS certificates](cockroach-cert.html) to encrypt network communication.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Running multiple nodes on a single host is useful for testing CockroachDB, but it's not suitable for production. To run a physically distributed cluster, see [Manual Deployment](manual-deployment.html) or [Orchestrated Deployment](orchestration.html), and review the [Production Checklist](recommended-production-settings.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before you begin
 
@@ -26,7 +26,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
 1. Create two directories:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir certs my-safe-directory
     ~~~
@@ -38,7 +38,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
 2. Create the CA (Certificate Authority) certificate and key pair:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
@@ -47,7 +47,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
 3. Create the certificate and key pair for your nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-node \
     localhost \
@@ -60,7 +60,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
 4. Create a client certificate and key pair for the `root` user:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -72,7 +72,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
 1. Use the [`cockroach start`](cockroach-start.html) command to start the first node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -100,12 +100,12 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
     - The `--store` flag indicates the location where the node's data and logs are stored.
     - The `--join` flag specifies the addresses and ports of the nodes that will initially comprise your cluster. You'll use this exact `--join` flag when starting other nodes as well.
 
-        {%  include {{  page.version.version  }}/prod-deployment/join-flag-single-region.md %}
+        {{ partial "{{ page.version.version }}/prod-deployment/join-flag-single-region.md" . }}
     - The `--background` flag starts the `cockroach` process in the background so you can continue using the same terminal for other operations.
 
 3. Start two more nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -116,7 +116,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -131,7 +131,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
 4. Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster, sending the request to any node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=localhost:26257
     ~~~
@@ -144,7 +144,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
     At this point, each node also prints helpful [startup details](cockroach-start.html#standard-output) to its log. For example, the following command retrieves node 1's startup details:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ grep 'node starting' node1/logs/cockroach.log -A 11
     ~~~
@@ -172,29 +172,29 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 1. Run the [`cockroach sql`](cockroach-sql.html) command against node 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --certs-dir=certs --host=localhost:26257
     ~~~
 
 2. Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE bank;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO bank.accounts VALUES (1, 1000.50);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -208,23 +208,23 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 3. Now exit the SQL shell on node 1 and open a new shell on node 2:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --certs-dir=certs --host=localhost:26258
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     In a real deployment, all nodes would likely use the default port `26257`, and so you wouldn't need to set the port portion of `--host`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 4. Run the same `SELECT` query as before:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -240,14 +240,14 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 5. Now [create a user with a password](create-user.html#create-a-user-with-a-password), which you will need to [access the Admin UI](#step-5-access-the-admin-ui):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER max WITH PASSWORD 'roach';
     ~~~
 
 6. Exit the SQL shell on node 2:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
@@ -258,7 +258,7 @@ CockroachDB also comes with a number of [built-in workloads](cockroach-workload.
 
 1. Load the initial dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init movr \
     'postgresql://root@localhost:26257?sslcert=certs%2Fclient.root.crt&sslkey=certs%2Fclient.root.key&sslmode=verify-full&sslrootcert=certs%2Fca.crt'
@@ -274,7 +274,7 @@ CockroachDB also comes with a number of [built-in workloads](cockroach-workload.
 
 2. Run the workload for 5 minutes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run movr \
     --duration=5m \
@@ -289,44 +289,44 @@ The CockroachDB [Admin UI](admin-ui-overview.html) gives you insight into the ov
 
     Run the [`cockroach sql`](cockroach-sql.html) command against node 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --certs-dir=certs --host=localhost:26257
     ~~~
 
 2.  Assign `max` to the `admin` role (you only need to do this once):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT admin TO max;
     ~~~
 
 3. Exit the SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
 
 4. Go to <a href="https://localhost:8080" data-proofer-ignore>https://localhost:8080</a>. Note that your browser will consider the CockroachDB-created certificate invalid; you'll need to click through a warning message to get to the UI.
 
-    {%  include {{  page.version.version  }}/misc/chrome-localhost.md %}
+    {{ partial "{{ page.version.version }}/misc/chrome-localhost.md" . }}
 
 5. Log in with the username and password you created earlier (`max`/`roach`).
 
 6. On the [**Cluster Overview**](admin-ui-cluster-overview-page.html), notice that three nodes are live, with an identical replica count on each node:
 
-    <img src="{{  'images/v19.2/admin_ui_cluster_overview_3_nodes.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v19.2/admin_ui_cluster_overview_3_nodes.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     This demonstrates CockroachDB's [automated replication](demo-replication-and-rebalancing.html) of data via the Raft consensus protocol.    
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this [limitation](known-limitations.html#available-capacity-metric-in-the-admin-ui).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 7. Click [**Metrics**](admin-ui-overview-dashboard.html) to access a variety of time series dashboards, including graphs of SQL queries and service latency over time:
 
-    <img src="{{  'images/v19.2/admin_ui_overview_dashboard_3_nodes.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v19.2/admin_ui_overview_dashboard_3_nodes.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 8. Use the [**Databases**](admin-ui-databases-page.html), [**Statements**](admin-ui-statements-page.html), and [**Jobs**](admin-ui-jobs-page.html) pages to view details about your databases and tables, to assess the performance of specific queries, and to monitor the status of long-running operations like schema changes, respectively.
 
@@ -334,20 +334,20 @@ The CockroachDB [Admin UI](admin-ui-overview.html) gives you insight into the ov
 
 1. In a new terminal, run the [`cockroach quit`](cockroach-quit.html) command against a node to simulate a node failure:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=localhost:26259
     ~~~
 
 2. Back in the Admin UI, despite one node being "suspect", notice the continued SQL traffic:
 
-    <img src="{{  'images/v19.2/admin_ui_overview_dashboard_1_suspect.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v19.2/admin_ui_overview_dashboard_1_suspect.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     This demonstrates CockroachDB's use of the Raft consensus protocol to [maintain availability and consistency in the face of failure](demo-fault-tolerance-and-recovery.html); as long as a majority of replicas remain online, the cluster and client traffic continue uninterrupted.
 
 4. Restart node 3:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -364,7 +364,7 @@ Adding capacity is as simple as starting more nodes with `cockroach start`.
 
 1. Start 2 more nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -375,7 +375,7 @@ Adding capacity is as simple as starting more nodes with `cockroach start`.
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -390,7 +390,7 @@ Adding capacity is as simple as starting more nodes with `cockroach start`.
 
 2. Back on the **Cluster Overview** in the Admin UI, you'll now see 5 nodes listed:
 
-    <img src="{{  'images/v19.2/admin_ui_cluster_overview_5_nodes.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v19.2/admin_ui_cluster_overview_5_nodes.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     At first, the replica count will be lower for nodes 4 and 5. Very soon, however, you'll see those numbers even out across all nodes, indicating that data is being [automatically rebalanced](demo-replication-and-rebalancing.html) to utilize the additional capacity of the new nodes.
 
@@ -398,31 +398,31 @@ Adding capacity is as simple as starting more nodes with `cockroach start`.
 
 1. When you're done with your test cluster, use the [`cockroach quit`](cockroach-quit.html) command to gracefully shut down each node.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=localhost:26257
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=localhost:26258
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=localhost:26259
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     For nodes 4 and 5, the shutdown process will take longer (about a minute each) and will eventually force the nodes to stop. This is because, with only 2 of 5 nodes left, a majority of replicas are not available, and so the cluster is no longer operational.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=localhost:26260
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=localhost:26261
     ~~~
@@ -431,7 +431,7 @@ Adding capacity is as simple as starting more nodes with `cockroach start`.
 
     If you do not plan to restart the cluster, you may want to remove the nodes' data stores and the certificate directories:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -rf node1 node2 node3 node4 node5 certs my-safe-directory
     ~~~

@@ -41,9 +41,9 @@ Before starting the upgrade, complete the following steps.
 
 ## Step 3. Decide how the upgrade will be finalized
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This step is relevant only when upgrading from v19.1.x to v19.2. For upgrades within the v19.2.x series, skip this step.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain [features and performance improvements introduced in v19.2](#features-that-require-upgrade-finalization). However, it will no longer be possible to perform a downgrade to v19.1. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade. For this reason, **we recommend disabling auto-finalization** so you can monitor the stability and performance of the upgraded cluster before finalizing the upgrade, but note that you will need to follow all of the subsequent directions, including the manual finalization in [step 5](#step-5-finish-the-upgrade):
 
@@ -53,7 +53,7 @@ By default, after all nodes are running the new version, the upgrade process wil
 
 3. Set the `cluster.preserve_downgrade_option` [cluster setting](cluster-settings.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING cluster.preserve_downgrade_option = '19.1';
     ~~~
@@ -73,19 +73,19 @@ When upgrading from v19.1 to v19.2, certain features and performance improvement
 
 For each node in your cluster, complete the following steps.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 These steps apply to manual deployments. If you are running CockroachDB on Kubernetes, read our documentation on [single-cluster](orchestrate-cockroachdb-with-kubernetes.html#upgrade-the-cluster) and/or [multi-cluster](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html#upgrade-the-cluster) orchestrated deployments of CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We recommend creating scripts to perform these steps instead of performing them manually.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Upgrade only one node at a time, and wait at least one minute after a node rejoins the cluster to upgrade the next node. Simultaneously upgrading more than one node increases the risk that ranges will lose a majority of their replicas and cause cluster unavailability.
 
 Also, refrain from starting [schema changes](online-schema-changes.html) during the upgrade process. Schema changes are complex operations that involve coordination across nodes and can increase the potential for unexpected behavior during an upgrade.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Connect to the node.
 
@@ -93,21 +93,21 @@ Also, refrain from starting [schema changes](online-schema-changes.html) during 
 
     Without a process manager like `systemd`, use this command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill cockroach
     ~~~
 
     If you are using `systemd` as the process manager, use this command to stop a node without `systemd` restarting it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ systemctl stop <systemd config filename>
     ~~~
 
     Then verify that the process has stopped:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ps aux | grep cockroach
     ~~~
@@ -123,24 +123,24 @@ Also, refrain from starting [schema changes](online-schema-changes.html) during 
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ tar -xzf cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ tar -xzf cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
@@ -155,24 +155,24 @@ Also, refrain from starting [schema changes](online-schema-changes.html) during 
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/cockroach
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/cockroach
     ~~~
@@ -182,7 +182,7 @@ Also, refrain from starting [schema changes](online-schema-changes.html) during 
 
     Without a process manager like `systemd`, re-run the [`cockroach start`](cockroach-start.html) command that you used to start the node initially, for example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -192,20 +192,20 @@ Also, refrain from starting [schema changes](online-schema-changes.html) during 
 
     If you are using `systemd` as the process manager, run this command to start the node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ systemctl start <systemd config filename>
     ~~~
 
 6. Verify the node has rejoined the cluster through its output to `stdout` or through the [Admin UI](admin-ui-access-and-navigate.html).
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     To access the Admin UI for a secure cluster, [create a user with a password](create-user.html#create-a-user-with-a-password). Then open a browser and go to `https://<any node's external IP address>:8080`. On accessing the Admin UI, you will see a Login screen, where you will need to enter your username and password.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 7. If you use `cockroach` in your `$PATH`, you can remove the old binary:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm /usr/local/bin/cockroach_old
     ~~~
@@ -216,9 +216,9 @@ Also, refrain from starting [schema changes](online-schema-changes.html) during 
 
 ## Step 5. Finish the upgrade
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This step is relevant only when upgrading from v19.1.x to v19.2. For upgrades within the v19.2.x series, skip this step.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you disabled auto-finalization in [step 3](#step-3-decide-how-the-upgrade-will-be-finalized), monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 
@@ -227,7 +227,7 @@ Once you are satisfied with the new version, re-enable auto-finalization:
 1. Start the [`cockroach sql`](cockroach-sql.html) shell against any node in the cluster.
 2. Re-enable auto-finalization:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > RESET CLUSTER SETTING cluster.preserve_downgrade_option;
     ~~~

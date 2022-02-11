@@ -6,7 +6,7 @@ toc: true
 
 The `DROP SEQUENCE` [statement](sql-statements.html) removes a sequence from a database.
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_sequence.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_sequence.html" . }}</section>
 
 ## Parameters
 
@@ -39,7 +39,7 @@ table td:first-child {
 
 In this example, other objects do not depend on the sequence being dropped.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -55,7 +55,7 @@ In this example, other objects do not depend on the sequence being dropped.
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP SEQUENCE customer_seq;
 ~~~
@@ -63,7 +63,7 @@ In this example, other objects do not depend on the sequence being dropped.
 DROP SEQUENCE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences
 ~~~
@@ -83,7 +83,7 @@ DROP SEQUENCE
 
 In this example, a table depends on the sequence that's being dropped. Therefore, it's only possible to drop the sequence while simultaneously dropping the dependent table using `CASCADE`.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
 ~~~ sql
 > DROP SEQUENCE customer_seq CASCADE;

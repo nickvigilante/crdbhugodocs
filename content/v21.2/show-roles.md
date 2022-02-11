@@ -7,14 +7,14 @@ docs_area: reference.sql
 
 The `SHOW ROLES` [statement](sql-statements.html) lists the roles for all databases.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  Since the keywords `ROLES` and `USERS` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `SHOW ROLES` is now an alias for [`SHOW USERS`](show-users.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_roles.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_roles.html %}
 </div>
 
 ## Required privileges
@@ -23,7 +23,7 @@ The role must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ROLES;
 ~~~

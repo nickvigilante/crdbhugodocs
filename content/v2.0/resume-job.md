@@ -6,7 +6,7 @@ toc: true
 
  The `RESUME JOB` [statement](sql-statements.html) lets you resume [paused](pause-job.html) [`BACKUP`](backup.html), [`RESTORE`](restore.html), and [`IMPORT`](import.html) jobs.
 
-{{ site.data.alerts.callout_info }}You cannot pause schema changes.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You cannot pause schema changes.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -16,7 +16,7 @@ By default, only the `root` user can control a job.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/resume_job.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/resume_job.html" . }}
 </div>
 
 ## Parameters

@@ -5,11 +5,11 @@ toc: true
 docs_area: manage
 ---
 
-This page describes common {{  site.data.products.db  }} errors and their solutions.
+This page describes common {{ site.data.products.db }} errors and their solutions.
 
-{{ site.data.alerts.callout_danger }}
-We have updated the CA certificate used by {{  site.data.products.serverless  }} clusters. If you downloaded this certificate prior to June 17, 2021, **you must [download the updated certificate](connect-to-a-serverless-cluster.html#step-2-connect-to-your-cluster) by September 30, 2021** to avoid disruptions to your service.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}
+We have updated the CA certificate used by {{ site.data.products.serverless }} clusters. If you downloaded this certificate prior to June 17, 2021, **you must [download the updated certificate](connect-to-a-serverless-cluster.html#step-2-connect-to-your-cluster) by September 30, 2021** to avoid disruptions to your service.
+{{site.data.alerts.end }}
 
 ## Connection errors
 
@@ -22,7 +22,7 @@ Error: x509: certificate signed by unknown authority
 Failed running "sql"
 ~~~
 
-**Solution:** Check if you are using the right cluster name in the [connection method](connect-to-your-cluster.html#step-3-connect-to-your-cluster). You can find your cluster name in the {{  site.data.products.db  }} Console by navigating to **Cluster Overview** > **Connect** > **Step 2. Connect** > **Connection string** and locating the parameter `cluster={cluster-name}` in your connection string.
+**Solution:** Check if you are using the right cluster name in the [connection method](connect-to-your-cluster.html#step-3-connect-to-your-cluster). You can find your cluster name in the {{ site.data.products.db }} Console by navigating to **Cluster Overview** > **Connect** > **Step 2. Connect** > **Connection string** and locating the parameter `cluster={cluster-name}` in your connection string.
 
 ### Invalid cluster name in a third-party tool
 
@@ -32,7 +32,7 @@ The following error is displayed if you try to connect to a [third-party tool](.
 FATAL: CodeParamsRoutingFailed: rejected by BackendConfigFromParams: Invalid cluster name
 ~~~
 
-**Solution**: Check that you are using the correct cluster and database names. You can find these parameters in the {{  site.data.products.db  }} Console by navigating to **Cluster Overview** > **Connect** > **Step 2. Connect** > **Connection parameters**. For most tools, the full name of your database should be in the format `<routing-id>.<database>` for {{  site.data.products.serverless  }} clusters.
+**Solution**: Check that you are using the correct cluster and database names. You can find these parameters in the {{ site.data.products.db }} Console by navigating to **Cluster Overview** > **Connect** > **Step 2. Connect** > **Connection parameters**. For most tools, the full name of your database should be in the format `<routing-id>.<database>` for {{ site.data.products.serverless }} clusters.
 
 For connection examples with your tool, see [these examples](../stable/third-party-database-tools.html).
 
@@ -65,9 +65,9 @@ If neither of the above steps succeed, investigate your application's timeout va
 - Increase the timeout value (e.g., from 5 seconds to 30 seconds) for your application's driver or framework and see if connection succeeds.
 
 - If you can connect and run the same query in the SQL CLI, investigate your application environment.
-{%  comment %}
+{% comment %}
 Update this in future if we have more troubleshooting guidance.
-{%  endcomment %}
+{% endcomment %}
 
 - Investigate your network infrastructure to see if there is a network related performance problem, or [contact support](https://support.cockroachlabs.com/) with these details.
 
@@ -87,7 +87,7 @@ Failed running "sql"
 **Solution:**
 Check if you are using the correct host name.
 
-You can find your host name in the {{  site.data.products.db  }} Console by navigating to **Cluster Overview** > **Connect** > **Step 2. Connect** > **Connection parameters** and locating the **Host** field. If the error persists, [contact Support](https://support.cockroachlabs.com/).
+You can find your host name in the {{ site.data.products.db }} Console by navigating to **Cluster Overview** > **Connect** > **Step 2. Connect** > **Connection parameters** and locating the **Host** field. If the error persists, [contact Support](https://support.cockroachlabs.com/).
 
 ### Connection refused
 
@@ -98,7 +98,7 @@ Error: dial tcp 35.240.101.1:26257: connect: connection refused
 ~~~
 
 **Solution:**
-{{  site.data.products.db  }} connections can occasionally become invalid due to upgrades, restarts, or other disruptions. Your application should use a [pool of persistent connections](../{{ site.versions["stable"] }}/connection-pooling.html) and connection retry logic to ensure that connections remain current. See the [Production Checklist](production-checklist.html) for more information.
+{{ site.data.products.db }} connections can occasionally become invalid due to upgrades, restarts, or other disruptions. Your application should use a [pool of persistent connections](../{{site.versions["stable"] }}/connection-pooling.html) and connection retry logic to ensure that connections remain current. See the [Production Checklist](production-checklist.html) for more information.
 
 ### External network access disabled
 
@@ -126,7 +126,7 @@ Failed running "sql"
 
 ### Issue with CockroachDB workloads
 
-The following error is displayed while trying to a run [CockroachDB workload](../{{ site.versions["stable"] }}/cockroach-workload.html) with `sslmode=verify-full`:
+The following error is displayed while trying to a run [CockroachDB workload](../{{site.versions["stable"] }}/cockroach-workload.html) with `sslmode=verify-full`:
 
 ~~~ shell
 Error: x509: certificate signed by unknown authority
@@ -134,6 +134,6 @@ Error: x509: certificate signed by unknown authority
 
 **Solution:** This is a known issue. Use `sslmode=require` instead.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Using `sslmode=require` can leave your cluster vulnerable to MITM and impersonation attacks. For more information, see PostgreSQL's [SSL Support](https://www.postgresql.org/docs/9.4/libpq-ssl.html) document.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}

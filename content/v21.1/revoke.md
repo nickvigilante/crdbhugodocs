@@ -11,7 +11,7 @@ You can use `REVOKE` to directly revoke privileges from a role or user, or you c
 ## Syntax
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/revoke.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/revoke.html" . }}
 </div>
 
 ### Parameters
@@ -19,7 +19,7 @@ You can use `REVOKE` to directly revoke privileges from a role or user, or you c
 Parameter                             | Description
 --------------------------------------|------------
 `ALL`<br>`ALL PRIVILEGES`             | Revoke all [privileges](#supported-privileges).
-`targets`                             | A comma-separated list of database, schema, table, or user-defined type names, followed by the name of the object (e.g., `DATABASE mydatabase`).<br>{{ site.data.alerts.callout_info }}To revoke privileges on all tables in a database or schema, you can use `REVOKE ... ON TABLE *`. For an example, see [Revoke privileges on all tables in a database or schema](#revoke-privileges-on-all-tables-in-a-database-or-schema).{{ site.data.alerts.end }}
+`targets`                             | A comma-separated list of database, schema, table, or user-defined type names, followed by the name of the object (e.g., `DATABASE mydatabase`).<br>{{site.data.alerts.callout_info }}To revoke privileges on all tables in a database or schema, you can use `REVOKE ... ON TABLE *`. For an example, see [Revoke privileges on all tables in a database or schema](#revoke-privileges-on-all-tables-in-a-database-or-schema).{{site.data.alerts.end }}
 `name_list`                           | A comma-separated list of [users](authorization.html#create-and-manage-users) and/or [roles](authorization.html#create-and-manage-roles) from whom to revoke privileges.
 `privilege_list ON targets FROM ...`  | Specify a comma-separated list of [privileges](authorization.html#assign-privileges) to revoke.
 `privilege_list FROM ...`             | Specify a comma-separated list of [roles](authorization.html#create-and-manage-roles) whose membership to revoke.
@@ -29,7 +29,7 @@ Parameter                             | Description
 
 The following privileges can be revoked:
 
-{%  include {{  page.version.version  }}/sql/privileges.md %}
+{{ partial "{{ page.version.version }}/sql/privileges.md" . }}
 
 ## Required privileges
 
@@ -43,21 +43,21 @@ The following privileges can be revoked:
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Revoke privileges on databases
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER max WITH PASSWORD roach;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT CREATE ON DATABASE movr TO max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON DATABASE movr;
 ~~~
@@ -71,12 +71,12 @@ The following privileges can be revoked:
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE CREATE ON DATABASE movr FROM max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON DATABASE movr;
 ~~~
@@ -89,18 +89,18 @@ The following privileges can be revoked:
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Any tables that previously inherited the database-level privileges retain the privileges.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Revoke privileges on specific tables in a database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT DELETE ON TABLE rides TO max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON TABLE rides;
 ~~~
@@ -114,12 +114,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE DELETE ON TABLE rides FROM max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON TABLE rides;
 ~~~
@@ -134,12 +134,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 
 ### Revoke privileges on all tables in a database or schema
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT CREATE, SELECT, DELETE ON TABLE rides, users TO max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON TABLE movr.*;
 ~~~
@@ -168,7 +168,7 @@ Any tables that previously inherited the database-level privileges retain the pr
 (18 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE DELETE ON movr.* FROM max;
 ~~~
@@ -198,17 +198,17 @@ Any tables that previously inherited the database-level privileges retain the pr
 
 ### Revoke privileges on schemas
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SCHEMA cockroach_labs;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT ALL ON SCHEMA cockroach_labs TO max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON SCHEMA cockroach_labs;
 ~~~
@@ -222,12 +222,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE CREATE ON SCHEMA cockroach_labs FROM max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON SCHEMA cockroach_labs;
 ~~~
@@ -244,17 +244,17 @@ Any tables that previously inherited the database-level privileges retain the pr
 
 ### Revoke privileges on user-defined types
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TYPE status AS ENUM ('available', 'unavailable');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT ALL ON TYPE status TO max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON TYPE status;
 ~~~
@@ -269,12 +269,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE GRANT ON TYPE status FROM max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON TYPE status;
 ~~~
@@ -291,22 +291,22 @@ Any tables that previously inherited the database-level privileges retain the pr
 
 ### Revoke role membership
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE developer WITH CREATEDB;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER abbey WITH PASSWORD lincoln;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT developer TO abbey;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON ROLE developer;
 ~~~
@@ -318,12 +318,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE developer FROM abbey;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON ROLE developer;
 ~~~
@@ -336,12 +336,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 
 ### Revoke the admin option
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT developer TO abbey WITH ADMIN OPTION;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON ROLE developer;
 ~~~
@@ -353,12 +353,12 @@ Any tables that previously inherited the database-level privileges retain the pr
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE ADMIN OPTION FOR developer FROM abbey;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON ROLE developer;
 ~~~

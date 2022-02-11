@@ -10,7 +10,7 @@ This page describes newly identified limitations in the CockroachDB {{ page.rele
 
 ### Changes to the default replication zone are not applied to existing replication zones
 
-{%  include {{ page.version.version }}/known-limitations/system-range-replication.md %}
+{{ partial "{{ page.version.version }}/known-limitations/system-range-replication.md" . }}
 
 ### Silent validation error with `DECIMAL` values
 
@@ -24,7 +24,7 @@ Most client drivers and frameworks use the text format to pass placeholder value
 
 ### Enterprise backup/restore during rolling upgrades
 
-{{ site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.0.1.html">v2.0.1</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24515">#24515</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.0.1.html">v2.0.1</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24515">#24515</a>.{{site.data.alerts.end }}
 
 In the upgrade process, after upgrading all binaries to v2.0, it's recommended to monitor the cluster's stability and performance for at least one day and only then finalize the upgrade by increasing the `version` cluster setting. However, in the window during which binaries are running v2.0 but the cluster version is still not increased, it is not possible to run enterprise [`BACKUP`](backup.html) and [`RESTORE`](restore.html) jobs.
 
@@ -38,7 +38,7 @@ In the v1.1 release, the limit referred to a whole transaction (i.e., the sum of
 
 ### Memory flags with non-integer values and a unit suffix
 
-{{ site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.0.1.html">v2.0.1</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24388">#24388</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.0.1.html">v2.0.1</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24388">#24388</a>.{{site.data.alerts.end }}
 
 The `--cache` and `--max-sql-memory` flags of the [`cockroach start`](start-a-node.html) command do not support non-integer values with a unit suffix, for example, `--cache=1.5GiB`.
 
@@ -54,7 +54,7 @@ As a workaround, use integer values or a percentage, for example, `--cache=1536M
 
 ### Check constraints with `INSERT ... ON CONFLICT`
 
-{{ site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.0.4.html">v2.0.4</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/26699">#26699</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.0.4.html">v2.0.4</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/26699">#26699</a>.{{site.data.alerts.end }}
 
 [`CHECK`](check.html) constraints are not properly enforced on updated values resulting from [`INSERT ... ON CONFLICT`](insert.html) statements. Consider the following example:
 
@@ -97,52 +97,52 @@ However, the same statement with `INSERT ... ON CONFLICT` incorrectly succeeds a
 
 ### Referring to a CTE by name more than once
 
-{%  include {{  page.version.version  }}/known-limitations/cte-by-name.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-by-name.md" . }}
 
 ### Using CTEs with data-modifying statements
 
-{%  include {{  page.version.version  }}/known-limitations/cte-with-dml.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-with-dml.md" . }}
 
 ### Using CTEs with views
 
-{%  include {{  page.version.version  }}/known-limitations/cte-with-view.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-with-view.md" . }}
 
 ### Using CTEs with `VALUES` clauses
 
-{%  include {{  page.version.version  }}/known-limitations/cte-in-values-clause.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-in-values-clause.md" . }}
 
 ### Using CTEs with Set Operations
 
-{%  include {{  page.version.version  }}/known-limitations/cte-in-set-expression.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-in-set-expression.md" . }}
 
 ### Assigning latitude/longitude for the Node Map
 
-{%  include {{  page.version.version  }}/known-limitations/node-map.md %}
+{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 ### Adding a column with sequence-based `DEFAULT` values
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -164,7 +164,7 @@ Specifically, when run inside a [`BEGIN`](begin-transaction.html) ... [`COMMIT`]
 
 ### Available capacity metric in the Admin UI
 
-{%  include v2.0/misc/available-capacity-metric.md %}
+{{ partial "v2.0/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
@@ -178,27 +178,27 @@ Within a single [transaction](transactions.html):
 
 When the schema of a table targeted by a prepared statement changes before the prepared statement is executed, CockroachDB allows the prepared statement to return results based on the changed table schema, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (id INT PRIMARY KEY);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PREPARE prep1 AS SELECT * FROM users;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users ADD COLUMN name STRING;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO users VALUES (1, 'Max Roach');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXECUTE prep1;
 ~~~
@@ -258,7 +258,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -272,7 +272,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -307,4 +307,4 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### `cockroach dump` does not support cyclic foreign key references
 
-{%  include {{  page.version.version  }}/known-limitations/dump-cyclic-foreign-keys.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md" . }}

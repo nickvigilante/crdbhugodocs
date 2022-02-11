@@ -16,7 +16,7 @@ To use this guide, it's important to understand some of CockroachDB's terminolog
 
 Try running:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start-single-node --insecure --logtostderr
 ~~~
@@ -30,16 +30,16 @@ When starting a node, the directory you choose to store the data in also contain
 **Solution:** Disassociate the node from the existing directory where you've stored CockroachDB data. For example, you can do either of the following:
 
 -   Choose a different directory to store the CockroachDB data:  
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start-single-node --store=<new directory> --insecure
     ~~~
 -   Remove the existing directory and start the node again:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start-single-node --insecure --logtostderr
     ~~~
@@ -72,7 +72,7 @@ See [Why is my process hanging when I try to start it in the background?](operat
 
 If the CockroachDB node appeared to [start successfully](start-a-local-cluster.html), in a separate terminal run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure -e "show databases"
 ~~~
@@ -95,9 +95,9 @@ If you’re not seeing the output above, check for the following:
 
 ## Cannot run a multi-node CockroachDB cluster on the same machine
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Running multiple nodes on a single host is useful for testing out CockroachDB, but it's not recommended for production deployments. To run a physically distributed cluster in production, see [Manual Deployment](manual-deployment.html) or [Orchestrated Deployment](orchestration.html). Also be sure to review the [Production Checklist](recommended-production-settings.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you are trying to run all nodes on the same machine, you might get the following errors:
 
@@ -136,17 +136,17 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 **Solution:** Disassociate the node from the existing directory where you've stored CockroachDB data. For example, you can do either of the following:
 
 -   Choose a different directory to store the CockroachDB data:  
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --store=<new directory> --join=<cluster host> <other flags>
     ~~~
 -   Remove the existing directory and start a node joining the cluster again:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --join=<cluster host>:26257 <other flags>  
     ~~~
@@ -305,9 +305,9 @@ Disk capacity | Available Disk Capacity | Any non-zero value
 Disk I/O | Disk Ops In Progress | Zero or occasional single-digit values
 Network capacity | Network Bytes Received<br/>Network Bytes Sent | Any non-zero value
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For minimum provisioning guidelines, see [Basic hardware recommendations](recommended-production-settings.html#basic-hardware-recommendations).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Check for resources that are running out of capacity:
 
@@ -355,9 +355,9 @@ cockroach-data
 
 Removing the ballast file will give you a chance to remedy the disk space exhaustion; it will automatically be recreated when there is sufficient disk space.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Different filesystems may treat the ballast file differently. Make sure to test that the file exists, and that space for the file is actually being reserved by the filesystem.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Disk stalls
 
@@ -401,11 +401,11 @@ If these issues remain unresolved, affected nodes will miss their liveness heart
 
 - [Check your workload concurrency](common-issues-to-monitor.html#workload-concurrency) and compare it to your provisioned CPU.
 
-  - {%  include {{  page.version.version  }}/prod-deployment/resolution-excessive-concurrency.md %}
+  - {{ partial "{{ page.version.version }}/prod-deployment/resolution-excessive-concurrency.md" . }}
 
 - [Check LSM health](common-issues-to-monitor.html#lsm-health), which can be affected over time by CPU starvation.
 
-  - {%  include {{  page.version.version  }}/prod-deployment/resolution-inverted-lsm.md %}
+  - {{ partial "{{ page.version.version }}/prod-deployment/resolution-inverted-lsm.md" . }}
 
 ## Memory issues
 
@@ -437,7 +437,7 @@ If Go allocated memory is larger than a few hundred megabytes, you might have en
     CGo Allocated | Memory allocated by the C layer.
     CGo Total | Total memory managed by the C layer.
 
-    {%  include {{  page.version.version  }}/prod-deployment/healthy-crdb-memory.md %}
+    {{ partial "{{ page.version.version }}/prod-deployment/healthy-crdb-memory.md" . }}
 
     If you observe any of the following, [file an issue](file-an-issue.html):
       - CGo Allocated is larger than the configured `--cache` size.
@@ -454,7 +454,7 @@ CockroachDB attempts to restart nodes after they crash. Nodes that frequently re
 
 - [Confirm that the node restarts are caused by OOM crashes.](common-issues-to-monitor.html#verify-oom-errors)
 
-  - {%  include {{  page.version.version  }}/prod-deployment/resolution-oom-crash.md %}
+  - {{ partial "{{ page.version.version }}/prod-deployment/resolution-oom-crash.md" . }}
 
 - [Check whether SQL queries may be responsible.](common-issues-to-monitor.html#sql-memory-usage)
 
@@ -527,9 +527,9 @@ The [DB Console][db_console] provides several ways to check for node liveness is
 - [Check node heartbeat latency](common-issues-to-monitor.html#node-heartbeat-latency)
 - [Check command commit latency](common-issues-to-monitor.html#command-commit-latency)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For more information about how node liveness works, see [Replication Layer](architecture/replication-layer.html#epoch-based-leases-table-data).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Check for under-replicated or unavailable data
 

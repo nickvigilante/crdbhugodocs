@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports bundling multiple SQL statements into a single all-or-nothing transaction. Each transaction guarantees [ACID semantics](https://en.wikipedia.org/wiki/ACID) spanning arbitrary tables and rows, even when data is distributed. If a transaction succeeds, all mutations are applied together with virtual simultaneity. If any part of a transaction fails, the entire transaction is aborted, and the database is left unchanged. CockroachDB guarantees that while a transaction is pending, it is isolated from other concurrent transactions with serializable [isolation](#isolation-levels).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For a detailed discussion of CockroachDB transaction semantics, see [How CockroachDB Does Distributed Atomic Transactions](https://www.cockroachlabs.com/blog/how-cockroachdb-distributes-atomic-transactions/) and [Serializable, Lockless, Distributed: Isolation in CockroachDB](https://www.cockroachlabs.com/blog/serializable-lockless-distributed-isolation-cockroachdb/). Note that the explanation of the transaction model described in this blog post is slightly out of date. See the [Transaction Retries](#transaction-retries) section for more details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## SQL statements
 
@@ -25,11 +25,11 @@ Each of the following SQL statements control transactions in some way.
 | [`RELEASE SAVEPOINT`](release-savepoint.html)        | (**Advanced**) Commit a [retryable transaction](advanced-client-side-transaction-retries.html).                                                                                                               |
 | [`ROLLBACK TO SAVEPOINT`](rollback-transaction.html) | (**Advanced**) Handle [retry errors](#error-handling) by rolling back a transaction's changes and increasing its priority.                                                                                    |
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The **Advanced** statements above are used to implement [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), and are mostly of use to driver and ORM authors.
 
 Application developers who are using a framework or library that does not have advanced retry logic built in should implement an application-level retry loop with exponential backoff as shown in [Client-side intervention](#client-side-intervention).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Syntax
 
@@ -37,7 +37,7 @@ In CockroachDB, a transaction is set up by surrounding SQL statements with the [
 
 To use [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), you should also include the [`SAVEPOINT`](savepoint.html), [`ROLLBACK TO SAVEPOINT`](rollback-transaction.html) and [`RELEASE SAVEPOINT`](release-savepoint.html) statements.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -77,9 +77,9 @@ There are two cases in which transaction retries occur:
 
 CockroachDB automatically retries individual statements (implicit transactions) and transactions sent from the client as a single batch, as long as the size of the results being produced for the client, including protocol overhead, is less than 16KiB by default. Once that buffer overflows, CockroachDB starts streaming results back to the client, at which point automatic retries cannot be performed any more. As long as the results of a single statement or batch of statements are known to stay clear of this limit, the client does not need to worry about transaction retries.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can change the results buffer size for all new sessions using the `sql.defaults.results_buffer.size` [cluster setting](cluster-settings.html), or for a specific session using the `results_buffer_size` [session variable](set-vars.html). Note, however, that decreasing the buffer size can increase the number of transaction retry errors a client receives, whereas increasing the buffer size can increase the delay until the client receives the first result row.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 In future versions of CockroachDB, we plan on providing stronger guarantees for read-only queries that return at most one row, regardless of the size of that row.
 
@@ -117,7 +117,7 @@ Batching is generally controlled by your driver or client's behavior. Technicall
     )
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Within a batch of statements, CockroachDB infers that the statements are not
 conditional on the results of previous statements, so it can retry all of them.
 Of course, if the transaction relies on conditional logic (e.g., statement 2 is
@@ -128,13 +128,13 @@ already been delivered to the client by the time statement 2 is forcing the
 transaction to retry, the client needs to be involved in retrying the whole
 transaction and so you should write your transactions to use
 [client-side intervention](#client-side-intervention).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Client-side intervention
 
 Your application should include client-side retry handling when the statements are sent individually, such as:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -158,7 +158,7 @@ To handle these types of errors you have the following options:
 
 #### Client-side intervention example
 
-{%  include {{ page.version.version }}/misc/client-side-intervention-example.md %}
+{{ partial "{{ page.version.version }}/misc/client-side-intervention-example.md" . }}
 
 ## Transaction contention
 
@@ -206,17 +206,17 @@ To see the current priority of a transaction, use [`SHOW TRANSACTION PRIORITY`](
 
 Note that `transaction_priority` is a read-only [session variable](show-vars.html) that cannot be set directly.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When two transactions contend for the same resources indirectly, they may create a dependency cycle leading to a deadlock situation, where both transactions are waiting on the other to finish. In these cases, CockroachDB allows the transaction with higher priority to abort the other, which must then retry. On retry, the transaction inherits the higher priority. This means that each retry makes a transaction more likely to succeed in the event it again experiences deadlock.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Isolation levels
 
 CockroachDB executes all transactions at the strongest ANSI transaction isolation level: `SERIALIZABLE`. All other ANSI transaction isolation levels (e.g., `SNAPSHOT`, `READ UNCOMMITTED`, `READ COMMITTED`, and `REPEATABLE READ`) are automatically upgraded to `SERIALIZABLE`. Weaker isolation levels have historically been used to maximize transaction throughput. However, [recent research](http://www.bailis.org/papers/acidrain-sigmod2017.pdf) has demonstrated that the use of weak isolation levels results in substantial vulnerability to concurrency-based attacks.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For a detailed discussion of isolation in CockroachDB transactions, see [Serializable, Lockless, Distributed: Isolation in CockroachDB](https://www.cockroachlabs.com/blog/serializable-lockless-distributed-isolation-cockroachdb/).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Serializable isolation
 

@@ -20,7 +20,7 @@ In CockroachDB, the following are aliases for `SHOW INDEX`:
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/show_index.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_index.html" . }}
 
 ## Parameters
 

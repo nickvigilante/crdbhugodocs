@@ -12,7 +12,7 @@ toc_not_nested: true
 
 This page shows you how to manually deploy an insecure multi-node CockroachDB cluster on Digital Ocean, using Digital Ocean's managed load balancing service to distribute client traffic.
 
-{{ site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end }}
 
 
 ## Requirements
@@ -58,7 +58,7 @@ Digital Ocean offers fully-managed load balancers to distribute traffic between 
 	- Configure health checks to use HTTP port **8080** and path `/health`.
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{ site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end }}
 
 ## Step 3. Configure your network
 
@@ -87,11 +87,11 @@ For guidance, you can use Digital Ocean's guide to configuring firewalls based o
 
 	~~~ shell
 	# Get the latest CockroachDB tarball:
-	$ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz
+	$ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz
 
 	# Extract the binary:
-	$ tar -xzf cockroach-{{  page.release_info.version  }}.linux-amd64.tgz  \
-	--strip=1 cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach
+	$ tar -xzf cockroach-{{ page.release_info.version }}.linux-amd64.tgz  \
+	--strip=1 cockroach-{{ page.release_info.version }}.linux-amd64/cockroach
 
 	# Move the binary:
 	$ sudo mv cockroach /usr/local/bin/
@@ -119,11 +119,11 @@ At this point, your cluster is live and operational but contains only a single n
 
 	~~~ shell
 	# Get the latest CockroachDB tarball:
-	$ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz
+	$ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz
 
 	# Extract the binary:
-	$ tar -xzf cockroach-{{  page.release_info.version  }}.linux-amd64.tgz  \
-	--strip=1 cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach
+	$ tar -xzf cockroach-{{ page.release_info.version }}.linux-amd64.tgz  \
+	--strip=1 cockroach-{{ page.release_info.version }}.linux-amd64/cockroach
 
 	# Move the binary:
 	$ sudo mv cockroach /usr/local/bin/
@@ -257,7 +257,7 @@ On this page, verify that the cluster is running as expected:
 
 2. Click the **Databases** tab on the left to verify that `insecurenodetest` is listed.
 
-{%  include {{  page.version.version  }}/misc/prometheus-callout.html %}
+{{ partial "{{ page.version.version }}/misc/prometheus-callout.html" . }}
 
 ## Step 9. Use the database
 

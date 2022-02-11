@@ -15,9 +15,9 @@ Non-CCL core features from version 19.1 and earlier are licensed under [Apache 2
 
 CockroachDB [Enterprise features](enterprise-licensing.html) require a [paid license](#obtain-a-license) from Cockroach and are licensed under the Cockroach Community License.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can find any feature's license by checking the code's file header in the [CockroachDB repository](https://github.com/cockroachdb/cockroach).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Types of licenses
 
@@ -67,38 +67,38 @@ Feature          | BSL | CCL (free)      | CCL (paid)
 **[GSSAPI with Kerberos authentication](gssapi_authentication.html)** | | | ✓
 **[All other core features](https://www.cockroachlabs.com/compare)** | ✓ | |
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Individual feature licensing may change with each release of CockroachDB. You can use the dropdown menu at the top of the page to view documentation for other versions of CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 More information about all Enterprise features can be found [here](enterprise-licensing.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Obtain a license
 
 All CockroachDB code is included in the same binary. No license key is required to access BSL and CCL (Free) features. To access CCL (Paid) features, users have two options:
 
 - An **Enterprise License** enables you to use CockroachDB Enterprise features for longer periods (one year or more). To upgrade to an Enterprise license, <a href="mailto:sales@cockroachlabs.com">contact Sales</a>.
-- A **Trial License** enables you to try out CockroachDB Enterprise features for 30 days for free. To obtain a trial license, fill out [the registration form](https://www.cockroachlabs.com/get-cockroachdb/) and receive your trial license via email within a few minutes.
+- A **Trial License** enables you to try out CockroachDB Enterprise features for 30 days for free. To obtain a trial license, fill out [the registration form](https://www.cockroachlabs.com/get-cockroachdb/enterprise/) and receive your trial license via email within a few minutes.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For quick local testing of Enterprise features, you can use the [`cockroach demo`](cockroach-demo.html) command, which starts a temporary, in-memory cluster with a SQL shell open and a trial license applied automatically.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
-Cockroach Labs is willing to offer self-hosted CockroachDB Enterprise features free of charge and discounted prices for {{  site.data.products.serverless  }} to select non-profit organizations and non-commercial academic projects. To learn more, please [contact us](https://support.cockroachlabs.com/hc/en-us).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+Cockroach Labs is willing to offer self-hosted CockroachDB Enterprise features free of charge and discounted prices for {{ site.data.products.serverless }} to select non-profit organizations and non-commercial academic projects. To learn more, please [contact us](https://support.cockroachlabs.com/hc/en-us).
+{{site.data.alerts.end }}
 
 ## Set a license
 
-{%  include {{  page.version.version  }}/misc/set-enterprise-license.md %}
+{{ partial "{{ page.version.version }}/misc/set-enterprise-license.md" . }}
 
 ## Verify a license
 
 To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use the [`SHOW CLUSTER SETTING`](show-cluster-setting.html) command to check the organization name and license key:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SHOW CLUSTER SETTING cluster.organization;
 ~~~
@@ -109,7 +109,7 @@ To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use t
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SHOW CLUSTER SETTING enterprise.license;
 ~~~
@@ -122,7 +122,7 @@ To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use t
 
 The license setting is also logged in the cockroach.log on the node where the command is run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 $ cat cockroach.log | grep license
 ~~~

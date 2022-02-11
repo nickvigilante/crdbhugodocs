@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `ALTER INDEX` [statement](sql-statements.html) applies a schema change to an index. For information on using `ALTER INDEX`, see the pages for its relevant [subcommands](#subcommands).
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Subcommands
 
@@ -21,4 +21,4 @@ Subcommand | Description
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}

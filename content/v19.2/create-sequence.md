@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE SEQUENCE` [statement](sql-statements.html) creates a new sequence in a database. Use a sequence to auto-increment integers in a table.
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Considerations
 
@@ -19,7 +19,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_sequence.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_sequence.html" . }}</section>
 
 ## Parameters
 
@@ -54,7 +54,7 @@ We support the following [SQL sequence functions](functions-and-operators.html):
 
 ### List all sequences
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -74,12 +74,12 @@ We support the following [SQL sequence functions](functions-and-operators.html):
 
 In this example, we create a sequence with default settings.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE customer_seq;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE customer_seq;
 ~~~
@@ -98,12 +98,12 @@ In this example, we create a sequence with default settings.
 
 In this example, we create a sequence that starts at -1 and descends in increments of 2.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE desc_customer_list;
 ~~~
@@ -122,7 +122,7 @@ In this example, we create a sequence that starts at -1 and descends in incremen
 
 In this example, we create a table using the sequence we created in the first example as the table's primary key.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE customer_list (
     id INT PRIMARY KEY DEFAULT nextval('customer_seq'),
@@ -133,7 +133,7 @@ In this example, we create a table using the sequence we created in the first ex
 
 Insert a few records to see the sequence.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO customer_list (customer, address)
   VALUES
@@ -142,7 +142,7 @@ Insert a few records to see the sequence.
     ('Amruta', '9876 Green Parkway');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customer_list;
 ~~~
@@ -161,7 +161,7 @@ Insert a few records to see the sequence.
 
 To view the current value without incrementing the sequence, use:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customer_seq;
 ~~~
@@ -174,7 +174,7 @@ To view the current value without incrementing the sequence, use:
 +------------+---------+-----------+
 ~~~
 
-{{ site.data.alerts.callout_info }}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{site.data.alerts.end }}
 
 If a value has been obtained from the sequence in the current session, you can also use the `currval('seq_name')` function to get that most recently obtained value:
 

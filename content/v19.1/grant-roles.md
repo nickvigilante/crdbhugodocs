@@ -6,13 +6,13 @@ toc: true
 
 The `GRANT <roles>` [statement](sql-statements.html) lets you add a [role](authorization.html#create-and-manage-roles) or [user](create-and-manage-users.html) as a member to a role.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <code>GRANT &lt;roles&gt;</code> is no longer an enterprise feature and is now freely available in the core version of CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/grant_roles.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/grant_roles.html" . }}</section>
 
 ## Required privileges
 
@@ -37,12 +37,12 @@ Parameter | Description
 
 ### Grant role membership
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT design TO ernie;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~
@@ -59,11 +59,11 @@ Parameter | Description
 
 ### Grant the admin option
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT design TO ERNIE WITH ADMIN OPTION;
 ~~~
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON ROLE design;
 ~~~

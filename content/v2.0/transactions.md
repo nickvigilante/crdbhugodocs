@@ -6,7 +6,7 @@ toc: true
 
 CockroachDB supports bundling multiple SQL statements into a single all-or-nothing transaction. Each transaction guarantees [ACID semantics](https://en.wikipedia.org/wiki/ACID) spanning arbitrary tables and rows, even when data is distributed. If a transaction succeeds, all mutations are applied together with virtual simultaneity. If any part of a transaction fails, the entire transaction is aborted, and the database is left unchanged. CockroachDB guarantees that while a transaction is pending, it is isolated from other concurrent transactions with serializable [isolation](#isolation-levels).
 
-{{ site.data.alerts.callout_info }}For a detailed discussion of CockroachDB transaction semantics, see <a href="https://www.cockroachlabs.com/blog/how-cockroachdb-distributes-atomic-transactions/">How CockroachDB Does Distributed Atomic Transactions</a> and <a href="https://www.cockroachlabs.com/blog/serializable-lockless-distributed-isolation-cockroachdb/">Serializable, Lockless, Distributed: Isolation in CockroachDB</a>. Note that the explanation of the transaction model described in this blog post is slightly out of date. See the <a href="#transaction-retries">Transaction Retries</a> section for more details.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}For a detailed discussion of CockroachDB transaction semantics, see <a href="https://www.cockroachlabs.com/blog/how-cockroachdb-distributes-atomic-transactions/">How CockroachDB Does Distributed Atomic Transactions</a> and <a href="https://www.cockroachlabs.com/blog/serializable-lockless-distributed-isolation-cockroachdb/">Serializable, Lockless, Distributed: Isolation in CockroachDB</a>. Note that the explanation of the transaction model described in this blog post is slightly out of date. See the <a href="#transaction-retries">Transaction Retries</a> section for more details.{{site.data.alerts.end }}
 
 ## SQL Statements
 
@@ -119,7 +119,7 @@ Batching is generally controlled by your driver or client's behavior. Technicall
     )
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Within a batch of statements, CockroachDB infers that the statements are not
 conditional on the results of previous statements, so it can retry all of them.
 Of course, if the transaction relies on conditional logic (e.g., statement 2 is
@@ -130,7 +130,7 @@ already been delivered to the client by the time statement 2 is forcing the
 transaction to retry, the client needs to be involved in retrying the whole
 transaction and so you should write your transactions to use
 [client-side intervention](#client-side-intervention).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Client-Side Intervention
 
@@ -176,11 +176,11 @@ Implementing client-side retries requires three statements:
 
 You can find examples of this in the [Syntax](#syntax) section of this page or in our [Build an App with CockroachDB](build-an-app-with-cockroachdb.html) tutorials.
 
-{{ site.data.alerts.callout_success }}If you're building an application in the following languages, we have packages to make client-side retries simpler:
+{{site.data.alerts.callout_success}}If you're building an application in the following languages, we have packages to make client-side retries simpler:
 <ul>
   <li><strong>Go</strong> developers can use the <code>crdb</code> package of the CockroachDB Go client. For more information, see <a href="build-a-go-app-with-cockroachdb.html#transaction-with-retry-logic">Build a Go App with CockroachDB</a>.</li>
   <li><strong>Python</strong> developers can use the <code>sqlalchemy</code> package. For more information, see our blog post <a href="https://www.cockroachlabs.com/blog/building-application-cockroachdb-sqlalchemy-2/">Building an Application With CockroachDB and SQLAlchemy</a>.</li>
-</ul>{{ site.data.alerts.end }}
+</ul>{{site.data.alerts.end }}
 
 It's also important to note that retried transactions are restarted at a later timestamp. This means that the transaction operates on a later snapshot of the database and related reads might retrieve updated data.
 
@@ -223,7 +223,7 @@ Alternately, the client can set the priority immediately after the transaction i
 
 The client can also display the current priority of the transaction with [`SHOW TRANSACTION PRIORITY`](show-vars.html).
 
-{{ site.data.alerts.callout_info }}When two transactions contend for the same resources indirectly, they may create a dependency cycle leading to a deadlock situation, where both transactions are waiting on the other to finish. In these cases, CockroachDB allows the transaction with higher priority to abort the other, which must then retry. On retry, the transaction inherits the higher priority. This means that each retry makes a transaction more likely to succeed in the event it again experiences deadlock.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}When two transactions contend for the same resources indirectly, they may create a dependency cycle leading to a deadlock situation, where both transactions are waiting on the other to finish. In these cases, CockroachDB allows the transaction with higher priority to abort the other, which must then retry. On retry, the transaction inherits the higher priority. This means that each retry makes a transaction more likely to succeed in the event it again experiences deadlock.{{site.data.alerts.end }}
 
 ### Isolation Levels
 
@@ -241,7 +241,7 @@ Alternately, the client can set the isolation level immediately after the transa
 
 The client can also display the current isolation level of the transaction with [`SHOW TRANSACTION ISOLATION LEVEL`](show-vars.html).
 
-{{ site.data.alerts.callout_info }}For a detailed discussion of isolation in CockroachDB transactions, see <a href="https://www.cockroachlabs.com/blog/serializable-lockless-distributed-isolation-cockroachdb/">Serializable, Lockless, Distributed: Isolation in CockroachDB</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}For a detailed discussion of isolation in CockroachDB transactions, see <a href="https://www.cockroachlabs.com/blog/serializable-lockless-distributed-isolation-cockroachdb/">Serializable, Lockless, Distributed: Isolation in CockroachDB</a>.{{site.data.alerts.end }}
 
 #### Serializable Isolation
 

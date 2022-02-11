@@ -6,9 +6,9 @@ toc: true
 
 ## Overview
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you are already using [multi-region SQL statements](multiregion-overview.html) to control your multi-region cluster, you can ignore this page.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 CockroachDB v21.1 added support for [improved multi-region capabilities that make it easier to run global applications](multiregion-overview.html). Using high-level SQL statements, you can control where your data is stored and how it is accessed to provide good performance and tuneable latency for your application's users.
 
@@ -26,11 +26,11 @@ This page describes how to migrate a multi-region cluster from using replication
 
 ## Replication zone patterns and multi-region SQL abstractions
 
-{%  include {{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md %}
+{{ partial "{{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md" . }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB will no longer provide the [Follow-the-Workload](topology-follow-the-workload.html) pattern's behavior for a database if you use the [multi-region SQL statements](multiregion-overview.html) with that database. In other words, the multi-region SQL statements do not provide a behavior that is analogous to Follow-the-Workload.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about how to use `ZONE` vs. `REGION` survival goals, see [When to use `ZONE` vs `REGION` survival goals](when-to-use-zone-vs-region-survival-goals.html).
 
@@ -52,9 +52,9 @@ Note that the process of dropping the old zone configs that occurs when the old 
 
 For a tutorial that shows how to transition a database to using multi-region SQL statements, see [Low Latency Reads and Writes in a Multi-Region Cluster](demo-low-latency-multi-region-deployment.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 As part of this migration, data may move temporarily out of the geography where you have constrained it to be placed. For more information about CockroachDB's support for data domiciling, see [Data Domiciling with CockroachDB](data-domiciling.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 1. Remove the old replication zone configurations
 
@@ -64,9 +64,9 @@ Depending on which [legacy multi-region topology pattern](../v20.2/topology-patt
 - [Geo-partitioned leaseholders](#geo-partitioned-leaseholders)
 - [Geo-partitioned replicas](#geo-partitioned-replicas)
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can check the state of any schema object's replication zone configuration at any time using [`SHOW ZONE CONFIGURATIONS`](show-zone-configurations.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Duplicate indexes
 
@@ -74,14 +74,14 @@ If you used the [duplicate indexes pattern][dupe_index], the steps for backing o
 
 1. Remove the replication zone configurations you added using the [`ALTER DATABASE ... CONFIGURE ZONE DISCARD`](configure-zone.html#remove-a-replication-zone) statement. Note that this will remove all zone configurations from the table. If you had any additional customizations beyond what are required for the [duplicate indexes][dupe_index] pattern, you will have to reapply them.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE postal_codes CONFIGURE ZONE DISCARD;
     ~~~
     
 1. Drop the extra indexes you added. This will have the side effect of also deleting the zone configurations you added to those indexes.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     DROP INDEX postal_codes@idx_central;
     DROP INDEX postal_codes@idx_east;
@@ -95,23 +95,23 @@ If you applied the [geo-partitioned replicas][geo_replicas] pattern, the steps f
 
 1. Remove the manually created table partition. This will also automatically remove the replication zone configurations that were applied to the partition as part of the instructions.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE users PARTITION BY NOTHING;
     ~~~
 
 1. Remove the manually created partition on the secondary indexes. This will also automatically remove the replication zone configurations that were applied to the partition as part of the instructions.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER INDEX users_last_name_index PARTITION BY NOTHING;
     ~~~
 
 The latency and resiliency benefits of the geo-partitioned replicas pattern can be replaced by making `users` a [`REGIONAL BY ROW` table](regional-tables.html#regional-by-row-tables) with a [`ZONE` survival goal](multiregion-overview.html#surviving-zone-failures).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The multi-region SQL abstractions use a hidden [`crdb_region`](set-locality.html#crdb_region) column to represent the row's home region. You may need to modify your existing schema to take this into account. For example, if you already have a column you are using to denote each row's home region, you can use that name instead of `crdb_region` by following the instructions on the [`ALTER TABLE ... SET LOCALITY`](set-locality.html#rename-crdb_region) page.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Geo-partitioned leaseholders
 
@@ -119,14 +119,14 @@ If you applied the [geo-partitioned leaseholders][geo_leaseholders] pattern, the
 
 1. Remove the manually created table partition. This will also automatically remove the replication zone configurations that were applied to the partition as part of the instructions.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE users PARTITION BY NOTHING;
     ~~~
 
 1. Remove the manually created partition on the secondary indexes. This will also automatically remove the replication zone configurations that were applied to the partition as part of the instructions.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER INDEX users_last_name_index PARTITION BY NOTHING;
     ~~~
@@ -139,7 +139,7 @@ The steps from this point forward assume that you have cleared your prior replic
 
 Every multi-region database needs to have a primary region. To set the primary region, issue the [SET PRIMARY REGION](set-primary-region.html) statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE foo SET PRIMARY REGION = "us-west1"
 ~~~
@@ -148,7 +148,7 @@ ALTER DATABASE foo SET PRIMARY REGION = "us-west1"
 
 To add another region to the database, issue the [`ADD REGION`](add-region.html) statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER database foo ADD REGION "us-central1";
 ~~~
@@ -162,7 +162,7 @@ Depending on your desired database [survival goal](multiregion-overview.html#sur
 
 For example, to set a region survival goal, issue the following SQL statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE foo SURVIVE REGION FAILURE;
 ~~~
@@ -175,11 +175,11 @@ For each table in your database, apply the [table locality](multiregion-overview
 
 As described above, the mapping from legacy replication zone patterns to multi-region SQL abstractions is:
 
-{%  include {{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md %}
+{{ partial "{{ page.version.version }}/sql/replication-zone-patterns-to-multiregion-sql-mapping.md" . }}
 
 For example, to configure the `postal_codes` table from the [duplicate indexes example above](#duplicate-indexes) to use [multi-region SQL](multiregion-overview.html), you would enter the following statements to make the `postal_codes` table a [`GLOBAL` table](global-tables.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE postal_codes SET LOCALITY GLOBAL;
 ~~~
@@ -202,7 +202,7 @@ A [`REGIONAL BY ROW`](multiregion-overview.html#regional-by-row-tables) table di
 - [`voter_constraints`](configure-replication-zones.html#voter_constraints)
 - [`lease_preferences`](configure-replication-zones.html#lease_preferences)
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW ZONE CONFIGURATION FROM TABLE users;
 ~~~
@@ -224,7 +224,7 @@ SHOW ZONE CONFIGURATION FROM TABLE users;
 
 The same table, loaded in a demo cluster with no zone configuration changes, looks like this:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW ZONE CONFIGURATION FROM TABLE users;
 ~~~
@@ -254,7 +254,7 @@ A [`GLOBAL`](global-tables.html) table differs from the default by setting the f
 - [`voter_constraints`](configure-replication-zones.html#voter_constraints)
 - [`lease_preferences`](configure-replication-zones.html#lease_preferences) 
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW ZONE CONFIGURATION FROM TABLE promo_codes;
 ~~~
@@ -277,7 +277,7 @@ SHOW ZONE CONFIGURATION FROM TABLE promo_codes;
 
 The same table, loaded in a demo cluster with no zone configuration changes, looks like this:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW ZONE CONFIGURATION FROM TABLE promo_codes;
 ~~~

@@ -14,9 +14,9 @@ The `SHOW QUERIES` [statement](sql-statements.html) lists details about currentl
 
 These details let you monitor the progress of active queries and, if necessary, identify those that may need to be [cancelled](cancel-query.html) to prevent unwanted resource consumption.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Schema changes and [`BACKUP`](backup.html)/[`RESTORE`](restore.html) statements are not executed as queries internally and so are not listed by `SHOW QUERIES`. To monitor such statements, use [`SHOW JOBS`](show-jobs.html) instead.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -25,7 +25,7 @@ No [privileges](authorization.html#assign-privileges) are required to execute th
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_queries.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_queries.html" . }}
 </div>
 
 - To list the active queries across all nodes of the cluster, use `SHOW QUERIES` or `SHOW CLUSTER QUERIES`.
@@ -51,7 +51,7 @@ Field | Description
 
 ### List queries across the cluster
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER QUERIES;
 ~~~
@@ -77,7 +77,7 @@ Alternatively, you can use `SHOW QUERIES` to receive the same response.
 
 ### List queries on the local node
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW LOCAL QUERIES;
 ~~~
@@ -100,7 +100,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 #### Show all queries on node 2
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE node_id = 2;
@@ -119,7 +119,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 #### Show all queries that have been running for more than 3 hours
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -135,7 +135,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 #### Show all queries from a specific address and user
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE client_address = '192.168.0.72:56194'
@@ -154,7 +154,7 @@ You can use a [`SELECT`](select-clause.html) statement to filter the list of act
 
 To exclude queries from the [built-in SQL client](use-the-built-in-sql-client.html), filter for queries that do not show `cockroach` as the `application_name`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE application_name != 'cockroach';
@@ -182,7 +182,7 @@ When you see a query that is taking too long to complete, you can use the [`CANC
 
 For example, let's say you use `SHOW CLUSTER QUERIES` to find queries that have been running for more than 3 hours:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -198,7 +198,7 @@ For example, let's say you use `SHOW CLUSTER QUERIES` to find queries that have 
 
 To cancel this long-running query, and stop it from consuming resources, you note the `query_id` and use it with the `CANCEL QUERY` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL QUERY '14dacc1f9a781e3d0000000000000001';
 ~~~

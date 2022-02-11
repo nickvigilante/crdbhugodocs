@@ -21,7 +21,7 @@ echo "Done"
 echo "Copying configuration..."
 
 cp $JEKYLLDOCS/_config_base.yml $HUGODOCS/config.yml
-rm $HUGODOCS/config.toml
+echo theme: ananke >> config.yml
 
 echo "Done"
 
@@ -29,7 +29,7 @@ echo "Done"
 
 echo "Copying content..."
 
-cp -R $JEKYLLDOCS/_includes/ $HUGODOCS/layouts/partials
+cp -R $JEKYLLDOCS/_includes/ $HUGODOCS/assets
 cp -R $JEKYLLDOCS/_layouts/ $HUGODOCS/layouts
 cp -R $JEKYLLDOCS/v1.0 $HUGODOCS/content
 cp -R $JEKYLLDOCS/v1.1 $HUGODOCS/content
@@ -52,6 +52,12 @@ echo "Done"
 
 echo "Hugoifying content"
 
-find . -name "*.md" -exec sed -i '' -E 's/(\{\{)/\1 /g; s/(\{%)/\1 /g; s/(\}\})/ \1/g; s/(\}%)/ \1/g' {} \;
+arr=($HUGODOCS/content $HUGODOCS/layouts)
+
+for x in "${arr[@]}";
+do
+find $x -type f \( -name "*.md" -o -name "*.html" \) -exec sed -i '' -E 's/(\{\{)([^\s])/\1 \2/g; s/(\{%)([^\s])/\1 \2/g; s/([^\s])(\}\})/\1 \2/g; s/([^\s])(%\})/\1 \2/g; s/(\{\{ ) /\1/g; s/(\{% ) /\1/g; s/ ( \}\})/\1/g; s/ ( %\})/\1/g; s/\{\{ content \}\}/\{\{ .Content \}\}/g; s/\{% include (.*) %\}/\{\{ partial "\1" . \}\}/g' {} \;
+
+done
 
 echo "Done"

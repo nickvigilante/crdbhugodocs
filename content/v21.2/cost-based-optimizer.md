@@ -30,9 +30,9 @@ By default, CockroachDB automatically generates table statistics when tables are
 
 By default, CockroachDB also automatically collects [multi-column statistics](create-statistics.html#create-statistics-on-multiple-columns) on columns that prefix an index.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [Schema changes](online-schema-changes.html) trigger automatic statistics collection for the affected table(s).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Control automatic statistics
 
@@ -54,9 +54,9 @@ Statistics are refreshed in the following cases:
     | `sql.stats.automatic_collection.fraction_stale_rows` |           0.2 | Target fraction of stale rows per table that will trigger a statistics refresh       |
     | `sql.stats.automatic_collection.min_stale_rows`      |           500 | Target minimum number of stale rows per table that will trigger a statistics refresh |
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Because the formula for statistics refreshes is probabilistic, you will not see statistics update immediately after changing these settings, or immediately after exactly 500 rows have been updated.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 #### Turn off statistics
 
@@ -64,7 +64,7 @@ To turn off automatic statistics collection, follow these steps:
 
 1. Run the following statement to disable the automatic statistics [cluster setting](cluster-settings.html):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SET CLUSTER SETTING sql.stats.automatic_collection.enabled = false;
     ~~~
@@ -73,7 +73,7 @@ To turn off automatic statistics collection, follow these steps:
 
 1. Delete the automatically generated statistics using the following statement:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > DELETE FROM system.table_statistics WHERE true;
     ~~~
@@ -86,14 +86,14 @@ To see how to manually generate statistics, see the [`CREATE STATISTICS` example
 
 By default, the optimizer collects histograms for all index columns (specifically the first column in each index) during automatic statistics collection. If a single column statistic is explicitly requested using manual invocation of [`CREATE STATISTICS`](create-statistics.html), a histogram will be collected, regardless of whether or not the column is part of an index.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 - CockroachDB does not support histograms on [`ARRAY`-typed](array.html) columns. As a result, statistics created on `ARRAY`-typed columns do not include histograms.
 - CockroachDB does not support multi-column histograms.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you are an advanced user and need to disable histogram collection for troubleshooting or performance tuning reasons, change the [`sql.stats.histogram_collection.enabled` cluster setting](cluster-settings.html) by running [`SET CLUSTER SETTING`](set-cluster-setting.html) as follows:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET CLUSTER SETTING sql.stats.histogram_collection.enabled = false;
 ~~~
@@ -106,17 +106,17 @@ In [multi-region deployments](multiregion-overview.html), the optimizer, in conc
 
 Even if a value cannot be read locally, CockroachDB takes advantage of the fact that some of the other regions are much closer than others and thus can be queried with lower latency. In this case, it performs all lookups against the remote regions in parallel and returns the result once it is retrieved, without having to wait for each lookup to come back. This can lead to increased performance in multi-region deployments, since it means that results can be returned from wherever they are first found without waiting for all of the other lookups to return.
 
-{{ site.data.alerts.callout_info }}
-The asynchronous parallel lookup behavior does not occur if you [disable vectorized execution](vectorized-execution.html#configuring-vectorized-execution).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+The asynchronous parallel lookup behavior does not occur if you [disable vectorized execution](vectorized-execution.html#configure-vectorized-execution).
+{{site.data.alerts.end }}
 
 Locality optimized search is supported for scans that are guaranteed to return 100,000 keys or fewer. This optimization allows the execution engine to avoid visiting remote regions if all requested keys are found in the local region, thus reducing the latency of the query.
 
 ### Limitations
 
-{%  include {{  page.version.version  }}/sql/locality-optimized-search-limited-records.md %}
+{{ partial "{{ page.version.version }}/sql/locality-optimized-search-limited-records.md" . }}
 
-{%  include {{ page.version.version }}/sql/locality-optimized-search-virtual-computed-columns.md %}
+{{ partial "{{ page.version.version }}/sql/locality-optimized-search-virtual-computed-columns.md" . }}
 
 ## Query plan cache
 
@@ -124,7 +124,7 @@ CockroachDB uses a cache for the query plans generated by the optimizer. This ca
 
 The query plan cache is enabled by default. To disable it, execute the following statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING sql.query_cache.enabled = false;
 ~~~
@@ -145,14 +145,14 @@ Because this process leads to an exponential increase in the number of possible 
 
 To change this setting, which is controlled by the `reorder_joins_limit` [session variable](set-vars.html), run the following statement. To disable this feature, set the variable to `0`.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET reorder_joins_limit = 0;
 ~~~
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 We strongly recommend not setting this value higher than 8 to avoid performance degradation. If set too high, the cost of generating and costing execution plans can end up dominating the total execution time of the query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about the difficulty of selecting an optimal join ordering, see our blog post [An Introduction to Join Ordering](https://www.cockroachlabs.com/blog/join-ordering-pt1/).
 
@@ -167,9 +167,9 @@ To force the use of a specific join algorithm even if the optimizer determines t
 - `INNER INVERTED JOIN`
 - `LEFT INVERTED JOIN`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Due to SQL's implicit `AS` syntax, you cannot specify a join hint with only the join algorithm keyword (e.g., `MERGE`). For example, `a MERGE JOIN b` will be interpreted as having an implicit `AS` and be executed as `a AS MERGE JOIN b`, which is equivalent to `a JOIN b`. Because the resulting query might execute without returning any hint-related error (because it is valid SQL), it will seem like the join hint "worked", but actually it didn't affect which join algorithm was used. The correct syntax is `a INNER MERGE JOIN b`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For a join hint example, see [Use the right join type](make-queries-fast.html#rule-3-use-the-right-join-type).
 
@@ -183,15 +183,15 @@ For a join hint example, see [Use the right join type](make-queries-fast.html#ru
 
 - `INVERTED`:  Forces an inverted join into the right side; the right side must be a table with a suitable [GIN index](inverted-indexes.html). Note that `INVERTED` can only be used with `INNER` and `LEFT` joins.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     You cannot use inverted joins on [partial GIN indexes](inverted-indexes.html#partial-gin-indexes).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 If it is not possible to use the algorithm specified in the hint, an error is signaled.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To make the optimizer prefer lookup joins to merge joins when performing foreign key checks, set the `prefer_lookup_joins_for_fks` [session variable](set-vars.html) to `on`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Additional considerations
 
@@ -254,13 +254,13 @@ SELECT * FROM abc@{NO_ZIGZAG_JOIN};
 
 ### Inverted join examples
 
-{%  include {{  page.version.version  }}/sql/inverted-joins.md %}
+{{ partial "{{ page.version.version }}/sql/inverted-joins.md" . }}
 
 ## Known Limitations
 
-* {%  include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
-* {%  include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
-* {%  include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
+* {{ partial "{{ page.version.version }}/known-limitations/old-multi-col-stats.md" . }}
+* {{ partial "{{ page.version.version }}/known-limitations/single-col-stats-deletion.md" . }}
+* {{ partial "{{ page.version.version }}/known-limitations/stats-refresh-upgrade.md" . }}
 
 ## See also
 

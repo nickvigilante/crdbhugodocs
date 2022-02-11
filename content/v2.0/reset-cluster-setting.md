@@ -14,7 +14,7 @@ Only the `root` user can modify cluster settings.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/reset_csetting.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/reset_csetting.html" . }}
 </div>
 
 ## Parameters
@@ -25,7 +25,7 @@ Only the `root` user can modify cluster settings.
 
 ## Example
 
-{{ site.data.alerts.callout_success }}You can use <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING .. TO DEFAULT</code></a> to reset a cluster setting as well.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING .. TO DEFAULT</code></a> to reset a cluster setting as well.{{site.data.alerts.end }}
 
 ~~~ sql
 > SET CLUSTER SETTING sql.metrics.statement_details.enabled = false;

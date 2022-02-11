@@ -18,12 +18,12 @@ The `IMPORT` [statement](sql-statements.html) imports the following types of dat
 
 - `IMPORT` only works for creating new tables. For information on how to import into existing tables, see [`IMPORT INTO`](import-into.html). Also, for instructions and working examples on how to migrate data from other databases, see the [Migration Overview](migration-overview.html).
 
-{%  include {{  page.version.version  }}/import-table-deprecate.md %}
+{{ partial "{{ page.version.version }}/import-table-deprecate.md" . }}
 
 - `IMPORT` cannot be used with [user-defined types](create-type.html). Use [`IMPORT INTO`](import-into.html) instead.
 - `IMPORT` is a blocking statement. To run an import job asynchronously, use the [`DETACHED`](#options-detached) option.
 - `IMPORT` cannot be used within a [rolling upgrade](upgrade-cockroach-version.html).
-- {%  include {{ page.version.version }}/sql/import-into-regional-by-row-table.md %}
+- {{ partial "{{ page.version.version }}/sql/import-into-regional-by-row-table.md" . }}
 
 ## Required privileges
 
@@ -33,20 +33,20 @@ The user must have the `CREATE` [privileges](authorization.html#assign-privilege
 
 #### Source privileges
 
-{%  include {{  page.version.version  }}/misc/source-privileges.md %}
+{{ partial "{{ page.version.version }}/misc/source-privileges.md" . }}
 
 ## Synopsis
 
 **Import a table from CSV or Avro**
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/import_csv.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/import_csv.html" . }}
 </div>
 
 **Import a database or table from dump file**
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/import_dump.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/import_dump.html" . }}
 </div>
 
 ## Parameters
@@ -129,7 +129,7 @@ For more information on details to consider when running an IMPORT, see [Conside
 
 ### Import targets
 
-{%  include {{  page.version.version  }}/import-table-deprecate.md %}
+{{ partial "{{ page.version.version }}/import-table-deprecate.md" . }}
 
 To use `IMPORT` in v21.1 and prior, imported tables must not exist and must be created in the `IMPORT` statement. If the table you want to import already exists, you must drop it with [`DROP TABLE`](drop-table.html) or use [`IMPORT INTO`](import-into.html).
 
@@ -147,13 +147,13 @@ Your `IMPORT` statement must reference a `CREATE TABLE` statement representing t
 
 We also recommend [specifying all secondary indexes you want to use in the `CREATE TABLE` statement](create-table.html#create-a-table-with-secondary-and-gin-indexes). It is possible to [add secondary indexes later](create-index.html), but it is significantly faster to specify them during import.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  `IMPORT` supports [computed columns](computed-columns.html) for Avro and Postgres dump files only. To import CSV data to a table with a computed column or `DEFAULT` expression, use [`IMPORT INTO`](import-into.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 By default, the [Postgres][postgres] and [MySQL][mysql] import formats support foreign keys. However, the most common dependency issues during import are caused by unsatisfied foreign key relationships that cause errors like `pq: there is no unique constraint matching given keys for referenced table tablename`. You can avoid these issues by adding the [`skip_foreign_keys`](#import-options) option to your `IMPORT` statement as needed. Ignoring foreign constraints will also speed up data import.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Available storage
 
@@ -185,17 +185,17 @@ For more detail on optimizing import performance, see [Import Performance Best P
 
 After CockroachDB initiates an import, you can view its progress with [`SHOW JOBS`](show-jobs.html) and on the [**Jobs** page](ui-jobs-page.html) of the DB Console, and you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If initiated correctly, the statement returns when the import is finished or if it encounters an error. In some cases, the import can continue after an error has been returned (the error message will tell you that the import has resumed in the background).
 
  When [resumed](resume-job.html), [paused](pause-job.html) imports now continue from their internally recorded progress instead of starting over.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
 The following provide connection examples to cloud storage providers. For more information on connecting to different storage options, read [Use Cloud Storage for Bulk Operations](use-cloud-storage-for-bulk-operations.html).
 
-{%  include {{  page.version.version  }}/import-table-deprecate.md %}
+{{ partial "{{ page.version.version }}/import-table-deprecate.md" . }}
 
 <div class="filters clearfix">
   <button class="filter-button" data-scope="s3">Amazon S3</button>
@@ -205,13 +205,13 @@ The following provide connection examples to cloud storage providers. For more i
 
 <section class="filter-content" markdown="1" data-scope="s3">
 
-{%  include {{  page.version.version  }}/backups/aws-auth-note.md %}
+{{ partial "{{ page.version.version }}/backups/aws-auth-note.md" . }}
 
 ### Import a table from a CSV file
 
 To specify the table schema in-line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -224,7 +224,7 @@ CSV DATA ('s3://{BUCKET NAME}/{customers.csv}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS
 
 To use a file to specify the table schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 's3://{BUCKET NAME}/{customers-create-table.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
@@ -232,13 +232,13 @@ CSV DATA ('s3://{BUCKET NAME}/{customers.csv}?AWS_ACCESS_KEY_ID={ACCESS_KEY}&AWS
 ;
 ~~~
 
-{%  include {{  page.version.version  }}/misc/csv-import-callout.md %}
+{{ partial "{{ page.version.version }}/misc/csv-import-callout.md" . }}
 
 ### Import a table from multiple CSV files
 
 #### Using a comma-separated list
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -264,7 +264,7 @@ You can specify [file patterns to match](https://golang.org/pkg/path/filepath/#M
 
 These only match files directly under the specified path and do not descend into additional directories recursively.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -278,7 +278,7 @@ CSV DATA (
 
 ### Import a table from a TSV file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -295,7 +295,7 @@ WITH
 
 The `comment` option determines which Unicode character marks the rows in the data to be skipped.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -312,7 +312,7 @@ WITH
 
 The `skip` option determines the number of header rows to skip when importing a file.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -331,7 +331,7 @@ WITH
 
 The examples below use CSV data, but `row_limit` is also an option for [Avro files](migrate-from-avro.html#step-3-import-the-avro), [delimited data files](#import-a-delimited-data-file), [Postgres dump files](migrate-from-postgres.html#row-limit), and [MySQL dump files](migrate-from-mysql.html#row-limit).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -348,7 +348,7 @@ WITH
 
 The `nullif` option defines which string should be converted to `NULL`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -365,7 +365,7 @@ WITH
 
 CockroachDB chooses the decompression codec based on the filename (the common extensions `.gz` or `.bz2` and `.bz`) and uses the codec to decompress the file during import.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -378,7 +378,7 @@ CSV DATA ('s3://{BUCKET NAME}/{customers.csv.gz}?AWS_ACCESS_KEY_ID={ACCESS KEY}&
 
 Optionally, you can use the `decompress` option to specify the codec to be used for decompressing the file during import:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -393,7 +393,7 @@ WITH
 
 ### Import a Postgres database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 's3://{BUCKET NAME}/{customers.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}' WITH ignore_unsupported_statements;
 ~~~
@@ -402,7 +402,7 @@ For the command above to succeed, you need to have created the dump file with sp
 
 ### Import a table from a Postgres database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM PGDUMP 's3://{BUCKET NAME}/{employees-full.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}' WITH skip_foreign_keys WITH ignore_unsupported_statements;
 ~~~
@@ -415,7 +415,7 @@ For the command above to succeed, you need to have created the dump file with sp
 
 Cockroach dump files can be imported using the `IMPORT PGDUMP` statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 's3://{BUCKET NAME}/{employees-full.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}';
 ~~~
@@ -424,7 +424,7 @@ For more information, see [SQL Dump (Export)](cockroach-dump.html).
 
 ### Import a MySQL database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 's3://{BUCKET NAME}/{employees-full.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}';
 ~~~
@@ -433,7 +433,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 ### Import a table from a MySQL database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM MYSQLDUMP 's3://{BUCKET NAME}/{employees-full.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}' WITH skip_foreign_keys;
 ~~~
@@ -444,7 +444,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 ### Import a delimited data file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT DELIMITED DATA 's3://{BUCKET NAME}/{employees-full.csv}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
   WITH
@@ -453,13 +453,13 @@ For more detailed information about importing data from MySQL, see [Migrate from
     fields_escaped_by='"';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Import a table from a delimited data file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees
     FROM DELIMITED DATA 's3://{BUCKET NAME}/{employees.csv}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
@@ -475,7 +475,7 @@ If the table schema specifies foreign keys into tables that do not exist yet, th
 
 To specify the table schema in-line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -488,7 +488,7 @@ AVRO DATA ('s3://{BUCKET NAME}/{customers.avro}?AWS_ACCESS_KEY_ID={ACCESS KEY}&A
 
 To use a file to specify the table schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 's3://{BUCKET NAME}/{customers-create-table.sql}?AWS_ACCESS_KEY_ID={ACCESS KEY}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
@@ -504,7 +504,7 @@ For more information about importing data from Avro, including examples, see [Mi
 
 The following transactions use CSV data as an example. To use the `DETACHED` option with `IMPORT` in a transaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -549,7 +549,7 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 To specify the table schema in-line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -562,7 +562,7 @@ CSV DATA ('azure://{CONTAINER NAME}/{customer-import-data.csv}?AZURE_ACCOUNT_NAM
 
 To use a file to specify the table schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'azure://{CONTAINER NAME}/{customer-create-table.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}'
@@ -570,13 +570,13 @@ CSV DATA ('azure://{CONTAINER NAME}/{customer-import-data.csv}?AZURE_ACCOUNT_NAM
 ;
 ~~~
 
-{%  include {{  page.version.version  }}/misc/csv-import-callout.md %}
+{{ partial "{{ page.version.version }}/misc/csv-import-callout.md" . }}
 
 ### Import a table from multiple CSV files
 
 #### Using a comma-separated list
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -603,7 +603,7 @@ You can specify [file patterns to match](https://golang.org/pkg/path/filepath/#M
 
 These only match files directly under the specified path and do not descend into additional directories recursively.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -617,7 +617,7 @@ CSV DATA (
 
 ### Import a table from a TSV file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -634,7 +634,7 @@ WITH
 
 The `comment` option determines which Unicode character marks the rows in the data to be skipped.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -651,7 +651,7 @@ WITH
 
 The `skip` option determines the number of header rows to skip when importing a file.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -671,7 +671,7 @@ WITH
 The examples below use CSV data, but `row_limit` is also an option for [Avro files](migrate-from-avro.html#step-3-import-the-avro), [delimited data files](#import-a-delimited-data-file), [Postgres dump files](migrate-from-postgres.html#row-limit), and [MySQL dump files](migrate-from-mysql.html#row-limit).
 
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -688,7 +688,7 @@ WITH
 
 The `nullif` option defines which string should be converted to `NULL`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -705,7 +705,7 @@ WITH
 
 CockroachDB chooses the decompression codec based on the filename (the common extensions `.gz` or `.bz2` and `.bz`) and uses the codec to decompress the file during import.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -718,7 +718,7 @@ CSV DATA ('azure://{CONTAINER NAME}/{customer-import-data.csv.gz}?AZURE_ACCOUNT_
 
 Optionally, you can use the `decompress` option to specify the codec to be used for decompressing the file during import:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -733,7 +733,7 @@ WITH
 
 ### Import a Postgres database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'azure://{CONTAINER NAME}/{employees.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}' WITH ignore_unsupported_statements;
 ~~~
@@ -742,7 +742,7 @@ For the commands above to succeed, you need to have created the dump file with s
 
 ### Import a table from a Postgres database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM PGDUMP 'azure://{CONTAINER NAME}/{employees.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}' WITH skip_foreign_keys WITH ignore_unsupported_statements;
 ~~~
@@ -755,7 +755,7 @@ For the command above to succeed, you need to have created the dump file with sp
 
 Cockroach dump files can be imported using the `IMPORT PGDUMP` statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'azure://{CONTAINER NAME}/{employees.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}';
 ~~~
@@ -764,7 +764,7 @@ For more information, see [SQL Dump (Export)](cockroach-dump.html).
 
 ### Import a MySQL database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 'azure://{CONTAINER NAME}/{employees.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}';
 ~~~
@@ -773,7 +773,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 ### Import a table from a MySQL database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM MYSQLDUMP 'azure://{CONTAINER NAME}/{employees.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}' WITH skip_foreign_keys;
 ~~~
@@ -784,7 +784,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 ### Import a delimited data file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT DELIMITED DATA 'azure://{CONTAINER NAME}/{employees.csv}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}'
   WITH
@@ -793,14 +793,14 @@ For more detailed information about importing data from MySQL, see [Migrate from
     fields_escaped_by='"';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Import a table from a delimited data file
 
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees
     FROM DELIMITED DATA 'azure://{CONTAINER NAME}/{employees.csv}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}'
@@ -816,7 +816,7 @@ If the table schema specifies foreign keys into tables that do not exist yet, th
 
 To specify the table schema in-line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -829,7 +829,7 @@ AVRO DATA ('azure://{CONTAINER NAME}/{customer-import-date.avro}?AZURE_ACCOUNT_N
 
 To use a file to specify the table schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'azure://{CONTAINER NAME}/{customer-create-table.sql}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={ENCODED KEY}'
@@ -846,7 +846,7 @@ For more information about importing data from Avro, including examples, see [Mi
 The following transactions use CSV data as an example. To use the `DETACHED` option with `IMPORT` in a transaction:
 
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -887,13 +887,13 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 <section class="filter-content" markdown="1" data-scope="gcs">
 
-{%  include {{  page.version.version  }}/backups/gcs-auth-note.md %}
+{{ partial "{{ page.version.version }}/backups/gcs-auth-note.md" . }}
 
 ### Import a table from a CSV file
 
 To specify the table schema in-line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -906,7 +906,7 @@ CSV DATA ('gs://{BUCKET NAME}/{customers.csv}?AUTH=specified&CREDENTIALS={ENCODE
 
 To use a file to specify the table schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'gs://{BUCKET NAME}/{customers-create-table.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}'
@@ -914,13 +914,13 @@ CSV DATA ('gs://{BUCKET NAME}/{customers.csv}?AUTH=specified&CREDENTIALS={ENCODE
 ;
 ~~~
 
-{%  include {{  page.version.version  }}/misc/csv-import-callout.md %}
+{{ partial "{{ page.version.version }}/misc/csv-import-callout.md" . }}
 
 ### Import a table from multiple CSV files
 
 #### Using a comma-separated list
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -946,7 +946,7 @@ You can specify [file patterns to match](https://golang.org/pkg/path/filepath/#M
 
 These only match files directly under the specified path and do not descend into additional directories recursively.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -960,7 +960,7 @@ CSV DATA (
 
 ### Import a table from a TSV file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -979,7 +979,7 @@ The `comment` option determines which Unicode character marks the rows in the da
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -996,7 +996,7 @@ WITH
 
 The `skip` option determines the number of header rows to skip when importing a file.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1015,7 +1015,7 @@ WITH
 
 The examples below use CSV data, but `row_limit` is also an option for [Avro files](migrate-from-avro.html#step-3-import-the-avro), [delimited data files](#import-a-delimited-data-file), [Postgres dump files](migrate-from-postgres.html#row-limit), and [MySQL dump files](migrate-from-mysql.html#row-limit).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1032,7 +1032,7 @@ WITH
 
 The `nullif` option defines which string should be converted to `NULL`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1049,7 +1049,7 @@ WITH
 
 CockroachDB chooses the decompression codec based on the filename (the common extensions `.gz` or `.bz2` and `.bz`) and uses the codec to decompress the file during import.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1062,7 +1062,7 @@ CSV DATA ('gs://{BUCKET NAME}/{customers.csv.gz}?AUTH=specified&CREDENTIALS={ENC
 
 Optionally, you can use the `decompress` option to specify the codec to be used for decompressing the file during import:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1077,7 +1077,7 @@ WITH
 
 ### Import a Postgres database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'gs://{BUCKET NAME}/{employees.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}' WITH ignore_unsupported_statements;
 ~~~
@@ -1086,7 +1086,7 @@ For the commands above to succeed, you need to have created the dump file with s
 
 ### Import a table from a Postgres database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM PGDUMP 'gs://{BUCKET NAME}/{employees.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}' WITH skip_foreign_keys WITH ignore_unsupported_statements;
 ~~~
@@ -1099,7 +1099,7 @@ For the command above to succeed, you need to have created the dump file with sp
 
 Cockroach dump files can be imported using the `IMPORT PGDUMP` statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'gs://{BUCKET NAME}/{employees.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}';
 ~~~
@@ -1108,7 +1108,7 @@ For more information, see [SQL Dump (Export)](cockroach-dump.html).
 
 ### Import a MySQL database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 'gs://{BUCKET NAME}/{employees.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}';
 ~~~
@@ -1117,7 +1117,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 ### Import a table from a MySQL database dump
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM MYSQLDUMP 'gs://{BUCKET NAME}/{employees.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}' WITH skip_foreign_keys;
 ~~~
@@ -1128,7 +1128,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 ### Import a delimited data file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT DELIMITED DATA 'gs://{BUCKET NAME}/{employees.csv}?AUTH=specified&CREDENTIALS={ENCODED KEY}'
   WITH
@@ -1137,13 +1137,13 @@ For more detailed information about importing data from MySQL, see [Migrate from
     fields_escaped_by='"';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Import a table from a delimited data file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees
     FROM DELIMITED DATA 'gs://{BUCKET NAME}/{employees.csv}?AUTH=specified&CREDENTIALS={ENCODED KEY}'
@@ -1159,7 +1159,7 @@ If the table schema specifies foreign keys into tables that do not exist yet, th
 
 To specify the table schema in-line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1172,7 +1172,7 @@ AVRO DATA ('gs://{BUCKET NAME}/{customers.avro}?AUTH=specified&CREDENTIALS={ENCO
 
 To use a file to specify the table schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'gs://{BUCKET NAME}/{customers-create-table.sql}?AUTH=specified&CREDENTIALS={ENCODED KEY}'
@@ -1188,7 +1188,7 @@ For more information about importing data from Avro, including examples, see [Mi
 
 The following transactions use CSV data as an example. To use the `DETACHED` option with `IMPORT` in a transaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -1231,9 +1231,9 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 You can import a file from `nodelocal`, which is the external IO directory on a node's local file system. To import from `nodelocal`,  a `nodeID` is required and the data files will be in the `extern` directory of the specified node.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The file system backup location on the NFS drive is relative to the path specified by the `--external-io-dir` flag set while [starting the node](cockroach-start.html). If the flag is set to `disabled`, then imports from local directories and NFS drives are disabled. Use `self` if you do not want to specify a `nodeID`, and the individual data files will be in the `extern` directories of arbitrary nodes; however, to work correctly, each node must have the [`--external-io-dir` flag](cockroach-start.html#general) point to the same NFS mount or other network-backed, shared storage.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If a `nodeID` is provided, the data files to import will be in the `extern` directory of the specified node:
 
@@ -1264,7 +1264,7 @@ customers.csv
 
 Then, specify which node to access by including the `nodeID` in the `IMPORT` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -1279,7 +1279,7 @@ CSV DATA ('nodelocal://2/customers.csv')
 
 ## Known limitation
 
-{%  include {{  page.version.version  }}/known-limitations/import-high-disk-contention.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-high-disk-contention.md" . }}
 
 ## See also
 

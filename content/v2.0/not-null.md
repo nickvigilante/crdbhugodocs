@@ -20,7 +20,7 @@ The Not Null [constraint](constraints.html) specifies a column may not contain *
   CockroachDB tries to write a *NULL* value into column `b`. If that column has the Not Null constraint, the `INSERT` statement is rejected.
 
 - You can only define the Not Null constraint when [creating a table](#syntax); you cannot add it to an existing table. However, you can [migrate data](constraints.html#table-migrations-to-add-or-change-immutable-constraints) from your current table to a new table with the constraint you want to use.
-  {{ site.data.alerts.callout_info }}In the future we plan to support adding the Not Null constraint to existing tables.{{ site.data.alerts.end }}
+  {{site.data.alerts.callout_info }}In the future we plan to support adding the Not Null constraint to existing tables.{{site.data.alerts.end }}
 
 - For more information about *NULL*, see [Null Handling](null-handling.html).
 
@@ -29,7 +29,7 @@ The Not Null [constraint](constraints.html) specifies a column may not contain *
 You can only apply the Not Null constraint to individual columns.
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/not_null_column_level.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/not_null_column_level.html" . }}
 </div>
 
 | Parameter | Description |

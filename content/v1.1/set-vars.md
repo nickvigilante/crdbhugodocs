@@ -6,7 +6,7 @@ toc: true
 
 The `SET` [statement](sql-statements.html) can modify one of the session configuration variables. These can also be queried via [`SHOW`](show-vars.html).
 
-{{ site.data.alerts.callout_danger }}In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with <code>SET</code> statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the <a href="build-an-app-with-cockroachdb.html">Build an App with CockroachDB</a> tutorials.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with <code>SET</code> statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the <a href="build-an-app-with-cockroachdb.html">Build an App with CockroachDB</a> tutorials.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -15,9 +15,9 @@ No [privileges](privileges.html) are required to modify the session settings.
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/set_var.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/set_var.html" . }}
 
-{{ site.data.alerts.callout_info }}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -110,7 +110,7 @@ The following demonstrates how to assign a list of values:
 
 ### Reset a Variable to Its Default Value
 
-{{ site.data.alerts.callout_success }}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{site.data.alerts.end }}
 
 ~~~ sql
 > SET default_transaction_isolation = SNAPSHOT;
@@ -148,11 +148,11 @@ The following demonstrates how to assign a list of values:
 
 ## `SET TIME ZONE`
 
-{{ site.data.alerts.callout_danger }}As a best practice, we recommend not using this setting and avoid setting a session time for your database. We instead recommend converting UTC values to the appropriate time zone on the client side.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}As a best practice, we recommend not using this setting and avoid setting a session time for your database. We instead recommend converting UTC values to the appropriate time zone on the client side.{{site.data.alerts.end }}
 
 You can control your client's default time zone for the current session with <code>SET TIME ZONE</code>. This will apply a session offset to all [`TIMESTAMP WITH TIME ZONE`](timestamp.html) values.
 
-{{ site.data.alerts.callout_info }}With setting <code>SET TIME ZONE</code>, CockroachDB uses UTC as the default time zone.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}With setting <code>SET TIME ZONE</code>, CockroachDB uses UTC as the default time zone.{{site.data.alerts.end }}
 
 `SET TIME ZONE` uses a special syntax form used to configure the `"time zone"` session parameter because `SET` cannot assign to parameter names containing spaces.
 

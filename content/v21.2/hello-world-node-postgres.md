@@ -11,22 +11,22 @@ This tutorial shows you how build a simple Hello World Node.js application with 
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-node-postgres/
 ~~~
 
 The `app.js` file contains all of the code for the sample Hello World app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ js
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-node-postgres/master/app.js %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-node-postgres/master/app.js %}
 ~~~
 
 This program does the following:
@@ -38,12 +38,12 @@ This program does the following:
 
 Initialize and run the app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ npm install
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ node app.js
 ~~~
@@ -62,11 +62,11 @@ Enter `postgresql://root@localhost:26257?sslmode=disable` (the `sql` connection 
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-Enter the connection string provided in the **Connection info** window of the {{  site.data.products.db  }} Console.
+Enter the connection string provided in the **Connection info** window of the {{ site.data.products.db }} Console.
 
-{{ site.data.alerts.callout_info }}
-You need to provide a SQL user password in order to securely connect to a {{  site.data.products.db  }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+You need to provide a SQL user password in order to securely connect to a {{ site.data.products.db }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
+{{site.data.alerts.end }}
 
 </section>
 
@@ -85,4 +85,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [node-postgres](https://node-postgres.com/) docs
 - [Transactions](transactions.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

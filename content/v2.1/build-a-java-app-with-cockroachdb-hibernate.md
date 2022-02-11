@@ -14,17 +14,17 @@ This tutorial shows you how build a simple Java application with CockroachDB usi
 
 We have tested the [Java JDBC driver](https://jdbc.postgresql.org/) and the [Hibernate ORM](http://hibernate.org/) enough to claim **beta-level** support, so those are featured here. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a more realistic use of Hibernate with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before you begin
 
-{%  include {{ page.version.version }}/app/before-you-begin.md %}
+{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The examples on this page assume you are using a Java version <= 9. They do not work with Java 10.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Install the Gradle build tool
 
@@ -32,21 +32,21 @@ This tutorial uses the [Gradle build tool](https://gradle.org/) to get all depen
 
 To install Gradle on Mac, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ brew install gradle
 ~~~
 
 To install Gradle on a Debian-based Linux distribution like Ubuntu:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ apt-get install gradle
 ~~~
 
 To install Gradle on a Red Hat-based Linux distribution like Fedora:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ dnf install gradle
 ~~~
@@ -57,13 +57,13 @@ For other ways to install Gradle, see [its official documentation](https://gradl
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command.  The code samples will run as this user.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -74,7 +74,7 @@ The private key generated for user `maxroach` by CockroachDB is [PEM encoded](ht
 
 To convert the key to PKCS#8 format, run the following OpenSSL command on the `maxroach` user's key file in the directory where you stored your certificates (`/tmp/certs` in this example):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ openssl pkcs8 -topk8 -inform PEM -outform DER -in client.maxroach.key -out client.maxroach.pk8 -nocrypt
 ~~~
@@ -91,7 +91,7 @@ File | Description
 
 In the `hibernate-basic-sample` directory, build and run the application:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ gradle run
 ~~~
@@ -105,14 +105,14 @@ Toward the end of the output, you should see:
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -137,27 +137,27 @@ The Java code shown below uses the [Hibernate ORM](http://hibernate.org/orm/) to
 
 - Defines the SQL query for selecting from the table so that balances can be printed using the `CriteriaQuery<Account> query` object.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/hibernate-basic-sample/Sample.java %}
+{{ partial "{{ page.version.version }}/app/hibernate-basic-sample/Sample.java" . }}
 ~~~
 
 ### hibernate.cfg.xml
 
 The Hibernate config (in `hibernate.cfg.xml`, shown below) specifies how to connect to the database.  Note the [connection URL](connection-parameters.html#connect-using-a-url) that turns on SSL and specifies the location of the security certificates.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ xml
-{%  include {{ page.version.version }}/app/hibernate-basic-sample/hibernate.cfg.xml %}
+{{ partial "{{ page.version.version }}/app/hibernate-basic-sample/hibernate.cfg.xml" . }}
 ~~~
 
 ### build.gradle
 
 The Gradle build file specifies the dependencies (in this case the Postgres JDBC driver and Hibernate):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ groovy
-{%  include {{ page.version.version }}/app/hibernate-basic-sample/build.gradle %}
+{{ partial "{{ page.version.version }}/app/hibernate-basic-sample/build.gradle" . }}
 ~~~
 
 </section>
@@ -166,7 +166,7 @@ The Gradle build file specifies the dependencies (in this case the Postgres JDBC
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Run the Java code
 
@@ -180,7 +180,7 @@ File | Description
 
 In the `hibernate-basic-sample` directory, build and run the application:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ gradle run
 ~~~
@@ -194,14 +194,14 @@ Toward the end of the output, you should see:
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 To check the account balances, issue the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id, balance FROM accounts;
 ~~~
@@ -226,27 +226,27 @@ The Java code shown below uses the [Hibernate ORM](http://hibernate.org/orm/) to
 
 - Defines the SQL query for selecting from the table so that balances can be printed using the `CriteriaQuery<Account> query` object.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java %}
+{{ partial "{{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java" . }}
 ~~~
 
 ### hibernate.cfg.xml
 
 The Hibernate config (in `hibernate.cfg.xml`, shown below) specifies how to connect to the database.  Note the [connection URL](connection-parameters.html#connect-using-a-url) that turns on SSL and specifies the location of the security certificates.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ xml
-{%  include {{ page.version.version }}/app/insecure/hibernate-basic-sample/hibernate.cfg.xml %}
+{{ partial "{{ page.version.version }}/app/insecure/hibernate-basic-sample/hibernate.cfg.xml" . }}
 ~~~
 
 ### build.gradle
 
 The Gradle build file specifies the dependencies (in this case the Postgres JDBC driver and Hibernate):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ groovy
-{%  include {{ page.version.version }}/app/insecure/hibernate-basic-sample/build.gradle %}
+{{ partial "{{ page.version.version }}/app/insecure/hibernate-basic-sample/build.gradle" . }}
 ~~~
 
 </section>
@@ -255,4 +255,4 @@ The Gradle build file specifies the dependencies (in this case the Postgres JDBC
 
 Read more about using the [Hibernate ORM](http://hibernate.org/orm/), or check out a more realistic implementation of Hibernate with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

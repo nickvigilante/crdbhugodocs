@@ -4,7 +4,7 @@ summary: Learn how to migrate data from MySQL into a CockroachDB cluster.
 toc: true
 ---
 
-{%  include {{ page.version.version }}/misc/beta-warning.md %}
+{{ partial "{{ page.version.version }}/misc/beta-warning.md" . }}
 
 This page has instructions for migrating data from MySQL to CockroachDB using [`IMPORT`](import.html)'s support for reading [`mysqldump`][mysqldump] files.
 
@@ -31,7 +31,7 @@ There are several ways to dump data from MySQL to be imported into CockroachDB:
 
 Most users will want to import their entire MySQL database all at once, as shown below in [Import a full database dump](#import-a-full-database-dump).  To dump the entire database, run the [`mysqldump`][mysqldump] command shown below:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ mysqldump -uroot employees > /tmp/employees-full.sql
 ~~~
@@ -42,7 +42,7 @@ If you only want to import one table from a database dump, see [Import a table f
 
 To dump the `employees` table from a MySQL database also named `employees`, run the [`mysqldump`][mysqldump] command shown below.  You can import this table using the instructions in [Import a table from a table dump](#import-a-table-from-a-table-dump) below.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ mysqldump -uroot employees employees > employees.sql
 ~~~
@@ -51,9 +51,9 @@ $ mysqldump -uroot employees employees > employees.sql
 
 Each node in the CockroachDB cluster needs to have access to the files being imported.  There are several ways for the cluster to access the data; for a complete list of the types of storage [`IMPORT`][import] can pull from, see [Import File URLs](import.html#import-file-urls).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We strongly recommend using cloud storage such as Amazon S3 or Google Cloud to host the data files you want to import.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 3. Import the MySQL dump file
 
@@ -71,7 +71,7 @@ This example assumes you [dumped the entire database](#dump-the-entire-database)
 
 The [`IMPORT`][import] statement below reads the data and [DDL](https://en.wikipedia.org/wiki/Data_definition_language) statements (including `CREATE TABLE` and [foreign key constraints](foreign-key.html)) from the full database dump.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS employees;
 > USE employees;
@@ -91,7 +91,7 @@ This example assumes you [dumped the entire database](#dump-the-entire-database)
 
 [`IMPORT`][import] can import one table's data from a full database dump.  It reads the data and applies any `CREATE TABLE` statements from the dump file.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS employees;
 > USE employees;
@@ -111,7 +111,7 @@ The examples below assume you [dumped one table](#dump-one-table-at-a-time).
 
 The simplest way to import a table dump is to run [`IMPORT TABLE`][import] as shown below.  It reads the table data and any `CREATE TABLE` statements from the dump file.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS employees;
 > USE employees;
@@ -127,7 +127,7 @@ The simplest way to import a table dump is to run [`IMPORT TABLE`][import] as sh
 
 If you need to specify the table's columns for some reason, you can use an [`IMPORT TABLE`][import] statement like the one below, which will import data but ignore any `CREATE TABLE` statements in the dump file, instead relying on the columns you specify.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS employees;
 > USE employees;
@@ -152,15 +152,15 @@ The following options are available to `IMPORT ... MYSQLDUMP`:
 
 By default, [`IMPORT ... MYSQLDUMP`][import] supports foreign keys.  **Default: false**.  Add the `skip_foreign_keys` option to speed up data import by ignoring foreign key constraints in the dump file's DDL.  It will also enable you to import individual tables that would otherwise fail due to dependencies on other tables.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The most common dependency issues are caused by unsatisfied foreign key relationships. You can avoid these issues by adding the `skip_foreign_keys` option to your `IMPORT` statement as needed. For more information, see the list of [import options](import.html#import-options).
 
 For example, if you get the error message `pq: there is no unique constraint matching given keys for referenced table tablename`, use `IMPORT ... WITH skip_foreign_keys`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Example usage:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 's3://your-external-storage/employees.sql?AWS_ACCESS_KEY_ID=123&AWS_SECRET_ACCESS_KEY=456' WITH skip_foreign_keys;
 ~~~

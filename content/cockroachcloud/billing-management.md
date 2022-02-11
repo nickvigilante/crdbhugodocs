@@ -5,13 +5,13 @@ toc: true
 docs_area: 
 ---
 
-The **Billing** page contains an overview of your charges and the payment details on file for your {{  site.data.products.db  }} organization. To view the **Billing** page, [log in](https://cockroachlabs.cloud/) and click **Billing**.
+The **Billing** page contains an overview of your charges and the payment details on file for your {{ site.data.products.db }} organization. To view the **Billing** page, [log in](https://cockroachlabs.cloud/) and click **Billing**.
 
 [Console Admins](console-access-management.html#console-admin) can set up and manage billing for the organization.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Setting up billing information for your organization allows you to use [cloud storage for bulk operations](run-bulk-operations.html). Organizations without billing information are limited to [using `userfile` storage for bulk operations](run-bulk-operations.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Set up billing for an organization
 
@@ -49,18 +49,18 @@ We keep a card on file after the associated organization is deleted so we can pr
 
 ## Check trial code details
 
-If you used a {{  site.data.products.dedicated  }} trial code while [creating a cluster](create-your-cluster.html#step-8-enter-billing-details), you can check the trial expiration details on the **Overview** tab of the **Billing** page.
+If you used a {{ site.data.products.dedicated }} trial code while [creating a cluster](create-your-cluster.html#step-8-enter-billing-details), you can check the trial expiration details on the **Overview** tab of the **Billing** page.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Your credit card will be charged after the trial ends.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  comment %}
+{% comment %}
 ## View credits balance
 
-If your organization has an annual contract with {{  site.data.products.db  }}, the **Overview** tab of the **Billing** page will display your contract amount and the renewal date. Under the **Spend** section, you can also see how many credits your organization has used out of your total contract amount.
+If your organization has an annual contract with {{ site.data.products.db }}, the **Overview** tab of the **Billing** page will display your contract amount and the renewal date. Under the **Spend** section, you can also see how many credits your organization has used out of your total contract amount.
 
 ## View invoices
 
 You can view all of your organization's past invoices on the **Invoices** tab of the **Billing** page. Download any invoice to see the details of your charges for a billing period.
-{%  endcomment %}
+{% endcomment %}

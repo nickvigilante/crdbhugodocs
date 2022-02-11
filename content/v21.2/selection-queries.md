@@ -22,7 +22,7 @@ Selection queries can occur:
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/select.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/select.html %}
 </div>
 
 ## Parameters
@@ -38,7 +38,7 @@ Parameter | Description
 
 The optional `LIMIT` and `OFFSET` clauses can appear in any order, but must appear after `ORDER BY`, if also present.
 
-{{ site.data.alerts.callout_info }}Because the <code>WITH</code>, <code>ORDER BY</code>, <code>LIMIT</code> and <code>OFFSET</code> sub-clauses are all optional, any simple <a href="#selection-clauses">selection clause</a> is also a valid selection query.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Because the <code>WITH</code>, <code>ORDER BY</code>, <code>LIMIT</code> and <code>OFFSET</code> sub-clauses are all optional, any simple <a href="#selection-clauses">selection clause</a> is also a valid selection query.{{site.data.alerts.end }}
 
 ## Selection clauses
 
@@ -52,12 +52,12 @@ Form | Usage
 [`TABLE`](#table-clause) | Load tabular data from the database.
 [Set Operations](#set-operations) | Combine tabular data from two or more selection clauses.
 
-{{ site.data.alerts.callout_info }}To perform joins or other relational operations over selection clauses, use a <a href="table-expressions.html">table expression</a> and <a href="#composability">convert it back</a> into a selection clause with <a href="#table-clause"><code>TABLE</code></a> or <a href="#select-clause"><code>SELECT</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To perform joins or other relational operations over selection clauses, use a <a href="table-expressions.html">table expression</a> and <a href="#composability">convert it back</a> into a selection clause with <a href="#table-clause"><code>TABLE</code></a> or <a href="#select-clause"><code>SELECT</code></a>.{{site.data.alerts.end }}
 
 ### Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/select_clause.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/select_clause.html %}
 </div>
 
 ### `VALUES` clause
@@ -65,7 +65,7 @@ Form | Usage
 #### Syntax
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/values_clause.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/values_clause.html %}
 </div>
 
 A `VALUES` clause defines tabular data defined by the expressions
@@ -79,7 +79,7 @@ names. [These names can be modified with
 
 #### Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > VALUES (1, 2, 3), (4, 5, 6);
 ~~~
@@ -98,7 +98,7 @@ names. [These names can be modified with
 #### Syntax
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/table_clause.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/table_clause.html %}
 </div>
 
 A `TABLE` clause reads tabular data from a specified table. The
@@ -108,11 +108,11 @@ table.
 In general, `TABLE x` is equivalent to `SELECT * FROM x`, but it is
 shorter to type.
 
-{{ site.data.alerts.callout_info }}Any <a href="table-expressions.html">table expression</a> between parentheses is a valid operand for <code>TABLE</code>, not just <a href="table-expressions.html#table-or-view-names">simple table or view names</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Any <a href="table-expressions.html">table expression</a> between parentheses is a valid operand for <code>TABLE</code>, not just <a href="table-expressions.html#table-or-view-names">simple table or view names</a>.{{site.data.alerts.end }}
 
 #### Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE employee_copy AS TABLE employee;
 ~~~
@@ -125,12 +125,12 @@ will likely have a simpler schema than `employee`.
 
 Other examples:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > TABLE employee;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO employee_copy TABLE employee;
 ~~~
@@ -149,7 +149,7 @@ set operations or as main component in a selection query.
 ### Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/set_operation.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/set_operation.html %}
 </div>
 
 ### Set operators
@@ -166,7 +166,7 @@ By default, each of these comparisons displays only one copy of each value (simi
 
 `UNION` combines the results of two queries into one result.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -189,7 +189,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 To show duplicate rows, you can use `ALL`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -216,7 +216,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 `INTERSECT` finds only values that are present in both query operands.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -238,7 +238,7 @@ FROM mortgages;
 
 `EXCEPT` finds values that are present in the first query operand but not the second.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM mortgages
@@ -262,7 +262,7 @@ The following sections provide examples. For more details, see [Ordering Query R
 
 ### Order retrieved rows by one column
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT *
 FROM accounts
@@ -288,7 +288,7 @@ ORDER BY balance DESC;
 
 Columns are sorted in the order you list them in `sortby_list`. For example, `ORDER BY a, b` sorts the rows by column `a` and then sorts rows with the same `a` value by their column `b` values.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT *
 FROM accounts
@@ -314,7 +314,7 @@ ORDER BY balance DESC, name ASC;
 
 You can reduce the number of results with `LIMIT`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id, name
 FROM accounts
@@ -334,7 +334,7 @@ LIMIT 5;
 
 ## Row-level locking for concurrency control with `SELECT FOR UPDATE`
 
-{%  include {{ page.version.version }}/sql/select-for-update-overview.md %}
+{{ partial "{{ page.version.version }}/sql/select-for-update-overview.md" . }}
 
 For an example showing how to use it, see  [`SELECT FOR UPDATE`](select-for-update.html).
 
@@ -349,7 +349,7 @@ selection query with no change.
 
 For example, the construct [`SELECT * FROM accounts`](select-clause.html) is a selection clause. It is also a valid selection query, and thus can be used as a stand-alone statement by appending a semicolon:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -367,7 +367,7 @@ For example, the construct [`SELECT * FROM accounts`](select-clause.html) is a s
 Likewise, the construct [`VALUES (1), (2), (3)`](#values-clause) is also a selection
 clause and thus can also be used as a selection query on its own:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > VALUES (1), (2), (3);
 ~~~
@@ -390,12 +390,12 @@ For example, the [simple table name](table-expressions.html#table-or-view-names)
 
 Likewise, the [SQL join expression](joins.html) `customers c JOIN orders o ON c.id = o.customer_id` is a table expression. You can turn it into a valid selection clause, and thus a valid selection query as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > TABLE (customers c JOIN orders o ON c.id = o.customer_id);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customers c JOIN orders o ON c.id = o.customer_id;
 ~~~
@@ -408,19 +408,19 @@ expression](table-expressions.html) by enclosing it between parentheses, which f
 
 For example, the following construct is a selection query, but is not a valid table expression:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customers ORDER BY name LIMIT 5
 ~~~
 
 To make it valid as operand to `FROM` or another table expression, you can enclose it between parentheses as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id FROM (SELECT * FROM customers ORDER BY name LIMIT 5);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT o.id
     FROM orders o

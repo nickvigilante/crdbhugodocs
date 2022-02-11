@@ -5,13 +5,13 @@ toc: true
 docs_area: reference.db_console
 ---
 
-{%  include {{  page.version.version  }}/ui/admin-access.md %}
+{{ partial "{{ page.version.version }}/ui/admin-access.md" . }}
 
 The **Advanced Debug** page of the DB Console provides links to advanced monitoring and troubleshooting reports and cluster configuration details. To view this page, [access the DB Console](ui-overview.html#db-console-access) and click **Advanced Debug** in the left-hand navigation.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 These pages are experimental and undocumented. If you find an issue, let us know through [these channels](https://www.cockroachlabs.com/community/).
- {{ site.data.alerts.end }}
+ {{site.data.alerts.end }}
 
 ## License and node information
 
@@ -46,9 +46,9 @@ The **Even More Advanced Debugging** section of the page lists additional report
 
 ## Raw Status Endpoints (JSON)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 These endpoints are deprecated in favor of the [Cluster API](monitoring-and-alerting.html#cluster-api).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Depending on your [access level](ui-overview.html#db-console-access), the endpoints listed here provide access to:
 

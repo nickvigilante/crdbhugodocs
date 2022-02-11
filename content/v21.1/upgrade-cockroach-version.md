@@ -53,9 +53,9 @@ Two changes that are particularly important to note:
 
 ## Step 3. Decide how the upgrade will be finalized
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This step is relevant only when upgrading from v20.2.x to v21.1. For upgrades within the v21.1.x series, skip this step.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain [features and performance improvements introduced in v21.1](#features-that-require-upgrade-finalization). However, it will no longer be possible to perform a downgrade to v20.2. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade. For this reason, **we recommend disabling auto-finalization** so you can monitor the stability and performance of the upgraded cluster before finalizing the upgrade, but note that you will need to follow all of the subsequent directions, including the manual finalization in [step 5](#step-5-finish-the-upgrade):
 
@@ -65,7 +65,7 @@ By default, after all nodes are running the new version, the upgrade process wil
 
 3. Set the `cluster.preserve_downgrade_option` [cluster setting](cluster-settings.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING cluster.preserve_downgrade_option = '20.2';
     ~~~
@@ -88,17 +88,17 @@ When upgrading from v20.2 to v21.1, certain features and performance improvement
 
 For each node in your cluster, complete the following steps. Be sure to upgrade only one node at a time, and wait at least one minute after a node rejoins the cluster to upgrade the next node. Simultaneously upgrading more than one node increases the risk that ranges will lose a majority of their replicas and cause cluster unavailability.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We recommend creating scripts to perform these steps instead of performing them manually. Also, if you are running CockroachDB on Kubernetes, see our documentation on [single-cluster](operate-cockroachdb-kubernetes.html#upgrade-the-cluster) and/or [multi-cluster](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html#upgrade-the-cluster) orchestrated deployments for upgrade guidance instead.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Drain and stop the node using one of the following methods:
 
-    {%  include {{  page.version.version  }}/prod-deployment/node-shutdown.md %}
+    {{ partial "{{ page.version.version }}/prod-deployment/node-shutdown.md" . }}
 
     Verify that the process has stopped:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ps aux | grep cockroach
     ~~~
@@ -114,14 +114,14 @@ We recommend creating scripts to perform these steps instead of performing them 
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz|tar -xzf -
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz|tar -xzf -
     ~~~
@@ -136,24 +136,24 @@ We recommend creating scripts to perform these steps instead of performing them 
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/cockroach
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/cockroach
     ~~~
@@ -161,13 +161,13 @@ We recommend creating scripts to perform these steps instead of performing them 
 
 1. Start the node to have it rejoin the cluster.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     For maximum availability, do not wait more than a few minutes before restarting the node with the new binary. See [this open issue](https://github.com/cockroachdb/cockroach/issues/37906) for context.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     Without a process manager like `systemd`, re-run the [`cockroach start`](cockroach-start.html) command that you used to start the node initially, for example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -177,7 +177,7 @@ We recommend creating scripts to perform these steps instead of performing them 
 
     If you are using `systemd` as the process manager, run this command to start the node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ systemctl start <systemd config filename>
     ~~~
@@ -186,7 +186,7 @@ We recommend creating scripts to perform these steps instead of performing them 
 
 1. If you use `cockroach` in your `$PATH`, you can remove the old binary:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm /usr/local/bin/cockroach_old
     ~~~
@@ -197,7 +197,7 @@ We recommend creating scripts to perform these steps instead of performing them 
 
     Unless there are tens of thousands of ranges on the node, it's usually sufficient to wait one minute. To be certain that the node is ready, run the following command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     cockroach sql -e 'select 1'
     ~~~
@@ -208,9 +208,9 @@ We recommend creating scripts to perform these steps instead of performing them 
 
 ## Step 5. Finish the upgrade
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This step is relevant only when upgrading from v20.2.x to v21.1. For upgrades within the v21.1.x series, skip this step.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you disabled auto-finalization in [step 3](#step-3-decide-how-the-upgrade-will-be-finalized), monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 
@@ -220,14 +220,14 @@ Once you are satisfied with the new version:
 
 2. Re-enable auto-finalization:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > RESET CLUSTER SETTING cluster.preserve_downgrade_option;
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     This statement can take up to a minute to complete, depending on the amount of data in the cluster, as it kicks off various internal maintenance and migration tasks. During this time, the cluster will experience a small amount of additional load.
-    {{ site.data.alerts.end }}    
+    {{site.data.alerts.end }}    
 
 ## Troubleshooting
 

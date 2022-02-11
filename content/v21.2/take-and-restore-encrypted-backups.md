@@ -12,9 +12,9 @@ This doc provides information about how to take and restore encrypted backups in
 -  [Using AWS Key Management Service (KMS)](#use-aws-key-management-service)
 - [Using a passphrase](#use-a-passphrase)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Encrypted [`BACKUP`](backup.html) is an [Enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. However, you can take [full backups](take-full-and-incremental-backups.html) without an Enterprise license.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Use AWS Key Management Service
 
@@ -61,7 +61,7 @@ See below for [examples](#examples).
 
 To take an encrypted backup with AWS KMS, use the `kms` [option](backup.html#options):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO 's3://{BUCKET NAME}/{PATH}?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
     WITH kms = 'aws:///<cmk>?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}&REGION=us-east-1';
@@ -78,7 +78,7 @@ To take an encrypted backup with AWS KMS, use the `kms` [option](backup.html#opt
 
 To take a backup with [multi-region encryption](#multi-region), use the `kms` option to specify a comma-separated list of KMS URIs:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO 's3://{BUCKET NAME}/{PATH}?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
     WITH KMS=(
@@ -100,7 +100,7 @@ To decrypt an [encrypted backup](#take-an-encrypted-backup-with-aws-kms), use th
 
 For example, the encrypted backup created in the [first example](#take-an-encrypted-backup-with-aws-kms) can be restored with:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '{subdirectory}' IN 's3://{BUCKET NAME}/{PATH}?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}'
     WITH kms = 'aws:///<cmk>?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}&REGION=us-east-1';
@@ -115,7 +115,7 @@ For example, the encrypted backup created in the [first example](#take-an-encryp
 
 ## Use a passphrase
 
-{%  include {{  page.version.version  }}/backups/encrypted-backup-description.md %}
+{{ partial "{{ page.version.version }}/backups/encrypted-backup-description.md" . }}
 
 ### Examples
 
@@ -125,7 +125,7 @@ For example, the encrypted backup created in the [first example](#take-an-encryp
   <button class="filter-button" data-scope="gcs">Google Cloud Storage</button>
 </div>
 
-{%  include {{  page.version.version  }}/backups/bulk-auth-options.md %}
+{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
 
 <section class="filter-content" markdown="1" data-scope="s3">
 
@@ -133,7 +133,7 @@ For example, the encrypted backup created in the [first example](#take-an-encryp
 
 To take an encrypted backup, use the [`encryption_passphrase` option](backup.html#with-encryption-passphrase):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO 's3://{BUCKET NAME}/{PATH}?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}' WITH encryption_passphrase = 'password123';
 ~~~
@@ -152,7 +152,7 @@ To decrypt an encrypted backup, use the [`encryption_passphrase` option](backup.
 
 For example, the encrypted backup created in the previous example can be restored with:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '{subdirectory}' IN 's3://{BUCKET NAME}/{PATH}?AWS_ACCESS_KEY_ID={KEY ID}&AWS_SECRET_ACCESS_KEY={SECRET ACCESS KEY}' WITH encryption_passphrase = 'password123';
 ~~~
@@ -171,7 +171,7 @@ For example, the encrypted backup created in the previous example can be restore
 
 To take an encrypted backup, use the [`encryption_passphrase` option](backup.html#with-encryption-passphrase):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO 'gs://{BUCKET NAME}/{PATH}?AUTH=specified&CREDENTIALS={ENCODED KEY}' WITH encryption_passphrase = 'password123';
 ~~~
@@ -190,7 +190,7 @@ To decrypt an encrypted backup, use the [`encryption_passphrase` option](backup.
 
 For example, the encrypted backup created in the previous example can be restored with:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '{subdirectory}' IN 'gs://{BUCKET NAME}/{PATH}?AUTH=specified&CREDENTIALS={ENCODED KEY}' WITH encryption_passphrase = 'password123';
 ~~~
@@ -209,7 +209,7 @@ For example, the encrypted backup created in the previous example can be restore
 
 To take an encrypted backup, use the [`encryption_passphrase` option](backup.html#with-encryption-passphrase):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO 'azure://{CONTAINER NAME}/{PATH}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={URL-ENCODED KEY}' WITH encryption_passphrase = 'password123';
 ~~~
@@ -228,7 +228,7 @@ To decrypt an encrypted backup, use the [`encryption_passphrase` option](backup.
 
 For example, the encrypted backup created in the previous example can be restored with:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '{subdirectory}' IN 'azure://{CONTAINER NAME}/{PATH}?AZURE_ACCOUNT_NAME={ACCOUNT NAME}&AZURE_ACCOUNT_KEY={URL-ENCODED KEY}' WITH encryption_passphrase = 'password123';
 ~~~

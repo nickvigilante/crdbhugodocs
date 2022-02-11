@@ -13,7 +13,7 @@ The `cockroach debug ballast` [command](cockroach-commands.html) creates a large
 
 ## Subcommands
 
-{%  include {{  page.version.version  }}/misc/debug-subcommands.md %}
+{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
 
 ## Synopsis
 
@@ -37,7 +37,7 @@ Flag | Description
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug ballast cockroach-data/ballast.txt --size=1GiB
 ~~~

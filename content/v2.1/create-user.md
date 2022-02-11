@@ -6,9 +6,9 @@ toc: true
 
 The `CREATE USER` [statement](sql-statements.html) creates SQL users, which let you control [privileges](authorization.html#assign-privileges) on your databases and tables.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can also use the [`cockroach user set`](create-and-manage-users.html) command to create and manage users.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Considerations
 
@@ -27,7 +27,7 @@ The user must have the `INSERT` and `UPDATE` [privileges](authorization.html#ass
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_user.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_user.html" . }}</section>
 
 ## Parameters
 
@@ -60,7 +60,7 @@ Secure clusters require users to authenticate their access to databases and tabl
 
 Usernames are case-insensitive; must start with either a letter or underscore; must contain only letters, numbers, or underscores; and must be between 1 and 63 characters.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER jpointsman;
 ~~~
@@ -72,7 +72,7 @@ After creating users, you must:
 
 ### Create a user with a password
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER jpointsman WITH PASSWORD 'Q7gc8rEdS';
 ~~~
@@ -97,7 +97,7 @@ After creating users, you can manage them using the [`cockroach user`](create-an
 
 All users can authenticate their access to a secure cluster using [a client certificate](create-security-certificates.html#create-the-certificate-and-key-pair-for-a-client) issued to their username.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --user=jpointsman
 ~~~
@@ -108,7 +108,7 @@ $ cockroach sql --user=jpointsman
 
 If we cannot find client certificate and key files matching the user, we fall back on password authentication.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --user=jpointsman
 ~~~
@@ -117,7 +117,7 @@ $ cockroach sql --user=jpointsman
 
 <div class="filter-content" markdown="1" data-scope="insecure">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --user=jpointsman
 ~~~

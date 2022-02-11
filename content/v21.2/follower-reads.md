@@ -7,7 +7,7 @@ docs_area: develop
 
 CockroachDB can provide faster reads in situations where you can afford to read data that is slightly stale. These stale reads (known as _follower reads_)  are available in read-only transactions that use the [`AS OF SYSTEM TIME`](as-of-system-time.html) clause.
 
-{%  include enterprise-feature.md %}
+{{ partial "enterprise-feature.md" . }}
 
 Normally, reads must be serviced by a replica's [leaseholder](architecture/overview.html#architecture-leaseholder). This can be slow, since the leaseholder may be geographically distant from the gateway node that is issuing the query.
 
@@ -70,9 +70,9 @@ You should **not** use follower reads when your application cannot tolerate read
 
 ## Watch the demo
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This video uses [exact staleness](#exact-staleness-reads) follower reads; it was recorded before [bounded staleness reads](#bounded-staleness-reads) were possible with CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/V--skgN_JMo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -106,14 +106,14 @@ In this example, we will perform a bounded staleness follower read against a [de
 
 First, start the demo cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach demo
 ~~~
 
 Next, issue a single-statement point query to [select](selection-queries.html) a single row from a table at a historical [timestamp](timestamp.html) by passing the output of the `with_max_staleness()` [function](functions-and-operators.html) to the [`AS OF SYSTEM TIME`](as-of-system-time.html) clause:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT code FROM promo_codes AS OF SYSTEM TIME with_max_staleness('10s') where code = '0_explain_theory_something';
 ~~~
@@ -136,7 +136,7 @@ See: https://go.crdb.dev/issue-v/67562/v21.2
 
 You can verify using [`EXPLAIN`](explain.html) that the reason this query was able to perform a bounded staleness read is that it performed a point lookup from a single row:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 EXPLAIN SELECT code FROM promo_codes AS OF SYSTEM TIME with_max_staleness('10s') where code = '0_explain_theory_something';
 ~~~
@@ -170,7 +170,7 @@ COMMIT;
 
 Follower reads are "read-only" operations; you _cannot_ use them in read-write transactions.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use exact staleness follower reads from [drivers and ORMs](install-client-drivers.html).
 
 To set `AS OF SYSTEM TIME follower_read_timestamp()` on all implicit and explicit read-only transactions by default, use one of the following options:
@@ -181,7 +181,7 @@ To set `AS OF SYSTEM TIME follower_read_timestamp()` on all implicit and explici
 </ul>
 
 <span class="version-tag">New in v21.2:</span> You can set `default_transaction_use_follower_reads` on a per-role basis; for instructions, see [Set default session variable values for a role](alter-role.html#set-default-session-variable-values-for-a-role).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Limitations
 
@@ -216,12 +216,12 @@ Bounded staleness reads have the following limitations:
 
 For example, let's look at a read query that cannot be served as a bounded staleness read. We will use a [demo cluster](cockroach-demo.html), which automatically loads the [MovR dataset](movr.html).
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach demo
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT code FROM promo_codes AS OF SYSTEM TIME with_max_staleness('10s') LIMIT 1;
 ERROR: unimplemented: cannot use bounded staleness for queries that may touch more than one row or require an index join
@@ -234,7 +234,7 @@ As noted by the error message, this query cannot be served as a bounded stalenes
 
 We can verify that more than one row would be touched by issuing [`EXPLAIN`](explain.html) on the same query, but without the [`AS OF SYSTEM TIME`](as-of-system-time.html) clause:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 EXPLAIN SELECT code FROM promo_codes LIMIT 5;
 ~~~

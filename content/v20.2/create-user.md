@@ -10,15 +10,15 @@ The `CREATE USER` [statement](sql-statements.html) creates a SQL role that can b
 
  You can [assign privileges](authorization.html#assign-privileges) to the user and [set it as a member](grant-roles.html) of other roles, inheriting their privileges.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  `CREATE USER` is equivalent to the statement `CREATE ROLE`, with one exception: `CREATE ROLE` sets the [`NOLOGIN`](#parameters) option by default, preventing the new role from being used to log in to the database. You can use `CREATE ROLE` and specify the [`LOGIN`](#parameters) option to achieve the same result as `CREATE USER`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 See [Authorization](authorization.html) for more information on privilege management and role membership.
 
 ## Considerations
 
-{%  include {{  page.version.version  }}/sql/role-considerations.md %}
+{{ partial "{{ page.version.version }}/sql/role-considerations.md" . }}
 
 ## Required privileges
 
@@ -30,7 +30,7 @@ Unless a role is a member of the admin role, additional [privileges](#parameters
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_user.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_user.html" . }}</section>
 
 ## Parameters
 
@@ -75,9 +75,9 @@ root     |         | {admin}
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The following statements are run by the `root` user that is a member of the `admin` role and has `ALL` privileges.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Create a user
 
@@ -129,7 +129,7 @@ with_password | VALID UNTIL=2021-10-10 00:00:00+00:00 | {}
 
 The following statement prevents the user from using password authentication and mandates certificate-based client authentication:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 root@:26257/defaultdb> CREATE USER no_password WITH PASSWORD NULL;
 ~~~

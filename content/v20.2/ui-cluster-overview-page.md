@@ -13,15 +13,15 @@ The **Cluster Overview** page of the DB Console displays key metrics about your 
 
 If you have an [Enterprise license](enterprise-licensing.html), you can enable the [Node Map](#node-map-enterprise) view for a visual representation of your cluster's geographic layout.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Enter your email in the banner at the top to receive updates on CockroachDB [releases](../releases/).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Cluster Overview panel
 
 Use the **Cluster Overview** panel to quickly assess the capacity and health of your cluster.
 
-<img src="{{  'images/v20.2/ui-cluster-overview-panel.png' | relative_url  }}" alt="DB Console cluster overview" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-cluster-overview-panel.png' | relative_url }}" alt="DB Console cluster overview" style="border:1px solid #eee;max-width:100%" />
 
 Metric | Description
 --------|----
@@ -40,17 +40,17 @@ Usable disk space is constrained by the following:
 
 The DB Console thus calculates **usable** disk space as the sum of empty disk space, up to the value of the maximum store size, and disk space that is already being **used** by CockroachDB data.
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{{site.data.alerts.end }}
 
 ## Node List
 
 The **Node List** groups nodes by locality. The lowest-level locality tier is used to organize the Node List. Hover over a locality to see all localities for the group of nodes.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We recommend [defining `--locality` flags when starting nodes](cockroach-start.html#locality). CockroachDB uses locality to distribute replicas and mitigate [network latency](ui-network-latency-page.html). Locality is also a prerequisite for enabling the [Node Map](#node-map-enterprise).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Node status
 
@@ -69,15 +69,15 @@ Node Status | Description
 `DECOMMISSIONED` | Node has completed decommissioning, has been stopped, and has not [updated its liveness record](cluster-setup-troubleshooting.html#node-liveness-issues) for 5 minutes.
 `DEAD` | Node has not [updated its liveness record](cluster-setup-troubleshooting.html#node-liveness-issues) for 5 minutes.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Nodes are considered dead once they have not [updated their liveness record](cluster-setup-troubleshooting.html#node-liveness-issues) for a certain amount of time (5 minutes by default). At this point, the [automated repair process](cockroach-quit.html#how-it-works) starts, wherein CockroachDB rebalances replicas from dead nodes to live nodes, using the unaffected replicas as sources.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Node details
 
 The following details are also shown.
 
-<img src="{{  'images/v20.2/ui-node-list.png' | relative_url  }}" alt="DB Console node list" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-node-list.png' | relative_url }}" alt="DB Console node list" style="border:1px solid #eee;max-width:100%" />
 
 Column | Description
 -------|------------
@@ -94,11 +94,11 @@ Version | Build tag of the CockroachDB version installed on the node.
 
 Nodes that have been [decommissioned](remove-nodes.html#how-it-works) will be listed in the table of **Recently Decommissioned Nodes**, indicating that they are removed from the cluster. You can see the full history of decommissioned nodes by clicking "View all decommissioned nodes".
 
-<img src="{{  'images/v20.2/ui-decommissioned-nodes.png' | relative_url  }}" alt="DB Console node list" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-decommissioned-nodes.png' | relative_url }}" alt="DB Console node list" style="border:1px solid #eee;max-width:100%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When you initiate the [decommissioning process](remove-nodes.html#how-it-works) on a node, CockroachDB transfers all range replicas and range leases off the node so that it can be safely shut down.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Node Map (Enterprise)
 
@@ -106,7 +106,7 @@ The **Node Map** is an [enterprise](enterprise-licensing.html) feature that visu
 
 For guidance on enabling and configuring the node map, see [Enable the Node Map](enable-node-map.html).
 
-<img src="{{  'images/v20.2/ui-node-map.png' | relative_url  }}" alt="DB Console Summary Panel" style="border:1px solid #eee;max-width:90%" />
+<img src="{{ 'images/v20.2/ui-node-map.png' | relative_url }}" alt="DB Console Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
 The Node Map uses the longitude and latitude of each locality to position the components on the map. The map is populated with [**locality components**](#locality-component) and [**node components**](#node-component).
 
@@ -118,11 +118,11 @@ The map shows the components for the highest-level locality tier (e.g., region).
 
 For details on how **Capacity Usage** is calculated, see [Capacity metrics](#capacity-metrics).
 
-<img src="{{  'images/v20.2/ui-region-component.png' | relative_url  }}" alt="DB Console Summary Panel" style="border:1px solid #eee;max-width:90%" />
+<img src="{{ 'images/v20.2/ui-region-component.png' | relative_url }}" alt="DB Console Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 On multi-core systems, the displayed CPU usage can be greater than 100%. Full utilization of 1 core is considered as 100% CPU usage. If you have _n_ cores, then CPU usage can range from 0% (indicating an idle system) to (_n_ * 100)% (indicating full utilization).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Node component
 
@@ -132,11 +132,11 @@ Node components are accessed by clicking on the **Node Count** of the lowest-lev
 
 For details on how **Capacity Usage** is calculated, see [Capacity metrics](#capacity-metrics).
 
-<img src="{{  'images/v20.2/ui-node-components.png' | relative_url  }}" alt="DB Console Summary Panel" style="border:1px solid #eee;max-width:90%" />
+<img src="{{ 'images/v20.2/ui-node-components.png' | relative_url }}" alt="DB Console Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 On multi-core systems, the displayed CPU usage can be greater than 100%. Full utilization of 1 core is considered as 100% CPU usage. If you have _n_ cores, then CPU usage can range from 0% (indicating an idle system) to (_n_ * 100)% (indicating full utilization).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

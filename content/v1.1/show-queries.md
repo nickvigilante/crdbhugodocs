@@ -14,7 +14,7 @@ toc: true
 
 These details let you monitor the progress of active queries and, if necessary, identify those that may need to be [cancelled](cancel-query.html) to prevent unwanted resource consumption.
 
-{{ site.data.alerts.callout_info }}Schema changes and <a href="backup.html"><code>BACKUP</code></a>/<a href="restore.html"><code>RESTORE</code></a> statements are not executed as queries internally and so are not listed by <code>SHOW QUERIES</code>. To monitor such statements, use <a href="show-jobs.html"><code>SHOW JOBS</code></a> instead.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Schema changes and <a href="backup.html"><code>BACKUP</code></a>/<a href="restore.html"><code>RESTORE</code></a> statements are not executed as queries internally and so are not listed by <code>SHOW QUERIES</code>. To monitor such statements, use <a href="show-jobs.html"><code>SHOW JOBS</code></a> instead.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -23,7 +23,7 @@ No [privileges](privileges.html) are required to execute this statement. However
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/show_queries.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/show_queries.html" . }}</section>
 
 - To list the active queries across all nodes of the cluster, use `SHOW QUERIES` or `SHOW CLUSTER QUERIES`.
 - To list the active queries just on the local node, use `SHOW LOCAL QUERIES`.
@@ -48,7 +48,7 @@ Field | Description
 
 ### List Queries Across the Cluster
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER QUERIES;
 ~~~
@@ -74,7 +74,7 @@ Alternatively, you can use `SHOW QUERIES` to receive the same response.
 
 ### List Queries on the Local Node
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW LOCAL QUERIES;
 ~~~
@@ -97,7 +97,7 @@ You can use a [`SELECT`](select.html) statement to filter the list of active que
 
 #### Show all queries on node 2
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE node_id = 2;
@@ -116,7 +116,7 @@ You can use a [`SELECT`](select.html) statement to filter the list of active que
 
 #### Show all queries that have been running for more than 3 hours
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -132,7 +132,7 @@ You can use a [`SELECT`](select.html) statement to filter the list of active que
 
 #### Show all queries from a specific address and user
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE client_address = '192.168.0.72:56194'
@@ -151,7 +151,7 @@ You can use a [`SELECT`](select.html) statement to filter the list of active que
 
 To exclude queries from the [built-in SQL client](use-the-built-in-sql-client.html), filter for queries that do not show `cockroach` as the `application_name`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE application_name != 'cockroach';
@@ -179,7 +179,7 @@ When you see a query that is taking too long to complete, you can use the [`CANC
 
 For example, let's say you use `SHOW CLUSTER QUERIES` to find queries that have been running for more than 3 hours:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -195,7 +195,7 @@ For example, let's say you use `SHOW CLUSTER QUERIES` to find queries that have 
 
 To cancel this long-running query, and stop it from consuming resources, you note the `query_id` and use it with the `CANCEL QUERY` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL QUERY '14dacc1f9a781e3d0000000000000001';
 ~~~

@@ -12,9 +12,9 @@ CockroachDB can be deployed and managed on Kubernetes using the following method
 
 - [CockroachDB Kubernetes Operator](https://github.com/cockroachdb/cockroach-operator)
     
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The CockroachDB Kubernetes Operator is also available on platforms such as [Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html) and [IBM Cloud Pak for Data](https://www.ibm.com/products/cloud-pak-for-data).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Manual [StatefulSet](http://kubernetes.io/docs/concepts/abstractions/controllers/statefulsets/) configuration
 

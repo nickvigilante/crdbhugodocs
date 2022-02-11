@@ -6,7 +6,7 @@ toc: true
 
 If you are working with a table that must be indexed on sequential keys, you should use **hash-sharded indexes**. Hash-sharded indexes distribute sequential traffic uniformly across ranges, eliminating single-range hotspots and improving write performance on sequentially-keyed indexes at a small cost to read performance.
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
 ## How hash-sharded indexes work
 
@@ -20,9 +20,9 @@ To create a hash-sharded index, set the `experimental_enable_hash_sharded_indexe
 
 To change the bucket size of an existing hash-sharded primary key index, use an [`ALTER PRIMARY KEY`](alter-primary-key.html) statement with a [`USING HASH WITH BUCKET_COUNT = n_buckets` clause](sql-grammar.html#opt_hash_sharded) that specifies the new bucket size and the existing primary key columns.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Hash-sharded indexes cannot be [interleaved](interleave-in-parent.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 

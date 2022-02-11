@@ -26,9 +26,9 @@ The value of `intervalstyle` affects how CockroachDB parses certain `INTERVAL` v
 
 To set the `intervalstyle` session variable, the `intervalstyle_enabled` session variable must be set to `true`. At the beginning of each session, the `intervalstyle_enabled` variable is set to the value of the `sql.defaults.intervalstyle.enabled` cluster setting (`false`, by default).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When the `intervalstyle_enabled` [session variable](set-vars.html) is set to `true`, you cannot [cast values](#supported-casting-and-conversion) from `INTERVAL` to `STRING` or from `STRING` to `INTERVAL` if the value belongs to a [computed column](computed-columns.html), a [partially-indexed column](partial-indexes.html), or a [geo-partitioned column](partitioning.html). To work around this limitation, use the `to_char_with_style(interval, style)` or `parse_interval(interval, intervalstyle)` [built-in functions](functions-and-operators.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Details on SQL Standard input
 
@@ -69,12 +69,12 @@ If the interval input is ambiguous, specifying two duration fields stores the in
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE intervals (a INT PRIMARY KEY, b INTERVAL);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM intervals;
 ~~~
@@ -87,7 +87,7 @@ If the interval input is ambiguous, specifying two duration fields stores the in
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO
     intervals
@@ -96,7 +96,7 @@ If the interval input is ambiguous, specifying two duration fields stores the in
            (3, '1-2 3 4:5:6');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM intervals;
 ~~~

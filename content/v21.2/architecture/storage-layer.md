@@ -7,9 +7,9 @@ docs_area: reference.architecture
 
 The storage layer of CockroachDB's architecture reads and writes data to disk.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Overview

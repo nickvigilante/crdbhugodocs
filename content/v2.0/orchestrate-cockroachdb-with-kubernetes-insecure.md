@@ -14,7 +14,7 @@ This page shows you how to orchestrate the deployment, management, and monitorin
 
 To deploy across multiple Kubernetes clusters in different geographic regions instead, see [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html). Also, for details about potential performance bottlenecks to be aware of when running CockroachDB in Kubernetes and guidance on how to optimize your deployment for better performance, see [CockroachDB Performance on Kubernetes](kubernetes-performance.html).
 
-{{ site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end }}
 
 ## Before you begin
 
@@ -31,45 +31,45 @@ instance | A physical or virtual machine. In this tutorial, you'll create GCE or
 
 ### Limitations
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-limitations.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
 
 ## Step 1. Start Kubernetes
 
-{%  include {{  page.version.version  }}/orchestration/start-kubernetes.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
 
 ## Step 2. Start CockroachDB nodes
 
-{%  include {{  page.version.version  }}/orchestration/start-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cluster.md" . }}
 
 ## Step 3. Initialize the cluster
 
-{%  include {{  page.version.version  }}/orchestration/initialize-cluster-insecure.md %}
+{{ partial "{{ page.version.version }}/orchestration/initialize-cluster-insecure.md" . }}
 
 ## Step 4. Use the built-in SQL client
 
-{%  include {{  page.version.version  }}/orchestration/test-cluster-insecure.md %}
+{{ partial "{{ page.version.version }}/orchestration/test-cluster-insecure.md" . }}
 
 ## Step 5. Access the Admin UI
 
-{%  include {{  page.version.version  }}/orchestration/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
 
 ## Step 6. Simulate node failure
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-simulate-failure.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
 
 ## Step 7. Set up monitoring and alerting
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-prometheus-alertmanager.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md" . }}
 
 ## Step 8. Maintain the cluster
 
 ### Scale the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster.md" . }}
 
 3. Verify that a fourth pod was added successfully:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -89,7 +89,7 @@ instance | A physical or virtual machine. In this tutorial, you'll create GCE or
 
 ### Upgrade the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md" . }}
 
 ### Stop the cluster
 
@@ -97,7 +97,7 @@ To shut down the CockroachDB cluster:
 
 1. Delete all of the resources you created, including the logs and remote persistent volumes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl delete pods,statefulsets,services,persistentvolumeclaims,persistentvolumes,poddisruptionbudget,jobs,rolebinding,clusterrolebinding,role,clusterrole,serviceaccount,alertmanager,prometheus,prometheusrule,serviceMonitor -l app=cockroachdb
     ~~~
@@ -127,10 +127,10 @@ To shut down the CockroachDB cluster:
 
 2. Stop Kubernetes:
 
-{%  include {{  page.version.version  }}/orchestration/stop-kubernetes.md %}
+{{ partial "{{ page.version.version }}/orchestration/stop-kubernetes.md" . }}
 
 ## See also
 
 - [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

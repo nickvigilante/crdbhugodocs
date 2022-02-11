@@ -6,7 +6,7 @@ toc: true
 
 The `DROP ROLE` [statement](sql-statements.html) removes one or more SQL roles.
 
-{{ site.data.alerts.callout_info }}<code>DROP ROLE</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>DROP ROLE</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end }}
 
 
 ## Considerations
@@ -20,7 +20,7 @@ Roles can only be dropped by super users, i.e., members of the `admin` role.
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_role.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_role.html" . }}</section>
 
 
 ## Parameters
@@ -33,7 +33,7 @@ Roles can only be dropped by super users, i.e., members of the `admin` role.
 
 In this example, first check a role's privileges. Then, revoke the role's privileges and remove the role.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON documents FOR dev_ops;
 ~~~
@@ -45,14 +45,14 @@ In this example, first check a role's privileges. Then, revoke the role's privil
 +------------+--------+-----------+---------+------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE INSERT ON documents FROM dev_ops;
 ~~~
 
-{{ site.data.alerts.callout_info }}All of a role's privileges must be revoked before the role can be dropped.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}All of a role's privileges must be revoked before the role can be dropped.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP ROLE dev_ops;
 ~~~

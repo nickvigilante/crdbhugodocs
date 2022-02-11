@@ -6,9 +6,9 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{ site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -17,7 +17,7 @@ The user must have the `DELETE` and `SELECT` [privileges](authorization.html#ass
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/delete.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/delete.html" . }}
 </div>
 
 ## Parameters
@@ -71,7 +71,7 @@ deleted rows more frequently.
 
 ## Sorting the output of deletes
 
-{%  include {{ page.version.version }}/misc/sorting-delete-output.md %}
+{{ partial "{{ page.version.version }}/misc/sorting-delete-output.md" . }}
 
 For more information about ordering query results in general, see
 [Ordering Query Results](order-by.html) and [Ordering of rows in
@@ -81,20 +81,20 @@ DML statements](order-by.html#ordering-rows-in-dml-statements).
 
 By using the explicit index annotation (also known as "index hinting"), you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for deleting rows of a named table.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Index selection can impact [performance](performance-best-practices-overview.html), but does not change the result of a query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The syntax to force a specific index for a delete is:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM table@my_idx;
 ~~~
 
 This is equivalent to the longer expression:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM table@{FORCE_INDEX=my_idx};
 ~~~
@@ -117,7 +117,7 @@ To preserve performance over iterative `DELETE` queries, we recommend taking one
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Delete rows using Primary Key/unique columns
 
@@ -125,7 +125,7 @@ Using columns with the [Primary Key](primary-key.html) or [Unique](unique.html) 
 
 In this example, `code` is our primary key and we want to delete the row where the code equals "about_stuff_city". Because we're positive no other rows have that value in the `code` column, there's no risk of accidentally removing another row.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM promo_codes WHERE code = 'about_stuff_city';
 ~~~
@@ -137,7 +137,7 @@ DELETE 1
 
 Deleting rows using non-unique columns removes _every_ row that returns `TRUE` for the `WHERE` clause's `a_expr`. This can easily result in deleting data you didn't intend to.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM promo_codes WHERE creation_time > '2019-01-30 00:00:00+00:00';
 ~~~
@@ -159,7 +159,7 @@ By specifying `*`, you retrieve all columns of the delete rows.
 
 To retrieve specific columns, name them in the `RETURNING` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM promo_codes WHERE creation_time > '2019-01-29 00:00:00+00:00' RETURNING code, rules;
 ~~~
@@ -179,7 +179,7 @@ To retrieve specific columns, name them in the `RETURNING` clause.
 
 When `RETURNING` specific columns, you can change their labels using `AS`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM promo_codes WHERE creation_time > '2019-01-28 00:00:00+00:00' RETURNING code, rules AS discount;
 ~~~
@@ -195,7 +195,7 @@ When `RETURNING` specific columns, you can change their labels using `AS`.
 
 To sort and return deleted rows, use a statement like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH a AS (DELETE FROM promo_codes WHERE creation_time > '2019-01-27 00:00:00+00:00' RETURNING *)
   SELECT * FROM a ORDER BY expiration_time;
@@ -216,14 +216,14 @@ To sort and return deleted rows, use a statement like the following:
 
 Suppose you create a multi-column index on the `users` table with the `name` and `city` columns.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users (name, city);
 ~~~
 
 Now suppose you want to delete the two users named "Jon Snow". You can use the [`EXPLAIN (OPT)`](explain.html#opt-option) command to see how the [cost-based optimizer](cost-based-optimizer.html) decides to perform the delete:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (OPT) DELETE FROM users WHERE name='Jon Snow';
 ~~~
@@ -254,7 +254,7 @@ The output of the `EXPLAIN` statement shows that the optimizer scans the newly-c
 
 Now suppose that instead you want to perform a delete, but using the `id` column instead.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (OPT) DELETE FROM users WHERE id IN ('70a3d70a-3d70-4400-8000-000000000016', '3d70a3d7-0a3d-4000-8000-00000000000c');
 ~~~
@@ -293,7 +293,7 @@ The optimizer still scans the newly-created `users_name_city_idx` index when per
 
 If you provide an index hint (i.e., force the index selection) to use the primary index on the column instead, the CockroachDB will scan the users table using the primary index, on `city`, and `id`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (OPT) DELETE FROM users@primary WHERE id IN ('70a3d70a-3d70-4400-8000-000000000016', '3d70a3d7-0a3d-4000-8000-00000000000c');
 ~~~

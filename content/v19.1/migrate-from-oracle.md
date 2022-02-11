@@ -16,7 +16,7 @@ To illustrate this process, we use the following sample data and tools:
 
 Using [Oracle's Data Pump Export utility](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/sutil/oracle-data-pump-export-utility.html), export the schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ expdp user/password directory=datapump dumpfile=oracle_example.dmp content=metadata_only logfile=example.log
 ~~~
@@ -27,7 +27,7 @@ The schema is stored in an Oracle-specific format (e.g., `oracle_example.dmp`).
 
 Using [Oracle's Data Pump Import utility](https://docs.oracle.com/en/database/oracle/oracle-database/12.2/sutil/datapump-import-utility.html), load the exported DMP file to convert it to a SQL file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ impdp user/password directory=datapump dumpfile=oracle_example.dmp sqlfile=example_sql.sql TRANSFORM=SEGMENT_ATTRIBUTES:N:table PARTITION_OPTIONS=MERGE
 ~~~
@@ -67,18 +67,18 @@ SET FEEDBACK ON
 SET TERMOUT ON
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In the example SQL script, `|` is used as a delimiter. Choose a delimiter that will not also occur in the rows themselves. For more information, see [`IMPORT`](import.html#delimiter).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To extract the data, we ran the script for each table in SQL*Plus:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 $ sqlplus user/password
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > @spool CUSTOMERS
   @spool ADDRESSES
@@ -97,7 +97,7 @@ A data list file (`.lst`) with leading and trailing spaces is created for each t
 
 Exit SQL*Plus:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXIT
 ~~~
@@ -124,7 +124,7 @@ for lstfile in sys.argv[1:]:
         writer.writerow(map(string.strip, rec))
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python2 fix.py CUSTOMERS.lst ADDRESSES.lst CARD_DETAILS.lst WAREHOUSES.lst ORDER_ITEMS.lst ORDERS.lst INVENTORIES.lst PRODUCT_INFORMATION.lst LOGON.lst PRODUCT_DESCRIPTIONS.lst ORDERENTRY_METADATA.lst
 ~~~
@@ -161,7 +161,7 @@ For usage examples, see [Migrate from CSV - Configuration Options](migrate-from-
 
 Compress the CSV files for a faster import:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ gzip CUSTOMERS.csv ADDRESSES.csv CARD_DETAILS.csv WAREHOUSES.csv ORDER_ITEMS.csv ORDERS.csv INVENTORIES.csv PRODUCT_INFORMATION.csv LOGON.csv PRODUCT_DESCRIPTIONS.csv ORDERENTRY_METADATA.csv
 ~~~
@@ -172,9 +172,9 @@ These compressed CSV files will be used to import your data into CockroachDB.
 
 Each node in the CockroachDB cluster needs to have access to the files being imported. There are several ways for the cluster to access the data; for a complete list of the types of storage [`IMPORT`](import.html) can pull from, see [Import File URLs](import.html#import-file-urls).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We strongly recommend using cloud storage such as Amazon S3 or Google Cloud to host the data files you want to import.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 7. Map Oracle to CockroachDB data types
 
@@ -254,7 +254,7 @@ The Oracle privileges for [users](create-user.html) and [roles](create-role.html
 
 For example, to import the data from `CUSTOMERS.csv.gz` into a `CUSTOMERS` table, issue the following statement in the CockroachDB SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
         customer_id       DECIMAL
@@ -298,7 +298,7 @@ For example, to import the data from `CUSTOMERS.csv.gz` into a `CUSTOMERS` table
 
 Then add the [computed columns](computed-columns.html), [constraints](add-constraint.html), and [function-based indexes](create-index.html). For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE CUSTOMERS SET credit_limit = 50000 WHERE credit_limit > 50000;
   ALTER TABLE CUSTOMERS ADD CONSTRAINT CUSTOMER_CREDIT_LIMIT_MAX CHECK (credit_limit <= 50000);

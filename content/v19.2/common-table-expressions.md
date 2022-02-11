@@ -17,7 +17,7 @@ clauses](select-clause.html) and [`INSERT`](insert.html),
 
 ## Synopsis
 
-<div>{%  include {{  page.version.version  }}/sql/diagrams/with_clause.html %}</div>
+<div>{{ partial "{{ page.version.version }}/sql/diagrams/with_clause.html" . }}</div>
 
 <div markdown="1"></div>
 
@@ -31,11 +31,11 @@ Parameter | Description
 
 ## Overview
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The examples on this page use MovR, a fictional vehicle-sharing application, to demonstrate CockroachDB SQL statements. To follow along, run [`cockroach demo`](cockroach-demo.html) from the command line to start a temporary, in-memory cluster with the `movr` dataset preloaded.
 
 For more information about the MovR example application and dataset, see [MovR: A Global Vehicle-sharing App](movr.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 A query or statement of the form `WITH x AS y IN z` creates the
 temporary table name `x` for the results of the subquery `y`, to be
@@ -43,7 +43,7 @@ reused in the context of the query `z`.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH r AS (SELECT * FROM rides WHERE revenue > 98)
   SELECT * FROM users AS u, r WHERE r.rider_id = u.id;
@@ -67,7 +67,7 @@ subsequent `SELECT` clause.
 
 This query is equivalent to, but arguably simpler to read than:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users AS u, (SELECT * FROM rides WHERE revenue > 98) AS r
   WHERE r.rider_id = u.id;
@@ -78,7 +78,7 @@ simultaneously with a single `WITH` clause, separated by commas. Later
 subqueries can refer to earlier subqueries by name. For example, the
 following query is equivalent to the two examples above:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH r AS (SELECT * FROM rides WHERE revenue > 98),
 	results AS (SELECT * FROM users AS u, r WHERE r.rider_id = u.id)
@@ -92,7 +92,7 @@ by name. The final query refers to the CTE `results`.
 
 It is possible to use a `WITH` clause in a subquery, or even a `WITH` clause within another `WITH` clause. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH u AS
 	(SELECT * FROM
@@ -104,7 +104,7 @@ When analyzing [table expressions](table-expressions.html) that
 mention a CTE name, CockroachDB will choose the CTE definition that is
 closest to the table expression. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH
   u AS (SELECT * FROM users),
@@ -122,7 +122,7 @@ etc.) as a common table expression.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH final_code AS
   (INSERT INTO promo_codes(code, description, rules)
@@ -139,7 +139,7 @@ For example:
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If a common table expression contains
 a data-modifying statement (<code>INSERT</code>, <code>DELETE</code>,
 etc.), the modifications are performed fully even if only part
@@ -147,7 +147,7 @@ of the results are used, e.g., with <a
 href="limit-offset.html"><code>LIMIT</code></a>. See <a
 href="subqueries.html#data-writes-in-subqueries">Data
 Writes in Subqueries</a> for details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Reusing common table expressions
 
@@ -155,7 +155,7 @@ Writes in Subqueries</a> for details.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH
     users_ny AS (SELECT name, id FROM users WHERE city='new york'),

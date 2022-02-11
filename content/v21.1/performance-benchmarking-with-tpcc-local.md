@@ -30,11 +30,11 @@ This page shows you how to reproduce [CockroachDB's TPC-C performance benchmarki
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-flag.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
 
 1. Use the [`cockroach start`](cockroach-start.html) command to start 3 nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -45,7 +45,7 @@ This page shows you how to reproduce [CockroachDB's TPC-C performance benchmarki
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -56,7 +56,7 @@ This page shows you how to reproduce [CockroachDB's TPC-C performance benchmarki
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -69,7 +69,7 @@ This page shows you how to reproduce [CockroachDB's TPC-C performance benchmarki
 
 2. Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init \
     --insecure \
@@ -82,7 +82,7 @@ CockroachDB comes with a number of [built-in workloads](cockroach-workload.html)
 
 Use [`cockroach workload`](cockroach-workload.html) to load the initial schema and data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach workload fixtures import tpcc \
 --warehouses=10 \
@@ -95,7 +95,7 @@ This will load 2 GB of data for 10 "warehouses".
 
 Run the workload for ten "warehouses" of data for ten minutes:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach workload run tpcc \
 --warehouses=10 \
@@ -121,9 +121,9 @@ _elapsed___errors__ops/sec(inst)___ops/sec(cum)__p50(ms)__p95(ms)__p99(ms)_pMax(
 ...
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more `tpcc` options, use `cockroach workload run tpcc --help`. For details about other built-in load generators, use `cockroach workload run --help`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 4. Interpret the results
 
@@ -142,21 +142,21 @@ The [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/
 
 1. When you're done with your test cluster, use the [`cockroach quit`](cockroach-quit.html) command to gracefully shut down each node.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26257
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26258
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     For the last node, the shutdown process will take longer (about a minute each) and will eventually force the node to stop. This is because, with only 1 of 3 nodes left, all ranges no longer have a majority of replicas available, and so the cluster is no longer operational.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26259
     ~~~
@@ -165,7 +165,7 @@ The [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/
 
     If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -rf tpcc-local1 tpcc-local2 tpcc-local3
     ~~~

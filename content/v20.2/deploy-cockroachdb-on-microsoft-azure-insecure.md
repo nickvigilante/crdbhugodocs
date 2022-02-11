@@ -13,19 +13,19 @@ ssh-link: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/mac-crea
 
 This page shows you how to manually deploy an insecure multi-node CockroachDB cluster on Microsoft Azure, using Azure's managed load balancing service to distribute client traffic.
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-flag.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
 
-{%  include cockroachcloud/use-cockroachcloud-instead.md %}
+{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
 
 ## Before you begin
 
 ### Requirements
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-requirements.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-requirements.md" . }}
 
 ### Recommendations
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-recommendations.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-recommendations.md" . }}
 
 ## Step 1. Configure your network
 
@@ -56,7 +56,7 @@ To enable this in Azure, you must create a Resource Group, Virtual Network, and 
          Priority | Any value > 1000
     - **Application support**:
 
-        {{ site.data.alerts.callout_success }}If your application is also hosted on the same Azure     Virtual Network, you will not need to create a firewall rule for your application to communicate     with your load balancer.{{ site.data.alerts.end }}
+        {{site.data.alerts.callout_success}}If your application is also hosted on the same Azure     Virtual Network, you will not need to create a firewall rule for your application to communicate     with your load balancer.{{site.data.alerts.end }}
 
          Field | Recommended Value
         -------|-------------------
@@ -89,7 +89,7 @@ For more details, see [Hardware Recommendations](recommended-production-settings
 
 ## Step 3. Synchronize clocks
 
-{%  include {{  page.version.version  }}/prod-deployment/synchronize-clocks.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
 
 ## Step 4. Set up load balancing
 
@@ -107,31 +107,31 @@ Microsoft Azure offers fully-managed load balancing to distribute traffic betwee
 
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{ site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Azure's managed load balancing, see the <a href="deploy-cockroachdb-on-premises-insecure.html">On-Premises</a> tutorial for guidance.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Azure's managed load balancing, see the <a href="deploy-cockroachdb-on-premises-insecure.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end }}
 
 ## Step 5. Start nodes
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-start-nodes.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-start-nodes.md" . }}
 
 ## Step 6. Initialize the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-initialize-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-initialize-cluster.md" . }}
 
 ## Step 7. Test the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-test-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-test-cluster.md" . }}
 
 ## Step 8. Run a sample workload
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-test-load-balancing.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-test-load-balancing.md" . }}
 
 ## Step 9. Monitor the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
 
 ## Step 10. Scale the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-scale-cluster.md" . }}
 
 ## Step 11. Use the cluster
 
@@ -143,4 +143,4 @@ Now that your deployment is working, you can:
 
 ## See also
 
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

@@ -6,9 +6,9 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{ site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -17,7 +17,7 @@ The user must have the `DELETE` and `SELECT` [privileges](authorization.html#ass
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/delete.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/delete.html" . }}
 </div>
 
 ## Parameters
@@ -70,7 +70,7 @@ deleted rows more frequently.
 
 ## Sorting the output of deletes
 
-{%  include {{ page.version.version }}/misc/sorting-delete-output.md %}
+{{ partial "{{ page.version.version }}/misc/sorting-delete-output.md" . }}
 
 For more information about ordering query results in general, see
 [Ordering Query Results](query-order.html).
@@ -85,20 +85,20 @@ For an explanation of why this happens, and for instructions showing how to iter
 
 By using the explicit index annotation (also known as "index hinting"), you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for deleting rows of a named table.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Index selection can impact [performance](performance-best-practices-overview.html), but does not change the result of a query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The syntax to force a specific index for a delete is:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM table@my_idx;
 ~~~
 
 This is equivalent to the longer expression:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM table@{FORCE_INDEX=my_idx};
 ~~~
@@ -111,7 +111,7 @@ To view how the index hint modifies the query plan that CockroachDB follows for 
 
 You can delete all rows from a table by not including a `WHERE` clause in your `DELETE` statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM account_details;
 ~~~
@@ -119,9 +119,9 @@ You can delete all rows from a table by not including a `WHERE` clause in your `
 DELETE 7
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Unless your table is small (less than 1000 rows), using [`TRUNCATE`][truncate] to delete the contents of a table will be more performant than using `DELETE`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Delete specific rows
 
@@ -133,7 +133,7 @@ Using columns with the [Primary Key](primary-key.html) or [Unique](unique.html) 
 
 In this example, `account_id` is our primary key and we want to delete the row where it equals 1. Because we're positive no other rows have that value in the `account_id` column, there's no risk of accidentally removing another row.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM account_details WHERE account_id = 1 RETURNING *;
 ~~~
@@ -150,7 +150,7 @@ DELETE 1
 
 Deleting rows using non-unique columns removes _every_ row that returns `TRUE` for the `WHERE` clause's `a_expr`. This can easily result in deleting data you didn't intend to.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM account_details WHERE balance = 30000 RETURNING *;
 ~~~
@@ -174,7 +174,7 @@ To see which rows your statement deleted, include the `RETURNING` clause to retr
 
 By specifying `*`, you retrieve all columns of the delete rows.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM account_details WHERE balance < 23000 RETURNING *;
 ~~~
@@ -191,7 +191,7 @@ DELETE 1
 
 To retrieve specific columns, name them in the `RETURNING` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM account_details WHERE account_id = 5 RETURNING account_id, account_type;
 ~~~
@@ -208,7 +208,7 @@ DELETE 1
 
 When `RETURNING` specific columns, you can change their labels using `AS`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM account_details WHERE balance < 24500 RETURNING account_id, balance AS final_balance;
 ~~~
@@ -225,7 +225,7 @@ DELETE 1
 
 To sort and return deleted rows, use a statement like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [DELETE FROM account_details RETURNING *] ORDER BY account_id;
 ~~~

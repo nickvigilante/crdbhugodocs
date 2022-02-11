@@ -9,13 +9,13 @@ The `SET` [statement](sql-statements.html) can modify one of the session configu
 
 <span class="version-tag">New in v21.2</span>: CockroachDB supports setting session variables for the duration of a single transaction, using [the `LOCAL` keyword](#set-local).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `SET` statement for session variables is unrelated to the other [`SET TRANSACTION`](set-transaction.html) and [`SET CLUSTER SETTING`](cluster-settings.html#change-a-cluster-setting) statements.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with `SET` statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the [Build an App with CockroachDB](example-apps.html) tutorials.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -30,22 +30,22 @@ The `SET` statement can set a session variable for the duration of the current s
 ### SET SESSION
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/set_var.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/set_var.html %}
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 By default, session variables are set for the duration of the current session. As a result, [`SET (variable)` and `SET SESSION (variable)`](#set-session) are equivalent.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### SET LOCAL
 
 <div>
-  {%  include {{  page.version.version  }}/sql/generated/diagrams/set_local.html %}
+  {{ partial "{{ page.version.version }}/sql/generated/diagrams/set_local.html" . }}
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `SET LOCAL` is compatible with [savepoints](savepoint.html). Executing a [`ROLLBACK`](rollback-transaction.html), `ROLLBACK TO SAVEPOINT`, or `RELEASE TO SAVEPOINT` statement rolls back any variables set by `SET LOCAL`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -56,7 +56,7 @@ Parameter   | Description
 
 ### Supported variables
 
-{%  include {{  page.version.version  }}/misc/session-vars.html %}
+{{ partial "{{ page.version.version }}/misc/session-vars.html" . }}
 
 ### Special syntax cases
 
@@ -78,12 +78,12 @@ CockroachDB supports the following syntax cases, for compatibility with common S
 
 The following examples demonstrate how to use `SET` to configure the default database for the current session:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET application_name = movr_app;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW application_name;
 ~~~
@@ -99,12 +99,12 @@ SHOW application_name;
 
 The following demonstrates how to use quoting to use values containing spaces:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET application_name = "movr app";
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW application_name;
 ~~~
@@ -120,12 +120,12 @@ SHOW application_name;
 
 The following demonstrates how to assign a list of values:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET search_path = pg_catalog,public;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW search_path;
 ~~~
@@ -139,11 +139,11 @@ SHOW search_path;
 
 ### Reset a variable to its default value
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can use [`RESET`](reset-vars.html) to reset a session variable as well.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW search_path;
 ~~~
@@ -155,12 +155,12 @@ SHOW search_path;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET search_path = DEFAULT;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW search_path;
 ~~~
@@ -176,7 +176,7 @@ SHOW search_path;
 
 <span class="version-tag">New in v21.2</span>: To set a variable for the duration of a single transaction, use the `SET LOCAL` statement.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW application_name;
 ~~~
@@ -188,7 +188,7 @@ SHOW application_name;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 BEGIN;
 SET LOCAL application_name = demo;
@@ -202,7 +202,7 @@ SHOW application_name;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 COMMIT;
 SHOW application_name;
@@ -219,7 +219,7 @@ SHOW application_name;
 
 <span class="version-tag">New in v21.2</span>: You can roll back session variable settings to [savepoints](savepoint.html).
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW timezone;
 ~~~
@@ -231,7 +231,7 @@ SHOW timezone;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 BEGIN;
 SET timezone = '+3';
@@ -246,7 +246,7 @@ SHOW timezone;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET LOCAL timezone = '+1';
 SHOW timezone;
@@ -259,7 +259,7 @@ SHOW timezone;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ROLLBACK TO SAVEPOINT s1;
 SHOW timezone;
@@ -272,7 +272,7 @@ SHOW timezone;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 COMMIT;
 SHOW timezone;
@@ -289,11 +289,11 @@ SHOW timezone;
 
 <span class="version-tag">New in v21.2</span>: To assume another [role](authorization.html#roles) for the duration of a session, use `SET ROLE <role>`. `SET ROLE <role>` is equivalent to `SET role = <role>`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To assume a new role, the current user must be a member of the `admin` role, or a member of the target role.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW role;
 ~~~
@@ -305,7 +305,7 @@ SHOW role;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE ROLE new_role;
 SHOW ROLES;
@@ -320,7 +320,7 @@ SHOW ROLES;
 (3 rows)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET ROLE new_role;
 SHOW role;
@@ -335,7 +335,7 @@ SHOW role;
 
 To reset the role of the current user, use a [`RESET`](reset-vars.html) statement. `RESET ROLE` is equivalent to `SET role = 'none'` and `SET role = current_user()`.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 RESET ROLE;
 SHOW role;
@@ -350,7 +350,7 @@ SHOW role;
 
 To assume a role for the duration of a single transaction, use `SET LOCAL ROLE`.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 BEGIN;
 SET LOCAL ROLE new_role;
@@ -364,7 +364,7 @@ SHOW role;
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 COMMIT;
 SHOW role;
@@ -379,9 +379,9 @@ SHOW role;
 
 ## `SET TIME ZONE`
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 As a best practice, we recommend not using this setting and avoid setting a session time for your database. We instead recommend converting UTC values to the appropriate time zone on the client side.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 You can control the default time zone for a session with `SET TIME ZONE`. This will apply an offset to all [`TIMESTAMPTZ`/`TIMESTAMP WITH TIME ZONE`](timestamp.html) and [`TIMETZ`/`TIME WITH TIME ZONE`](time.html) values in the session. By default, CockroachDB uses UTC as the time zone for `SET TIME ZONE` offsets.
 
@@ -401,12 +401,12 @@ When setting a time zone, note the following:
 
 ### Example: Set the default time zone via `SET TIME ZONE`
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET TIME ZONE 'EST'; -- same as SET "timezone" = 'EST'
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TIME ZONE;
 ~~~
@@ -418,12 +418,12 @@ When setting a time zone, note the following:
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET TIME ZONE DEFAULT; -- same as SET "timezone" = DEFAULT
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TIME ZONE;
 ~~~
@@ -449,7 +449,7 @@ When setting a time zone, note the following:
 
 ## Known Limitations
 
-{%  include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
+{{ partial "{{ page.version.version }}/known-limitations/set-transaction-no-rollback.md" . }}
 
 ## See also
 

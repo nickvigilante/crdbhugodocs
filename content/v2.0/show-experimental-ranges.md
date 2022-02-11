@@ -16,13 +16,13 @@ This information is useful for verifying that:
 - The ["follow-the-workload"](demo-follow-the-workload.html) feature is operating as expected.
 - Range splits specified by the [`SPLIT AT`](split-at.html) statement were created as expected.
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_ranges.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_ranges.html" . }}
 </div>
 
 ## Required Privileges
@@ -40,7 +40,7 @@ Parameter | Description
 
 The examples in this section operate on a hypothetical "user credit information" table filled with placeholder data, running on a 5-node cluster.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE credit_users (
        id INT PRIMARY KEY,
@@ -54,31 +54,31 @@ The examples in this section operate on a hypothetical "user credit information"
 
 We added a secondary [index](indexes.html) to the table on the `area_code` column:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX areaCode on credit_users(area_code);
 ~~~
 
 Next, we ran a couple of [`SPLIT AT`s](split-at.html) on the table and the index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE credit_users SPLIT AT VALUES (5), (10), (15);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER INDEX credit_users@areaCode SPLIT AT VALUES (400), (600), (999);
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In the example output below, a `NULL` in the *Start Key* column means "beginning of table".  
 A `NULL` in the *End Key* column means "end of table".
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Show Ranges for a Table (Primary Index)
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE credit_users;
 ~~~
@@ -97,7 +97,7 @@ A `NULL` in the *End Key* column means "end of table".
 
 ### Show Ranges for an Index
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM INDEX credit_users@areaCode;
 ~~~

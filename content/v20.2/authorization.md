@@ -77,7 +77,7 @@ An `admin` user is a member of the `admin` role. Only `admin` users can use [`CR
 
 To assign a user to the `admin` role:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT admin TO <username>;
 ~~~
@@ -92,9 +92,9 @@ All new users and roles belong to the `public` role by default. You can grant an
 
 A `role admin` is a member of the role that's allowed to grant or revoke role membership to other users for that specific role. To create a `role admin`, use [`WITH ADMIN OPTION`](grant-roles.html#grant-the-admin-option).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 The terms “`admin` role” and “`role admin`” can be confusing. A user who is a member of the `admin` role has all privileges on all database objects across the entire cluster, whereas a `role admin` has privileges limited to the role they are a member of. Assign the `admin` role to a SQL user if you want the user to have privileges across the cluster. Make a SQL user the `role admin` if you want to limit the user’s privileges to its current role, but with an option to grant or revoke role membership to other users. This applies to the `admin` role as well - only admin users with the `WITH ADMIN OPTION` can add or remove other users from the `admin` role.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Direct member
 
@@ -126,7 +126,7 @@ When a user connects to a database, either via the built-in SQL client or a clie
 
 Roles and users can be granted the following privileges:
 
-{%  include {{  page.version.version  }}/sql/privileges.md %}
+{{ partial "{{ page.version.version }}/sql/privileges.md" . }}
 
 ### Assign privileges
 
@@ -136,9 +136,9 @@ Take the following points into consideration while granting privileges to roles 
 
 - When a role or user is granted privileges for a database, new tables created in the database will inherit the privileges, but the privileges can then be changed. To grant privileges to a user on all existing tables in a database, see [Grant privileges on all tables in a database](grant.html#grant-privileges-on-all-tables-in-a-database-or-schema)
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The user does not get privileges to existing tables in the database.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - When a role or user is granted privileges for a table, the privileges are limited to the table.
 - In CockroachDB, privileges are granted to users and roles at the database and table levels. They are not yet supported for other granularities such as columns or rows.
@@ -171,35 +171,35 @@ Let's say we want to create the following access control setup for the `movr` da
 
 1. Use the [`cockroach demo`](cockroach-demo.html) command to load the `movr` database and dataset into a CockroachDB cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach demo
     ~~~
 
 2. Create the database admin (named `db_admin`) who can perform all database operations for existing tables as well as for  tables added in the future:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER db_admin;
     ~~~
 
 3. Grant all privileges on database `movr` to user `db_admin`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT ALL ON DATABASE movr TO db_admin;
     ~~~
 
 4. Grant all privileges on all tables in database `movr` to user `db_admin`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT ALL ON TABLE * TO db_admin;
     ~~~
 
 5. Verify that `db_admin` has all privileges:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW GRANTS FOR db_admin;
     ~~~
@@ -222,17 +222,17 @@ Let's say we want to create the following access control setup for the `movr` da
 
 6. As the `root` user, create a SQL user named `app_user` with permissions to add, read, update, and delete vehicles in the `vehicles` table:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER app_user;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT INSERT, DELETE, UPDATE, SELECT ON vehicles TO app_user;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW GRANTS FOR app_user;
     ~~~
@@ -249,17 +249,17 @@ Let's say we want to create the following access control setup for the `movr` da
 
 7. As the `root` user, create a SQL user named `report_user` with permissions to only read from the `vehicles` table:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER report_user;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT SELECT ON vehicles TO report_user;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW GRANTS FOR report_user;
     ~~~
@@ -285,19 +285,19 @@ Let's say we want to create the following access control setup for the `movr` da
 
 1. Use the [`cockroach demo`](cockroach-demo.html) command to load the `movr` database and dataset into a CockroachDB cluster.:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach demo
     ~~~
 
 2. Create the database admin role (named `db_admin_role`) whose members can perform all database operations for existing tables as well as for tables added in the future:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE ROLE db_admin_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ROLES;
     ~~~
@@ -311,17 +311,17 @@ Let's say we want to create the following access control setup for the `movr` da
     (3 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT ALL ON DATABASE movr TO db_admin_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT ALL ON TABLE * TO db_admin_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW GRANTS ON DATABASE movr;
     ~~~
@@ -346,29 +346,29 @@ Let's say we want to create the following access control setup for the `movr` da
 
 3. Create two database admin users (named `db_admin_1` and `db_admin_2`) and grant them membership to the `db_admin_role` role:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER db_admin_1;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER db_admin_2;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT db_admin_role TO db_admin_1, db_admin_2;
     ~~~
 
 4. Create a role named `app_user_role` whose members can add, read update, and delete vehicles to the `vehicles` table.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE ROLE app_user_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ROLES;
     ~~~
@@ -385,12 +385,12 @@ Let's say we want to create the following access control setup for the `movr` da
     (6 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT INSERT, UPDATE, DELETE, SELECT ON TABLE vehicles TO app_user_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW GRANTS ON vehicles;
     ~~~
@@ -410,34 +410,34 @@ Let's say we want to create the following access control setup for the `movr` da
 
 5. Create three app users (named `app_user_1`, `app_user_2`, and `app_user_3`) and grant them membership to the `app_user_role` role:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER app_user_1;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER app_user_2;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER app_user_3;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT app_user_role TO app_user_1, app_user_2, app_user_3;
     ~~~
 
 6. Create a role named `report_user_role` whose members can only read the `vehicles` table.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE ROLE report_user_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ROLES;
     ~~~
@@ -458,12 +458,12 @@ Let's say we want to create the following access control setup for the `movr` da
     (10 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT SELECT ON vehicles TO report_user_role;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW GRANTS ON vehicles;
     ~~~
@@ -484,32 +484,32 @@ Let's say we want to create the following access control setup for the `movr` da
 
 7. Create five report users (named `report_user_1`, `report_user_2`, `report_user_3`, `report_user_4`, and `report_user_5`) and grant them membership to the `report_user_role` role:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER report_user_1;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER report_user_2;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER report_user_3;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER report_user_4;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE USER report_user_5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT report_user_role TO report_user_1, report_user_2, report_user_3, report_user_4, report_user_5;
     ~~~

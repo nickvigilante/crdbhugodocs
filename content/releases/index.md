@@ -2,14 +2,18 @@
 title: Releases
 summary: Release notes for older versions of CockroachDB.
 toc: true
-docs_area: releases releases
+docs_area: releases
+toc_not_nested: true
 ---
 
-After downloading your desired release, learn how to [Install CockroachDB](../{{ site.versions["stable"] }}/install-cockroachdb.html). Also be sure to review Cockroach Labs' [Release Support Policy](release-support-policy.html).
+After downloading your desired release, learn how to [Install CockroachDB](../{{site.versions["stable"] }}/install-cockroachdb.html). Also be sure to review Cockroach Labs' [Release Support Policy](release-support-policy.html).
 
+{% assign sections = site.data.releases | map: "release_type" | uniq | reverse %}
 
-{%  for section in site.data.releases %}
-## {{ section.title }}
+{% assign versions = site.data.versions | sort: "release_date" | reverse %}
+
+{% assign latest_hotfix = site.data.releases | where_exp: "latest_hotfix", "latest_hotfix.major_version == site.versions['stable']" | sort: "release_date" | reverse | first %}
+
 <div id="os-tabs" class="filters filters-big clearfix">
     <button id="linux" class="filter-button" data-scope="linux">Linux</button>
     <button id="mac" class="filter-button" data-scope="mac">Mac</button>
@@ -18,9 +22,21 @@ After downloading your desired release, learn how to [Install CockroachDB](../{{
     <button id="source" class="filter-button" data-scope="source">Source</button>
 </div>
 
+{% for v in versions %}
+
+## {{ v.major_version }}
+
 <section class="filter-content" data-scope="windows">
-{%  include windows_warning.md %}
+{{ partial "windows_warning.md" . }}
 </section>
+
+{% for s in sections %}
+
+{% assign releases = site.data.releases | where_exp: "releases", "releases.major_version == v.major_version" | where_exp: "releases", "releases.release_type == s" | sort: "release_date" | reverse %}
+
+{% if releases[0] %}
+
+### {{ s }} Releases
 
 <table class="release-table">
 <thead>
@@ -32,57 +48,59 @@ After downloading your desired release, learn how to [Install CockroachDB](../{{
 </thead>
 
 <tbody>
-{%  for release in section.releases %}
-    <tr {%  if release.latest %}class="latest"{%  endif %}>
+{% for r in releases %}
+    <tr {% if r.version == latest_hotfix.version %}class="latest"{% endif %}>
         <td>
-            <a href="{{  release.version  }}.html">{{  release.version  }}</a>
-            {%  if release.latest %}
+            <a href="{{ r.version }}.html">{{ r.version }}</a>
+            {% if r.version == latest_hotfix.version %}
                 <span class="badge-new">Latest</span>
-            {%  endif %}
+            {% endif %}
         </td>
-        <td>{{  release.date  }}</td>
-        {%  if release.withdrawn %}
+        <td>{{ r.release_date }}</td>
+        {% if r.withdrawn == "true" %}
             <td class="os-release-cell"><span class="badge badge-gray">Withdrawn</span></td>
-        {%  else %}
+        {% else %}
             <td class="os-release-cell">
                 <section class="filter-content" data-scope="linux">
-                    <a class="os-release-link" href="https://binaries.cockroachdb.com/cockroach-{{  release.version  }}.linux-amd64.tgz">Precompiled 64-bit Binary</a>
+                    <a class="os-release-link" href="https://binaries.cockroachdb.com/cockroach-{{ r.version }}.linux-amd64.tgz">Precompiled 64-bit Binary</a>
                 </section>
                 <section class="filter-content" data-scope="mac">
-                    <a class="os-release-link" href="https://binaries.cockroachdb.com/cockroach-{{  release.version  }}.darwin-10.9-amd64.tgz">Precompiled 64-bit Binary</a>
+                    <a class="os-release-link" href="https://binaries.cockroachdb.com/cockroach-{{ r.version }}.darwin-10.9-amd64.tgz">Precompiled 64-bit Binary</a>
                 </section>
                 <section class="filter-content" data-scope="windows">
-                {%  if release.no_windows %}
+                {% if r.no_windows == "true" %}
                     N/A
-                {%  else %}
-                    <a class="os-release-link" href="https://binaries.cockroachdb.com/cockroach-{{  release.version  }}.windows-6.2-amd64.zip">Precompiled 64-bit Binary</a>
-                {%  endif %}
+                {% else %}
+                    <a class="os-release-link" href="https://binaries.cockroachdb.com/cockroach-{{ r.version }}.windows-6.2-amd64.zip">Precompiled 64-bit Binary</a>
+                {% endif %}
                 </section>
                 <section class="filter-content" data-scope="docker">
-                    <code>cockroachdb/cockroach{%  if release.version contains "-" %}-unstable{%  endif %}:{{  release.version  }}</code>
+                    <code>cockroachdb/cockroach{% if r.version contains "-" %}-unstable{% endif %}:{{ r.version }}</code>
                 </section>
                 <section class="filter-content" data-scope="source">
-                {%  if release.no_source %}
+                {% if r.no_source == "true" %}
                     N/A
-                {%  else %}
-                    <a href="https://binaries.cockroachdb.com/cockroach-{{  release.version  }}.src.tgz">Source</a>
-                {%  endif %}
+                {% else %}
+                    <a href="https://binaries.cockroachdb.com/cockroach-{{ r.version }}.src.tgz">Source</a>
+                {% endif %}
                 </section>
             </td>
-        {%  endif %}
+        {% endif %}
     </tr>
-{%  endfor %}
+{% endfor %}
 </tbody>
 </table>
-{%  endfor %}
+{% endif %}
+{% endfor %}
+{% endfor %}
 
 ## Release naming
 
 Cockroach Labs uses a three-component calendar versioning scheme to name [production releases](#production-releases) of CockroachDB. The format is `YY.R.PP`, where `YY` indicates the year, `R` indicates release with “1” for Spring and “2” for Fall, and `PP` indicates the patch release version. Example: Version 20.1.1 (abbreviated v20.1.1).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This calendar versioning scheme began with v19.1. Prior releases use a different versioning scheme.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 - A major release is produced twice a year indicating major enhancements to product functionality. A change in the `YY.R` component denotes a major release.
 

@@ -7,21 +7,21 @@ docs_area: reference.sql
 
 The `DROP COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and removes columns from a table.
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 When used in an explicit transaction combined with other schema changes to the same table, `DROP COLUMN` can result in data loss if one of the other schema changes fails or is canceled. To work around this, move the `DROP COLUMN` statement to its own explicit transaction or run it in a single statement outside the existing transaction.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  By default, `DROP COLUMN` drops any [indexes](indexes.html) on the column being dropped, and any indexes that reference the column, including [partial indexes](partial-indexes.html) with predicates that reference the column and indexes with [`STORING` clauses](create-index.html#store-columns) that reference the column.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
-<div>{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/drop_column.html %}</div>
+<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/drop_column.html %}</div>
 
 ## Required privileges
 
@@ -38,17 +38,17 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Drop a column
 
 If you no longer want a column in a table, you can drop it.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -66,7 +66,7 @@ If you no longer want a column in a table, you can drop it.
 
 If there is data in the table, the `sql_safe_updates` [session variable](set-vars.html) must be set to `false`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users DROP COLUMN credit_card;
 ~~~
@@ -76,17 +76,17 @@ ERROR: rejected (sql_safe_updates = true): ALTER TABLE DROP COLUMN will remove a
 SQLSTATE: 01000
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET sql_safe_updates = false;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users DROP COLUMN credit_card;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -105,12 +105,12 @@ SQLSTATE: 01000
 
 If the column has dependent objects, such as [views](views.html), CockroachDB will not drop the column by default. However, if you want to be sure of the behavior you can include the `RESTRICT` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE VIEW expensive_rides AS SELECT id, city FROM rides WHERE revenue > 90;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE rides DROP COLUMN revenue RESTRICT;
 ~~~
@@ -125,11 +125,11 @@ HINT: you can drop expensive_rides instead.
 
 If you want to drop the column and all of its dependent options, include the `CASCADE` clause.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 <code>CASCADE</code> does not list objects it drops, so should be used cautiously.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE expensive_rides;
 ~~~
@@ -141,12 +141,12 @@ If you want to drop the column and all of its dependent options, include the `CA
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE rides DROP COLUMN revenue CASCADE;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE expensive_rides;
 ~~~
@@ -160,12 +160,12 @@ SQLSTATE: 42P01
 
  `DROP COLUMN` drops a column and any indexes on the column being dropped.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX start_end_idx ON rides(start_time, end_time);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW INDEXES FROM rides] WHERE index_name='start_end_idx';
 ~~~
@@ -180,7 +180,7 @@ SQLSTATE: 42P01
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE rides DROP COLUMN start_time;
 ~~~
@@ -191,7 +191,7 @@ HINT: The reclamation delay can be customized in the zone configuration for the 
 ALTER TABLE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW INDEXES FROM rides] WHERE index_name='start_end_idx';
 ~~~

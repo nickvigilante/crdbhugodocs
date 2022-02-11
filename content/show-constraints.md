@@ -6,7 +6,7 @@ toc: true
 
 The `SHOW CONSTRAINTS` [statement](sql-statements.html) lists all named [constraints](constraints.html) as well as any unnamed Check constraints on a table.
 
-{{ site.data.alerts.callout_danger }}The <code>SHOW CONSTRAINTS</code> statement is under development; the exact output will continue to change.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}The <code>SHOW CONSTRAINTS</code> statement is under development; the exact output will continue to change.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -19,7 +19,7 @@ The user must have any [privilege](privileges.html) on the target table.
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/show_constraints.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_constraints.html" . }}
 
 ## Parameters
 
@@ -31,7 +31,7 @@ Parameter | Description
 
 The following fields are returned for each constraint. 
 
-{{ site.data.alerts.callout_danger }}The <code>SHOW CONSTRAINTS</code> statement is under development; the exact output will continue to change.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}The <code>SHOW CONSTRAINTS</code> statement is under development; the exact output will continue to change.{{site.data.alerts.end }}
 
 Field | Description
 ------|------------

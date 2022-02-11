@@ -5,7 +5,7 @@ toc: true
 ---
 The `TIME` [data type](data-types.html) stores the time of day in UTC.
 
-{%  include {{ page.version.version }}/sql/vectorized-support.md %}
+{{ partial "{{ page.version.version }}/sql/vectorized-support.md" . }}
 
 ## Aliases
 
@@ -36,12 +36,12 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE time (time_id INT PRIMARY KEY, time_val TIME);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM time;
 ~~~
@@ -56,12 +56,12 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO time VALUES (1, TIME '05:40:00'), (2, TIME '05:41:39');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM time;
 ~~~
@@ -76,11 +76,11 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}The <code>cockroach sql</code> shell displays the date and time zone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and time zone are not relevant and are not stored in the database.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>cockroach sql</code> shell displays the date and time zone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and time zone are not relevant and are not stored in the database.{{site.data.alerts.end }}
 
 Comparing `TIME` values:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT (SELECT time_val FROM time WHERE time_id = 1) < (SELECT time_val FROM time WHERE time_id = 2);
 ~~~

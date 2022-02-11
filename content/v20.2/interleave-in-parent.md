@@ -5,11 +5,11 @@ toc: true
 toc_not_nested: true
 ---
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `INTERLEAVE IN PARENT` was deprecated in CockroachDB v20.2, disabled by default in v21.1, and permanently removed in v21.2. We do not recommend interleaving tables or indexes in new clusters.
 
 For details, see [Deprecation](#deprecation).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How interleaved tables work
 
@@ -19,7 +19,7 @@ When tables are interleaved, data written to one table (known as the **child**) 
 
 For interleaved tables to have Primary Keys that can be matched, the child table must use the parent table's entire Primary Key as a prefix of its own Primary Key––these matching columns are referred to as the **interleave prefix**. It's easiest to think of these columns as representing the same data, which is usually implemented with Foreign Keys.
 
-{{ site.data.alerts.callout_success }}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{site.data.alerts.end }}
 
 For example, if you want to interleave `orders` into `customers` and the Primary Key of customers is `id`, you need to create a column representing `customers.id` as the first column in the Primary Key of `orders`&mdash;e.g., with a column called `customer`. So the data representing `customers.id` is the interleave prefix, which exists in the `orders` table as the `customer` column.
 
@@ -52,7 +52,7 @@ The entire set of these relationships is referred to as the **interleaved hierar
 ## Syntax
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/interleave.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/interleave.html" . }}
 </div>
 
 ## Parameters
@@ -82,9 +82,9 @@ After [upgrading to v20.2](upgrade-cockroach-version.html), we recommend that yo
 - [Convert any existing interleaved tables to non-interleaved tables](#convert-interleaved-tables).
 - [Replace any existing interleaved secondary indexes with non-interleaved indexes](#replace-interleaved-indexes).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Test your [schema changes](online-schema-changes.html) in a non-production environment before implementing them in production.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Convert interleaved tables
 
@@ -97,7 +97,7 @@ When converting interleaved tables with `ALTER PRIMARY KEY`, note the following:
 
 For example, suppose you created an interleaved hierarchy between the `customers`, `orders`, and `packages` tables, using the following [`CREATE TABLE`](create-table.html) statements:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE customers (
     id INT PRIMARY KEY,
@@ -105,7 +105,7 @@ For example, suppose you created an interleaved hierarchy between the `customers
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     customer INT,
@@ -116,7 +116,7 @@ For example, suppose you created an interleaved hierarchy between the `customers
   ) INTERLEAVE IN PARENT customers (customer);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE packages (
     customer INT,
@@ -132,7 +132,7 @@ For example, suppose you created an interleaved hierarchy between the `customers
 
 The `INTERLEAVE IN PARENT` clauses will appear in `SHOW CREATE` statements for the `packages` and `orders` tables:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE orders;
 ~~~
@@ -151,7 +151,7 @@ The `INTERLEAVE IN PARENT` clauses will appear in `SHOW CREATE` statements for t
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE packages;
 ~~~
@@ -175,17 +175,17 @@ The `INTERLEAVE IN PARENT` clauses will appear in `SHOW CREATE` statements for t
 
 To convert these tables to non-interleaved tables, use `ALTER PRIMARY KEY` statements, starting at the bottom of the hierarchy (i.e., with `packages`):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE packages ALTER PRIMARY KEY USING COLUMNS (customer, "order", id);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders ALTER PRIMARY KEY USING COLUMNS (customer, id);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE orders;
 ~~~
@@ -205,7 +205,7 @@ To convert these tables to non-interleaved tables, use `ALTER PRIMARY KEY` state
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE packages;
 ~~~

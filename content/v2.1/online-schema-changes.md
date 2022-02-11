@@ -13,9 +13,9 @@ Benefits of online schema changes include:
 - Your application's queries can run normally, with no effect on read/write latency. The schema is cached for performance.
 - Your data is kept in a safe, [consistent][consistent] state throughout the entire schema change process.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Support for schema changes within [transactions][txns] is [limited](#limitations). We recommend doing schema changes outside transactions where possible. When a schema management tool uses transactions on your behalf, we recommend only doing one schema change operation per transaction.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How online schema changes work
 
@@ -35,9 +35,9 @@ For more technical details, see [How online schema changes are possible in Cockr
 
 ## Examples
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more examples of schema change statements, see the [`ALTER TABLE`][alter-table] subcommands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Run schema changes inside a transaction with `CREATE TABLE`
 
@@ -45,7 +45,7 @@ As noted in [Limitations](#limitations), you cannot run schema changes inside tr
 
 However, as of version 2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
   SAVEPOINT cockroach_restart;
@@ -85,7 +85,7 @@ COMMIT
 
 You can check on the status of the schema change jobs on your system at any time using the [`SHOW JOBS`][show-jobs] statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'SCHEMA CHANGE';
 ~~~
@@ -109,17 +109,17 @@ Schema changes keep your data consistent at all times, but they do not run insid
 
 Specifically, this behavior is necessary because making schema changes transactional would mean requiring a given schema change to propagate across all the nodes of a cluster. This would block all user-initiated transactions being run by your application, since the schema change would have to commit before any other transactions could make progress. This would prevent the cluster from servicing reads and writes during the schema change, requiring application downtime.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 As of version 2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For more information, [see this example](#run-schema-changes-inside-a-transaction-with-create-table).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### No schema changes within transactions
 
-{%  include v2.1/misc/schema-changes-within-transactions.md %}
+{{ partial "v2.1/misc/schema-changes-within-transactions.md" . }}
 
 ### No schema changes between executions of prepared statements
 
-{%  include v2.1/misc/schema-changes-between-prepared-statements.md %}
+{{ partial "v2.1/misc/schema-changes-between-prepared-statements.md" . }}
 
 ### Examples of statements that fail
 
@@ -127,7 +127,7 @@ The following statements fail due to the [no schema changes within transactions]
 
 #### Create an index and then run a select against that index inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo (id INT PRIMARY KEY, name VARCHAR);
   BEGIN;
@@ -150,7 +150,7 @@ ROLLBACK
 
 #### Add a column and then add a constraint against that column inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;
@@ -173,7 +173,7 @@ ROLLBACK
 
 #### Add a column and then select against that column inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;

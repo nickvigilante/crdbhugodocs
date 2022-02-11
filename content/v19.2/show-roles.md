@@ -9,7 +9,7 @@ The `SHOW ROLES` [statement](sql-statements.html) lists the roles for all databa
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_roles.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_roles.html" . }}
 </div>
 
 ## Required privileges
@@ -18,7 +18,7 @@ The user must have the [`SELECT`](select-clause.html) [privilege](authorization.
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ROLES;
 ~~~

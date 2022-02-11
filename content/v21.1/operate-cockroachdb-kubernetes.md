@@ -6,9 +6,9 @@ toc_not_nested: true
 secure: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This article assumes you have already [deployed CockroachDB securely on a single Kubernetes cluster](deploy-cockroachdb-with-kubernetes.html). However, it's possible to configure these settings before starting CockroachDB on Kubernetes.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 You can configure, scale, and upgrade a CockroachDB deployment on Kubernetes by updating its StatefulSet values. This page describes how to:
 
@@ -46,11 +46,11 @@ You can configure, scale, and upgrade a CockroachDB deployment on Kubernetes by 
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{%  include {{  page.version.version  }}/orchestration/operator-check-namespace.md %}
+{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="operator">
@@ -59,12 +59,12 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
 Cluster parameters are configured in a `CrdbCluster` custom resource object. This tells the Operator how to configure the Kubernetes cluster. We provide a custom resource template called [`example.yaml`](https://github.com/cockroachdb/cockroach-operator/blob/master/examples/example.yaml):
 
 ~~~ yaml
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach-operator/master/examples/example.yaml|# Generated, do not edit. Please edit this file instead: config/templates/example.yaml.in\n#\n| %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach-operator/master/examples/example.yaml|# Generated, do not edit. Please edit this file instead: config/templates/example.yaml.in\n#\n| %}
 ~~~
 
 It's simplest to download and customize a local copy of the custom resource manifest. After you modify its parameters, run this command to apply the new values to the cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ kubectl apply -f example.yaml
 ~~~
@@ -85,7 +85,7 @@ Cluster parameters are configured in the StatefulSet manifest. We provide a [Sta
 
 It's simplest to download and customize a local copy of the manifest file. After you modify its parameters, run this command to apply the new values to the cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ kubectl apply -f {manifest-filename}.yaml
 ~~~
@@ -101,17 +101,17 @@ crdbcluster.crdb.cockroachlabs.com/{cluster-name} configured
 
 On a production cluster, the resources you allocate to CockroachDB should be proportionate to your machine types and workload. We recommend that you determine and set these values before deploying the cluster, but you can also update the values on a running cluster.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Run `kubectl describe nodes` to see the available resources on the instances that you have provisioned.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Memory and CPU
 
 You can set the CPU and memory resources allocated to the CockroachDB container on each pod. 
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 1 CPU in Kubernetes is equivalent to 1 vCPU or 1 hyperthread. For best practices on provisioning CPU and memory for CockroachDB, see the [Production Checklist](recommended-production-settings.html#hardware).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <section class="filter-content" markdown="1" data-scope="operator">
 Specify CPU and memory values in `resources.requests` and `resources.limits` in the custom resource:
@@ -166,7 +166,7 @@ statefulset:
 
 Apply the custom values to override the default Helm chart [values](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroachdb
 ~~~
@@ -174,9 +174,9 @@ $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroac
 
 We recommend using identical values for `resources.requests` and `resources.limits`. When setting the new values, note that not all of a pod's resources will be available to the CockroachDB container. This is because a fraction of the CPU and memory is reserved for Kubernetes. For more information on how Kubernetes handles resource requests and limits, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If no resource limits are specified, the pods will be able to consume the maximum available CPUs and memory. However, to avoid overallocating resources when another memory-intensive workload is on the same instance, always set resource requests and limits explicitly.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <section class="filter-content" markdown="1" data-scope="operator">
 ### Cache and SQL memory size
@@ -195,9 +195,9 @@ spec:
 
 Then [apply](#apply-settings) the new values to the cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Specifying these values is equivalent to using the `--cache` and `--max-sql-memory` flags with [`cockroach start`](cockroach-start.html#flags).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
 For more information on resources, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/).
@@ -270,11 +270,11 @@ To verify that the storage capacity has been updated, run `kubectl get pvc` to v
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-expand-disk-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-expand-disk-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-helm.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="operator">
@@ -284,9 +284,9 @@ By default, the Operator will generate and sign 1 client and 1 node certificate 
 
 To use your own certificate authority instead, add `clientTLSSecret` and `nodeTLSSecret` to the custom resource. These should specify the names of Kubernetes secrets that contain your generated certificates and keys. For details on creating Kubernetes secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Currently, the Operator requires that the client and node secrets each contain the filenames `tls.crt` and `tls.key`. For an example of working with this, see [Authenticating with `cockroach cert`](#example-authenticating-with-cockroach-cert).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ~~~ yaml
 spec:
@@ -302,7 +302,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Create two directories:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ mkdir certs my-safe-directory
     ~~~
@@ -314,7 +314,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Create the CA certificate and key pair:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
@@ -323,7 +323,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Create a client certificate and key pair for the root user:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -333,7 +333,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Upload the client certificate and key to the Kubernetes cluster as a secret, renaming them to the filenames required by the Operator:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.client.root \
@@ -348,7 +348,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Create the certificate and key pair for your CockroachDB nodes:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     cockroach cert create-node \
     localhost 127.0.0.1 \
@@ -364,7 +364,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Upload the node certificate and key to the Kubernetes cluster as a secret, renaming them to the filenames required by the Operator:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.node \
@@ -379,7 +379,7 @@ These steps demonstrate how certificates and keys generated by [`cockroach cert`
 
 1. Check that the secrets were created on the cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get secrets
     ~~~
@@ -416,7 +416,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Create a new client certificate and key pair for the root user, overwriting the previous certificate and key:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -427,7 +427,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Delete the existing client secret:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete secret cockroachdb.client.root
     ~~~
@@ -438,7 +438,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Upload the new client certificate and key to the Kubernetes cluster as a secret, renaming them to the filenames required by the Operator:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.client.root \
@@ -453,7 +453,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Create a new certificate and key pair for your CockroachDB nodes, overwriting the previous certificate and key:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     cockroach cert create-node \
     localhost 127.0.0.1 \
@@ -470,7 +470,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Delete the existing node secret:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl delete secret cockroachdb.node
     ~~~
@@ -481,7 +481,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Upload the new node certificate and key to the Kubernetes cluster as a secret, renaming them to the filenames required by the Operator:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.node \
@@ -496,7 +496,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Check that the secrets were created on the cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get secrets
     ~~~
@@ -508,22 +508,22 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
     default-token-6js7b       kubernetes.io/service-account-token   3      9h
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Remember that `nodeTLSSecret` and `clientTLSSecret` in the custom resource must specify these secret names. For details, see [Use a custom CA](#use-a-custom-ca).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Trigger a rolling restart of the pods by annotating the cluster (named `cockroachdb` in our [example](#apply-settings)):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl annotate {cluster-name} cockroachdb crdb.io/restarttype='rolling'
     ~~~
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     If you used a different CA to sign the new certificates, trigger a full restart of the cluster instead: `kubectl annotate {cluster-name} cockroachdb crdb.io/restarttype='fullcluster'`.
 
     **Note:** A full restart will cause a temporary database outage.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     ~~~
     crdbcluster.crdb.cockroachlabs.com/cockroachdb annotated
@@ -533,7 +533,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. You can observe this process:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -562,21 +562,21 @@ These steps demonstrate how to use the [`openssl genrsa`](https://www.openssl.or
 
 1. Generate a 4096-bit RSA private key:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     openssl genrsa -out tls.key 4096
     ~~~
 
 1. Generate an X.509 certificate, valid for 10 years. You will be prompted for the certificate field values.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     openssl req -x509 -new -nodes -key tls.key -sha256 -days 3650 -out tls.crt
     ~~~
 
 1. Create the secret, making sure that [you are in the correct namespace](deploy-cockroachdb-with-kubernetes.html#install-the-operator):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl create secret tls cockroach-operator-webhook-ca --cert=tls.crt --key=tls.key
     ~~~
@@ -587,14 +587,14 @@ These steps demonstrate how to use the [`openssl genrsa`](https://www.openssl.or
 
 1. Remove the certificate and key from your local environment:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     rm tls.crt tls.key
     ~~~
 
 1. Roll the Operator deployment to ensure a new server certificate is generated:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl rollout restart deploy/cockroach-operator-manager
     ~~~
@@ -609,13 +609,13 @@ These steps demonstrate how to use the [`openssl genrsa`](https://www.openssl.or
 
 By default on secure deployments, the Helm chart will generate and sign 1 client and 1 node certificate to secure the cluster. 
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you are running a secure Helm deployment on Kubernetes 1.22 and later, you must migrate away from using the Kubernetes CA for cluster authentication. For details, see [Migration to self-signer](#migration-to-self-signer).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To use your own certificate authority instead, specify the following in a custom [values file](deploy-cockroachdb-with-kubernetes.html?filters=helm#step-2-start-cockroachdb):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 tls:
   enabled: true
@@ -632,20 +632,20 @@ tls:
 
 Apply the custom values to override the default Helm chart [values](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroachdb
 ~~~
 
 ### Example: Authenticating with `cockroach cert`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly generate and sign the CockroachDB node and client certificates. Read our [Authentication](authentication.html#using-digital-certificates-with-cockroachdb) docs to learn about other methods of signing certificates.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Create two directories:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ mkdir certs my-safe-directory
     ~~~
@@ -657,7 +657,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Create the CA certificate and key pair:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
@@ -666,7 +666,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Create a client certificate and key pair for the root user:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -676,7 +676,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Upload the client certificate and key to the Kubernetes cluster as a secret:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.client.root \
@@ -689,7 +689,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Create the certificate and key pair for your CockroachDB nodes:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach cert create-node \
     localhost 127.0.0.1 \
@@ -703,13 +703,13 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     This example assumes that you followed our [deployment example](deploy-cockroachdb-with-kubernetes.html?filters=helm), which uses `my-release` as the release name. If you used a different value, be sure to adjust the release name in this command.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Upload the node certificate and key to the Kubernetes cluster as a secret:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.node \
@@ -722,7 +722,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Check that the secrets were created on the cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get secrets
     ~~~
@@ -736,7 +736,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Specify the following in a custom [values file](deploy-cockroachdb-with-kubernetes.html?filters=helm#step-2-start-cockroachdb), using the generated secret names:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~
     tls:
       enabled: true
@@ -748,7 +748,7 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
 
 1. Apply the custom values to override the default Helm chart [values](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroachdb
     ~~~
@@ -770,7 +770,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Upload the CA certificate that you previously created to the Kubernetes cluster as a secret:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create secret \
     generic cockroachdb.ca \
@@ -783,7 +783,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Specify the following in a custom [values file](deploy-cockroachdb-with-kubernetes.html?filters=helm#step-2-start-cockroachdb), using the generated secret name:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ yaml
     selfSigner:
       enabled: true
@@ -792,13 +792,13 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
       rotateCerts: true
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     `selfSigner.enabled` and `selfSigner.rotateCerts` are `true` by default in the Helm chart [values](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Customize the following `selfSigner` fields to set the frequency of certificate rotation. These should correspond to the durations of the CA, client, and node certificates.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ yaml
     selfSigner:
       minimumCertDuration: 624h
@@ -822,7 +822,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
     Certificate duration is configured when running [`cockroach cert`](cockroach-cert.html#general). You can check the expiration dates of the `cockroach cert` certificates by running:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     cockroach cert list --certs-dir=certs
     ~~~
@@ -838,7 +838,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
 
 1. Apply the custom values to override the default Helm chart [values](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroachdb
     ~~~
@@ -853,14 +853,14 @@ To migrate your Helm deployment to use the self-signer:
 
 1. Set the cluster's upgrade strategy to `OnDelete`, which specifies that only pods deleted by the user will be upgraded.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     helm upgrade {release-name} cockroachdb/cockroachdb --set statefulset.updateStrategy.type="OnDelete"
     ~~~
 
 1. Confirm that the `init` pod has been created:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -875,7 +875,7 @@ To migrate your Helm deployment to use the self-signer:
 
 1. Delete the cluster pods to start the upgrade process.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl delete pods -l app.kubernetes.io/component=cockroachdb
     ~~~
@@ -888,7 +888,7 @@ To migrate your Helm deployment to use the self-signer:
 
     All pods will be restarted with new certificates generated by the self-signer. Note that this is not a rolling upgrade, so the cluster will experience some downtime. You can monitor this process:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -921,9 +921,9 @@ spec:
 
 Then [apply](#apply-settings) the new values to the cluster. The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new port settings. 
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Currently, only the pods are updated with new ports. To connect to the cluster, you need to ensure that the `public` service is also updated to use the new port. You can do this by deleting the service with `kubectl delete service {cluster-name}-public`. When service is recreated by the Operator, it will use the new port. This is a known limitation that will be fixed in an Operator update.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
 ## Scale the cluster
@@ -942,7 +942,7 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
 1. If you need to add worker nodes, resize your GKE cluster by specifying the desired number of worker nodes in each zone:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     gcloud container clusters resize {cluster-name} --region {region-name} --num-nodes 2
     ~~~
@@ -951,13 +951,13 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. If you are adding nodes after previously [scaling down](#remove-nodes), and have not enabled [automatic PVC pruning](#automatic-pvc-pruning), you must first manually delete any persistent volumes that were orphaned by node removal.
 
-        {{ site.data.alerts.callout_info }}
+        {{site.data.alerts.callout_info }}
         Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod. 
-        {{ site.data.alerts.end }}
+        {{site.data.alerts.end }}
 
         View the PVCs on the cluster:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         kubectl get pvc
         ~~~
@@ -974,7 +974,7 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. The PVC names correspond to the pods they are bound to. For example, if the pods `cockroachdb-3`, `cockroachdb-4`, and `cockroachdb-5` had been removed by [scaling the cluster down](#remove-nodes) from 6 to 3 nodes, `datadir-cockroachdb-3`, `datadir-cockroachdb-4`, and `datadir-cockroachdb-5` would be the PVCs for the orphaned persistent volumes. To verify that a PVC is not currently bound to a pod:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         kubectl describe pvc datadir-cockroachdb-5
         ~~~
@@ -989,11 +989,11 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. Remove the orphaned persistent volumes by deleting their PVCs:
 
-        {{ site.data.alerts.callout_danger }}
+        {{site.data.alerts.callout_danger }}
         Before deleting any persistent volumes, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-        {{ site.data.alerts.end }}
+        {{site.data.alerts.end }}
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         kubectl delete pvc datadir-cockroachdb-3 datadir-cockroachdb-4 datadir-cockroachdb-5
         ~~~
@@ -1010,15 +1010,15 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
     nodes: 6
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Note that you must scale by updating the `nodes` value in the custom resource. Using `kubectl scale statefulset <cluster-name> --replicas=4` will result in new pods immediately being terminated.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. [Apply](#apply-settings) the new value.
 
 1. Verify that the new pods were successfully started:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl get pods
     ~~~
@@ -1038,29 +1038,29 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster-helm.md" . }}
 </section>
 
 ### Remove nodes
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Do **not** scale down to fewer than 3 nodes. This is considered an anti-pattern on CockroachDB and will cause errors.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod. 
 
 If you plan to eventually [scale up](#add-nodes) the cluster after scaling down, you will need to manually delete any PVCs that were orphaned by node removal before scaling up. For more information, see [Add nodes](#add-nodes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to enable the Operator to automatically prune PVCs when scaling down, see [Automatic PVC pruning](#automatic-pvc-pruning). However, note that this workflow is currently unsupported.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Before scaling down CockroachDB, note the following [topology recommendation](recommended-production-settings.html#topology):
 
@@ -1074,9 +1074,9 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
     nodes: 3
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Before removing a node, the Operator first decommissions the node. This lets a node finish in-flight requests, rejects any new requests, and transfers all range replicas and range leases off the node.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. [Apply](#apply-settings) the new value.
 
@@ -1084,7 +1084,7 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
     
 1. Verify that the pods were successfully removed:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     kubectl get pods
     ~~~
@@ -1101,15 +1101,15 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
 
 To enable the Operator to automatically remove persistent volumes when [scaling down](#remove-nodes) a cluster, turn on automatic PVC pruning through a feature gate.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 This workflow is unsupported and should be enabled at your own risk.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Download the Operator manifest:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{ site.operator_version }}/install/operator.yaml
+    $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
     ~~~
 
 1. Uncomment the following lines in the Operator manifest:
@@ -1121,14 +1121,14 @@ This workflow is unsupported and should be enabled at your own risk.
 
 1. Reapply the Operator manifest:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl apply -f operator.yaml
     ~~~
 
 1. Validate that the Operator is running:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -1141,11 +1141,11 @@ This workflow is unsupported and should be enabled at your own risk.
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-remove-nodes-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-remove-nodes-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-helm.md" . }}
 </section>
 
 ## Upgrade the cluster
@@ -1185,19 +1185,19 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 
 1. [Apply](#apply-settings) the new value. The Operator will perform the staged update.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The Operator automatically sets the `cluster.preserve_downgrade_option` [cluster setting](cluster-settings.html) to the version you are upgrading from. This disables auto-finalization of the upgrade so that you can monitor the stability and performance of the upgraded cluster before manually finalizing the upgrade. This will enable certain [features and performance improvements introduced in v21.1](upgrade-cockroach-version.html#features-that-require-upgrade-finalization).
 
     Note that after finalization, it will no longer be possible to perform a downgrade to v20.2. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from a [backup](take-full-and-incremental-backups.html) created prior to performing the upgrade.
 
     Finalization only applies when performing a major version upgrade (for example, from v20.2.x to v21.1). Patch version upgrades (for example, within the v21.1.x series) can always be downgraded.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. To check the status of the rolling upgrade, run `kubectl get pods`. The pods are restarted one at a time with the new image.
 
 1. Verify that all pods have been upgraded by running:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods \
     -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}'
@@ -1209,15 +1209,15 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 
     If you decide to roll back the upgrade, revert the image name in the custom resource and apply the new value.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     This is only possible when performing a major version upgrade (for example, from v20.2.x to v21.1). Patch version upgrades (for example, within the v21.1.x series) are auto-finalized.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     To finalize the upgrade, re-enable auto-finalization:
 
     1. Start the CockroachDB [built-in SQL client](cockroach-sql.html). For example, if you followed the steps in [Deploy CockroachDB with Kubernetes](deploy-cockroachdb-with-kubernetes.html#step-3-use-the-built-in-sql-client) to launch a secure client pod, get a shell into the `cockroachdb-client-secure` pod:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         $ kubectl exec -it cockroachdb-client-secure \-- ./cockroach sql \
         --certs-dir=/cockroach/cockroach-certs \
@@ -1226,14 +1226,14 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 
     1. Re-enable auto-finalization:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ sql
         > RESET CLUSTER SETTING cluster.preserve_downgrade_option;
         ~~~
 
     1. Exit the SQL shell and pod:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ sql
         > \q
         ~~~
@@ -1241,15 +1241,15 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-helm.md" . }}
 </section>
 
 ## See also
 
 - [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

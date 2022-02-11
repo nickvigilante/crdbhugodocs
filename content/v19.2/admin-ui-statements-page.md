@@ -3,15 +3,15 @@ title: Statements Page
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 On a secure cluster, this area of the Admin UI can only be accessed by an `admin` user. See [Admin UI access](admin-ui-overview.html#admin-ui-access).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The **Statements** page helps you identify frequently executed or high latency [SQL statements](sql-statements.html). The **Statements** page also allows you to view the details of an individual SQL statement by clicking on the statement to view the **Statement Details** page.
 
 To view the **Statements** page, [access the Admin UI](admin-ui-access-and-navigate.html#access-the-admin-ui) and then click **Statements** on the left.
 
-<img src="{{  'images/v19.2/admin-ui-statements-page.png' | relative_url  }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/admin-ui-statements-page.png' | relative_url }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 ## Limitation
 
@@ -67,7 +67,7 @@ Latency | The average service latency of the SQL statement (or multiple statemen
 
 The **Statement Details** page displays the logical plan as well as the details of the time, execution count, retries, rows returned, and latency by phase and by gateway node for the selected statement fingerprint.
 
-<img src="{{  'images/v19.2/admin_ui_statements_details_page.png' | relative_url  }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/admin_ui_statements_details_page.png' | relative_url }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 ### Logical plan
 
@@ -75,7 +75,7 @@ The **Logical Plan** section displays CockroachDB's query plan for an [explainab
 
 By default, the logical plan for each fingerprint is sampled every 5 minutes. You can use the `sql.metrics.statement_details.plan_collection.period` [cluster setting](cluster-settings.html) to change this time interval. For example, to change the interval to 2 minutes, run the following [`SET CLUSTER SETTING`](set-cluster-setting.html) command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.metrics.statement_details.plan_collection.period  = '2m0s';
 ~~~

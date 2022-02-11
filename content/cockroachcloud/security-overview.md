@@ -5,11 +5,11 @@ toc: true
 docs_area: manage
 ---
 
-A {{  site.data.products.dedicated  }} cluster is single-tenant (no shared machines) running in a Virtual Private Cloud (no shared network) and has data encryption-in-flight enabled by default. Additionally, {{  site.data.products.dedicated  }} provides authentication, authorization, and SQL audit logging features to secure your clusters.
+A {{ site.data.products.dedicated }} cluster is single-tenant (no shared machines) running in a Virtual Private Cloud (no shared network) and has data encryption-in-flight enabled by default. Additionally, {{ site.data.products.dedicated }} provides authentication, authorization, and SQL audit logging features to secure your clusters.
 
-{{  site.data.products.serverless  }} provides multi-tenant clusters running on GCP or AWS machines. They have similar encryption, authentication, and user authorization capabilities to {{  site.data.products.dedicated  }}, but machines and networks are shared.
+{{ site.data.products.serverless }} provides multi-tenant clusters running on GCP or AWS machines. They have similar encryption, authentication, and user authorization capabilities to {{ site.data.products.dedicated }}, but machines and networks are shared.
 
-The following table summarizes the {{  site.data.products.db  }} security features and provides links to detailed documentation for each feature where applicable.
+The following table summarizes the {{ site.data.products.db }} security features and provides links to detailed documentation for each feature where applicable.
 
 <table>
   <tr>
@@ -59,7 +59,7 @@ The following table summarizes the {{  site.data.products.db  }} security featur
  <tr>
   <td>✓</td>
   <td>✓</td>
-  <td>All data on {{  site.data.products.db  }} is encrypted-at-rest using the tools provided by the cloud provider that your cluster is running in (i.e., <a href="https://cloud.google.com/compute/docs/disks#pd_encryption">persistent disk encryption</a> for GCP and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">EBS encryption-at-rest</a> for AWS). Because we are relying on the cloud provider's encryption implementation, we do not enable CockroachDB's <a href="../{{ site.versions["stable"] }}/encryption.html#encryption-at-rest-enterprise">internal implementation of encryption-at-rest</a>. This means that encryption will appear to be disabled in the <a href="../{{ site.versions["stable"] }}/ui-overview.html">DB Console</a>, since it is unaware of cloud provider encryption.</td>
+  <td>All data on {{ site.data.products.db }} is encrypted-at-rest using the tools provided by the cloud provider that your cluster is running in (i.e., <a href="https://cloud.google.com/compute/docs/disks#pd_encryption">persistent disk encryption</a> for GCP and <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSEncryption.html">EBS encryption-at-rest</a> for AWS). Because we are relying on the cloud provider's encryption implementation, we do not enable CockroachDB's <a href="../{{site.versions["stable"] }}/encryption.html#encryption-at-rest-enterprise">internal implementation of encryption-at-rest</a>. This means that encryption will appear to be disabled in the <a href="../{{site.versions["stable"] }}/ui-overview.html">DB Console</a>, since it is unaware of cloud provider encryption.</td>
  </tr>
  <tr>
    <td rowspan="2" ><a href="user-authorization.html">User Authorization</a></td>
@@ -84,7 +84,7 @@ The following table summarizes the {{  site.data.products.db  }} security featur
   <td><a href="network-authorization.html">VPC Peering</a> for GCP clusters and <a href="network-authorization.html">AWS PrivateLink</a> for AWS clusters </td>
  </tr>
  <tr>
-   <td><a href="../{{ site.versions["stable"] }}/cluster-api.html">Cluster API</a></td>
+   <td><a href="../{{site.versions["stable"] }}/cluster-api.html">Cluster API</a></td>
    <td>&nbsp;</td>
    <td>✓</td>
    <td>HTTP API access using login tokens</td>

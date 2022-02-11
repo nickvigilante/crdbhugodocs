@@ -14,7 +14,7 @@ For non-retryable transactions, if statements in the transaction [generated any 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/commit_transaction.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/commit_transaction.html" . }}
 </div>
 
 ## Required privileges
@@ -35,43 +35,43 @@ How you commit transactions depends on how your application handles [transaction
 
 When using [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), statements are committed by [`RELEASE SAVEPOINT`](release-savepoint.html). `COMMIT` itself only clears the connection for the next transaction.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SAVEPOINT cockroach_restart;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE products SET inventory = 0 WHERE sku = '8675309';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO orders (customer, sku, status) VALUES (1001, '8675309', 'new');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RELEASE SAVEPOINT cockroach_restart;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > COMMIT;
 ~~~
 
-{{ site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
 
 #### Automatically retried transactions
 
 If you are using transactions that CockroachDB will [automatically retry](transactions.html#automatic-retries) (i.e., all statements sent in a single batch), commit the transaction with `COMMIT`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN; UPDATE products SET inventory = 100 WHERE = '8675309'; UPDATE products SET inventory = 100 WHERE = '8675310'; COMMIT;
 ~~~

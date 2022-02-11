@@ -18,7 +18,7 @@ The `root` user can cancel any currently active queries, whereas non-`root` user
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/cancel_query.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/cancel_query.html" . }}
 
 ## Parameters
 
@@ -68,7 +68,7 @@ In this example, we nest a [`SELECT`](select.html) statement that retrieves the 
           AND query = 'SELECT * FROM test.kv ORDER BY k');
 ~~~
 
-{{ site.data.alerts.callout_info }}<code>CANCEL QUERY</code> accepts a single query ID. If a nested <code>SELECT</code> statement returns multiple IDs, the <code>CANCEL QUERY</code> statement will therefore fail.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>CANCEL QUERY</code> accepts a single query ID. If a nested <code>SELECT</code> statement returns multiple IDs, the <code>CANCEL QUERY</code> statement will therefore fail.{{site.data.alerts.end }}
 
 ## See Also
 

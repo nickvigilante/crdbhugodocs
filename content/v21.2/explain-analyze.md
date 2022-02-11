@@ -7,9 +7,9 @@ docs_area: reference.sql
 
 The `EXPLAIN ANALYZE` [statement](sql-statements.html) **executes a SQL query** and generates a statement plan with execution statistics. The `(DEBUG)` option generates a URL to download a bundle with more details about the statement plan for advanced debugging. Statement plans provide information around SQL execution, which can be used to troubleshoot slow queries by figuring out where time is being spent, how long a processor (i.e., a component that takes streams of input rows and processes them according to a specification) is not doing work, etc. For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/sql/physical-plan-url.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }}
+{{site.data.alerts.end }}
 
 ## Aliases
 
@@ -19,7 +19,7 @@ In CockroachDB, the following are aliases for `EXPLAIN ANALYZE`:
 
 ## Synopsis
 
-<div>{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/explain_analyze.html %}</div>
+<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/explain_analyze.html %}</div>
 
 ## Parameters
 
@@ -45,7 +45,7 @@ Successful `EXPLAIN ANALYZE` statements return tables with the following details
 Node details | The properties, columns, and ordering details for the current statement plan node in the tree.
 Time | The time details for the statement. The total time is the planning and execution time of the statement. The execution time is the time it took for the final statement plan to complete. The network time is the amount of time it took to distribute the statement across the relevant nodes in the cluster. Some statements do not need to be distributed, so the network time is 0ms.
 
-If you use the [`DISTSQL` option](#distsql-option), the statement will also return a URL generated for a physical statement plan that provides high level information about how a statement will be executed. {%  include {{  page.version.version  }}/sql/physical-plan-url.md %} For details about reading the physical statement plan, see [DistSQL plan diagram](#distsql-plan-diagram).
+If you use the [`DISTSQL` option](#distsql-option), the statement will also return a URL generated for a physical statement plan that provides high level information about how a statement will be executed. {{ partial "{{ page.version.version }}/sql/physical-plan-url.md" . }} For details about reading the physical statement plan, see [DistSQL plan diagram](#distsql-plan-diagram).
 
 If you use the [`DEBUG` option](#debug-option), the statement will return a single `text` column with a URL and instructions to download the `DEBUG` bundle, which includes the physical statement plan.
 
@@ -87,9 +87,9 @@ By default, `EXPLAIN ANALYZE` uses the `PLAN` option. `EXPLAIN ANALYZE` and `EXP
 
 `EXPLAIN ANALYZE (DISTSQL)` generates a physical statement in the [plan diagram](#distsql-plan-diagram). The DistSQL plan diagram displays the physical statement plan, as well as execution statistics. The statistics listed depend on the query type and the [execution engine used](vectorized-execution.html). If the query contains subqueries or post-queries there will be multiple diagrams.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can use `EXPLAIN ANALYZE (DISTSQL)` only as the top-level statement in a query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### DistSQL plan diagram
 
@@ -153,11 +153,11 @@ File                | Description
 
 You can obtain this ZIP file by following the link provided in the `EXPLAIN ANALYZE (DEBUG)` output, or by activating [statement diagnostics](ui-statements-page.html#diagnostics) in the DB Console.
 
-{%  include common/sql/statement-bundle-warning.md %}
+{{ partial "common/sql/statement-bundle-warning.md" . }}
 
 ## Examples
 
-To run the examples, initialize a demo cluster with the MovR workload. {%  include {{  page.version.version  }}/demo_movr.md %}
+To run the examples, initialize a demo cluster with the MovR workload. {{ partial "{{ page.version.version }}/demo_movr.md" . }}
 
 ### `EXPLAIN ANALYZE`
 
@@ -165,7 +165,7 @@ Use `EXPLAIN ANALYZE` without an option, or equivalently with the `PLAN` option,
 
 For example, the following `EXPLAIN ANALYZE` statement executes a simple query against the [MovR database](movr.html) and then displays the physical statement plan with execution statistics:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE SELECT city, AVG(revenue) FROM rides GROUP BY city;
 ~~~
@@ -210,7 +210,7 @@ Time: 694ms total (execution 694ms / network 0ms)
 
 Use `EXPLAIN ANALYZE (DISTSQL)` to execute a query, display the physical statement plan with execution statistics, and generate a link to a graphical DistSQL statement plan.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 EXPLAIN ANALYZE (DISTSQL) SELECT city, AVG(revenue) FROM rides GROUP BY city;
 ~~~
@@ -261,7 +261,7 @@ To view the [DistSQL plan diagram](#distsql-plan-diagram), open the URL followin
 
 Use the [`DEBUG`](#debug-option) option to generate a ZIP file containing files with information about the query and the database objects referenced in the query. For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE (DEBUG) SELECT city, AVG(revenue) FROM rides GROUP BY city;
 ~~~
@@ -273,7 +273,7 @@ Use the [`DEBUG`](#debug-option) option to generate a ZIP file containing files 
   Debug -> Statement Diagnostics History), using the direct link, or using
   the SQL shell or command line.
   Admin UI: http://127.0.0.1:8080
-  Direct link: http://127.0.0.1:8080/_admin/v1/stmtbundle/727822547420741633 (Not available for {{  site.data.products.serverless  }} clusters.)
+  Direct link: http://127.0.0.1:8080/_admin/v1/stmtbundle/727822547420741633 (Not available for {{ site.data.products.serverless }} clusters.)
   SQL shell: \statement-diag download 727822547420741633
   Command line: cockroach statement-diag download 727822547420741633
 (6 rows)

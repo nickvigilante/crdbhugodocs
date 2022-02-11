@@ -14,7 +14,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 Use the [`cockroach start`](start-a-node.html) command to start 3 nodes:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 1:
 $ cockroach start \
@@ -25,7 +25,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 2:
 $ cockroach start \
@@ -36,7 +36,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 3:
 $ cockroach start \
@@ -51,7 +51,7 @@ $ cockroach start \
 
 In a new terminal, use the [`cockroach init`](initialize-a-cluster.html) command to perform a one-time initialization of the cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init \
 --insecure \
@@ -62,12 +62,12 @@ $ cockroach init \
 
 In a new terminal, connect the [built-in SQL shell](use-the-built-in-sql-client.html) to any node to verify that the cluster is live:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --host=localhost:26257
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -83,7 +83,7 @@ $ cockroach sql --insecure --host=localhost:26257
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -94,7 +94,7 @@ CockroachDB comes with [built-in load generators](cockroach-workload.html) for s
 
 1. Load the initial schema and data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init tpcc \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -102,7 +102,7 @@ CockroachDB comes with [built-in load generators](cockroach-workload.html) for s
 
 2. The initial data is enough for the purpose of this tutorial, but you can run the workload for as long as you like to increase the data size, adjusting the `--duration` flag as appropriate:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run tpcc \
     --duration=30s \
@@ -115,13 +115,13 @@ CockroachDB comes with [built-in load generators](cockroach-workload.html) for s
 
 Open the Admin UI at <a href="http://localhost:8080" data-proofer-ignore>http://localhost:8080</a> and you’ll see the replica count increase as the `tpcc` workload writes data.
 
-<img src="{{  'images/v2.1/scalability1.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/scalability1.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 6. Add 2 more nodes
 
 Adding capacity is as simple as starting more nodes and joining them to the running cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 4:
 $ cockroach start \
@@ -132,7 +132,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 5:
 $ cockroach start \
@@ -147,23 +147,23 @@ $ cockroach start \
 
 Back in the Admin UI, you'll now see 5 nodes listed. At first, the replica count will be lower for nodes 4 and 5. Very soon, however, you'll see those numbers even out across all nodes, indicating that data is being automatically rebalanced to utilize the additional capacity of the new nodes.
 
-<img src="{{  'images/v2.1/scalability2.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/scalability2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 After scaling to 5 nodes, the Admin UI will call out a number of under-replicated ranges. This is due to the cluster preferring 5 replicas for important [internal system data](configure-replication-zones.html#for-system-data) by default. When the cluster is less than 5 nodes, this preference is ignored in reporting, but as soon as there are more than 3 nodes, the cluster recognizes this preference and reports the under-replicated state in the UI. As those ranges are up-replicated, the under-replicated range count will decrease to 0.  
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 8.  Stop the cluster
 
 Once you're done with your test cluster, stop each node by switching to its terminal and pressing **CTRL-C**.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press **CTRL-C** a second time.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf scale-node1 scale-node2 scale-node3 scale-node4 scale-node5
 ~~~
@@ -172,4 +172,4 @@ $ rm -rf scale-node1 scale-node2 scale-node3 scale-node4 scale-node5
 
 Explore other core CockroachDB benefits and features:
 
-{%  include {{  page.version.version  }}/misc/explore-benefits-see-also.md %}
+{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}

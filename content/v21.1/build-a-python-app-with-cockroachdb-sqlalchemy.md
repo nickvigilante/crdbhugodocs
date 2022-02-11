@@ -14,19 +14,19 @@ referral_id: docs_hello_world_python_sqlalchemy
     <a href="http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#cockroach-database"><button class="filter-button page-level"><strong>peewee</strong></button></a>
 </div>
 
-{%  include cockroach_u_pydev.md %}
+{{ partial "cockroach_u_pydev.md" . }}
 
 This tutorial shows you how build a simple CRUD Python application with CockroachDB and the [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) ORM.
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/example-app-python-sqlalchemy/
 ~~~
@@ -43,30 +43,30 @@ The project has the following directory structure:
 
 The `requirements.txt` file includes the required libraries to connect to CockroachDB with SQLAlchemy, including the [`sqlalchemy-cockroachdb` Python package](https://github.com/cockroachdb/sqlalchemy-cockroachdb), which accounts for some differences between CockroachDB and PostgreSQL:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/requirements.txt %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/requirements.txt %}
 ~~~
 
 The `dbinit.sql` file initializes the database schema that the application uses:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/dbinit.sql %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/dbinit.sql %}
 ~~~
 
 The `models.py` uses SQLAlchemy to map the `Accounts` table to a Python object:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/models.py %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/models.py %}
 ~~~
 
 The `main.py` uses SQLAlchemy to map Python methods to SQL operations:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/main.py %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-sqlalchemy/master/main.py %}
 ~~~
 
 `main.py` also executes the `main` method of the program.
@@ -75,32 +75,32 @@ The `main.py` uses SQLAlchemy to map Python methods to SQL operations:
 
 1. At the top level of the app's project directory, create and then activate a virtual environment:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ virtualenv env
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ source env/bin/activate
     ~~~
 
 1. Install the required modules to the virtual environment:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ pip install -r requirements.txt
     ~~~
 
 ## Step 4. Initialize the database
 
-{%  include {{  page.version.version  }}/app/init-bank-sample.md %}
+{{ partial "{{ page.version.version }}/app/init-bank-sample.md" . }}
 
 ## Step 5. Run the code
 
 To run the app, pass the connection string for your cluster to `main.py`:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ python3 main.py '<connection_string>'
 ~~~
@@ -113,9 +113,9 @@ Where `<connection_string>` is the `sql` connection URL provided in the cluster'
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-Where `<connection_string>` is the connection string provided in the **Connection info** window of the {{  site.data.products.db  }} Console.
+Where `<connection_string>` is the connection string provided in the **Connection info** window of the {{ site.data.products.db }} Console.
 
-Note that you need to provide a SQL user password in order to securely connect to a {{  site.data.products.db  }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
+Note that you need to provide a SQL user password in order to securely connect to a {{ site.data.products.db }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
 
 </section>
 
@@ -147,7 +147,7 @@ Deleted account e4f33c55-7230-4080-b5ac-5dde8a7ae41d.
 
 In a SQL shell connected to the cluster, you can verify that the rows were inserted, updated, and deleted successfully:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT COUNT(*) FROM bank.accounts;
 ~~~
@@ -195,7 +195,7 @@ If you see an error message like `transaction is too large to complete; try spli
 Instead, we recommend breaking your transaction into smaller units of work (or "chunks"). A pattern that works for inserting large numbers of objects using `run_transaction` to handle retries automatically for you is shown below.
 
 ~~~ python
-{%  include {{ page.version.version }}/app/python/sqlalchemy/sqlalchemy-large-txns.py %}
+{{ partial "{{ page.version.version }}/app/python/sqlalchemy/sqlalchemy-large-txns.py" . }}
 ~~~
 
 ### Use `IMPORT` to read in large data sets
@@ -222,7 +222,7 @@ SQLAlchemy relies on the existence of [foreign keys](foreign-key.html) to genera
 - The [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) docs
 - [Transactions](transactions.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
 
 <!-- Reference Links -->
 

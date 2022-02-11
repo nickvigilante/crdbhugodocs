@@ -6,7 +6,7 @@ toc: true
 
 This page helps with general troubleshooting steps that apply to many different scenarios, such as not being able to connect to a node.
 
-{{ site.data.alerts.callout_info }}If you cannot find what you're looking for, we also have more detailed <a href="troubleshooting-overview.html">troubleshooting steps for specific issues</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If you cannot find what you're looking for, we also have more detailed <a href="troubleshooting-overview.html">troubleshooting steps for specific issues</a>.{{site.data.alerts.end }}
 
 
 ## Common Troubleshooting Steps

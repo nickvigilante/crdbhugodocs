@@ -10,28 +10,28 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{%  include filter-tabs.md %}
+{{ partial "filter-tabs.md" . }}
 
 This tutorial shows you how build a simple Hello World Go application with CockroachDB and the [Go pgx driver](https://pkg.go.dev/github.com/jackc/pgx).
 
 ## Step 1. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-go-pgx/
 ~~~
 
 The `main.go` file contains all of the code for the sample Hello World app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ go
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-go-pgx/main/main.go %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-go-pgx/main/main.go %}
 ~~~
 
 The `main` method of this program does the following:
@@ -43,12 +43,12 @@ The `main` method of this program does the following:
 
 Initialize and run the app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ go mod init basic-sample && go mod tidy
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ go run main.go
 ~~~
@@ -67,11 +67,11 @@ Enter `postgresql://root@localhost:26257?sslmode=disable` (the `sql` connection 
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-Enter the connection string provided in the **Connection info** window of the {{  site.data.products.db  }} Console.
+Enter the connection string provided in the **Connection info** window of the {{ site.data.products.db }} Console.
 
-{{ site.data.alerts.callout_info }}
-You need to provide a SQL user password in order to securely connect to a {{  site.data.products.db  }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+You need to provide a SQL user password in order to securely connect to a {{ site.data.products.db }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
+{{site.data.alerts.end }}
 
 </section>
 
@@ -90,4 +90,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [pgx](https://pkg.go.dev/github.com/jackc/pgx) docs
 - [Transactions](transactions.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

@@ -7,7 +7,7 @@ toc_not_nested: true
 
 Interleaving tables improves query performance by optimizing the key-value structure of closely related tables, attempting to keep data on the same [key-value range](frequently-asked-questions.html#how-does-cockroachdb-scale) if it's likely to be read and written together.
 
-{{ site.data.alerts.callout_info }}Interleaving tables does not affect their behavior within SQL.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Interleaving tables does not affect their behavior within SQL.{{site.data.alerts.end }}
 
 
 ## How interleaved tables work
@@ -18,7 +18,7 @@ When tables are interleaved, data written to one table (known as the **child**) 
 
 For interleaved tables to have Primary Keys that can be matched, the child table must use the parent table's entire Primary Key as a prefix of its own Primary Key––these matching columns are referred to as the **interleave prefix**. It's easiest to think of these columns as representing the same data, which is usually implemented with Foreign Keys.
 
-{{ site.data.alerts.callout_success }}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{site.data.alerts.end }}
 
 For example, if you want to interleave `orders` into `customers` and the Primary Key of customers is `id`, you need to create a column representing `customers.id` as the first column in the Primary Key of `orders`&mdash;e.g., with a column called `customer`. So the data representing `customers.id` is the interleave prefix, which exists in the `orders` table as the `customer` column.
 
@@ -44,7 +44,7 @@ By writing data in this way, related data is more likely to remain on the same k
 
 ## When to interleave tables
 
-{%  include {{  page.version.version  }}/faq/when-to-interleave-tables.html %}
+{{ partial "{{ page.version.version }}/faq/when-to-interleave-tables.html" . }}
 
 ### Interleaved hierarchy
 
@@ -91,7 +91,7 @@ For an example showing how to create tables that meet these criteria, see [Inter
 ## Syntax
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/interleave.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/interleave.html" . }}
 </div>
 
 ## Parameters
@@ -110,7 +110,7 @@ For an example showing how to create tables that meet these criteria, see [Inter
 
     For example, if the parent table's primary key is `(a INT, b STRING)`, the child table's primary key could be `(a INT, b STRING, c DECIMAL)`.
 
-    {{ site.data.alerts.callout_info }}This requirement is enforced only by ensuring that the columns use the same data types. However, we recommend ensuring the columns refer to the same values by using the  <a href="foreign-key.html">Foreign Key constraint</a>.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}This requirement is enforced only by ensuring that the columns use the same data types. However, we recommend ensuring the columns refer to the same values by using the  <a href="foreign-key.html">Foreign Key constraint</a>.{{site.data.alerts.end }}
 
 - Interleaved tables cannot be the child of more than 1 parent table. However, each parent table can have many children tables. Children tables can also be parents of interleaved tables.
 
@@ -130,7 +130,7 @@ For an example showing how to create tables that meet these criteria, see [Inter
 
 This example creates an interleaved hierarchy between `customers`, `orders`, and `packages`, as well as the appropriate Foreign Key constraints. You can see that each child table uses its parent table's Primary Key as a prefix of its own Primary Key (the **interleave prefix**).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE customers (
     id INT PRIMARY KEY,
@@ -138,7 +138,7 @@ This example creates an interleaved hierarchy between `customers`, `orders`, and
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     customer INT,
@@ -149,7 +149,7 @@ This example creates an interleaved hierarchy between `customers`, `orders`, and
   ) INTERLEAVE IN PARENT customers (customer);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE packages (
     customer INT,
@@ -167,12 +167,12 @@ This example creates an interleaved hierarchy between `customers`, `orders`, and
 
 This example shows how to create interleaved tables that enable our SQL engine to use a code path optimized to run much faster when deleting rows from these tables.  For more information about the criteria for enabling this optimization, see [fast path deletes](#fast-path-deletes) above.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE items (id INT PRIMARY KEY);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS bundles (
     id INT,
@@ -183,7 +183,7 @@ This example shows how to create interleaved tables that enable our SQL engine t
   INTERLEAVE IN PARENT items (item_id);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS suppliers (
     id INT,
@@ -194,7 +194,7 @@ This example shows how to create interleaved tables that enable our SQL engine t
   INTERLEAVE IN PARENT items (item_id);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS orders (
     id INT,
@@ -208,7 +208,7 @@ This example shows how to create interleaved tables that enable our SQL engine t
 
 The following statement will delete some rows from the `parent` table, very quickly:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM items WHERE id <= 5;
 ~~~
@@ -217,14 +217,14 @@ The following statement will delete some rows from the `parent` table, very quic
 
 It can be easier to understand what interleaving tables does by seeing what it looks like in the key-value store. For example, using the above example of interleaving `orders` in `customers`, we could insert the following values:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO customers (id, name) VALUES
     (1, 'Ha-Yun'),
     (2, 'Emanuela');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO orders (customer, id, total) VALUES
     (1, 1000, 100.00),
@@ -246,7 +246,7 @@ Using an illustrative format of the key-value store (keys are on the left; value
 
 You'll notice that `customers.id` and `orders.customer` are written into the same position in the key-value store. This is how CockroachDB relates the two table's data for the interleaved structure. By storing data this way, accessing any of the `orders` data alongside the `customers` is much faster.
 
-{{ site.data.alerts.callout_info }}If we didn't set Foreign Key constraints between <code>customers.id</code> and <code>orders.customer</code> and inserted <code>orders.customer = 3</code>, the data would still get written into the key-value in the expected location next to the <code>customers</code> table identifier, but <code>SELECT * FROM customers WHERE id = 3</code> would not return any values.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If we didn't set Foreign Key constraints between <code>customers.id</code> and <code>orders.customer</code> and inserted <code>orders.customer = 3</code>, the data would still get written into the key-value in the expected location next to the <code>customers</code> table identifier, but <code>SELECT * FROM customers WHERE id = 3</code> would not return any values.{{site.data.alerts.end }}
 
 To better understand how CockroachDB writes key-value data, see our blog post [Mapping Table Data to Key-Value Storage](https://www.cockroachlabs.com/blog/sql-in-cockroachdb-mapping-table-data-to-key-value-storage/).
 

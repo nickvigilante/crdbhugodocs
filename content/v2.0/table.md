@@ -8,7 +8,7 @@ toc: true
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/table.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/table.html" . }}
 </div>
 
 ## Privileges

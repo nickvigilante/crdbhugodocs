@@ -15,7 +15,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 Use the [`cockroach start`](start-a-node.html) command to start 3 nodes:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 1:
 $ cockroach start \
@@ -27,7 +27,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 2:
 $ cockroach start \
@@ -39,7 +39,7 @@ $ cockroach start \
 --join=localhost:26257,localhost:26258,localhost:26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # In a new terminal, start node 3:
 $ cockroach start \
@@ -55,7 +55,7 @@ $ cockroach start \
 
 In a new terminal, use the [`cockroach init`](initialize-a-cluster.html) command to perform a one-time initialization of the cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init \
 --insecure \
@@ -67,12 +67,12 @@ $ cockroach init \
 
 In a new terminal, use the [`cockroach sql`](use-the-built-in-sql-client.html) command to connect the built-in SQL shell to any node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --port=26257
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -88,7 +88,7 @@ $ cockroach sql --insecure --port=26257
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -99,7 +99,7 @@ In the terminal running node 2, press **CTRL-C** to stop the node.
 
 Alternatively, you can open a new terminal and run the [`cockroach quit`](stop-a-node.html) command against port `26258`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach quit --insecure --port=26258
 ~~~
@@ -113,12 +113,12 @@ ok
 
 Switch to the terminal for the built-in SQL shell and reconnect the shell to node 1 (port `26257`) or node 3 (port `26259`):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --port=26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -137,7 +137,7 @@ As you see, despite one node being offline, the cluster continues uninterrupted 
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -146,7 +146,7 @@ Exit the SQL shell:
 
 In the same terminal, use the [`cockroach gen`](generate-cockroachdb-resources.html) command to generate an example `startrek` database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach gen example-data startrek | cockroach sql --insecure
 ~~~
@@ -164,12 +164,12 @@ INSERT 200
 
 Then reconnect the SQL shell to node 1 (port `26257`) or node 3 (port `26259`) and verify that the new `startrek` database was added with two tables, `episodes` and `quotes`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --port=26259
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -184,7 +184,7 @@ $ cockroach sql --insecure --port=26259
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM startrek;
 ~~~
@@ -199,7 +199,7 @@ $ cockroach sql --insecure --port=26259
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM startrek.episodes LIMIT 10;
 ~~~
@@ -224,7 +224,7 @@ $ cockroach sql --insecure --port=26259
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -233,7 +233,7 @@ Exit the SQL shell:
 
 Switch to the terminal for node 2, and rejoin the node to the cluster, using the same command that you used in step 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --insecure \
 --store=fault-node2 \
@@ -259,12 +259,12 @@ nodeID:     2
 
 Switch to the terminal for the built-in SQL shell, connect the shell to the rejoined node 2 (port `26258`), and check for the `startrek` data that was added while the node was offline:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --port=26258
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM startrek.episodes LIMIT 10;
 ~~~
@@ -291,15 +291,15 @@ At first, while node 2 is catching up, it acts as a proxy to one of the other no
 
 Soon enough, node 2 catches up entirely. To verify, open the Admin UI at `http://localhost:8080` to see that all three nodes are listed, and the replica count is identical for each. This means that all data in the cluster has been replicated 3 times; there's a copy of every piece of data on each node.
 
-{{ site.data.alerts.callout_success }}CockroachDB replicates data 3 times by default. You can customize the number and location of replicas for the entire cluster or for specific sets of data using <a href="configure-replication-zones.html">replication zones</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}CockroachDB replicates data 3 times by default. You can customize the number and location of replicas for the entire cluster or for specific sets of data using <a href="configure-replication-zones.html">replication zones</a>.{{site.data.alerts.end }}
 
-<img src="{{  'images/v2.0/recovery1.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/recovery1.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 9. Add another node
 
 Now, to prepare the cluster for a permanent node failure, open a new terminal and add a fourth node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -328,7 +328,7 @@ Again, switch to the terminal running node 2 and press **CTRL-C** to stop it.
 
 Alternatively, you can open a new terminal and run the [`cockroach quit`](stop-a-node.html) command against port `26258`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach quit --insecure --port=26258
 ~~~
@@ -343,21 +343,21 @@ server drained and shutdown completed
 
 Back in the Admin UI, you'll see 4 nodes listed. After about 1 minute, the dot next to node 2 will turn yellow, indicating that the node is not responding.
 
-<img src="{{  'images/v2.0/recovery2.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/recovery2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 After about 10 minutes, node 2 will move into a **Dead Nodes** section, indicating that the node is not expected to come back. At this point, in the **Live Nodes** section, you should also see that the **Replicas** count for node 4 matches the count for node 1 and 3, the other live nodes. This indicates that all missing replicas (those that were on node 2) have been re-replicated to node 4.
 
-<img src="{{  'images/v2.0/recovery3.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/recovery3.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 12.  Stop the cluster
 
 Once you're done with your test cluster, stop each node by switching to its terminal and pressing **CTRL-C**.
 
-{{ site.data.alerts.callout_success }}For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{site.data.alerts.end }}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf fault-node1 fault-node2 fault-node3 fault-node4 fault-node5
 ~~~

@@ -12,7 +12,7 @@ twitter: false
 
 This tutorial shows you how build a simple Go application with CockroachDB using a PostgreSQL-compatible driver or ORM. We've tested and can recommend the [Go pq driver](https://godoc.org/github.com/lib/pq) and the [GORM ORM](http://gorm.io), so those are featured here.
 
-{{ site.data.alerts.callout_success }}For a more realistic use of GORM with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a more realistic use of GORM with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end }}
 
 
 ## Before You Begin
@@ -23,28 +23,28 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 To install [GORM](http://gorm.io), run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ go get -u github.com/jinzhu/gorm
 ~~~
 
-{%  include {{  page.version.version  }}/app/common-steps.md %}
+{{ partial "{{ page.version.version }}/app/common-steps.md" . }}
 
 ## Step 5. Run the Go code
 
 The following code uses the [GORM](http://gorm.io) ORM to map Go-specific objects to SQL operations. Specifically, `db.AutoMigrate(&Account{})` creates an `accounts` table based on the Account model, `db.Create(&Account{})` inserts rows into the table, and `db.Find(&accounts)` selects from the table so that balances can be printed.
 
 Copy the code or
-<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/app/gorm-basic-sample.go" download>download it directly</a>.
+<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/gorm-basic-sample.go" download>download it directly</a>.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
-{%  include {{  page.version.version  }}/app/gorm-basic-sample.go %}
+{{ partial "{{ page.version.version }}/app/gorm-basic-sample.go" . }}
 ~~~
 
 Then run the code:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ go run gorm-basic-sample.go
 ~~~
@@ -59,7 +59,7 @@ Initial balances:
 
 To verify that the table and rows were created successfully, you can again use the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure -e 'SHOW TABLES' --database=bank
 ~~~
@@ -73,7 +73,7 @@ $ cockroach sql --insecure -e 'SHOW TABLES' --database=bank
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 ~~~

@@ -10,16 +10,16 @@ To update a large number of rows (i.e., tens of thousands of rows or more), we r
 
 This page provides guidance on writing batch-update loops with a pattern that executes `SELECT` and `UPDATE` statements at different levels of a nested loop.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Exercise caution when batch-updating rows from tables with foreign key constraints and explicit [`ON UPDATE` foreign key actions](foreign-key.html#foreign-key-actions). To preserve `UPDATE` performance on tables with foreign key actions, we recommend using smaller batch sizes, as additional rows updated due to `ON UPDATE` actions can make batch loops significantly slower.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before you begin
 
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.db  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.db }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Install a Postgres client](install-client-drivers.html).
 
     For the example on this page, we use the `psycopg2` Python driver.
@@ -54,16 +54,16 @@ In this case, you will also need to add a new column to the `rides` table that s
 
 For example, you could create a column named `discounted`, of data type [`BOOL`](bool.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE rides ADD COLUMN discounted BOOL DEFAULT false;
 ~~~
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 In Python, a batch-update script might look similar to the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 #!/usr/bin/env python3
 

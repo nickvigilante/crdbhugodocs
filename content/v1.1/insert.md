@@ -19,7 +19,7 @@ The user must have the `INSERT` [privilege](privileges.html) on the table. To us
 
 ## Synopsis
 
-<div>{%  include {{  page.version.version  }}/sql/diagrams/insert.html %}</div>
+<div>{{ partial "{{ page.version.version }}/sql/diagrams/insert.html" . }}</div>
 
 <div markdown="1">
 
@@ -94,7 +94,7 @@ If you do not list column names, the statement will use the columns of the table
 
 ### Insert Multiple Rows into an Existing Table
 
-{{ site.data.alerts.callout_success }} Multi-row inserts are faster than multiple single-row <code>INSERT</code> statements. As a performance best practice, we recommend batching multiple rows in one multi-row <code>INSERT</code> statement instead of using multiple single-row <code>INSERT</code> statements. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). {{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}} Multi-row inserts are faster than multiple single-row <code>INSERT</code> statements. As a performance best practice, we recommend batching multiple rows in one multi-row <code>INSERT</code> statement instead of using multiple single-row <code>INSERT</code> statements. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). {{site.data.alerts.end }}
 
 ~~~ sql
 > INSERT INTO accounts (id, balance) VALUES (3, 8100.73), (4, 9400.10);
@@ -192,9 +192,9 @@ In this example, the `RETURNING` clause returns the `id` values of the rows inse
 
 </div>
 
-{{ site.data.alerts.callout_success }}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>INSERT</code> statements with <code>RETURNING</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>INSERT</code> statements with <code>RETURNING</code>.{{site.data.alerts.end }}
 
 <div class="filters clearfix">
     <button class="filter-button" data-scope="shell">Shell</button>

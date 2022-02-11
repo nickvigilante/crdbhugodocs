@@ -7,7 +7,7 @@ toc_not_nested: true
 
 Interleaving tables improves query performance by optimizing the key-value structure of closely related tables, attempting to keep data on the same [key-value range](frequently-asked-questions.html#how-does-cockroachdb-scale) if it's likely to be read and written together.
 
-{{ site.data.alerts.callout_info }}Interleaving tables does not affect their behavior within SQL.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Interleaving tables does not affect their behavior within SQL.{{site.data.alerts.end }}
 
 
 ## How Interleaved Tables Work
@@ -18,7 +18,7 @@ When tables are interleaved, data written to one table (known as the **child**) 
 
 For interleaved tables to have Primary Keys that can be matched, the child table must use the parent table's entire Primary Key as a prefix of its own Primary Key––these matching columns are referred to as the **interleave prefix**. It's easiest to think of these columns as representing the same data, which is usually implemented with Foreign Keys.
 
-{{ site.data.alerts.callout_success }}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{site.data.alerts.end }}
 
 For example, if you want to interleave `orders` into `customers` and the Primary Key of customers is `id`, you need to create a column representing `customers.id` as the first column in the Primary Key of `orders`&mdash;e.g., with a column called `customer`. So the data representing `customers.id` is the interleave prefix, which exists in the `orders` table as the `customer` column.
 
@@ -44,7 +44,7 @@ By writing data in this way, related data is more likely to remain on the same k
 
 ## When to Interleave Tables
 
-{%  include {{  page.version.version  }}/faq/when-to-interleave-tables.html %}
+{{ partial "{{ page.version.version }}/faq/when-to-interleave-tables.html" . }}
 
 ### Interleaved Hierarchy
 
@@ -66,7 +66,7 @@ In general, reads, writes, and joins of values related through the interleave pr
 
 ## Syntax
 
-{%  include {{  page.version.version  }}/sql/diagrams/interleave.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/interleave.html" . }}
 
 ## Parameters
 
@@ -80,7 +80,7 @@ In general, reads, writes, and joins of values related through the interleave pr
 
 - You can only interleave tables when creating the child table.
 - Each child table's Primary Key must contain its parent table's Primary Key as a prefix (known as the **interleave prefix**).<br/><br/>For example, if the parent table's primary key is `(a INT, b STRING)`, the child table's primary key could be `(a INT, b STRING, c DECIMAL)`.
-  {{ site.data.alerts.callout_info }}This requirement is enforced only by ensuring that the columns use the same data types. However, we recommend ensuring the columns refer to the same values by using the  <a href="foreign-key.html">Foreign Key constraint</a>.{{ site.data.alerts.end }}
+  {{site.data.alerts.callout_info }}This requirement is enforced only by ensuring that the columns use the same data types. However, we recommend ensuring the columns refer to the same values by using the  <a href="foreign-key.html">Foreign Key constraint</a>.{{site.data.alerts.end }}
 - Interleaved tables cannot be the child of more than 1 parent table. However, each parent table can have many children tables. Children tables can also be parents of interleaved tables.
 
 ## Recommendations
@@ -154,7 +154,7 @@ Using an illustrative format of the key-value store (keys are on the left; value
 
 You'll notice that `customers.id` and `orders.customer` are written into the same position in the key-value store. This is how CockroachDB relates the two table's data for the interleaved structure. By storing data this way, accessing any of the `orders` data alongside the `customers` is much faster.
 
-{{ site.data.alerts.callout_info }}If we didn't set Foreign Key constraints between <code>customers.id</code> and <code>orders.customer</code> and inserted <code>orders.customer = 3</code>, the data would still get written into the key-value in the expected location next to the <code>customers</code> table identifier, but <code>SELECT * FROM customers WHERE id = 3</code> would not return any values.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If we didn't set Foreign Key constraints between <code>customers.id</code> and <code>orders.customer</code> and inserted <code>orders.customer = 3</code>, the data would still get written into the key-value in the expected location next to the <code>customers</code> table identifier, but <code>SELECT * FROM customers WHERE id = 3</code> would not return any values.{{site.data.alerts.end }}
 
 To better understand how CockroachDB writes key-value data, see our blog post [Mapping Table Data to Key-Value Storage](https://www.cockroachlabs.com/blog/sql-in-cockroachdb-mapping-table-data-to-key-value-storage/).
 

@@ -14,12 +14,12 @@ CockroachDB uses TLS 1.2 for inter-node and client-node [authentication](authent
 
 Encryption at Rest provides transparent encryption of a node's data on the local disk.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This is an experimental feature.**  In the case of a bug or user error, all data on an encrypted node's store could be rendered unusable.  Do not use Encryption at Rest for production data until it has graduated from experimental status.  Until then, this feature should only be used in a testing environment.
 <br />
 <br />
 If you encounter a bug, please [file an issue](file-an-issue.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Encryption at Rest allows encryption of all files on disk using [AES](https://en.wikipedia.org/wiki/Advanced_Encryption_Standard) in [counter mode](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation#Counter_(CTR)), with all key
 sizes allowed.
@@ -109,9 +109,9 @@ A few other recommendations apply for best security practices:
 * Do not copy the encrypted files, as the data keys are not easily available.
 * If encryption is desired, start a node with it enabled from the first run, without ever running in plaintext.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Note that backups taken with the [`BACKUP`](backup.html) statement **are not encrypted** even if Encryption at Rest is enabled. Encryption at Rest only applies to the CockroachDB node's data on the local disk. If you want encrypted backups, you will need to encrypt your backup files using your preferred encryption method.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Examples
 
@@ -129,14 +129,14 @@ bytes depending on the encryption algorithm).
 
 Generating a key file can be done using the `cockroach` CLI:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach gen encryption-key -s 128 /path/to/my/aes-128.key
 ~~~
 
 Or the equivalent [openssl](https://www.openssl.org/docs/man1.1.1/man1/openssl.html) CLI command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ openssl rand -out /path/to/my/aes-128.key 48
 ~~~
@@ -163,14 +163,14 @@ encryption algorithms, and between plaintext and encrypted.
 
 Starting a node for the first time using AES-128 encryption can be done using:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --store=cockroach-data --enterprise-encryption=path=cockroach-data,key=/path/to/my/aes-128.key,old-key=plain
 ~~~
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Once specified for a given store, the `--enterprise-encryption` flag must always be present.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Checking encryption status
 
@@ -199,7 +199,7 @@ while the key previously used must be specified in the `old-key` component.
 
 For example, we can switch from AES-128 to AES-256 using:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --store=cockroach-data --enterprise-encryption=path=cockroach-data,key=/path/to/my/aes-256.key,old-key=/path/to/my/aes-128.key
 ~~~

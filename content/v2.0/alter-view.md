@@ -6,7 +6,7 @@ toc: true
 
 The `ALTER VIEW` [statement](sql-statements.html) changes the name of a [view](views.html). 
 
-{{ site.data.alerts.callout_info }}It is not currently possible to change the <code>SELECT</code> statement executed by a view. Instead, you must drop the existing view and create a new view. Also, it is not currently possible to rename a view that other views depend on, but this ability may be added in the future (see <a href="https://github.com/cockroachdb/cockroach/issues/10083">this issue</a>).{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not currently possible to change the <code>SELECT</code> statement executed by a view. Instead, you must drop the existing view and create a new view. Also, it is not currently possible to rename a view that other views depend on, but this ability may be added in the future (see <a href="https://github.com/cockroachdb/cockroach/issues/10083">this issue</a>).{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -16,7 +16,7 @@ The user must have the `DROP` [privilege](privileges.html) on the view and the `
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/alter_view.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/alter_view.html" . }}
 </div>
 
 ## Parameters
@@ -29,7 +29,7 @@ Parameter | Description
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -44,7 +44,7 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER VIEW bank.user_emails RENAME TO bank.user_email_addresses;
 ~~~
@@ -53,7 +53,7 @@ Parameter | Description
 RENAME VIEW
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~

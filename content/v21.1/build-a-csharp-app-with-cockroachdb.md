@@ -11,18 +11,18 @@ We have tested the [.NET Npgsql driver](http://www.npgsql.org/) enough to claim 
 
 ## Step 1. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 2. Create a .NET project
 
 In your terminal, run the following commands:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ dotnet new console -o cockroachdb-test-app
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cd cockroachdb-test-app
 ~~~
@@ -33,14 +33,14 @@ The `dotnet` command creates a new app of type `console`. The `-o` parameter cre
 
 Install the latest version of the [Npgsql driver](https://www.nuget.org/packages/Npgsql/) into the .NET project using the built-in nuget package manager:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ dotnet add package Npgsql
 ~~~
 
 ## Step 4. Create a database
 
-{%  include {{ page.version.version }}/app/create-a-database.md %}
+{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
 
 ## Step 5. Run the C# code
 
@@ -55,24 +55,24 @@ Now that you have set up your project and created a database, in this section yo
 
 Replace the contents of the `Program.cs` file that was automatically generated in your `cockroachdb-test-app` directory with the code below:
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The following examples use the SSL mode `require` because the .NET Npgsql driver validates certificates differently from other PostgreSQL drivers. For other drivers, we recommend using `verify-full` as a security best practice.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <section class="filter-content" markdown="1" data-scope="local">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ c#
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/main/basic.cs %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/main/basic.cs %}
 ~~~
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ c#
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/cockroachcloud/basic.cs %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/cockroachcloud/basic.cs %}
 ~~~
 
 </section>
@@ -83,7 +83,7 @@ The following examples use the SSL mode `require` because the .NET Npgsql driver
 
 In a text editor, modify `Program.cs` with the settings to connect to the demo cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ csharp
 connStringBuilder.Host = "{localhost}";
 connStringBuilder.Port = 26257;
@@ -100,11 +100,11 @@ Where `{username}` and `{password}` are the database username and password you c
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-1. In the {{  site.data.products.db  }} Console, select the **Connection Parameters** tab of the **Connection Info** dialog.
+1. In the {{ site.data.products.db }} Console, select the **Connection Parameters** tab of the **Connection Info** dialog.
 
 1. In a text editor, modify the connection parameters in `Program.cs` with the settings to connect to your cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ csharp
 connStringBuilder.Host = "{host-name}";
 connStringBuilder.Port = 26257;
@@ -119,7 +119,7 @@ connStringBuilder.TrustServerCertificate = true;
 Where:
 
 - `{username}` and `{password}` specify the SQL username and password that you created earlier.
-- `{host-name}` is the name of the {{  site.data.products.serverless-plan  }} host (e.g., `free-tier.gcp-us-central1.cockroachlabs.cloud`).
+- `{host-name}` is the name of the {{ site.data.products.serverless-plan }} host (e.g., `free-tier.gcp-us-central1.cockroachlabs.cloud`).
 - `{cluster_name}` is the name of your cluster.
 
 </section>
@@ -128,7 +128,7 @@ Where:
 
 Compile and run the code:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 dotnet run
 ~~~
@@ -149,18 +149,18 @@ Open `cockroachdb-test-app/Program.cs` again and replace the contents with the c
 
 <section class="filter-content" markdown="1" data-scope="local">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ c#
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/main/transaction.cs %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/main/transaction.cs %}
 ~~~
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ c#
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/cockroachcloud/transaction.cs %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-csharp/cockroachcloud/transaction.cs %}
 ~~~
 
 </section>
@@ -169,7 +169,7 @@ Open `cockroachdb-test-app/Program.cs` again and replace the contents with the c
 
 This time, running the code will execute a batch of statements as an atomic transaction to transfer funds from one account to another, where all included statements are either committed or aborted:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ dotnet run
 ~~~
@@ -187,7 +187,7 @@ Final balances:
 
 However, if you want to verify that funds were transferred from one account to another, use the [built-in SQL client](cockroach-sql.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure  --database=bank -e 'SELECT id, balance FROM accounts'
 ~~~
@@ -205,4 +205,4 @@ $ cockroach sql --insecure  --database=bank -e 'SELECT id, balance FROM accounts
 
 Read more about using the [.NET Npgsql driver](http://www.npgsql.org/).
 
-{%  include {{  page.version.version  }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

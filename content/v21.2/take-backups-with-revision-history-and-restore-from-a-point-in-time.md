@@ -9,9 +9,9 @@ The ability to [backup a full cluster](backup.html#backup-a-cluster) has been ad
 
 This doc provides information about how to take backups with revision history and restore from a point-in-time.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [`BACKUP`](backup.html) with revision history is an [Enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. However, you can take [full backups](take-full-and-incremental-backups.html) without an Enterprise license.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 You can create full or incremental backups [with revision history](backup.html#with-revision-history):
 
@@ -22,7 +22,7 @@ You can configure garbage collection periods using the `ttlseconds` [replication
 
 ## Create a backup with revision history
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BACKUP INTO '{destination}' AS OF SYSTEM TIME '-10s' WITH revision_history;
 ~~~
@@ -37,7 +37,7 @@ Additionally, if you want to restore a specific incremental backup, you can do s
 
 If you do not specify a point-in-time, the data will be restored to the backup timestamp; that is, the restore will work as if the data was backed up without revision history.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '/2021/12/13-211056.62' IN '(destination)' AS OF SYSTEM TIME '2021-12-13 10:00:00';
 ~~~

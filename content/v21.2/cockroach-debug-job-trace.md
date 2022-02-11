@@ -5,9 +5,9 @@ toc: true
 docs_area: reference.cli
 ---
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 We strongly recommend only using `cockroach debug job-trace` when working directly with the [Cockroach Labs support team](support-resources.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The [`cockroach debug job-trace`](cockroach-commands.html) command connects to your cluster and collects trace payloads for a running, traceable [job](show-jobs.html#show-jobs) ([**imports**](import-into.html) or [**backups**](take-full-and-incremental-backups.html)). The trace payloads are helpful for debugging why a job is not running as expected or to add more context to logs gathered from the [`cockroach debug zip`](cockroach-debug-zip.html) command.
 
@@ -23,7 +23,7 @@ See [`SHOW JOBS`](show-jobs.html#show-jobs) for details on capturing a `job_id`.
 
 ## Subcommands
 
-{%  include {{  page.version.version  }}/misc/debug-subcommands.md %}
+{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
 
 ## Flags
 
@@ -57,7 +57,7 @@ See the [`SHOW TRACE FOR SESSION`](show-trace.html#response) page for more infor
 
 To generate the `job-trace` zip file, use your [connection string](cockroach-start.html#standard-output) to pull the trace spans:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 cockroach debug job-trace 698977774875279361 --url=postgresql://root@localhost:26257?sslmode=disable
 ~~~

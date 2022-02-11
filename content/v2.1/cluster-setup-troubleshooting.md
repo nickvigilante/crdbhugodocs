@@ -29,19 +29,19 @@ Proceed through the following steps until you locate the source of the issue wit
 
 1. Terminate any running `cockroach` processes and remove any old data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill -9 cockroach
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r testStore
     ~~~
 
 2. Start a single insecure node and log all activity to your terminal:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --insecure --logtostderr --store=testStore
     ~~~
@@ -57,7 +57,7 @@ Proceed through the following steps until you locate the source of the issue wit
 
 3. If the node appears to have started successfully, open a new terminal window, and attempt to execute the following SQL statement:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure -e "SHOW DATABASES"
     ~~~
@@ -85,29 +85,29 @@ Proceed through the following steps until you locate the source of the issue wit
 
 1. Terminate any running `cockroach` processes and remove any old data on the additional machines::
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill -9 cockroach
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r testStore
     ~~~
 
-    {{ site.data.alerts.callout_info }}If you're running all nodes on the same machine, skip this step. Running this command will kill your first node making it impossible to proceed.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}If you're running all nodes on the same machine, skip this step. Running this command will kill your first node making it impossible to proceed.{{site.data.alerts.end }}
 
 2. On each machine, start the CockroachDB node, joining it to the first node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --insecure --logtostderr --store=testStore \
     --join=<host of first node>
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     If you're running all nodes on the same machine, you will need to change the <code>--port</code>, <code>--http-port</code>, and <code>--store</code> flags. For an example of this, see <a href="start-a-local-cluster.html#step-2-add-nodes-to-the-cluster">Start a Local Cluster</a>.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     Errors at this stage potentially include:
     - The same port and host issues from [running a single node](#1-start-a-single-node-cluster).
@@ -164,7 +164,7 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 
 - Choose a different directory to store the CockroachDB data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Store this node's data in [new directory]
     $ cockroach start --store=<new directory> --join=<cluster host> <other flags>
@@ -172,13 +172,13 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 
 - Remove the existing directory and start a node joining the cluster again:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Remove the directory
     $ rm -r cockroach-data/
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Start a node joining the cluster
     $ cockroach start --join=<cluster host>:26257 <other flags>

@@ -10,25 +10,25 @@ filter_sort: 1
 docs_area: get_started
 ---
 
-{%  include filter-tabs.md %}
+{{ partial "filter-tabs.md" . }}
 
 This tutorial shows you how to build a simple CRUD Java application with CockroachDB and the Java JDBC driver.
 
-{%  include {{ page.version.version }}/app/java-version-note.md %}
+{{ partial "{{ page.version.version }}/app/java-version-note.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JDBC and CockroachDB, see [Build a Spring App with CockroachDB and JDBC](build-a-spring-app-with-cockroachdb-jdbc.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/example-app-java-jdbc/
 ~~~
@@ -37,7 +37,7 @@ $ git clone https://github.com/cockroachlabs/example-app-java-jdbc/
 
 Check out the `cockroachcloud` branch:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~shell
 git checkout cockroachcloud
 ~~~
@@ -69,27 +69,27 @@ The project has the following directory structure:
 
 The `dbinit.sql` file initializes the database schema that the application uses:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-jdbc/master/app/src/main/resources/dbinit.sql %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-jdbc/master/app/src/main/resources/dbinit.sql %}
 ~~~
 
 The `BasicExample.java` file contains the code for `INSERT`, `SELECT`, and `UPDATE` SQL operations. The file also contains the `main` method of the program.
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-jdbc/cockroachcloud/app/src/main/java/com/cockroachlabs/BasicExample.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-jdbc/cockroachcloud/app/src/main/java/com/cockroachlabs/BasicExample.java %}
 ~~~
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="local">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-jdbc/master/app/src/main/java/com/cockroachlabs/BasicExample.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-jdbc/master/app/src/main/java/com/cockroachlabs/BasicExample.java %}
 ~~~
 
 </section>
@@ -116,25 +116,25 @@ To initialize the example database, use the [`cockroach sql`](cockroach-sql.html
 
 <div class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cat app/src/main/resources/dbinit.sql | cockroach sql --url "<connection-string>"
 ~~~
 
-Where `<connection-string>` is the connection string you obtained earlier from the {{  site.data.products.db  }} Console.
+Where `<connection-string>` is the connection string you obtained earlier from the {{ site.data.products.db }} Console.
 
 </div>
 
 <div class="filter-content" markdown="1" data-scope="local">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cat app/src/main/resources/dbinit.sql | cockroach sql --url "postgresql://root@localhost:26257?sslmode=disable"
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `postgresql://root@localhost:26257?sslmode=disable` is the `sql` connection string you obtained earlier from the `cockroach` welcome text.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 </div>
 
@@ -174,7 +174,7 @@ Time: 4ms
 
 In a text editor modify `app/src/main/java/com/cockroachlabs/BasicExample.java` with the settings to connect to the cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
 ds.setServerNames(new String[]{"{globalhost}"});
 ds.setDatabaseName("{cluster_name}.bank");
@@ -183,17 +183,17 @@ ds.setPassword("{password}");
 ds.setSslRootCert(System.getenv("{path to the CA certificate}"));
 ~~~
 
-{%  include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
 
 </section>
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For guidance on connection pooling, with an example using JDBC and [HikariCP](https://github.com/brettwooldridge/HikariCP), see [Connection Pooling](connection-pooling.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Compile and run the code:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 ./gradlew run
 ~~~
@@ -262,11 +262,11 @@ BUILD SUCCESSFUL in 8s
 
 ### Generate PKCS8 keys for user authentication
 
-{%  include {{ page.version.version }}/app/pkcs8-gen.md %}
+{{ partial "{{ page.version.version }}/app/pkcs8-gen.md" . }}
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include cockroachcloud/cc-no-user-certs.md %}
+{{ partial "cockroachcloud/cc-no-user-certs.md" . }}
 
 </section>
 
@@ -328,4 +328,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Java JDBC driver](https://jdbc.postgresql.org/).
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

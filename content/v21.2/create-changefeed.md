@@ -5,9 +5,9 @@ toc: true
 docs_area: reference.sql
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `CREATE CHANGEFEED` is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [`EXPERIMENTAL CHANGEFEED FOR`](changefeed-for.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The `CREATE CHANGEFEED` [statement](sql-statements.html) creates a new Enterprise changefeed, which targets an allowlist of tables called "watched rows".  Every change to a watched row is emitted as a record in a configurable format (`JSON` or Avro) to a configurable sink ([Kafka](https://kafka.apache.org/), a [cloud storage sink](changefeed-sinks.html#cloud-storage-sink), or a [webhook sink](changefeed-sinks.html#webhook-sink)). You can [create](#create-a-changefeed-connected-to-kafka), [pause](#pause-a-changefeed), [resume](#resume-a-paused-changefeed), or [cancel](#cancel-a-changefeed) an Enterprise changefeed.
 
@@ -20,7 +20,7 @@ To create a changefeed, the user must be a member of the `admin` role or have th
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_changefeed.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_changefeed.html %}
 </div>
 
 ## Parameters
@@ -49,9 +49,9 @@ URI Component      | Description
 `port`             | The sink's port.
 `query_parameters` | The sink's [query parameters](#query-parameters).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 See [Changefeed Sinks](changefeed-sinks.html) for considerations when using each sink and detail on configuration.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Kafka
 
@@ -81,7 +81,7 @@ Example of a webhook URI:
 
 ### Query parameters
 
-{%  include {{  page.version.version  }}/cdc/url-encoding.md %}
+{{ partial "{{ page.version.version }}/cdc/url-encoding.md" . }}
 
 Query parameters include:
 
@@ -127,9 +127,9 @@ Option | Value | Description
 `topic_in_value`         | [`BOOL`](bool.html)              | <span class="version-tag">New in v21.2:</span> Set to include the topic in each emitted row update. Note this is automatically set for [webhook sinks](changefeed-sinks.html#webhook-sink).
 `webhook_sink_config`    | [`STRING`](string.html)          | <span class="version-tag">New in v21.2:</span> Set fields to configure sink batching and retries. The schema is as follows:<br><br> `{ "Flush": { "Messages": ..., "Bytes": ..., "Frequency": ..., }, "Retry": {"Max": ..., "Backoff": ..., } }`. <br><br>**Note** that if either `Messages` or `Bytes` are nonzero, then a non-zero value for `Frequency` must be provided. <br><br>See [Webhook sink configuration](changefeed-sinks.html#webhook-sink-configuration) for more details on using this option.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  Using the `format=avro`, `envelope=key_only`, and `updated` options together is rejected. `envelope=key_only` prevents any rows with updated fields from being emitted, which makes the `updated` option meaningless.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Files
 
@@ -138,9 +138,9 @@ The files emitted to a sink use the following naming conventions:
 - [General file format](#general-file-format)
 - [Resolved file format](#resolved-file-format)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The timestamp format is `YYYYMMDDHHMMSSNNNNNNNNNLLLLLLLLLL`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### General file format
 
@@ -170,7 +170,7 @@ For example:
 
 ### Create a changefeed connected to Kafka
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'kafka://host:port'
@@ -189,7 +189,7 @@ For step-by-step guidance on creating a changefeed connected to Kafka, see [Chan
 
 ### Create a changefeed connected to Kafka using Avro
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'kafka://host:port'
@@ -208,7 +208,7 @@ For more information on how to create a changefeed that emits an [Avro](https://
 
 ### Create a changefeed connected to a cloud storage sink
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'scheme://host?parameters'
@@ -227,9 +227,9 @@ For step-by-step guidance on creating a changefeed connected to a cloud storage 
 
 ### Create a changefeed connected to a webhook sink
 
-{%  include {{  page.version.version  }}/cdc/webhook-beta.md %}
+{{ partial "{{ page.version.version }}/cdc/webhook-beta.md" . }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'webhook-https://{your-webhook-endpoint}?insecure_tls_skip_verify=true'
@@ -249,7 +249,7 @@ CREATE CHANGEFEED FOR TABLE name, name2, name3
 
 <span class="version-tag">New in v21.2:</span> For enterprise changefeeds, use [`SHOW CHANGEFEED JOBS`](show-jobs.html) to check the status of your changefeed jobs:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CHANGEFEED JOBS;
 ~~~
@@ -258,7 +258,7 @@ Use the following SQL statements to pause, resume, or cancel a changefeed.
 
 #### Pause a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -267,7 +267,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 #### Resume a paused changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -276,7 +276,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 #### Cancel a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -285,13 +285,13 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 #### Configuring all changefeeds
 
-{%  include {{  page.version.version  }}/cdc/configure-all-changefeed.md %}
+{{ partial "{{ page.version.version }}/cdc/configure-all-changefeed.md" . }}
 
 ### Start a new changefeed where another ended
 
 Find the [high-water timestamp](monitor-and-debug-changefeeds.html#monitor-a-changefeed) for the ended changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM crdb_internal.jobs WHERE job_id = <job_id>;
 ~~~
@@ -304,7 +304,7 @@ Find the [high-water timestamp](monitor-and-debug-changefeeds.html#monitor-a-cha
 
 Use the `high_water_timestamp` to start the new changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'kafka//host:port'

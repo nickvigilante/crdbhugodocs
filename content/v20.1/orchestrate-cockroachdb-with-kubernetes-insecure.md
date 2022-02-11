@@ -14,7 +14,7 @@ This page shows you how to orchestrate the deployment, management, and monitorin
 
 To deploy across multiple Kubernetes clusters in different geographic regions, see [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html) instead. Also, for details about potential performance bottlenecks to be aware of when running CockroachDB in Kubernetes and guidance on how to optimize your deployment for better performance, see [CockroachDB Performance on Kubernetes](kubernetes-performance.html).
 
-{%  include cockroachcloud/use-cockroachcloud-instead.md %}
+{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
 
 ## Before you begin
 
@@ -34,11 +34,11 @@ Feature | Description
 
 ### Limitations
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-limitations.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
 
 ## Step 1. Start Kubernetes
 
-{%  include {{  page.version.version  }}/orchestration/start-kubernetes.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
 
 ## Step 2. Start CockroachDB
 
@@ -50,28 +50,28 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 </div>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/start-cockroachdb-insecure.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-insecure.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/start-cockroachdb-helm-insecure.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-helm-insecure.md" . }}
 </section>
 
 ## Step 3. Use the built-in SQL client
 
-{%  include {{  page.version.version  }}/orchestration/test-cluster-insecure.md %}
+{{ partial "{{ page.version.version }}/orchestration/test-cluster-insecure.md" . }}
 
 ## Step 4. Access the Admin UI
 
-{%  include {{  page.version.version  }}/orchestration/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
 
 ## Step 5. Simulate node failure
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-simulate-failure.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
 
 ## Step 6. Monitor the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-prometheus-alertmanager.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md" . }}
 
 ## Step 7. Maintain the cluster
 
@@ -83,26 +83,26 @@ To start your CockroachDB cluster, you can either use our StatefulSet configurat
 
 ### Add nodes
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster.md" . }}
 
 3. Verify that a fourth pod was added successfully:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
 
 ### Remove nodes
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-remove-nodes-insecure.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-insecure.md" . }}
 
 ### Expand disk size
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-expand-disk-size.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-size.md" . }}
 
 ### Upgrade the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md" . }}
 
 ### Stop the cluster
 
@@ -111,7 +111,7 @@ To shut down the CockroachDB cluster:
 1. Delete all of the resources you created, including the logs and remote persistent volumes:
 
     <section class="filter-content" markdown="1" data-scope="manual">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl delete pods,statefulsets,services,persistentvolumeclaims,persistentvolumes,poddisruptionbudget,jobs,rolebinding,clusterrolebinding,role,clusterrole,serviceaccount,alertmanager,prometheus,prometheusrule,serviceMonitor -l app=cockroachdb
     ~~~
@@ -141,7 +141,7 @@ To shut down the CockroachDB cluster:
     </section>
 
     <section class="filter-content" markdown="1" data-scope="helm">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ helm uninstall my-release
     ~~~
@@ -154,35 +154,35 @@ To shut down the CockroachDB cluster:
 2. Stop Kubernetes:
     - Hosted GKE:
 
-        {%  include copy-clipboard.html %}
+        {{ partial "copy-clipboard.html" . }}
         ~~~ shell
         $ gcloud container clusters delete cockroachdb --region {region-name}
         ~~~
     - Hosted EKS:
 
-        {%  include copy-clipboard.html %}
+        {{ partial "copy-clipboard.html" . }}
         ~~~ shell
         $ eksctl delete cluster --name cockroachdb
         ~~~    
     - Manual GCE:
 
-        {%  include copy-clipboard.html %}
+        {{ partial "copy-clipboard.html" . }}
         ~~~ shell
         $ cluster/kube-down.sh
         ~~~
     - Manual AWS:
 
-        {%  include copy-clipboard.html %}
+        {{ partial "copy-clipboard.html" . }}
         ~~~ shell
         $ cluster/kube-down.sh
         ~~~
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 ## See also
 
 - [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

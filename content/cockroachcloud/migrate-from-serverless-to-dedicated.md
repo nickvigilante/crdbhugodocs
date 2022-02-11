@@ -6,26 +6,26 @@ redirect_from: migrate-from-free-to-dedicated.html
 docs_area: migrate
 ---
 
-This page has instructions for migrating data from a {{  site.data.products.serverless  }} cluster to a {{  site.data.products.dedicated  }} cluster, by exporting to CSV and using [`IMPORT`](../{{ site.versions["stable"] }}/import.html). You may want to migrate to {{  site.data.products.dedicated  }} if you want a single-tenant cluster with no shared resources.
+This page has instructions for migrating data from a {{ site.data.products.serverless }} cluster to a {{ site.data.products.dedicated }} cluster, by exporting to CSV and using [`IMPORT`](../{{site.versions["stable"] }}/import.html). You may want to migrate to {{ site.data.products.dedicated }} if you want a single-tenant cluster with no shared resources.
 
-The steps below use sample data from the [`tpcc` workload](../{{ site.versions["stable"] }}/cockroach-workload.html#workloads).
+The steps below use sample data from the [`tpcc` workload](../{{site.versions["stable"] }}/cockroach-workload.html#workloads).
 
 ## Before you start
 
 These instructions assume you already have the following:
 
-- A [{{  site.data.products.serverless  }} cluster](quickstart.html) from which you want to migrate data
-- A [paid {{  site.data.products.dedicated  }} cluster](quickstart-trial-cluster.html)
+- A [{{ site.data.products.serverless }} cluster](quickstart.html) from which you want to migrate data
+- A [paid {{ site.data.products.dedicated }} cluster](quickstart-trial-cluster.html)
 
-    Your first paid {{  site.data.products.dedicated  }} cluster is free for a 30-day trial.
+    Your first paid {{ site.data.products.dedicated }} cluster is free for a 30-day trial.
 
-- [Cloud storage](../{{ site.versions["stable"] }}/use-cloud-storage-for-bulk-operations.html)
+- [Cloud storage](../{{site.versions["stable"] }}/use-cloud-storage-for-bulk-operations.html)
 
 ## Step 1. Export data to a local CSV file
 
-In {{  site.data.products.serverless  }} clusters, all external service integrations are disabled. This means that if you want to export data, you need to use [`cockroach sql --execute`](../{{ site.versions["stable"] }}/cockroach-sql.html#general) to query the data you want to export, and then pipe the data to a local file. For example:
+In {{ site.data.products.serverless }} clusters, all external service integrations are disabled. This means that if you want to export data, you need to use [`cockroach sql --execute`](../{{site.versions["stable"] }}/cockroach-sql.html#general) to query the data you want to export, and then pipe the data to a local file. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --url 'postgres://<username>:<password>@free-tier.<region>.cockroachlabs.cloud:26257?sslmode=verify-full&sslrootcert=<path/to/certs_dir>/cc-ca.crt&options=--cluster=<cluster_name>' \
@@ -39,9 +39,9 @@ w_id,w_name,w_street_1,w_street_2,w_city,w_state,w_zip,w_tax,w_ytd
 0,8,17,13,11,SF,640911111,0.0806,300000.00
 ~~~
 
-Repeat this step for each table you want to migrate. For example, let's export one more table (`district`) from the [`tpcc` database](../{{ site.versions["stable"] }}/cockroach-workload.html#workloads):
+Repeat this step for each table you want to migrate. For example, let's export one more table (`district`) from the [`tpcc` database](../{{site.versions["stable"] }}/cockroach-workload.html#workloads):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --url 'postgres://<username>:<password>@free-tier.<region>.cockroachlabs.cloud:26257?sslmode=verify-full&sslrootcert=<path/to/certs_dir>/cc-ca.crt&options=--cluster=<cluster_name>' \
@@ -64,36 +64,36 @@ d_id,d_w_id,d_name,d_street_1,d_street_2,d_city,d_state,d_zip,d_tax,d_ytd,d_next
 10,0,RsaCXoEzm,ssaF9m9cdLXe0YhgLRr,wsmd68P2bE,lAgrnp8ueWNXJpBB0Ob,PV,082911111,0.1779,30000.00,3001
 ~~~
 
-## Step 2. Host the files where the {{  site.data.products.dedicated  }} cluster can access them
+## Step 2. Host the files where the {{ site.data.products.dedicated }} cluster can access them
 
-After you've exported your {{  site.data.products.serverless  }} cluster data to your local machine, you now need to upload the files to a storage location where the {{  site.data.products.dedicated  }} cluster can access them. **We recommend using [cloud storage](../{{ site.versions["stable"] }}/use-cloud-storage-for-bulk-operations.html) or [`userfile`](../{{ site.versions["stable"] }}/use-userfile-for-bulk-operations.html).**
+After you've exported your {{ site.data.products.serverless }} cluster data to your local machine, you now need to upload the files to a storage location where the {{ site.data.products.dedicated }} cluster can access them. **We recommend using [cloud storage](../{{site.versions["stable"] }}/use-cloud-storage-for-bulk-operations.html) or [`userfile`](../{{site.versions["stable"] }}/use-userfile-for-bulk-operations.html).**
 
 In this example, we'll use Amazon S3 to host the two files (`warehouse.csv` and `district.csv`) created in [Step 1](#step-1-export-data-to-a-local-csv-file).
 
 ## Step 3. Import the CSV
 
-{{ site.data.alerts.callout_success }}
-For best practices for optimizing import performance in CockroachDB, see [Import Performance Best Practices](../{{ site.versions["stable"] }}/import-performance-best-practices.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+For best practices for optimizing import performance in CockroachDB, see [Import Performance Best Practices](../{{site.versions["stable"] }}/import-performance-best-practices.html).
+{{site.data.alerts.end }}
 
-1. [Create the database](../{{ site.versions["stable"] }}/create-database.html) you want to import the tables into. For example:
+1. [Create the database](../{{site.versions["stable"] }}/create-database.html) you want to import the tables into. For example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE tpcc;
     ~~~
 
-1. Write an [`IMPORT`](../{{ site.versions["stable"] }}/import.html) statement that matches the schema of the table data you're importing.
+1. Write an [`IMPORT`](../{{site.versions["stable"] }}/import.html) statement that matches the schema of the table data you're importing.
 
-    {{ site.data.alerts.callout_success }}
-    You can use the [`SHOW CREATE TABLE`](../{{ site.versions["stable"] }}/show-create.html#show-the-create-table-statement-for-a-table) statement in the {{  site.data.products.serverless  }} cluster to view the `CREATE` statement for the table you're migrating.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}
+    You can use the [`SHOW CREATE TABLE`](../{{site.versions["stable"] }}/show-create.html#show-the-create-table-statement-for-a-table) statement in the {{ site.data.products.serverless }} cluster to view the `CREATE` statement for the table you're migrating.
+    {{site.data.alerts.end }}
 
-    {%  include v20.2/misc/csv-import-callout.md %}
+    {{ partial "v20.2/misc/csv-import-callout.md" . }}
 
     For example, to import the data from `warehouse.csv` into a `warehouse` table, use the following statement:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > IMPORT TABLE tpcc.warehouse (
         w_id INT8 NOT NULL,
@@ -112,7 +112,7 @@ For best practices for optimizing import performance in CockroachDB, see [Import
         skip = '1';
     ~~~
 
-    Notice that we used the [`skip` option](../{{ site.versions["stable"] }}/import.html#skip-first-n-lines) in the above command. This is because the first line of the CSV file we created in [Step 1](#step-1-export-data-to-a-local-csv-file) is the header row, not actual data to import. For more information about the options available for `IMPORT ... CSV`, see [Import options](../{{ site.versions["stable"] }}/import.html#import-options).
+    Notice that we used the [`skip` option](../{{site.versions["stable"] }}/import.html#skip-first-n-lines) in the above command. This is because the first line of the CSV file we created in [Step 1](#step-1-export-data-to-a-local-csv-file) is the header row, not actual data to import. For more information about the options available for `IMPORT ... CSV`, see [Import options](../{{site.versions["stable"] }}/import.html#import-options).
 
     ~~~
             job_id       |  status   | fraction_completed | rows | index_entries | bytes
@@ -121,13 +121,13 @@ For best practices for optimizing import performance in CockroachDB, see [Import
     (1 row)
     ~~~
 
-    {{ site.data.alerts.callout_info }}
-    To import data into an existing table, use [`IMPORT INTO`](../{{ site.versions["stable"] }}/import-into.html).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}
+    To import data into an existing table, use [`IMPORT INTO`](../{{site.versions["stable"] }}/import-into.html).
+    {{site.data.alerts.end }}
 
 1. Repeat the above for each CSV file you want to import. For example, let's import the second file (`district.csv`) we created earlier:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > IMPORT TABLE tpcc.district (
         d_id INT8 NOT NULL,
@@ -155,9 +155,9 @@ For best practices for optimizing import performance in CockroachDB, see [Import
     (1 row)
     ~~~
 
-1. _(Optional)_ To verify that the two tables were imported, use [`SHOW TABLES`](../{{ site.versions["stable"] }}/show-tables.html):
+1. _(Optional)_ To verify that the two tables were imported, use [`SHOW TABLES`](../{{site.versions["stable"] }}/show-tables.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM tpcc;
     ~~~
@@ -172,9 +172,9 @@ For best practices for optimizing import performance in CockroachDB, see [Import
 
 ## Step 4. Add any foreign key relationships
 
-Once all of the tables you want to migrate have been imported into the {{  site.data.products.dedicated  }} cluster, add the [foreign key](../{{ site.versions["stable"] }}/foreign-key.html) relationships. To do this, use [`ALTER TABLE ... ADD CONSTRAINT`](../{{ site.versions["stable"] }}/add-constraint.html). For example:
+Once all of the tables you want to migrate have been imported into the {{ site.data.products.dedicated }} cluster, add the [foreign key](../{{site.versions["stable"] }}/foreign-key.html) relationships. To do this, use [`ALTER TABLE ... ADD CONSTRAINT`](../{{site.versions["stable"] }}/add-constraint.html). For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE tpcc.district ADD CONSTRAINT fk_d_w_id_ref_warehouse FOREIGN KEY (d_w_id) REFERENCES tpcc.warehouse(w_id);
 ~~~
@@ -185,8 +185,8 @@ ALTER TABLE
 
 ## See also
 
-- [`IMPORT`](../{{ site.versions["stable"] }}/import.html)
-- [Migrate from CSV](../{{ site.versions["stable"] }}/migrate-from-csv.html)
-- [Import Performance Best Practices](../{{ site.versions["stable"] }}/import-performance-best-practices.html)
-- [Use the Built-in SQL Client](../{{ site.versions["stable"] }}/cockroach-sql.html)
-- [Other Cockroach Commands](../{{ site.versions["stable"] }}/cockroach-commands.html)
+- [`IMPORT`](../{{site.versions["stable"] }}/import.html)
+- [Migrate from CSV](../{{site.versions["stable"] }}/migrate-from-csv.html)
+- [Import Performance Best Practices](../{{site.versions["stable"] }}/import-performance-best-practices.html)
+- [Use the Built-in SQL Client](../{{site.versions["stable"] }}/cockroach-sql.html)
+- [Other Cockroach Commands](../{{site.versions["stable"] }}/cockroach-commands.html)

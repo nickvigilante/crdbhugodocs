@@ -53,7 +53,7 @@ A growing number of popular third-party database tools offer full support for Co
 
 ## What's next?
 
-- [Start a Free {{  site.data.products.serverless  }} Cluster](../cockroachcloud/quickstart.html) or [Local Cluster](secure-a-cluster.html)
+- [Start a Free {{ site.data.products.serverless }} Cluster](../cockroachcloud/quickstart.html) or [Local Cluster](secure-a-cluster.html)
 - [Install a Driver or ORM Framework](install-client-drivers.html)
 - [Connect to CockroachDB](connect-to-the-database.html)
 - [Build a Sample Application](example-apps.html)
@@ -67,4 +67,4 @@ You might also be interested in the following pages:
 - [Build a Spring App with CockroachDB](build-a-spring-app-with-cockroachdb-jdbc.html)
 - [Develop and Deploy a Global Application](movr-flask-overview.html)
 
-{%  include cockroach_u_pydev.md %}
+{{ partial "cockroach_u_pydev.md" . }}

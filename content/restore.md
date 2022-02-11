@@ -4,7 +4,7 @@ summary: Restore your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{ site.data.alerts.callout_danger }}The <code>RESTORE</code> feature is only available to our <a href="https://www.cockroachlabs.com/pricing/">enterprise license</a> only users. For non-enterprise restores, see <a href="restore-data.html">Restore Data</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}The <code>RESTORE</code> feature is only available to our <a href="https://www.cockroachlabs.com/pricing/">enterprise license</a> only users. For non-enterprise restores, see <a href="restore-data.html">Restore Data</a>.{{site.data.alerts.end }}
 
 The `RESTORE` [statement](sql-statements.html) restores your cluster's schemas and data from [an enterprise license-generated backup](backup.html) stored on a services such as AWS S3, Google Cloud Storage, NFS, or HTTP storage.
 
@@ -19,7 +19,7 @@ You can restore entire tables (which automatically includes their indexes) or [v
 
 The notion of "restoring a database" simply restores all of the tables and views that belong to the database, but does not create the database. For more information, see [Target Database](#target-database).
 
-{{ site.data.alerts.callout_info }}<code>RESTORE</code> only offers table-level granularity; it <em>does not</em> support restoring subsets of a table.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>RESTORE</code> only offers table-level granularity; it <em>does not</em> support restoring subsets of a table.{{site.data.alerts.end }}
 
 Because this process is designed for disaster recovery, CockroachDB expects that the tables do not currently exist in the [target database](#target-database). This means the target database must have not have tables or views with the same name as the restored table or view. If any of the restore target's names are being used, you can:
 
@@ -68,7 +68,7 @@ The `RESTORE` process minimizes its impact to the cluster's performance by distr
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/restore.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/restore.html" . }}
 
 ## Required Privileges
 
@@ -87,7 +87,7 @@ Only the `root` user can run `RESTORE`.
 
 The URL for your backup's locations must use the following format:
 
-{%  include {{  page.version.version  }}/misc/external-urls.md %}
+{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
 
 ### Restore Option List
 

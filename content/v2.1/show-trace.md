@@ -26,7 +26,7 @@ For `SHOW TRACE FOR SESSION`, no privileges are required.
 ## Syntax
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_trace.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_trace.html" . }}
 </div>
 
 ## Parameters
@@ -49,11 +49,11 @@ Concept | Description
 
 To further clarify these concepts, let's look at a visualization of a trace for one statement. This particular trace is visualized by [Lightstep](http://lightstep.com/) (docs on integrating Lightstep with CockroachDB coming soon). The image only shows spans, but in the tool, it would be possible drill down to messages. You can see names of operations and sub-operations, along with parent-child relationships and timing information, and it's easy to see which operations are executed in parallel.
 
-<div style="text-align: center;"><img src="{{  'images/v2.1/trace.png' | relative_url  }}" alt="Lightstep example" style="border:1px solid #eee;max-width:100%" /></div>
+<div style="text-align: center;"><img src="{{ 'images/v2.1/trace.png' | relative_url }}" alt="Lightstep example" style="border:1px solid #eee;max-width:100%" /></div>
 
 ## Response
 
-{{ site.data.alerts.callout_info }}The format of the <code>SHOW TRACE FOR SESSION</code> response may change in future versions.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The format of the <code>SHOW TRACE FOR SESSION</code> response may change in future versions.{{site.data.alerts.end }}
 
 CockroachDB outputs traces in linear tabular format. Each result row represents either a span start (identified by the `=== SPAN START: <operation> ===` message) or a log message from a span. Rows are generally listed in their timestamp order (i.e., the order in which the events they represent occurred) with the exception that messages from child spans are interleaved in the parent span according to their timing. Messages from sibling spans, however, are not interleaved with respect to one another.
 
@@ -89,13 +89,13 @@ Column | Type | Description
 `operation` | string | The name of the operation (or sub-operation) on whose behalf the message was logged.
 `span` | int | The index of the span within the virtual list of all spans if they were ordered by the span's start time.
 
-{{ site.data.alerts.callout_info }}If the <code>COMPACT</code> keyword was specified, only the <code>age</code>, <code>message</code>, <code>tag</code> and <code>operation</code> columns are returned. In addition, the value of the <code>location</code> columns is prepended to <code>message</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If the <code>COMPACT</code> keyword was specified, only the <code>age</code>, <code>message</code>, <code>tag</code> and <code>operation</code> columns are returned. In addition, the value of the <code>location</code> columns is prepended to <code>message</code>.{{site.data.alerts.end }}
 
 ## Examples
 
 ### Trace a session
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET tracing = on;
 ~~~
@@ -104,7 +104,7 @@ Column | Type | Description
 SET TRACING
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TRACE FOR SESSION;
 ~~~
@@ -142,19 +142,19 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 1. In terminal 1, create a table:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE t (k INT);
     ~~~
 
 2. Still in terminal 1, open a transaction and perform a write without closing the transaction:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > BEGIN;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO t VALUES (1);
     ~~~
@@ -169,7 +169,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4.  Still in terminal 2, execute a conflicting read:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM t;
     ~~~
@@ -178,7 +178,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4. Back in terminal 1, finish the transaction:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > COMMIT;
     ~~~
@@ -195,7 +195,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 6. Still in terminal 2, stop tracing and then view the completed trace:
 
-    {{ site.data.alerts.callout_success }}Check the lines starting with <code>#Annotation</code> for insights into how the conflict is traced.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}Check the lines starting with <code>#Annotation</code> for insights into how the conflict is traced.{{site.data.alerts.end }}
 
     ~~~
     +--------------------+------+--------------------------------------------------------------------------+
@@ -353,12 +353,12 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 1. In terminal 1, turn on trace recording and then start a transaction:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET tracing = on;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > BEGIN;
     ~~~
@@ -367,7 +367,7 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 2. In terminal 2, perform a read:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM t;
     ~~~
@@ -376,7 +376,7 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 3. Back in terminal 1, execute and trace a conflicting write:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO t VALUES (1);
     ~~~
@@ -385,17 +385,17 @@ In this example, we use session tracing to show an [automatic transaction retry]
 
 4. Turn off trace recording and request the trace:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
   	~~~ sql
   	> SET tracing = off;
   	~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
   	~~~ sql
   	> SELECT age, message FROM [SHOW TRACE FOR SESSION];
   	~~~
 
-    {{ site.data.alerts.callout_success }}Check the lines starting with <code>#Annotation</code> for insights into how the retry is traced.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}Check the lines starting with <code>#Annotation</code> for insights into how the retry is traced.{{site.data.alerts.end }}
 
   	~~~ shell
   	+--------------------+---------------------------------------------------------------------------------------------------------------+

@@ -6,9 +6,9 @@ toc: true
 
 This page provides best practices for optimizing SQL performance in CockroachDB.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a demonstration of some of these techniques, see [Performance Tuning](performance-tuning.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Multi-Row DML Best Practices
 
@@ -66,7 +66,7 @@ The best practice in CockroachDB is to generate unique IDs using the `UUID` type
 
 ### Use `UUID` to Generate Unique IDs
 
-{%  include {{  page.version.version  }}/faq/auto-generate-unique-ids.html %}
+{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
 
 ### Use `INSERT` with the `RETURNING` Clause to Generate Unique IDs
 

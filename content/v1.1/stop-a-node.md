@@ -66,7 +66,7 @@ Flag | Description
 
 ### Client Connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 

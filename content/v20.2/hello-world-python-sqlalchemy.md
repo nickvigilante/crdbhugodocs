@@ -12,35 +12,35 @@ This tutorial shows you how build a simple Hello World Python application with C
 
 To install SQLAlchemy, as well as a [CockroachDB Python package](https://github.com/cockroachdb/sqlalchemy-cockroachdb) that accounts for some differences between CockroachDB and PostgreSQL, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can substitute psycopg2 for other alternatives that include the psycopg python package.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For other ways to install SQLAlchemy, see the [official documentation](http://docs.sqlalchemy.org/en/latest/intro.html#installation-guide).
 
 ## Step 2. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 3. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-python-sqlalchemy/
 ~~~
 
 The `main.py` file contains all of the code for the sample Hello World app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-python-sqlalchemy/main/main.py %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-python-sqlalchemy/main/main.py %}
 ~~~
 
 The `main` method of this program does the following:
@@ -52,7 +52,7 @@ The `main` method of this program does the following:
 
 To run the app:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python3 main.py
 ~~~
@@ -74,7 +74,7 @@ cockroachdb://demo:demo4276@127.0.0.1:26257?sslmode=require
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-Copy and paste the connection string from the {{  site.data.products.db  }} console, and replace the `postgres` prefix with `cockroachdb`. Make sure that the right username, password, and certificate are specified as well.
+Copy and paste the connection string from the {{ site.data.products.db }} console, and replace the `postgres` prefix with `cockroachdb`. Make sure that the right username, password, and certificate are specified as well.
 
 For example:
 
@@ -86,15 +86,15 @@ cockroachdb://<username>:<password>@<globalhost>:26257/<cluster-name>.bank?sslmo
 Where you update the connection string as follows:
 
 - Replace `<username>` and `<password>` with a SQL username and password.
-- Replace `<globalhost>` with the name of the {{  site.data.products.serverless-plan  }} host (e.g., `free-tier.gcp-us-central1.cockroachlabs.cloud`).
+- Replace `<globalhost>` with the name of the {{ site.data.products.serverless-plan }} host (e.g., `free-tier.gcp-us-central1.cockroachlabs.cloud`).
 - Replace `<cluster-name>` with the name of your cluster.
-- Replace `<certs_directory>` with the path to the `cc-ca.crt` file that you downloaded from the {{  site.data.products.db  }} Console.
+- Replace `<certs_directory>` with the path to the `cc-ca.crt` file that you downloaded from the {{ site.data.products.db }} Console.
 
 </section>
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You must use the `cockroachdb://` prefix in the URL passed to `sqlalchemy.create_engine` to make sure the CockroachDB dialect is used. Using the `postgres://` URL prefix to connect to your CockroachDB cluster will not work.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 After entering the connection string, the program will execute.
 
@@ -111,7 +111,7 @@ Hey! You successfully connected to your CockroachDB cluster.
 - The [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) docs
 - [Transactions](transactions.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
 
 <!-- Reference Links -->
 

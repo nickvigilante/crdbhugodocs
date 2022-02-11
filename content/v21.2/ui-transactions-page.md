@@ -5,6 +5,6 @@ toc: true
 docs_area: reference.db_console
 ---
 
-{%  include {{  page.version.version  }}/ui/admin-access.md %}
+{{ partial "{{ page.version.version }}/ui/admin-access.md" . }}
 
-{%  include common/ui/transactions-page.md %}
+{{ partial "common/ui/transactions-page.md" . }}

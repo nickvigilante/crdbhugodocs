@@ -14,7 +14,7 @@ When planning your deployment, it's important to carefully review and choose the
 
 Also keep in mind some basic topology recommendations:
 
-{%  include {{  page.version.version  }}/prod-deployment/topology-recommendations.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/topology-recommendations.md" . }}
 
 ## Software
 
@@ -22,7 +22,7 @@ We recommend running a [glibc](https://www.gnu.org/software/libc/)-based Linux d
 
 ## Hardware
 
-{%  include {{  page.version.version  }}/prod-deployment/terminology-vcpu.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/terminology-vcpu.md" . }}
 
 ### Sizing
 
@@ -46,17 +46,17 @@ Carefully consider the following tradeoffs:
 
 In general, distribute your total vCPUs into the **largest possible nodes and smallest possible cluster** that meets your fault tolerance goals.
 
-- Each node should have at least {%  include {{  page.version.version  }}/prod-deployment/provision-cpu.md %}. For greater stability, we recommend at least 8 vCPUs per node.
+- Each node should have at least {{ partial "{{ page.version.version }}/prod-deployment/provision-cpu.md" . }}. For greater stability, we recommend at least 8 vCPUs per node.
 
 - Avoid "burstable" or "shared-core" virtual machines that limit the load on CPU resources.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Cockroach Labs does not extensively test nodes with more than 32 vCPUs. This is not a hard limit, especially for deployments using physical hardware rather than cloud instances. However, if you need more vCPUs, we recommend adding more nodes to the cluster instead of adding more than 32 vCPUs to each node.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Under-provisioning CPU generally results in poor performance, and in extreme cases can lead to cluster unavailability. For more information, see [capacity planning issues](cluster-setup-troubleshooting.html#capacity-planning-issues).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Basic hardware recommendations
 
@@ -75,35 +75,35 @@ Before deploying to production, test and tune your hardware setup for your appli
 
 #### Memory
 
-Provision at least {%  include {{  page.version.version  }}/prod-deployment/provision-memory.md %}. The minimum acceptable ratio is 2 GiB of RAM per vCPU, which is only suitable for testing.
+Provision at least {{ partial "{{ page.version.version }}/prod-deployment/provision-memory.md" . }}. The minimum acceptable ratio is 2 GiB of RAM per vCPU, which is only suitable for testing.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The benefits to having more RAM decrease as the [number of vCPUs](#sizing) increases.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 - To optimize for the support of large numbers of tables, increase the amount of RAM. For more information, see [Quantity of tables and other schema objects](schema-design-overview.html#quantity-of-tables-and-other-schema-objects). Supporting a large number of rows is a matter of [Storage](#storage).
 
 - To ensure consistent SQL performance, make sure all nodes have a uniform configuration.
 
-- {%  include {{  page.version.version  }}/prod-deployment/prod-guidance-disable-swap.md %}
+- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-disable-swap.md" . }}
 
-- {%  include {{  page.version.version  }}/prod-deployment/prod-guidance-cache-max-sql-memory.md %} For more details, see [Cache and SQL memory size](#cache-and-sql-memory-size).
+- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md" . }} For more details, see [Cache and SQL memory size](#cache-and-sql-memory-size).
 
 - Monitor [CPU](common-issues-to-monitor.html#cpu-usage) and [memory](common-issues-to-monitor.html#database-memory-usage) usage. Ensure that they remain within acceptable limits.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Under-provisioning RAM results in reduced performance (due to reduced caching and increased spilling to disk), and in some cases can cause [OOM crashes](cluster-setup-troubleshooting.html#out-of-memory-oom-crash). For more information, see [memory issues](cluster-setup-troubleshooting.html#memory-issues).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Storage
 
-We recommend provisioning volumes with {%  include {{  page.version.version  }}/prod-deployment/provision-storage.md %}. It's fine to have less storage per vCPU if your workload does not have significant capacity needs.
+We recommend provisioning volumes with {{ partial "{{ page.version.version }}/prod-deployment/provision-storage.md" . }}. It's fine to have less storage per vCPU if your workload does not have significant capacity needs.
 
 - The maximum recommended storage capacity per node is 2.5 TiB, regardless of the number of vCPUs.
 
-- {%  include {{  page.version.version  }}/prod-deployment/prod-guidance-store-volume.md %}
+- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-store-volume.md" . }}
 
-- {%  include {{  page.version.version  }}/prod-deployment/prod-guidance-log-volume.md %}
+- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-log-volume.md" . }}
 
 - The recommended Linux filesystems are [ext4](https://ext4.wiki.kernel.org/index.php/Main_Page) and [XFS](https://xfs.wiki.kernel.org/).
 
@@ -117,25 +117,25 @@ We recommend provisioning volumes with {%  include {{  page.version.version  }}/
 
     This is especially recommended if you are using local disks with no RAID protection rather than a cloud provider's network-attached disks that are often replicated under the hood, because local disks have a greater risk of failure. You can do this for the [entire cluster](configure-replication-zones.html#edit-the-default-replication-zone) or for specific [databases](configure-replication-zones.html#create-a-replication-zone-for-a-database), [tables](configure-replication-zones.html#create-a-replication-zone-for-a-table), or [rows](configure-replication-zones.html#create-a-replication-zone-for-a-partition) (Enterprise-only).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Under-provisioning storage leads to node crashes when the disks fill up. Once this has happened, it is difficult to recover from. To prevent your disks from filling up, provision enough storage for your workload, monitor your disk usage, and use a [ballast file](cluster-setup-troubleshooting.html#automatic-ballast-files). For more information, see [capacity planning issues](cluster-setup-troubleshooting.html#capacity-planning-issues) and [storage issues](cluster-setup-troubleshooting.html#storage-issues).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ##### Disk I/O
 
-Disks must be able to achieve {%  include {{  page.version.version  }}/prod-deployment/provision-disk-io.md %}.
+Disks must be able to achieve {{ partial "{{ page.version.version }}/prod-deployment/provision-disk-io.md" . }}.
 
 - [Monitor IOPS](common-issues-to-monitor.html#disk-iops) using the DB Console and `iostat`. Ensure that they remain within acceptable values.
 
 - Use [sysbench](https://github.com/akopytov/sysbench) to benchmark IOPS on your cluster. If IOPS decrease, add more nodes to your cluster to increase IOPS.
 
-- {%  include {{  page.version.version  }}/prod-deployment/prod-guidance-lvm.md %}
+- {{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-lvm.md" . }}
 
 - The optimal configuration for striping more than one device is [RAID 10](https://en.wikipedia.org/wiki/Nested_RAID_levels#RAID_10_(RAID_1+0)). RAID 0 and 1 are also acceptable from a performance perspective.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Disk I/O especially affects [performance on write-heavy workloads](architecture/reads-and-writes-overview.html#network-and-i-o-bottlenecks). For more information, see [capacity planning issues](cluster-setup-troubleshooting.html#capacity-planning-issues) and [node liveness issues](cluster-setup-troubleshooting.html#node-liveness-issues).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ##### Node density testing configuration
 
@@ -163,9 +163,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 
     For example, Cockroach Labs has used `c5d.4xlarge` (16 vCPUs and 32 GiB of RAM per instance, EBS) for [performance benchmarking](performance-benchmarking-with-tpcc-small.html). Note that the instance type depends on whether EBS is used or not. If you're using EBS, use a `c5` instance.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Do not use ["burstable" `t` instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html), which limit the load on CPU resources.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Use `c5` instances with EBS as a primary AWS configuration. To simulate bare-metal deployments, use `c5d` with [SSD Instance Store volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html).
 
@@ -178,9 +178,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 - Use compute-optimized [F-series](https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series) VMs.
     For example, Cockroach Labs has used `Standard_F16s_v2` VMs (16 vCPUs and 32 GiB of RAM per VM) for internal testing.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Do not use ["burstable" B-series](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/b-series-burstable) VMs, which limit the load on CPU resources. Also, Cockroach Labs has experienced data corruption issues on A-series VMs and irregular disk performance on D-series VMs, so we recommend avoiding those as well.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Use [Premium Storage](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage) or local SSD storage with a Linux filesystem such as `ext4` (not the Windows `ntfs` filesystem). Note that [the size of a Premium Storage disk affects its IOPS](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage#premium-storage-disk-limits).
 
@@ -196,9 +196,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 
     For example, Cockroach Labs has used `n2-standard-16` (16 vCPUs and 64 GiB of RAM per VM, local SSD) for performance benchmarking.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Do not use `f1` or `g1` [shared-core machines](https://cloud.google.com/compute/docs/machine-types#sharedcore), which limit the load on CPU resources.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Use [Local SSDs](https://cloud.google.com/compute/docs/disks/#localssds) or [SSD persistent disks](https://cloud.google.com/compute/docs/disks/#pdspecs). Note that [the IOPS of SSD persistent disks depends both on the disk size and number of vCPUs on the machine](https://cloud.google.com/compute/docs/disks/performance#optimizessdperformance).
 - `nobarrier` can be used with SSDs, but only if it has battery-backed write cache. Without one, data can be corrupted in the event of a crash.
@@ -240,9 +240,9 @@ The effect depends on how these two flags are used in combination:
 | **`--advertise-addr` not specified** | Node listens on all of its IP addresses on port `26257` and advertises its canonical hostname to other nodes. | Node listens on the IP address/hostname and port specified in `--listen-addr` and advertises this value to other nodes.
 | **`--advertise-addr` specified** | Node listens on all of its IP addresses on port `26257` and advertises the value specified in `--advertise-addr` to other nodes. **Recommended for most cases.** | Node listens on the IP address/hostname and port specified in `--listen-addr` and advertises the value specified in `--advertise-addr` to other nodes. If the `--advertise-addr` port number is different than the one used in `--listen-addr`, port forwarding is required.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 When using hostnames, make sure they resolve properly (e.g., via DNS or `etc/hosts`). In particular, be careful about the value advertised to other nodes, either via `--advertise-addr` or via `--listen-addr` when `--advertise-addr` is not specified.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Cluster on a single network
 
@@ -269,9 +269,9 @@ Each CockroachDB node is an equally suitable SQL gateway to a cluster, but to en
 - **Performance:** Load balancers spread client traffic across nodes. This prevents any one node from being overwhelmed by requests and improves overall cluster performance (queries per second).
 
 - **Reliability:** Load balancers decouple client health from the health of a single CockroachDB node. To ensure that traffic is not directed to failed nodes or nodes that are not ready to receive requests, load balancers should use [CockroachDB's readiness health check](monitoring-and-alerting.html#health-ready-1).
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 For guidance on load balancing, see the tutorial for your deployment environment:
 
@@ -287,17 +287,17 @@ Environment | Featured Approach
 
 Creating the appropriate size pool of connections is critical to gaining maximum performance in an application. Too few connections in the pool will result in high latency as each operation waits for a connection to open up. But adding too many connections to the pool can also result in high latency as each connection thread is being run in parallel by the system. The time it takes for many threads to complete in parallel is typically higher than the time it takes a smaller number of threads to run sequentially.
 
-{%  include {{  page.version.version  }}/prod-deployment/prod-guidance-connection-pooling.md %}.
+{{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-connection-pooling.md" . }}.
 
 For guidance on sizing, validating, and using connection pools with CockroachDB, see [Use Connection Pools](connection-pooling.html).
 
 ## Monitoring and alerting
 
-{%  include {{  page.version.version  }}/prod-deployment/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
 
 ## Clock synchronization
 
-{%  include {{  page.version.version  }}/faq/clock-synchronization-effects.md %}
+{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
 
 ## Cache and SQL memory size
 
@@ -310,22 +310,22 @@ Each node has a default SQL memory size of `25%`. This memory is used as-needed 
 - Increasing a node's **cache size** will improve the node's read performance.
 - Increasing a node's **SQL memory size** will increase the number of simultaneous client connections it allows, as well as the node's capacity for in-memory processing of rows when using `ORDER BY`, `GROUP BY`, `DISTINCT`, joins, and window functions.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     SQL memory size applies a limit globally to all sessions at any point in time. Certain disk-spilling operations also respect a memory limit that applies locally to a single operation within a single query. This limit is configured via a separate cluster setting. For details, see [Disk-spilling operations](vectorized-execution.html#disk-spilling-operations).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 To manually increase a node's cache size and SQL memory size, start the node using the [`--cache`](cockroach-start.html#flags) and [`--max-sql-memory`](cockroach-start.html#flags) flags. As long as all machines are [provisioned with sufficient RAM](#memory), you can experiment with increasing each value up to `35%`.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach start --cache=.35 --max-sql-memory=.35 {other start flags}
 ~~~
 
-{{ site.data.alerts.callout_success }}
-{%  include {{  page.version.version  }}/prod-deployment/prod-guidance-cache-max-sql-memory.md %}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-guidance-cache-max-sql-memory.md" . }}
 
 Because CockroachDB manages its own memory caches, disable Linux memory swapping to avoid over-allocating memory.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Dependencies
 
@@ -339,9 +339,9 @@ Library | Description
 
 These libraries are found by default on nearly all Linux distributions, with Alpine as the notable exception, but it's nevertheless important to confirm that they are installed and kept up-to-date. For the time zone data in particular, it's important for all nodes to have the same version; when updating the library, do so as quickly as possible across all nodes.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In Docker-based deployments of CockroachDB, these dependencies do not need to be manually addressed. The Docker image for CockroachDB includes them and keeps them up to date with each release of CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## File descriptors limit
 
@@ -440,7 +440,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -481,7 +481,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Check the current limits:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -497,7 +497,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -517,7 +517,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Verify the new limits:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -573,9 +573,9 @@ Alternately, if you're using [Systemd](https://en.wikipedia.org/wiki/Systemd):
     LimitNOFILE=35000
     ~~~
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     To set the file descriptor limit to "unlimited" in the Systemd service definition file, use `LimitNOFILE=infinity`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 2.  Reload Systemd for the new limit to take effect:
 
@@ -619,4 +619,4 @@ When running CockroachDB on Kubernetes, making the following minimal customizati
 
 For more information and additional customization suggestions, see our full detailed guide to [CockroachDB Performance on Kubernetes](kubernetes-performance.html).
 
-{%  include common/transaction-retries.md %}
+{{ partial "common/transaction-retries.md" . }}

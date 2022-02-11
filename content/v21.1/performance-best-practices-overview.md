@@ -6,13 +6,13 @@ toc: true
 
 This page provides best practices for optimizing query performance in CockroachDB.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For guidance on deployment and data location techniques to minimize network latency, see [Topology Patterns](topology-patterns.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you aren't sure whether SQL query performance needs to be improved on your cluster, see [Identify slow queries](query-behavior-troubleshooting.html#identify-slow-statements).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## DML best practices
 
@@ -47,15 +47,15 @@ In this case, be sure to use the `UPSERT` statement.
 
 To bulk-insert data into an existing table, batch multiple rows in one multi-row `INSERT` statement. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). Do not include bulk `INSERT` statements within an explicit transaction.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information, see [Insert Multiple Rows](insert.html#insert-multiple-rows-into-an-existing-table).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Large multi-row `INSERT` queries can lead to long-running transactions that result in [transaction retry errors](transaction-retry-error-reference.html). If a multi-row `INSERT` query results in an error code [`40001` with the message `"transaction deadline exceeded"`](transaction-retry-error-reference.html#retry_commit_deadline_exceeded), we recommend breaking up the query up into smaller batches of rows.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Use `IMPORT` instead of `INSERT` for bulk-inserts into new tables
 
@@ -111,7 +111,7 @@ A well-designed multi-column primary key can yield even better performance than 
 
 For example, consider a social media website. Social media posts are written by users, and on login the user's last 10 posts are displayed. A good choice for a primary key might be `(username, post_timestamp)`. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE posts (
     username STRING,
@@ -124,7 +124,7 @@ For example, consider a social media website. Social media posts are written by 
 
 This would make the following query efficient.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM posts
           WHERE username = 'alyssa'
@@ -149,7 +149,7 @@ Time: 924µs
 
 To see why, let's look at the [`EXPLAIN`](explain.html) output. It shows that the query is fast because it does a point lookup on the indexed column `username` (as shown by the line `spans | /"alyssa"-...`). Furthermore, the column `post_timestamp` is already in an index, and sorted (since it's a monotonically increasing part of the primary key).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (VERBOSE)
     SELECT * FROM posts
@@ -182,17 +182,17 @@ Note that the above query also follows the [indexing best practice](indexes.html
 
 To auto-generate unique row IDs, use the [`UUID`](uuid.html) column with the `gen_random_uuid()` [function](functions-and-operators.html#id-generation-functions) as the [default value](default-value.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t1 (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), name STRING);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t1 (name) VALUES ('a'), ('b'), ('c');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM t1;
 ~~~
@@ -216,7 +216,7 @@ If something prevents you from using [multi-column primary keys](#use-multi-colu
 
 Suppose the table schema is as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE X (
 	ID1 INT,
@@ -228,7 +228,7 @@ Suppose the table schema is as follows:
 
 The common approach would be to use a transaction with an `INSERT` followed by a `SELECT`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -243,7 +243,7 @@ The common approach would be to use a transaction with an `INSERT` followed by a
 
 However, the performance best practice is to use a `RETURNING` clause with `INSERT` instead of the transaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO X VALUES (1,1,1),(2,2,2),(3,3,3)
 	ON CONFLICT (ID1,ID2)
@@ -255,7 +255,7 @@ However, the performance best practice is to use a `RETURNING` clause with `INSE
 
 Suppose the table schema is as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE X (
 	ID1 INT,
@@ -267,7 +267,7 @@ Suppose the table schema is as follows:
 
 The common approach to generate random Unique IDs is a transaction using a `SELECT` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -280,7 +280,7 @@ The common approach to generate random Unique IDs is a transaction using a `SELE
 
 However, the performance best practice is to use a `RETURNING` clause with `INSERT` instead of the transaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO X VALUES (1,1),(2,2),(3,3)
 	RETURNING ID1,ID2,ID3;
@@ -308,7 +308,7 @@ For large tables, avoid table scans (that is, reading the entire table data) whe
 
 Suppose the table schema is as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE accounts (
 	id INT,
@@ -321,14 +321,14 @@ Suppose the table schema is as follows:
 
 Now if we want to find the account balances of all customers, an inefficient table scan would be:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM ACCOUNTS;
 ~~~
 
 This query retrieves all data stored in the table. A more efficient query would be:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
  > SELECT CUSTOMER, BALANCE FROM ACCOUNTS;
 ~~~
@@ -365,7 +365,7 @@ Transaction contention can also increase the rate of transaction restarts, and t
 
 ### Find contention
 
-{%  include {{  page.version.version  }}/performance/statement-contention.md %}
+{{ partial "{{ page.version.version }}/performance/statement-contention.md" . }}
 
 ### Avoid contention
 

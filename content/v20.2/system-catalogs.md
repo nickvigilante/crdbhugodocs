@@ -13,13 +13,13 @@ The following system catalogs are available as schemas preloaded to every databa
 - [`pg_catalog`](pg-catalog.html),  a schema provided for compatibility with PostgreSQL.
 - <span class="version-tag">New in v20.2</span>: [`pg_extension`](pg-extension.html), a schema with information about CockroachDB extensions.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Tables in the system catalogs have varying levels of stability. Not all system catalog tables are meant for programmatic purposes.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To see all of the system catalogs for the [current database](sql-name-resolution.html#current-database), you can use a [`SHOW SCHEMAS`](show-schemas.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~

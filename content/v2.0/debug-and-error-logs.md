@@ -6,9 +6,9 @@ toc: true
 
 If you need to [troubleshoot](troubleshooting-overview.html) issues with your cluster, you can check a node's logs, which include details about certain node-level and range-level events, such as errors. For example, if CockroachDB crashes, it normally logs a stack trace to what caused the problem.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For detailed information about queries being executed against your system, see [SQL Audit Logging](sql-audit-logging.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Details
@@ -64,7 +64,7 @@ For example:
 cockroach.richards-mbp.rloveland.2018-03-15T15_24_10Z.024338.log
 ~~~
 
-{{ site.data.alerts.callout_info }}All log file timestamps are in UTC because CockroachDB is designed to be deployed in a distributed cluster.  Nodes may be located in different time zones, and using UTC makes it easy to correlate log messages from those nodes no matter where they are located.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}All log file timestamps are in UTC because CockroachDB is designed to be deployed in a distributed cluster.  Nodes may be located in different time zones, and using UTC makes it easy to correlate log messages from those nodes no matter where they are located.{{site.data.alerts.end }}
 
 Property | `cockroach start` | All other commands
 ---------|-------------------|-------------------
@@ -75,7 +75,7 @@ Default Severity Level Threshold | `INFO` | *N/A*
 Change Severity Threshold | `--log-file-verbosity=[severity level]` | `--log-file-verbosity=[severity level]`
 Disabled by | `--log-dir=""`<sup>1</sup> | Default
 
-{{ site.data.alerts.callout_info }}<sup>1</sup> If the <code>cockroach</code> process does not have access to on-disk storage, <code>cockroach start</code> does not write messages to log files; instead it prints all messages to <code>stderr</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<sup>1</sup> If the <code>cockroach</code> process does not have access to on-disk storage, <code>cockroach start</code> does not write messages to log files; instead it prints all messages to <code>stderr</code>.{{site.data.alerts.end }}
 
 #### Print to `stderr`
 
@@ -88,7 +88,7 @@ Default Severity Level Threshold | *N/A* | `WARNING`
 Change Severity Threshold | `--logtostderr=[severity level]` | `--logtostderr=[severity level]`
 Disabled by | Default<sup>2</sup> | `--logtostderr=NONE`
 
-{{ site.data.alerts.callout_info }}<sup>2</sup> <code>cockroach start</code> does not print any messages to <code>stderr</code> unless the <code>cockroach</code> process does not have access to on-disk storage, in which case it defaults to <code>--logtostderr=INFO</code> and prints all messages to <code>stderr</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<sup>2</sup> <code>cockroach start</code> does not print any messages to <code>stderr</code> unless the <code>cockroach</code> process does not have access to on-disk storage, in which case it defaults to <code>--logtostderr=INFO</code> and prints all messages to <code>stderr</code>.{{site.data.alerts.end }}
 
 #### Discard Message
 
@@ -98,7 +98,7 @@ By default, commands besides `cockroach start` discard messages with the `INFO` 
 
 ## Flags
 
-{%  include {{  page.version.version  }}/misc/logging-flags.md %}
+{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
 
 The `--log-backtrace-at`, `--verbosity`, and `--v` flags are intended for internal debugging by CockroachDB contributors.
 

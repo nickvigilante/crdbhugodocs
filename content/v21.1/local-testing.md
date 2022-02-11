@@ -12,7 +12,7 @@ If you are deploying a self-hosted cluster, see the [Production Checklist](recom
 
 The [`cockroach start-single-node`](cockroach-start-single-node.html) command starts a single-node, insecure cluster with [in-memory storage](cockroach-start-single-node.html#store):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach start-single-node --insecure --store=type=mem,size=0.25 --advertise-addr=localhost
 ~~~
@@ -25,7 +25,7 @@ By default, `cockroach start-single-node` logs cluster activity to a file with t
 
 To customize logging behavior for local clusters, use the [`--log` flag](cockroach-start-single-node.html#logging):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach start-single-node --insecure --store=type=mem,size=0.25 --advertise-addr=localhost --log="{file-defaults: {dir: /path/to/logs}, sinks: {stderr: {filter: NONE }}}"
 ~~~

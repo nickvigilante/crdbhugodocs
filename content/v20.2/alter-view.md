@@ -6,13 +6,13 @@ toc: true
 
 The `ALTER VIEW` [statement](sql-statements.html) applies a schema change to a [view](views.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `ALTER VIEW ... RENAME TO` can be used to move a view from one database to another, but it cannot be used to move a view from one schema to another. To change a views's schema, use [`SET SCHEMA`](set-schema.html).
 
 Note that, in a future release, `ALTER VIEW ... RENAME TO` will be limited to changing the name of a view, and will not have to the ability to change a view's database.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -21,7 +21,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/alter_view.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/alter_view.html" . }}
 </div>
 
 ## Parameters
@@ -43,7 +43,7 @@ CockroachDB does not currently support:
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -58,17 +58,17 @@ CockroachDB does not currently support:
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER VIEW bank.user_emails RENAME TO bank.user_email_addresses;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 > RENAME VIEW
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~

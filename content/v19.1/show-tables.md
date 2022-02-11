@@ -7,12 +7,12 @@ toc: true
 
 The `SHOW TABLES` [statement](sql-statements.html) lists the tables or [views](views.html) in a schema or database.
 
-{{ site.data.alerts.callout_info }}While a table or view is being <a href="drop-table.html">dropped</a>, <code>SHOW TABLES</code> will list the object with a <code>(dropped)</code> suffix.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}While a table or view is being <a href="drop-table.html">dropped</a>, <code>SHOW TABLES</code> will list the object with a <code>(dropped)</code> suffix.{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_tables.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_tables.html" . }}
 </div>
 
 ## Required privileges
@@ -36,7 +36,7 @@ These example assumes that the `bank` database has been set as the current datab
 
 ### Show tables in the current database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -55,12 +55,12 @@ This uses the [current schema](sql-name-resolution.html#current-schema) `public`
 
 ### Show tables in a different schema
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM information_schema;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM bank.information_schema; -- also possible
 ~~~
@@ -95,12 +95,12 @@ This uses the [current schema](sql-name-resolution.html#current-schema) `public`
 
 ### Show tables in a different database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM startrek.public;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM startrek; -- also possible
 ~~~

@@ -26,7 +26,7 @@ If you've already [started a local cluster](start-a-local-cluster.html), the com
 
 In a new terminal, start node 1 on cloud 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -40,7 +40,7 @@ $ cockroach start \
 
 In a new terminal, start node 2 on cloud 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -54,7 +54,7 @@ $ cockroach start \
 
 In a new terminal, start node 3 on cloud 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -70,7 +70,7 @@ $ cockroach start \
 
 In a new terminal, use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init \
 --insecure \
@@ -83,7 +83,7 @@ You're now running 3 nodes in a simulated cloud. Each of these nodes is an equal
 
 In a new terminal, run the [`cockroach gen haproxy`](cockroach-gen.html) command, specifying the port of any node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach gen haproxy \
 --insecure \
@@ -118,7 +118,7 @@ listen psql
 
 Start HAProxy, with the `-f` flag pointing to the `haproxy.cfg` file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ haproxy -f haproxy.cfg
 ~~~
@@ -129,7 +129,7 @@ Now that you have a load balancer running in front of your cluster, lets use the
 
 1. In a new terminal, load the initial `ycsb` schema and data, pointing it at HAProxy's port:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init ycsb \
     'postgresql://root@localhost:26000?sslmode=disable'
@@ -137,7 +137,7 @@ Now that you have a load balancer running in front of your cluster, lets use the
 
 2. Run the `ycsb` workload, pointing it at HAProxy's port:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run ycsb \
     --duration=20m \
@@ -171,7 +171,7 @@ Now open the DB Console at `http://localhost:8080` and click **Metrics** in the 
 
 Scroll down a bit and hover over the **Replicas per Node** graph. Because CockroachDB replicates each piece of data 3 times by default, the replica count on each of your 3 nodes should be identical:
 
-<img src="{{  'images/v21.2/ui_replicas_migration.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/ui_replicas_migration.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 7. Add 3 nodes on "cloud 2"
 
@@ -179,7 +179,7 @@ At this point, you're running three nodes on cloud 1. But what if you'd like to 
 
 In a new terminal, start node 4 on cloud 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -193,7 +193,7 @@ $ cockroach start \
 
 In a new terminal, start node 5 on cloud 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -207,7 +207,7 @@ $ cockroach start \
 
 In a new terminal, start node 6 on cloud 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -223,7 +223,7 @@ $ cockroach start \
 
 Back on the **Overview** dashboard in DB Console, hover over the **Replicas per Node** graph again. Because you used [`--locality`](configure-replication-zones.html#descriptive-attributes-assigned-to-nodes) to specify that nodes are running on 2 clouds, you'll see an approximately even number of replicas on each node, indicating that CockroachDB has automatically rebalanced replicas across both simulated clouds:
 
-<img src="{{  'images/v21.2/ui_replicas_migration2.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/ui_replicas_migration2.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 Note that it takes a few minutes for the DB Console to show accurate per-node replica counts on hover. This is why the new nodes in the screenshot above show 0 replicas. However, the graph lines are accurate, and you can click **View node list** in the **Summary** area for accurate per-node replica counts as well.
 
@@ -233,7 +233,7 @@ So your cluster is replicating across two simulated clouds. But let's say that a
 
 In a new terminal, [edit the default replication zone](configure-zone.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING constraints='[+cloud=2]';" --insecure --host=localhost:26257
 ~~~
@@ -242,7 +242,7 @@ $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING constraints=
 
 Back on the **Overview** dashboard in the DB Console, hover over the **Replicas per Node** graph again. Very soon, you'll see the replica count double on nodes 4, 5, and 6 and drop to 0 on nodes 1, 2, and 3:
 
-<img src="{{  'images/v21.2/ui_replicas_migration3.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/ui_replicas_migration3.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 This indicates that all data has been migrated from cloud 1 to cloud 2. In a real cloud migration scenario, at this point you would update the load balancer to point to the nodes on cloud 2 and then stop the nodes on cloud 1. But for the purpose of this local simulation, there's no need to do that.
 
@@ -250,11 +250,11 @@ This indicates that all data has been migrated from cloud 1 to cloud 2. In a rea
 
 Once you're done with your cluster, stop YCSB by switching into its terminal and pressing **CTRL-C**. Then do the same for HAProxy and each CockroachDB node.
 
-{{ site.data.alerts.callout_success }}For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{site.data.alerts.end }}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores and the HAProxy config file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf cloud1node1 cloud1node2 cloud1node3 cloud2node4 cloud2node5 cloud2node6 haproxy.cfg
 ~~~
@@ -263,7 +263,7 @@ $ rm -rf cloud1node1 cloud1node2 cloud1node3 cloud2node4 cloud2node5 cloud2node6
 
 Explore other core CockroachDB benefits and features:
 
-{%  include {{  page.version.version  }}/misc/explore-benefits-see-also.md %}
+{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}
 
 You may also want to learn other ways to control the location and number of replicas in a cluster:
 

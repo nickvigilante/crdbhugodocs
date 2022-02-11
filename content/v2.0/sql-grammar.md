@@ -18,13 +18,13 @@ a[name]:focus {
 }
 </style>
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 This page describes the full CockroachDB SQL grammar. However, as a starting point, it's best to reference our <a href="sql-statements.html">SQL statements pages</a> first, which provide detailed explanations and examples.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  comment %}
+{% comment %}
 TODO: clean up the SQL diagrams not to link to these missing nonterminals.
-{%  endcomment %}
+{% endcomment %}
 <a id="col_label"></a>
 <a id="column_constraints"></a>
 <a id="column_name"></a>
@@ -40,5 +40,5 @@ TODO: clean up the SQL diagrams not to link to these missing nonterminals.
 <a id="timestamp"></a>
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/stmt_block.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/stmt_block.html" . }}
 </div>

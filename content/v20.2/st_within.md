@@ -18,19 +18,19 @@ This behavior is similar to [`ST_CoveredBy`](st_coveredby.html), except that the
 
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
-{%  if page.has_prefixed_variant %}
-{{ site.data.alerts.callout_info }}
+{% if page.has_prefixed_variant %}
+{{site.data.alerts.callout_info }}
 `{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{ site.data.alerts.end }}
-{%  endif %}
+{{site.data.alerts.end }}
+{% endif %}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This function is the inverse of [`ST_Contains`](st_contains.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
-{%  include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{{ partial "{{ page.version.version }}/misc/geojson_geometry_note.md" . }}
 
 ### True
 
@@ -39,7 +39,7 @@ In this example, `{{ page.title }}` returns `true` because:
 - No point in Polygon _A_ lies outside of Polygon _B_.
 - At least one point in the interior of Polygon _A_ lies in the interior of Polygon _B_.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT ST_Within(st_geomfromtext('SRID=4326;POLYGON((-87.623177 41.881832, -90.199402 38.627003, -82.446732 38.413651, -87.623177 41.881832))'), st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))'));
 ~~~
@@ -52,7 +52,7 @@ SELECT ST_Within(st_geomfromtext('SRID=4326;POLYGON((-87.623177 41.881832, -90.1
 (1 row)
 ~~~
 
-<img src="{{  'images/v20.2/geospatial/st_within_true.png' | relative_url  }}" alt="ST_Within - true" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/geospatial/st_within_true.png' | relative_url }}" alt="ST_Within - true" style="border:1px solid #eee;max-width:100%" />
 
 ### False
 
@@ -60,7 +60,7 @@ In this example, `{{ page.title }}` returns `false` because:
 
 - All points in Polygon _A_ lie outside of Polygon _B_.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT ST_Within(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902), (-87.623177 41.881832, -90.199402 38.627003, -82.446732 38.413651, -87.623177 41.881832))'), st_geomfromtext('SRID=4326;POLYGON((-87.356934 41.595161, -84.512016 39.103119, -86.529167 39.162222, -87.356934 41.595161))'));
 ~~~
@@ -72,7 +72,7 @@ SELECT ST_Within(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.9
 (1 row)
 ~~~
 
-<img src="{{  'images/v20.2/geospatial/st_within_false.png' | relative_url  }}" alt="ST_Within - false" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/geospatial/st_within_false.png' | relative_url }}" alt="ST_Within - false" style="border:1px solid #eee;max-width:100%" />
 
 ## See also
 

@@ -13,9 +13,9 @@ docs_area: deploy
     <button id="windows" class="current" data-eventcategory="buttonClick-doc-os" data-eventaction="windows">Windows</button>
 </div>
 
-<p>See <a href="../releases/{{ page.release_info.version }}.html" class="mac-releasenotes-download" id="mac-releasenotes-download-{{ page.version.version }}" data-eventcategory="mac-releasenotes-download">Release Notes</a> for what's new in the latest release, {{  page.release_info.version  }}. To upgrade to this release from an older version, see <a href="upgrade-cockroach-version.html">Cluster Upgrade</a>.</p>
+<p>See <a href="../releases/{{ page.release_info.version }}.html" class="mac-releasenotes-download" id="mac-releasenotes-download-{{ page.version.version }}" data-eventcategory="mac-releasenotes-download">Release Notes</a> for what's new in the latest release, {{ page.release_info.version }}. To upgrade to this release from an older version, see <a href="upgrade-cockroach-version.html">Cluster Upgrade</a>.</p>
 
-{%  include cockroachcloud/use-cockroachcloud-instead.md %}
+{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
 
 <h2>Install options</h2>
 
@@ -24,16 +24,16 @@ Use one of the options below to install CockroachDB.
 <div id="download-the-binary-windows" class="install-option">
   <h3>Download the executable</h3>
 
-  {%  include windows_warning.md %}
+  {{ partial "windows_warning.md" . }}
 
   <ol>
     <li>
-      <p>Use PowerShell to download the <a href="https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.windows-6.2-amd64.zip" class="windows-binary-download" id="windows-binary-download-{{ page.version.version }}" data-eventcategory="windows-binary-download">CockroachDB {{  page.release_info.version  }} archive for Windows</a> and copy the binary into your <code>PATH</code>:<p>
+      <p>Use PowerShell to download the <a href="https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.windows-6.2-amd64.zip" class="windows-binary-download" id="windows-binary-download-{{ page.version.version }}" data-eventcategory="windows-binary-download">CockroachDB {{ page.release_info.version }} archive for Windows</a> and copy the binary into your <code>PATH</code>:<p>
       <div class="copy-clipboard">
         <svg data-eventcategory="windows-binary-button" id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><style>.st0{fill:#A2A2A2;}</style><title>icon/buttons/copy</title><g id="Mask"><path id="path-1_1_" class="st0" d="M4.9 4.9v6h6v-6h-6zM3.8 3.8H12V12H3.8V3.8zM2.7 7.1v1.1H.1S0 5.5 0 0h8.2v2.7H7.1V1.1h-6v6h1.6z"/></g></svg>
         <svg id="copy-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><style>.st1{fill:#54B30E;}</style><path id="path-1_2_" class="st1" d="M3.8 9.1c-.3 0-.5-.1-.6-.2L.3 6C0 5.7-.1 5.2.2 4.8c.3-.4.9-.4 1.3-.1L3.8 7 10.6.2c.3-.3.9-.4 1.2 0 .3.3.3.9 0 1.2L4.4 8.9c-.2.1-.4.2-.6.2z"/></svg>
       </div>
-      <div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>$ErrorActionPreference = "Stop"; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;$ProgressPreference = 'SilentlyContinue'; $null = New-Item -Type Directory -Force $env:appdata/cockroach; Invoke-WebRequest -Uri https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.windows-6.2-amd64.zip -OutFile cockroach.zip; Expand-Archive -Force -Path cockroach.zip; Copy-Item -Force "cockroach/cockroach-{{  page.release_info.version  }}.windows-6.2-amd64/cockroach.exe" -Destination $env:appdata/cockroach; $Env:PATH += ";$env:appdata/cockroach"</code></pre></div>
+      <div class="highlight"><pre class="highlight"><code><span class="nb">PS </span>$ErrorActionPreference = "Stop"; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12;$ProgressPreference = 'SilentlyContinue'; $null = New-Item -Type Directory -Force $env:appdata/cockroach; Invoke-WebRequest -Uri https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.windows-6.2-amd64.zip -OutFile cockroach.zip; Expand-Archive -Force -Path cockroach.zip; Copy-Item -Force "cockroach/cockroach-{{ page.release_info.version }}.windows-6.2-amd64/cockroach.exe" -Destination $env:appdata/cockroach; $Env:PATH += ";$env:appdata/cockroach"</code></pre></div>
       <p>We recommend adding <code>;$env:appdata/cockroach</code> to the <code>PATH</code> variable for your system environment so you can execute <a href="cockroach-commands.html">cockroach commands</a> from any shell. See <a href="https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_environment_variables#saving-changes-to-environment-variables">Microsoft's environment variable documentation</a> for more information.</p>
     </li>
     <li>
@@ -46,7 +46,7 @@ Use one of the options below to install CockroachDB.
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{%  include marketo-install.html uid="1" %}
+{{ partial "marketo-install.html uid="1"" . }}
     </li>
   </ol>
 </div>
@@ -60,7 +60,7 @@ Use one of the options below to install CockroachDB.
 <div id="use-docker-windows" class="install-option">
   <h3>Use Docker</h3>
 
-  {{ site.data.alerts.callout_danger }}Running a stateful application like CockroachDB in Docker is more complex and error-prone than most uses of Docker. Unless you are very experienced with Docker, we recommend starting with a different installation and deployment method.{{ site.data.alerts.end }}
+  {{site.data.alerts.callout_danger }}Running a stateful application like CockroachDB in Docker is more complex and error-prone than most uses of Docker. Unless you are very experienced with Docker, we recommend starting with a different installation and deployment method.{{site.data.alerts.end }}
 
   <ol>
     <li>
@@ -88,17 +88,17 @@ Use one of the options below to install CockroachDB.
         <svg data-eventcategory="windows-docker-button" id="copy-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12"><style>.st0{fill:#A2A2A2;}</style><title>icon/buttons/copy</title><g id="Mask"><path id="path-1_1_" class="st0" d="M4.9 4.9v6h6v-6h-6zM3.8 3.8H12V12H3.8V3.8zM2.7 7.1v1.1H.1S0 5.5 0 0h8.2v2.7H7.1V1.1h-6v6h1.6z"/></g></svg>
         <svg id="copy-check" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10"><style>.st1{fill:#54B30E;}</style><path id="path-1_2_" class="st1" d="M3.8 9.1c-.3 0-.5-.1-.6-.2L.3 6C0 5.7-.1 5.2.2 4.8c.3-.4.9-.4 1.3-.1L3.8 7 10.6.2c.3-.3.9-.4 1.2 0 .3.3.3.9 0 1.2L4.4 8.9c-.2.1-.4.2-.6.2z"/></svg>
       </div>
-      <div class="highlight"><pre class="highlight"><code data-eventcategory="win-docker-step3"><span class="nb win-docker-step3" id="win-docker-step3-{{  page.version.version  }}" data-eventcategory="win-docker-step3">PS </span>C:\Users\username&gt; docker pull {{ page.release_info.docker_image }}:{{ page.release_info.version }}</code></pre></div>
+      <div class="highlight"><pre class="highlight"><code data-eventcategory="win-docker-step3"><span class="nb win-docker-step3" id="win-docker-step3-{{ page.version.version }}" data-eventcategory="win-docker-step3">PS </span>C:\Users\username&gt; docker pull {{ page.release_info.docker_image }}:{{ page.release_info.version }}</code></pre></div>
     </li>
     <li>
       <p>Keep up-to-date with CockroachDB releases and best practices:</p>
-{%  include marketo-install.html uid="2" %}
+{{ partial "marketo-install.html uid="2"" . }}
     </li>
   </ol>
 </div>
 
 <h2 id="whats-next">What&#39;s next?</h2>
 
-{%  include {{  page.version.version  }}/misc/install-next-steps.html %}
+{{ partial "{{ page.version.version }}/misc/install-next-steps.html" . }}
 
-{%  include {{  page.version.version  }}/misc/diagnostics-callout.html %}
+{{ partial "{{ page.version.version }}/misc/diagnostics-callout.html" . }}

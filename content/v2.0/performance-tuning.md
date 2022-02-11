@@ -14,15 +14,15 @@ For a comprehensive list of tuning recommendations, only some of which are demon
 
 You'll start with a 3-node CockroachDB cluster in a single Google Compute Engine (GCE) zone, with an extra instance for running a client application workload:
 
-<img src="{{  'images/v2.0/perf_tuning_single_region_topology.png' | relative_url  }}" alt="Perf tuning topology" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_single_region_topology.png' | relative_url }}" alt="Perf tuning topology" style="max-width:100%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Within a single GCE zone, network latency between instances should be sub-millisecond.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 You'll then scale the cluster to 9 nodes running across 3 GCE regions, with an extra instance in each region for a client application workload:
 
-<img src="{{  'images/v2.0/perf_tuning_multi_region_topology.png' | relative_url  }}" alt="Perf tuning topology" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_multi_region_topology.png' | relative_url }}" alt="Perf tuning topology" style="max-width:100%" />
 
 To reproduce the performance demonstrated in this tutorial:
 
@@ -33,7 +33,7 @@ To reproduce the performance demonstrated in this tutorial:
 
 Your schema and data will be based on the fictional peer-to-peer vehicle-sharing app, MovR, that was featured in the [CockroachDB 2.0 demo](https://www.youtube.com/watch?v=v2QK5VgLx6E):
 
-<img src="{{  'images/v2.0/perf_tuning_movr_schema.png' | relative_url  }}" alt="Perf tuning schema" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_movr_schema.png' | relative_url }}" alt="Perf tuning schema" style="max-width:100%" />
 
 A few notes about the schema:
 
@@ -46,7 +46,7 @@ A few notes about the schema:
 
 To understand the techniques in this tutorial, and to be able to apply them in your own scenarios, it's important to first review some important [CockroachDB architectural concepts](architecture/overview.html):
 
-{%  include {{  page.version.version  }}/misc/basic-terms.md %}
+{{ partial "{{ page.version.version }}/misc/basic-terms.md" . }}
 
 As mentioned above, when a query is executed, the cluster routes the request to the leaseholder for the range containing the relevant data. If the query touches multiple ranges, the request goes to multiple leaseholders. For a read request, only the leaseholder of the relevant range retrieves the data. For a write request, the Raft consensus protocol dictates that a majority of the replicas of the relevant range must agree before the write is committed.
 
@@ -61,7 +61,7 @@ First, imagine a simple read scenario where:
 - Ranges are replicated 3 times (the default).
 - A query is executed against node 2 to read from table 3.
 
-<img src="{{  'images/v2.0/perf_tuning_concepts1.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_concepts1.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 In this case:
 
@@ -72,13 +72,13 @@ In this case:
 
 If the query is received by the node that has the leaseholder for the relevant range, there are fewer network hops:
 
-<img src="{{  'images/v2.0/perf_tuning_concepts2.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_concepts2.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 #### Write scenario
 
 Now imagine a simple write scenario where a query is executed against node 3 to write to table 1:
 
-<img src="{{  'images/v2.0/perf_tuning_concepts3.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_concepts3.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 In this case:
 
@@ -91,7 +91,7 @@ In this case:
 
 Just as in the read scenario, if the write request is received by the node that has the leaseholder and Raft leader for the relevant range, there are fewer network hops:
 
-<img src="{{  'images/v2.0/perf_tuning_concepts4.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_concepts4.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 #### Network and I/O bottlenecks
 
@@ -137,9 +137,9 @@ Source IP ranges | Your local network's IP ranges
 Allowed protocols | **tcp:8080**
 Target tags | `cockroachdb`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The **tag** feature will let you easily apply the rule to your instances.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 2. Create instances
 
@@ -160,22 +160,22 @@ You'll start with a 3-node CockroachDB cluster in the `us-east1-b` GCE zone, wit
 
 1. SSH to the first `n1-standard-4` instance.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 3. Run the [`cockroach start`](start-a-node.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -191,7 +191,7 @@ You'll start with a 3-node CockroachDB cluster in the `us-east1-b` GCE zone, wit
 
 5. On any of the `n1-standard-4` instances, run the [`cockroach init`](initialize-a-cluster.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=localhost
     ~~~
@@ -204,43 +204,43 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
 
 1. SSH to the fourth instance, the one not running a CockroachDB node.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, and extract the binary:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, and extract the binary:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
 3. Copy the binary into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 4. Start the [built-in SQL shell](use-the-built-in-sql-client.html), pointing it at one of the CockroachDB nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=<address of any node>
     ~~~
 
 5. Create the `movr` database and set it as the default:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE movr;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET DATABASE = movr;
     ~~~
 
 6. Use the [`IMPORT`](import.html) statement to create and populate the `users`, `vehicles,` and `rides` tables:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > IMPORT TABLE users (
       	id UUID NOT NULL,
@@ -266,7 +266,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
     Time: 3.409449563s
     ~~~    
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > IMPORT TABLE vehicles (
         id UUID NOT NULL,
@@ -296,7 +296,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
     Time: 5.646142826s
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > IMPORT TABLE rides (
       	id UUID NOT NULL,
@@ -339,9 +339,9 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
     Time: 42.781522085s
     ~~~
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     You can observe the progress of imports as well as all schema change operations (e.g., adding secondary indexes) on the [**Jobs** page](admin-ui-jobs-page.html) of the Web UI.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 7. Logically, there should be a number of [foreign key](foreign-key.html) relationships between the tables:
 
@@ -353,7 +353,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
 
     As mentioned earlier, it wasn't possible to put these relationships in place during `IMPORT`, but it was possible to create the required secondary indexes. Now, let's add the foreign key constraints:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE vehicles
     ADD CONSTRAINT fk_city_ref_users
@@ -361,7 +361,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
     REFERENCES users (city, id);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE rides
     ADD CONSTRAINT fk_city_ref_users
@@ -369,7 +369,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
     REFERENCES users (city, id);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE rides
     ADD CONSTRAINT fk_vehicle_city_ref_vehicles
@@ -379,7 +379,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
 
 8. Exit the built-in SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
@@ -390,23 +390,23 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
 1. Still on the fourth instance, make sure all of the system software is up-to-date:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get update && sudo apt-get -y upgrade
     ~~~
 
 2. Install the `psycopg2` driver:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get install python-psycopg2
     ~~~
 
 3. Download the Python client:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ wget https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/performance/tuning.py \
+    $ wget https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/performance/tuning.py \
     && chmod +x tuning.py
     ~~~
 
@@ -420,9 +420,9 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
     When run, the client prints the average time in seconds across all repetitions of the statement. Optionally, you can pass two other flags, `--time` to print the execution time in seconds for each repetition of the statement, and `--cumulative` to print the cumulative time in seconds for all repetitions. `--cumulative` is particularly useful when testing writes.
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     To get similar help directly in your shell, use `./tuning.py --help`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 ### Step 6. Test/tune read performance
 
@@ -438,7 +438,7 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
 Retrieving a single row based on the primary key will usually return in 2ms or less:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -459,13 +459,13 @@ Average time (milliseconds):
 1.18108272552
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When reading from a table or index for the first time in a session, the query will be slower than usual because the node issuing the query loads the schema of the table or index into memory first. For this reason, the first query took 24ms, whereas all others were sub-millisecond.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Retrieving a subset of columns will usually be even faster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -492,7 +492,7 @@ Average time (milliseconds):
 
 You'll get generally poor performance when retrieving a single row based on a column that is not in the primary key or any secondary index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -515,7 +515,7 @@ Average time (milliseconds):
 
 To understand why this query performs poorly, use the SQL client built into the `cockroach` binary to [`EXPLAIN`](explain.html) the query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -541,7 +541,7 @@ The row with `spans | ALL` shows you that, without a secondary index on the `nam
 
 To speed up this query, add a secondary index on `name`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -552,7 +552,7 @@ $ cockroach sql \
 
 The query will now return much faster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -575,7 +575,7 @@ Average time (milliseconds):
 
 To understand why performance improved from 4.99ms (without index) to 1.66ms (with index), use [`EXPLAIN`](explain.html) to see the new query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -608,7 +608,7 @@ When you have a query that filters by a specific column but retrieves a subset o
 
 For example, let's say you frequently retrieve a user's name and credit card number:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -631,7 +631,7 @@ Average time (milliseconds):
 
 With the current secondary index on `name`, CockroachDB still needs to scan the primary index to get the credit card number:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -657,7 +657,7 @@ $ cockroach sql \
 
 Let's drop and recreate the index on `name`, this time storing the `credit_card` value in the index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -666,7 +666,7 @@ $ cockroach sql \
 --execute="DROP INDEX users_name_idx;"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -677,7 +677,7 @@ $ cockroach sql \
 
 Now that `credit_card` values are stored in the index on `name`, CockroachDB only needs to scan that index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -700,7 +700,7 @@ $ cockroach sql \
 
 This results in even faster performance, reducing latency from 1.65ms (index without storing) to 1.04ms (index with storing):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -727,7 +727,7 @@ Secondary indexes are crucial when [joining](joins.html) data from different tab
 
 For example, let's say you want to count the number of users who started rides on a given day. To do this, you need to use a join to get the relevant rides from the `rides` table and then map the `rider_id` for each of those rides to the corresponding `id` in the `users` table, counting each mapping only once:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -753,7 +753,7 @@ Average time (milliseconds):
 
 To understand what's happening, use [`EXPLAIN`](explain.html) to see the query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -790,7 +790,7 @@ Given that the `rides` table is large, its data is split across several ranges. 
 
 To track this specifically, let's use the [`SHOW EXPERIMENTAL_RANGES`](show-experimental-ranges.html) statement to find out where the relevant leaseholders reside for `rides` and `users`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -814,7 +814,7 @@ $ cockroach sql \
 (7 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -839,7 +839,7 @@ The results above tell us:
 
 Now, given the `WHERE` condition of the join, the full table scan of `rides`, across all of its 7 ranges, is particularly wasteful. To speed up the query, you can create a secondary index on the `WHERE` condition (`rides.start_time`) storing the join key (`rides.rider_id`):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -848,13 +848,13 @@ $ cockroach sql \
 --execute="CREATE INDEX ON rides (start_time) STORING (rider_id);"
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `rides` table contains 1 million rows, so adding this index will take a few minutes.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Adding the secondary index reduced the query time from 1081.04ms to 71.89ms:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -880,7 +880,7 @@ Average time (milliseconds):
 
 To understand why performance improved, again use [`EXPLAIN`](explain.html) to see the new query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -915,7 +915,7 @@ Notice that CockroachDB now starts by using `rides@rides_start_time_idx` seconda
 
 Let's check the ranges for the new index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -940,7 +940,7 @@ This tells us that the index is stored in 2 ranges, with the leaseholders for bo
 
 Now let's say you want to get the latest ride of each of the 5 most used vehicles. To do this, you might think to use a subquery to get the IDs of the 5 most frequent vehicles from the `rides` table, passing the results into the `IN` list of another query to get the most recent ride of each of the 5 vehicles:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -976,7 +976,7 @@ Average time (milliseconds):
 
 However, as you can see, this query is slow because, currently, when the `WHERE` condition of a query comes from the result of a subquery, CockroachDB scans the entire table, even if there is an available index. Use `EXPLAIN` to see this in more detail:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -1030,7 +1030,7 @@ This is a complex query plan, but the important thing to note is the full table 
 
 Because CockroachDB will not use an available secondary index when using `IN (list)` with a subquery, it's much more performant to have your application first select the top 5 vehicles:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1061,7 +1061,7 @@ Average time (milliseconds):
 
 And then put the results into the `IN` list to get the most recent rides of the vehicles:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1107,11 +1107,11 @@ This approach reduced the query time from 4356.70ms (query with subquery) to 160
 
 Moving on to writes, let's imagine that you have a batch of 100 new users to insert into the `users` table. The most obvious approach is to insert each row using 100 separate [`INSERT`](insert.html) statements:  
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1134,7 +1134,7 @@ Cumulative time (milliseconds):
 
 The 100 inserts took 941.69ms to complete, which isn't bad. However, it's significantly faster to use a single `INSERT` statement with 100 comma-separated `VALUES` clauses:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1169,7 +1169,7 @@ Earlier, we saw how important secondary indexes are for read performance. For wr
 
 Let's consider the `users` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -1196,7 +1196,7 @@ This table has the primary index (the full table) and a secondary index on `name
 
 To make this more concrete, let's count how many rows have a name that starts with `C` and then update those rows to all have the same name:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1215,7 +1215,7 @@ Average time (milliseconds):
 2.52413749695
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1234,7 +1234,7 @@ Because `name` is in both the `primary` and `users_name_idx` indexes, for each o
 
 Now, assuming that the `users_name_idx` index is no longer needed, lets drop the index and execute an equivalent query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -1243,7 +1243,7 @@ $ cockroach sql \
 --execute="DROP INDEX users_name_idx;"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1264,7 +1264,7 @@ Before, when both the primary and secondary indexes needed to be updated, the up
 
 Now let's focus on the common case of inserting a row into a table and then retrieving the ID of the new row to do some follow-up work. One approach is to execute two statements, an `INSERT` to insert the row and then a `SELECT` to get the new ID:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1277,7 +1277,7 @@ Average time (milliseconds):
 9.97304916382
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1296,7 +1296,7 @@ Average time (milliseconds):
 
 Combined, these statements are relatively fast, at 17.29ms, but an even more performant approach is to append `RETURNING id` to the end of the `INSERT`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1366,22 +1366,22 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 1. SSH to one of the `n1-standard-4` instances in the `us-west1-a` zone.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 3. Run the [`cockroach start`](start-a-node.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -1397,22 +1397,22 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 5. SSH to one of the `n1-standard-4` instances in the `us-west2-a` zone.
 
-6. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+6. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 7. Run the [`cockroach start`](start-a-node.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -1436,7 +1436,7 @@ Since you started each node with the `--locality` flag set to its GCE zone, over
 
 To check this, access the Web UI on any node at `<node address>:8080` and look at the **Node List**. You'll see that the range count is more or less even across all nodes:
 
-<img src="{{  'images/v2.0/perf_tuning_multi_region_rebalancing.png' | relative_url  }}" alt="Perf tuning rebalancing" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_multi_region_rebalancing.png' | relative_url }}" alt="Perf tuning rebalancing" style="border:1px solid #eee;max-width:100%" />
 
 For reference, here's how the nodes map to zones:
 
@@ -1448,7 +1448,7 @@ Node IDs | Zone
 
 To verify even balancing at range level, SSH to one of the instances not running CockroachDB and run the `SHOW EXPERIMENTAL_RANGES` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -1480,7 +1480,7 @@ For example, imagine we are a Movr administrator in New York, and we want to get
 
 2. Query for the data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./tuning.py \
     --host=<address of a node in us-east1-b> \
@@ -1518,7 +1518,7 @@ For contrast, imagine we are now a Movr administrator in Seattle, and we want to
 
 2. Query for the data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./tuning.py \
     --host=<address of a node in us-west1-a> \
@@ -1556,7 +1556,7 @@ The geographic distribution of data impacts write performance as well. For examp
 
 2. Create 100 NY-based users:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     ./tuning.py \
     --host=<address of a node in us-east1-b> \
@@ -1577,7 +1577,7 @@ The geographic distribution of data impacts write performance as well. For examp
 
 4. Create 100 new Los Angeles-based users:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     ./tuning.py \
     --host=<address of a node in us-west2-a> \
@@ -1596,7 +1596,7 @@ The geographic distribution of data impacts write performance as well. For examp
 
 On average, it took 82.78ms to create a user in New York and 139.70ms to create a user in Los Angeles. To better understand this discrepancy, let's look at the distribution of data for the `users` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -1627,7 +1627,7 @@ For this service, the most effective technique for improving read and write late
 
 2. Once you've received the trial license, SSH to any node in your cluster and [apply the license](enterprise-licensing.html#set-the-trial-or-enterprise-license-key):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1635,7 +1635,7 @@ For this service, the most effective technique for improving read and write late
     --execute="SET CLUSTER SETTING cluster.organization = '<your org name>';"
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1647,7 +1647,7 @@ For this service, the most effective technique for improving read and write late
 
     Start with the `users` table:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1666,7 +1666,7 @@ For this service, the most effective technique for improving read and write late
 
     Now define partitions for the `vehicles` table and its secondary indexes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1683,7 +1683,7 @@ For this service, the most effective technique for improving read and write late
     );"
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1702,7 +1702,7 @@ For this service, the most effective technique for improving read and write late
 
     Next, define partitions for the `rides` table and its secondary indexes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1719,7 +1719,7 @@ For this service, the most effective technique for improving read and write late
     );"
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1736,7 +1736,7 @@ For this service, the most effective technique for improving read and write late
     );"
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1755,7 +1755,7 @@ For this service, the most effective technique for improving read and write late
 
     Finally, drop an unused index on `rides` rather than partition it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -1764,9 +1764,9 @@ For this service, the most effective technique for improving read and write late
     --execute="DROP INDEX rides_start_time_idx;"
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The `rides` table contains 1 million rows, so dropping this index will take a few minutes.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 7. Now [create replication zones](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition-new-in-v2-0) to require city data to be stored on specific nodes based on node locality.
 
@@ -1779,13 +1779,13 @@ For this service, the most effective technique for improving read and write late
     San Francisco | `zone=us-west2-a`
     Los Angelese | `zone=us-west2-a`
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Since our nodes are located in 3 specific GCE zones, we're only going to use the `zone=` portion of node locality. If we were using multiple zones per regions, we would likely use the `region=` portion of the node locality instead.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     Start with the `users` table partitions:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.users.new_york \
@@ -1794,7 +1794,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.users.boston \
@@ -1803,7 +1803,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.users.washington_dc \
@@ -1812,7 +1812,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west1-a]' | \
     cockroach zone set movr.users.seattle \
@@ -1821,7 +1821,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.users.san_francisco \
@@ -1830,7 +1830,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.users.los_angeles \
@@ -1841,7 +1841,7 @@ For this service, the most effective technique for improving read and write late
 
     Move on to the `vehicles` table and secondary index partitions:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.vehicles.new_york \
@@ -1850,7 +1850,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.vehicles.new_york_idx \
@@ -1859,7 +1859,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.vehicles.boston \
@@ -1868,7 +1868,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.vehicles.boston_idx \
@@ -1877,7 +1877,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.vehicles.washington_dc \
@@ -1886,7 +1886,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.vehicles.washington_dc_idx \
@@ -1895,7 +1895,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west1-a]' | \
     cockroach zone set movr.vehicles.seattle \
@@ -1904,7 +1904,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west1-a]' | \
     cockroach zone set movr.vehicles.seattle_idx \
@@ -1913,7 +1913,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.vehicles.san_francisco \
@@ -1922,7 +1922,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.vehicles.san_francisco_idx \
@@ -1931,7 +1931,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.vehicles.los_angeles \
@@ -1940,7 +1940,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.vehicles.los_angeles_idx \
@@ -1951,7 +1951,7 @@ For this service, the most effective technique for improving read and write late
 
     Finish with the `rides` table and secondary index partitions:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.new_york \
@@ -1960,7 +1960,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.new_york_idx1 \
@@ -1969,7 +1969,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.new_york_idx2 \
@@ -1978,7 +1978,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.boston \
@@ -1987,7 +1987,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.boston_idx1 \
@@ -1996,7 +1996,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.boston_idx2 \
@@ -2005,7 +2005,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.washington_dc \
@@ -2014,7 +2014,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.washington_dc_idx1 \
@@ -2023,7 +2023,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-east1-b]' | \
     cockroach zone set movr.rides.washington_dc_idx2 \
@@ -2032,7 +2032,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west1-a]' | \
     cockroach zone set movr.rides.seattle \
@@ -2041,7 +2041,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west1-a]' | \
     cockroach zone set movr.rides.seattle_idx1 \
@@ -2050,7 +2050,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west1-a]' | \
     cockroach zone set movr.rides.seattle_idx2 \
@@ -2059,7 +2059,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.rides.san_francisco \
@@ -2068,7 +2068,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.rides.san_francisco_idx1 \
@@ -2077,7 +2077,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.rides.san_francisco_idx2 \
@@ -2086,7 +2086,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.rides.los_angeles \
@@ -2095,7 +2095,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.rides.los_angeles_idx1 \
@@ -2104,7 +2104,7 @@ For this service, the most effective technique for improving read and write late
     -f -
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo 'constraints: [+zone=us-west2-a]' | \
     cockroach zone set movr.rides.los_angeles_idx2 \
@@ -2119,11 +2119,11 @@ Over the next minutes, CockroachDB will rebalance all partitions based on the co
 
 To check this at a high level, access the Web UI on any node at `<node address>:8080` and look at the **Node List**. You'll see that the range count is still close to even across all nodes but much higher than before partitioning:
 
-<img src="{{  'images/v2.0/perf_tuning_multi_region_rebalancing_after_partitioning.png' | relative_url  }}" alt="Perf tuning rebalancing" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/perf_tuning_multi_region_rebalancing_after_partitioning.png' | relative_url }}" alt="Perf tuning rebalancing" style="border:1px solid #eee;max-width:100%" />
 
 To check at a more granular level, SSH to one of the instances not running CockroachDB and run the `SHOW EXPERIMENTAL_RANGES` statement on the `vehicles` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -2173,7 +2173,7 @@ Again imagine we are a Movr administrator in New York, and we want to get the ID
 
 2. Query for the data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./tuning.py \
     --host=<address of a node in us-east1-b> \
@@ -2213,7 +2213,7 @@ Now let's again imagine 100 people in New York and 100 people in Los Angeles wan
 
 2. Create 100 NY-based users:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     ./tuning.py \
     --host=<address of a node in us-east1-b> \
@@ -2236,7 +2236,7 @@ Now let's again imagine 100 people in New York and 100 people in Los Angeles wan
 
 4. Create 100 new Los Angeles-based users:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     ./tuning.py \
     --host=<address of a node in us-west2-a> \

@@ -6,9 +6,9 @@ toc: true
 
 The `IMPORT` [statement](sql-statements.html) imports tabular data (e.g., CSVs) into a single table.
 
-{{ site.data.alerts.callout_danger }}<strong>This is an experimental feature</strong>. To enable it, you must run <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING experimental.importcsv.enabled = true</code></a>{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<strong>This is an experimental feature</strong>. To enable it, you must run <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING experimental.importcsv.enabled = true</code></a>{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}For details about importing SQL dumps, see <a href="import-data.html">Import Data</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}For details about importing SQL dumps, see <a href="import-data.html">Import Data</a>.{{site.data.alerts.end }}
 
 
 ## Glossary
@@ -74,7 +74,7 @@ Because of [`IMPORT`](import.html)'s current implementation, the entire task is 
 
 It's important to note, though, that after the single machine creates the CockroachDB-compatible key-value data, the process of importing the data is distributed among nodes in the cluster.
 
-{{ site.data.alerts.callout_info }}Future versions of <code>IMPORT</code> will let you distribute the entire process among many nodes.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Future versions of <code>IMPORT</code> will let you distribute the entire process among many nodes.{{site.data.alerts.end }}
 
 #### Available Storage Requirements
 
@@ -94,7 +94,7 @@ However, if you do want to store the file locally to import it, there are a numb
 
 #### Importing Data From Local Storage
 
-{{ site.data.alerts.callout_info }}Because you must have remote/cloud storage available to complete the <code>IMPORT</code> process, we recommend using it instead of local file storage.<br/><br/>If you do not have access to cloud storage, you can easily create a file server using <a href="create-a-file-server.html">this guide</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Because you must have remote/cloud storage available to complete the <code>IMPORT</code> process, we recommend using it instead of local file storage.<br/><br/>If you do not have access to cloud storage, you can easily create a file server using <a href="create-a-file-server.html">this guide</a>.{{site.data.alerts.end }}
 
 Because CockroachDB is designed as a distributed system, the ergonomics of local file storage require some understanding to use successfully. Though we do not recommend this process, if you do want to use a locally stored file, this procedure is likely to cause you the fewest headaches:
 
@@ -114,7 +114,7 @@ To distribute the data you want to import to all nodes in your cluster, the [`IM
 - Network file storage mounted to every node
 - HTTP file server
 
-{{ site.data.alerts.callout_info }}If you do not currently have any of these options available, you can easily <a href="create-a-file-server.html">create a file server</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If you do not currently have any of these options available, you can easily <a href="create-a-file-server.html">create a file server</a>.{{site.data.alerts.end }}
 
 The temp directory must have at least as much storage space as the size of the data you want to import.
 
@@ -134,7 +134,7 @@ Later steps of the import process distribute work among many nodes and have less
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/import.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/import.html" . }}
 
 ## Required Privileges
 
@@ -154,7 +154,7 @@ Only the `root` user can run [`IMPORT`](import.html).
 
 URLs for the file you want to import and your temp directory must use the following format:
 
-{%  include {{  page.version.version  }}/misc/external-urls.md %}
+{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
 
 #### Notes
 

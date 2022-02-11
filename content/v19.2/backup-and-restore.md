@@ -16,14 +16,14 @@ If you have an [Enterprise license](enterprise-licensing.html), you can use the 
 
 In most cases, it's recommended to use the [`BACKUP`][backup] command to take full nightly backups of each database in your cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE <database_name> TO '<full_backup_location>';
 ~~~
 
 If it's ever necessary, you can then use the [`RESTORE`][restore] command to restore a database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE DATABASE <database_name> FROM '<full_backup_location>';
 ~~~
@@ -34,14 +34,14 @@ If a database increases to a size where it is no longer feasible to take nightly
 
 Periodically run the [`BACKUP`][backup] command to take a full backup of your database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE <database_name> TO '<full_backup_location>';
 ~~~
 
 Then create nightly incremental backups based off of the full backups you've already created.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE <database_name> TO 'incremental_backup_location'
 INCREMENTAL FROM '<full_backup_location>', '<list_of_previous_incremental_backup_location>';
@@ -49,33 +49,33 @@ INCREMENTAL FROM '<full_backup_location>', '<list_of_previous_incremental_backup
 
 If it's ever necessary, you can then use the [`RESTORE`][restore] command to restore a database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE <database_name> FROM '<full_backup_location>', '<list_of_previous_incremental_backup_locations>';
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 [Restoring from incremental backups](restore.html#restore-from-incremental-backups) requires previous full and incremental backups.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Automated full and incremental backups
 
 You can automate your backups using scripts and your preferred method of automation, such as cron jobs.
 
-For your reference, we have created this [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/prod-deployment/backup.sh) that you can customize to automate your backups.
+For your reference, we have created this [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/prod-deployment/backup.sh) that you can customize to automate your backups.
 
 In the sample script, configure the day of the week for which you want to create full backups. Running the script daily will create a full backup on the configured day, and on other days, it'll create incremental backups. The script tracks the recently created backups in a separate file titled `backup.txt` and uses this file as a base for the subsequent incremental backups.
 
-1. Download the [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/prod-deployment/backup.sh):
+1. Download the [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/prod-deployment/backup.sh):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ wget -qO- https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/prod-deployment/backup.sh
+    $ wget -qO- https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/prod-deployment/backup.sh
     ~~~
 
     Alternatively, you can create the file yourself and copy the script into it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     #!/bin/bash
 
@@ -129,21 +129,21 @@ In the sample script, configure the day of the week for which you want to create
 
 3. Change the file permissions to make the script executable:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod +x backup.sh
     ~~~
 
 4. Run the backup script:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./backup.sh
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you miss an incremental backup, delete the `recent_backups.txt` file and run the script. It'll take a full backup for that day and incremental backups for subsequent days.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Locality-aware backup and restore
 
@@ -160,60 +160,60 @@ A locality-aware backup is specified by a list of URIs, each of which has a `COC
 
 During locality-aware backups, backup file placement is determined by leaseholder placement, as each node is responsible for backing up the ranges for which it is the leaseholder.  Nodes write files to the backup storage location whose locality matches their own node localities, with a preference for more specific values in the locality hierarchy.  If there is no match, the `default` locality is used.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The list of URIs passed to [`RESTORE`][restore] may be different from the URIs originally passed to [`BACKUP`][backup]. This is because the files of a locality-aware backup can be moved to different locations, or even consolidated into the same location. The only restriction is that all the files originally written to the same location must remain together. In order for [`RESTORE`][restore] to succeed, all of the files originally written during [`BACKUP`][backup] must be accounted for in the list of location URIs provided.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Usage
 
 For example, to create a locality-aware backup where nodes with the locality `region=us-west` write backup files to `s3://us-west-bucket`, and all other nodes write to `s3://us-east-bucket` by default, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 BACKUP DATABASE foo TO ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
 ~~~
 
 To restore the backup created above, run the statement below. Note that the first URI in the list has to be the URI specified as the `default` URI when the backup was created. If you have moved your backups to a different location since the backup was originally taken, the first URI must be the new location of the files originally written to the `default` location.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 RESTORE DATABASE foo FROM ('s3://us-east-bucket', 's3://us-west-bucket');
 ~~~
 
 A list of multiple URIs (surrounded by parentheses) specifying a locality-aware backup can also be used in place of any incremental backup URI in [`RESTORE`][restore]. If the original backup was an incremental backup, it can be restored using:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 RESTORE DATABASE foo FROM 's3://other-full-backup-uri', ('s3://us-east-bucket', 's3://us-west-bucket');
 ~~~
 
 For more detailed examples, see [Create locality-aware backups](backup.html#create-locality-aware-backups) and [Restore from a locality-aware backup based on node locality](restore.html#restore-from-a-locality-aware-backup).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The locality query string parameters must be [URL-encoded](https://en.wikipedia.org/wiki/Percent-encoding) as shown below.
 
 [`RESTORE`][restore] is not truly locality-aware; while restoring from backups, a node may read from a store that does not match its locality. This can happen because [`BACKUP`][backup] does not back up [zone configurations](configure-replication-zones.html), so [`RESTORE`][restore] has no way of knowing how to take node localities into account when restoring data from a backup.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Perform Core backup and restore
 
 In case you do not have an Enterprise license, you can perform a Core backup. Run the [`cockroach dump`](cockroach-dump.html) command to dump all the tables in the database to a new file (`backup.sql` in the following example):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach dump <database_name> <flags> > backup.sql
 ~~~
 
 To restore a database from a Core backup, [use the `cockroach sql` command to execute the statements in the backup file](cockroach-dump.html#restore-a-table-from-a-backup-file):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --database=[database name] < backup.sql
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you created a backup from another database and want to import it into CockroachDB, see [Import data](migration-overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

@@ -13,9 +13,9 @@ CockroachDB constructs a secure API call to the cloud storage specified in a URL
 - [`EXPORT`](export.html)
 - [`CREATE CHANGEFEED`](create-changefeed.html)
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We strongly recommend using cloud/remote storage.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## URL format
 
@@ -34,13 +34,13 @@ HTTP                                                        | `http`      | Remo
 NFS/Local&nbsp;[<sup>1</sup>](#considerations)              | `nodelocal` | `nodeID` or `self` [<sup>2</sup>](#considerations) (see [Example file URLs](#example-file-urls)) | N/A
 S3-compatible services                                     | `s3`        | Bucket name                                      | **Warning**: Unlike [Amazon S3](#amazon-s3), [Google Cloud Storage](#google-cloud-storage), and [Azure storage](#azure-storage) options, the usage of S3-compatible services is not actively tested by Cockroach Labs. <br><br>`AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`, `AWS_REGION`&nbsp;[<sup>3</sup>](#considerations) (optional), `AWS_ENDPOINT`<br><br>For more information, see [Authentication - S3-compatible services](#s3-compatible-services).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 The location parameters often contain special characters that need to be URI-encoded. Use Javascript's [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) function or Go language's [url.QueryEscape](https://golang.org/pkg/net/url/#QueryEscape) function to URI-encode the parameters. Other languages provide similar functions to URI-encode special characters.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can disable the use of implicit credentials when accessing external cloud storage services for various bulk operations by using the [`--external-io-disable-implicit-credentials` flag](cockroach-start.html#security).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <a name="considerations"></a>
 
@@ -61,9 +61,9 @@ Azure        | `azure://acme-co/employees?AZURE_ACCOUNT_NAME=acme-co&AZURE_ACCOU
 Google Cloud | `gs://acme-co/employees?AUTH=specified&CREDENTIALS=encoded-123`                                                     
 NFS/Local    | `nodelocal://1/path/employees`, `nodelocal://self/nfsmount/backups/employees`&nbsp;[<sup>2</sup>](#considerations)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Currently, cloud storage sinks (for changefeeds) only work with `JSON` and emits newline-delimited `JSON` files.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Example URLs for [`IMPORT`](import.html) or [changefeeds](changefeed-sinks.html) given a bucket or container name of `acme-co` and a filename of `employees`:
 
@@ -75,9 +75,9 @@ Google Cloud | `gs://acme-co/employees.sql?AUTH=specified&CREDENTIALS=encoded-12
 HTTP         | `http://localhost:8080/employees.sql`                                            
 NFS/Local    | `nodelocal://1/path/employees`, `nodelocal://self/nfsmount/backups/employees`&nbsp;[<sup>2</sup>](#considerations)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 HTTP storage can only be used for [`IMPORT`](import.html) and [`CREATE CHANGEFEED`](create-changefeed.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Encryption
 
@@ -151,9 +151,9 @@ If you cannot run a full proxy, you can disable external HTTP(S) access (as well
 
 ### S3-compatible services
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Unlike [Amazon S3](#amazon-s3), [Google Cloud Storage](#google-cloud-storage), and [Azure storage](#azure-storage) options, the usage of S3-compatible services is not actively tested by Cockroach Labs.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 A custom root CA can be appended to the system's default CAs by setting the `cloudstorage.http.custom_ca` [cluster setting](cluster-settings.html), which will be used when verifying certificates from an S3-compatible service.
 

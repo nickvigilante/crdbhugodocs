@@ -8,9 +8,9 @@ CockroachDB supports [column-oriented](https://en.wikipedia.org/wiki/Column-orie
 
 Many SQL databases execute [query plans](https://en.wikipedia.org/wiki/Query_plan) one row of table data at a time. Row-oriented execution models can offer good performance for [online transaction processing (OLTP)](https://en.wikipedia.org/wiki/Online_transaction_processing) queries, but suboptimal performance for [online analytical processing (OLAP)](https://en.wikipedia.org/wiki/Online_analytical_processing) queries. The CockroachDB vectorized execution engine dramatically improves performance over [row-oriented execution](https://en.wikipedia.org/wiki/Column-oriented_DBMS#Row-oriented_systems) by processing each component of a query plan on type-specific batches of column data.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB does not support vectorized execution for all data types. For details, see [supported data types](#supported-data-types).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Configuring vectorized execution
 
@@ -26,13 +26,13 @@ Option    | Description
 
 For information about setting session variables, see [`SET` &lt;session variable&gt;](set-vars.html).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 CockroachDB supports vectorized execution on columns with [supported data types](#supported-data-types) only. Setting the `vectorize` session variable to `on` does not turn vectorized execution on for queries on columns with unsupported data types.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To see if CockroachDB will use the vectorized execution engine for a query, run a simple [`EXPLAIN`](explain.html) statement on the query. If `vectorize` is `true`, the query will be executed with the vectorized engine. If it is `false`, the row-oriented execution engine is used instead.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Setting the row threshold for vectorized execution
 
@@ -46,9 +46,9 @@ For performance tuning, you can change the minimum number of rows required to us
 
 When you issue a query, the gateway node (i.e., the node from which you issue the query) [parses the query and creates a physical plan](architecture/sql-layer.html#sql-parser-planner-executor) for execution on each node that receives the plan. If vectorized execution is enabled, the physical plan is sent to each node to be executed by the vectorized execution engine.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To see a detailed view of the vectorized execution plan for a query, run the [`EXPLAIN(VEC)`](explain.html#vec-option) statement on the query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For information about vectorized execution in the context of the CockroachDB architecture, see [Query Execution](architecture/sql-layer.html#query-execution).
 
@@ -85,9 +85,9 @@ Vectorized execution is supported for the following [data types](data-types.html
 - [`TIMESTAMP`/`TIMESTAMPTZ`](timestamp.html)
 - [`UUID`](uuid.html)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB uses the vectorized engine to execute queries on columns with supported data types, even if a column's parent table includes unused columns with unsupported data types.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Known limitations
 

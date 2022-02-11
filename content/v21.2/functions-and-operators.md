@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 CockroachDB supports the following SQL functions and operators for use in [scalar expressions](scalar-expressions.html).
 
-{{ site.data.alerts.callout_success }}In the <a href="cockroach-sql.html#help">built-in SQL shell</a>, use <code>\hf [function]</code> to get inline help about a specific function.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}In the <a href="cockroach-sql.html#help">built-in SQL shell</a>, use <code>\hf [function]</code> to get inline help about a specific function.{{site.data.alerts.end }}
 
 ## Special syntax forms
 
@@ -15,7 +15,7 @@ The following syntax forms are recognized for compatibility with the
 SQL standard and PostgreSQL, but are equivalent to regular built-in
 functions:
 
-{%  include {{  page.version.version  }}/sql/function-special-forms.md %}
+{{ partial "{{ page.version.version }}/sql/function-special-forms.md" . }}
 
 ## Conditional and function-like operators
 
@@ -37,21 +37,21 @@ functions but have special evaluation rules:
 
 ## Built-in functions
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/functions.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/functions.md %}
 
 ## Aggregate functions
 
 For examples showing how to use aggregate functions, see [the `SELECT` clause documentation](select-clause.html#aggregate-functions).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Non-commutative aggregate functions are sensitive to the order in which the rows are processed in the surrounding [`SELECT` clause](select-clause.html#aggregate-functions). To specify the order in which input rows are processed, you can add an [`ORDER BY`](order-by.html) clause within the function argument list. For examples, see the [`SELECT` clause](select-clause.html#order-aggregate-function-input-rows-by-column) documentation.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/aggregates.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/aggregates.md %}
 
 ## Window functions
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/window_functions.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/window_functions.md %}
 
 ## Operators
 
@@ -113,7 +113,7 @@ The following table lists all CockroachDB operators from highest to lowest prece
 
 ### Supported operations
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/operators.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-21.2/docs/generated/sql/operators.md %}
 
 <!--
 ## `CAST()`

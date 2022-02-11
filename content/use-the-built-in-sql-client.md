@@ -300,7 +300,7 @@ INSERT 2
 
 In this example, we use `\!` to look at the rows in a CSV file before creating a table and then using `\|` to insert those rows into the table.
 
-{{ site.data.alerts.callout_info }}This example works only if the values in the CSV file are numbers. For values in other formats, use an online CSV-to-SQL converter or make your own import program.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}This example works only if the values in the CSV file are numbers. For values in other formats, use an online CSV-to-SQL converter or make your own import program.{{site.data.alerts.end }}
 
 ~~~ sql
 > \! cat test.csv

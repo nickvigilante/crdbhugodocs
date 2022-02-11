@@ -8,7 +8,7 @@ The `PAUSE JOB` [statement](sql-statements.html) lets you pause [`IMPORT`](impor
 
 After pausing jobs, you can resume them with [`RESUME JOB`](resume-job.html).
 
-{{ site.data.alerts.callout_info }}You cannot pause schema changes.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You cannot pause schema changes.{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -17,7 +17,7 @@ By default, only the `root` user can control a job.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/pause_job.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/pause_job.html" . }}
 </div>
 
 ## Parameters
@@ -31,7 +31,7 @@ Parameter | Description
 
 ### Pause a single job
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW JOBS;
 ~~~
@@ -44,7 +44,7 @@ Parameter | Description
 +----------------+---------+-------------------------------------------+...
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB 27536791415282;
 ~~~
@@ -53,7 +53,7 @@ Parameter | Description
 
 To pause multiple jobs, nest a [`SELECT` clause](select-clause.html) that retrieves `job_id`(s) inside the `PAUSE JOBS` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOBS (SELECT job_id FROM [SHOW JOBS]
       WHERE user_name = 'maxroach');
@@ -63,7 +63,7 @@ All jobs created by `maxroach` will be paused.
 
 ### Pause automatic table statistics jobs
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW AUTOMATIC JOBS;
 ~~~
@@ -75,14 +75,14 @@ All jobs created by `maxroach` will be paused.
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB 438235476849557505;
 ~~~
 
 To permanently disable automatic table statistics jobs, disable the `sql.stats.automatic_collection.enabled` [cluster setting](cluster-settings.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.stats.automatic_collection.enabled = false;
 ~~~

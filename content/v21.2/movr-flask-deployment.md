@@ -8,7 +8,7 @@ docs_area:
 
 This page walks you through deploying an application and database in multiple regions. It is the fifth and final section of the [Develop and Deploy a Global Application](movr-flask-overview.html) tutorial.
 
-{%  include {{  page.version.version  }}/misc/movr-live-demo.md %}
+{{ partial "{{ page.version.version }}/misc/movr-live-demo.md" . }}
 
 ## Before you begin
 
@@ -22,22 +22,22 @@ In addition to the requirements listed in [Setting Up a Virtual Environment for 
 
 ## Multi-region database deployment
 
-In production, you want to start a secure CockroachDB cluster, with nodes on machines located in different areas of the world. To deploy CockroachDB in multiple regions, we recommend using [{{  site.data.products.dedicated  }}](../cockroachcloud/quickstart.html).
+In production, you want to start a secure CockroachDB cluster, with nodes on machines located in different areas of the world. To deploy CockroachDB in multiple regions, we recommend using [{{ site.data.products.dedicated }}](../cockroachcloud/quickstart.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can also deploy CockroachDB manually. For instructions, see the [Manual Deployment](manual-deployment.html) page of the Cockroach Labs documentation site.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-### Create a multi-region {{  site.data.products.dedicated  }} cluster
+### Create a multi-region {{ site.data.products.dedicated }} cluster
 
-1. <a href="https://cockroachlabs.cloud/signup?referralId=docs_movr_global" rel="noopener" target="_blank">Sign up for a {{  site.data.products.db  }} account</a>.
+1. <a href="https://cockroachlabs.cloud/signup?referralId=docs_movr_global" rel="noopener" target="_blank">Sign up for a {{ site.data.products.db }} account</a>.
 
-1. [Log in](https://cockroachlabs.cloud/) to your {{  site.data.products.db  }} account.
+1. [Log in](https://cockroachlabs.cloud/) to your {{ site.data.products.db }} account.
 
 1. On the **Overview** page, select **Create Cluster**.
 
 1. On the **Create new cluster** page:
-    - For **Plan**, select {{  site.data.products.db  }}. You won't be charged for the first 30 days of service.
+    - For **Plan**, select {{ site.data.products.db }}. You won't be charged for the first 30 days of service.
     - For **Cloud Provider**, select Google Cloud.
     - For **Regions & nodes**, add "us-east1", "us-west1", and "europe-west1", with 3 nodes in each region.
     - Leave the **Hardware** and **Cluster name** as their default values.
@@ -45,9 +45,9 @@ You can also deploy CockroachDB manually. For instructions, see the [Manual Depl
 
 1. Select **Next**, and on the **Summary** page, enter your credit card details.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     You will not be charged until after your free trial expires in 30 days.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Select **Create cluster**.
 
@@ -63,15 +63,15 @@ You can also deploy CockroachDB manually. For instructions, see the [Manual Depl
 
 1. From the **Network** dropdown, select **Current Network** to auto-populate your local machine's IP address. To allow the network to access the cluster's DB Console and to use the CockroachDB client to access the databases, select the **DB Console to monitor the cluster** and **CockroachDB Client to access the databases** checkboxes.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     After setting up your application's GCP project and GCP VPC network, you will need to return to the **Networking** page to configure VPC peering.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 ### Initialize the `movr` database
 
 1. Open a new terminal window on your local machine, and navigate to the `movr-flask` project directory.
 
-1. In the {{  site.data.products.db  }} Console, select **Connect** at the top-right corner of the page.
+1. In the {{ site.data.products.db }} Console, select **Connect** at the top-right corner of the page.
 
 1. Select the **SQL User** that you created and the **Region** closest to you, and then select **Next**.
 
@@ -83,25 +83,25 @@ You can also deploy CockroachDB manually. For instructions, see the [Manual Depl
     $ cockroach sql --url 'postgresql://user:password@cluster.gcp-us-east1.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert='$HOME'/Library/CockroachCloud/certs/root.crt' -f dbinit.sql
     ~~~
 
-    This command will initialize the `movr` database on your {{  site.data.products.dedicated  }} cluster.
+    This command will initialize the `movr` database on your {{ site.data.products.dedicated }} cluster.
 
 ## Global application deployment
 
 To optimize the latency of requests from the application to the database, you need to deploy the application in multiple regions.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 This example deploys a secure web application. To take HTTPS requests, the web application must be accessible using a public domain name. SSL certificates are not assigned to IP addresses.
 
 We do not recommend deploying insecure web applications on public networks.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Set up a GCP project
 
 1. From the [GCP console](https://console.cloud.google.com/), create a Google Cloud project for the application.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Google Cloud automatically creates a `default` VPC network for each project.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. In the [API Library](https://console.cloud.google.com/apis/library), enable the following APIs for your project:
     - Container Registry API
@@ -110,46 +110,46 @@ We do not recommend deploying insecure web applications on public networks.
 
 1. **Optional:** Enable the [Google Maps Embed API](https://console.cloud.google.com/apis/library), create an API key, restrict the API key to all URLS on your domain name (e.g., `https://site.com/*`), and retrieve the API key.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The example HTML templates include maps. Not providing an API key to the application will prevent the maps from loading, but will not break the rest of the application.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Configure/authorize the `gcloud` command-line tool to use your project and region.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     `gcloud` is included with the [Google Cloud SDK](https://cloud.google.com/sdk) installation.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud init
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud auth login
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud auth application-default login
     ~~~
 
 ### Set up VPC peering
 
-1. Open the {{  site.data.products.db  }} Console for your cluster, select the **Networking**, and then select **VPC peering**.
+1. Open the {{ site.data.products.db }} Console for your cluster, select the **Networking**, and then select **VPC peering**.
 
 1. Set up a new VPC peering connection, with your Google Cloud project's ID, the `default` VPC network created for your Google Cloud project, and a new VPC connection name (e.g., `movr-app-vpc`).
 
 1. Copy the `gcloud` command provided by the console, and execute the command in a new terminal window.
 
-    {{ site.data.alerts.callout_info }}
-    The connection strings used to connect to {{  site.data.products.db  }} from an application in a VPC network differ slightly from connection strings to allow-listed IP addresses.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}
+    The connection strings used to connect to {{ site.data.products.db }} from an application in a VPC network differ slightly from connection strings to allow-listed IP addresses.
+    {{site.data.alerts.end }}
 
 1. Obtain the VPC connection string for each region:
 
-    1. Open {{  site.data.products.db  }} Console, and select **Connect** at the top right of the page.
+    1. Open {{ site.data.products.db }} Console, and select **Connect** at the top right of the page.
     1. Select **VPC Peering** for **Network Security**, your SQL username for the **SQL User**, one of the cluster regions for **Region**, `movr` for the **Database**.
     1. Select **Next**. On the following page, select the **Connection string** tab, and then copy the connection string provided.
 
@@ -169,7 +169,7 @@ We do not recommend deploying insecure web applications on public networks.
 
 1. Build and run the Docker image locally.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ docker build -t gcr.io/<gcp_project>/movr-app:v1 .
     ~~~
@@ -178,7 +178,7 @@ We do not recommend deploying insecure web applications on public networks.
 
 1. Push the Docker image to the Google Cloud project's container registry.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ docker push gcr.io/<gcp_project>/movr-app:v1
     ~~~
@@ -188,7 +188,7 @@ We do not recommend deploying insecure web applications on public networks.
 1. Create a [Google Cloud Run](https://console.cloud.google.com/run/) service for the application, in one of the regions in which the database is deployed (e.g., `gcp-us-east1`):
     - Select the container image URL for the image that you just pushed to the container registry.
     - Under **Advanced settings**->**Variables & Secrets**, do the following:
-        - Set an environment variable named `DB_URI` to the VPC connection string for a node on the {{  site.data.products.dedicated  }} cluster, in the region in which this first Cloud Run service is located.    
+        - Set an environment variable named `DB_URI` to the VPC connection string for a node on the {{ site.data.products.dedicated }} cluster, in the region in which this first Cloud Run service is located.    
 
             Verify that the `DB_URI` value:
             1. Specifies `cockroachdb` as the database protocol.
@@ -196,14 +196,14 @@ We do not recommend deploying insecure web applications on public networks.
             1. Includes the path to the container-mounted root certificate (e.g., `certs/root.crt`).
 
             For example: `cockroachdb://user:password@internal-cluster.gcp-us-east1.cockroachlabs.cloud:26257/movr?sslmode=verify-full&sslrootcert=certs/root.crt`
-        - Set an environment variable named `REGION` to the {{  site.data.products.db  }} region (e.g., `gcp-us-east1`).
+        - Set an environment variable named `REGION` to the {{ site.data.products.db }} region (e.g., `gcp-us-east1`).
         - **Optional:** Create a secret for your Google Maps API key and use it to set the environment variable `API_KEY`. You may need to enable the Secret Manager API to do this.
 
 1. Repeat the Google Cloud Run set-up steps for all regions.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Each region has the same root certificate, but different connection strings.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Create an [external HTTPS load balancer](https://console.cloud.google.com/net-services/loadbalancing) to route requests to the right service:
     - For the backend configuration, create separate network endpoint groups (NEGs) for the Google Cloud Run services in each region.
@@ -217,9 +217,9 @@ We do not recommend deploying insecure web applications on public networks.
 
 1. Outside of the GCP console, through your domain name provider, add the nameserver addresses to the authoritative nameserver list for your domain name.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     It can take up to 48 hours for changes to the authoritative nameserver list to take effect.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Navigate to the domain name and test out your application.
 
@@ -236,7 +236,7 @@ Some time after you have deployed your application, you will likely need to push
 ## See also
 
 - [MovR (live demo)](https://movr.cloud)
-- [{{  site.data.products.db  }} documentation](../cockroachcloud/quickstart.html)
+- [{{ site.data.products.db }} documentation](../cockroachcloud/quickstart.html)
 - [Google Cloud Platform documentation](https://cloud.google.com/docs/)
 - [Docker documentation](https://docs.docker.com/)
 - [Kubernetes documentation](https://kubernetes.io/docs/home/)

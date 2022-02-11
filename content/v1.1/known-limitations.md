@@ -11,7 +11,7 @@ This page describes newly identified limitations in the CockroachDB v1.1 release
 
 ### Enterprise restores after creating, dropping, or truncating tables
 
-{{ site.data.alerts.callout_info }}As of <a href="../releases/v1.1.1.html">v1.1.1</a>, it is no longer possible to create an incremental backup if a table has been created, dropped, or truncated after the full backup. This prevents attempts to restore from a broken backup. See <a href="https://github.com/cockroachdb/cockroach/pull/19286">#19286</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}As of <a href="../releases/v1.1.1.html">v1.1.1</a>, it is no longer possible to create an incremental backup if a table has been created, dropped, or truncated after the full backup. This prevents attempts to restore from a broken backup. See <a href="https://github.com/cockroachdb/cockroach/pull/19286">#19286</a>.{{site.data.alerts.end }}
 
 It is not possible to perform an [enterprise `RESTORE`](restore.html) from a full [`BACKUP`](backup.html) with incremental backups if you [created](create-table.html), [dropped](drop-table.html), or [truncated](truncate.html) any tables after the full backup. Attempting to restore in this case will fail with an error.
 
@@ -19,13 +19,13 @@ As a workaround, any time you create, drop, or truncate a table, perform another
 
 ### Maximum cluster size
 
-{{ site.data.alerts.callout_info }}Resolved as of <a href="../releases/v1.2-alpha.20171026.html">v1.2-alpha.20171026</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/18970">#17016</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v1.2-alpha.20171026.html">v1.2-alpha.20171026</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/18970">#17016</a>.{{site.data.alerts.end }}
 
 The locations of all ranges in a cluster are stored in a two-level index at the beginning of the key-space, known as [meta ranges](architecture/distribution-layer.html#meta-ranges), where the first level (`meta1`) addresses the second, and the second level (`meta2`) addresses data in the cluster. A limitation in v1.1 prevents `meta2` from being split; thus, the max size of a single range, 64MiB by default, limits the overall size of a cluster to 64TB. Clusters beyond this size will experience problems.
 
 ### Available capacity metric in the Admin UI
 
-{%  include v1.1/misc/available-capacity-metric.md %}
+{{ partial "v1.1/misc/available-capacity-metric.md" . }}
 
 ### Downgrading to v1.1.0 from a later v1.1.x patch release
 
@@ -87,7 +87,7 @@ This issue is particularly relevant when using a simple SQL table of two columns
 
 ### Repeated or combined commands in the SQL shell history
 
-{{ site.data.alerts.callout_info }}Resolved as of v2.0.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of v2.0.{{site.data.alerts.end }}
 
 Our [built-in SQL shell](use-the-built-in-sql-client.html) stores previously executed commands in the shell's history. In some cases, these commands are unexpectedly duplicated.
 
@@ -183,4 +183,4 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### `cockroach dump` does not support cyclic foreign key references
 
-{%  include {{  page.version.version  }}/known-limitations/dump-cyclic-foreign-keys.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md" . }}

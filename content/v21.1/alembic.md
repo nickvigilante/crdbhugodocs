@@ -18,20 +18,20 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Start a [demo cluster](cockroach-demo.html):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach demo --no-example-database
     ~~~
 
     This command creates a virtual cluster and opens a SQL shell to that cluster.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Leave this terminal window open for the duration of the tutorial. Closing the window will destroy the cluster and erase all data in it.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Create the `bank` database:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE bank;
     ~~~
@@ -40,7 +40,7 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Open a new terminal, and clone the [`example-app-python-sqlalchemy`](https://github.com/cockroachlabs/example-app-python-sqlalchemy) GitHub repository:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ git clone git@github.com:cockroachlabs/example-app-python-sqlalchemy.git
     ~~~
@@ -49,19 +49,19 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Navigate to the `example-app-python-sqlalchemy` project directory, and run the following commands to create and start a virtual environment:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ python3 -m venv env
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ source env/bin/activate
     ~~~
 
 1. Install the `alembic`, [`sqlalchemy-cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroachdb), and [`psycopg2`](https://github.com/psycopg/psycopg2/) modules to the virtual environment:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ pip install sqlalchemy-cockroachdb psycopg2-binary alembic
     ~~~
@@ -72,7 +72,7 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Use the `alembic` command-line tool to initialize Alembic for the project:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ alembic init alembic
     ~~~
@@ -107,15 +107,15 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
     sqlalchemy.url = cockroachdb://demo:demo72529@127.0.0.1:26257/bank?sslmode=require
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     You must use the `cockroachdb://` prefix in the connection string for SQLAlchemy to make sure the CockroachDB dialect is used. Using the `postgresql://` URL prefix to connect to your CockroachDB cluster will not work.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 ## Step 4. Create and run a migration script
 
 1. Use the `alembic` command-line tool to create the first migration script:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ alembic revision -m "create accounts table"
     ~~~
@@ -126,7 +126,7 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Open the newly-created migration file (`alembic/versions/ad72c7ec8b22_create_accounts_table.py`, in this case), and edit the `upgrade()` and `downgrade()` functions to read as follows:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ python
     def upgrade():
         op.create_table(
@@ -146,7 +146,7 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Use the `alembic` tool to run this first migration:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ alembic upgrade head
     ~~~
@@ -163,12 +163,12 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Open the terminal with the SQL shell to your demo cluster, and verify that the table was successfully created:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > USE bank;
     ~~~  
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SHOW TABLES;
     ~~~  
@@ -181,7 +181,7 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
     (2 rows)
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM alembic_version;
     ~~~
@@ -193,7 +193,7 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
     (1 row)
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SHOW COLUMNS FROM accounts;
     ~~~
@@ -208,11 +208,11 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
 1. Run the app to insert, update, and delete rows of data:
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     By default, the app uses the `dbinit.sql` file to initialize the database. Make sure that you use the `--no-init` flag when running the app with Alembic.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ python main.py 'cockroachdb://demo:demo72529@127.0.0.1:26257/bank?sslmode=require' --no-init
     ~~~
@@ -246,7 +246,7 @@ Suppose you want to add a new [computed column](computed-columns.html) to the `a
 
 1. Create a new migration with the `alembic` tool:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ alembic revision -m "add overdrawn column"
     ~~~
@@ -275,7 +275,7 @@ Suppose you want to add a new [computed column](computed-columns.html) to the `a
 
     Because this is the latest migration, you can specify `head`, or you can use the migration's ID (`fd88c68af7b5`):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ alembic upgrade fd88c68af7b5
     ~~~
@@ -288,7 +288,7 @@ Suppose you want to add a new [computed column](computed-columns.html) to the `a
 
 1. In the terminal with the SQL shell to your demo cluster, verify that the column was successfully created:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SHOW COLUMNS FROM accounts;
     ~~~
@@ -302,7 +302,7 @@ Suppose you want to add a new [computed column](computed-columns.html) to the `a
     (3 rows)
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM accounts;
     ~~~
@@ -320,7 +320,7 @@ Suppose you want to add a new [computed column](computed-columns.html) to the `a
 
     The changes will also be reflected in the `alembic_version` table.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM alembic_version;
     ~~~
@@ -336,9 +336,9 @@ Suppose you want to add a new [computed column](computed-columns.html) to the `a
 
 While [Alembic supports most SQL operations](https://alembic.sqlalchemy.org/en/latest/ops.html), you can always execute raw SQL using the `execute()` operation.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Executing DDL statements as raw SQL can be particularly helpful when using SQL syntax for DDL statements specific to CockroachDB, like [`ALTER TABLE ... ALTER PRIMARY KEY`](alter-primary-key.html) or [`ALTER TABLE ... SET LOCALITY`](set-locality.html) statements.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example, the raw SQL for the second migration would look something like this:
 
@@ -365,7 +365,7 @@ def upgrade():
 
 Before running this migration, downgrade the original migration:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ alembic downgrade -1
 ~~~
@@ -378,7 +378,7 @@ INFO  [alembic.runtime.migration] Running downgrade fd88c68af7b5 -> ad72c7ec8b22
 
 Then, in the SQL shell to the demo cluster, verify that the `overdrawn` column has been dropped from the table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM accounts;
 ~~~
@@ -393,7 +393,7 @@ Then, in the SQL shell to the demo cluster, verify that the `overdrawn` column h
 
 Now, run the updated migration script:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ alembic upgrade fd88c68af7b5
 ~~~
@@ -406,7 +406,7 @@ INFO  [alembic.runtime.migration] Running upgrade ad72c7ec8b22 -> fd88c68af7b5, 
 
 And verify that the column has been added to the table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM accounts;
 ~~~
@@ -428,7 +428,7 @@ Let's use the same example `overdrawn` computed column from above.
 
 First, downgrade the `fd88c68af7b5` migration:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ alembic downgrade -1
 ~~~
@@ -439,7 +439,7 @@ INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
 INFO  [alembic.runtime.migration] Running downgrade fd88c68af7b5 -> ad72c7ec8b22, add_overdrawn_column
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM accounts;
 ~~~
@@ -453,7 +453,7 @@ INFO  [alembic.runtime.migration] Running downgrade fd88c68af7b5 -> ad72c7ec8b22
 ~~~
 
 Delete the old migration file:
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 rm alembic/versions/fd88c68af7b5_add_overdrawn_column.py
 ~~~
@@ -490,7 +490,7 @@ These two lines import the database model metadata from the app.
 
 Use the `alembic` command-line tool to auto-generate the migration from the models defined in the app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ alembic revision --autogenerate -m "add overdrawn column"
 ~~~
@@ -523,7 +523,7 @@ def downgrade():
 Run the migration:
 
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ alembic upgrade 44fa7043e441
 ~~~
@@ -536,7 +536,7 @@ INFO  [alembic.runtime.migration] Running upgrade ad72c7ec8b22 -> 44fa7043e441, 
 
 Verify that the new column exists in the `accounts` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM accounts;
 ~~~

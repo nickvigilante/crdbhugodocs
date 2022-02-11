@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports various signed integer [data types](data-types.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For instructions showing how to auto-generate integer values (e.g., to auto-number rows in a table), see [this FAQ entry](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Names and Aliases
@@ -32,16 +32,16 @@ The different integer types place different constraints on the range of allowabl
 
 You can use the `BIT(n)` type, with `n` from 1 to 64, to constrain integers based on their corresponding binary values. For example, `BIT(5)` would allow `31` because it corresponds to the five-digit binary integer `11111`, but would not allow `32` because it corresponds to the six-digit binary integer `100000`, which is 1 bit too long. See the [example](#examples) below for a demonstration.
 
-{{ site.data.alerts.callout_info }}<code>BIT</code> values are input and displayed in decimal format by default like all other integers, not in binary format. Also note that <code>BIT</code> is equivalent to <code>BIT(1)</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>BIT</code> values are input and displayed in decimal format by default like all other integers, not in binary format. Also note that <code>BIT</code> is equivalent to <code>BIT(1)</code>.{{site.data.alerts.end }}
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE ints (a INT PRIMARY KEY, b SMALLINT, c BIT(5));
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM ints;
 ~~~
@@ -57,7 +57,7 @@ You can use the `BIT(n)` type, with `n` from 1 to 64, to constrain integers base
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO ints VALUES (1, 32, 32);
 ~~~
@@ -66,7 +66,7 @@ You can use the `BIT(n)` type, with `n` from 1 to 64, to constrain integers base
 pq: bit string too long for type BIT(5) (column "c")
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO ints VALUES (1, 32, 31);
 ~~~
@@ -75,7 +75,7 @@ pq: bit string too long for type BIT(5) (column "c")
 INSERT 1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM ints;
 ~~~

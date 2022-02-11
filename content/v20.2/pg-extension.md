@@ -8,19 +8,19 @@ toc: true
 
 ## Data exposed by `pg_extension`
 
-In CockroachDB {{  page.version.version  }}, `pg_extension` contains the following tables, all of which provide information about CockroachDB's [spatial extension](spatial-features.html):
+In CockroachDB {{ page.version.version }}, `pg_extension` contains the following tables, all of which provide information about CockroachDB's [spatial extension](spatial-features.html):
 
 - `geography_columns`
 - `geometry_columns`
 - `spatial_ref_sys`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `pg_extension` tables are read-only.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To see the list of tables in `pg_extension` for the [current database](sql-name-resolution.html#current-database), use the following [`SHOW TABLES`](show-tables.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM pg_extension;
 ~~~
@@ -38,17 +38,17 @@ To see the list of tables in `pg_extension` for the [current database](sql-name-
 
 You can run [`SELECT` queries](selection-queries.html) on the tables in `pg_extension`.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To ensure that you can view all of the tables in `pg_extension`, query the tables as a user with [`admin` privileges](authorization.html#admin-role).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Unless specified otherwise, queries to `pg_extension` assume the [current database](sql-name-resolution.html#current-database).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example, to return the `pg_extension` table with additional information about indexes in the `movr` database, you can query the `pg_extension.pg_indexes` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM movr.pg_extension.pg_indexes;
 ~~~

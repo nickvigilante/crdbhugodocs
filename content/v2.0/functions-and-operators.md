@@ -6,7 +6,7 @@ toc: true
 
 CockroachDB supports the following SQL functions and operators for use in [scalar expressions](scalar-expressions.html).
 
-{{ site.data.alerts.callout_success }}In the <a href="use-the-built-in-sql-client.html#sql-shell-help">built-in SQL shell</a>, use <code>\hf [function]</code> to get inline help about a specific function.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}In the <a href="use-the-built-in-sql-client.html#sql-shell-help">built-in SQL shell</a>, use <code>\hf [function]</code> to get inline help about a specific function.{{site.data.alerts.end }}
 
 
 ## Special Syntax Forms
@@ -15,7 +15,7 @@ The following syntax forms are recognized for compatibility with the
 SQL standard and PostgreSQL, but are equivalent to regular built-in
 functions:
 
-{%  include {{  page.version.version  }}/sql/function-special-forms.md %}
+{{ partial "{{ page.version.version }}/sql/function-special-forms.md" . }}
 
 ## Conditional and Function-Like Operators
 
@@ -37,11 +37,11 @@ functions but have special evaluation rules:
 
 ## Built-in Functions
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-2.0/docs/generated/sql/functions.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-2.0/docs/generated/sql/functions.md %}
 
 ## Aggregate Functions
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-2.0/docs/generated/sql/aggregates.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-2.0/docs/generated/sql/aggregates.md %}
 
 ## Operators
 
@@ -103,7 +103,7 @@ The following table lists all CockroachDB operators from highest to lowest prece
 
 ### Supported Operations
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-2.0/docs/generated/sql/operators.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-2.0/docs/generated/sql/operators.md %}
 
 <!--
 ## `CAST()`

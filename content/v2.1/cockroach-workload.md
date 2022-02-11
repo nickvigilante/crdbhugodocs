@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v2.1:</span> CockroachDB comes with built-in load generators for simulating different types of client workloads, printing out per-operation statistics every second and totals after a specific duration or max number of operations. To run one of these load generators, use the `cockroach workload` [command](cockroach-commands.html) as described below.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The `cockroach workload` command is experimental. The interface and output are subject to change.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
@@ -53,9 +53,9 @@ Workload | Description
 
 ## Flags
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `cockroach workload` command does not support connection or security flags like other [`cockroach` commands](cockroach-commands.html). Instead, you must use a [connection string](connection-parameters.html) at the end of the command.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### `bank` workload
 
@@ -78,9 +78,9 @@ Flag | Description
 
 ### `intro` and `startrek` workloads
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 These workloads generate data but do not offer the ability to run continuous load. Thus, only the `init` subcommand is supported.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Flag | Description
 -----|------------
@@ -148,7 +148,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
 These examples assume that you have already [started an insecure cluster locally](start-a-local-cluster.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -159,7 +159,7 @@ $ cockroach start \
 
 1. Load the initial schema:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init bank \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -167,7 +167,7 @@ $ cockroach start \
 
 2. Run the workload for 1 minute:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run bank \
     --duration=1m \
@@ -202,7 +202,7 @@ $ cockroach start \
 
 1. Load the initial schema:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init kv \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -210,7 +210,7 @@ $ cockroach start \
 
 2. Run the workload for 1 minute:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run kv \
     --duration=1m \
@@ -245,7 +245,7 @@ $ cockroach start \
 
 1. Load the dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init intro \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -253,12 +253,12 @@ $ cockroach start \
 
 2. Launch the built-in SQL client to view it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM intro;
     ~~~
@@ -270,7 +270,7 @@ $ cockroach start \
     (1 row)
     ~~~    
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ SELECT * FROM intro.mytable WHERE (l % 2) = 0;
     ~~~
@@ -306,7 +306,7 @@ $ cockroach start \
 
 1. Load the dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init startrek \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -314,12 +314,12 @@ $ cockroach start \
 
 2. Launch the built-in SQL client to view it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM startrek;
     ~~~
@@ -332,7 +332,7 @@ $ cockroach start \
     (2 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM startrek.episodes WHERE stardate > 5500;
     ~~~
@@ -361,7 +361,7 @@ $ cockroach start \
 
 1. Load the initial schema and data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init tpcc \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -369,7 +369,7 @@ $ cockroach start \
 
 2. Run the workload for 10 minutes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run tpcc \
     --duration=10m \

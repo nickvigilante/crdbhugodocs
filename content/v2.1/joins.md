@@ -12,7 +12,7 @@ Join expressions define a data source in the `FROM` sub-clause of [simple `SELEC
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/joined_table.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/joined_table.html" . }}
 </div>
 
 <div markdown="1"></div>
@@ -91,7 +91,7 @@ CockroachDB supports the following conditions to match rows in a join:
   column names that are present in both the left and right table
   expressions.
 
-<section>{{ site.data.alerts.callout_danger }}<code>NATURAL</code> is supported for compatibility with PostgreSQL; its use in new applications is discouraged because its results can silently change in unpredictable ways when new columns are added to one of the join operands.{{ site.data.alerts.end }}</section>
+<section>{{site.data.alerts.callout_danger }}<code>NATURAL</code> is supported for compatibility with PostgreSQL; its use in new applications is discouraged because its results can silently change in unpredictable ways when new columns are added to one of the join operands.{{site.data.alerts.end }}</section>
 
 ## Join algorithms
 
@@ -130,24 +130,24 @@ Hash joins are performed on two tables as follows:
 
 ### Lookup joins
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
 <span class="version-tag">New in v2.1:</span> A lookup join is beneficial to use when there is a large imbalance in size between the two tables, as it only reads the smaller table and then looks up matches in the larger table. A lookup join requires that the right-hand (i.e., larger) table is indexed on the equality column.
 
-{{ site.data.alerts.callout_info }}Lookup joins are only valid on inner joins and left outer joins.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Lookup joins are only valid on inner joins and left outer joins.{{site.data.alerts.end }}
 
 To use a lookup join:
 
 1. Open the [built-in SQL shell](use-the-built-in-sql-client.html) and enable the feature:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET experimental_force_lookup_join = true;
     ~~~
 
 2. In your query, specify the indexes to use if not the default index. For example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM weather@index_1 LEFT OUTER JOIN cities ON (weather.city = cities.name);
     ~~~
@@ -159,7 +159,7 @@ Lookup joins are performed on two tables as follows:
 
 ## Performance best practices
 
-{{ site.data.alerts.callout_info }}CockroachDBs is currently undergoing major changes to evolve and improve the performance of queries using joins. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}CockroachDBs is currently undergoing major changes to evolve and improve the performance of queries using joins. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{site.data.alerts.end }}
 
 - Joins over [interleaved tables](interleave-in-parent.html) are usually (but not always) processed more effectively than over non-interleaved tables.
 - When no indexes can be used to satisfy a join, CockroachDB may load all the rows in memory that satisfy the condition one of the join operands before starting to return result rows. This may cause joins to fail if the join condition or other `WHERE` clauses are insufficiently selective.

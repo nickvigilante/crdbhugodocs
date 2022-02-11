@@ -11,9 +11,9 @@ This page provides an overview for optimizing statement performance in Cockroach
 - [Schema design](#schema-design): Depending on your SQL schema and the data access patterns of your workload, you may need to make changes to avoid creating "hotspots".
 - [Cluster topology](#cluster-topology): As a distributed system, CockroachDB requires you to trade off latency vs. resiliency. This requires choosing the right cluster topology for your needs.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you aren't sure whether SQL statement performance needs to be improved on a cluster, see [Identify slow statements](query-behavior-troubleshooting.html#identify-slow-statements).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## SQL statement performance
 
@@ -29,7 +29,7 @@ These rules apply to an environment where thousands of [OLTP](https://en.wikiped
 
 To show each of these rules in action, you will optimize a statement against the MovR data set.
 
-{%  include {{  page.version.version  }}/demo_movr.md %}
+{{ partial "{{ page.version.version }}/demo_movr.md" . }}
 
 It's common to offer users promo codes to increase usage and customer loyalty. In this scenario, you want to find the 10 users who have taken the highest number of rides on a given date, and offer them promo codes that provide a 10% discount. To phrase it in the form of a question: "Who are the top 10 users by number of rides on a given date?"
 
@@ -39,14 +39,14 @@ First, study the schema so you understand the relationships between the tables.
 
 Start a SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 cockroach sql --insecure
 ~~~
 
 Next, set `movr` as the current database and run [`SHOW TABLES`](show-tables.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 USE movr;
 SHOW TABLES;
@@ -68,7 +68,7 @@ Time: 17ms total (execution 17ms / network 0ms)
 
 Look at the schema for the `users` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW CREATE TABLE users;
 ~~~
@@ -92,7 +92,7 @@ Time: 9ms total (execution 9ms / network 0ms)
 
 There's no information about the number of rides taken here, nor anything about the days on which rides occurred. Luckily, there is also a `rides` table. Let's look at it:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW CREATE TABLE rides;
 ~~~
@@ -136,7 +136,7 @@ As specified by your [`cockroach demo`](cockroach-demo.html) command, the `users
 
 Here is a query that fetches the right answer to your question: "Who are the top 10 users by number of rides on a given date?"
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT
   name, count(rides.id) AS sum
@@ -174,7 +174,7 @@ Unfortunately, this query is a bit slow. 111 milliseconds puts you [over the lim
 
 You can see why if you look at the output of [`EXPLAIN`](explain.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 EXPLAIN SELECT
     name, count(rides.id) AS sum
@@ -239,7 +239,7 @@ It's also possible that there is not an index on the `rider_id` column that you 
 
 Before creating any more indexes, let's see what indexes already exist on the `rides` table by running [`SHOW INDEXES`](show-index.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW INDEXES FROM rides;
 ~~~
@@ -265,14 +265,14 @@ As suspected, there are no indexes on `start_time` or `rider_id`, so you'll need
 
 Because another performance best practice is to [create an index on the `WHERE` condition storing the join key](sql-tuning-with-explain.html#solution-create-a-secondary-index-on-the-where-condition-storing-the-join-key), create an index on `start_time` that stores the join key `rider_id`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE INDEX ON rides (start_time) storing (rider_id);
 ~~~
 
 Now that you have an index on the column in your `WHERE` clause that stores the join key, let's run the query again:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT
     name, count(rides.id) AS sum
@@ -310,7 +310,7 @@ This query is now running much faster than it was before you added the indexes (
 
 To see what changed, look at the [`EXPLAIN`](explain.html) output:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 EXPLAIN SELECT
     name, count(rides.id) AS sum
@@ -375,14 +375,14 @@ For example, you might think that a [lookup join](joins.html#lookup-joins) could
 
 In order to get CockroachDB to plan a lookup join in this case, you will need to add an explicit index on the join key for the right-hand-side table, in this case, `rides`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE INDEX ON rides (rider_id);
 ~~~
 
 Next, you can specify the lookup join with a join hint:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT
   name, count(rides.id) AS sum
@@ -421,7 +421,7 @@ The results, however, are not good. The query is much slower using a lookup join
 
 The query is faster when you force CockroachDB to use a merge join:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT
   name, count(rides.id) AS sum

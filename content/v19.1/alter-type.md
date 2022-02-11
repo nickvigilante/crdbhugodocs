@@ -6,7 +6,7 @@ toc: true
 
 The `ALTER TYPE` [statement](sql-statements.html) is part of [`ALTER TABLE`](alter-table.html) and changes a column's [data type](data-types.html).
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Considerations
 
@@ -18,7 +18,7 @@ You can use the `ALTER TYPE` subcommand if the following conditions are met:
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/alter_type.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/alter_type.html" . }}
 </div>
 
 ## Required privileges
@@ -35,7 +35,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
@@ -43,7 +43,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 The [TPC-C](performance-benchmarking-with-tpc-c.html) database has a `customer` table with a column `c_credit_lim DECIMAL (10,2)`. Suppose you want to change the data type to `DECIMAL (12,2)`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE customer ALTER c_credit_lim type DECIMAL (12,2);
 ~~~
@@ -58,7 +58,7 @@ Time: 80.814044ms
 
 Changing a column data type from `DECIMAL` to `INT` would change the on-disk representation of the column. Therefore, attempting to do so results in an error:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE customer ALTER c_credit_lim type INT;
 ~~~
@@ -69,7 +69,7 @@ pq: type conversion not yet implemented
 
 Changing a column data type from `DECIMAL(12,2)` to `DECIMAL (8,2)` would invalidate the existing data. Therefore, attempting to do so results in an error:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE customer ALTER c_credit_lim type DECIMAL (8,2);
 ~~~

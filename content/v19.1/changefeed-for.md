@@ -4,15 +4,15 @@ summary: The EXPERIMENTAL CHANGEFEED FOR statement creates a new core changefeed
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `EXPERIMENTAL CHANGEFEED FOR` is the core implementation of changefeeds. For the [enterprise-only](enterprise-licensing.html) version, see [`CREATE CHANGEFEED`](create-changefeed.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <span class="version-tag">New in v19.1:</span> The `EXPERIMENTAL CHANGEFEED FOR` [statement](sql-statements.html) creates a new core changefeed, which streams row-level changes to the client indefinitely until the underlying connection is closed or the changefeed is canceled.
 
 For more information, see [Change Data Capture](change-data-capture.html).
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
 ## Required privileges
 
@@ -58,9 +58,9 @@ Currently, support for Avro is limited and experimental. Below is a list of unsu
 - [Decimals](decimal.html) must have precision specified.
 - [Decimals](decimal.html) with `NaN` or infinite values cannot be written in Avro.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     To avoid `NaN` or infinite values, add a [`CHECK` constraint](check.html) to prevent these values from being inserted into decimal columns.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - [`time`, `date`, `interval`](https://github.com/cockroachdb/cockroach/issues/32472), [`uuid`, `inet`](https://github.com/cockroachdb/cockroach/issues/34417), [`array`](https://github.com/cockroachdb/cockroach/issues/34420), and [`jsonb`](https://github.com/cockroachdb/cockroach/issues/34421) are not supported in Avro yet.
 
@@ -68,11 +68,11 @@ Currently, support for Avro is limited and experimental. Below is a list of unsu
 
 ### Create a changefeed
 
-{%  include {{  page.version.version  }}/cdc/create-core-changefeed.md %}
+{{ partial "{{ page.version.version }}/cdc/create-core-changefeed.md" . }}
 
 ### Create a changefeed with Avro
 
-{%  include {{  page.version.version  }}/cdc/create-core-changefeed-avro.md %}
+{{ partial "{{ page.version.version }}/cdc/create-core-changefeed-avro.md" . }}
 
 <!-- ### Pause and resume a changefeed
 

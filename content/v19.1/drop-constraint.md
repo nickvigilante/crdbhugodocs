@@ -6,15 +6,15 @@ toc: true
 
 The `DROP CONSTRAINT` [statement](sql-statements.html) is part of `ALTER TABLE` and removes Check and Foreign Key constraints from columns.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For information about removing other constraints, see [Constraints: Remove Constraints](constraints.html#remove-constraints).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_constraint.html %} </section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_constraint.html" . }} </section>
 
 ## Required privileges
 
@@ -29,11 +29,11 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CONSTRAINTS FROM orders;
 ~~~
@@ -46,7 +46,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 +--------+---------------------------+-------------+-----------+----------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders DROP CONSTRAINT fk_customer_ref_customers;
 ~~~
@@ -54,7 +54,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 ALTER TABLE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CONSTRAINTS FROM orders;
 ~~~
@@ -66,7 +66,7 @@ ALTER TABLE
 +--------+---------+-------------+-----------+---------+
 ~~~
 
-{{ site.data.alerts.callout_info }}You cannot drop the <code>primary</code> constraint, which indicates your table's <a href="primary-key.html">Primary Key</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You cannot drop the <code>primary</code> constraint, which indicates your table's <a href="primary-key.html">Primary Key</a>.{{site.data.alerts.end }}
 
 ## See also
 

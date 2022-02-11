@@ -14,7 +14,7 @@ The `debug zip` [command](cockroach-commands.html) connects to your cluster and 
 - Range lists
 - A list of databases and tables
 
-{{ site.data.alerts.callout_danger }}The file produced by <code>cockroach debug zip</code> can contain highly sensitive, unanonymized information, such as usernames, passwords, and possibly your table's data. You should share this data only with Cockroach Labs developers and only after determining the most secure method of delivery.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}The file produced by <code>cockroach debug zip</code> can contain highly sensitive, unanonymized information, such as usernames, passwords, and possibly your table's data. You should share this data only with Cockroach Labs developers and only after determining the most secure method of delivery.{{site.data.alerts.end }}
 
 
 ## Details
@@ -27,7 +27,7 @@ There are two scenarios in which `debug zip` is useful:
 
 - If you experience severe or difficult-to-reproduce issues with your cluster, Cockroach Labs might ask you to send us your cluster's debugging information using `cockroach debug zip`.
 
-{{ site.data.alerts.callout_danger }}The file produced by <code>cockroach debug zip</code> can contain highly sensitive, unanonymized information, such as usernames, passwords, and your table's data. You should share this data only with Cockroach Labs developers and only after determining the most secure method of delivery.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}The file produced by <code>cockroach debug zip</code> can contain highly sensitive, unanonymized information, such as usernames, passwords, and your table's data. You should share this data only with Cockroach Labs developers and only after determining the most secure method of delivery.{{site.data.alerts.end }}
 
 ### Collecting Log Files
 
@@ -88,7 +88,7 @@ $ cockroach debug zip ./cockroach-data/logs/debug.zip
 $ cockroach debug zip ./crdb-debug.zip --host=200.100.50.25
 ~~~
 
-{{ site.data.alerts.callout_info }}Secure examples assume you have the appropriate certificates in the default certificate directory, <code>${HOME}/.cockroach-certs/</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Secure examples assume you have the appropriate certificates in the default certificate directory, <code>${HOME}/.cockroach-certs/</code>.{{site.data.alerts.end }}
 
 ## See Also
 

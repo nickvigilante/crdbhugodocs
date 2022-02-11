@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE INDEX` [statement](sql-statements.html) creates an index for a table. [Indexes](indexes.html) improve your database's performance by helping SQL locate data without having to look through every row of a table.
 
-{{ site.data.alerts.callout_info }}Indexes are automatically created for a table's <a href="primary-key.html"><code>PRIMARY KEY</code></a> and <a href="unique.html"><code>UNIQUE</code></a> columns.<br><br>When querying a table, CockroachDB uses the fastest index. For more information about that process, see <a href="https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/">Index Selection in CockroachDB</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Indexes are automatically created for a table's <a href="primary-key.html"><code>PRIMARY KEY</code></a> and <a href="unique.html"><code>UNIQUE</code></a> columns.<br><br>When querying a table, CockroachDB uses the fastest index. For more information about that process, see <a href="https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/">Index Selection in CockroachDB</a>.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -15,7 +15,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the table.
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/create_index.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_index.html" . }}
 
 ## Parameters
 

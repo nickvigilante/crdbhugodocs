@@ -6,14 +6,14 @@ toc: true
 
 The `SHOW RANGES` [statement](sql-statements.html) shows information about the [ranges](architecture/overview.html#glossary) that comprise the data for a table, index, or entire database. This information is useful for verifying how SQL data maps to underlying ranges, and where the replicas for ranges are located. If `SHOW RANGES` displays `NULL` for both the start and end keys of a range, the range is empty and has no splits.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To show range information for a specific row in a table or index, use the [`SHOW RANGE ... FOR ROW`](show-range-for-row.html) statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/show_ranges.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_ranges.html" . }}
 </div>
 
 ## Required privileges
@@ -44,17 +44,17 @@ Field | Description
 `replicas` | The nodes that contain the range [replicas](architecture/overview.html#glossary).
 `replica_localities` | The [locality](cockroach-start.html#locality) of the range.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If both `start_key` and `end_key` show `NULL`, the range is empty and has no splits.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
 
 ### Show ranges for a table (primary index)
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW RANGES FROM TABLE vehicles] WHERE "start_key" NOT LIKE '%Prefix%';
 ~~~
@@ -75,7 +75,7 @@ If both `start_key` and `end_key` show `NULL`, the range is empty and has no spl
 
 ### Show ranges for an index
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW RANGES FROM INDEX vehicles_auto_index_fk_city_ref_users] WHERE "start_key" NOT LIKE '%Prefix%';
 ~~~
@@ -96,7 +96,7 @@ If both `start_key` and `end_key` show `NULL`, the range is empty and has no spl
 
 ### Show ranges for a database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW RANGES FROM database movr] WHERE "start_key" NOT LIKE '%Prefix%';
 ~~~

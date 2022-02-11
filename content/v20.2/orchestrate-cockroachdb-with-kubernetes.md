@@ -15,7 +15,7 @@ This page shows you how to orchestrate the deployment, management, and monitorin
 
 To deploy across multiple Kubernetes clusters in different geographic regions instead, see [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html). Also, for details about potential performance bottlenecks to be aware of when running CockroachDB in Kubernetes and guidance on how to optimize your deployment for better performance, see [CockroachDB Performance on Kubernetes](kubernetes-performance.html).
 
-{%  include cockroachcloud/use-cockroachcloud-instead.md %}
+{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
 
 ## Before you begin
 
@@ -36,11 +36,11 @@ Feature | Description
 
 ### Limitations
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-limitations.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
 
 ## Step 1. Start Kubernetes
 
-{%  include {{  page.version.version  }}/orchestration/start-kubernetes.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
 
 ## Step 2. Start CockroachDB
 
@@ -50,13 +50,13 @@ Choose how you want to deploy and maintain the CockroachDB cluster:
 - [Helm](https://helm.sh/) package manager
 - Manually apply our StatefulSet configuration and related files
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 <span class="version-tag">New in v20.2:</span> The [CockroachDB Kubernetes Operator](https://github.com/cockroachdb/cockroach-operator) eases the creation of StatefulSets, pod authentication, cluster scaling, and rolling upgrades. The Operator is currently in **beta** and is not yet production-ready.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The CockroachDB Kubernetes Operator can also be run on platforms such as [Red Hat OpenShift](https://marketplace.redhat.com/en-us/products/cockroachdb-operator) and [IBM Cloud Pak for Data](https://www.ibm.com/products/cloud-pak-for-data).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <div class="filters filters-big clearfix">
     <button class="filter-button" data-scope="operator">Use Operator</button>
@@ -65,32 +65,32 @@ The CockroachDB Kubernetes Operator can also be run on platforms such as [Red Ha
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{%  include {{  page.version.version  }}/orchestration/start-cockroachdb-operator-secure.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-operator-secure.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/start-cockroachdb-secure.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-secure.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/start-cockroachdb-helm-secure.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cockroachdb-helm-secure.md" . }}
 </section>
 
 ## Step 3. Use the built-in SQL client
 
-{%  include {{  page.version.version  }}/orchestration/test-cluster-secure.md %}
+{{ partial "{{ page.version.version }}/orchestration/test-cluster-secure.md" . }}
 
 ## Step 4. Access the DB Console
 
-{%  include {{  page.version.version  }}/orchestration/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
 
 ## Step 5. Simulate node failure
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-simulate-failure.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
 
 ## Step 6. Monitor the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-prometheus-alertmanager.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md" . }}
 
 ## Step 7. Maintain the cluster
 
@@ -102,29 +102,29 @@ The CockroachDB Kubernetes Operator can also be run on platforms such as [Red Ha
 
 ### Add nodes
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster.md" . }}
 
 ### Remove nodes
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-remove-nodes-secure.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-remove-nodes-secure.md" . }}
 
 ### Expand disk size
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Expansion of persistent volumes with the Operator is forthcoming. See the [GitHub project](https://github.com/cockroachdb/cockroach-operator) for progress.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-expand-disk-size.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-size.md" . }}
 
 ### Upgrade the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md" . }}
 
 ### Stop the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-stop-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-stop-cluster.md" . }}
 
 #### Stop Kubernetes
 
@@ -132,23 +132,23 @@ To delete the Kubernetes cluster:
 
 - Hosted GKE:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud container clusters delete cockroachdb --region {region-name}
     ~~~
 - Hosted EKS:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ eksctl delete cluster --name cockroachdb
     ~~~   
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 
 - [Kubernetes Multi-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

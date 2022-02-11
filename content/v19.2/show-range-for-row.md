@@ -6,16 +6,16 @@ toc: true
 
 The `SHOW RANGE ... FOR ROW` [statement](sql-statements.html) shows information about a [range](architecture/overview.html#glossary) for a particular row of data. This information is useful for verifying how SQL data maps to underlying ranges, and where the replicas for a range are located.
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To show information about the ranges that comprise the data for a table, index, or entire database, use the [`SHOW RANGES`](show-ranges.html) statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_range_for_row.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_range_for_row.html" . }}
 </div>
 
 ## Required privileges
@@ -46,11 +46,11 @@ Field | Description
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
 
 ### Show range information for a row in a table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW RANGE FROM TABLE users FOR ROW ('ae147ae1-47ae-4800-8000-000000000022', 'amsterdam', 'Tyler Dalton', '88194 Angela Gardens Suite 94', '4443538758')];
 ~~~
@@ -63,7 +63,7 @@ Field | Description
 
 ### Show range information for a row by a secondary index
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW RANGE FROM INDEX vehicles_auto_index_fk_city_ref_users FOR ROW ('aaaaaaaa-aaaa-4800-8000-00000000000a', 'amsterdam', 'scooter', 'c28f5c28-f5c2-4000-8000-000000000026', '2019-01-02 03:04:05+00:00', 'in_use', '62609 Stephanie Route', '{"color": "red"}')];
 ~~~

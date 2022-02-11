@@ -13,7 +13,7 @@ Join expressions define a data source in the `FROM` sub-clause of [simple `SELEC
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/joined_table.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/joined_table.html" . }}
 </div>
 
 <div markdown="1"></div>
@@ -87,16 +87,16 @@ CockroachDB supports the following conditions to match rows in a join:
   column names that are present in both the left and right table
   expressions.
 
-{{ site.data.alerts.callout_danger }}<code>NATURAL</code> is supported for
+{{site.data.alerts.callout_danger }}<code>NATURAL</code> is supported for
 compatibility with PostgreSQL; its use in new applications is
 discouraged, because its results can silently change in unpredictable
 ways when new columns are added to one of the join
-operands.{{ site.data.alerts.end }}
+operands.{{site.data.alerts.end }}
 
 
 ## Performance Best Practices
 
-{{ site.data.alerts.callout_info }}CockroachDBs is currently undergoing major changes to evolve and improve the performance of queries using joins. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}CockroachDBs is currently undergoing major changes to evolve and improve the performance of queries using joins. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{site.data.alerts.end }}
 
 - Joins over [interleaved tables](interleave-in-parent.html) are usually (but not always) processed more effectively than over non-interleaved tables.
 

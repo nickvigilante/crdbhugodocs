@@ -15,7 +15,7 @@ expression.
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/table_ref.html %}</div>
+  {{ partial "{{ page.version.version }}/sql/diagrams/table_ref.html" . }}</div>
 <div markdown="1"></div>
 
 ## Parameters
@@ -73,7 +73,7 @@ in the current database, as configured by [`SET DATABASE`](set-vars.html).
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users; -- uses table `users` in the current database
 > SELECT * FROM mydb.users; -- uses table `users` in database `mydb`
@@ -83,9 +83,9 @@ For example:
 
 By using the explicit index annotation, you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) when reading from a named table.
 
-{{ site.data.alerts.callout_info }}Index selection can impact performance, but does not change the result of a query.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Index selection can impact performance, but does not change the result of a query.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEXES FROM accounts;
 ~~~
@@ -100,7 +100,7 @@ By using the explicit index annotation, you can override [CockroachDB's index se
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name, balance
 FROM accounts@accounts_name_idx
@@ -123,7 +123,7 @@ earlier.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH a AS (SELECT * FROM users)
   SELECT * FROM a; -- "a" refers to "WITH a AS .."
@@ -159,7 +159,7 @@ single column and single row containing the function results.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM sin(3.2)
 ~~~
@@ -171,7 +171,7 @@ For example:
 +-----------------------+
 ~~~
 
-{{ site.data.alerts.callout_info }}CockroachDB only supports this syntax for compatibility with PostgreSQL. The canonical syntax to evaluate <a href="scalar-expressions.html">scalar functions</a> is as a direct target of <code>SELECT</code>, for example <code>SELECT sin(3.2)</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}CockroachDB only supports this syntax for compatibility with PostgreSQL. The canonical syntax to evaluate <a href="scalar-expressions.html">scalar functions</a> is as a direct target of <code>SELECT</code>, for example <code>SELECT sin(3.2)</code>.{{site.data.alerts.end }}
 
 
 #### Table Generator Functions
@@ -182,7 +182,7 @@ function".
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM generate_series(1, 3)
 ~~~
@@ -196,7 +196,7 @@ For example:
 +-----------------+
 ~~~
 
-{{ site.data.alerts.callout_info }}Currently CockroachDB only supports a small set of generator function compatible with <a href="https://www.postgresql.org/docs/9.6/static/functions-srf.html">the PostgreSQL set-generating functions of the same name</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Currently CockroachDB only supports a small set of generator function compatible with <a href="https://www.postgresql.org/docs/9.6/static/functions-srf.html">the PostgreSQL set-generating functions of the same name</a>.{{site.data.alerts.end }}
 
 ## Operators That Extend a Table Expression
 
@@ -223,7 +223,7 @@ In the second form, the columns are also renamed.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT c.x FROM (SELECT COUNT(*) AS x FROM users) AS c;
 > SELECT c.x FROM (SELECT COUNT(*) FROM users) AS c(x);
@@ -242,7 +242,7 @@ an extra "Ordinality" column that enumerates every row in the data source.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM (VALUES('a'),('b'),('c'));
 ~~~
@@ -256,7 +256,7 @@ For example:
 +---------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM (VALUES ('a'), ('b'), ('c')) WITH ORDINALITY;
 ~~~
@@ -270,7 +270,7 @@ For example:
 +---------+------------+
 ~~~
 
-{{ site.data.alerts.callout_info }}<code>WITH ORDINALITY</code> necessarily prevents some optimizations of the surrounding query. Use it sparingly if performance is a concern, and always check the output of <a href="explain.html"><code>EXPLAIN</code></a> in case of doubt. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>WITH ORDINALITY</code> necessarily prevents some optimizations of the surrounding query. Use it sparingly if performance is a concern, and always check the output of <a href="explain.html"><code>EXPLAIN</code></a> in case of doubt. {{site.data.alerts.end }}
 
 ## Join Expressions
 
@@ -300,19 +300,19 @@ Syntax:
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT c+2                          FROM (SELECT COUNT(*) AS c FROM users);
 > SELECT *                            FROM (VALUES(1), (2), (3));
 > SELECT firstname || ' ' || lastname FROM (TABLE employees);
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <ul>
 <li>See also <a href="subqueries.html">Subqueries</a> for more details and performance best practices.</li>
 <li>To use other statements that produce data in a table expression, for example <code>SHOW</code>, use the <a href="#using-the-output-of-other-statements">square bracket notation</a>.</li>
 </ul>
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <div markdown="1"></div>
 
@@ -328,14 +328,14 @@ An [explainable statement](explain.html#explainable-statements)
 between square brackets in a table expression context designates the
 output of executing said statement.
 
-{{ site.data.alerts.callout_info }}This is a CockroachDB extension. This
+{{site.data.alerts.callout_info }}This is a CockroachDB extension. This
 syntax complements the <a
 href="#subqueries-as-table-expressions">subquery syntax using
-parentheses</a>, which is restricted to <a href="selection-queries.html">selection queries</a>. It was introduced to enable use of any <a href="explain.html#explainable-statements">explainable statement</a> as subquery, including <code>SHOW</code> and other non-query statements.{{ site.data.alerts.end }}
+parentheses</a>, which is restricted to <a href="selection-queries.html">selection queries</a>. It was introduced to enable use of any <a href="explain.html#explainable-statements">explainable statement</a> as subquery, including <code>SHOW</code> and other non-query statements.{{site.data.alerts.end }}
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT "Field" FROM [SHOW COLUMNS FROM customer];
 ~~~
@@ -354,7 +354,7 @@ immediately creates a matching entry in the `management` table with the
 auto-generated employee ID, without requiring a round trip with the SQL
 client:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO management(manager, reportee)
     VALUES ((SELECT id FROM employee WHERE name = 'Diana'),
@@ -368,7 +368,7 @@ Table expressions are used in the [`SELECT`](select-clause.html) and
 clauses](selection-queries.html#selection-clauses), and thus can appear everywhere where
 a selection clause is possible. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ... FROM <table expr>, <table expr>, ...
 > TABLE <table expr>

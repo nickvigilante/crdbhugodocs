@@ -6,7 +6,7 @@ toc: true
 
 CockroachDB supports the following SQL statements. Click a statement for more details.
 
-{{ site.data.alerts.callout_success }}In the <a href="use-the-built-in-sql-client.html#sql-shell-help-new-in-v1-1">built-in SQL shell</a>, use <code>\h [statement]</code> to get inline help about a specific statement.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}In the <a href="use-the-built-in-sql-client.html#sql-shell-help-new-in-v1-1">built-in SQL shell</a>, use <code>\h [statement]</code> to get inline help about a specific statement.{{site.data.alerts.end }}
 
 
 ## Data Manipulation Statements
@@ -121,7 +121,7 @@ Statement | Usage
 
 The following statements are available only to [enterprise](https://www.cockroachlabs.com/pricing/) users.
 
-{{ site.data.alerts.callout_info }}For non-enterprise users, see <a href="back-up-data.html">Back up Data</a> and <a href="restore-data.html">Restore Data</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}For non-enterprise users, see <a href="back-up-data.html">Back up Data</a> and <a href="restore-data.html">Restore Data</a>.{{site.data.alerts.end }}
 
 Statement | Usage
 ----------|------------

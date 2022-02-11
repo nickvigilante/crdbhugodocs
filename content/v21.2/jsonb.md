@@ -8,14 +8,14 @@ docs_area: reference.sql
 
 The `JSONB` [data type](data-types.html) stores JSON (JavaScript Object Notation) data as a binary representation of the `JSONB` value, which eliminates whitespace, duplicate keys, and key ordering. `JSONB` supports [GIN indexes](inverted-indexes.html).
 
-{{ site.data.alerts.callout_success }}For a hands-on demonstration of storing and querying JSON data from a third-party API, see the <a href="demo-json-support.html">JSON tutorial</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a hands-on demonstration of storing and querying JSON data from a third-party API, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end }}
 
 ## Alias
 
 In CockroachDB, `JSON` is an alias for `JSONB`.
 
-{{ site.data.alerts.callout_info }}In PostgreSQL, <code>JSONB</code> and <code>JSON</code> are two different data types. In CockroachDB, the <code>JSONB</code> / <code>JSON</code> data type is similar in behavior to the <a href="https://www.postgresql.org/docs/current/static/datatype-json.html"><code>JSONB</code> data type in PostgreSQL</a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}In PostgreSQL, <code>JSONB</code> and <code>JSON</code> are two different data types. In CockroachDB, the <code>JSONB</code> / <code>JSON</code> data type is similar in behavior to the <a href="https://www.postgresql.org/docs/current/static/datatype-json.html"><code>JSONB</code> data type in PostgreSQL</a>.
+{{site.data.alerts.end }}
 
 ## Considerations
 
@@ -41,7 +41,7 @@ Examples:
 - `'{"type": "account creation", "username": "harvestboy93"}'`
 - `'{"first_name": "Ernie", "status": "Looking for treats", "location" : "Brooklyn"}'`
 
-{{ site.data.alerts.callout_info }}If duplicate keys are included in the input, only the last value is kept.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If duplicate keys are included in the input, only the last value is kept.{{site.data.alerts.end }}
 
 ## Size
 
@@ -75,13 +75,13 @@ If the execution of a [join](joins.html) query exceeds the limit set for [memory
 
 For details, see [tracking issue](https://github.com/cockroachdb/cockroach/issues/35706).
 
-{%  include {{ page.version.version }}/sql/jsonb-comparison.md %}
+{{ partial "{{ page.version.version }}/sql/jsonb-comparison.md" . }}
 
 ## Examples
 
 ### Create a table with a `JSONB` column
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
     profile_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -90,7 +90,7 @@ For details, see [tracking issue](https://github.com/cockroachdb/cockroach/issue
   );
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -106,14 +106,14 @@ For details, see [tracking issue](https://github.com/cockroachdb/cockroach/issue
 (3 rows)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO users (user_profile) VALUES
     ('{"first_name": "Lola", "last_name": "Dog", "location": "NYC", "online" : true, "friends" : 547}'),
     ('{"first_name": "Ernie", "status": "Looking for treats", "location" : "Brooklyn"}');
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -132,7 +132,7 @@ For details, see [tracking issue](https://github.com/cockroachdb/cockroach/issue
 
 To retrieve `JSONB` data with easier-to-read formatting, use the `jsonb_pretty()` function. For example, retrieve data from the table you created in the [first example](#create-a-table-with-a-jsonb-column):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT profile_id, last_updated, jsonb_pretty(user_profile) FROM users;
 ~~~
@@ -159,7 +159,7 @@ To retrieve `JSONB` data with easier-to-read formatting, use the `jsonb_pretty()
 
 To retrieve a specific field from a `JSONB` value, use the `->` operator. For example, retrieve a field from the table you created in the [first example](#create-a-table-with-a-jsonb-column):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT user_profile->'first_name',user_profile->'location' FROM users;
 ~~~
@@ -174,7 +174,7 @@ To retrieve a specific field from a `JSONB` value, use the `->` operator. For ex
 
 You can also use the `->>` operator to return `JSONB` field values as `STRING` values:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT user_profile->>'first_name', user_profile->>'location' FROM users;
 ~~~
@@ -189,7 +189,7 @@ You can also use the `->>` operator to return `JSONB` field values as `STRING` v
 
 You can use the `@>` operator to filter the values in key-value pairs to return `JSONB` field values:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT user_profile->'first_name', user_profile->'location' FROM users WHERE user_profile @> '{"location":"NYC"}';
 ~~~
@@ -210,14 +210,14 @@ To organize your `JSONB` field values, use the `GROUP BY` and `ORDER BY` clauses
 
 For this example, we will add a few more records to the existing table. This will help us see clearly how the data is grouped.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO users (user_profile) VALUES
     ('{"first_name": "Lola", "last_name": "Kim", "location": "Seoul", "online": false, "friends": 600}'),
     ('{"first_name": "Parvati", "last_name": "Patil", "location": "London", "online": false, "friends": 500}');
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT user_profile->>'first_name' AS first_name, user_profile->>'location' AS location FROM users;
 ~~~
@@ -233,7 +233,7 @@ For this example, we will add a few more records to the existing table. This wil
 
 Now let's group and order the data.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT user_profile->>'first_name' first_name, count(*) total FROM users group by user_profile->>'first_name' order by total;
 ~~~
@@ -252,11 +252,11 @@ For the full list of functions and operators we support, see [Functions and Oper
 
 ### Create a table with a `JSONB` column and a computed column
 
-{%  include {{  page.version.version  }}/computed-columns/jsonb.md %}
+{{ partial "{{ page.version.version }}/computed-columns/jsonb.md" . }}
 
 ### Create a table with a `JSONB` column and a virtual computed column
 
-{%  include {{  page.version.version  }}/computed-columns/virtual.md %}
+{{ partial "{{ page.version.version }}/computed-columns/virtual.md" . }}
 
 ## Supported casting and conversion
 
@@ -274,7 +274,7 @@ You can cast numeric `JSONB` values to the following numeric data types:
 
 For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT '100'::jsonb::int;
 ~~~
@@ -286,7 +286,7 @@ For example:
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT '100000'::jsonb::float;
 ~~~
@@ -298,7 +298,7 @@ For example:
 (1 row)
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT '100.50'::jsonb::decimal;
 ~~~
@@ -312,7 +312,7 @@ For example:
 
 You use the [`parse_timestamp` function](functions-and-operators.html) to parse strings in `TIMESTAMP` format.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT parse_timestamp ('2021-09-28T10:53:25.160Z');
 ~~~
@@ -326,7 +326,7 @@ SELECT parse_timestamp ('2021-09-28T10:53:25.160Z');
 
 You can use the `parse_timestamp` function to retrieve string representations of timestamp data within `JSONB` columns in `TIMESTAMP` format.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE events (
   raw JSONB,

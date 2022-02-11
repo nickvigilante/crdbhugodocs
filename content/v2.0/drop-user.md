@@ -6,7 +6,7 @@ toc: true
 
 <span class="version-tag">New in v1.1:</span> The `DROP USER` [statement](sql-statements.html) removes one or more SQL users.
 
-{{ site.data.alerts.callout_success }}You can also use the <a href="create-and-manage-users.html"><code>cockroach user rm</code></a> command to remove users.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can also use the <a href="create-and-manage-users.html"><code>cockroach user rm</code></a> command to remove users.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -15,7 +15,7 @@ The user must have the `DELETE` [privilege](privileges.html) on the `system.user
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_user.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_user.html" . }}</section>
 
 ## Parameters
 
@@ -29,7 +29,7 @@ The user must have the `DELETE` [privilege](privileges.html) on the `system.user
 
 In this example, first check a user's privileges. Then, revoke the user's privileges before removing the user.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON test.customers FOR mroach;
 ~~~
@@ -45,12 +45,12 @@ In this example, first check a user's privileges. Then, revoke the user's privil
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE CREATE,INSERT,UPDATE ON test.customers FROM mroach;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP USER mroach;
 ~~~

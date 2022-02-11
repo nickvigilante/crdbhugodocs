@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v21.1:</span> The `REASSIGN OWNED` statement changes the [ownership](authorization.html#object-ownership) of all database objects (i.e., tables, types, or schemas) in the current database that are currently owned by a specific [role](authorization.html#roles) or [user](authorization.html#sql-users).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To change the ownership of any single object (e.g., a table or a database), use the [`OWNER TO`](owner-to.html) subcommand of the object's [`ALTER` statement](sql-statements.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -18,7 +18,7 @@ To change the ownership of any single object (e.g., a table or a database), use 
 ## Syntax
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/reassign_owned_by.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/reassign_owned_by.html" . }}
 </div>
 
 ## Parameters
@@ -30,30 +30,30 @@ Parameter | Description
 
 ## Example
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Change the owner of all tables in a database
 
 Suppose that the current owner of the `users`, `vehicles`, and `rides` tables in the `movr` database is a role named `cockroachlabs`.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE cockroachlabs;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > GRANT CREATE ON DATABASE movr TO cockroachlabs;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users OWNER TO cockroachlabs;
 > ALTER TABLE vehicles OWNER TO cockroachlabs;
 > ALTER TABLE rides OWNER TO cockroachlabs;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -72,22 +72,22 @@ Suppose that the current owner of the `users`, `vehicles`, and `rides` tables in
 
 Now suppose you want to change the owner for all of the tables owned by `cockroachlabs` to a new role named `movrlabs`.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE ROLE movrlabs;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > GRANT CREATE ON DATABASE movr TO movrlabs;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > REASSIGN OWNED BY cockroachlabs TO movrlabs;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES;
 ~~~

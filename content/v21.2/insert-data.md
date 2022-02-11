@@ -12,11 +12,11 @@ This page has instructions for getting data into CockroachDB with various progra
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.dedicated  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.dedicated }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Install a Postgres client](install-client-drivers.html).
 - [Connect to the database](connect-to-the-database.html).
 
-{%  include {{ page.version.version }}/app/retry-errors.md %}
+{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
 
 ## Insert rows
 
@@ -31,7 +31,7 @@ When inserting multiple rows, a single [multi-row insert statement](insert.html#
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE TABLE IF NOT EXISTS accounts (id INT PRIMARY KEY, balance INT);
 INSERT INTO accounts (id, balance) VALUES (1, 1000), (2, 250);
@@ -43,7 +43,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -54,13 +54,13 @@ if _, err := db.Exec(
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -80,13 +80,13 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -96,7 +96,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
 
 </section>
 
@@ -104,7 +104,7 @@ conn.commit()
 
 If you need to get a lot of data into a CockroachDB cluster quickly, use the [`IMPORT`](import.html) statement instead of sending SQL [`INSERT`s](insert.html) from application code. It will be much faster because it bypasses the SQL layer altogether and writes directly to the data store using low-level commands. For instructions, see the [Migration Overview](migration-overview.html).
 
-{%  include {{ page.version.version }}/sql/limit-row-size.md %}
+{{ partial "{{ page.version.version }}/sql/limit-row-size.md" . }}
 
 ## See also
 

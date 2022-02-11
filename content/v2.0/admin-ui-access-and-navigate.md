@@ -30,7 +30,7 @@ Jobs | Information about all currently active schema changes and backup/restore 
 
 ### Cluster Overview Panel
 
-<img src="{{  'images/v2.0/admin-ui-cluster-overview-panel.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-cluster-overview-panel.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 The **Cluster Overview** panel provides the following metrics:
 
@@ -43,7 +43,7 @@ Replication Status | <ul><li>The total number of ranges in the cluster.</li><li>
 ### Node List
 
 The **Node List** is the default view on the **Overview** page.
-<img src="{{  'images/v2.0/admin-ui-node-list.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-node-list.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 #### Live Nodes
 Live nodes are nodes that are online and responding. They are marked with a green dot. If a node is removed or dies, the dot turns yellow to indicate that it is not responding. If the node remains unresponsive for a certain amount of time (5 minutes by default), the node turns red and is moved to the [**Dead Nodes**](#dead-nodes) section, indicating that it is no longer expected to come back.
@@ -83,17 +83,17 @@ When you decommission a node, CockroachDB lets the node finish in-flight request
 
 <span class="version-tag">New in v2.0:</span> The **Node Map** is an [enterprise-only](enterprise-licensing.html) feature that gives you a visual representation of the geographical configuration of your cluster.
 
-<img src="{{  'images/v2.0/admin-ui-node-map.png' | relative_url  }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
+<img src="{{ 'images/v2.0/admin-ui-node-map.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
 The Node Map consists of the following components:
 
 **Region component**
 
-<img src="{{  'images/v2.0/admin-ui-region-component.png' | relative_url  }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
+<img src="{{ 'images/v2.0/admin-ui-region-component.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
 **Node component**
 
-<img src="{{  'images/v2.0/admin-ui-node-components.png' | relative_url  }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
+<img src="{{ 'images/v2.0/admin-ui-node-components.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
 For guidance on enabling and using the node map, see [Enable Node Map](enable-node-map.html).
 
@@ -103,28 +103,28 @@ The **Cluster Metrics** dashboards display the time series graphs that are usefu
 
 You can hover over each graph to see actual point-in-time values.
 
-<img src="{{  'images/v2.0/admin_ui_hovering.gif' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin_ui_hovering.gif' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
-{{ site.data.alerts.callout_info }}By default, CockroachDB stores timeseries metrics for the last 30 days, but you can reduce the interval for timeseries storage. Alternately, if you are exclusively using a third-party tool such as <a href="monitor-cockroachdb-with-prometheus.html">Prometheus</a> for timeseries monitoring, you can disable timeseries storage entirely. For more details, see this <a href="operational-faqs.html#can-i-reduce-or-disable-the-storage-of-timeseries-data-new-in-v2-0">FAQ</a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}By default, CockroachDB stores timeseries metrics for the last 30 days, but you can reduce the interval for timeseries storage. Alternately, if you are exclusively using a third-party tool such as <a href="monitor-cockroachdb-with-prometheus.html">Prometheus</a> for timeseries monitoring, you can disable timeseries storage entirely. For more details, see this <a href="operational-faqs.html#can-i-reduce-or-disable-the-storage-of-timeseries-data-new-in-v2-0">FAQ</a>.
+{{site.data.alerts.end }}
 
 #### Change time range
 
 You can change the time range by clicking on the time window.
-<img src="{{  'images/v2.0/admin-ui-time-range.gif' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-time-range.gif' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
-{{ site.data.alerts.callout_info }}The Admin UI shows time in UTC, even if you set a different time zone for your cluster. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The Admin UI shows time in UTC, even if you set a different time zone for your cluster. {{site.data.alerts.end }}
 
 #### View metrics for a single node
 
 By default, the time series panel displays the metrics for the entire cluster. To view the metrics for an individual node, select the node from the **Graph** drop-down list.
-<img src="{{  'images/v2.0/admin-ui-single-node.gif' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-single-node.gif' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ### Summary Panel
 
 The **Cluster Metrics** dashboards display the **Summary** panel of key metrics. To view the **Summary** panel, click **Metrics** on the left-hand navigation bar.
 
-<img src="{{  'images/v2.0/admin_ui_summary_panel.png' | relative_url  }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:40%" />
+<img src="{{ 'images/v2.0/admin_ui_summary_panel.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:40%" />
 
 The **Summary** panel provides the following metrics:
 
@@ -138,15 +138,15 @@ Queries per second | The number of SQL queries executed per second.
 P50 Latency | The 50th percentile of service latency. Service latency is calculated as the time between when the cluster receives a query and finishes executing the query. This time does not include returning results to the client.
 P99 Latency | The 99th percentile of service latency.
 
-{{ site.data.alerts.callout_info }}
-{%  include v2.0/misc/available-capacity-metric.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "v2.0/misc/available-capacity-metric.md" . }}
+{{site.data.alerts.end }}
 
 ### Events Panel
 
 The **Cluster Metrics** dashboards display the **Events** panel that lists the 10 most recent events logged for the all nodes across the cluster. To view the **Events** panel, click **Metrics** on the left-hand navigation bar. To see the list of all events, click **View all events** in the **Events** panel.
 
-<img src="{{  'images/v2.0/admin_ui_events.png' | relative_url  }}" alt="CockroachDB Admin UI Events" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin_ui_events.png' | relative_url }}" alt="CockroachDB Admin UI Events" style="border:1px solid #eee;max-width:100%" />
 
 The following types of events are listed:
 

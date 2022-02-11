@@ -28,7 +28,7 @@ Changefeeds connect to a long-lived request (i.e., a rangefeed), which pushes ch
 
 **Rangefeeds must be enabled for a changefeed to work.** To [enable the cluster setting](set-cluster-setting.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.rangefeed.enabled = true;
 ~~~
@@ -134,7 +134,7 @@ For an example of a schema change with column backfill, start with the changefee
 
 Add a column to the watched table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE office_dogs ADD COLUMN likes_treats BOOL DEFAULT TRUE;
 ~~~
@@ -153,9 +153,9 @@ The changefeed emits duplicate records 1, 2, and 3 before outputting the records
 [3]	{"id": 3, "likes_treats": true, "name": "Ernie"}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Changefeeds will emit [`NULL` values](null-handling.html) for [`VIRTUAL` computed columns](computed-columns.html) and not the column's computed value.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Responses
 
@@ -176,7 +176,7 @@ For example:
 
 Statement                                      | Response
 -----------------------------------------------+-----------------------------------------------------------------------
-`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }} }}`
+`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }}}}`
 `DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1 }}	{"after":null}`
 
 For webhook sinks, the response format comes as a batch of changefeed messages with a `payload` and `length`. Batching is done with a per-key guarantee, which means that the messages with the same key are considered for the same batch. Note that batches are only collected for row updates and not [resolved timestamps](create-changefeed.html#resolved-option):
@@ -185,11 +185,11 @@ For webhook sinks, the response format comes as a batch of changefeed messages w
 {"payload": [{"after" : {"a" : 1, "b" : "a"}, "key": [1], "topic": "foo"}, {"after": {"a": 1, "b": "b"}, "key": [1], "topic": "foo" }], "length":2}
 ~~~
 
-See the [Files](create-changefeed.html#files) for more detail on the file naming format for {{  site.data.products.enterprise  }} changefeeds.
+See the [Files](create-changefeed.html#files) for more detail on the file naming format for {{ site.data.products.enterprise }} changefeeds.
 
 ## Avro
 
-The following sections provide information on Avro usage with CockroachDB changefeeds. Creating a changefeed using Avro is available in Core and {{  site.data.products.enterprise  }} changefeeds.
+The following sections provide information on Avro usage with CockroachDB changefeeds. Creating a changefeed using Avro is available in Core and {{ site.data.products.enterprise }} changefeeds.
 
 ### Avro limitations
 
@@ -198,7 +198,7 @@ Below are clarifications for particular SQL types and values for Avro changefeed
 - [Decimals](decimal.html) must have precision specified.
 - [`BIT`](bit.html) and [`VARBIT`](bit.html) types are encoded as arrays of 64-bit integers.
 
-  {%  include {{  page.version.version  }}/cdc/avro-bit-varbit.md %}
+  {{ partial "{{ page.version.version }}/cdc/avro-bit-varbit.md" . }}
 
 ### Avro types
 
@@ -225,9 +225,9 @@ CockroachDB Type | Avro Type | Avro Logical Type
 [`VARBIT`](bit.html)| Array of [`LONG`](https://avro.apache.org/docs/1.8.1/spec.html#schema_primitive) |
 [`COLLATE`](collate.html) | [`STRING`](https://avro.apache.org/docs/1.8.1/spec.html#schema_primitive) |
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `DECIMAL` type is a union between Avro `STRING` and Avro `DECIMAL` types.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

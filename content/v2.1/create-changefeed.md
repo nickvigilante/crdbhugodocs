@@ -10,13 +10,13 @@ Changefeeds target an allowlist of tables, called the "watched rows." Every chan
 
 For more information, see [Change Data Capture](change-data-capture.html).
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This feature is under active development** and only works for a [targeted a use case](change-data-capture.html#usage-examples). Please [file a Github issue](file-an-issue.html) if you have feedback on the interface.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `CREATE CHANGEFEED` is an [enterprise-only](enterprise-licensing.html). There will be a core version in a future version.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -25,7 +25,7 @@ Changefeeds can only be created by superusers, i.e., [members of the `admin` rol
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/create_changefeed.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/create_changefeed.html" . }}
 </div>
 
 ## Parameters
@@ -55,7 +55,7 @@ Option | Value | Description
 
 ### Create a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'kafka://host:port'
@@ -74,7 +74,7 @@ For more information on how to create a changefeed connected to Kafka, see [Chan
 
 ### Create a changefeed with Avro
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'kafka://host:port'
@@ -95,13 +95,13 @@ For more information on how to create a changefeed that emits an [Avro](https://
 
 Use the following SQL statements to pause, resume, and cancel a changefeed.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Changefeed-specific SQL statements (e.g., `CANCEL CHANGEFEED`) will be added in the future.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Pause a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -110,7 +110,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 #### Resume a paused changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -119,7 +119,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 #### Cancel a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -130,7 +130,7 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 Find the [high-water timestamp](change-data-capture.html#monitor-a-changefeed) for the ended changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM crdb_internal.jobs WHERE job_id = <job_id>;
 ~~~
@@ -143,7 +143,7 @@ Find the [high-water timestamp](change-data-capture.html#monitor-a-changefeed) f
 
 Use the `high_water_timestamp` to start the new changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'kafka//host:port'

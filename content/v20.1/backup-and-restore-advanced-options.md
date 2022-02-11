@@ -16,15 +16,15 @@ This doc provides information about the advanced options you can use when you [b
 - [Remove the foreign key before restore](#remove-the-foreign-key-before-restore)
 - [Restoring users from `system.users` backup](#restoring-users-from-system-users-backup)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The advanced options covered in this doc are included in [`BACKUP`](backup.html), which is an [enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. For non-enterprise backups, see [`cockroach dump`](cockroach-dump.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Incremental backups with explicitly specified destinations
 
 To explicitly control where your incremental backups go, use the [`INCREMENTAL FROM`](backup.html#synopsis) syntax:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/db/bank/2017-03-29-nightly' \
@@ -45,7 +45,7 @@ You can configure garbage collection periods using the `ttlseconds` [replication
 
 ### Create a backup with revision history
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO \
 'gs://acme-co-backup/test-cluster-2017-03-27-weekly' \
@@ -60,7 +60,7 @@ If the full or incremental backup was taken [with revision history](#backup-with
 
 If you do not specify a point-in-time, the data will be restored to the backup timestamp; that is, the restore will work as if the data was backed up without revision history.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
 AS OF SYSTEM TIME '2017-02-26 10:00:00';
@@ -70,7 +70,7 @@ AS OF SYSTEM TIME '2017-02-26 10:00:00';
 
 Restoring from incremental backups requires previous full and incremental backups. In this example, `-weekly` is the full backup and the two `-nightly` are incremental backups:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM \
 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup/database-bank-2017-03-28-nightly', 'gs://acme-co-backup/database-bank-2017-03-29-nightly' \
@@ -88,9 +88,9 @@ This is useful for:
 
 A locality-aware backup is specified by a list of URIs, each of which has a `COCKROACH_LOCALITY` URL parameter whose single value is either `default` or a single locality key-value pair such as `region=us-east`. At least one `COCKROACH_LOCALITY` must be the `default`. Given a list of URIs that together contain the locations of all of the files for a single locality-aware backup, [`RESTORE` can read in that backup](#restore-from-a-locality-aware-backup).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The locality query string parameters must be [URL-encoded](https://en.wikipedia.org/wiki/Percent-encoding).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 During locality-aware backups, backup file placement is determined by leaseholder placement, as each node is responsible for backing up the ranges for which it is the leaseholder.  Nodes write files to the backup storage location whose locality matches their own node localities, with a preference for more specific values in the locality hierarchy.  If there is no match, the `default` locality is used.
 
@@ -98,7 +98,7 @@ During locality-aware backups, backup file placement is determined by leaseholde
 
 For example, to create a locality-aware backup where nodes with the locality `region=us-west` write backup files to `s3://us-west-bucket`, and all other nodes write to `s3://us-east-bucket` by default, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
@@ -106,7 +106,7 @@ For example, to create a locality-aware backup where nodes with the locality `re
 
 can be restored by running:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM ('s3://us-east-bucket', 's3://us-west-bucket');
 ~~~
@@ -135,43 +135,43 @@ When restoring a [full backup](backup-and-restore.html#full-backups), the cluste
 And the restored cluster does not have [nodes with the locality](partitioning.html#node-attributes) `region=us-west1`, the restored cluster will still have a zone configuration for `us-west1`. This means that the cluster's data will _not_ be reshuffled to `us-west1` because the region does not exist. The data will be distributed as if the zone configuration does not exist. For the data to be distributed correctly, you can [add node(s)](cockroach-start.html) with the missing region or [remove the zone configuration](configure-zone.html#remove-a-replication-zone).
 
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [`RESTORE`][restore] is not truly locality-aware; while restoring from backups, a node may read from a store that does not match its locality. This can happen in the cases that either the [`BACKUP`][backup] or [`RESTORE`][restore] was not full cluster. Note that during a locality-aware restore, some data may be temporarily located on another node before it is eventually relocated to the appropriate node. To avoid this, you can [manually restore zone configurations from a locality-aware backup](#manually-restore-zone-configurations-from-a-locality-aware-backup).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Create an incremental locality-aware backup
 
 To create an incremental locality-aware backup from a full locality-aware backup, the syntax the same as it is for [regular incremental backups](backup.html#create-incremental-backups). If you backup to a destination already containing a full backup, an incremental backup will be appended to the full backup in a subdirector. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 It is recommend that the same localities be included for every incremental backup in the series of backups; however, only the `default` locality is required. When [restoring from an incremental locality-aware backup](#restore-from-an-incremental-locality-aware-backup), you need to include _every_ locality ever used, even if it was only used once.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 And if you want to explicitly control where your incremental backups go, use the `INCREMENTAL FROM` syntax:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO (${uri_1}, ${uri_2}, ...) INCREMENTAL FROM ${full_backup_uri} ...;
 ~~~
 
 For example, to create an incremental locality-aware backup from a previous full locality-aware backup where nodes with the locality `region=us-west` write backup files to `s3://us-west-bucket`, and all other nodes write to `s3://us-east-bucket` by default, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO \
 ('s3://us-east-bucket/test-cluster-2019-10-08-nightly?COCKROACH_LOCALITY=default', 's3://us-west-bucket/test-cluster-2019-10-08-nightly?COCKROACH_LOCALITY=region%3Dus-west')
 INCREMENTAL FROM 's3://us-east-bucket/test-cluster-2019-10-07-weekly';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Note that only the backup URIs you set as the `default` when you created the previous backup(s) are needed in the `INCREMENTAL FROM` clause of your incremental `BACKUP` statement (as shown in the example). This is because the `default` destination for a locality-aware backup contains a manifest file that contains all the metadata required to create additional incremental backups based on it.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore from an incremental locality-aware backup
 
@@ -179,7 +179,7 @@ A locality-aware backup URI can also be used in place of any incremental backup 
 
 For example, an incremental locality-aware backup created with
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO
 	  ('s3://us-east-bucket/database-bank-2019-10-08-nightly?COCKROACH_LOCALITY=default', 's3://us-west-bucket/database-bank-2019-10-08-nightly?COCKROACH_LOCALITY=region%3Dus-west')
@@ -189,22 +189,22 @@ For example, an incremental locality-aware backup created with
 
 can be restored by running:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM
   	('s3://us-east-bucket/database-bank-2019-10-07-weekly', 's3://us-west-bucket/database-bank-2019-10-07-weekly'),
 	  ('s3://us-east-bucket/database-bank-2019-10-08-nightly', 's3://us-west-bucket/database-bank-2019-10-08-nightly');
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When restoring from an incremental locality-aware backup, you need to include _every_ locality ever used, even if it was only used once.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Create an incremental locality-aware backup from a previous locality-aware backup
 
 To make an incremental locality-aware backup from another locality-aware backup, the syntax is as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO ({uri_1}, {uri_2}, ...) INCREMENTAL FROM {full_backup}, {incr_backup_1}, {incr_backup_2}, ...;
 ~~~
@@ -223,7 +223,7 @@ If today is Thursday, October 10th, 2019, your `BACKUP` statement will list the 
 
 Given the above, to take the incremental locality-aware backup scheduled for today (Thursday), you will run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO
 	  ('s3://us-east-bucket/test-cluster-2019-10-10-nightly?COCKROACH_LOCALITY=default', 's3://us-west-bucket/test-cluster-2019-10-10-nightly?COCKROACH_LOCALITY=region%3Dus-west')
@@ -233,9 +233,9 @@ Given the above, to take the incremental locality-aware backup scheduled for tod
   	's3://us-east-bucket/test-cluster-2019-10-09-nightly';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Note that only the backup URIs you set as the `default` when you created the previous backup(s) are needed in the `INCREMENTAL FROM` clause of your incremental `BACKUP` statement (as shown in the example). This is because the `default` destination for a locality-aware backup contains a manifest file that contains all the metadata required to create additional incremental backups based on it.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Manually restore zone configurations from a locality-aware backup
 
@@ -243,14 +243,14 @@ During a [locality-aware restore](#restore-from-a-locality-aware-backup), some d
 
 Once the locality-aware restore has started, [pause the restore](pause-job.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB 27536791415282;
 ~~~
 
 The `system.zones` table stores your cluster's [zone configurations](configure-replication-zones.html), which will prevent the data from rebalancing. To restore them, you must restore the `system.zones` table into a new database because you cannot drop the existing `system.zones` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE system.zones \
 FROM 'azure://acme-co-backup?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' \
@@ -259,34 +259,34 @@ WITH into_db = 'newdb';
 
 After it's restored into a new database, you can write the restored `zones` table data to the cluster's existing `system.zones` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO system.zones SELECT * FROM newdb.zones;
 ~~~
 
 Then drop the temporary table you created:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP TABLE newdb.zones;
 ~~~
 
 Then, [resume the restore](resume-job.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOB 27536791415282;
 ~~~
 
 ## Encrypted backup and restore
 
-{%  include {{  page.version.version  }}/backups/encrypted-backup-description.md %}
+{{ partial "{{ page.version.version }}/backups/encrypted-backup-description.md" . }}
 
 ### Create an encrypted backup
 
 <span class="version-tag">New in v20.1:</span> To create an [encrypted backup](#encrypted-backup-and-restore), use the [`encryption_passphrase` option](backup.html#with-encryption-passphrase):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO \
 'gs://acme-co-backup/test-cluster' \
@@ -307,7 +307,7 @@ To [restore](restore.html), use the same `encryption_passphrase`:
 
 For example, the encrypted backup created in the [previous example](#create-an-encrypted-backup):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO \
 'gs://acme-co-backup/test-cluster' \
@@ -316,7 +316,7 @@ WITH encryption_passphrase = 'password123';
 
 Can be restored with:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM \
 'gs://acme-co-backup/test-cluster' \
@@ -335,7 +335,7 @@ WITH encryption_passphrase = 'password123';
 
 By default, tables and views are restored to the database they originally belonged to. However, using the [`into_db`](restore.html#into_db) option, you can control the target database.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -346,7 +346,7 @@ WITH into_db = 'newdb';
 
 By default, tables with [Foreign Key](foreign-key.html) constraints must be restored at the same time as the tables they reference. However, using the [`skip_missing_foreign_keys`](restore.html#skip_missing_foreign_keys) option you can remove the Foreign Key constraint from the table and then restore it.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.accounts \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -359,19 +359,19 @@ The `system.users` table stores your cluster's usernames and their hashed passwo
 
 After it's restored into a new database, you can write the restored `users` table data to the cluster's existing `system.users` table.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE system.users \
 FROM 'azure://acme-co-backup/table-users-2017-03-27-full?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' \
 WITH into_db = 'newdb';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO system.users SELECT * FROM newdb.users;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP TABLE newdb.users;
 ~~~

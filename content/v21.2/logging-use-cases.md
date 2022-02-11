@@ -16,15 +16,15 @@ We provide an example [file sink configuration](configure-logs.html#output-to-fi
 
 Your deployment may use an external service (e.g., [Elasticsearch](https://www.elastic.co/elastic-stack), [Splunk](https://www.splunk.com/)) to collect and programmatically read logging data.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All log examples on this page use the default `crdb-v2` format, except for the [network logging](#network-logging) configuration, which uses the default `json-fluent-compact` format for network output. Most log entries for non-`DEV` channels record *structured* events, which use a standardized format that can be reliably parsed by an external collector. All structured event types and their fields are detailed in the [Notable events reference](eventlog.html).
 
 Logging channels may also contain events that are *unstructured*. Unstructured events can routinely change between CockroachDB versions, including minor patch revisions, so they are not officially documented.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `‹` and `›` are placed around values in log messages that may contain sensitive data (PII). To customize this behavior, see [Redact logs](configure-logs.html#redact-logs).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Operational monitoring
 
@@ -39,9 +39,9 @@ sinks:
       channels: [OPS, HEALTH, SQL_SCHEMA]
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 When monitoring your cluster, consider using these logs in conjunction with [Prometheus](monitor-cockroachdb-with-prometheus.html), which can be set up to track node-level metrics.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### OPS
 
@@ -72,9 +72,9 @@ I210323 20:53:44.765068 611 1@util/log/event_log.go:32 ⋮ [n1] 20 ={"Timestamp"
 - `StartedAt` shows the timestamp when the node was most recently restarted.
 - `LastUp` shows the timestamp when the node was up before being restarted.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `OPS` event types are detailed in the [reference documentation](eventlog.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### HEALTH
 
@@ -90,9 +90,9 @@ I210517 17:38:20.403619 586 2@util/log/event_log.go:32 ⋮ [n1] 168 ={"Timestamp
 
 - Preceding the `=` character is the `crdb-v2` event metadata. See the [reference documentation](log-formats.html#format-crdb-v2) for details on the fields.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `runtime_stats` events are typically used for troubleshooting. To monitor your cluster's health, see [Monitoring and Alerting](monitoring-and-alerting.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### SQL_SCHEMA
 
@@ -125,9 +125,9 @@ I210323 20:21:05.916626 114212 5@util/log/event_log.go:32 ⋮ [n1,job=6437616500
 
 Note that the `DescriptorID` and `MutationID` values match in both of the above log entries, indicating that they are related.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `SQL_SCHEMA` event types are detailed in the [reference documentation](eventlog.html#sql-logical-schema-changes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Security and audit monitoring
 
@@ -149,24 +149,24 @@ sinks:
 
 The [`SESSIONS`](logging.html#sessions) channel logs SQL session events. This includes client connection and session authentication events, for which logging must be enabled separately. For complete logging of client connections, we recommend enabling both types of events.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 These logs perform one disk I/O per event. Enabling each setting will impact performance.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include common/experimental-warning.md %}
+{{ partial "common/experimental-warning.md" . }}
 
 #### Example: Client connection events
 
 To log SQL client connection events to the `SESSIONS` channel, enable the `server.auth_log.sql_connections.enabled` [cluster setting](cluster-settings.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING server.auth_log.sql_connections.enabled = true;
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In addition to SQL sessions, connection events can include SQL-based liveness probe attempts.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 These logs show a [`client_connection_start`](eventlog.html#client_connection_start) (client connection established) and a [`client_connection_end`](eventlog.html#client_connection_end) (client connection terminated) event over a `hostssl` (TLS transport over TCP) connection:
 
@@ -183,7 +183,7 @@ I210323 21:53:58.305074 53298 4@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]
 
 To log SQL session authentication events to the `SESSIONS` channel, enable the `server.auth_log.sql_sessions.enabled` [cluster setting](cluster-settings.html) on every cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING server.auth_log.sql_sessions.enabled = true;
 ~~~
@@ -216,19 +216,19 @@ I210323 21:53:58.305016 53298 4@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]
 - The [`client_session_end`](eventlog.html#client_session_end) event shows that the SQL session was terminated. This would typically be followed by a [`client_connection_end`](eventlog.html#client_connection_end) event.
 - `User` shows that the SQL session authentication was attempted for user `roach`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `SESSIONS` event types are detailed in the [reference documentation](eventlog.html#sql-session-events). For more details on certificate and password authentication, see [Authentication](authentication.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### SENSITIVE_ACCESS
 
 The [`SENSITIVE_ACCESS`](logging.html#sensitive_access) channel logs SQL audit events. These include all queries being run against [audited tables](experimental-audit.html), when enabled, as well as queries executed by users with the [`admin`](authorization.html#admin-role) role.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Enabling these logs can negatively impact performance. We recommend using `SENSITIVE_ACCESS` for security purposes only.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include common/experimental-warning.md %}
+{{ partial "common/experimental-warning.md" . }}
 
 To log all queries against a specific table, enable auditing on the table with [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
 
@@ -236,7 +236,7 @@ To log all queries against a specific table, enable auditing on the table with [
 
 This command enables auditing on a `customers` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
@@ -251,9 +251,9 @@ I210323 18:50:04.518707 1182 8@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:
 - `AccessMode` shows that the table was accessed with a read/write (`rw`) operation.
 - `ApplicationName` shows that the event originated from the [`cockroach sql`](cockroach-sql.html) shell. You can use this field to filter the logging output by application.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `SENSITIVE_ACCESS` event types are detailed in the [reference documentation](eventlog.html#sql-access-audit-events). For a detailed tutorial on table auditing, see [SQL Audit Logging](sql-audit-logging.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### PRIVILEGES
 
@@ -271,9 +271,9 @@ I210329 22:54:48.888312 1742207 7@util/log/event_log.go:32 ⋮ [n1,client=‹[::
 - `ApplicationName` shows that the event originated from the [`cockroach sql`](cockroach-sql.html) shell. You can use this field to filter the logging output by application.
 - `GrantedPrivileges` shows the privileges that were granted.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `PRIVILEGE` event types are detailed in the [reference documentation](eventlog.html#sql-privilege-changes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### USER_ADMIN
 
@@ -291,9 +291,9 @@ I210323 20:54:53.122681 1943 6@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:
 - `ApplicationName` shows that the event originated from the [`cockroach sql`](cockroach-sql.html) shell. You can use this field to filter the logging output by application.
 - `RoleName` shows the name of the user/role. For details on user and role terminology, see [Users and roles](authorization.html#users-and-roles).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `USER_ADMIN` event types are detailed in the [reference documentation](eventlog.html#sql-user-and-role-operations).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Performance tuning
 
@@ -314,7 +314,7 @@ The [`SQL_EXEC`](logging.html#sql_exec) channel reports all SQL executions on th
 
 To log cluster-wide executions, enable the `sql.trace.log_statement_execute` [cluster setting](cluster-settings.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.trace.log_statement_execute = true;
 ~~~
@@ -344,14 +344,14 @@ I210330 16:09:04.966129 1885738 9@util/log/event_log.go:32 ⋮ [n1,intExec=‹fi
 
 If you no longer need to log queries across the cluster, you can disable the setting:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.trace.log_statement_execute = false;
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `SQL_EXEC` event types are detailed in the [reference documentation](eventlog.html#sql-execution-log).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### SQL_PERF
 
@@ -359,9 +359,9 @@ The [`SQL_PERF`](logging.html#sql_perf) channel reports slow SQL queries, when e
 
 To enable slow query logging, enable the `sql.log.slow_query.latency_threshold` [cluster setting](cluster-settings.html) by setting it to a non-zero value. This will log queries whose service latency exceeds a specified threshold value. The threshold value must be specified with a unit of time (e.g., `500ms` for 500 milliseconds, `5us` for 5 nanoseconds, or `5s` for 5 seconds). A threshold of `0s` disables the slow query log.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Setting `sql.log.slow_query.latency_threshold` to a non-zero time enables tracing on all queries, which impacts performance. After debugging, set the value back to `0s` to disable the log.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To log all queries that perform full table or index scans to `SQL_PERF`, regardless of query latency, set the `sql.log.slow_query.experimental_full_table_scans.enabled` [cluster setting](cluster-settings.html) to `true`.
 
@@ -369,7 +369,7 @@ To log all queries that perform full table or index scans to `SQL_PERF`, regardl
 
 For example, to enable the slow query log for all queries with a latency above 100 milliseconds:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.log.slow_query.latency_threshold = '100ms';
 ~~~
@@ -395,23 +395,23 @@ I210323 20:02:12.095253 59168 10@util/log/event_log.go:32 ⋮ [n1,client=‹[::1
 - `ErrorText` shows that this query encountered a type of [transaction retry error](transaction-retry-error-reference.html#retry_write_too_old). For details on transaction retry errors and how to resolve them, see the [Transaction retry error reference](transaction-retry-error-reference.html).
 - `NumRetries` shows that the transaction was retried once before succeeding.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All possible `SQL_PERF` event types are detailed in the [reference documentation](eventlog.html#sql-slow-query-log).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Network logging
 
 A database operator can send logs over the network to a [Fluentd](https://www.fluentd.org/) or HTTP server.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 TLS is not supported yet: the connection to the log collector is neither authenticated nor encrypted. Given that logging events may contain sensitive information, care should be taken to keep the log collector and the CockroachDB node close together on a private network, or connect them using a secure VPN. TLS support may be added at a later date.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 In this example configuration, [operational](#operational-monitoring) and [security](#security-and-audit-monitoring) logs are grouped into separate `ops` and `security` network sinks. The logs from both sinks are sent to a Fluentd server, which can then route them to a compatible log collector (e.g., [Elasticsearch](https://www.elastic.co/elastic-stack), [Splunk](https://www.splunk.com/)).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A network sink can be listed more than once with different `address` values. This routes the same logs to different Fluentd servers.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ~~~ yaml
 sinks:

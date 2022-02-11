@@ -13,7 +13,7 @@ You can use CTEs in combination with [`SELECT` clauses](select-clause.html) and 
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/with_clause.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/with_clause.html %}
 </div>
 
 <div markdown="1"></div>
@@ -29,11 +29,11 @@ Parameter | Description
 
 ## Overview
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The examples on this page use MovR, a fictional vehicle-sharing application, to demonstrate CockroachDB SQL statements. To follow along, run [`cockroach demo`](cockroach-demo.html) from the command line to start a temporary, in-memory cluster with the `movr` dataset preloaded.
 
 For more information about the MovR example application and dataset, see [MovR: A Global Vehicle-sharing App](movr.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 A query or statement of the form `WITH x AS y IN z` creates the
 temporary table name `x` for the results of the subquery `y`, to be
@@ -41,7 +41,7 @@ reused in the context of the query `z`.
 
 For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > WITH r AS (SELECT * FROM rides WHERE revenue > 98)
   SELECT * FROM users AS u, r WHERE r.rider_id = u.id;
@@ -65,7 +65,7 @@ subsequent `SELECT` clause.
 
 This query is equivalent to, but arguably simpler to read than:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users AS u, (SELECT * FROM rides WHERE revenue > 98) AS r
   WHERE r.rider_id = u.id;
@@ -76,7 +76,7 @@ simultaneously with a single `WITH` clause, separated by commas. Later
 subqueries can refer to earlier subqueries by name. For example, the
 following query is equivalent to the two examples above:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > WITH r AS (SELECT * FROM rides WHERE revenue > 98),
 	results AS (SELECT * FROM users AS u, r WHERE r.rider_id = u.id)
@@ -90,7 +90,7 @@ by name. The final query refers to the CTE `results`.
 
 It is possible to use a `WITH` clause in a subquery, or even a `WITH` clause within another `WITH` clause. For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > WITH u AS
 	(SELECT * FROM
@@ -102,7 +102,7 @@ When analyzing [table expressions](table-expressions.html) that
 mention a CTE name, CockroachDB will choose the CTE definition that is
 closest to the table expression. For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > WITH
   u AS (SELECT * FROM users),
@@ -113,9 +113,9 @@ closest to the table expression. For example:
 In this example, the inner subquery `SELECT * FROM v` will select from
 table `vehicles` (closest `WITH` clause), not from table `users`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  CockroachDB does not support nested `WITH` clauses containing [data-modifying statements](#data-modifying-statements). `WITH` clauses containing data-modifying statements must be at the top level of the query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Data-modifying statements
 
@@ -124,7 +124,7 @@ etc.) as a common table expression, as long as the `WITH` clause containing the 
 
 For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > WITH final_code AS
   (INSERT INTO promo_codes(code, description, rules)
@@ -143,7 +143,7 @@ For example:
 
 If the `WITH` clause containing the data-modifying statement is at a lower level, the statement results in an error:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT (WITH final_code AS
   (INSERT INTO promo_codes(code, description, rules)
@@ -157,7 +157,7 @@ ERROR: WITH clause containing a data-modifying statement must be at the top leve
 SQLSTATE: 0A000
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If a common table expression contains
 a data-modifying statement (<code>INSERT</code>, <code>DELETE</code>,
 etc.), the modifications are performed fully even if only part
@@ -165,7 +165,7 @@ of the results are used, e.g., with <a
 href="limit-offset.html"><code>LIMIT</code></a>. See <a
 href="subqueries.html#data-writes-in-subqueries">Data
 Writes in Subqueries</a> for details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Reusing common table expressions
 
@@ -173,7 +173,7 @@ You can reference a CTE multiple times in a single query, using a `WITH` operato
 
 For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > WITH
     users_ny AS (SELECT name, id FROM users WHERE city='new york'),
@@ -219,13 +219,13 @@ CockroachDB evaluates recursive CTEs as follows:
 1. The initial query is evaluated. Its results are stored to rows in the CTE and copied to a temporary, working table. This working table is updated across iterations of the recursive subquery.
 1. The recursive subquery is evaluated iteratively on the contents of the working table. The results of each iteration replace the contents of the working table. The results are also stored to rows of the CTE. The recursive subquery iterates until no results are returned.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Recursive subqueries must eventually return no results, or the query will run indefinitely.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example, the following recursive CTE calculates the factorial of the numbers 0 through 9:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 WITH RECURSIVE cte (n, factorial) AS (
     VALUES (0, 1) -- initial subquery
@@ -255,7 +255,7 @@ The initial subquery (`VALUES (0, 1)`) initializes the working table with the va
 
 If no `WHERE` clause were defined in the example, the recursive subquery would always return results and loop indefinitely, resulting in an error:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 WITH RECURSIVE cte (n, factorial) AS (
     VALUES (0, 1) -- initial subquery
@@ -272,7 +272,7 @@ SQLSTATE: 22003
 
 If you are unsure if your recursive subquery will loop indefinitely, you can limit the results of the CTE with the [`LIMIT`](limit-offset.html) keyword. For example, if you remove the `WHERE` clause from the factorial example, you can use `LIMIT` to limit the results and avoid the `integer out of range` error:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 WITH RECURSIVE cte (n, factorial) AS (
     VALUES (0, 1) -- initial subquery
@@ -300,9 +300,9 @@ SELECT * FROM cte LIMIT 10;
 
 While this practice works for testing and debugging, we do not recommend it in production.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB does not support the [Postgres recursive CTE variant](https://www.postgresql.org/docs/10/queries-with.html) with the keyword `UNION`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Correlated common table expressions
@@ -311,7 +311,7 @@ CockroachDB does not support the [Postgres recursive CTE variant](https://www.po
 
 If a common table expression is contained in a subquery, the CTE can reference columns defined outside of the subquery. This is called a _correlated common table expression_. For example, in the following query, the expression `(SELECT 1 + x)` references `x` in the outer scope.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 SELECT
     *

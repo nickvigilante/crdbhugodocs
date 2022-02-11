@@ -9,7 +9,7 @@ The **SQL** dashboard in the DB Console lets you monitor the performance of your
 
 To view this dashboard, [access the DB Console](ui-overview.html#db-console-access), click **Metrics** in the left-hand navigation, and then select **Dashboard** > **SQL**.
 
-{%  include {{  page.version.version  }}/ui/ui-metrics-navigation.md %}
+{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
 
 For monitoring CockroachDB, it is sufficient to use the [**Open SQL Sessions**](#open-sql-sessions), [**SQL Byte Traffic**](#sql-byte-traffic), [**SQL Statements**](#sql-statements), [**Service Latency**](#service-latency-sql-99th-percentile), and [**Transactions**](#transactions) graphs.
 
@@ -97,7 +97,7 @@ Connection latency is calculated as the time in nanoseconds between when the clu
 
 ## Service Latency: SQL, 99th percentile
 
-{%  include {{  page.version.version  }}/ui/ui-sql-latency-99th-percentile.md %}
+{{ partial "{{ page.version.version }}/ui/ui-sql-latency-99th-percentile.md" . }}
 
 ## Service Latency: SQL, 90th percentile
 
@@ -167,9 +167,9 @@ See the [Transactions page](ui-transactions-page.html) for more details on the t
 
 - In the cluster view, the graph shows the current amount of memory in KiB allocated to the SQL layer on all nodes in the cluster. This amount is what is compared against the node's [`--max-sql-memory` flag](cockroach-start.html#general).
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/prod-deployment/healthy-sql-memory.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/prod-deployment/healthy-sql-memory.md" . }}
+{{site.data.alerts.end }}
 
 ## Schema Changes
 
@@ -189,7 +189,7 @@ Statement denials are statements that were denied due to a [cluster setting](clu
 
 - In the cluster view, the graph shows the total number of statements denied per second across all nodes in the cluster.
 
-{%  include {{  page.version.version  }}/ui/ui-summary-events.md %}
+{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
 
 ## See also
 

@@ -12,9 +12,9 @@ toc: true
 
 Once you've [installed the official CockroachDB Docker image](install-cockroachdb.html), it's simple to run an insecure multi-node cluster across multiple Docker containers on a single host, using Docker volumes to persist node data.
 
-{%  include cockroachcloud/use-cockroachcloud-instead.md %}
+{{ partial "cockroachcloud/use-cockroachcloud-instead.md" . }}
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-flag.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
 
 ## Before you begin
 
@@ -36,7 +36,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
 1. Start the first node:
 
-    {{ site.data.alerts.callout_info }}Be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}Be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{site.data.alerts.end }}
 
     ~~~ powershell
     PS C:\Users\username> docker run -d `
@@ -62,7 +62,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
 3. Start two more nodes:
 
-    {{ site.data.alerts.callout_info }}Again, be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}Again, be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{site.data.alerts.end }}
 
     ~~~ powershell
     PS C:\Users\username> docker run -d `
@@ -110,22 +110,22 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 2. Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE bank;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO bank.accounts VALUES (1, 1000.50);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -139,7 +139,7 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 3. Now exit the SQL shell on node 1 and open a new shell on node 2:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
@@ -150,7 +150,7 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 4. Run the same `SELECT` query as before:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -166,7 +166,7 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 5. Exit the SQL shell on node 2:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
@@ -198,17 +198,17 @@ The CockroachDB [DB Console](ui-overview.html) gives you insight into the overal
 
 2. On the [**Cluster Overview**](ui-cluster-overview-page.html), notice that three nodes are live, with an identical replica count on each node:
 
-    <img src="{{  'images/v20.2/ui_cluster_overview_3_nodes.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.2/ui_cluster_overview_3_nodes.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
     This demonstrates CockroachDB's [automated replication](demo-replication-and-rebalancing.html) of data via the Raft consensus protocol.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this [limitation](known-limitations.html#available-capacity-metric-in-the-db-console).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 3. Click [**Metrics**](ui-overview-dashboard.html) to access a variety of time series dashboards, including graphs of SQL queries and service latency over time:
 
-    <img src="{{  'images/v20.2/ui_overview_dashboard_3_nodes.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.2/ui_overview_dashboard_3_nodes.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 4. Use the [**Databases**](ui-databases-page.html), [**Statements**](ui-statements-page.html), and [**Jobs**](ui-jobs-page.html) pages to view details about your databases and tables, to assess the performance of specific queries, and to monitor the status of long-running operations like schema changes, respectively.
 

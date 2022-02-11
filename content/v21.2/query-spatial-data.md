@@ -13,7 +13,7 @@ This page has instructions for querying spatial data imported into CockroachDB. 
 
 - [Start a local insecure cluster](start-a-local-cluster.html) and connect to that cluster from a [SQL client](cockroach-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     cockroach sql --insecure --host=localhost --port=26257
     ~~~
@@ -34,7 +34,7 @@ According to the wiki page linked above, there were 152 tornadoes confirmed betw
 
 We can try to verify this number against the NWS's tornado data set with the following query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT COUNT(*) FROM "1950-2018-torn-initpoint" WHERE yr = 1999 AND mo = 5 AND dy >= 02 AND dy <= 08;
 ~~~
@@ -50,7 +50,7 @@ It might be interesting to look into why these numbers are different!
 
 Next, let's get a list of starting points for all of the tornadoes in the outbreak that started in Oklahoma:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT ST_AsText(geom) FROM "1950-2018-torn-initpoint" WHERE yr = 1999 AND st = 'OK' AND mo = 5 AND dy > 02 AND dy <= 08;
 ~~~
@@ -134,7 +134,7 @@ We can see that almost half of all of the tornadoes in this outbreak began in Ok
 
 It might be interesting to draw these points on a map. The image below shows the points from the query above drawn as a simple polygon on a map of Oklahoma. The boxes around the polygon show the [spatial index](spatial-indexes.html) coverings for the polygon.
 
-<img width="100%" src="{{  'images/v20.2/geospatial/1999-oklahoma-tornado-outbreak-map.png' | relative_url  }}" alt="1999 Oklahoma tornado outbreak map view">
+<img width="100%" src="{{ 'images/v20.2/geospatial/1999-oklahoma-tornado-outbreak-map.png' | relative_url }}" alt="1999 Oklahoma tornado outbreak map view">
 
 (Map data &copy; 2020 Google)
 

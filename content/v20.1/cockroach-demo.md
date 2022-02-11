@@ -53,9 +53,9 @@ $ cockroach demo --help
 
 ## Datasets
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To start a demo cluster without a pre-loaded dataset, pass the `--empty` flag.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Workload | Description
 ---------|------------
@@ -117,7 +117,7 @@ When the SQL shell connects to the demo cluster at startup, it prints a welcome 
 
 <span class="version-tag">New in v20.1:</span> To return the client connection URLs for all nodes in a demo cluster from within the SQL shell, use the client-side `\demo ls` command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \demo ls
 ~~~
@@ -141,9 +141,9 @@ node 3:
 ...
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `\demo ls` command is **experimental feature**. The interface and output are subject to change.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Admin UI
 
@@ -153,9 +153,9 @@ The `\demo ls` command is **experimental feature**. The interface and output are
 
 You can connect to the demo cluster using a URL connection parameter (e.g., with the [`cockroach sql --url`](cockroach-sql.html#client-connection) command). To establish a [Unix domain socket connection](cockroach-sql.html#connect-to-a-cluster-listening-for-unix-domain-socket-connections) with a client that is installed on the same machine, use the **sql** URL . For standard TCP connections, use the **sql/tcp** URL.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You do not need to create or specify node and client certificates in the connection URL to a secure demo cluster.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Diagnostics reporting
 
@@ -165,7 +165,7 @@ By default, `cockroach demo` shares anonymous usage details with Cockroach Labs.
 
 <span class="version-tag">New in v20.1:</span> You can shut down and restart individual nodes in a multi-node demo cluster with the `\demo` SQL shell command.
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
 Command | Description
 ----------------|------------
@@ -182,12 +182,12 @@ In these examples, we demonstrate how to start a shell with `cockroach demo`. Fo
 
 ### Start an interactive SQL shell
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach demo
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE drivers (
     id UUID DEFAULT gen_random_uuid(),
@@ -199,12 +199,12 @@ $ cockroach demo
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO drivers (city, name) VALUES ('new york', 'Catherine Nelson');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM drivers;
 ~~~
@@ -216,19 +216,19 @@ $ cockroach demo
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
 
 ### Load a sample dataset and start an interactive SQL shell
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach demo movr --nodes=3 --demo-locality=region=us-east1:region=us-central1:region=us-west1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -245,7 +245,7 @@ $ cockroach demo movr --nodes=3 --demo-locality=region=us-east1:region=us-centra
 (6 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users WHERE city = 'new york';
 ~~~
@@ -261,14 +261,14 @@ $ cockroach demo movr --nodes=3 --demo-locality=region=us-east1:region=us-centra
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
 
 ### Execute SQL from the command-line
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach demo \
 --execute="CREATE TABLE drivers (
@@ -294,7 +294,7 @@ INSERT 1
 
 ### Run `cockroach demo` with a workload
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach demo --nodes=3 --with-load
 ~~~
@@ -305,7 +305,7 @@ This command starts a demo cluster with the `movr` database preloaded and then i
 
 ### Start a multi-region demo cluster with automatic geo-partitioning
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach demo --geo-partitioned-replicas
 ~~~
@@ -316,18 +316,18 @@ This command starts a 9-node demo cluster with the `movr` database preloaded, an
 
 If you start a demo cluster with multiple nodes, you can use the [`\demo`](cockroach-demo.html#shutting-down-and-restarting-nodes) shell command to shut down and restart individual nodes in the demo cluster.
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
 For example, if you start a demo cluster with the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach demo --nodes=3
 ~~~
 
 You can shutdown the 3rd node and then restart it:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \demo shutdown 3
 ~~~
@@ -336,7 +336,7 @@ You can shutdown the 3rd node and then restart it:
 node 3 has been shutdown
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \demo restart 3
 ~~~
@@ -347,7 +347,7 @@ node 3 has been restarted
 
 You can also decommission the 3rd node and then recommission it:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \demo decommission 3
 ~~~
@@ -356,7 +356,7 @@ You can also decommission the 3rd node and then recommission it:
 node 3 has been decommissioned
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \demo recommission 3
 ~~~

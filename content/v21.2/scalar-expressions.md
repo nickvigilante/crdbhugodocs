@@ -38,13 +38,13 @@ An expression in a query can refer to columns in the current data source in two 
 
 - The ordinal position of the column. For example, `SELECT @1 FROM items` selects the first column in `items`.
 
-    {{ site.data.alerts.callout_info }}This is a CockroachDB SQL extension.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}This is a CockroachDB SQL extension.{{site.data.alerts.end }}
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Use ordinal references with care in production code. During schema updates, column ordinal
     positions can change and invalidate existing queries that use ordinal positions based on a
     previous version of the schema.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 ## Unary and binary operations
 
@@ -101,7 +101,7 @@ clauses and indexes.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT FLOAT 'NaN' < 1, 1 < FLOAT 'NaN', FLOAT 'NaN' < FLOAT 'NaN';
 ~~~
@@ -113,7 +113,7 @@ For example:
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT FLOAT 'NaN' = FLOAT 'NaN' AS result;
 ~~~
@@ -125,7 +125,7 @@ For example:
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT FLOAT 'NaN' < FLOAT '-INFINITY' AS result;
 ~~~
@@ -165,7 +165,7 @@ The result of the comparison is true if and only if:
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 12 = ANY (10, 12, 13);
 ~~~
@@ -177,7 +177,7 @@ For example:
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 12 = ALL (10, 12, 13);
 ~~~
@@ -189,7 +189,7 @@ For example:
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 1 = ANY ARRAY[2, 3, 1];
 ~~~
@@ -225,22 +225,22 @@ the result of evaluating the right operand. In the subquery form, any
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT a IN (1, 2, 3) FROM sometable;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT a IN (SELECT * FROM allowedvalues) FROM sometable;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('x', 123) IN (SELECT * FROM rows);
 ~~~
 
-{{ site.data.alerts.callout_info }}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end }}
 
 #### Typing rule
 
@@ -268,7 +268,7 @@ character, or `%` to match any sequence of zero or more characters.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT 'monday' LIKE '%day' AS a, 'tuesday' LIKE 'tue_day' AS b, 'wednesday' ILIKE 'W%' AS c;
 ~~~
@@ -308,7 +308,7 @@ The pattern is expressed using [POSIX regular expression syntax](https://en.wiki
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT 'monday' ~ 'onday' AS a, 'tuEsday' ~ 't[uU][eE]sday' AS b, 'wednesday' ~* 'W.*y' AS c;
 ~~~
@@ -347,7 +347,7 @@ This is a mix of SQL `LIKE` patterns and POSIX regular expressions:
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT 'monday' SIMILAR TO '_onday' AS a, 'tuEsday' SIMILAR TO 't[uU][eE]sday' AS b, 'wednesday' SIMILAR TO 'w%y' AS c;
 ~~~
@@ -384,7 +384,7 @@ See also [supported built-in functions](functions-and-operators.html).
 
 In addition, the following SQL special forms are also supported:
 
-{%  include {{  page.version.version  }}/sql/function-special-forms.md %}
+{{ partial "{{ page.version.version }}/sql/function-special-forms.md" . }}
 
 #### Typing rule
 
@@ -546,7 +546,7 @@ and `OR` is not evaluated in any particular order. Some operand may
 not even be evaluated at all if the result can be fully ascertained using
 only the other operand.
 
-{{ site.data.alerts.callout_info }}This is different from the left-to-right "short-circuit logic" found in other programming languages. When it is essential to force evaluation order, use <a href="#conditional-expressions">a conditional expression</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}This is different from the left-to-right "short-circuit logic" found in other programming languages. When it is essential to force evaluation order, use <a href="#conditional-expressions">a conditional expression</a>.{{site.data.alerts.end }}
 
 See also [NULLs and Ternary Logic](null-handling.html#nulls-and-ternary-logic).
 
@@ -649,7 +649,7 @@ Evaluates to an array containing the specified values.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ARRAY[1,2,3] AS a;
 ~~~
@@ -668,16 +668,16 @@ If there are no expressions specified (empty array), or
 all the values are `NULL`, then the type of the array must be
 specified explicitly using a type annotation. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ARRAY[]:::int[];
 ~~~
 
 To convert the results of a subquery to an array, use [`ARRAY(...)`](#conversion-of-subquery-results-to-an-array) instead.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 - CockroachDB also recognizes the syntax `ARRAY(a, b, c)` as an alias for `ARRAY[a, b, c]`. This is an experimental, CockroachDB-specific SQL extension and may be removed in a later version of CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Typing rule
 
@@ -697,7 +697,7 @@ Evaluates to a tuple containing the values of the provided expressions.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('x', 123, 12.3) AS a;
 ~~~
@@ -714,7 +714,7 @@ Each position in a tuple can have a distinct data type.
 
 CockroachDB supports accessing the `Nth` element in a tuple as a single table cell using the syntax `(...).@N`. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT (t).@2 FROM (SELECT (1,'b',2.3) AS t);
 ~~~
@@ -728,7 +728,7 @@ CockroachDB supports accessing the `Nth` element in a tuple as a single table ce
 
 CockroachDB also supports expanding all elements of a tuple as a single row in a table with the `(<tuple>).*` notation. This notation works as the inverse of the tuple-creating notation `(<table>.*)`. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > WITH tuples AS (SELECT (t.*) AS tuple FROM (SELECT 1,'b',2.3) AS t(x,y,z))  -- Build the tuples, with labels
    SELECT (tuple).* FROM tuples;  -- Expands the tuples and restore the column labels
@@ -763,7 +763,7 @@ error is returned.
 Type annotations are specially useful to guide the arithmetic on
 numeric values. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT (1 / 0):::FLOAT;
 ~~~
@@ -773,7 +773,7 @@ ERROR: division by zero
 SQLSTATE: 22012
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT (1 / 0);
 ~~~
@@ -783,7 +783,7 @@ ERROR: division by zero
 SQLSTATE: 22012
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT (1 / 0)::FLOAT;
 ~~~
@@ -827,7 +827,7 @@ and then evaluates to the value of that single cell.
 For example, the following query returns `TRUE` if there are more rows in table `users` than in table
 `admins`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT (SELECT COUNT(*) FROM users) > (SELECT COUNT(*) FROM admins);
 ~~~

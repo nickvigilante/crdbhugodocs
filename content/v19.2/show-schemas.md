@@ -13,7 +13,7 @@ The `SELECT` [privilege](authorization.html#assign-privileges) on the database i
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_schemas.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_schemas.html" . }}
 </div>
 
 ## Parameters
@@ -24,12 +24,12 @@ Parameter | Description
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET DATABASE = bank;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~

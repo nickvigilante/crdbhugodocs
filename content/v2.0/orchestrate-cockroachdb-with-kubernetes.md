@@ -32,15 +32,15 @@ instance | A physical or virtual machine. In this tutorial, you'll create GCE or
 
 ### Limitations
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-limitations.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-limitations.md" . }}
 
 ## Step 1. Start Kubernetes
 
-{%  include {{  page.version.version  }}/orchestration/start-kubernetes.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-kubernetes.md" . }}
 
 ## Step 2. Start CockroachDB nodes
 
-{%  include {{  page.version.version  }}/orchestration/start-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/start-cluster.md" . }}
 
 ## Step 3. Approve node certificates
 
@@ -48,7 +48,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 1. Get the name of the `Pending` CSR for pod 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get csr
     ~~~
@@ -65,7 +65,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 2. Examine the CSR for pod 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl describe csr default.node.cockroachdb-0
     ~~~
@@ -92,7 +92,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 3. If everything looks correct, approve the CSR for pod 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl certificate approve default.node.cockroachdb-0
     ~~~
@@ -108,7 +108,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 1. Confirm that three pods are `Running` successfully. Note that they will not
    be considered `Ready` until after the cluster has been initialized:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -122,7 +122,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 2. Confirm that the persistent volumes and corresponding claims were created successfully for all three pods:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get persistentvolumes
     ~~~
@@ -136,7 +136,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 3. Use our [`cluster-init-secure.yaml`](https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/cluster-init-secure.yaml) file to perform a one-time initialization that joins the nodes into a single cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl create -f https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/cluster-init-secure.yaml
     ~~~
@@ -147,7 +147,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 4. Approve the CSR for the one-off pod from which cluster initialization happens:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl certificate approve default.client.root
     ~~~
@@ -160,7 +160,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
    should be considered successful and the CockroachDB pods should soon be
    considered `Ready`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get job cluster-init-secure
     ~~~
@@ -170,7 +170,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
     cluster-init-secure   1         1            2m
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -182,9 +182,9 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
     cockroachdb-2   1/1       Running   0          3m
     ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 5. Use the built-in SQL client
 
@@ -192,7 +192,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 1. From your local workstation, use our [`client-secure.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/client-secure.yaml) file to launch a pod and keep it running indefinitely:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl create -f https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/client-secure.yaml
     ~~~
@@ -205,7 +205,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 2. Get a shell into the pod and start the CockroachDB [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl exec -it cockroachdb-client-secure -- ./cockroach sql --certs-dir=/cockroach-certs --host=cockroachdb-public
     ~~~
@@ -225,22 +225,22 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 3. Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE bank;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO bank.accounts VALUES (1, 1000.50);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -256,34 +256,34 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 3. Exit the SQL shell and pod:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
 
-{{ site.data.alerts.callout_success }}This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other <a href="cockroach-commands.html"><code>cockroach</code> client commands</a>, such as <code>cockroach node</code> or <code>cockroach zone</code>, repeat step 2 using the appropriate <code>cockroach</code> command.<br></br>If you'd prefer to delete the pod and recreate it when needed, run <code>kubectl delete pod cockroachdb-client-secure</code>{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other <a href="cockroach-commands.html"><code>cockroach</code> client commands</a>, such as <code>cockroach node</code> or <code>cockroach zone</code>, repeat step 2 using the appropriate <code>cockroach</code> command.<br></br>If you'd prefer to delete the pod and recreate it when needed, run <code>kubectl delete pod cockroachdb-client-secure</code>{{site.data.alerts.end }}
 
 ## Step 6. Access the Admin UI
 
-{%  include {{  page.version.version  }}/orchestration/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/monitor-cluster.md" . }}
 
 ## Step 7. Simulate node failure
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-simulate-failure.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-simulate-failure.md" . }}
 
 ## Step 8. Set up monitoring and alerting
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-prometheus-alertmanager.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-prometheus-alertmanager.md" . }}
 
 ## Step 9. Maintain the cluster
 
 ### Scale the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-scale-cluster.md" . }}
 
 3. Get the name of the `Pending` CSR for the new pod:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get csr
     ~~~
@@ -304,7 +304,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 4. Examine the CSR for the new pod:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl describe csr default.node.cockroachdb-3
     ~~~
@@ -331,7 +331,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 5. If everything looks correct, approve the CSR for the new pod:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl certificate approve default.node.cockroachdb-3
     ~~~
@@ -342,7 +342,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 6. Verify that the new pod started successfully:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -360,7 +360,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
 
 ### Upgrade the cluster
 
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster.md" . }}
 
 ### Stop the cluster
 
@@ -368,7 +368,7 @@ To shut down the CockroachDB cluster:
 
 1. Delete all of the resources associated with the `cockroachdb` label, including the logs, remote persistent volumes, and Prometheus and Alertmanager resources:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl delete pods,statefulsets,services,persistentvolumeclaims,persistentvolumes,poddisruptionbudget,jobs,rolebinding,clusterrolebinding,role,clusterrole,serviceaccount,alertmanager,prometheus,prometheusrule,serviceMonitor -l app=cockroachdb
     ~~~
@@ -401,7 +401,7 @@ To shut down the CockroachDB cluster:
 
 2. Delete the pod created for `cockroach` client commands, if you didn't do so earlier:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl delete pod cockroachdb-client-secure
     ~~~
@@ -412,7 +412,7 @@ To shut down the CockroachDB cluster:
 
 3. Get the names of the CSRs for the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get csr
     ~~~
@@ -431,7 +431,7 @@ To shut down the CockroachDB cluster:
 
 4. Delete the CSRs that you created:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl delete csr default.client.root default.node.cockroachdb-0 default.node.cockroachdb-1 default.node.cockroachdb-2 default.node.cockroachdb-3
     ~~~
@@ -446,7 +446,7 @@ To shut down the CockroachDB cluster:
 
 5. Get the names of the secrets for the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl get secrets
     ~~~
@@ -465,7 +465,7 @@ To shut down the CockroachDB cluster:
 
 6. Delete the secrets that you created:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl delete secrets alertmanager-cockroachdb default.client.root default.node.cockroachdb-0 default.node.cockroachdb-1 default.node.cockroachdb-2 default.node.cockroachdb-3
     ~~~
@@ -481,10 +481,10 @@ To shut down the CockroachDB cluster:
 
 7. Stop Kubernetes:
 
-{%  include {{  page.version.version  }}/orchestration/stop-kubernetes.md %}
+{{ partial "{{ page.version.version }}/orchestration/stop-kubernetes.md" . }}
 
 ## See also
 
 - [Kubernetes Single-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes.html)
 - [Kubernetes Performance Guide](kubernetes-performance.html)
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

@@ -14,7 +14,7 @@ Once a userfile is uploaded, you can run [`IMPORT`](#import-from-userfile).
 
 ## Upload a file
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach userfile upload /Users/maxroach/Desktop/test-data.csv /test-data.csv --certs-dir=certs
 ~~~
@@ -27,7 +27,7 @@ For more information, see [`cockroach userfile upload`](cockroach-userfile-uploa
 
 ## List files
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach userfile list '*.csv' --certs-dir=certs
 ~~~
@@ -41,7 +41,7 @@ For more information, see [`cockroach userfile list`](cockroach-userfile-list.ht
 
 ## Delete files
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach userfile delete test-data.csv --certs-dir=certs
 ~~~
@@ -54,7 +54,7 @@ For more information, see [`cockroach userfile delete`](cockroach-userfile-delet
 
 ## Import from `userfile`
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id INT,
@@ -68,9 +68,9 @@ CSV DATA (
 );
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `userfile:///` (note the three slashes) references the default path (`userfile://defaultdb.public.userfiles_$user/`).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ~~~
         job_id       |  status   | fraction_completed |  rows  | index_entries |  bytes

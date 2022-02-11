@@ -6,9 +6,9 @@ toc: true
 
 `EXPERIMENTAL_AUDIT` is a subcommand of [`ALTER TABLE`](alter-table.html). When applied to a table, it enables or disables the recording of SQL audit events to the [`SENSITIVE_ACCESS`](logging.html#sensitive_access) logging channel for that table. 
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `SENSITIVE_ACCESS` log output is also called the SQL audit log. See [SQL Audit Logging](sql-audit-logging.html) for a detailed example.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 SQL audit logs contain detailed information about queries being executed against your system, including:
 
@@ -17,20 +17,20 @@ SQL audit logs contain detailed information about queries being executed against
 - Client address
 - Application name
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For descriptions of all SQL audit event types and their fields, see [Notable Event Types](eventlog.html#sql-access-audit-events).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 CockroachDB stores audit log information in a way that ensures durability, but negatively impacts performance. As a result, we recommend using SQL audit logs for security purposes only. For more information, see [Performance considerations](#performance-considerations).
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/experimental_audit.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/experimental_audit.html" . }}
 </div>
 
 ## Required privileges
@@ -46,9 +46,9 @@ Only members of the `admin` role can enable audit logs on a table. By default, t
  `WRITE`      | Log all table writes to the audit log file.              
  `OFF`        | Turn off audit logging.                                  
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This command logs all reads and writes, and both the <code>READ</code> and <code>WRITE</code> parameters are required (as shown in the <a href="#examples">examples</a> below). In a future release, this should change to allow logging only reads, only writes, or both.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Audit log file format
 
@@ -63,13 +63,13 @@ By [default](configure-logs.html#default-logging-configuration), audit logs are 
 
 To store the audit log files in a specific directory, [configure the `SENSITIVE_ACCESS` channel](configure-logs.html#output-to-files) with a custom `dir` path.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If your deployment requires particular lifecycle and access policies for audit log files, point `SENSITIVE_ACCESS` to a directory that has permissions set so that only CockroachDB can create/delete files.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Performance considerations
 
@@ -83,7 +83,7 @@ For debugging and troubleshooting on production clusters, the most performant wa
 
 Let's say you have a  `customers` table that contains personally identifiable information (PII). To turn on audit logs for that table, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
@@ -94,25 +94,25 @@ Now, every access of customer data is logged to the `SENSITIVE_ACCESS` channel i
 I210323 18:50:10.951550 1182 8@util/log/event_log.go:32 ⋮ [n1,client=‹[::1]:49851›,hostnossl,user=root] 4 ={"Timestamp":1616525410949087000,"EventType":"sensitive_table_access","Statement":"‹SELECT * FROM \"\".\"\".customers›","User":"‹root›","DescriptorID":52,"ApplicationName":"‹$ cockroach sql›","ExecMode":"exec","NumRows":2,"Age":2.514,"FullTableScan":true,"TxnCounter":38,"TableName":"‹defaultdb.public.customers›","AccessMode":"r"}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The above example shows the default [`crdb-v2`](log-formats.html#format-crdb-v2) log format. This can be changed to a different format (e.g., JSON). For details, see [Configure Logs](configure-logs.html#file-logging-format).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For descriptions of all SQL audit event types and their fields, see [Notable Event Types](eventlog.html#sql-access-audit-events).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To turn on auditing for more than one table, issue a separate `ALTER` statement for each table.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a more detailed example, see [SQL Audit Logging](sql-audit-logging.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Turn off audit logging
 
 To turn off logging, issue the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE customers EXPERIMENTAL_AUDIT SET OFF;
 ~~~

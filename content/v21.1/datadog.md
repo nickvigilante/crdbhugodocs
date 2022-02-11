@@ -10,25 +10,25 @@ In this tutorial, you will enable the CockroachDB integration in Datadog, config
 
 For more information about the integration, see the [Datadog blog post](https://www.datadoghq.com/blog/monitor-cockroachdb-performance-metrics-with-datadog/).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more information about using Datadog, see the [Datadog documentation](https://docs.datadoghq.com/).
 
 If you run into problems with this integration, please file an issue on the [Datadog Agent issue tracker](https://github.com/DataDog/datadog-agent).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
 - [Datadog Agent](https://app.datadoghq.com/account/settings#agent)
 
-{{ site.data.alerts.callout_info }}
-This tutorial assumes that you have [started a secure CockroachDB cluster](secure-a-cluster.html). Note that [{{  site.data.products.serverless  }}](../cockroachcloud/index.html) does not currently expose a compatible monitoring endpoint.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+This tutorial assumes that you have [started a secure CockroachDB cluster](secure-a-cluster.html). Note that [{{ site.data.products.serverless }}](../cockroachcloud/index.html) does not currently expose a compatible monitoring endpoint.
+{{site.data.alerts.end }}
 
 ## Step 1. Enable CockroachDB check
 
 To enable the CockroachDB check for your installed Datadog Agent, navigate to the [Integrations page](https://app.datadoghq.com/account/settings#integrations) and find CockroachDB in the list of available integrations. Click **+ Install**.
 
-<img src="{{  'images/v21.1/datadog-crdb-integration.png' | relative_url  }}" alt="CockroachDB integration for Datadog installation" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/datadog-crdb-integration.png' | relative_url }}" alt="CockroachDB integration for Datadog installation" style="border:1px solid #eee;max-width:100%" />
 
 Note that you must restart the Datadog Agent for the change to take effect. CockroachDB will then be listed as an installed integration.
 
@@ -66,7 +66,7 @@ tls_ca_cert: /custom/dir/path/ca.crt
 
 Optionally enable Datadog to collect [CockroachDB logs](logging-overview.html) by adding the following block to `cockroachdb.d/conf.yaml`:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 logs:
  - type: file
@@ -81,9 +81,9 @@ logs:
 
 The above `path` value specifies the [default](configure-logs.html#default-logging-configuration) CockroachDB log file and location. 
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can configure both the CockroachDB [logging directory](configure-logs.html#set-file-defaults) and [log files](configure-logs.html#output-to-files).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Log collection is disabled by default in the Datadog Agent. Follow the steps in the [Datadog documentation](https://docs.datadoghq.com/agent/logs/?tab=tailfiles#activate-log-collection) to activate log collection.
 
@@ -118,15 +118,15 @@ cockroachdb (1.6.0)
 
 Open your Datadog [Dashboard List](https://app.datadoghq.com/dashboard/lists) and click on `CockroachDB Overview`: 
 
-<img src="{{  'images/v21.1/datadog-crdb-dashboard-list.png' | relative_url  }}" alt="CockroachDB Overview dashboard in Datadog Dashboard List" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/datadog-crdb-dashboard-list.png' | relative_url }}" alt="CockroachDB Overview dashboard in Datadog Dashboard List" style="border:1px solid #eee;max-width:100%" />
 
 This sample dashboard presents metrics on cluster availability, query performance, and resource usage:
 
-<img src="{{  'images/v21.1/datadog-crdb-overview-dashboard.png' | relative_url  }}" alt="CockroachDB Overview dashboard for Datadog" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/datadog-crdb-overview-dashboard.png' | relative_url }}" alt="CockroachDB Overview dashboard for Datadog" style="border:1px solid #eee;max-width:100%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To create your own CockroachDB dashboard, you can clone the CockroachDB Overview dashboard and add/remove widgets.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 4. Run a sample workload
 
@@ -134,21 +134,21 @@ To test the dashboard functionality, use [`cockroach workload`](cockroach-worklo
 
 Initialize the workload for MovR, a fictional vehicle-sharing company:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach workload init movr 'postgresql://root@localhost:26257?sslcert=certs%2Fclient.root.crt&sslkey=certs%2Fclient.root.key&sslmode=verify-full&sslrootcert=certs%2Fca.crt'
 ~~~
 
 Run the MovR workload for 5 minutes:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach workload run movr --duration=5m 'postgresql://root@localhost:26257?sslcert=certs%2Fclient.root.crt&sslkey=certs%2Fclient.root.key&sslmode=verify-full&sslrootcert=certs%2Fca.crt'
 ~~~
 
 The query metrics will appear on the dashboard:
 
-<img src="{{  'images/v21.1/datadog-crdb-workload-dashboard.png' | relative_url  }}" alt="CockroachDB Overview dashboard for Datadog with SQL metrics" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/datadog-crdb-workload-dashboard.png' | relative_url }}" alt="CockroachDB Overview dashboard for Datadog with SQL metrics" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 5. Add alerting
 
@@ -158,14 +158,14 @@ Select **Threshold Alert** as the detection method. You can use this option to c
 
 The example alert below will trigger when [a node has less than 15% of storage capacity remaining](monitoring-and-alerting.html#node-is-running-low-on-disk-space):
 
-<img src="{{  'images/v21.1/datadog-crdb-threshold-alert.png' | relative_url  }}" alt="CockroachDB Threshold Alert in Datadog" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/datadog-crdb-threshold-alert.png' | relative_url }}" alt="CockroachDB Threshold Alert in Datadog" style="border:1px solid #eee;max-width:100%" />
 
 - `cockroachdb.capacity.available` is divided by `cockroachdb.capacity.total` to determine the fraction of available capacity on the node's [store](https://www.cockroachlabs.com/docs/v21.1/architecture/storage-layer) (the directory on each node where CockroachDB reads and writes its data).
 - The alert threshold is set to `0.15`.
 
 The timeseries graph at the top of the page indicates the configured metric and threshold:
 
-<img src="{{  'images/v21.1/datadog-crdb-storage-alert.png' | relative_url  }}" alt="CockroachDB Threshold Alert in Datadog" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/datadog-crdb-storage-alert.png' | relative_url }}" alt="CockroachDB Threshold Alert in Datadog" style="border:1px solid #eee;max-width:100%" />
 
 ## See Also
 

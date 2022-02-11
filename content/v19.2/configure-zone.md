@@ -8,49 +8,49 @@ toc: true
 
 In CockroachDB, you can use **replication zones** to control the number and location of replicas for specific sets of data, both when replicas are first added and when they are rebalanced to maintain cluster equilibrium.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Adding replication zones for secondary indexes and partitions is an [enterprise-only](enterprise-licensing.html) feature.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 **alter_zone_database_stmt ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/alter_zone_database.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_database.html" . }}
 </div>
 
 **alter_zone_table_stmt ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/alter_zone_table.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_table.html" . }}
 </div>
 
 **alter_zone_index_stmt ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/alter_zone_index.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_index.html" . }}
 </div>
 
 **alter_zone_partition_stmt ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/alter_zone_partition.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_partition.html" . }}
 </div>
 
 **alter_zone_range_stmt ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/alter_zone_range.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/alter_zone_range.html" . }}
 </div>
 
 ## Required privileges
 
 If the target is a [`system` range](#create-a-replication-zone-for-a-system-range), the [`system` database](show-databases.html#preloaded-databases), or a table in the `system` database, the user must be an [`admin`](authorization.html#create-and-manage-roles). For all other databases and tables, the user must have the [CREATE](grant.html#supported-privileges) privilege on the target database or table.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Required privileges for `CONFIGURE ZONE` statements in CockroachDB v19.2 may be backward-incompatible for users running scripted statements with restricted permissions in v19.1 and earlier.<br>To add the necessary permissions, use [`GRANT` &lt;privileges&gt;](grant.html) or [`GRANT` &lt;roles&gt;](grant-roles.html) as a user with an admin role. <br>For example, to grant a user the admin role, run `GRANT admin TO <user>`.<br>To grant the `CREATE` privilege on a database or table, run `GRANT CREATE ON [DATABASE | TABLE] <name> TO <user>`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -67,19 +67,19 @@ Required privileges for `CONFIGURE ZONE` statements in CockroachDB v19.2 may be 
 
 ### Variables
 
-{%  include {{  page.version.version  }}/zone-configs/variables.md %}
+{{ partial "{{ page.version.version }}/zone-configs/variables.md" . }}
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
-{%  include {{  page.version.version  }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
 
 ### Edit a replication zone
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 4;
 ~~~
@@ -90,35 +90,35 @@ CONFIGURE ZONE 1
 
 ### Edit the default replication zone
 
-{%  include {{  page.version.version  }}/zone-configs/edit-the-default-replication-zone.md %}
+{{ partial "{{ page.version.version }}/zone-configs/edit-the-default-replication-zone.md" . }}
 
 ### Create a replication zone for a database
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-database.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-database.md" . }}
 
 ### Create a replication zone for a table
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-table.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table.md" . }}
 
 ### Create a replication zone for a secondary index
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-secondary-index.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-secondary-index.md" . }}
 
 ### Create a replication zone for a partition
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-table-partition.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table-partition.md" . }}
 
 ### Create a replication zone for a system range
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-system-range.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-system-range.md" . }}
 
 ### Reset a replication zone
 
-{%  include {{  page.version.version  }}/zone-configs/reset-a-replication-zone.md %}
+{{ partial "{{ page.version.version }}/zone-configs/reset-a-replication-zone.md" . }}
 
 ### Remove a replication zone
 
-{%  include {{  page.version.version  }}/zone-configs/remove-a-replication-zone.md %}
+{{ partial "{{ page.version.version }}/zone-configs/remove-a-replication-zone.md" . }}
 
 ## See also
 

@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB uses the URL provided in a [`BACKUP`](backup.html), [`RESTORE`](restore.html), [`IMPORT`](import.html), or [`EXPORT`](export.html) statement to construct a secure API call to the service you specify. The URL structure depends on the type of file storage you are using.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We strongly recommend using cloud/remote storage (Amazon S3, Google Cloud Platform, etc.).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 URLs for the files you want to import must use the format shown below. For examples, see [Example file URLs](#example-file-urls).
 
@@ -25,9 +25,9 @@ HTTP&nbsp;[<sup>1</sup>](#considerations)                   | `http`      | Remo
 NFS/Local&nbsp;[<sup>2</sup>](#considerations)              | `nodelocal` | `nodeID` or `self` (see [Example file URLs](#example-file-urls)) | N/A
 S3-compatible services | `s3`        | Bucket name                                      | `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`, `AWS_REGION`&nbsp;[<sup>3</sup>](#considerations) (optional), `AWS_ENDPOINT` <br><br>For more information, see [Authentication - S3-compatible services](#s3-compatible-services).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 The location parameters often contain special characters that need to be URI-encoded. Use Javascript's [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) function or Go language's [url.QueryEscape](https://golang.org/pkg/net/url/#QueryEscape) function to URI-encode the parameters. Other languages provide similar functions to URI-encode special characters.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <a name="considerations"></a>
 
@@ -48,13 +48,13 @@ Azure        | `azure://acme-co/employees?AZURE_ACCOUNT_NAME=acme-co&AZURE_ACCOU
 Google Cloud | `gs://acme-co/employees?AUTH=specified&CREDENTIALS=encoded-123`                                                     
 NFS/Local    | `nodelocal://1/path/employees`, `nodelocal://self/nfsmount/backups/employees`&nbsp;[<sup>2</sup>](#considerations)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 URLs for [changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html) should be prepended with `experimental-`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Currently, cloud storage sinks (for changefeeds) only work with `JSON` and emits newline-delimited `JSON` files.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Example URLs for [`IMPORT`](import.html) given a bucket or container name of `acme-co` and a filename of `employees`:
 
@@ -66,9 +66,9 @@ Google Cloud | `gs://acme-co/employees.sql`
 HTTP         | `http://localhost:8080/employees.sql`                                            
 NFS/Local    | `nodelocal://1/path/employees`, `nodelocal://self/nfsmount/backups/employees`&nbsp;[<sup>2</sup>](#considerations)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 HTTP storage can only be used for [`IMPORT`](import.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Encryption
 
@@ -129,7 +129,7 @@ If the `AUTH` parameter is set to:
 
   - If `AUTH` is not provided, use the key provided in the `cloudstorage.gs.default.key` [cluster setting](cluster-settings.html). Otherwise, use environment data.
 
-    {%  include {{  page.version.version  }}/backups/gcs-default-deprec.md %}
+    {{ partial "{{ page.version.version }}/backups/gcs-default-deprec.md" . }}
 
 ### Azure Storage
 

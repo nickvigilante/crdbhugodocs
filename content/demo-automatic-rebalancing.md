@@ -16,7 +16,7 @@ In this tutorial, you'll use an example Go program to quickly insert data into a
 
 ## Step 1. Start a 3-node cluster
 
-{{ site.data.alerts.callout_success }}See <a href="start-a-local-cluster.html">Start a Local Cluster</a> for details about <code>cockroach start</code> options.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}See <a href="start-a-local-cluster.html">Start a Local Cluster</a> for details about <code>cockroach start</code> options.{{site.data.alerts.end }}
 
 ~~~ shell
 # In a new terminal, start node 1:
@@ -126,7 +126,7 @@ Once it's running, `block_writer` will output the number of rows written per sec
 
 Open the Admin UI at `http://localhost:8080`, click **View nodes list** on the right, and you’ll see the bytes, replica count, and other metrics increase as the `block_writer` program inserts data.
 
-<img src="{{  'images/v1.1/scalability1.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v1.1/scalability1.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 5. Add 2 more nodes
 
@@ -154,13 +154,13 @@ $ cockroach start --insecure \
 
 Back in the Admin UI, you'll now see 5 nodes listed. At first, the bytes and replica count will be lower for nodes 4 and 5. Very soon, however, you'll see those metrics even out across all nodes, indicating that data has been automatically rebalanced to utilize the additional capacity of the new nodes.
 
-<img src="{{  'images/v1.1/scalability2.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v1.1/scalability2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 7.  Stop the cluster
 
 Once you're done with your test cluster, stop each node by switching to its terminal and pressing **CTRL-C**.
 
-{{ site.data.alerts.callout_success }}For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{site.data.alerts.end }}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 

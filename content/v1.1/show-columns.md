@@ -13,7 +13,7 @@ The user must have any [privilege](privileges.html) on the target table.
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/show_columns.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_columns.html" . }}
 
 ## Parameters
 

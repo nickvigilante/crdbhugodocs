@@ -26,9 +26,9 @@ These tables store information about the users and vehicles registered with MovR
 
 Initialization statements for `movr` are defined in [`dbinit.sql`](https://github.com/cockroachlabs/movr-flask/blob/master/dbinit.sql), a SQL file that you use later in this tutorial to load the database to a running cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The database schema used in this application is a slightly simplified version of the [`movr` database schema](movr.html) that is built into the `cockroach` binary. The schemas are similar, but they are not the same.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Multi-region in CockroachDB
 
@@ -42,15 +42,15 @@ When you [add a node to a cluster](cockroach-start.html), you can assign the nod
 
 Each unique regional locality is stored in CockroachDB as a [cluster region](multiregion-overview.html#cluster-regions). After a [cluster is deployed](movr-flask-deployment.html), you can assign regions to new and existing databases in the cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Only cluster regions specified at node startup can be used as [database regions](multiregion-overview.html#database-regions). You can view regions available to databases in the cluster with [`SHOW REGIONS FROM CLUSTER`](show-regions.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Here is the [`CREATE DATABASE`](create-database.html) statement for the `movr` database:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START database |-- END database %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START database |-- END database %}
 ~~~
 
 Note that `movr` has the following [database regions](multiregion-overview.html#database-regions), which correspond to regions in Google Cloud:
@@ -69,33 +69,33 @@ By default, CockroachDB uses the table locality setting [`REGIONAL BY TABLE IN P
 
 The `movr` database contains tables with rows of data that need to be accessed by users in more than one region. As a result, none of the tables benefit from using a `REGIONAL BY TABLE` locality. Instead, all three tables in the `movr` database schema should use a [`REGIONAL BY ROW` locality](multiregion-overview.html#regional-by-row-tables). For `REGIONAL BY ROW` tables, CockroachDB automatically assigns each row to a region based on the locality of the node from which the row is inserted. It then optimizes subsequent read and write queries executed from nodes located in the region assigned to the rows being queried.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 As shown in the `CREATE TABLE` statements below, the `REGIONAL BY ROW` clauses do not identify a column to track the region for each row. To assign rows to regions, CockroachDB creates and manages a hidden [`crdb_region` column](set-locality.html#crdb_region), of [`ENUM`](enum.html) type `crdb_internal_region`. The values of `crdb_region` are populated using the regional locality of the node from which the query creating the row originates.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## The `users` table
 
 Here is the `CREATE TABLE` statement for the `users` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START users |-- END users %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START users |-- END users %}
 ~~~
 
 ## The `vehicles` table
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START vehicles |-- END vehicles %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START vehicles |-- END vehicles %}
 ~~~
 
 Note that the `vehicles` table has a [foreign key constraint](foreign-key.html) on the `users` table, for the `city` and `owner_id` columns. This guarantees that a vehicle is registered to a particular user (i.e., an "owner") in the city where that user is registered.
 
 ## The `rides` table
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START rides |-- END rides %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v2-doc-includes/dbinit.sql |-- START rides |-- END rides %}
 ~~~
 
 Note that, like the `vehicles` table, the `rides` table has foreign key constraints. These constraints are on the `users` and the `vehicles` tables.

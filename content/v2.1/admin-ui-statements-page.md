@@ -7,7 +7,7 @@ toc: true
 
 To view the **Statements** page, [access the Admin UI](admin-ui-access-and-navigate.html#access-the-admin-ui) and then click **Statements** on the left.
 
-<img src="{{  'images/v2.1/admin-ui-statements-page.png' | relative_url  }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin-ui-statements-page.png' | relative_url }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 ## Limitation
 
@@ -62,7 +62,7 @@ Latency | The average service latency of the SQL statement (or multiple statemen
 
 The **Statement Details** page displays the details of the time, execution count, retries, rows returned, and latency by phase and by gateway node for the selected statement fingerprint.
 
-<img src="{{  'images/v2.1/admin_ui_statements_details_page.png' | relative_url  }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_statements_details_page.png' | relative_url }}" alt="CockroachDB Admin UI Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 ### Latency by Phase
 

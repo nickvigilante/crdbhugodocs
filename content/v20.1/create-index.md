@@ -14,11 +14,11 @@ The following types cannot be included in an index key, but can be stored (and u
 
 To create an index on the schemaless data in a [`JSONB`](jsonb.html) column, use an [inverted index](inverted-indexes.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Indexes are automatically created for a table's [`PRIMARY KEY`](primary-key.html) and [`UNIQUE`](unique.html) columns. When querying a table, CockroachDB uses the fastest index. For more information about that process, see [Index Selection in CockroachDB](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -28,11 +28,11 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 **Standard index:**
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_index.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_index.html" . }}</section>
 
 **Inverted index:**
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_inverted_index.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_inverted_index.html" . }}</section>
 
 ## Parameters
 
@@ -47,18 +47,18 @@ Parameter | Description
 `column_name` | The name of the column you want to index.
 `ASC` or `DESC`| Sort the column in ascending (`ASC`) or descending (`DESC`) order in the index. How columns are sorted affects query results, particularly when using `LIMIT`.<br><br>__Default:__ `ASC`
 `STORING ...`| Store (but do not sort) each column whose name you include.<br><br>For information on when to use `STORING`, see  [Store Columns](#store-columns).  Note that columns that are part of a table's [`PRIMARY KEY`](primary-key.html) cannot be specified as `STORING` columns in secondary indexes on the table.<br><br>`COVERING` and `INCLUDE` are aliases for `STORING` and work identically.
-`opt_interleave` | You can potentially optimize query performance by [interleaving indexes](interleave-in-parent.html), which changes how CockroachDB stores your data.<br>{{ site.data.alerts.callout_info }}[Hash-sharded indexes](indexes.html#hash-sharded-indexes) cannot be interleaved.{{ site.data.alerts.end }}
+`opt_interleave` | You can potentially optimize query performance by [interleaving indexes](interleave-in-parent.html), which changes how CockroachDB stores your data.<br>{{site.data.alerts.callout_info }}[Hash-sharded indexes](indexes.html#hash-sharded-indexes) cannot be interleaved.{{site.data.alerts.end }}
 `opt_partition_by` | An [enterprise-only](enterprise-licensing.html) option that lets you [define index partitions at the row level](partitioning.html).
-`USING HASH WITH BUCKET COUNT` | <span class="version-tag">New in v20.1:</span> Creates a [hash-sharded index](indexes.html#hash-sharded-indexes) with `n_buckets` number of buckets.<br>{{ site.data.alerts.callout_info }}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{ site.data.alerts.end }}
+`USING HASH WITH BUCKET COUNT` | <span class="version-tag">New in v20.1:</span> Creates a [hash-sharded index](indexes.html#hash-sharded-indexes) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info }}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end }}
 `CONCURRENTLY` | <span class="version-tag">New in v20.1:</span> Optional, no-op syntax for PostgreSQL compatibility. All indexes are created concurrently in CockroachDB.
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Create standard indexes
 
@@ -71,7 +71,7 @@ To create the most efficient indexes, we recommend reviewing:
 
 Single-column indexes sort the values of a single column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users (name);
 ~~~
@@ -82,7 +82,7 @@ Because each query can only use one index, single-column indexes are not typical
 
 Multiple-column indexes sort columns in the order you list them.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users (name, city);
 ~~~
@@ -93,14 +93,14 @@ To create the most useful multiple-column indexes, we recommend reviewing our [b
 
 Unique indexes do not allow duplicate values among their columns.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE UNIQUE INDEX ON users (name, id);
 ~~~
 
 This also applies the [`UNIQUE` constraint](unique.html) at the table level, similarly to [`ALTER TABLE`](alter-table.html). The above example is equivalent to:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users ADD CONSTRAINT users_name_id_key UNIQUE (name, id);
 ~~~
@@ -109,14 +109,14 @@ This also applies the [`UNIQUE` constraint](unique.html) at the table level, sim
 
 [Inverted indexes](inverted-indexes.html) can be created on schemaless data in a [`JSONB`](jsonb.html) column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INVERTED INDEX ON promo_codes (rules);
 ~~~
 
 The above example is equivalent to the following PostgreSQL-compatible syntax:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON promo_codes USING GIN (rules);
 ~~~
@@ -125,7 +125,7 @@ The above example is equivalent to the following PostgreSQL-compatible syntax:
 
 Storing a column improves the performance of queries that retrieve (but do not filter) its values.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users (city) STORING (name);
 ~~~
@@ -136,7 +136,7 @@ However, to use stored columns, queries must filter another column in the same i
 
 To sort columns in descending order, you must explicitly set the option when creating the index. (Ascending order is the default.)
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users (city DESC, name);
 ~~~
@@ -147,7 +147,7 @@ Note that how a column is ordered in the index will affect the ordering of the i
 
 Normally, CockroachDB selects the index that it calculates will scan the fewest rows. However, you can override that selection and specify the name of the index you want to use. To find the name, use [`SHOW INDEX`](show-index.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -163,7 +163,7 @@ Normally, CockroachDB selects the index that it calculates will scan the fewest 
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name FROM users@users_name_idx WHERE city='new york';
 ~~~
@@ -181,9 +181,9 @@ Normally, CockroachDB selects the index that it calculates will scan the fewest 
 
 ### Create a hash-sharded secondary index
 
-{%  include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+{{ partial "{{ page.version.version }}/performance/use-hash-sharded-indexes.md" . }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE events (
     product_id INT8,
@@ -196,17 +196,17 @@ Normally, CockroachDB selects the index that it calculates will scan the fewest 
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET experimental_enable_hash_sharded_indexes=on;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON events(ts) USING HASH WITH BUCKET_COUNT=8;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM events;
 ~~~
@@ -228,7 +228,7 @@ Normally, CockroachDB selects the index that it calculates will scan the fewest 
 (11 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM events;
 ~~~

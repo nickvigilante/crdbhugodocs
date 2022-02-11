@@ -29,32 +29,32 @@ These two points on the spectrum show how CockroachDB scales from modest-sized p
 
 3. Create a fourth instance for running the TPC-C benchmark.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 This configuration is intended for performance benchmarking only. For production deployments, there are other important considerations, such as ensuring that data is balanced across at least three availability zones for resiliency. See the [Production Checklist](recommended-production-settings.html) for more details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 2. Start a 3-node cluster
 
 1. SSH to the first `n1-highcpu-16` instance.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
     If you get a permissions error, prefix the command with `sudo`.
 
 3. Run the [`cockroach start`](start-a-node.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -69,7 +69,7 @@ This configuration is intended for performance benchmarking only. For production
 
 5. From the fourth `n1-highcpu-16` instance, run the [`cockroach init`](initialize-a-cluster.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node>
     ~~~
@@ -82,21 +82,21 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
 1. SSH to the fourth instance (the one not running a CockroachDB node), download `workload`, and make it executable:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ wget https://edge-binaries.cockroachdb.com/cockroach/workload.LATEST ; chmod 755 workload.LATEST
     ~~~
 
 2. Rename and copy `workload` into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i workload.LATEST /usr/local/bin/workload
     ~~~
 
 3. Start the TPC-C workload, pointing it at the [connection string of a node](connection-parameters.html#connect-using-a-url) and including any connection parameters:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./workload.LATEST fixtures load tpcc \
     --warehouses=1000 \
@@ -105,9 +105,9 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
     This command runs the TPC-C workload against the cluster. This will take about an hour and loads 1,000 "warehouses" of data.
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     For more `tpcc` options, use `workload run tpcc --help`. For details about other load generators included in `workload`, use `workload run --help`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 4. To monitor the load generator's progress, follow along with the process on the **Admin UI > Jobs** table.
 
@@ -117,7 +117,7 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
 Still on the fourth instance, run `workload` for five minutes against the other 3 instances:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./workload.LATEST run tpcc \
 --ramp=30s \
@@ -165,32 +165,32 @@ Benchmarking a large cluster uses [partitioning](partitioning.html). You must ha
 
 3. Create a 31st instance for running the TPC-C benchmark.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 This configuration is intended for performance benchmarking only. For production deployments, there are other important considerations, such as ensuring that data is balanced across at least three availability zones for resiliency. See the [Production Checklist](recommended-production-settings.html) for more details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 2. Start a 30-node cluster
 
 1. SSH to the first `n1-highcpu-16` instance.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
     If you get a permissions error, prefix the command with `sudo`.
 
 3. Run the [`cockroach start`](start-a-node.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -208,7 +208,7 @@ This configuration is intended for performance benchmarking only. For production
 
 5. From the 31st `n1-highcpu-16` instance, run the [`cockroach init`](initialize-a-cluster.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node>
     ~~~
@@ -223,14 +223,14 @@ To add an enterprise license to your cluster once it is started, [use the built-
 
 1. SSH to the 31st instance (the one not running a CockroachDB node) and launch the built-in SQL client:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=localhost
     ~~~
 
 2. Add your enterprise license:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     > SET CLUSTER SETTING enterprise.license = '<secret>';
     ~~~
@@ -243,21 +243,21 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
 1. Still on the 31st instance (the one not running a CockroachDB node), download `workload`, and make it executable:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ wget https://edge-binaries.cockroachdb.com/cockroach/workload.LATEST ; chmod 755 workload.LATEST
     ~~~
 
 2. Rename and copy `workload` into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i workload.LATEST /usr/local/bin/workload
     ~~~
 
 3. Start the TPC-C workload, pointing it at the [connection string of a node](connection-parameters.html#connect-using-a-url) and including any connection parameters:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $  ./workload.LATEST fixtures load tpcc \
     --warehouses=10000 \
@@ -266,9 +266,9 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
     This command runs the TPC-C workload against the cluster. This will take at about an hour and loads 10,000 "warehouses" of data.
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     For more `tpcc` options, use `workload run tpcc --help`. For details about other load generators included in `workload`, use `workload run --help`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 4. To monitor the load generator's progress, follow along with the process on the **Admin UI > Jobs** table.
 
@@ -280,14 +280,14 @@ To [increase the snapshot rate](cluster-settings.html), which helps speed up thi
 
 1. Still on the 31st instance, launch the built-in SQL client:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=localhost
     ~~~
 
 2. Set the cluster setting to increase the snapshot rate:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING kv.snapshot_rebalance.max_rate='64MiB';
     ~~~
@@ -300,7 +300,7 @@ Next, [partition your database](partitioning.html) to divide all of the TPC-C ta
 
 1. Still on the 31st instance, start the partitioning:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ulimit -n 10000 && workload.LATEST run tpcc \
     --partitions=10 \
@@ -354,9 +354,9 @@ Use roachprod to create cluster: `roachprod create lauren-tpcc --gce-machine-typ
 
 Download latest version of CockroachDB:
 
-- `roachprod run lauren-tpcc 'curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz'`
+- `roachprod run lauren-tpcc 'curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz'`
 
-- `roachprod run lauren-tpcc "curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz | tar -xvz; mv cockroach-v2.0.4.linux-amd64/cockroach cockroach"`
+- `roachprod run lauren-tpcc "curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz | tar -xvz; mv cockroach-v2.0.4.linux-amd64/cockroach cockroach"`
 
 Configure SSD to be more performant: `roachprod run lauren-tpcc -- 'sudo umount /mnt/data1; sudo mount -o discard,defaults,nobarrier /dev/disk/by-id/google-local-ssd-0 /mnt/data1/; mount | grep /mnt/data1'`
 
@@ -390,9 +390,9 @@ Note: Since partitioning will take ~12hrs, you should extend your test cluster's
 
 Download latest version of CockroachDB:
 
-- `roachprod run lauren-tpcc 'curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz'`
+- `roachprod run lauren-tpcc 'curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz'`
 
-- `roachprod run lauren-tpcc "curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz | tar -xvz; mv cockroach-v2.0.4.linux-amd64/cockroach cockroach"`
+- `roachprod run lauren-tpcc "curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz | tar -xvz; mv cockroach-v2.0.4.linux-amd64/cockroach cockroach"`
 
 Configure SSD to be more performant: `roachprod run lauren-tpcc -- 'sudo umount /mnt/data1; sudo mount -o discard,defaults,nobarrier /dev/disk/by-id/google-local-ssd-0 /mnt/data1/; mount | grep /mnt/data1'`
 

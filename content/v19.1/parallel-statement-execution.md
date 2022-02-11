@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports parallel execution of [independent](parallel-statement-execution.html#when-to-use-parallel-statement-execution) [`INSERT`](insert.html), [`UPDATE`](update.html), [`UPSERT`](upsert.html), and [`DELETE`](delete.html) statements within a single [transaction](transactions.html). Executing statements in parallel helps reduce aggregate latency and improve performance. 
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Built-in performance optimizations such as [transaction pipelining](architecture/transaction-layer.html#transaction-pipelining) provide the same performance benefits as parallel statement execution with better SQL semantics, and without limitations such as the [error message mismatch](#error-message-mismatch). Parallel statement execution may increase performance in a few very subtle cases, but it is not recommended for most users. If you believe you need to use this feature, please contact someone at CockroachDB first.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Why use parallel statement execution?
 
@@ -30,7 +30,7 @@ Let's understand how sequential and parallel execution works in the following sc
 
 Then the traditional transaction to update the user's information is as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 > UPDATE users SET last_name = 'Smith' WHERE id = 1;
@@ -41,13 +41,13 @@ Then the traditional transaction to update the user's information is as follows:
 
 While executing the SQL statements in the transaction sequentially, the server sends a return value after executing a statement. The client can send the next statement to be executed only after it receives the return value of the previous statement. This is often described as a "conversational API," as demonstrated by the following conceptual diagram:
 
-<img src="{{  'images/v19.1/Sequential_Statement_Execution.png' | relative_url  }}" alt="CockroachDB Parallel Statement Execution" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.1/Sequential_Statement_Execution.png' | relative_url }}" alt="CockroachDB Parallel Statement Execution" style="border:1px solid #eee;max-width:100%" />
 
 The SQL statements in our sample scenario can be executed in parallel since they are independent of each other. To execute statements in parallel, the client should be able to send the next statement to be executed without waiting for the return value of the earlier statement. In CockroachDB, on appending the `RETURNING NOTHING` clause with SQL statements,  the server sends an acknowledgment immediately, instead of waiting to complete the statement execution and sending the return value to the client. The client sends the next statement to be executed on receiving the acknowledgment. This allows CockroachDB to execute the statements in parallel. The statements are executed in parallel until CockroachDB encounters a **barrier statement**. A barrier statement is any statement without the `RETURNING NOTHING` clause. The server executes a barrier statement sequentially.
 
 In our sample scenario, the transaction would be as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 > UPDATE users SET last_name = 'Smith' WHERE id = 1 RETURNING NOTHING;
@@ -60,7 +60,7 @@ In this case, because the `UPDATE` statements within the transaction are indepen
 
 The following conceptual diagram shows how the transaction is executed sequentially and in parallel. The diagram also shows how executing statements in parallel reduces the aggregate latency.
 
-<img src="{{  'images/v19.1/Parallel_Statement_Normal_Execution.png' | relative_url  }}" alt="CockroachDB Parallel Statement Execution" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.1/Parallel_Statement_Normal_Execution.png' | relative_url }}" alt="CockroachDB Parallel Statement Execution" style="border:1px solid #eee;max-width:100%" />
 
 ### Perceived delay in execution of barrier statements 
 
@@ -72,7 +72,7 @@ Referring to the previous diagram, the server executes all `UPDATE` statements t
 
 With sequential execution, as soon as an error happens, the transaction is aborted and an error message is sent to the client. However, with parallel execution, the message is sent not when the error is encountered but after the next barrier statement. This can result in the client receiving an error message that doesn't match the statement being executed. The following diagram illustrates this concept:
 
-<img src="{{  'images/v19.1/Parallel_Statement_Execution_Error_Mismatch.png' | relative_url  }}" alt="CockroachDB Parallel Statement Execution Error Mismatch" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.1/Parallel_Statement_Execution_Error_Mismatch.png' | relative_url }}" alt="CockroachDB Parallel Statement Execution Error Mismatch" style="border:1px solid #eee;max-width:100%" />
 
 ### `RETURNING NOTHING` clause appended to dependent statements
 
@@ -80,7 +80,7 @@ If two consecutive statements are not independent, and yet a `RETURNING NOTHING`
 
 Revising our sample scenario, suppose we want to create a new user on the social networking app. We need to create entries for the last name of the user, their favorite movie, and favorite song. We need to insert entries into three tables: `users`, `favorite_movies`, and `favorite_songs`. The transaction would be as follows:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 > INSERT INTO users VALUES last_name = 'Pavlo' WHERE id = 2 RETURNING NOTHING;
@@ -91,7 +91,7 @@ Revising our sample scenario, suppose we want to create a new user on the social
 
 In this case, the second and third `INSERT` statements are dependent on the first `INSERT` statement because the movies and songs tables both have a foreign key constraint on the users table. So even though we append the `RETURNING NOTHING` clause to the first statement, CockroachDB executes the first statement sequentially. After the first statement is executed to completion, the second and third `INSERT` statements are executed in parallel. The following conceptual diagram shows how the transaction is executed in sequential and parallel modes:
 
-<img src="{{  'images/v19.1/Parallel_Statement_Hybrid_Execution.png' | relative_url  }}" alt="CockroachDB Parallel Statement Hybrid Execution" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.1/Parallel_Statement_Hybrid_Execution.png' | relative_url }}" alt="CockroachDB Parallel Statement Hybrid Execution" style="border:1px solid #eee;max-width:100%" />
 
 ## When to use parallel statement execution
 
@@ -99,13 +99,13 @@ SQL statements within a single transaction can be executed in parallel if the st
 
 For example, the following statements are considered independent since reordering the statements does not affect the results:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO a VALUES (100);
 > INSERT INTO b VALUES (100);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO a VALUES (100);
 > INSERT INTO a VALUES (200);
@@ -113,20 +113,20 @@ For example, the following statements are considered independent since reorderin
 
 The following pairs of statements are dependent since reordering them will affect their results:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE a SET b = 2 WHERE y = 1;
 > UPDATE a SET b = 3 WHERE y = 1;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE a SET y = true  WHERE y = false;
 > UPDATE a SET y = false WHERE y = true;
 ~~~
 
 
-{{ site.data.alerts.callout_info }}Parallel statement execution in CockroachDB is different than parallel query execution in PostgreSQL. For PostgreSQL, parallel query execution refers to “creating multiple query processes that divide the workload of a single SQL statement and executing them in parallel”. For CockroachDB’s parallel statement execution, an individual SQL statement is not divided into processes. Instead, multiple independent SQL statements within a single <a href='transactions.html'>transaction</a> are executed in parallel.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Parallel statement execution in CockroachDB is different than parallel query execution in PostgreSQL. For PostgreSQL, parallel query execution refers to “creating multiple query processes that divide the workload of a single SQL statement and executing them in parallel”. For CockroachDB’s parallel statement execution, an individual SQL statement is not divided into processes. Instead, multiple independent SQL statements within a single <a href='transactions.html'>transaction</a> are executed in parallel.{{site.data.alerts.end }}
 
 ## See also
 

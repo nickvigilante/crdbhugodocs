@@ -5,19 +5,19 @@ toc: true
 key: stop-a-node.html
 ---
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `cockroach quit` is deprecated. To stop a node, do one of the following:
 
-{%  include {{  page.version.version  }}/prod-deployment/node-shutdown.md %}
-{{ site.data.alerts.end }}
+{{ partial "{{ page.version.version }}/prod-deployment/node-shutdown.md" . }}
+{{site.data.alerts.end }}
 
 This page shows you how to use the `cockroach quit` [command](cockroach-commands.html) to temporarily stop a node that you plan to restart.
 
 You might do this, for example, during the process of [upgrading your cluster's version of CockroachDB](upgrade-cockroach-version.html) or to perform planned maintenance (e.g., upgrading system software).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In other scenarios, such as when downsizing a cluster or reacting to hardware failures, it's best to remove nodes from your cluster entirely. For information about this, see [Decommission Nodes](remove-nodes.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Overview
 
@@ -39,7 +39,7 @@ Basic terms:
 
 ### Considerations
 
-{%  include {{  page.version.version  }}/faq/planned-maintenance.md %}
+{{ partial "{{ page.version.version }}/faq/planned-maintenance.md" . }}
 
 ## Synopsis
 
@@ -67,7 +67,7 @@ Flag | Description
 
 ### Client connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 `--cluster-name` | The cluster name to use to verify the cluster's identity. If the cluster has a cluster name, you must include this flag. For more information, see [`cockroach start`](cockroach-start.html#general).
 `--disable-cluster-name-verification` | Disables the cluster name check for this command. This flag must be paired with `--cluster-name`. For more information, see [`cockroach start`](cockroach-start.html#general).
 
@@ -75,7 +75,7 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
 ### Logging
 
-{%  include {{  page.version.version  }}/misc/logging-defaults.md %}
+{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
 
 ## Examples
 
@@ -87,7 +87,7 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
     If the node is running in the background and you are not using a process manager, send a kill signal to the `cockroach` process, for example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill cockroach
     ~~~
@@ -96,7 +96,7 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
 3. Verify that the `cockroach` process has stopped:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ps aux | grep cockroach
     ~~~
@@ -117,7 +117,7 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
 3. Run the `cockroach quit` command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=<address of node to stop>
     ~~~
@@ -128,7 +128,7 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
 2. Run the `cockroach quit` command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=<address of node to stop>
     ~~~

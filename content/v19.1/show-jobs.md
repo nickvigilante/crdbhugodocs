@@ -27,7 +27,7 @@ By default, only the `root` user can execute `SHOW JOBS`.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_jobs.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_jobs.html" . }}
 </div>
 
 ## Response
@@ -56,7 +56,7 @@ Field | Description
 
 ### Show jobs
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW JOBS;
 ~~~
@@ -71,7 +71,7 @@ Field | Description
 
 You can filter jobs by using `SHOW JOBS` as the data source for a [`SELECT`](select-clause.html) statement, and then filtering the values with the `WHERE` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'RESTORE' AND status IN ('running', 'failed') ORDER BY created DESC;
 ~~~
@@ -85,7 +85,7 @@ You can filter jobs by using `SHOW JOBS` as the data source for a [`SELECT`](sel
 
 ### Show automatic jobs
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW AUTOMATIC JOBS;
 ~~~
@@ -101,7 +101,7 @@ You can filter jobs by using `SHOW JOBS` as the data source for a [`SELECT`](sel
 
 You can filter jobs by using `SHOW AUTOMATIC JOBS` as the data source for a [`SELECT`](select-clause.html) statement, and then filtering the values with the `WHERE` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW AUTOMATIC JOBS] WHERE status = ('succeeded') ORDER BY created DESC;
 ~~~
@@ -117,7 +117,7 @@ You can filter jobs by using `SHOW AUTOMATIC JOBS` as the data source for a [`SE
 
 You can show just schema change jobs by using `SHOW JOBS` as the data source for a [`SELECT`](select-clause.html) statement, and then filtering the `job_type` value with the `WHERE` clause:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'SCHEMA CHANGE';
 ~~~

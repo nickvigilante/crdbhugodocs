@@ -10,7 +10,7 @@ This page lists enterprise features. For information on how to obtain and set tr
 
 ## Enterprise features
 
-{%  include {{  page.version.version  }}/misc/enterprise-features.md %}
+{{ partial "{{ page.version.version }}/misc/enterprise-features.md" . }}
 
 ## See also
 

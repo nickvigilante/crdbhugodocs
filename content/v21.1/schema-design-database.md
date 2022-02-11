@@ -6,16 +6,16 @@ toc: true
 
 This page provides best-practice guidance on creating databases, with a couple examples based on Cockroach Labs' fictional vehicle-sharing company, [MovR](movr.html).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For reference documentation on the `CREATE DATABASE` statement, including additional examples, see the [`CREATE DATABASE` syntax page](create-database.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before you begin
 
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.db  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.db }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Review the database schema objects](schema-design-overview.html).
 
 ## Create a database
@@ -34,7 +34,7 @@ Here are some best practices to follow when creating and using databases:
 
 - Limit the number of databases you create. If you need to create multiple tables with the same name in your cluster, do so in different [user-defined schemas](schema-design-schema.html), in the same database.
 
-- {%  include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {{ partial "{{ page.version.version }}/sql/dev-schema-changes.md" . }}
 
 ### Example
 
@@ -42,14 +42,14 @@ Create an empty file with the `.sql` file extension at the end of the filename. 
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ touch dbinit.sql
 ~~~
 
 Open `dbinit.sql` in a text editor, and, at the top of the file, add a `CREATE DATABASE` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE DATABASE IF NOT EXISTS movr;
 ~~~
@@ -58,7 +58,7 @@ This statement will create a database named `movr`, if one does not already exis
 
 To execute the statement in the `dbinit.sql` file as the `root` user, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -68,7 +68,7 @@ $ cockroach sql \
 
 To view the database in the cluster, execute a [`SHOW DATABASES`](show-databases.html) statement from the command line:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \

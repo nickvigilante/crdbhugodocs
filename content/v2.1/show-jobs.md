@@ -12,7 +12,7 @@ The `SHOW JOBS` [statement](sql-statements.html) lists all of the types of long-
 
 These details can help you understand the status of crucial tasks that can impact the performance of your cluster, as well as help you control them.
 
-{{ site.data.alerts.callout_info }} The <code>SHOW JOBS</code> statement shows only long-running tasks. For an exhaustive list of jobs running in the cluster, use the <a href="sql-audit-logging.html">SQL Audit Logging (Experimental)</a> feature.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }} The <code>SHOW JOBS</code> statement shows only long-running tasks. For an exhaustive list of jobs running in the cluster, use the <a href="sql-audit-logging.html">SQL Audit Logging (Experimental)</a> feature.{{site.data.alerts.end }}
 
 
 ## Required privileges
@@ -22,7 +22,7 @@ By default, only the `root` user can execute `SHOW JOBS`.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_jobs.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_jobs.html" . }}
 </div>
 
 ## Response
@@ -52,7 +52,7 @@ Field | Description
 
 ### Show jobs
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW JOBS;
 ~~~
@@ -69,7 +69,7 @@ Field | Description
 
 You can filter jobs by using `SHOW JOBS` as the data source for a [`SELECT`](select-clause.html) statement, and then filtering the values with the `WHERE` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'RESTORE' AND status IN ('running', 'failed') ORDER BY created DESC;
 ~~~

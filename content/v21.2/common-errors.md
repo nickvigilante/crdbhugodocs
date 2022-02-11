@@ -34,11 +34,11 @@ To resolve this issue, do one of the following:
 
 If you're not sure what the IP address/hostname and port values might have been, you can look in the node's [logs](logging-overview.html). If necessary, you can also terminate the `cockroach` process and then restart the node:
 
-{%  include {{  page.version.version  }}/prod-deployment/node-shutdown.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/node-shutdown.md" . }}
 
 Then restart the node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start [flags]
 ~~~
@@ -61,19 +61,19 @@ This message usually indicates that a node tried to connect to a cluster, but th
 
 - Choose a different directory to store the CockroachDB data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start [flags] --store=[new directory] --join=[cluster host]:26257
     ~~~
 
 - Remove the existing directory and start a node joining the cluster again:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start [flags] --join=[cluster host]:26257
     ~~~
@@ -110,13 +110,13 @@ E160407 09:53:50.337328 storage/queue.go:511  [replicate] 7 replicas failing wit
 
 This happens because CockroachDB expects three nodes by default. If you do not intend to add additional nodes, you can stop this error by using [`ALTER RANGE ... CONFIGURE ZONE`](configure-zone.html) to update your default zone configuration to expect only one node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Insecure cluster:
 $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas=1;" --insecure
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Secure cluster:
 $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas=1;" --certs-dir=[path to certs directory]
@@ -193,7 +193,7 @@ When importing into an existing table with [`IMPORT INTO`](import-into.html), th
 
 This message usually indicates that `--max-sql-memory`, the memory allocated to the SQL layer, was exceeded by the operation referenced in the error. A `memory budget exceeded` error also suggests that a node is close to an OOM crash, which might be prevented by failing the query.
 
-{%  include {{  page.version.version  }}/prod-deployment/resolution-untuned-query.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/resolution-untuned-query.md" . }}
 
 Increasing `--max-sql-memory` can alleviate `memory budget exceeded` errors. However, allocating more `--max-sql-memory` can also increase the probability of [OOM crashes](cluster-setup-troubleshooting.html#out-of-memory-oom-crash) relative to the amount of memory currently provisioned on each node. For guidance on configuring this flag, see [Cache and SQL memory size](recommended-production-settings.html#cache-and-sql-memory-size).
 
@@ -201,9 +201,9 @@ For [disk-spilling operations](vectorized-execution.html#disk-spilling-operation
 
 For example, if a query contains a hash join that requires 128 MiB of memory before spilling to disk, values of `sql.distsql.temp_storage.workmem=64MiB` and `--max-sql-memory=1GiB` allow the query to run with a concurrency of 16 without errors. The 17th concurrent instance will exceed `--max-sql-memory` and produce a `memory budget exceeded` error. Increasing `sql.distsql.temp_storage.workmem` to `128MiB` reduces the workload concurrency to 8, but allows the queries to finish without spilling to disk. For more information, see [Disk-spilling operations](vectorized-execution.html#disk-spilling-operations).
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/prod-deployment/resolution-oom-crash.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/prod-deployment/resolution-oom-crash.md" . }}
+{{site.data.alerts.end }}
 
 ## Something else?
 

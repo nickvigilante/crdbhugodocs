@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v19.1:</span> To reduce latency for read queries, you can use the follower reads feature, which lets the closest replica serve the read request at the expense of only not guaranteeing that data is up to date.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The follower reads feature is only available to [enterprise](https://www.cockroachlabs.com/product/cockroachdb/) users.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## What are Follower reads?
 
@@ -27,7 +27,7 @@ Use [`SET CLUSTER SETTING`](set-cluster-setting.html) to set `kv.closed_timestam
 - `true` to enable follower reads _(default)_
 - `false` to disable follower reads
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.closed_timestamp.follower_reads_enabled = false;
 ~~~

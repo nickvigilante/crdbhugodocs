@@ -8,16 +8,16 @@ toc: true
 
 This page walks you through the process of setting up and enabling the **Node Map**.
 
-{{ site.data.alerts.callout_info }}The <b>Node Map</b> is an <a href="enterprise-licensing.html">enterprise-only</a> feature. However, you can <a href="https://www.cockroachlabs.com/get-cockroachdb/">request a trial license</a>  to try it out. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <b>Node Map</b> is an <a href="enterprise-licensing.html">enterprise-only</a> feature. However, you can <a href="https://www.cockroachlabs.com/get-cockroachdb/enterprise">request a trial license</a>  to try it out. {{site.data.alerts.end }}
 
-<img src="{{  'images/v2.0/admin-ui-node-map.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-node-map.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 
 ## Set Up and Enable the Node Map
 
 To enable the **Node Map**, you need to start the cluster with the correct `--locality` flags and assign the latitudes and longitudes for each locality.
 
-{{ site.data.alerts.callout_info }}The <b>Node Map</b> will not be displayed until <i>all</i> nodes are started with the correct <code>--locality</code> flags and all localities are assigned the corresponding latitudes and longitudes. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <b>Node Map</b> will not be displayed until <i>all</i> nodes are started with the correct <code>--locality</code> flags and all localities are assigned the corresponding latitudes and longitudes. {{site.data.alerts.end }}
 
 Consider a scenario of a four-node geo-distributed cluster with the following configuration:
 
@@ -53,7 +53,7 @@ To start a new cluster with the correct `--locality` flags:
 
 Start Node 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -66,7 +66,7 @@ $ cockroach start \
 
 Start Node 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -79,7 +79,7 @@ $ cockroach start \
 
 Start Node 3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -92,7 +92,7 @@ $ cockroach start \
 
 Start Node 4:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -105,33 +105,33 @@ $ cockroach start \
 
 Use the [`cockroach init`](initialize-a-cluster.html) command to perform a one-time initialization of the cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init --insecure
 ~~~
 
 [Access the Admin UI](admin-ui-access-and-navigate.html#access-the-admin-ui). The following page is displayed:
 
-<img src="{{  'images/v2.0/admin-ui-node-map-before-license.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-node-map-before-license.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ### Step 3. [Set the Enterprise License](enterprise-licensing.html) and refresh the Admin UI
 
 The following page should be displayed:
 
-<img src="{{  'images/v2.0/admin-ui-node-map-after-license.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-node-map-after-license.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ### Step 4. Set the Latitudes and Longitudes for the Localities
 
 Launch the built-in SQL client:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --host=<address of any node>
 ~~~
 
 Insert the approximate latitudes and longitudes of each region into the `system.locations` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO system.locations VALUES
   ('region', 'us-east-1', 37.478397, -76.453077),
@@ -139,7 +139,7 @@ Insert the approximate latitudes and longitudes of each region into the `system.
   ('region', 'eu-west-1', 53.142367, -7.692054);
 ~~~
 
-{{ site.data.alerts.callout_info }}The <b>Node Map</b> will not be displayed until all regions are assigned the corresponding latitudes and longitudes. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <b>Node Map</b> will not be displayed until all regions are assigned the corresponding latitudes and longitudes. {{site.data.alerts.end }}
 
 For the latitudes and longitudes of AWS, Azure, and Google Cloud regions, see [Location Coordinates for Reference](#location-coordinates-for-reference).
 
@@ -147,7 +147,7 @@ For the latitudes and longitudes of AWS, Azure, and Google Cloud regions, see [L
 
 [Open the **Overview page**](admin-ui-access-and-navigate.html) and select **Node Map** from the **View** drop-down menu. The **Node Map** will be displayed:
 
-<img src="{{  'images/v2.0/admin-ui-node-map-complete.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-node-map-complete.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ### Step 6. Navigate the Node Map
 
@@ -157,7 +157,7 @@ Let's say you want to navigate to Node 2, which is in datacenter `us-east-1a` in
 2. Click on the datacenter component marked as **datacenter=us-east-1a**. The individual node components are displayed.
 3. To navigate back to the cluster view, either click on **Cluster** in the bread-crumb trail at the top of the **Node Map**, or click **Up to region=us-east-1** and then click **Up to Cluster** in the lower left-hand side of the **Node Map**.
 
-<img src="{{  'images/v2.0/admin-ui-node-map-navigation.gif' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-node-map-navigation.gif' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Troubleshoot the Node Map
 
@@ -186,22 +186,22 @@ The **Node Map** is displayed only for the locality levels that have latitude/lo
 
 ### Unable to Assign Latitude/Longitude Coordinates to Localities
 
-{%  include {{  page.version.version  }}/known-limitations/node-map.md %}
+{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
 
 ### **Capacity Used** Value Displayed is More Than Configured Capacity
 
-{%  include v2.0/misc/available-capacity-metric.md %}
+{{ partial "v2.0/misc/available-capacity-metric.md" . }}
 
 ## Location Coordinates for Reference
 
 ### AWS locations
 
-{%  include {{  page.version.version  }}/misc/aws-locations.md %}
+{{ partial "{{ page.version.version }}/misc/aws-locations.md" . }}
 
 ### Azure locations
 
-{%  include {{  page.version.version  }}/misc/azure-locations.md %}
+{{ partial "{{ page.version.version }}/misc/azure-locations.md" . }}
 
 ### Google Cloud locations
 
-{%  include {{  page.version.version  }}/misc/gce-locations.md %}
+{{ partial "{{ page.version.version }}/misc/gce-locations.md" . }}

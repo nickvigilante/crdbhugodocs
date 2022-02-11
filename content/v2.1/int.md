@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports various signed integer [data types](data-types.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For instructions showing how to auto-generate integer values (e.g., to auto-number rows in a table), see [this FAQ entry](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Names and Aliases
@@ -30,12 +30,12 @@ The different integer types place different constraints on the range of allowabl
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE ints (a INT PRIMARY KEY, b SMALLINT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM ints;
 ~~~
@@ -50,7 +50,7 @@ The different integer types place different constraints on the range of allowabl
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO ints VALUES (1, 32);
 ~~~
@@ -59,7 +59,7 @@ The different integer types place different constraints on the range of allowabl
 INSERT 1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM ints;
 ~~~

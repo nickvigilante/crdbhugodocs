@@ -49,7 +49,7 @@ For more information, see [Find the Indexes and Key Ranges a Query Uses](#find-t
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/explain.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/explain.html" . }}
 
 ## Required Privileges
 
@@ -66,7 +66,7 @@ The user requires the appropriate [privileges](privileges.html) for the statemen
 | `TYPES` | Include the intermediate [data types](data-types.html) CockroachDB chooses to evaluate intermediate SQL expressions. <br/><br/>`TYPES` also implies `METADATA` and `EXPRS` options.|
 | `explainable_stmt` | The [statement](#explainable-statements) you want details about. |
 
-{{ site.data.alerts.callout_danger }}<code>EXPLAIN</code> also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>EXPLAIN</code> also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.{{site.data.alerts.end }}
 
 ## Success Responses
 
@@ -158,7 +158,7 @@ When looking at the **Ordering** column, we can also sort by descending (`DESC`)
 +-------+------+-------+-------------+---------+--------------+
 ~~~
 
-{{ site.data.alerts.callout_info }}In some cases the <strong>Ordering</strong> details report a column ordering with an equal sign (e.g., <code>=k</code>). This is a side effect of the internal ordering analysis performed by CockroachDB and merely indicates that CockroachDB has found that only one row matches a <code>WHERE</code> expression.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}In some cases the <strong>Ordering</strong> details report a column ordering with an equal sign (e.g., <code>=k</code>). This is a side effect of the internal ordering analysis performed by CockroachDB and merely indicates that CockroachDB has found that only one row matches a <code>WHERE</code> expression.{{site.data.alerts.end }}
 
 ### `QUALIFY` Option
 

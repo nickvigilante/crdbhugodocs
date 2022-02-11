@@ -59,7 +59,7 @@ For example:
 cockroach.richards-mbp.rloveland.2018-03-15T15_24_10Z.024338.log
 ~~~
 
-{{ site.data.alerts.callout_info }}All log file timestamps are in UTC because CockroachDB is designed to be deployed in a distributed cluster.  Nodes may be located in different time zones, and using UTC makes it easy to correlate log messages from those nodes no matter where they are located.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}All log file timestamps are in UTC because CockroachDB is designed to be deployed in a distributed cluster.  Nodes may be located in different time zones, and using UTC makes it easy to correlate log messages from those nodes no matter where they are located.{{site.data.alerts.end }}
 
 Property | `cockroach start` | All other commands
 ---------|-------------------|-------------------
@@ -70,7 +70,7 @@ Default Severity Level Threshold | `INFO` | *N/A*
 Change Severity Threshold | `--log-file-verbosity=[severity level]` | `--log-file-verbosity=[severity level]`
 Disabled by | `--log-dir=""`<sup>1</sup> | Default
 
-{{ site.data.alerts.callout_info }}<sup>1</sup> If the <code>cockroach</code> process does not have access to on-disk storage, <code>cockroach start</code> does not write messages to log files; instead it prints all messages to <code>stderr</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<sup>1</sup> If the <code>cockroach</code> process does not have access to on-disk storage, <code>cockroach start</code> does not write messages to log files; instead it prints all messages to <code>stderr</code>.{{site.data.alerts.end }}
 
 #### Print to `stderr`
 
@@ -83,7 +83,7 @@ Default Severity Level Threshold | *N/A* | `WARNING`
 Change Severity Threshold | `--logtostderr=[severity level]` | `--logtostderr=[severity level]`
 Disabled by | Default<sup>2</sup> | `--logtostderr=NONE`
 
-{{ site.data.alerts.callout_info }}<sup>2</sup> <code>cockroach start</code> does not print any messages to <code>stderr</code> unless the <code>cockroach</code> process does not have access to on-disk storage, in which case it defaults to <code>--logtostderr=INFO</code> and prints all messages to <code>stderr</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<sup>2</sup> <code>cockroach start</code> does not print any messages to <code>stderr</code> unless the <code>cockroach</code> process does not have access to on-disk storage, in which case it defaults to <code>--logtostderr=INFO</code> and prints all messages to <code>stderr</code>.{{site.data.alerts.end }}
 
 #### Discard message
 
@@ -93,7 +93,7 @@ By default, commands besides `cockroach start` discard messages with the `INFO` 
 
 ## Flags
 
-{%  include {{  page.version.version  }}/misc/logging-flags.md %}
+{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
 
 ## See also
 

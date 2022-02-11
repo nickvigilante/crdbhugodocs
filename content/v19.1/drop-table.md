@@ -6,7 +6,7 @@ toc: true
 
 The `DROP TABLE` [statement](sql-statements.html) removes a table and all its indexes from a database.
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_table.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_table.html" . }}</section>
 
 ## Parameters
 
@@ -27,7 +27,7 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
@@ -35,7 +35,7 @@ Parameter | Description
 
 In this example, other objects do not depend on the table being dropped.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~
@@ -51,7 +51,7 @@ In this example, other objects do not depend on the table being dropped.
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP TABLE bank.branches;
 ~~~
@@ -60,7 +60,7 @@ In this example, other objects do not depend on the table being dropped.
 DROP TABLE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~
@@ -79,9 +79,9 @@ DROP TABLE
 
 In this example, a view depends on the table being dropped. Therefore, it's only possible to drop the table while simultaneously dropping the dependent view using `CASCADE`.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~
@@ -96,7 +96,7 @@ In this example, a view depends on the table being dropped. Therefore, it's only
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP TABLE bank.accounts;
 ~~~
@@ -105,7 +105,7 @@ In this example, a view depends on the table being dropped. Therefore, it's only
 pq: cannot drop table "accounts" because view "user_accounts_view" depends on it
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > DROP TABLE bank.accounts CASCADE;
 ~~~
@@ -114,7 +114,7 @@ pq: cannot drop table "accounts" because view "user_accounts_view" depends on it
 DROP TABLE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM bank;
 ~~~

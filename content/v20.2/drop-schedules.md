@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v20.2:</span> The `DROP SCHEDULES` [statement](sql-statements.html) can be used to remove [backup schedules](create-schedule-for-backup.html).
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `DROP SCHEDULE` does **not** cancel any in-progress jobs started by the schedule. Before you drop a schedule, [cancel any in-progress jobs](cancel-job.html) first, as you will not be able to look up the job ID once the schedule is dropped.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -33,7 +33,7 @@ DROP SCHEDULE <scheduleID>
 
 ### Drop a schedule
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP SCHEDULE 589963390487363585;
 ~~~
@@ -46,7 +46,7 @@ DROP SCHEDULES 1
 
 To drop multiple schedules, nest a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside the `DROP SCHEDULES` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP SCHEDULES SELECT id FROM [SHOW SCHEDULES] WHERE label = 'schedule_database';
 ~~~

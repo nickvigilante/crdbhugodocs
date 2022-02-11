@@ -26,13 +26,13 @@ You can use any file server software that supports `GET`, `PUT` and `DELETE` met
 - [Using Ruby with `IMPORT`](#using-ruby-with-import)
 - [Using nginx as a file server](#using-nginx-as-a-file-server)
 
-{{ site.data.alerts.callout_info }}We do not recommend using any machines running <code>cockroach</code> as file servers. Using machines that are running cockroach as file servers could negatively impact performance if I/O operations exceed capacity.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}We do not recommend using any machines running <code>cockroach</code> as file servers. Using machines that are running cockroach as file servers could negatively impact performance if I/O operations exceed capacity.{{site.data.alerts.end }}
 
 ### Using PHP with `IMPORT`
 
 The PHP language has an HTTP server built in.  You can serve local files using the commands below.  For more information about how to import these locally served files, see the documentation for the [`IMPORT`][import] statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cd /path/to/data
 $ php -S 127.0.0.1:3000 # files available at e.g., 'http://localhost:3000/data.sql'
@@ -42,7 +42,7 @@ $ php -S 127.0.0.1:3000 # files available at e.g., 'http://localhost:3000/data.s
 
 The Python language has an HTTP server included in the standard library.  You can serve local files using the commands below.  For more information about how to import these locally served files, see the documentation for the [`IMPORT`][import] statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cd /path/to/data
 $ python -m SimpleHTTPServer 3000 # files available at e.g., 'http://localhost:3000/data.sql'
@@ -50,7 +50,7 @@ $ python -m SimpleHTTPServer 3000 # files available at e.g., 'http://localhost:3
 
 If you use Python 3, try:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cd /path/to/data
 $ python -m http.server 3000
@@ -60,7 +60,7 @@ $ python -m http.server 3000
 
 The Ruby language has an HTTP server included in the standard library.  You can serve local files using the commands below.  For more information about how to import these locally served files, see the documentation for the [`IMPORT`][import] statement.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cd /path/to/data
 $ ruby -run -ehttpd . -p3000 # files available at e.g., 'http://localhost:3000/data.sql'
@@ -72,7 +72,7 @@ $ ruby -run -ehttpd . -p3000 # files available at e.g., 'http://localhost:3000/d
 
 2. In the `nginx.conf` file, add a `dav_methods PUT DELETE` directive. For example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ nginx
     events {
         worker_connections  1024;

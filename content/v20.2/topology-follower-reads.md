@@ -11,25 +11,25 @@ In a multi-region deployment, the follower reads pattern is a good choice for ta
 - Rows in the table, and all latency-sensitive queries, **cannot** be tied to specific geographies (e.g., a reference table).
 - Table data must remain available during a region failure.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 This pattern is compatible with all of the other multi-region patterns except [Geo-Partitioned Replicas](topology-geo-partitioned-replicas.html). However, if reads from a table must be exactly up-to-date, use the [Duplicate Indexes](topology-duplicate-indexes.html) or [Geo-Partitioned Leaseholders](topology-geo-partitioned-leaseholders.html) pattern instead. Up-to-date reads are required by tables referenced by [foreign keys](foreign-key.html), for example.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
 ### Fundamentals
 
-{%  include {{  page.version.version  }}/topology-patterns/fundamentals.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
 
 ### Cluster setup
 
-{%  include {{  page.version.version  }}/topology-patterns/multi-region-cluster-setup.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
 
 ## Configuration
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Follower reads requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Summary
 
@@ -37,11 +37,11 @@ Using this pattern, you configure your application to use the [follower reads](f
 
 ### Steps
 
-<img src="{{  'images/v20.2/topology-patterns/topology_follower_reads1.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v20.2/topology-patterns/topology_follower_reads1.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE postal_codes (
     id INT PRIMARY KEY,
@@ -51,7 +51,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 Insert some data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO postal_codes (ID, code) VALUES (1, '10001'), (2, '10002'), (3, '10003'), (4,'60601'), (5,'60602'), (6,'60603'), (7,'90001'), (8,'90002'), (9,'90003');
 ~~~
@@ -60,11 +60,11 @@ Insert some data:
 
 2. Configure your app to use `AS OF SYSTEM TIME follower_read_timestamp()` whenever reading from the table:
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The `follower_read_timestamp()` [function](functions-and-operators.html) returns the [`TIMESTAMP`](timestamp.html) `statement_timestamp() - 4.8s`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT code FROM postal_codes
         AS OF SYSTEM TIME follower_read_timestamp()
@@ -73,7 +73,7 @@ Insert some data:
 
     Alternately, instead of modifying individual read queries on the table, you can set the `AS OF SYSTEM TIME` value for all operations in a read-only transaction:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > BEGIN;
 
@@ -88,9 +88,9 @@ Insert some data:
       COMMIT;
     ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use the follower reads feature from [drivers and ORMs](install-client-drivers.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Characteristics
 
@@ -108,7 +108,7 @@ For example, in the animation below:
 4. The replica retrieves the results as of 4.8 seconds in the past and returns to the gateway node.
 5. The gateway node returns the results to the client.
 
-<img src="{{  'images/v20.2/topology-patterns/topology_follower_reads_reads.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v20.2/topology-patterns/topology_follower_reads_reads.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 #### Writes
 
@@ -124,18 +124,18 @@ For example, in the animation below:
 6. The leaseholder then returns acknowledgement of the commit to the gateway node.
 7. The gateway node returns the acknowledgement to the client.
 
-<img src="{{  'images/v20.2/topology-patterns/topology_follower_reads_writes.gif' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v20.2/topology-patterns/topology_follower_reads_writes.gif' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 ### Resiliency
 
 Because this pattern balances the replicas for the table across regions, one entire region can fail without interrupting access to the table:
 
-<img src="{{  'images/v20.2/topology-patterns/topology_follower_reads_resiliency.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v20.2/topology-patterns/topology_follower_reads_resiliency.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 <!-- However, if an additional machine holding a replica for the table fails at the same time as the region failure, the range to which the replica belongs becomes unavailable for reads and writes:
 
-<img src="{{  'images/v20.2/topology-patterns/topology_follower_reads3.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" /> -->
+<img src="{{ 'images/v20.2/topology-patterns/topology_follower_reads3.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" /> -->
 
 ## See also
 
-{%  include {{  page.version.version  }}/topology-patterns/see-also.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}

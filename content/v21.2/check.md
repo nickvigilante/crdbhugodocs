@@ -29,12 +29,12 @@ The `CHECK` [constraint](constraints.html) specifies that values for the column 
 
 `CHECK` constraints can be defined at the [table level](#table-level). However, if you only want the constraint to apply to a single column, it can be applied at the [column level](#column-level).
 
-{{ site.data.alerts.callout_info }}You can also add the <code>CHECK</code> constraint to existing tables through <a href="add-constraint.html#add-the-check-constraint"><code>ADD CONSTRAINT</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You can also add the <code>CHECK</code> constraint to existing tables through <a href="add-constraint.html#add-the-check-constraint"><code>ADD CONSTRAINT</code></a>.{{site.data.alerts.end }}
 
 ### Column level
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/check_column_level.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/check_column_level.html %}
 </div>
 
  Parameter | Description
@@ -61,7 +61,7 @@ The `CHECK` [constraint](constraints.html) specifies that values for the column 
 ### Table level
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/check_table_level.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/check_table_level.html %}
 </div>
 
  Parameter | Description

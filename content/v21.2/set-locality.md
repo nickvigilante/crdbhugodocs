@@ -7,14 +7,14 @@ docs_area: reference.sql
 
 The `ALTER TABLE .. SET LOCALITY` [statement](sql-statements.html) changes the [table locality](multiregion-overview.html#table-locality) of a [table](create-table.html) in a [multi-region database](multiregion-overview.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `SET LOCALITY` is a subcommand of [`ALTER TABLE`](alter-table.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/alter_table_locality.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/alter_table_locality.html %}
 </div>
 
 ## Parameters
@@ -32,9 +32,9 @@ The user must be a member of the [`admin`](authorization.html#roles) or [owner](
 
 ## Examples
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [`RESTORE`](restore.html) on [`REGIONAL BY TABLE`](#regional-by-table), [`REGIONAL BY ROW`](#regional-by-row), and [`GLOBAL`](#global) tables is supported with some limitations — see [Restoring to multi-region databases](restore.html#restoring-to-multi-region-databases) for more detail.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <a name="regional-by-table"></a>
 
@@ -42,21 +42,21 @@ The user must be a member of the [`admin`](authorization.html#roles) or [owner](
 
 To optimize read and write access to the data in a table from the primary region, use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE {table} SET LOCALITY REGIONAL BY TABLE IN PRIMARY REGION;
 ~~~
 
 To optimize read and write access to the data in a table from the `us-east-1` region, use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE {table} SET LOCALITY REGIONAL BY TABLE IN "us-east-1";
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If no region is supplied, `REGIONAL BY TABLE` defaults to the primary region.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about how table localities work, see [Regional tables](multiregion-overview.html#regional-tables).
 
@@ -64,13 +64,13 @@ For more information about how table localities work, see [Regional tables](mult
 
 ### Set the table locality to `REGIONAL BY ROW`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Before setting the locality to `REGIONAL BY ROW` on a table targeted by a changefeed, read the considerations in [Changefeeds on regional by row tables](changefeeds-in-multi-region-deployments.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To make an existing table a _regional by row_ table, use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE {table} SET LOCALITY REGIONAL BY ROW;
 ~~~
@@ -79,14 +79,14 @@ ALTER TABLE {table} SET LOCALITY REGIONAL BY ROW;
 
 Every row in a regional by row table has a hidden `crdb_region` column that represents the row's home region. To see a row's region, issue a statement like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT crdb_region, id FROM {table};
 ~~~
 
 <a name="update-a-rows-home-region"></a> To update an existing row's home region, use an [`UPDATE`](update.html) statement like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 UPDATE {table} SET crdb_region = 'eu-west' WHERE id IN (...)
 ~~~
@@ -97,7 +97,7 @@ To add a new row to a regional by row table, you must choose one of the followin
 
 - Set the home region explicitly using an [`INSERT`](insert.html) statement like the following:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     INSERT INTO {table} (crdb_region, ...) VALUES ('us-east-1', ...);
     ~~~
@@ -112,7 +112,7 @@ For more information about how this table locality works, see [Regional by row t
 
 Note that you can use a name other than `crdb_region` for the hidden column by using the following statements:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE foo SET LOCALITY REGIONAL BY ROW AS bar;
 SELECT bar, id FROM foo;
@@ -121,7 +121,7 @@ INSERT INTO foo (bar, ...) VALUES ('us-east-1', ...);
 
 In fact, you can specify any column definition you like for the `REGIONAL BY ROW AS` column, as long as the column is of type `crdb_internal_region` and is not nullable. For example, you could modify the [movr schema](movr.html#the-movr-database) to have a region column generated as:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE rides ADD COLUMN region crdb_internal_region AS (
   CASE
@@ -132,11 +132,11 @@ ALTER TABLE rides ADD COLUMN region crdb_internal_region AS (
 ) STORED;
 ~~~
 
-{%  include {{ page.version.version }}/sql/locality-optimized-search.md %}
+{{ partial "{{ page.version.version }}/sql/locality-optimized-search.md" . }}
 
 ### Turn on auto-rehoming for `REGIONAL BY ROW` tables
 
-{%  include common/experimental-warning.md %}
+{{ partial "common/experimental-warning.md" . }}
 
 This feature is disabled by default.
 
@@ -146,7 +146,7 @@ Once enabled, the auto-rehoming behavior described here **will only apply to new
 
 To enable it using the [session setting](set-vars.html), issue the following statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET experimental_enable_auto_rehoming = true;
 ~~~
@@ -157,7 +157,7 @@ SET
 
 To enable it using the [cluster setting](cluster-settings.html), issue the following statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET CLUSTER SETTING sql.defaults.experimental_auto_rehoming.enabled = on;
 ~~~
@@ -172,7 +172,7 @@ SET CLUSTER SETTING
 
 1. From the [SQL client](cockroach-sql.html) running in terminal 1, set the cluster setting that enables auto-rehoming. You must issue this cluster setting (or the session setting described above) before creating the `REGIONAL BY ROW` tables this feature operates on.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SET CLUSTER SETTING sql.defaults.experimental_auto_rehoming.enabled = on;
     ~~~
@@ -181,7 +181,7 @@ SET CLUSTER SETTING
 
 1. Switch back to terminal 1, and check the gateway region of the node you are currently connected to:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SELECT gateway_region();
     ~~~
@@ -195,7 +195,7 @@ SET CLUSTER SETTING
 
 1. Open another terminal (call it _terminal 3_), and use [`cockroach sql`](cockroach-sql.html) to connect to a node in a different region in the demo cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     cockroach sql --insecure --host localhost --port 26262
     ~~~
@@ -216,12 +216,12 @@ SET CLUSTER SETTING
 
 1. From the SQL shell prompt that appears in terminal 3, switch to the `movr` database, and verify that the current gateway node is in a different region (`us-west1`):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     USE movr;
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SELECT gateway_region();
     ~~~
@@ -237,7 +237,7 @@ SET CLUSTER SETTING
 
    1. First, pick a row at random from the `us-east1` region:
 
-       {%  include_cached copy-clipboard.html %}
+       {% include_cached copy-clipboard.html %}
        ~~~ sql
        select * from vehicles where region = 'us-east1' limit 1;
        ~~~
@@ -252,7 +252,7 @@ SET CLUSTER SETTING
 
    1. Next, update that row's `city` and `current_location` to addresses in Seattle, WA (USA). Note that this UUID is different than what you will see in your cluster, so you'll have to update the query accordingly.
 
-       {%  include_cached copy-clipboard.html %}
+       {% include_cached copy-clipboard.html %}
        ~~~ sql
        UPDATE vehicles set (city, current_location) = ('seattle', '2604 1st Ave, Seattle, WA 98121-1305') WHERE id = '3e127e68-a3f9-487d-aa56-bf705beca05a';
        ~~~
@@ -263,7 +263,7 @@ SET CLUSTER SETTING
 
    1. Finally, verify that the row has been auto-rehomed in this gateway's region by running the following statement and checking that the `region` column is now `us-west1` as shown below.
 
-       {%  include_cached copy-clipboard.html %}
+       {% include_cached copy-clipboard.html %}
        ~~~ sql
        SELECT * FROM vehicles WHERE id = '3e127e68-a3f9-487d-aa56-bf705beca05a';
        ~~~
@@ -281,7 +281,7 @@ SET CLUSTER SETTING
 
 To optimize read access to the data in a table from any region (that is, globally), use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE {table} SET LOCALITY GLOBAL;
 ~~~

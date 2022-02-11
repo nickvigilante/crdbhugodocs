@@ -25,7 +25,7 @@ For debugging and development purposes, you can use the [`cockroach demo`](cockr
 
 1. To set up the demo multi-region cluster, run `cockroach demo`, with the `--nodes` and `--demo-locality` flags. The localities specified below assume GCP region names.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach demo \
     --nodes=9 \
@@ -39,7 +39,7 @@ For debugging and development purposes, you can use the [`cockroach demo`](cockr
 
 1. Open another terminal window. In the new window, run the following command to load `dbinit.sql` to the demo database. This file contains the `movr` database schema that we covered in [Create a Multi-Region Database Schema](movr-flask-database.html).
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --url='postgres://demo:<demo_password>@127.0.0.1:26257?sslmode=require' -f dbinit.sql
     ~~~
@@ -47,7 +47,7 @@ For debugging and development purposes, you can use the [`cockroach demo`](cockr
 
 1. In the demo cluster terminal, verify that the database schema loaded properly:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES;
     ~~~
@@ -61,9 +61,9 @@ For debugging and development purposes, you can use the [`cockroach demo`](cockr
     (3 rows)
     ~~~
 
-{{ site.data.alerts.callout_info }}
-In production, you want to start a secure CockroachDB cluster, with nodes on machines located in different areas of the world. For instructions on deploying a multi-region CockroachDB cluster for this application, using [{{  site.data.products.dedicated  }}](https://www.cockroachlabs.com/product/cockroachcloud/), see [Deploy a Global, Serverless Application](movr-flask-deployment.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+In production, you want to start a secure CockroachDB cluster, with nodes on machines located in different areas of the world. For instructions on deploying a multi-region CockroachDB cluster for this application, using [{{ site.data.products.dedicated }}](https://www.cockroachlabs.com/product/cockroachcloud/), see [Deploy a Global, Serverless Application](movr-flask-deployment.html).
+{{site.data.alerts.end }}
 
 
 ## Set up a virtual development environment
@@ -72,7 +72,7 @@ For debugging, use [`pipenv`](https://docs.pipenv.org/), a tool that manages dep
 
 1. Run the following command to initialize the project's virtual environment:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pipenv --three
     ~~~
@@ -81,14 +81,14 @@ For debugging, use [`pipenv`](https://docs.pipenv.org/), a tool that manages dep
 
 1. Run the following command to install the packages listed in the `Pipfile`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pipenv install
     ~~~
 
 1. Activate the virtual environment:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pipenv shell
     ~~~
@@ -97,16 +97,16 @@ For debugging, use [`pipenv`](https://docs.pipenv.org/), a tool that manages dep
 
 1. To test out the application, you can run the server file:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ python server.py
     ~~~
 
 1. Navigate to the URL provided to test out the application. By default, this should be http://127.0.0.1:5000/.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In production, you want to [containerize](https://www.docker.com/resources/what-container) your application and deploy it with a deployment orchestration tool, like [Kubernetes](https://kubernetes.io/), or with a serverless deployment service, like [Google Cloud Run](https://cloud.google.com/run). We cover deploying the application with Google Cloud Run in [Deploy a Global Application](movr-flask-deployment.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Next steps
 

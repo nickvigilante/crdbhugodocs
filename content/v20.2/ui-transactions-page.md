@@ -4,18 +4,18 @@ summary: The Transactions page helps you identify frequently retried or high lat
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <span class="version-tag">New in v20.2:</span> The **Transactions** page helps you:
 
 - Identify frequently retried or high latency transactions.
 - View transaction [details](#transaction-details-page).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 In contrast with the [**Statements** page](ui-statements-page.html), which displays [SQL statement fingerprints](ui-statements-page.html#sql-statement-fingerprints), the **Transactions** page displays SQL statement fingerprints grouped by [transaction](transactions.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To view this page, [access the DB Console](ui-overview.html#db-console-access) and click **Transactions** in the left-hand navigation.
 
@@ -38,11 +38,11 @@ You can filter transactions in which a SQL statement fingerprint exceeds a speci
 
 Use this page to identify transactions that you may want to [troubleshoot](query-behavior-troubleshooting.html), such as transactions that are experiencing high latencies, multiple [retries](transactions.html#transaction-retries), or execution failures.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you haven't yet run any transactions in the cluster as a user, this page will display a blank table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-<img src="{{  'images/v20.2/ui-transactions-page.png' | relative_url  }}" alt="DB Console Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-transactions-page.png' | relative_url }}" alt="DB Console Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 Parameter | Description
 -----|------------
@@ -53,9 +53,9 @@ Execution Count | Cumulative number of executions of this transaction within the
 Rows Affected | Average number of rows returned while executing this transaction within the last hour or specified [time interval](#time-interval). <br><br>The gray bar indicates the mean number of rows returned. The blue bar indicates one standard deviation from the mean.
 Latency | Average service latency of this transaction within the last hour or specified [time interval](#time-interval). This includes the total time the transaction remains open, which can exceed the latency of the SQL statements in the transaction. To view the SQL statement latency for this transaction, see the [**Transaction Details** page](#transaction-details-page). <br><br>The gray bar indicates the mean latency. The blue bar indicates one standard deviation from the mean.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Significant transactions on your database are likely to have a high execution count or number of rows affected.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Time interval
 
@@ -67,7 +67,7 @@ Click on a transaction fingerprint to open **Transaction Details**.
 
 The *transaction fingerprint* is displayed as a list of the individual [SQL statement fingerprints](ui-statements-page.html#sql-statement-fingerprints) in the transaction:
 
-<img src="{{  'images/v20.2/ui-transactions-details-page.png' | relative_url  }}" alt="DB Console Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-transactions-details-page.png' | relative_url }}" alt="DB Console Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 The following details are also displayed for the SQL statements in the transaction:
 

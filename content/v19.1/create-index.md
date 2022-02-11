@@ -14,13 +14,13 @@ The following types cannot be included in an index key, but can be stored (and u
 
 To create an index on the schemaless data in a [`JSONB`](jsonb.html) column, use an [inverted index](inverted-indexes.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Indexes are automatically created for a table's [`PRIMARY KEY`](primary-key.html) and [`UNIQUE`](unique.html) columns.
 
 When querying a table, CockroachDB uses the fastest index. For more information about that process, see [Index Selection in CockroachDB](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -30,11 +30,11 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 **Standard index:**
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_index.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_index.html" . }}</section>
 
 **Inverted index:**
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_inverted_index.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_inverted_index.html" . }}</section>
 
 ## Parameters
 
@@ -54,7 +54,7 @@ Parameter | Description
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
@@ -69,7 +69,7 @@ To create the most efficient indexes, we recommend reviewing:
 
 Single-column indexes sort the values of a single column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON products (price);
 ~~~
@@ -80,7 +80,7 @@ Because each query can only use one index, single-column indexes are not typical
 
 Multiple-column indexes sort columns in the order you list them.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON products (price, stock);
 ~~~
@@ -91,14 +91,14 @@ To create the most useful multiple-column indexes, we recommend reviewing our [b
 
 Unique indexes do not allow duplicate values among their columns.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE UNIQUE INDEX ON products (name, manufacturer_id);
 ~~~
 
 This also applies the [`UNIQUE` constraint](unique.html) at the table level, similarly to [`ALTER TABLE`](alter-table.html). The above example is equivalent to:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE products ADD CONSTRAINT products_name_manufacturer_id_key UNIQUE (name, manufacturer_id);
 ~~~
@@ -107,14 +107,14 @@ This also applies the [`UNIQUE` constraint](unique.html) at the table level, sim
 
 [Inverted indexes](inverted-indexes.html) can be created on schemaless data in a [`JSONB`](jsonb.html) column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INVERTED INDEX ON users (profile);
 ~~~
 
 The above example is equivalent to the following PostgreSQL-compatible syntax:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users USING GIN (profile);
 ~~~
@@ -123,7 +123,7 @@ The above example is equivalent to the following PostgreSQL-compatible syntax:
 
 Storing a column improves the performance of queries that retrieve (but do not filter) its values.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON products (price) STORING (name);
 ~~~
@@ -134,7 +134,7 @@ However, to use stored columns, queries must filter another column in the same i
 
 To sort columns in descending order, you must explicitly set the option when creating the index. (Ascending order is the default.)
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON products (price DESC, stock);
 ~~~
@@ -145,7 +145,7 @@ Note that how a column is ordered in the index will affect the ordering of the i
 
 Normally, CockroachDB selects the index that it calculates will scan the fewest rows. However, you can override that selection and specify the name of the index you want to use. To find the name, use [`SHOW INDEX`](show-index.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM products;
 ~~~
@@ -161,7 +161,7 @@ Normally, CockroachDB selects the index that it calculates will scan the fewest 
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name FROM products@products_price_idx WHERE price > 10;
 ~~~

@@ -7,18 +7,18 @@ docs_area: reference.sql
 
 The `crdb_internal` [system catalog](system-catalogs.html) is a schema that contains information about internal objects, processes, and metrics related to a specific database.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 We do not recommend using `crdb_internal` tables in production environments for the following reasons:
 
 - The contents of `crdb_internal` are unstable, and subject to change in new releases of CockroachDB, without prior notice.
 - There are memory and latency costs associated with each table in `crdb_internal`. Accessing the tables in the schema can impact cluster stability and performance.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Data exposed by `crdb_internal`
 
 Each table in `crdb_internal` corresponds to an internal object, process, or metric, for a specific database. `crdb_internal` tables are read-only.
 
-In CockroachDB {{  page.version.version  }}, `crdb_internal` includes the following tables:
+In CockroachDB {{ page.version.version }}, `crdb_internal` includes the following tables:
 
 Table | Description
 -------|-------
@@ -87,7 +87,7 @@ Table | Description
 
 To list the `crdb_internal` tables for the [current database](sql-name-resolution.html#current-database), use the following [`SHOW TABLES`](show-tables.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM crdb_internal;
 ~~~
@@ -104,17 +104,17 @@ To list the `crdb_internal` tables for the [current database](sql-name-resolutio
 
 To get detailed information about objects, processes, or metrics related to your database, you can read from the `crdb_internal` table that corresponds to the item of interest.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To ensure that you can view all of the tables in `crdb_internal`, query the tables as a user with [`admin` privileges](authorization.html#admin-role).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Unless specified otherwise, queries to `crdb_internal` assume the [current database](sql-name-resolution.html#current-database).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example, to return the `crdb_internal` table for the ranges of the [`movr`](movr.html) database, you can use the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM movr.crdb_internal.ranges;
 ~~~

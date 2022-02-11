@@ -15,7 +15,7 @@ To use this guide, it's important to understand some of CockroachDB's terminolog
 
 Try running:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --insecure --logtostderr
 ~~~
@@ -29,16 +29,16 @@ When starting a node, the directory you choose to store the data in also contain
 **Solution:** Disassociate the node from the existing directory where you've stored CockroachDB data. For example, you can do either of the following:
 
 -   Choose a different directory to store the CockroachDB data:  
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --store=<new directory> --insecure
     ~~~
 -   Remove the existing directory and start the node again:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --insecure --logtostderr
     ~~~
@@ -71,7 +71,7 @@ See [Why is my process hanging when I try to start it in the background?](operat
 
 If the CockroachDB node appeared to [start successfully](start-a-local-cluster.html), in a separate terminal run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure -e "show databases"
 ~~~
@@ -94,9 +94,9 @@ If you’re not seeing the output above, check for the following:
 
 ## Cannot run a multi-node CockroachDB cluster on the same machine
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Running multiple nodes on a single host is useful for testing out CockroachDB, but it's not recommended for production deployments. To run a physically distributed cluster in production, see [Manual Deployment](manual-deployment.html) or [Orchestrated Deployment](orchestration.html). Also be sure to review the [Production Checklist](recommended-production-settings.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you are trying to run all nodes on the same machine, you might get the following errors:
 
@@ -135,17 +135,17 @@ node belongs to cluster {"cluster hash"} but is attempting to connect to a gossi
 **Solution:** Disassociate the node from the existing directory where you've stored CockroachDB data. For example, you can do either of the following:
 
 -   Choose a different directory to store the CockroachDB data:  
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --store=<new directory> --join=<cluster host> <other flags>
     ~~~
 -   Remove the existing directory and start a node joining the cluster again:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --join=<cluster host>:26257 <other flags>  
     ~~~

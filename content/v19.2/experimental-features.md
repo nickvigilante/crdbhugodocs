@@ -4,14 +4,14 @@ summary: Learn about the experimental features available in CockroachDB
 toc: true
 ---
 
-This page lists the experimental features that are available in CockroachDB {{  page.version.version  }}.
+This page lists the experimental features that are available in CockroachDB {{ page.version.version }}.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This page describes experimental features.**  Their interfaces and outputs are subject to change, and there may be bugs.
 <br />
 <br />
 If you encounter a bug, please [file an issue](file-an-issue.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Session variables
 
@@ -28,7 +28,7 @@ The table below lists the experimental session settings that are available.  For
 
 Log all queries against a table to a file, for security purposes. For more information, see [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
@@ -42,14 +42,14 @@ You have the following options for controlling lease and replica location:
 
 For example, to distribute leases and ranges for N primary keys across N stores in the cluster, run a statement with the following structure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t EXPERIMENTAL_RELOCATE SELECT ARRAY[<storeid1>, <storeid2>, ..., <storeidN>], <primarykeycol1>, <primarykeycol2>, ..., <primarykeycolN>;
 ~~~
 
 To relocate just the lease without moving the replicas, run a statement like the one shown below, which moves the lease for the range containing primary key 'foo' to store 1.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t EXPERIMENTAL_RELOCATE LEASE SELECT 1, 'foo';
 ~~~
@@ -60,7 +60,7 @@ Table fingerprints are used to compute an identification string of an entire tab
 
 Example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_FINGERPRINTS FROM TABLE t;
 ~~~
@@ -78,7 +78,7 @@ Use session tracing (via [`SHOW TRACE FOR SESSION`](show-trace.html)) to report 
 
 Example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET tracing = on;
 > SELECT * from t;
@@ -97,11 +97,11 @@ Example:
 
 Checks the consistency of [`UNIQUE`](unique.html) indexes, [`CHECK`](check.html) constraints, and more.  Partially implemented; see [cockroachdb/cockroach#10425](https://github.com/cockroachdb/cockroach/issues/10425) for details.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This example uses the `users` table from our open-source, fictional peer-to-peer vehicle-sharing application, [MovR](movr.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  EXPERIMENTAL SCRUB table movr.users;
 ~~~
@@ -138,7 +138,7 @@ The table below lists the experimental SQL functions and operators available in 
 
 [Vectorized query execution](vectorized-execution.html) in CockroachDB is experimental for the following [memory-intensive operations](vectorized-execution.html#memory-intensive-operations):
 
-{%  include {{ page.version.version }}/sql/disk-spilling-ops.md %}
+{{ partial "{{ page.version.version }}/sql/disk-spilling-ops.md" . }}
 
 To turn vectorized execution on for all operations, set the `vectorize` [session variable](set-vars.html) to `experimental_on`.
 

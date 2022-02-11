@@ -14,7 +14,7 @@ The user must have the `DROP` [privilege](privileges.html) on the database and o
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/drop_database.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/drop_database.html" . }}
 </div>
 
 ## Parameters

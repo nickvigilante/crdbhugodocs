@@ -15,15 +15,15 @@ Admission control is disabled by default. To enable admission control:
 
 We recommend enabling admission control on all layers if you decide to use admission control.
 
-{{ site.data.alerts.important }}
+{{site.data.alerts.important }}
 If you are upgrading to v21.2, first complete the upgrade with admission control disabled, then enable admission control after verifying the upgrade was successful.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Use cases for admission control
 
 A well-provisioned CockroachDB cluster may still encounter performance bottlenecks at the node level, as stateful nodes can develop hotspots that last until the cluster rebalances itself. When hotspots occur, they should not cause failures or degraded performance for important work.
 
-This is particularly important for {{  site.data.products.serverless  }}, where one user tenant cluster experiencing high load should not degrade the performance or availability of a different, isolated tenant cluster running on the same host.
+This is particularly important for {{ site.data.products.serverless }}, where one user tenant cluster experiencing high load should not degrade the performance or availability of a different, isolated tenant cluster running on the same host.
 
 If your cluster has degraded performance due to the following types of node overload scenarios, enabling admission control can help:
 
@@ -32,9 +32,9 @@ If your cluster has degraded performance due to the following types of node over
 - The node has high CPU usage, visible in the **CPU percent** graph in the [**Overload** dashboard](../ui-overload-dashboard.html#cpu-percent).
 - The node is experiencing out-of-memory errors, visible in the **Memory Usage** graph in the [**Hardware** dashboard](../ui-hardware-dashboard.html#memory-usage). Even though admission control does not explicitly target controlling memory usage, it can reduce memory usage as a side effect of delaying the start of operation execution when the CPU is overloaded.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Admission control should be used when overall cluster health is good but some nodes are experiencing overload. If you see these overload scenarios on many nodes in the cluster, that typically means the cluster needs more resources.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Work queues and ordering
 

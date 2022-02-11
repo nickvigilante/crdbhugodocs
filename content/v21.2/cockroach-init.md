@@ -8,22 +8,22 @@ docs_area: reference.cli
 
 This page explains the `cockroach init` [command](cockroach-commands.html), which you use to perform a one-time initialization of a new multi-node cluster. For a full walk-through of the cluster startup and initialization process, see one of the [Manual Deployment](manual-deployment.html) tutorials.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When starting a single-node cluster with [`cockroach start-single-node`](cockroach-start-single-node.html), you do not need to use the `cockroach init` command.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 Perform a one-time initialization of a cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init <flags>
 ~~~
 
 View help:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init --help
 ~~~
@@ -32,13 +32,13 @@ $ cockroach init --help
 
 The `cockroach init` command supports the following [client connection](#client-connection) and [logging](#logging) flags.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `cockroach init` must target one of the nodes that was listed with [`--join`](cockroach-start.html#networking) when starting the cluster. Otherwise, the command will not initialize the cluster correctly.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Client connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 `--cluster-name` | The cluster name to use to verify the cluster's identity. If the cluster has a cluster name, you must include this flag. For more information, see [`cockroach start`](cockroach-start.html#general).
 `--disable-cluster-name-verification` | Disables the cluster name check for this command. This flag must be paired with `--cluster-name`. For more information, see [`cockroach start`](cockroach-start.html#general).
 
@@ -46,7 +46,7 @@ See [Client Connection Parameters](connection-parameters.html) for details.
 
 ### Logging
 
-{%  include {{  page.version.version  }}/misc/logging-defaults.md %}
+{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
 
 ## Examples
 
@@ -66,7 +66,7 @@ Usage of `cockroach init` assumes that nodes have already been started with [`co
 
 3. Run the `cockroach init` command with the `--certs-dir` flag set to the directory containing the `ca.crt` file and the files for the `root` user, and with the `--host` flag set to the address of the current node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=<address of this node>
     ~~~
@@ -79,7 +79,7 @@ Usage of `cockroach init` assumes that nodes have already been started with [`co
 
 2. Run the `cockroach init` command with the `--host` flag set to the address of the current node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of this node>
     ~~~
@@ -101,7 +101,7 @@ Usage of `cockroach init` assumes that nodes have already been started with [`co
 
 3. Run the `cockroach init` command with the `--certs-dir` flag set to the directory containing the `ca.crt` file and the files for the `root` user, and with the `--host` flag set to the address of the node. This must be a node that was listed with [`--join`](cockroach-start.html#networking) when starting the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=<address of any node on --join list>
     ~~~
@@ -114,7 +114,7 @@ Usage of `cockroach init` assumes that nodes have already been started with [`co
 
 2. Run the `cockroach init` command with the `--host` flag set to the address of the node. This must be a node that was listed with [`--join`](cockroach-start.html#networking) when starting the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node on --join list>
     ~~~

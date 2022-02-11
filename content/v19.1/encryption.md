@@ -97,9 +97,9 @@ A few other recommendations apply for best security practices:
 * Do not copy the encrypted files, as the data keys are not easily available.
 * If encryption is desired, start a node with it enabled from the first run, without ever running in plaintext.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Note that backups taken with the [`BACKUP`](backup.html) statement **are not encrypted** even if Encryption at Rest is enabled. Encryption at Rest only applies to the CockroachDB node's data on the local disk. If you want encrypted backups, you will need to encrypt your backup files using your preferred encryption method.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Examples
 
@@ -117,14 +117,14 @@ bytes depending on the encryption algorithm).
 
 Generating a key file can be done using the `cockroach` CLI:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach gen encryption-key -s 128 /path/to/my/aes-128.key
 ~~~
 
 Or the equivalent [openssl](https://www.openssl.org/docs/man1.1.1/man1/openssl.html) CLI command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ openssl rand -out /path/to/my/aes-128.key 48
 ~~~
@@ -151,14 +151,14 @@ encryption algorithms, and between plaintext and encrypted.
 
 Starting a node for the first time using AES-128 encryption can be done using:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --store=cockroach-data --enterprise-encryption=path=cockroach-data,key=/path/to/my/aes-128.key,old-key=plain
 ~~~
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Once specified for a given store, the `--enterprise-encryption` flag must always be present.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Checking encryption status
 
@@ -188,7 +188,7 @@ while the key previously used must be specified in the `old-key` component.
 
 For example, we can switch from AES-128 to AES-256 using:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --store=cockroach-data --enterprise-encryption=path=cockroach-data,key=/path/to/my/aes-256.key,old-key=/path/to/my/aes-128.key
 ~~~

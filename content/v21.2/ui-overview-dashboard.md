@@ -9,11 +9,11 @@ The **Overview** dashboard lets you monitor important SQL performance, replicati
 
 To view this dashboard, [access the DB Console](ui-overview.html#db-console-access) and click **Metrics** on the left-hand navigation bar. The **Overview** dashboard is displayed by default.
 
-{%  include {{  page.version.version  }}/ui/ui-metrics-navigation.md %}
+{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 All timestamps in the DB Console are shown in Coordinated Universal Time (UTC).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The **Overview** dashboard displays the following time series graphs:
 
@@ -27,11 +27,11 @@ See the [Statements page](ui-statements-page.html) for more details on the clust
 
 ## Service Latency: SQL, 99th percentile
 
-{%  include {{  page.version.version  }}/ui/ui-sql-latency-99th-percentile.md %}
+{{ partial "{{ page.version.version }}/ui/ui-sql-latency-99th-percentile.md" . }}
 
 ## Replicas per Node
 
-<img src="{{  'images/v21.2/ui_replicas_per_node.png' | relative_url  }}" alt="DB Console Replicas per node graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/ui_replicas_per_node.png' | relative_url }}" alt="DB Console Replicas per node graph" style="border:1px solid #eee;max-width:100%" />
 
 Ranges are subsets of your data, which are replicated to ensure survivability. Ranges are replicated to a configurable number of CockroachDB nodes.
 
@@ -41,13 +41,13 @@ Ranges are subsets of your data, which are replicated to ensure survivability. R
 
 For details about how to control the number and location of replicas, see [Configure Replication Zones](configure-replication-zones.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The timeseries data used to power the graphs in the DB Console is stored within the cluster and accumulates for 30 days before it starts getting truncated. As a result, for the first 30 days or so of a cluster's life, you will see a steady increase in disk usage and the number of ranges even if you aren't writing data to the cluster yourself. For more details, see this [FAQ](operational-faqs.html#why-is-disk-usage-increasing-despite-lack-of-writes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Capacity
 
-<img src="{{  'images/v21.2/ui_capacity.png' | relative_url  }}" alt="DB Console Capacity graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/ui_capacity.png' | relative_url }}" alt="DB Console Capacity graph" style="border:1px solid #eee;max-width:100%" />
 
 You can monitor the **Capacity** graph to determine when additional storage is needed (e.g., by [scaling your cluster](cockroach-start.html)).
 
@@ -57,7 +57,7 @@ Metric | Description
 **Available** | The free disk space available to CockroachDB data.
 **Used** | The disk space in use by CockroachDB data. This excludes the Cockroach binary, operating system, and other system files.
 
-{%  include {{  page.version.version  }}/prod-deployment/healthy-storage-capacity.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/healthy-storage-capacity.md" . }}
 
 ### Capacity metrics
 
@@ -70,11 +70,11 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/ui/ui-summary-events.md %}
+{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
 
 ## See also
 

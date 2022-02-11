@@ -16,9 +16,9 @@ The Default Value [constraint](constraints.html) specifies a value to write into
 
 You can only apply the Default Value constraint to individual columns.
 
-{{ site.data.alerts.callout_info }}You can also add the Default Value constraint to an existing table through <a href="alter-column.html#set-or-change-a-default-value"><code>ALTER COLUMN</code></a>. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You can also add the Default Value constraint to an existing table through <a href="alter-column.html#set-or-change-a-default-value"><code>ALTER COLUMN</code></a>. {{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/sql/diagrams/default_value_column_level.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/default_value_column_level.html" . }}
 
 | Parameter | Description |
 |-----------|-------------|

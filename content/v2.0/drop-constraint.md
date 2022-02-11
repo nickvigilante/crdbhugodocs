@@ -6,13 +6,13 @@ toc: true
 
 The `DROP CONSTRAINT` [statement](sql-statements.html) is part of `ALTER TABLE` and removes Check and Foreign Key constraints from columns.
 
-{{ site.data.alerts.callout_info }}For information about removing other constraints, see <a href="constraints.html#remove-constraints">Constraints: Remove Constraints</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}For information about removing other constraints, see <a href="constraints.html#remove-constraints">Constraints: Remove Constraints</a>.{{site.data.alerts.end }}
 
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/drop_constraint.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/drop_constraint.html" . }}
 </div>
 
 ## Required Privileges
@@ -28,7 +28,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the table.
 
 ## Viewing Schema Changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Example
 
@@ -60,7 +60,7 @@ ALTER TABLE
 +--------+---------+-------------+-----------+---------+
 ~~~
 
-{{ site.data.alerts.callout_info }}You cannot drop the <code>primary</code> constraint, which indicates your table's <a href="primary-key.html">Primary Key</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You cannot drop the <code>primary</code> constraint, which indicates your table's <a href="primary-key.html">Primary Key</a>.{{site.data.alerts.end }}
 
 ## See Also
 

@@ -6,13 +6,13 @@ toc: true
 
 The `ALTER TABLE` [statement](sql-statements.html) applies a schema change to a table. For information on using `ALTER TABLE`, see the pages for its relevant [subcommands](#subcommands).
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Subcommands
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Some subcommands can be used in combination in a single `ALTER TABLE` statement. For example, you can [atomically rename a column and add a new column with the old name of the existing column](rename-column.html#add-and-rename-columns-atomically).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Subcommand | Description | Can combine with other subcommands?
 -----------|-------------|------------------------------------
@@ -33,4 +33,4 @@ Subcommand | Description | Can combine with other subcommands?
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}

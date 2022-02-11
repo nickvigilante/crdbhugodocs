@@ -13,7 +13,7 @@ The user must have the `DROP` [privilege](privileges.html) on the specified view
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_view.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_view.html" . }}</section>
 
 ## Parameters
 
@@ -69,7 +69,7 @@ DROP VIEW
 
 In this example, another view depends on the view being dropped. Therefore, it's only possible to drop the view while simultaneously dropping the dependent view using `CASCADE`.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent views without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent views without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';

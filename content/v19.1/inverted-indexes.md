@@ -6,7 +6,7 @@ toc: true
 
 Inverted indexes improve your database's performance by helping SQL locate the schemaless data in a [`JSONB`](jsonb.html) column.
 
-{{ site.data.alerts.callout_success }}For a hands-on demonstration of using an inverted index to improve query performance on a <code>JSONB</code> column, see the <a href="demo-json-support.html">JSON tutorial</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a hands-on demonstration of using an inverted index to improve query performance on a <code>JSONB</code> column, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end }}
 
 
 ## How do inverted indexes work?
@@ -87,7 +87,7 @@ Currently, inverted indexes only support equality comparisons using the `=` oper
 
 1. Create your table with a computed column: 
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE test (
         id INT, 
@@ -98,14 +98,14 @@ Currently, inverted indexes only support equality comparisons using the `=` oper
 
 2. Create an index on your computed column: 
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE INDEX test_idx ON test (foo);
     ~~~
 
 3. Execute your query with your comparison: 
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM test where foo > 3;
     ~~~
@@ -114,7 +114,7 @@ Currently, inverted indexes only support equality comparisons using the `=` oper
 
 In this example, let's create a table with a `JSONB` column and an inverted index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
     profile_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -126,7 +126,7 @@ In this example, let's create a table with a `JSONB` column and an inverted inde
 
 Then, insert a few rows a data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO users (user_profile) VALUES
     ('{"first_name": "Lola", "last_name": "Dog", "location": "NYC", "online" : true, "friends" : 547}'),
@@ -135,7 +135,7 @@ Then, insert a few rows a data:
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT *, jsonb_pretty(user_profile) FROM users;
 ~~~
@@ -169,7 +169,7 @@ Then, insert a few rows a data:
 
 Now, run a query that filters on the `JSONB` column:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users where user_profile @> '{"location":"NYC"}';
 ~~~

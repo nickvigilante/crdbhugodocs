@@ -6,9 +6,9 @@ toc: true
 
 The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authorization.html#create-and-manage-roles), which are groups containing any number of roles and users as members. You can assign privileges to roles, and all members of the role (regardless of whether if they are direct or indirect members) will inherit the role's privileges.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v20.1</span>: <code>CREATE ROLE</code> is no longer an enterprise feature and is now freely available in the core version of CockroachDB. Also, since the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `CREATE ROLE` is now an alias for [`CREATE USER`](create-user.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Considerations
 
@@ -31,7 +31,7 @@ The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authoriza
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/create_role.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/create_role.html" . }}</section>
 
 ## Parameters
 
@@ -45,7 +45,7 @@ The `CREATE ROLE` [statement](sql-statements.html) creates SQL [roles](authoriza
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE dev_ops;
 ~~~
@@ -57,14 +57,14 @@ After creating roles, you can [add users to the role](grant-roles.html) and [gra
 
 ### Allow the role to create other roles
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE dev with CREATEROLE;
 ~~~
 
 ### Create a role with a password using a string literal
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD 'ilov3beefjerky';
 ~~~
@@ -77,7 +77,7 @@ CREATE ROLE 1
 
 The following statement sets the password to `ilov3beefjerky`, as above:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD ilov3beefjerky;
 ~~~
@@ -86,14 +86,14 @@ This is equivalent to the example in the previous section because the password c
 
 In contrast, the following statement sets the password to `thereisnotomorrow`, even though the password in the syntax contains capitals, because identifiers are normalized automatically:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD ThereIsNoTomorrow;
 ~~~
 
 To preserve case in a password specified using identifier syntax, use double quotes:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD "ThereIsNoTomorrow";
 ~~~
@@ -102,7 +102,7 @@ To preserve case in a password specified using identifier syntax, use double quo
 
 The following statement prevents the role from using password authentication and mandates certificate-based client authentication:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE ROLE carl WITH PASSWORD NULL;
 ~~~

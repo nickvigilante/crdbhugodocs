@@ -5,11 +5,11 @@ toc: true
 docs_area: manage
 ---
 
-Now that [CockroachDB v21.2](../releases/v21.2.0.html) is available, a [Console Admin](console-access-management.html#console-admin) can upgrade your {{  site.data.products.dedicated  }} cluster from the {{  site.data.products.db  }} Console. This page walks through the process for an Admin.
+Now that [CockroachDB v21.2](../releases/v21.2.0.html) is available, a [Console Admin](console-access-management.html#console-admin) can upgrade your {{ site.data.products.dedicated }} cluster from the {{ site.data.products.db }} Console. This page walks through the process for an Admin.
 
-{{ site.data.alerts.callout_success }}
-Upgrading a {{  site.data.products.dedicated  }} cluster to a new major version is opt-in. Before proceeding, review the {{  site.data.products.db  }} [upgrade policy](upgrade-policy.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+Upgrading a {{ site.data.products.dedicated }} cluster to a new major version is opt-in. Before proceeding, review the {{ site.data.products.db }} [upgrade policy](upgrade-policy.html).
+{{site.data.alerts.end }}
 
 ## Step 1. Verify that you can upgrade
 
@@ -27,15 +27,15 @@ The upgrade process depends on the number of nodes in your cluster. Select wheth
 ## Step 3. Understand the upgrade process
 
 <section class="filter-content" markdown="1" data-scope="multi-node">
-In a multi-node cluster, the upgrade does not interrupt the cluster's overall health and availability. One node is stopped and restarted with the new version, then the next, and so on, pausing for a few minutes between each node. This "rolling upgrade" takes approximately 4-5 minutes per node and is enabled by CockroachDB's [multi-active availability](../{{ site.versions["stable"] }}/multi-active-availability.html) design.
+In a multi-node cluster, the upgrade does not interrupt the cluster's overall health and availability. One node is stopped and restarted with the new version, then the next, and so on, pausing for a few minutes between each node. This "rolling upgrade" takes approximately 4-5 minutes per node and is enabled by CockroachDB's [multi-active availability](../{{site.versions["stable"] }}/multi-active-availability.html) design.
 
-Approximately 72 hours after all nodes are running v21.2, the upgrade will be automatically finalized. This enables certain [features and performance improvements introduced in v21.2](#respect-temporary-limitations). Finalization also removes the ability to roll back to v21.1, so it's important to monitor your application during this 72-hour window and, if you see unexpected behavior, [roll back the upgrade](#roll-back-the-upgrade) from the {{  site.data.products.db  }} Console.
+Approximately 72 hours after all nodes are running v21.2, the upgrade will be automatically finalized. This enables certain [features and performance improvements introduced in v21.2](#respect-temporary-limitations). Finalization also removes the ability to roll back to v21.1, so it's important to monitor your application during this 72-hour window and, if you see unexpected behavior, [roll back the upgrade](#roll-back-the-upgrade) from the {{ site.data.products.db }} Console.
 </section>
 
 <section class="filter-content" markdown="1" data-scope="single-node">
 When you start the upgrade, the cluster will be unavailable for a few minutes while the node is stopped and restarted with v21.2.
 
-Approximately 72 hours after the node has been restarted, the upgrade will be automatically finalized. This enables certain [features and performance improvements introduced in v21.2](#respect-temporary-limitations). Finalization also removes the ability to roll back to v21.1, so it's important to monitor your application during this 72-hour window and, if you see unexpected behavior, [roll back the upgrade](#roll-back-the-upgrade) from the {{  site.data.products.db  }} Console.
+Approximately 72 hours after the node has been restarted, the upgrade will be automatically finalized. This enables certain [features and performance improvements introduced in v21.2](#respect-temporary-limitations). Finalization also removes the ability to roll back to v21.1, so it's important to monitor your application during this 72-hour window and, if you see unexpected behavior, [roll back the upgrade](#roll-back-the-upgrade) from the {{ site.data.products.db }} Console.
 </section>
 
 ## Step 4. Prepare to upgrade
@@ -48,7 +48,7 @@ Approximately 72 hours after the node has been restarted, the upgrade will be au
 
 Your cluster will be unavailable while its single node is stopped and restarted with v21.2. Prepare your application for this brief downtime, typically a few minutes.
 
-The [**SQL Users**](user-authorization.html#create-a-sql-user) and [**Monitoring**](monitoring-page.html) tabs in the {{  site.data.products.db  }} Console will also be disabled during this time.
+The [**SQL Users**](user-authorization.html#create-a-sql-user) and [**Monitoring**](monitoring-page.html) tabs in the {{ site.data.products.db }} Console will also be disabled during this time.
 
 </section>
 
@@ -60,7 +60,7 @@ Review the [backward-incompatible changes in v21.2](../releases/v21.2.0.html#bac
 
 To start the upgrade process:
 
-1. [Sign in](https://cockroachlabs.cloud/) to your {{  site.data.products.db  }} account.
+1. [Sign in](https://cockroachlabs.cloud/) to your {{ site.data.products.db }} account.
 
 2. In the **Clusters** list, select the cluster you want to upgrade.
 
@@ -106,7 +106,7 @@ For an expanded list of features included in the v21.2 release, see the [v21.2 r
 
 If you see unexpected behavior, you can roll back the upgrade during the 72-hour window.
 
-To stop the upgrade and roll back to v21.1, click **Roll back** in the banner at the top of the {{  site.data.products.db  }} Console, and then click **Roll back upgrade**.
+To stop the upgrade and roll back to v21.1, click **Roll back** in the banner at the top of the {{ site.data.products.db }} Console, and then click **Roll back upgrade**.
 
 <section class="filter-content" markdown="1" data-scope="multi-node">
 During rollback, nodes will be reverted to v21.1 one at a time without interrupting the cluster's health and availability.
@@ -124,7 +124,7 @@ If everything looks good, you can wait for the upgrade to automatically finalize
 
 The upgrade is automatically finalized after 72 hours.
 
-To manually finalize the upgrade, click **Finalize** in the banner at the top of the {{  site.data.products.db  }} Console, and then click **Finalize upgrade**.
+To manually finalize the upgrade, click **Finalize** in the banner at the top of the {{ site.data.products.db }} Console, and then click **Finalize upgrade**.
 
 After finalization, all [temporary limitations](#respect-temporary-limitations) will be lifted, and all v21.2 features are available for use. However, it will no longer be possible to roll back to v21.1. If you see unexpected behavior after the upgrade has been finalized, [contact support](https://support.cockroachlabs.com/hc/en-us/requests/new).
 

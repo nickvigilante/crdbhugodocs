@@ -44,9 +44,9 @@ The following ORM spatial libraries are fully compatible with CockroachDB's spat
 
     Starting with CockroachDB 20.2.x and [`django-cockroachdb`](https://github.com/cockroachdb/django-cockroachdb) 3.1.3, CockroachDB is compatible with [GeoDjango](https://docs.djangoproject.com/en/3.1/ref/contrib/gis/). For information about using CockroachDB spatial features with GeoDjango, see the [`django-cockroachdb` README](https://github.com/cockroachdb/django-cockroachdb#gis-support).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Most PostGIS-compatible client libraries are incompatible with CockroachDB's spatial features without an adapter.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Troubleshooting
 
@@ -79,7 +79,7 @@ The syntax for adding an [index](spatial-indexes.html) to a geometry column is `
 
 For example, to add an index to the `geom` column of the [sample `tornadoes` table](migrate-from-shapefiles.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE INDEX tornado_geom_idx ON tornadoes USING GIST (geom);
 ~~~
@@ -96,13 +96,13 @@ If you encounter behavior that you think is due to a performance issue, please g
 
 Follow the steps below to load the SQL for the NYC data used in the [Introduction to PostGIS](https://postgis.net/workshops/postgis-intro/) tutorial.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB can work with the tutorial up to Chapter 22, with the following exceptions:  
 
 - Do not try to load Shapefiles via the GUI as shown in the tutorial. Instead, follow the steps below to load the SQL data directly into CockroachDB. (We have already converted the tutorial Shapefiles to SQL for you.)  
 - We do not support GML or KML data.  
 - We do not support SVG.  
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Before you begin
 
@@ -110,7 +110,7 @@ CockroachDB can work with the tutorial up to Chapter 22, with the following exce
 
 - [Start a local insecure cluster](start-a-local-cluster.html) and connect to that cluster from a [SQL client](cockroach-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     cockroach sql --insecure --host=localhost --port=26257
     ~~~
@@ -121,14 +121,14 @@ CockroachDB can work with the tutorial up to Chapter 22, with the following exce
 
 Clone the data set:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 git clone https://github.com/otan-cockroach/otan-scripts
 ~~~
 
 Load the SQL files into your CockroachDB cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 cat otan-scripts/geospatial_sql/*.sql | cockroach sql --insecure --host=localhost --port=26257
 ~~~
@@ -139,7 +139,7 @@ The command above will take a few minutes to run.
 
 When the cluster is finished loading the data, open a SQL shell and start working through the [Introduction to PostGIS](https://postgis.net/workshops/postgis-intro/) tutorial:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 cockroach sql --insecure --host=localhost --port=26257
 ~~~

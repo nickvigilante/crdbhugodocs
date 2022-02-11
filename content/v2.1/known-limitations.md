@@ -10,13 +10,13 @@ This page describes newly identified limitations in the CockroachDB {{ page.rele
 
 ### Adding stores to a node
 
-{%  include {{  page.version.version  }}/known-limitations/adding-stores-to-node.md %}
+{{ partial "{{ page.version.version }}/known-limitations/adding-stores-to-node.md" . }}
 
 ### Change data capture
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{%  include {{ page.version.version }}/known-limitations/cdc.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
 
 ### Cold starts of large clusters may require manual intervention
 
@@ -146,7 +146,7 @@ Currently, the built-in SQL shell provided with CockroachDB (`cockroach sql` / `
 
 ### Importing an interleaved table from a `cockroach dump` output
 
-{%  include {{ page.version.version }}/known-limitations/import-interleaved-table.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-interleaved-table.md" . }}
 
 ## Unresolved limitations
 
@@ -166,7 +166,7 @@ Specifically, when run inside a [`BEGIN`](begin-transaction.html) ... [`COMMIT`]
 
 ### Changes to the default replication zone are not applied to existing replication zones
 
-{%  include {{ page.version.version }}/known-limitations/system-range-replication.md %}
+{{ partial "{{ page.version.version }}/known-limitations/system-range-replication.md" . }}
 
 ### Silent validation error with `DECIMAL` values
 
@@ -182,45 +182,45 @@ Most client drivers and frameworks use the text format to pass placeholder value
 
 [`IMPORT`](import.html) can sometimes fail with a "context canceled" error, or can restart itself many times without ever finishing. If this is happening, it is likely due to a high amount of disk contention. This can be mitigated by setting the `kv.bulk_io_write.max_rate` [cluster setting](cluster-settings.html) to a value below your max disk write speed. For example, to set it to 10MB/s, execute:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.bulk_io_write.max_rate = '10MB';
 ~~~
 
 ### Referring to a CTE by name more than once
 
-{%  include {{  page.version.version  }}/known-limitations/cte-by-name.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-by-name.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/31095)
 
 ### Assigning latitude/longitude for the Node Map
 
-{%  include {{  page.version.version  }}/known-limitations/node-map.md %}
+{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 ### Adding a column with sequence-based `DEFAULT` values
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -234,15 +234,15 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the Admin UI
 
-{%  include {{ page.version.version }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
-{%  include {{ page.version.version }}/misc/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/misc/schema-changes-within-transactions.md" . }}
 
 ### Schema changes between executions of prepared statements
 
-{%  include {{ page.version.version }}/misc/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/misc/schema-changes-between-prepared-statements.md" . }}
 
 ### `INSERT ON CONFLICT` vs. `UPSERT`
 
@@ -291,7 +291,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -305,7 +305,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -342,6 +342,6 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### `cockroach dump` does not support cyclic foreign key references
 
-{{ site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.1.0-alpha.20180507.html">v2.1.0-alpha.20180507</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24716">#24716</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.1.0-alpha.20180507.html">v2.1.0-alpha.20180507</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24716">#24716</a>.{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/known-limitations/dump-cyclic-foreign-keys.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md" . }}

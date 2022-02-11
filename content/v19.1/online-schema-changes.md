@@ -13,13 +13,13 @@ Benefits of online schema changes include:
 - Your application's queries can run normally, with no effect on read/write latency. The schema is cached for performance.
 - Your data is kept in a safe, [consistent][consistent] state throughout the entire schema change process.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Schema changes consume additional resources, and if they are run when the cluster is near peak capacity, latency spikes can occur. This is especially true for any schema change that adds columns, drops columns, or adds an index. We do not recommend doing more than one schema change at a time while in production.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Support for schema changes within [transactions][txns] is [limited](#limitations). We recommend doing schema changes outside transactions where possible. When a schema management tool uses transactions on your behalf, we recommend only doing one schema change operation per transaction.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How online schema changes work
 
@@ -39,9 +39,9 @@ For more technical details, see [How online schema changes are possible in Cockr
 
 ## Examples
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more examples of schema change statements, see the [`ALTER TABLE`][alter-table] subcommands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Run schema changes inside a transaction with `CREATE TABLE`
 
@@ -49,7 +49,7 @@ As noted in [Limitations](#limitations), you cannot run schema changes inside tr
 
 However, as of version v2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
   SAVEPOINT cockroach_restart;
@@ -93,7 +93,7 @@ As of v19.1, some schema changes can be used in combination in a single `ALTER T
 
 You can check on the status of the schema change jobs on your system at any time using the [`SHOW JOBS`][show-jobs] statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'SCHEMA CHANGE';
 ~~~
@@ -119,15 +119,15 @@ Specifically, this behavior is necessary because making schema changes transacti
 
 ### Limited support for schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### No schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### Examples of statements that fail
 
@@ -135,7 +135,7 @@ The following statements fail due to [limited support for schema changes within 
 
 #### Create an index and then run a select against that index inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo (id INT PRIMARY KEY, name VARCHAR);
   BEGIN;
@@ -158,7 +158,7 @@ ROLLBACK
 
 #### Add a column and then add a constraint against that column inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;
@@ -181,7 +181,7 @@ ROLLBACK
 
 #### Add a column and then select against that column inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;

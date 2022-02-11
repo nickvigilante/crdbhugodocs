@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    {% include head.html %}
+    {{ partial "head.html" . }}
   </head>
   <body>
 
@@ -24,7 +24,7 @@
           id="sidebarMenu"
           class="col-lg-2 d-lg-block sidebar collapse border-right pt-3 pr-md-0"
         >
-          {% include sidebar.html %}
+          {{ partial "sidebar.html" . }}
         </nav>
 
         {% if page.toc == true %}
@@ -36,7 +36,7 @@
         <!-- larger column col-xl-10 -->
         <main role="main" class="ml-sm-auto col-lg-10 px-lg-5">
         {% endif %}
-            {{content}}
+            {{ .Content }}
         </main>
         {% if page.toc == true %}
         <div class="toc-col col-md-2">
@@ -51,12 +51,12 @@
 
     {% include_cached footer.html %}
 
-    {% include sidebar.js.html %}
+    {{ partial "sidebar.js.html" . }}
 
     <script src="{{ 'js/jquery.cookie.min.js' | relative_url }}"></script>
     <script src="{{ 'js/jquery.navgoco.min.js' | relative_url }}"></script>
     <!-- bs 4.X -->
-    <script src="{{'js/bootstrap453.bundle.min.js' | relative_url }}" crossorigin="anonymous"></script>
+    <script src="{{ 'js/bootstrap453.bundle.min.js' | relative_url }}" crossorigin="anonymous"></script>
     
     <script src="{{ 'js/toc.js' | relative_url }}"></script>
     <script src="{{ 'js/cookieUtils.js' | relative_url }}" defer></script>

@@ -9,9 +9,9 @@ The `cockroach debug zip` [command](cockroach-commands.html) connects to your cl
 
 You can use the [`cockroach debug merge-logs`](cockroach-debug-merge-logs.html) command in conjunction with `cockroach debug zip` to merge the collected logs into one file, making them easier to parse.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The files produced by `cockroach debug zip` can contain highly [sensitive, identifiable information](configure-logs.html#redact-logs), such as usernames, hashed passwords, and possibly table data. Use the [`--redact-logs`](#redact-sensitive-information-from-the-logs) flag to redact sensitive data from log files and crash reports before sharing them with Cockroach Labs.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Details
 
@@ -29,9 +29,9 @@ There are two scenarios in which `debug zip` is useful:
 
 ### Files
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Log files, heap profiles, CPU profiles, and goroutine dumps can greatly increase the size of the `cockroach debug zip` output. If you are collecting data from a large cluster, we recommend first experimenting with [`cockroach debug list-files`](cockroach-debug-list-files.html) and the `--exclude-files`, `--include-files`, `--files-from`, and/or `--files-until` [flags](#flags) to limit the `.zip` file size.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 These files collected by `cockroach debug zip`, which are found in the individual node directories, can be filtered using the `--exclude-files`, `--include-files`, `--files-from`, and/or `--files-until` [flags](#flags):
 
@@ -64,7 +64,7 @@ The following information is also contained in the `.zip` file, and cannot be fi
 
 ## Subcommands
 
-{%  include {{  page.version.version  }}/misc/debug-subcommands.md %}
+{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
 
 ## Synopsis
 
@@ -72,9 +72,9 @@ The following information is also contained in the `.zip` file, and cannot be fi
 $ cockroach debug zip {ZIP file destination} {flags}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The following [flags](#flags) must apply to an active CockroachDB node. If no nodes are live, you must [start at least one node](cockroach-start.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Flags
 
@@ -96,13 +96,13 @@ Flag | Description
 
 ### Client connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 `--cluster-name` | The cluster name to use to verify the cluster's identity. If the cluster has a cluster name, you must include this flag. For more information, see [`cockroach start`](cockroach-start.html#general).
 `--disable-cluster-name-verification` | Disables the cluster name check for this command. This flag must be paired with `--cluster-name`. For more information, see [`cockroach start`](cockroach-start.html#general).
 
 ### Logging
 
-{%  include {{  page.version.version  }}/misc/logging-defaults.md %}
+{{ partial "{{ page.version.version }}/misc/logging-defaults.md" . }}
 
 ## Examples
 
@@ -110,27 +110,27 @@ Flag | Description
 
 Generate the debug zip file for an insecure cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --insecure --host=200.100.50.25
 ~~~
 
 Generate the debug zip file for a secure cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --host=200.100.50.25
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Secure examples assume you have the appropriate certificates in the default certificate directory, `${HOME}/.cockroach-certs/`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Generate a debug zip file with logs only
 
 Generate a debug zip file containing only log files:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --include-files=*.log
 ~~~
@@ -145,7 +145,7 @@ server/server.go:1423 ⋮ password of user ‹admin› was set to ‹"s3cr34?!@x
 
 Enable log redaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --redact-logs --insecure --host=200.100.50.25
 ~~~

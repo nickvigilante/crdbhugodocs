@@ -6,16 +6,16 @@ toc: true
 
 CockroachDB supports the following SQL functions and operators.
 
-{{ site.data.alerts.callout_success }}In the <a href="use-the-built-in-sql-client.html#sql-shell-help-new-in-v1-1">built-in SQL shell</a>, use <code>\hf [function]</code> to get inline help about a specific function.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}In the <a href="use-the-built-in-sql-client.html#sql-shell-help-new-in-v1-1">built-in SQL shell</a>, use <code>\hf [function]</code> to get inline help about a specific function.{{site.data.alerts.end }}
 
 
 ## Built-in Functions
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-1.1/docs/generated/sql/functions.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-1.1/docs/generated/sql/functions.md %}
 
 ## Aggregate Functions
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-1.1/docs/generated/sql/aggregates.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-1.1/docs/generated/sql/aggregates.md %}
 
 ## Operators
 
@@ -62,7 +62,7 @@ The following table lists all CockroachDB operators from highest to lowest prece
 
 ### Supported Operations
 
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-1.1/docs/generated/sql/operators.md %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/cockroach/release-1.1/docs/generated/sql/operators.md %}
 
 <!--
 ## `CAST()`

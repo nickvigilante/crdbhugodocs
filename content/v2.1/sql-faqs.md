@@ -12,19 +12,19 @@ Currently, you can bulk insert data with batches of [`INSERT`](insert.html) stat
 
 ## How do I auto-generate unique row IDs in CockroachDB?
 
-{%  include {{  page.version.version  }}/faq/auto-generate-unique-ids.html %}
+{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
 
 ## How do I generate unique, slowly increasing sequential numbers in CockroachDB?
 
-{%  include {{  page.version.version  }}/faq/sequential-numbers.md %}
+{{ partial "{{ page.version.version }}/faq/sequential-numbers.md" . }}
 
 ## What are the differences between `UUID`, sequences, and `unique_rowid()`?
 
-{%  include {{  page.version.version  }}/faq/differences-between-numberings.md %}
+{{ partial "{{ page.version.version }}/faq/differences-between-numberings.md" . }}
 
 ## How do I order writes to a table to closely follow time in CockroachDB?
 
-{%  include {{  page.version.version  }}/faq/sequential-transactions.md %}
+{{ partial "{{ page.version.version }}/faq/sequential-transactions.md" . }}
 
 ## How do I get the last ID/SERIAL value inserted into a table?
 
@@ -61,7 +61,7 @@ not yet supported.
 
 [Interleaving tables](interleave-in-parent.html) improves query performance by optimizing the key-value structure of closely related tables, attempting to keep data on the same key-value range if it's likely to be read and written together.
 
-{%  include {{  page.version.version  }}/faq/when-to-interleave-tables.html %}
+{{ partial "{{ page.version.version }}/faq/when-to-interleave-tables.html" . }}
 
 ## Does CockroachDB support JSON or Protobuf datatypes?
 
@@ -83,7 +83,7 @@ If you'd like to tell the query planner which index to use, you can do so via so
 
 ## How do I log SQL queries?
 
-{%  include {{  page.version.version  }}/faq/sql-query-logging.md %}
+{{ partial "{{ page.version.version }}/faq/sql-query-logging.md" . }}
 
 ## Does CockroachDB support a UUID type?
 
@@ -128,7 +128,7 @@ require('long').fromString(idString).add(1).toString(); // GOOD: returns '235191
 
 ## Can I use CockroachDB as a key-value store?
 
-{%  include {{  page.version.version  }}/faq/simulate-key-value-store.html %}
+{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
 
 ## Why are my deletes getting slower over time?
 

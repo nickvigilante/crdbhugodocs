@@ -17,14 +17,14 @@ For a detailed description of exactly what is logged, see the [Audit Log File Fo
 
 CockroachDB stores audit log information in a way that ensures durability, but negatively impacts performance. As a result, we recommend using SQL audit logs for security purposes only. For more information, see [Performance considerations](#performance-considerations).
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/experimental_audit.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/experimental_audit.html" . }}
 </div>
 
 ## Required privileges
@@ -40,9 +40,9 @@ Only members of the `admin` role can enable audit logs on a table. By default, t
  `WRITE`      | Log all table writes to the audit log file.              
  `OFF`        | Turn off audit logging.                                  
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This command logs all reads and writes, and both the <code>READ</code> and <code>WRITE</code> parameters are required (as shown in the <a href="#examples">examples</a> below). In a future release, this should change to allow logging only reads, only writes, or both.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Audit log file format
 
@@ -82,13 +82,13 @@ By default, audit logs are stored in the [same directory](debug-and-error-logs.h
 
 To store the audit log files in a specific directory, pass the `--sql-audit-dir` flag to [`cockroach start`](cockroach-start.html).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If your deployment requires particular lifecycle and access policies for audit log files, point `--sql-audit-dir` at a directory that has permissions set so that only CockroachDB can create/delete files.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Performance considerations
 
@@ -102,7 +102,7 @@ For debugging and troubleshooting on production clusters, the most performant wa
 
 Let's say you have a  `customers` table that contains personally identifiable information (PII). To turn on audit logs for that table, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
@@ -118,15 +118,15 @@ To turn on auditing for more than one table, issue a separate `ALTER` statement 
 
 For a description of the log file format, see the [Audit Log File Format](#audit-log-file-format) section.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a more detailed example, see [SQL Audit Logging](sql-audit-logging.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Turn off audit logging
 
 To turn off logging, issue the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE customers EXPERIMENTAL_AUDIT SET OFF;
 ~~~

@@ -29,9 +29,9 @@ Also keep in mind some basic topology recommendations:
 
 ## Hardware
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Mentions of "CPU resources" refer to vCPUs, which are also known as hyperthreads.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Basic hardware recommendations
 
@@ -41,9 +41,9 @@ Nodes should have sufficient CPU, RAM, network, and storage capacity to handle y
 
 - At a bare minimum, each node should have **2 vCPUs and 2 GB of RAM**. More data, complex workloads, higher concurrency, and faster performance require additional resources.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Avoid "burstable" or "shared-core" virtual machines that limit the load on CPU resources.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - To optimize for throughput, use larger nodes, up to 32 vCPUs. Based on internal testing results, 32 vCPUs is the sweet spot for OLTP workloads. For RAM, aim for a ratio of 2 GB per vCPU.
 
@@ -83,9 +83,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 
     For example, Cockroach Labs has used `c5d.4xlarge` (16 vCPUs and 32 GiB of RAM per instance, EBS) for internal testing. Note that the instance type depends on whether EBS is used or not. If you're using EBS, use a `c5` instance.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Do not use ["burstable" `t` instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html), which limit the load on CPU resources.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Use `c5` instances with EBS as a primary AWS configuration. To simulate bare-metal deployments, use `c5d` with [SSD Instance Store volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html).
 
@@ -96,9 +96,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 - Use compute-optimized [F-series](https://docs.microsoft.com/en-us/azure/virtual-machines/fsv2-series) VMs.
     For example, Cockroach Labs has used `Standard_F16s_v2` VMs (16 vCPUs and 32 GiB of RAM per VM) for internal testing.
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Do not use ["burstable" B-series](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/b-series-burstable) VMs, which limit the load on CPU resources. Also, Cockroach Labs has experienced data corruption issues on A-series VMs and irregular disk performance on D-series VMs, so we recommend avoiding those as well.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Use [Premium Storage](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage) or local SSD storage with a Linux filesystem such as `ext4` (not the Windows `ntfs` filesystem). Note that [the size of a Premium Storage disk affects its IOPS](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage#premium-storage-disk-limits).
 - If you choose local SSD storage, on reboot, the VM can come back with the `ntfs` filesystem. Be sure your automation monitors for this and reformats the disk to the Linux filesystem you chose initially.
@@ -113,9 +113,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 
     For example, Cockroach Labs has used `n1-standard-16` (16 vCPUs and 60 GB of RAM per VM, local SSD) for [performance benchmarking](performance-benchmarking-with-tpc-c.html). We have also found benefits in using the [Skylake platform](https://cloud.google.com/compute/docs/cpu-platforms).
 
-    {{ site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger }}
     Do not use `f1` or `g1` [shared-core machines](https://cloud.google.com/compute/docs/machine-types#sharedcore), which limit the load on CPU resources.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Use [Local SSDs](https://cloud.google.com/compute/docs/disks/#localssds) or [SSD persistent disks](https://cloud.google.com/compute/docs/disks/#pdspecs). Note that [the IOPS of SSD persistent disks depends both on the disk size and number of vCPUs on the machine](https://cloud.google.com/compute/docs/disks/performance#optimizessdperformance).
 - `nobarrier` can be used with SSDs, but only if it has battery-backed write cache. Without one, data can be corrupted in the event of a crash.
@@ -157,9 +157,9 @@ The effect depends on how these two flags are used in combination:
 | **`--advertise-addr` not specified** | Node listens on all of its IP addresses on port `26257` and advertises its canonical hostname to other nodes. | Node listens on the IP address/hostname and port specified in `--listen-addr` and advertises this value to other nodes.
 | **`--advertise-addr` specified** | Node listens on all of its IP addresses on port `26257` and advertises the value specified in `--advertise-addr` to other nodes. **Recommended for most cases.** | Node listens on the IP address/hostname and port specified in `--listen-addr` and advertises the value specified in `--advertise-addr` to other nodes. If the `--advertise-addr` port number is different than the one used in `--listen-addr`, port forwarding is required.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 When using hostnames, make sure they resolve properly (e.g., via DNS or `etc/hosts`). In particular, be careful about the value advertised to other nodes, either via `--advertise-addr` or via `--listen-addr` when `--advertise-addr` is not specified.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Cluster on a single network
 
@@ -186,9 +186,9 @@ Each CockroachDB node is an equally suitable SQL gateway to a cluster, but to en
 - **Performance:** Load balancers spread client traffic across nodes. This prevents any one node from being overwhelmed by requests and improves overall cluster performance (queries per second).
 
 - **Reliability:** Load balancers decouple client health from the health of a single CockroachDB node. To ensure that traffic is not directed to failed nodes or nodes that are not ready to receive requests, load balancers should use [CockroachDB's readiness health check](monitoring-and-alerting.html#health-ready-1).
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 For guidance on load balancing, see the tutorial for your deployment environment:
 
@@ -210,11 +210,11 @@ In addition to setting a maximum connection pool size, the idle connection pool 
 
 ## Monitoring and alerting
 
-{%  include {{  page.version.version  }}/prod-deployment/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
 
 ## Clock synchronization
 
-{%  include {{  page.version.version  }}/faq/clock-synchronization-effects.md %}
+{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.md" . }}
 
 ## Cache and SQL memory size
 
@@ -225,14 +225,14 @@ By default, each node's cache size and temporary SQL memory size is `128MiB` res
 
 To manually increase a node's cache size and SQL memory size, start the node using the [`--cache`](start-a-node.html#flags) and [`--max-sql-memory`](start-a-node.html#flags) flags:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start --cache=.25 --max-sql-memory=.25 <other start flags>
 ~~~
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Avoid setting `--cache` and `--max-sql-memory` to a combined value of more than 75% of a machine's total RAM. Doing so increases the risk of memory-related failures.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Dependencies
 
@@ -246,9 +246,9 @@ Library | Description
 
 These libraries are found by default on nearly all Linux distributions, with Alpine as the notable exception, but it's nevertheless important to confirm that they are installed and kept up-to-date. For the time zone data in particular, it's important for all nodes to have the same version; when updating the library, do so as quickly as possible across all nodes.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In Docker-based deployments of CockroachDB, these dependencies do not need to be manually addressed. The Docker image for CockroachDB includes them and keeps them up to date with each release of CockroachDB.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## File descriptors limit
 
@@ -347,7 +347,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -388,7 +388,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Check the current limits:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -404,7 +404,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 1.  Check the current limits:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~
@@ -424,7 +424,7 @@ For example, for a node with 3 stores, we would set the hard limit to at least 3
 
 4.  Verify the new limits:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ launchctl limit maxfiles
     ~~~

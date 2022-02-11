@@ -13,13 +13,13 @@ When planning to survive hardware failures, start by determining the minimum rep
 - [Single-region survivability planning](#single-region-survivability-planning)
 - [Multi-region survivability planning](#multi-region-survivability-planning)
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Increasing the replication factor can impact write performance in that more replicas must agree to reach quorum. For more details about the mechanics of writes and the Raft protocol, see [Read and Writes Overview](architecture/reads-and-writes-overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For the purposes of choosing a replication factor, disk failure is equivalent to node failure.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you experience hardware failures in a cluster, the recovery actions you need to take will depend on the type of infrastructure and topology pattern used:
 
@@ -30,9 +30,9 @@ If you experience hardware failures in a cluster, the recovery actions you need 
 
 The table below shows the replication factor (RF) needed to achieve the listed fault tolerance goals for a single region, cloud-deployed cluster with nodes spread as evenly as possible across 3 availability zones (AZs):
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 See our [basic production topology](topology-basic-production.html#configuration) for configuration guidance.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <table>
   <thead>
@@ -154,17 +154,17 @@ The table below describes what actions to take to recover from various hardware 
   </tbody>
 </table>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When using Kubernetes, recovery actions happen automatically in many cases and no action needs to be taken.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Multi-region survivability planning
 
 The table below shows the replication factor (RF) needed to achieve the listed fault tolerance (e.g., survive 1 failed node) for a multi-region, cloud-deployed cluster with 3 availability zones (AZ) per region and one node in each AZ:
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The chart below describes the CockroachDB default behavior when locality flags are correctly set. It does not use geo-partitioning or a specific [topology pattern](topology-patterns.html). For a multi-region cluster in production, we do not recommend using the default behavior, as the cluster's performance will be negatively affected.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <table>
   <thead>
@@ -277,9 +277,9 @@ The table below describes what actions to take to recover from various hardware 
   </tbody>
 </table>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When using Kubernetes, recovery actions happen automatically in many cases and no action needs to be taken.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Data failure
 
@@ -290,9 +290,9 @@ When dealing with data failure due to bad actors, rogue applications, or data co
 - If your cluster is running and you do not have a backup with the data you need, [create a new backup](#create-a-new-backup).
 - To [recover from corrupted data in a database or table](#recover-from-corrupted-data-in-a-database-or-table), restore the corrupted object.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To give yourself more time to recover and clean up the corrupted data, put your application in “read only” mode and only run [`AS OF SYSTEM TIME`](as-of-system-time.html) queries from the application.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Run differentials
 
@@ -318,9 +318,9 @@ If you have corrupted data in a database or table, [restore](restore.html) the o
 
 Instead of dropping the corrupted table or database, we recommend [renaming the table](rename-table.html) or [renaming the database](rename-database.html) so you have historical data to compare to later. If you drop a database, the database cannot be referenced with `AS OF SYSTEM TIME` queries (see [#51380](https://github.com/cockroachdb/cockroach/issues/51380) for more information), and you will need to take a backup that is backdated to the system time when the database still existed.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If the table you are restoring has foreign keys, [careful consideration](backup-and-restore.html) should be applied to make sure data integrity is maintained during the restore process.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Compromised security keys
 
@@ -344,9 +344,9 @@ If the compromised keys were not rotated by a bad actor, quickly attempt to [rot
 
 Once all of the nodes are restarted with the new key, put in a request to revoke the old key from the Certificate Authority.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB does not allow prior store keys to be used again.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Wire Encryption / TLS
 

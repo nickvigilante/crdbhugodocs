@@ -11,13 +11,13 @@ Given a set of shapes (e.g., from a [selection query](selection-queries.html)), 
 
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The non-aggregate version of `ST_Union` is not yet implemented.  For more information, see [cockroach#49064](https://github.com/cockroachdb/cockroach/issues/49064).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Unlike `ST_Collect`, which does not change the shapes it operates on and merely gathers them into a collection, `ST_Union` modifies the shapes it operates on, merging them together.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
@@ -25,14 +25,14 @@ In this example, we will generate a single geometry from many individual points 
 
 1. Create a temporary table to hold all the points, which will be in [Well Known Text (WKT)](spatial-glossary.html#wkt) format:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     CREATE TABLE tmp (ID UUID DEFAULT gen_random_uuid(), geom_text STRING);
     ~~~
 
 2. Insert the points with the following statement:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     INSERT INTO tmp (geom_text) VALUES
     ('POINT (-73.962090000000003 40.609226)'),
@@ -214,7 +214,7 @@ In this example, we will generate a single geometry from many individual points 
 
 3. Run the query below, which gathers the points into a single geometry using `ST_Union`, and converts the geometry to [GeoJSON](spatial-glossary.html#geojson) so that we can view it with [geojson.io](http://geojson.io):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     WITH
         the_geoms_table
@@ -236,11 +236,11 @@ In this example, we will generate a single geometry from many individual points 
 
 4. Paste the JSON emitted in the previous step into [geojson.io](http://geojson.io) and you should see an image like the following, which shows the location of [most of the independent bookstores in New York State](https://www.bookweb.org/member_directory/search/ABAmember/results/0/0/ny/0):
 
-    <img src="{{  'images/v21.2/geospatial/st_union.png' | relative_url  }}" alt="ST_Union example" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v21.2/geospatial/st_union.png' | relative_url }}" alt="ST_Union example" style="border:1px solid #eee;max-width:100%" />
 
 5. Finally, drop the temporary table if you no longer need it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     DROP TABLE tmp;
     ~~~

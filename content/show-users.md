@@ -9,7 +9,7 @@ The `SHOW USERS` [statement](sql-statements.html) lists the users for all databa
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/show_users.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_users.html" . }}
 
 ## Required Privileges
 

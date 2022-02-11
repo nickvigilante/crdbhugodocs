@@ -16,28 +16,28 @@ We have tested the [psycopg2 driver](http://initd.org/psycopg/docs/) and [SQLAlc
 
 ## Before you begin
 
-{%  include {{ page.version.version }}/app/before-you-begin.md %}
+{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **Upgrading from CockroachDB 2.0 to 2.1?** If you used SQLAlchemy with your 2.0 cluster, you must [upgrade the adapter to the latest release](https://github.com/cockroachdb/sqlalchemy-cockroachdb) before upgrading to CockroachDB 2.1.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The example code on this page uses Python 3.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Install SQLAlchemy
 
 To install SQLAlchemy, as well as a [CockroachDB Python package](https://github.com/cockroachdb/sqlalchemy-cockroachdb) that accounts for some differences between CockroachDB and PostgreSQL, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can substitute psycopg2 for other alternatives that include the psycopg python package.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For other ways to install SQLAlchemy, see the [official documentation](http://docs.sqlalchemy.org/en/latest/intro.html#installation-guide).
 
@@ -45,13 +45,13 @@ For other ways to install SQLAlchemy, see the [official documentation](http://do
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
 Create a certificate and key for the `maxroach` user by running the following command. The code samples will run as this user.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key
 ~~~
@@ -70,21 +70,21 @@ Specifically, the script:
 
 It does all of the above using the practices we recommend for using SQLAlchemy with CockroachDB, which are listed in the [Best practices](#best-practices) section below.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.create_engine`](https://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=create_engine#sqlalchemy.create_engine) to make sure the [`cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroachdb) dialect is used. Using the `postgres://` URL prefix to connect to your CockroachDB cluster will not work.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Copy the code below or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/sqlalchemy-basic-sample.py">download it directly</a>.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
-{%  include {{ page.version.version }}/app/sqlalchemy-basic-sample.py %}
+{{ partial "{{ page.version.version }}/app/sqlalchemy-basic-sample.py" . }}
 ~~~
 
 Then run the code:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python3 sqlalchemy-basic-sample.py
 ~~~
@@ -130,14 +130,14 @@ WHERE accounts.id = %(id_1)s
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --database=bank
 ~~~
 
 Then, issue the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT COUNT(*) FROM accounts;
 ~~~
@@ -155,7 +155,7 @@ Then, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{%  include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{{ partial "{{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md" . }}
 
 ## Step 3. Run the Python code
 
@@ -171,21 +171,21 @@ Specifically, it:
 
 It does all of the above using the practices we recommend for using SQLAlchemy with CockroachDB, which are listed in the [Best practices](#best-practices) section below.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.create_engine`](https://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=create_engine#sqlalchemy.create_engine) to make sure the [`cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroachdb) dialect is used. Using the `postgres://` URL prefix to connect to your CockroachDB cluster will not work.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Copy the code below or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/sqlalchemy-basic-sample.py">download it directly</a>.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
-{%  include {{ page.version.version }}/app/sqlalchemy-basic-sample.py %}
+{{ partial "{{ page.version.version }}/app/sqlalchemy-basic-sample.py" . }}
 ~~~
 
 Then run the code:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python3 sqlalchemy-basic-sample.py
 ~~~
@@ -231,14 +231,14 @@ WHERE accounts.id = %(id_1)s
 
 To verify that the table and rows were created successfully, start the [built-in SQL client](use-the-built-in-sql-client.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --database=bank
 ~~~
 
 Then, issue the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT COUNT(*) FROM accounts;
 ~~~
@@ -289,7 +289,7 @@ If you see an error message like `transaction is too large to complete; try spli
 Instead, we recommend breaking your transaction into smaller units of work (or "chunks"). A pattern that works for inserting large numbers of objects using `run_transaction` to handle retries automatically for you is shown below.
 
 ~~~ python
-{%  include {{ page.version.version }}/app/sqlalchemy-large-txns.py %}
+{{ partial "{{ page.version.version }}/app/sqlalchemy-large-txns.py" . }}
 ~~~
 
 ### Use `IMPORT` to read in large data sets
@@ -312,7 +312,7 @@ In general, we recommend using the query-builder APIs of SQLAlchemy (e.g., [`Eng
 - The [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) docs
 - [Transactions](transactions.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
 
 <!-- Reference Links -->
 

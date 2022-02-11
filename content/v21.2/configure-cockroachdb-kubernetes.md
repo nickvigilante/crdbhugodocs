@@ -18,26 +18,26 @@ These settings override the defaults used when [deploying CockroachDB on Kuberne
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{%  include {{  page.version.version  }}/orchestration/operator-check-namespace.md %}
+{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
 On a production cluster, the resources you allocate to CockroachDB should be proportionate to your machine types and workload. We recommend that you determine and set these values before deploying the cluster, but you can also update the values on a running cluster.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Run `kubectl describe nodes` to see the available resources on the instances that you have provisioned.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Memory and CPU
 
 You can set the CPU and memory resources allocated to the CockroachDB container on each pod. 
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 1 CPU in Kubernetes is equivalent to 1 vCPU or 1 hyperthread. For best practices on provisioning CPU and memory for CockroachDB, see the [Production Checklist](recommended-production-settings.html#hardware).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <section class="filter-content" markdown="1" data-scope="operator">
 Specify CPU and memory values in `resources.requests` and `resources.limits` in the Operator's custom resource, which is used to [deploy the cluster](deploy-cockroachdb-with-kubernetes.html#initialize-the-cluster):
@@ -53,7 +53,7 @@ spec:
       memory: "16Gi"
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-custom-resource.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
@@ -73,7 +73,7 @@ spec:
           memory: "16Gi"
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-statefulset-manifest.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-statefulset-manifest.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
@@ -90,14 +90,14 @@ statefulset:
       memory: "16Gi"
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-helm-values.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-helm-values.md" . }}
 </section>
 
 We recommend using identical values for `resources.requests` and `resources.limits`. When setting the new values, note that not all of a pod's resources will be available to the CockroachDB container. This is because a fraction of the CPU and memory is reserved for Kubernetes.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If no resource limits are specified, the pods will be able to consume the maximum available CPUs and memory. However, to avoid overallocating resources when another memory-intensive workload is on the same instance, always set resource requests and limits explicitly.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information on how Kubernetes handles resources, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/).
 
@@ -116,11 +116,11 @@ spec:
   maxSQLMemory: "4Gi"
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-custom-resource.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Specifying these values is equivalent to using the `--cache` and `--max-sql-memory` flags with [`cockroach start`](cockroach-start.html#flags).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
@@ -138,7 +138,7 @@ conf:
   max-sql-memory: "4Gi"
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-helm-values.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-helm-values.md" . }}
 </section>
 
 ## Persistent storage
@@ -203,7 +203,7 @@ spec:
             storage: "100Gi"
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-custom-resource.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
 
 The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new storage capacity. 
 
@@ -211,11 +211,11 @@ To verify that the storage capacity has been updated, run `kubectl get pvc` to v
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-expand-disk-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-expand-disk-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-expand-disk-helm.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="operator">
@@ -236,11 +236,11 @@ spec:
   sqlPort: 5432
 ~~~
 
-{%  include {{  page.version.version  }}/orchestration/apply-custom-resource.md %}
+{{ partial "{{ page.version.version }}/orchestration/apply-custom-resource.md" . }}
 
 The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new port settings. 
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Currently, only the pods are updated with new ports. To connect to the cluster, you need to ensure that the `public` service is also updated to use the new port. You can do this by deleting the service with `kubectl delete service {cluster-name}-public`. When service is recreated by the Operator, it will use the new port. This is a known limitation that will be fixed in an Operator update.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 </section>

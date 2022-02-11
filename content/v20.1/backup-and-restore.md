@@ -16,9 +16,9 @@ Based on your [license type](https://www.cockroachlabs.com/pricing/), CockroachD
 
 If you have an [Enterprise license](enterprise-licensing.html), you can use the [`BACKUP`][backup] statement to efficiently back up your cluster's schemas and data to popular cloud services such as AWS S3, Google Cloud Storage, or NFS, and the [`RESTORE`][restore] statement to efficiently restore schema and data as necessary.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We recommend [automating daily backups of your cluster](#automated-full-and-incremental-backups). To automate backups, you must have a client send the `BACKUP` statement to the cluster. Once the backup is complete, your client will receive a `BACKUP` response.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Full backups
 
@@ -30,35 +30,35 @@ In most cases, **it's recommended to take full nightly backups of your cluster**
 
 To do a cluster backup, use the [`BACKUP`](backup.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO '<backup_location>';
 ~~~
 
 If it's ever necessary, you can use the [`RESTORE`][restore] statement to restore a table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE TABLE bank.customers FROM '<backup_location>';
 ~~~
 
 Or to restore a  database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE DATABASE bank FROM '<backup_location>';
 ~~~
 
 Or to restore your full cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM '<backup_location>';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A full cluster restore can only be run on a target cluster that has _never_ had user-created databases or tables.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Full and incremental backups
 
@@ -66,25 +66,25 @@ If your cluster grows too large for nightly full backups, you can take less freq
 
 Periodically run the [`BACKUP`][backup] command to take a full backup of your cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO '<backup_location>';
 ~~~
 
 Then, create nightly incremental backups based off of the full backups you've already created. If you backup to a destination already containing a full backup, an incremental backup will be appended to the full backup in a subdirectory:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP TO '<backup_location>';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For an example on how to specify the destination of an incremental backup, see [Backup and Restore - Advanced Options](backup-and-restore.html)
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If it's ever necessary, you can then use the [`RESTORE`][restore] command to restore your cluster, database(s), and/or table(s). [Restoring from incremental backups](restore.html#restore-from-incremental-backups) requires previous full and incremental backups. To restore from a destination containing the full backup, as well as the automatically appended incremental backups (that are stored as subdirectories, like in the example above):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM '<backup_location>';
 ~~~
@@ -95,20 +95,20 @@ If it's ever necessary, you can then use the [`RESTORE`][restore] command to res
 
 You can automate your backups using scripts and your preferred method of automation, such as cron jobs.
 
-For your reference, we have created this [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/prod-deployment/backup.sh) that you can customize to automate your backups.
+For your reference, we have created this [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/prod-deployment/backup.sh) that you can customize to automate your backups.
 
 In the sample script, configure the day of the week for which you want to create full backups. Running the script daily will create a full backup on the configured day, and on other days, it'll create incremental backups. The script tracks the recently created backups in a separate file titled `backup.txt` and uses this file as a base for the subsequent incremental backups.
 
-1. Download the [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/prod-deployment/backup.sh):
+1. Download the [sample backup script](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/prod-deployment/backup.sh):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ wget -qO- https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/prod-deployment/backup.sh
+    $ wget -qO- https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/prod-deployment/backup.sh
     ~~~
 
     Alternatively, you can create the file yourself and copy the script into it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     #!/bin/bash
 
@@ -162,38 +162,38 @@ In the sample script, configure the day of the week for which you want to create
 
 3. Change the file permissions to make the script executable:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod +x backup.sh
     ~~~
 
 4. Run the backup script:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./backup.sh
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you miss an incremental backup, delete the `recent_backups.txt` file and run the script. It'll take a full backup for that day and incremental backups for subsequent days.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Advanced examples
 
-{%  include {{  page.version.version  }}/backups/advanced-examples-list.md %}
+{{ partial "{{ page.version.version }}/backups/advanced-examples-list.md" . }}
 
 ## Perform Core backup and restore
 
 If you do not have an Enterprise license, you can perform a core backup. Run the [`cockroach dump`](cockroach-dump.html) command to dump all the tables in the database to a new file (e.g., `backup.sql`):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach dump <database_name> <flags> > backup.sql
 ~~~
 
 To restore a database from a core backup, use the [`IMPORT PGDUMP`](import.html#import-a-cockroachdb-dump-file) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --execute="IMPORT PGDUMP 's3://your-external-storage/backup.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]'" \
  <flags>
@@ -201,14 +201,14 @@ $ cockroach sql --execute="IMPORT PGDUMP 's3://your-external-storage/backup.sql?
 
 You can also [use the `cockroach sql` command](cockroach-dump.html#restore-a-table-from-a-backup-file) to execute the [`CREATE  TABLE`](create-table.html) and [`INSERT`](insert.html) statements in the backup file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --database=[database name] < backup.sql
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you created a backup from another database and want to import it into CockroachDB, see the [Migration Overview](migration-overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

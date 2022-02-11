@@ -6,11 +6,11 @@ toc: true
 
 The `DROP COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and removes columns from a table.
 
-{%  include {{  page.version.version  }}/sql/combine-alter-table-commands.md %}
+{{ partial "{{ page.version.version }}/sql/combine-alter-table-commands.md" . }}
 
 ## Synopsis
 
-<section> {%  include {{  page.version.version  }}/sql/diagrams/drop_column.html %} </section>
+<section> {{ partial "{{ page.version.version }}/sql/diagrams/drop_column.html" . }} </section>
 
 ## Required privileges
 
@@ -27,7 +27,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Examples
 
@@ -35,7 +35,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 If you no longer want a column in a table, you can drop it.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders DROP COLUMN billing_zip;
 ~~~
@@ -44,7 +44,7 @@ If you no longer want a column in a table, you can drop it.
 
 If the column has dependent objects, such as [views](views.html), CockroachDB will not drop the column by default; however, if you want to be sure of the behavior you can include the `RESTRICT` clause.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders DROP COLUMN customer RESTRICT;
 ~~~
@@ -56,9 +56,9 @@ pq: cannot drop column "customer" because view "customer_view" depends on it
 
 If you want to drop the column and all of its dependent options, include the `CASCADE` clause.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE customer_view;
 ~~~
@@ -71,12 +71,12 @@ If you want to drop the column and all of its dependent options, include the `CA
 +---------------+----------------------------------------------------------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE orders DROP COLUMN customer CASCADE;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 > SHOW CREATE customer_view;
 ~~~

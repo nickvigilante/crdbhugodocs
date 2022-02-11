@@ -6,14 +6,14 @@ toc: true
 
 This page shows you how to identify and, if necessary, cancel SQL queries that are taking longer than expected to process.
 
-{{ site.data.alerts.callout_success }} Schema changes are treated differently than other SQL queries. You can use <a href="show-jobs.html"><code>SHOW JOBS</code></a> to monitor the progress of schema changes and <a href="cancel-job.html"><code>CANCEL JOB</code></a> to cancel schema changes that are taking longer than expected. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}} Schema changes are treated differently than other SQL queries. You can use <a href="show-jobs.html"><code>SHOW JOBS</code></a> to monitor the progress of schema changes and <a href="cancel-job.html"><code>CANCEL JOB</code></a> to cancel schema changes that are taking longer than expected. {{site.data.alerts.end }}
 
 
 ## Identify long-running queries
 
 Use the [`SHOW QUERIES`](show-queries.html) statement to list details about currently active SQL queries, including each query's `start` timestamp:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE application_name != '$ cockroach sql';
@@ -30,7 +30,7 @@ Use the [`SHOW QUERIES`](show-queries.html) statement to list details about curr
 
 You can also filter for queries that have been running for a certain amount of time. For example, to find queries that have been running for more than 3 hours, you would run the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER QUERIES]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -40,7 +40,7 @@ You can also filter for queries that have been running for a certain amount of t
 
 Once you've identified a long-running query via [`SHOW QUERIES`](show-queries.html), note the `query_id` and use it with the [`CANCEL QUERY`](cancel-query.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL QUERY '15f92c0dd24bec200000000000000003';
 ~~~
@@ -52,7 +52,7 @@ When a query is successfully cancelled, CockroachDB sends a `query execution can
 
 You can cancel all queries from a particular application by using a subquery.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CANCEL QUERIES (SELECT query_id FROM [SHOW CLUSTER QUERIES]
       WHERE application_name = 'test_app');

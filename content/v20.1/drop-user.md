@@ -6,9 +6,9 @@ toc: true
 
 The `DROP USER` [statement](sql-statements.html) removes one or more SQL users.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v20.1</span>: Since the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `DROP USER` is now an alias for [`DROP ROLE`](drop-role.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -16,7 +16,7 @@ The `DROP USER` [statement](sql-statements.html) removes one or more SQL users.
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/drop_user.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/drop_user.html" . }}</section>
 
 ## Parameters
 
@@ -30,7 +30,7 @@ All of a user's privileges must be revoked before the user can be dropped.
 
 In this example, first check a user's privileges. Then, revoke the user's privileges before removing the user.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW GRANTS ON test.customers FOR mroach;
 ~~~
@@ -46,12 +46,12 @@ In this example, first check a user's privileges. Then, revoke the user's privil
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > REVOKE CREATE,INSERT,UPDATE ON test.customers FROM mroach;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP USER mroach;
 ~~~

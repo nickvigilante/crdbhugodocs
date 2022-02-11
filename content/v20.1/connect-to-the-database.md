@@ -26,7 +26,7 @@ Make sure you have already:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --host=localhost:26257
 ~~~
@@ -37,7 +37,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 import (
     "database/sql"
@@ -54,13 +54,13 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 import java.sql.*;
 import javax.sql.DataSource;
@@ -79,13 +79,13 @@ ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg con
 ds.setApplicationName("BasicExample");
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 import psycopg2
 
@@ -101,7 +101,7 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
 
 </section>
 

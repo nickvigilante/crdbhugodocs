@@ -90,7 +90,7 @@ Flag | Description
 
 ### Client Connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters-with-url.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters-with-url.md" . }}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 

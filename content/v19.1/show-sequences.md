@@ -13,7 +13,7 @@ No [privileges](authorization.html#assign-privileges) are required to list the s
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_sequences.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_sequences.html" . }}
 </div>
 
 ## Parameters
@@ -24,12 +24,12 @@ Parameter | Description
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE sequence_test;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~

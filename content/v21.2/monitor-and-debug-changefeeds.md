@@ -9,9 +9,9 @@ Changefeeds work as jobs in CockroachDB, which allows for [monitoring](#monitor-
 
 ## Monitor a changefeed
 
-{{ site.data.alerts.callout_info }}
-Monitoring is only available for {{  site.data.products.enterprise  }} changefeeds.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+Monitoring is only available for {{ site.data.products.enterprise }} changefeeds.
+{{site.data.alerts.end }}
 
 Changefeed progress is exposed as a high-water timestamp that advances as the changefeed progresses. This is a guarantee that all changes before or at the timestamp have been emitted. You can monitor a changefeed:
 
@@ -19,7 +19,7 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
 - On the [**Jobs** page](ui-jobs-page.html) of the DB Console. Hover over the high-water timestamp to view the [system time](as-of-system-time.html).
 - Using `SHOW CHANGEFEED JOB <job_id>`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     SHOW CHANGEFEED JOB 383870400694353921;
     ~~~
@@ -32,15 +32,15 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
 
 - Setting up an alert on the `changefeed.max_behind_nanos` metric to track when a changefeed's high-water mark timestamp is at risk of falling behind the cluster's [garbage collection window](configure-replication-zones.html#replication-zone-variables). For more information, see [Monitoring and Alerting](monitoring-and-alerting.html#changefeed-is-experiencing-high-latency).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can use the high-water timestamp to [start a new changefeed where another ended](create-changefeed.html#start-a-new-changefeed-where-another-ended).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Debug a changefeed
 
 ### Using logs
 
-For {{  site.data.products.enterprise  }} changefeeds, [use log information](logging-overview.html) to debug connection issues (i.e., `kafka: client has run out of available brokers to talk to (Is your cluster reachable?)`). Debug by looking for lines in the logs with `[kafka-producer]` in them:
+For {{ site.data.products.enterprise }} changefeeds, [use log information](logging-overview.html) to debug connection issues (i.e., `kafka: client has run out of available brokers to talk to (Is your cluster reachable?)`). Debug by looking for lines in the logs with `[kafka-producer]` in them:
 
 ~~~
 I190312 18:56:53.535646 585 vendor/github.com/Shopify/sarama/client.go:123  [kafka-producer] Initializing new client
@@ -52,9 +52,9 @@ I190312 18:56:53.537686 585 vendor/github.com/Shopify/sarama/client.go:170  [kaf
 
 ### Using `SHOW CHANGEFEED JOBS`
 
-<span class="version-tag">New in v21.2:</span> For {{  site.data.products.enterprise  }} changefeeds, use `SHOW CHANGEFEED JOBS` to check the status of your changefeed jobs:
+<span class="version-tag">New in v21.2:</span> For {{ site.data.products.enterprise }} changefeeds, use `SHOW CHANGEFEED JOBS` to check the status of your changefeed jobs:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CHANGEFEED JOBS;
 ~~~

@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  {% include head.html %}
+  {{ partial "head.html" . }}
 </head>
 <body>
   {% for hash in page.allowed_hashes %}
     <a id="{{ hash }}" style="display: none"></a>
   {% endfor %}
-    {% include marketing-menu.html %}
+    {{ partial "marketing-menu.html" . }}
   <div id="content">
-    {{content}}
+    {{ .Content }}
   </div>
-  {% include google_tag_manager.html %}
-  {% include google_remarketing.html %}
+  {{ partial "google_tag_manager.html" . }}
+  {{ partial "google_remarketing.html" . }}
   {% if page.twitter == true %}
-    {% include twitter_analytics.html %}
+    {{ partial "twitter_analytics.html" . }}
   {% endif %}
 </body>
 </html>

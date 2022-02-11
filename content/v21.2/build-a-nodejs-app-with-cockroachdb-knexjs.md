@@ -10,22 +10,22 @@ filter_sort: 3
 docs_area: get_started
 ---
 
-{%  include filter-tabs.md %}
+{{ partial "filter-tabs.md" . }}
 
 This tutorial shows you how build a simple Node.js application with CockroachDB and [Knex.js](https://knexjs.org/).
 
 ## Step 1. Start CockroachDB
 
 <div class="filters clearfix">
-  <button class="filter-button page-level" data-scope="cockroachcloud">Use {{  site.data.products.serverless  }}</button>
+  <button class="filter-button page-level" data-scope="cockroachcloud">Use {{ site.data.products.serverless }}</button>
   <button class="filter-button page-level" data-scope="local">Use a Local Cluster</button>
 </div>
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include cockroachcloud/quickstart/create-a-free-cluster.md %}
+{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
 
-{%  include cockroachcloud/quickstart/set-up-your-cluster-connection-no-cert.md %}
+{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection-no-cert.md" . }}
 
 </section>
 
@@ -34,14 +34,14 @@ This tutorial shows you how build a simple Node.js application with CockroachDB 
 1. If you haven't already, [download the CockroachDB binary](install-cockroachdb.html).
 1. Run the [`cockroach start-single-node`](cockroach-start-single-node.html) command:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach start-single-node --advertise-addr 'localhost' --insecure
     ~~~
 
     This starts an insecure, single-node cluster.
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-flag.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
 
 </section>
 
@@ -49,7 +49,7 @@ This tutorial shows you how build a simple Node.js application with CockroachDB 
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/example-app-node-knex
 ~~~
@@ -58,12 +58,12 @@ $ git clone https://github.com/cockroachlabs/example-app-node-knex
 
 Check out the `serverless` branch:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 git checkout serverless
 ~~~
 
-Update the configuration settings in the `app.js` file using the connection information that you retrieved from the {{  site.data.products.db  }} Console.
+Update the configuration settings in the `app.js` file using the connection information that you retrieved from the {{ site.data.products.db }} Console.
 
 </section>
 
@@ -71,14 +71,14 @@ Update the configuration settings in the `app.js` file using the connection info
 
 1. Install the app requirements:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ npm install
     ~~~
 
 1. Run the app:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ npm run run
     ~~~
@@ -104,4 +104,4 @@ Update the configuration settings in the `app.js` file using the connection info
 
 ## What's next?
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

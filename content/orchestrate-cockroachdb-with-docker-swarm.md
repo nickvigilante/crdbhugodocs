@@ -48,7 +48,7 @@ On each instance:
 
 2. Confirm that the Docker daemon is running in the background:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker version
     ~~~
@@ -59,7 +59,7 @@ On each instance:
 
     Take note of the output for `docker swarm init` as it includes the command you'll use in the next step. It should look like this:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker swarm init --advertise-addr 10.142.0.2
     ~~~
@@ -75,7 +75,7 @@ On each instance:
 
 2. On the other two instances, [create a worker node joined to the swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/add-nodes/) by running the `docker swarm join` command in the output from step 1, for example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker swarm join \
           --to    SWMTKN-1-5vwxyi6zl3cc62lqlhi1jrweyspi8wblh2i3qa7kv277fgy74n-e5eg5c7ioxypjxlt3rpqorh15 \
@@ -88,7 +88,7 @@ On each instance:
 
 3. On the instance running your manager node, verify that your swarm is running:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker node ls
     ~~~
@@ -104,7 +104,7 @@ On each instance:
 
 On the instance running your manager node, create an overlay network so that the containers in your swarm can talk to each other:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ sudo docker network create --driver overlay cockroachdb
 ~~~
@@ -115,20 +115,20 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 1. On the instance running your manager node, install CockroachDB from our latest binary:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Get the latest CockroachDB tarball:
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Extract the binary:
-    $ tar -xzf cockroach-{{  page.release_info.version  }}.linux-amd64.tgz  \
-    --strip=1 cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach
+    $ tar -xzf cockroach-{{ page.release_info.version }}.linux-amd64.tgz  \
+    --strip=1 cockroach-{{ page.release_info.version }}.linux-amd64/cockroach
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Move the binary:
     $ sudo mv cockroach /usr/local/bin/
@@ -136,26 +136,26 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 2. Create a `certs` directory and a safe directory to keep your CA key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir certs
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir my-safe-directory
     ~~~
 
 3. Create the CA certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ls certs
     ~~~
@@ -166,9 +166,9 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 4. Create a Docker secret for the `ca.crt` file using the [`docker secret create`](https://docs.docker.com/engine/reference/commandline/secret_create/) command:
 
-    {{ site.data.alerts.callout_danger }}Store the <code>ca.key</code> file somewhere safe and keep a backup; if you lose it, you will not be able to add new nodes or clients to your cluster.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_danger }}Store the <code>ca.key</code> file somewhere safe and keep a backup; if you lose it, you will not be able to add new nodes or clients to your cluster.{{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create ca-crt certs/ca.crt
     ~~~
@@ -177,7 +177,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 5. Create the certificate and key for the first node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-node \
     cockroachdb-1 \
@@ -187,7 +187,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ls certs
     ~~~
@@ -202,12 +202,12 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 6. Create Docker secrets for the first node's certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-1-crt certs/node.crt
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-1-key certs/node.key
     ~~~
@@ -216,7 +216,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 7. Create the certificate and key for the second node, using the `--overwrite` flag to replace the files created for the first node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-node --overwrite \
     cockroachdb-2 \
@@ -226,7 +226,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ls certs
     ~~~
@@ -239,19 +239,19 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 8. Create Docker secrets for the second node's certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-2-crt certs/node.crt
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-2-key certs/node.key
     ~~~
 
 9. Create the certificate and key for the third node, again using the `--overwrite` flag to replace the files created for the second node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-node --overwrite \
     cockroachdb-3 \
@@ -261,7 +261,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ls certs
     ~~~
@@ -274,19 +274,19 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 10. Create Docker secrets for the third node's certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-3-crt certs/node.crt
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-3-key certs/node.key
     ~~~
 
 11. Create a client certificate and key for the `root` user:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -296,12 +296,12 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 12. Create Docker secrets for the `root` user's certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-root-crt certs/client.root.crt
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker secret create cockroachdb-root-key certs/client.root.key
     ~~~
@@ -310,7 +310,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 1. On the instance running your manager node, create the first service that the others will join to:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service create \
     --replicas 1 \
@@ -337,7 +337,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
     - `--hostname`: The hostname of the container. It will listen for connections on this address.
     - `--network`: The overlay network for the container to join. See [Step 4. Create an overlay network](#step-4-create-an-overlay-network) for more details.
     - `--mount`: This flag mounts a local volume called `cockroachdb-1`. This means that data and logs for the node running in this container will be stored in `/cockroach/cockroach-data` on the instance and will be reused on restart as long as restart happens on the same instance, which is not guaranteed.
-    {{ site.data.alerts.callout_info }}If you plan on replacing or adding instances, it's recommended to use remote storage instead of local disk. To do so, <a href="https://docs.docker.com/engine/reference/commandline/volume_create/">create a remote volume</a> for each CockroachDB instance using the volume driver of your choice, and then specify that volume driver instead of the <code>volume-driver=local</code> part of the command above, e.g., <code>volume-driver=gce</code> if using the <a href="https://github.com/mcuadros/gce-docker">GCE volume driver</a>.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}If you plan on replacing or adding instances, it's recommended to use remote storage instead of local disk. To do so, <a href="https://docs.docker.com/engine/reference/commandline/volume_create/">create a remote volume</a> for each CockroachDB instance using the volume driver of your choice, and then specify that volume driver instead of the <code>volume-driver=local</code> part of the command above, e.g., <code>volume-driver=gce</code> if using the <a href="https://github.com/mcuadros/gce-docker">GCE volume driver</a>.{{site.data.alerts.end }}
     - `--stop-grace-period`: This flag sets a grace period to give CockroachDB enough time to shut down gracefully, when possible.
     - `--publish`: This flag makes the Admin UI accessible at the IP of any instance running a swarm node on port `8080`. Note that, even though this flag is defined only in the first node's service, the swarm exposes this port on every swarm node using a routing mesh. See [Publishing ports](https://docs.docker.com/engine/swarm/services/#publish-ports) for more details.
     - `--secret`: These flags identify the secrets to use in securing the node. They must reference the secret names defined in step 5. For the node and client certificate and key secrets, the `source` field identifies the relevant secret, and the `target` field defines the name to be used in `cockroach start` and `cockroach sql` flags. For the node and client key secrets, the `mode` field also sets the file permissions to `0600`; if this isn't set, Docker will assign a default file permission of `0444`, which will not work with CockroachDB's built-in SQL client.
@@ -345,7 +345,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 2. On the same instance, create the services to start two other CockroachDB nodes and join them to the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Create the second service:
     $ sudo docker service create \
@@ -366,7 +366,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
     --join=cockroachdb-1:26257
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Create the third service:
     $ sudo docker service create \
@@ -393,7 +393,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 3. Verify that all three services were created successfully:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service ls
     ~~~
@@ -405,16 +405,16 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
     il4m7op1afg9  cockroachdb-3  replicated  1/1       cockroachdb/cockroach:{{ page.release_info.version }}
     ~~~
 
-    {{ site.data.alerts.callout_success }}The service definitions tell the CockroachDB nodes to log to <code>stderr</code>, so if you ever need access to a node's logs for troubleshooting, use <a href="https://docs.docker.com/engine/reference/commandline/logs/"><code>sudo docker logs &lt;container id&gt;</code></a> from the instance on which the container is running.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}The service definitions tell the CockroachDB nodes to log to <code>stderr</code>, so if you ever need access to a node's logs for troubleshooting, use <a href="https://docs.docker.com/engine/reference/commandline/logs/"><code>sudo docker logs &lt;container id&gt;</code></a> from the instance on which the container is running.{{site.data.alerts.end }}
 
 4. Remove the first service and recreate it again with the `--join` flag to ensure that, if the first node restarts, it will rejoin the original cluster via the second service, `cockroachdb-2`, instead of initiating a new cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service rm cockroachdb-1
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service create \
     --replicas 1 \
@@ -439,7 +439,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 1. On any instance, use the `docker ps` command to get the ID of the container running the CockroachDB node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker ps | grep cockroachdb
     ~~~
@@ -450,7 +450,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 2. Use the `docker exec` command to open the built-in SQL shell in interactive mode inside the container:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker exec -it <container ID> \
     ./cockroach sql \
@@ -461,7 +461,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 3. Create a `securenodetest` database:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE securenodetest;
     ~~~
@@ -472,7 +472,7 @@ A secure CockroachDB cluster uses TLS certificates for encrypted inter-node and 
 
 To view your cluster's Admin UI, open a browser and go to `https://<any node's external IP address>:8080`.
 
-{{ site.data.alerts.callout_info }}It's possible to access the Admin UI from outside of the swarm because you published port <code>8080</code> externally in the first node's service definition. However, your browser will consider the CockroachDB-created certificate invalid, so you’ll need to click through a warning message to get to the UI.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It's possible to access the Admin UI from outside of the swarm because you published port <code>8080</code> externally in the first node's service definition. However, your browser will consider the CockroachDB-created certificate invalid, so you’ll need to click through a warning message to get to the UI.{{site.data.alerts.end }}
 
 On this page, verify that the cluster is running as expected:
 
@@ -488,7 +488,7 @@ To see this in action:
 
 1. On any instance, use the `sudo docker ps` command to get the ID of the container running the CockroachDB node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker ps | grep cockroachdb
     ~~~
@@ -499,14 +499,14 @@ To see this in action:
 
 2. Use `sudo docker kill` to remove the container, which implicitly stops the node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker kill <container ID>
     ~~~
 
 3. Verify that the node was restarted in a new container:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker ps | grep cockroachdb
     ~~~
@@ -531,7 +531,7 @@ To increase the number of nodes in your CockroachDB cluster:
 
 To stop the CockroachDB cluster, on the instance running your manager node, remove the services:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ sudo docker service rm cockroachdb-1 cockroachdb-2 cockroachdb-3
 ~~~
@@ -544,7 +544,7 @@ cockroachdb-3
 
 You may want to remove the persistent volumes and secrets used by the services as well. To do this, on each instance:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Identify the name of the local volume:
 $ sudo docker volume ls
@@ -554,13 +554,13 @@ $ sudo docker volume ls
 cockroachdb-1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Remove the local volume:
 $ sudo docker volume rm cockroachdb-1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Identify the name of secrets:
 $ sudo docker secrets ls
@@ -572,7 +572,7 @@ cockroachdb-1-crt
 cockroachdb-1-key
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Remove the secrets:
 $ sudo docker secret rm ca-crt cockroachdb-1-crt cockroachdb-1-key

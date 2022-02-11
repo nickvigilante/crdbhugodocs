@@ -47,7 +47,7 @@ On each instance:
 
 2. Confirm that the Docker daemon is running in the background:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker version
     ~~~
@@ -58,7 +58,7 @@ On each instance:
 
     Take note of the output for `docker swarm init` as it includes the command you'll use in the next step. It should look like this:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker swarm init --advertise-addr 10.142.0.2
     ~~~
@@ -77,7 +77,7 @@ On each instance:
 
 2. On the other two instances, [create a worker node joined to the swarm](https://docs.docker.com/engine/swarm/swarm-tutorial/add-nodes/) by running the `docker swarm join` command in the output from step 1, for example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker swarm join \
          --token SWMTKN-1-5vwxyi6zl3cc62lqlhi1jrweyspi8wblh2i3qa7kv277fgy74n-e5eg5c7ioxypjxlt3rpqorh15 \
@@ -90,7 +90,7 @@ On each instance:
 
 3. On the instance running your manager node, verify that your swarm is running:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker node ls
     ~~~
@@ -106,7 +106,7 @@ On each instance:
 
 On the instance running your manager node, create an overlay network so that the containers in your swarm can talk to each other:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ sudo docker network create --driver overlay cockroachdb
 ~~~
@@ -115,7 +115,7 @@ $ sudo docker network create --driver overlay cockroachdb
 
 1. On the instance running your manager node, create the first service that the others will join to:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service create \
     --replicas 1 \
@@ -137,14 +137,14 @@ $ sudo docker network create --driver overlay cockroachdb
     - `--hostname`: The hostname of the container. It will listen for connections on this address.
     - `--network`: The overlay network for the container to join. See [Step 4. Create an overlay network](#step-4-create-an-overlay-network) for more details.
     - `--mount`: This flag mounts a local volume called `cockroachdb-1`. This means that data and logs for the node running in this container will be stored in `/cockroach/cockroach-data` on the instance and will be reused on restart as long as restart happens on the same instance, which is not guaranteed.
-     {{ site.data.alerts.callout_info }}If you plan on replacing or adding instances, it's recommended to use remote storage instead of local disk. To do so, <a href="https://docs.docker.com/engine/reference/commandline/volume_create/">create a remote volume</a> for each CockroachDB instance using the volume driver of your choice, and then specify that volume driver instead of the <code>volume-driver=local</code> part of the command above, e.g., <code>volume-driver=gce</code> if using the <a href="https://github.com/mcuadros/gce-docker">GCE volume driver</a>.
+     {{site.data.alerts.callout_info }}If you plan on replacing or adding instances, it's recommended to use remote storage instead of local disk. To do so, <a href="https://docs.docker.com/engine/reference/commandline/volume_create/">create a remote volume</a> for each CockroachDB instance using the volume driver of your choice, and then specify that volume driver instead of the <code>volume-driver=local</code> part of the command above, e.g., <code>volume-driver=gce</code> if using the <a href="https://github.com/mcuadros/gce-docker">GCE volume driver</a>.
     - `--stop-grace-period`: This flag sets a grace period to give CockroachDB enough time to shut down gracefully, when possible.
     - `--publish`: This flag makes the Admin UI accessible at the IP of any instance running a swarm node on port `8080`. Note that, even though this flag is defined only in the first node's service, the swarm exposes this port on every swarm node using a routing mesh. See [Publishing ports](https://docs.docker.com/engine/swarm/services/#publish-ports) for more details.
     - `cockroachdb/cockroach:{{ page.release_info.version }} start ...`: The CockroachDB command to [start a node](start-a-node.html) in the container in insecure mode and instruct other cluster members to talk to it using its persistent network address, `cockroachdb-1`.
 
 2. On the same instance, create the services to start two other CockroachDB nodes and join them to the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Start the second service:
     $ sudo docker service create \
@@ -160,7 +160,7 @@ $ sudo docker network create --driver overlay cockroachdb
     --insecure
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     # Start the third service:
     $ sudo docker service create \
@@ -182,7 +182,7 @@ $ sudo docker network create --driver overlay cockroachdb
 
 3. Verify that all three services were created successfully:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service ls
     ~~~
@@ -194,16 +194,16 @@ $ sudo docker network create --driver overlay cockroachdb
     il4m7op1afg9  cockroachdb-3  replicated  1/1       cockroachdb/cockroach:{{ page.release_info.version }}
     ~~~
 
-    {{ site.data.alerts.callout_success }}The service definitions tell the CockroachDB nodes to log to <code>stderr</code>, so if you ever need access to a node's logs for troubleshooting, use <a href="https://docs.docker.com/engine/reference/commandline/logs/"><code>sudo docker logs &lt;container id&gt;</code></a> from the instance on which the container is running.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}The service definitions tell the CockroachDB nodes to log to <code>stderr</code>, so if you ever need access to a node's logs for troubleshooting, use <a href="https://docs.docker.com/engine/reference/commandline/logs/"><code>sudo docker logs &lt;container id&gt;</code></a> from the instance on which the container is running.{{site.data.alerts.end }}
 
 4. Remove the first service and recreate it again with the `--join` flag to ensure that, if the first node restarts, it will rejoin the original cluster via the second service, `cockroachdb-2`, instead of initiating a new cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service rm cockroachdb-1
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker service create \
     --replicas 1 \
@@ -223,7 +223,7 @@ $ sudo docker network create --driver overlay cockroachdb
 
 1. On any instance, use the `sudo docker ps` command to get the ID of the container running the CockroachDB node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker ps | grep cockroachdb
     ~~~
@@ -234,14 +234,14 @@ $ sudo docker network create --driver overlay cockroachdb
 
 2. Use the `sudo docker exec` command to open the built-in SQL shell in interactive mode inside the container:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker exec -it 9539871cc769 ./cockroach sql --insecure
     ~~~
 
 3. Create an `insecurenodetest` database:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE insecurenodetest;
     ~~~
@@ -252,7 +252,7 @@ $ sudo docker network create --driver overlay cockroachdb
 
 To view your cluster's Admin UI, open a browser and go to `http://<any node's external IP address>:8080`.
 
-{{ site.data.alerts.callout_info }}It's possible to access the Admin UI from outside of the swarm because you published port <code>8080</code> externally in the first node's service definition.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It's possible to access the Admin UI from outside of the swarm because you published port <code>8080</code> externally in the first node's service definition.{{site.data.alerts.end }}
 
 On this page, verify that the cluster is running as expected:
 
@@ -268,7 +268,7 @@ To see this in action:
 
 1. On any instance, use the `sudo docker ps` command to get the ID of the container running the CockroachDB node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker ps | grep cockroachdb
     ~~~
@@ -279,14 +279,14 @@ To see this in action:
 
 2. Use `sudo docker kill` to remove the container, which implicitly stops the node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker kill 9539871cc769
     ~~~
 
 3. Verify that the node was restarted in a new container:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker ps | grep cockroachdb
     ~~~
@@ -310,7 +310,7 @@ To increase the number of nodes in your CockroachDB cluster:
 
 To stop the CockroachDB cluster, on the instance running your manager node, remove the services:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ sudo docker service rm cockroachdb-0 cockroachdb-1 cockroachdb-2
 ~~~
@@ -323,7 +323,7 @@ cockroachdb-2
 
 You may want to remove the persistent volumes used by the services as well. To do this, on each instance:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Identify the name of the local volume:
 $ sudo docker volume ls
@@ -333,7 +333,7 @@ $ sudo docker volume ls
 cockroachdb-0
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Remove the local volume:
 $ sudo docker volume rm cockroachdb-0

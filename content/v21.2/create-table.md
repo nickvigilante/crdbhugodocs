@@ -8,7 +8,7 @@ docs_area: reference.sql
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -26,73 +26,73 @@ To create a table, the user must have one of the following:
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_table.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_table.html %}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_table.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_table.html %}
 </div>
 
 **opt_persistence_temp_table ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_persistence_temp_table.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_persistence_temp_table.html %}
 </div>
 
 **column_def ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/column_def.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/column_def.html %}
 </div>
 
 **col_qualification ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/col_qualification.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/col_qualification.html %}
 </div>
 
 **index_def ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/index_def.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/index_def.html %}
 </div>
 
 **family_def ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/family_def.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/family_def.html %}
 </div>
 
 **table_constraint ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/table_constraint.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/table_constraint.html %}
 </div>
 
 **like_table_option_list::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/like_table_option_list.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/like_table_option_list.html %}
 </div>
 
 **opt_with_storage_parameter_list ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_with_storage_parameter_list.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_with_storage_parameter_list.html %}
 </div>
 
 **opt_locality ::=**
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_locality.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/opt_locality.html %}
 </div>
 
 </div>
 
-{{ site.data.alerts.callout_success }}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
+{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -111,7 +111,7 @@ Parameter | Description
 `opt_where_clause` |  An optional `WHERE` clause that defines the predicate boolean expression of a [partial index](partial-indexes.html).
 `opt_with_storage_parameter_list` |  A comma-separated list of [spatial index tuning parameters](spatial-indexes.html#index-tuning-parameters). Supported parameters include `fillfactor`, `s2_max_level`, `s2_level_mod`, `s2_max_cells`, `geometry_min_x`, `geometry_max_x`, `geometry_min_y`, and `geometry_max_y`. The `fillfactor` parameter is a no-op, allowed for PostgreSQL-compatibility.<br><br>For details, see [Spatial index tuning parameters](spatial-indexes.html#index-tuning-parameters). For an example, see [Create a spatial index that uses all of the tuning parameters](spatial-indexes.html#create-a-spatial-index-that-uses-all-of-the-tuning-parameters).
 `ON COMMIT PRESERVE ROWS` | This clause is a no-op, allowed by the parser for PostgresSQL compatibility. CockroachDB only supports session-scoped [temporary tables](temporary-tables.html), and does not support the clauses `ON COMMIT DELETE ROWS` and `ON COMMIT DROP`, which are used to define transaction-scoped temporary tables in PostgreSQL.
-`opt_interleave` | {%  include {{  page.version.version  }}/misc/interleave-deprecation-note.md %}
+`opt_interleave` | {{ partial "{{ page.version.version }}/misc/interleave-deprecation-note.md" . }}
 
 ## Column qualifications
 
@@ -173,11 +173,11 @@ The following options are supported:
 
 To exclude specifiers, use the `EXCLUDING` keyword. Excluding specifiers can be useful if you want to use `INCLUDING ALL`, and exclude just one or two specifiers. The last `INCLUDING`/`EXCLUDING` keyword for a given specifier takes priority.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `CREATE TABLE LIKE` statements cannot copy [column families](column-families.html), [partitions](partitioning.html), and [foreign key constraints](foreign-key.html) from existing tables. If you want these column qualifications in a new table, you must recreate them manually.
 
 `CREATE TABLE LIKE` copies all hidden columns (e.g., the hidden [`crdb_region`](set-locality.html#crdb_region) column in multi-region tables) from the existing table to the new table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Supported `LIKE` specifiers can also be mixed with ordinary `CREATE TABLE` specifiers. For example:
 
@@ -200,13 +200,13 @@ In this example, we create the `users` table with a single [primary key](primary
 
 For performance recommendations on primary keys, see the [Schema Design: Create a Table](schema-design-table.html) page and the [SQL Performance Best Practices](performance-best-practices-overview.html#use-multi-column-primary-keys) page.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
   If no primary key is explicitly defined in a `CREATE TABLE` statement, you can add a primary key to the table with [`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) or [`ALTER PRIMARY KEY`](alter-primary-key.html). If the `ADD` or `ALTER` statement follows the `CREATE TABLE` statement, and is part of the same transaction, no default primary key will be created. If the table has already been created and the transaction committed, the `ADD` or `ALTER` statements replace the default primary key.
- {{ site.data.alerts.end }}
+ {{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY,
@@ -218,7 +218,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -235,7 +235,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 (6 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -251,7 +251,7 @@ For performance recommendations on primary keys, see the [Schema Design: Create 
 
 In this example, we create secondary and GIN indexes during table creation. Secondary indexes allow efficient access to data with keys other than the primary key. [GIN indexes](inverted-indexes.html) allow efficient access to the schemaless data in a [`JSONB`](jsonb.html) column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
         id UUID NOT NULL,
@@ -269,7 +269,7 @@ In this example, we create secondary and GIN indexes during table creation. Seco
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM vehicles;
 ~~~
@@ -295,7 +295,7 @@ We also have other resources on indexes:
 
 ### Create a table with auto-generated unique row IDs
 
-{%  include {{  page.version.version  }}/faq/auto-generate-unique-ids.html %}
+{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
 
 ### Create a table with a foreign key constraint
 
@@ -307,7 +307,7 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a foreign key constraint is deleted, all dependent rows are also deleted).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -319,7 +319,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
         id UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -337,7 +337,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -364,12 +364,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO users (name, dl) VALUES ('Annika', 'ABC-123');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -381,12 +381,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO vehicles (city, owner_id) VALUES ('seattle', '26da1fce-59e1-4290-a786-9068242dd195');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM vehicles;
 ~~~
@@ -398,12 +398,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM users WHERE id = '26da1fce-59e1-4290-a786-9068242dd195';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM vehicles;
 ~~~
@@ -418,7 +418,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 
 In this example, we create the `users` table, but with some column [constraints](constraints.html). One column is the [primary key](primary-key.html), and another column is given a [unique constraint](unique.html) and a [check constraint](check.html) that limits the length of the string. Primary key columns and columns with unique constraints are automatically indexed.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY,
@@ -430,7 +430,7 @@ In this example, we create the `users` table, but with some column [constraints]
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -447,7 +447,7 @@ In this example, we create the `users` table, but with some column [constraints]
 (6 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -463,13 +463,13 @@ In this example, we create the `users` table, but with some column [constraints]
 
 ### Create a table that mirrors key-value storage
 
-{%  include {{  page.version.version  }}/faq/simulate-key-value-store.html %}
+{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
 
 ### Create a table from a `SELECT` statement
 
 You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a new table from the results of a `SELECT` statement. For example, suppose you have a number of rows of user data in the `users` table, and you want to create a new table from the subset of users that are located in New York.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users WHERE city = 'new york';
 ~~~
@@ -485,12 +485,12 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users_ny AS SELECT * FROM users WHERE city = 'new york';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users_ny;
 ~~~
@@ -508,18 +508,18 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with a computed column
 
-{%  include {{  page.version.version  }}/computed-columns/simple.md %}
+{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
 
 ### Create a table with a hash-sharded primary index
 
-{%  include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+{{ partial "{{ page.version.version }}/performance/use-hash-sharded-indexes.md" . }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET experimental_enable_hash_sharded_indexes=on;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE events (
     ts DECIMAL PRIMARY KEY USING HASH WITH BUCKET_COUNT=8,
@@ -527,7 +527,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
     );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM events;
 ~~~
@@ -541,7 +541,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM events;
 ~~~
@@ -556,12 +556,12 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with a hash-sharded secondary index
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET experimental_enable_hash_sharded_indexes=on;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE events (
     product_id INT8,
@@ -575,7 +575,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM events;
 ~~~
@@ -597,7 +597,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (11 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM events;
 ~~~
@@ -619,7 +619,7 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 #### Create a table including all supported source specifiers
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -645,14 +645,14 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (1 row
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles2 (
         LIKE vehicles INCLUDING ALL
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles2;
 ~~~
@@ -681,7 +681,7 @@ Note that the foreign key constraint `fk_owner_id_ref_users` in the source table
 
 #### Create a table with some source specifiers and a foreign key constraint
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles3 (
         LIKE vehicles INCLUDING DEFAULTS INCLUDING INDEXES,
@@ -689,7 +689,7 @@ Note that the foreign key constraint `fk_owner_id_ref_users` in the source table
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles3;
 ~~~
@@ -719,11 +719,11 @@ Note that the foreign key constraint `fk_owner_id_ref_users` in the source table
 
 To create a table with a specific [table locality](multiregion-overview.html#table-locality) in a [multi-region database](multiregion-overview.html), add a `LOCALITY` clause to the end of the table's `CREATE TABLE` statement.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In order to set table localities, the database that contains the table must have [database regions](multiregion-overview.html#database-regions).
 
 By default, all tables in a multi-region database have a [`REGIONAL BY TABLE IN PRIMARY REGION`](multiregion-overview.html#regional-tables) locality.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Create a table with a global locality
 
@@ -733,7 +733,7 @@ The `GLOBAL` locality is useful for "read-mostly" tables of reference data that 
 
 For example, the `promo_codes` table of the [`movr` database](movr.html) is rarely updated after being initialized, but it needs to be read by nodes in all regions.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE promo_codes (
     code STRING PRIMARY KEY,
@@ -744,7 +744,7 @@ For example, the `promo_codes` table of the [`movr` database](movr.html) is rare
     LOCALITY GLOBAL;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW TABLES] WHERE table_name='promo_codes';
 ~~~
@@ -760,15 +760,15 @@ For example, the `promo_codes` table of the [`movr` database](movr.html) is rare
 
 To create a table with a [`REGIONAL BY TABLE`](multiregion-overview.html#regional-tables) locality, add a `LOCALITY REGIONAL BY TABLE` clause to the end of the `CREATE TABLE` statement.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `REGIONAL BY TABLE IN PRIMARY REGION` is the default locality for all tables created in a multi-region database.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The `REGIONAL BY TABLE` locality is useful for tables that require low-latency reads and writes from specific region.
 
 For example, suppose you want to create a table for your application's end users in a specific state:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users_ny (
     id UUID PRIMARY KEY,
@@ -777,7 +777,7 @@ For example, suppose you want to create a table for your application's end users
     LOCALITY REGIONAL BY TABLE IN "us-east1";
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW TABLES] WHERE table_name='users_ny';
 ~~~
@@ -789,9 +789,9 @@ For example, suppose you want to create a table for your application's end users
 (1 row)
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 `LOCALITY REGIONAL` is an alias for `LOCALITY REGIONAL BY TABLE`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Create a table with a regional-by-row locality
 
@@ -801,7 +801,7 @@ The `REGIONAL BY ROW` locality is useful for tables that require low-latency rea
 
 For example, the `vehicles` table of the [`movr` database](movr.html) is read to and written from nodes in different regions.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
     id UUID PRIMARY KEY,
@@ -817,19 +817,19 @@ For example, the `vehicles` table of the [`movr` database](movr.html) is read to
 
 CockroachDB will automatically assign each row to a region based on the locality of the node from which the row is inserted. It will then optimize subsequent read and write queries executed from nodes located in the region assigned to the rows being queried.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If the node from which a row is inserted has a locality that does not correspond to a region in the database, then the row will be assigned to the database's primary region.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To assign rows to regions, CockroachDB creates and manages a hidden [`crdb_region` column](set-locality.html#crdb_region), of [`ENUM`](enum.html) type `crdb_internal_region`. To override the automatic region assignment and choose the region in which rows will be placed, you can provide a value for the `crdb_region` column in `INSERT` and `UPDATE` queries on the table.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The region value for `crdb_region` must be one of the regions added to the database, and present in the `crdb_internal_region` `ENUM`. To return the available regions, use a [`SHOW REGIONS FROM DATABASE <database name>`](show-regions.html) statement, or a [`SHOW ENUMS`](show-enums.html) statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
     id UUID PRIMARY KEY,
@@ -869,7 +869,7 @@ For example:
 
 You can then manually set the values of the region with each [`INSERT`](insert.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO vehicles (crdb_region, ...) VALUES ('us-east1', ...);
 ~~~
@@ -888,7 +888,7 @@ Using the `LOCALITY REGIONAL BY ROW AS <region>` clause, you can assign rows to 
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
     id UUID PRIMARY KEY,
@@ -916,7 +916,7 @@ CockroachDB will then assign a region to each row, based on the value of the `re
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE bank (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
@@ -929,7 +929,7 @@ For example:
 
 CockroachDB creates a sequence to use as the `numerical` column's default value.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW SEQUENCES;
 ~~~
@@ -941,7 +941,7 @@ CockroachDB creates a sequence to use as the `numerical` column's default value.
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM bank;
 ~~~
@@ -959,12 +959,12 @@ CockroachDB creates a sequence to use as the `numerical` column's default value.
 
 When a new row is added to the table, CockroachDB populates the `numerical` column with the result of the `nextval('bank_numerical_seq')` [built-in function](functions-and-operators.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO bank (order_index, balance) VALUES (1, 0), (2, 0), (3, 0);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id, order_index, balance, numerical FROM bank ORDER BY order_index;
 ~~~
@@ -980,12 +980,12 @@ When a new row is added to the table, CockroachDB populates the `numerical` colu
 
 The `numerical` column in this example follows the `BY DEFAULT` rule. According to this rule, if the value of an identity is explicitly updated, the sequence value is overwritten:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE bank SET numerical = 500 WHERE id = '0b533801-052e-4837-8e13-0ef2fa6f8883';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id, order_index, balance, numerical FROM bank ORDER BY order_index;
 ~~~
@@ -1001,17 +1001,17 @@ The `numerical` column in this example follows the `BY DEFAULT` rule. According 
 
 Inserting explicit values does not affect the next value of the sequence:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO bank (order_index, balance, numerical) VALUES (4, 0, 3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO bank (order_index, balance) VALUES (5, 0);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT id, order_index, balance, numerical FROM bank ORDER BY order_index;
 ~~~
@@ -1027,9 +1027,9 @@ Inserting explicit values does not affect the next value of the sequence:
 (5 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If the `numerical` column were to follow the `ALWAYS` rule instead, then the sequence values in the column could not be overwritten.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

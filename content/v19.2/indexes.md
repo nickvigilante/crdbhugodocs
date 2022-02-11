@@ -54,9 +54,9 @@ We recommend creating indexes for all of your common queries. To design the most
 - [Index all columns](#indexing-columns) in the `WHERE` clause.
 - [Store columns](#storing-columns) that are _only_ in the `SELECT` clause.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more information about how to tune CockroachDB's performance, see [SQL Performance Best Practices](performance-best-practices-overview.html) and the [Performance Tuning](performance-tuning.html) tutorial.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Indexing columns
 
@@ -75,14 +75,14 @@ The `STORING` clause specifies columns which are not part of the index key but s
 
 Say we have a table with three columns, two of which are indexed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE tbl (col1 INT, col2 INT, col3 INT, INDEX (col1, col2));
 ~~~
 
 If we filter on the indexed columns but retrieve the unindexed column, this requires reading `col3` from the primary index via an "index join."
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT col3 FROM tbl WHERE col1 = 10 AND col2 > 1;
 ~~~
@@ -101,12 +101,12 @@ If we filter on the indexed columns but retrieve the unindexed column, this requ
 
 However, if we store `col3` in the index, the index join is no longer necessary. This means our query only needs to read from the secondary index, so it will be more efficient.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE tbl (col1 INT, col2 INT, col3 INT, INDEX (col1, col2) STORING (col3));
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT col3 FROM tbl WHERE col1 = 10 AND col2 > 1;
 ~~~

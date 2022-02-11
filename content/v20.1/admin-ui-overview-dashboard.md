@@ -6,13 +6,13 @@ toc: true
 
 The **Overview** dashboard lets you monitor important SQL performance, replication, and storage metrics. To view this dashboard, [access the Admin UI](admin-ui-overview.html#admin-ui-access) and click **Metrics** on the left-hand navigation bar. The **Overview** dashboard is displayed by default.
 
-{%  include {{  page.version.version  }}/admin-ui/admin-ui-metrics-navigation.md %}
+{{ partial "{{ page.version.version }}/admin-ui/admin-ui-metrics-navigation.md" . }}
 
 The **Overview** dashboard displays the following time series graphs:
 
 ## SQL Queries
 
-<img src="{{  'images/v20.1/admin_ui_sql_queries.png' | relative_url  }}" alt="CockroachDB Admin UI SQL Queries graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/admin_ui_sql_queries.png' | relative_url }}" alt="CockroachDB Admin UI SQL Queries graph" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the 10-second average of the number of `SELECT`/`INSERT`/`UPDATE`/`DELETE` queries per second issued by SQL clients on the node.
 
@@ -20,7 +20,7 @@ The **Overview** dashboard displays the following time series graphs:
 
 ## Service Latency: SQL, 99th percentile
 
-<img src="{{  'images/v20.1/admin_ui_service_latency_99_percentile.png' | relative_url  }}" alt="CockroachDB Admin UI Service Latency graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/admin_ui_service_latency_99_percentile.png' | relative_url }}" alt="CockroachDB Admin UI Service Latency graph" style="border:1px solid #eee;max-width:100%" />
 
 Service latency is calculated as the time between when the cluster receives a query and finishes executing the query. This time does not include returning results to the client.
 
@@ -30,7 +30,7 @@ Service latency is calculated as the time between when the cluster receives a qu
 
 ## Replicas per Node
 
-<img src="{{  'images/v20.1/admin_ui_replicas_per_node.png' | relative_url  }}" alt="CockroachDB Admin UI Replicas per node graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/admin_ui_replicas_per_node.png' | relative_url }}" alt="CockroachDB Admin UI Replicas per node graph" style="border:1px solid #eee;max-width:100%" />
 
 Ranges are subsets of your data, which are replicated to ensure survivability. Ranges are replicated to a configurable number of CockroachDB nodes.
 
@@ -40,13 +40,13 @@ Ranges are subsets of your data, which are replicated to ensure survivability. R
 
 For details about how to control the number and location of replicas, see [Configure Replication Zones](configure-replication-zones.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The timeseries data used to power the graphs in the Admin UI is stored within the cluster and accumulates for 30 days before it starts getting truncated. As a result, for the first 30 days or so of a cluster's life, you will see a steady increase in disk usage and the number of ranges even if you aren't writing data to the cluster yourself. For more details, see this [FAQ](operational-faqs.html#why-is-disk-usage-increasing-despite-lack-of-writes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Capacity
 
-<img src="{{  'images/v20.1/admin_ui_capacity.png' | relative_url  }}" alt="CockroachDB Admin UI Capacity graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/admin_ui_capacity.png' | relative_url }}" alt="CockroachDB Admin UI Capacity graph" style="border:1px solid #eee;max-width:100%" />
 
 You can monitor the **Capacity** graph to determine when additional storage is needed (e.g., by [scaling your cluster](cockroach-start.html)). 
 
@@ -67,11 +67,11 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/admin-ui/admin-ui-summary-events.md %}
+{{ partial "{{ page.version.version }}/admin-ui/admin-ui-summary-events.md" . }}
 
 ## See also
 

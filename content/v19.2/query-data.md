@@ -15,7 +15,7 @@ Make sure you have already:
 - [Connected to the database](connect-to-the-database.html).
 - [Inserted data](insert-data.html) that you now want to run queries against.
 
-{%  include {{ page.version.version }}/app/retry-errors.md %}
+{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
 
 ## Simple selects
 
@@ -28,7 +28,7 @@ Make sure you have already:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT id, balance from accounts;
 ~~~
@@ -39,7 +39,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -58,13 +58,13 @@ for rows.Next() {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -85,13 +85,13 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -102,7 +102,7 @@ with conn.cursor() as cur:
         print([str(cell) for cell in row])
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
 
 </section>
 
@@ -110,7 +110,7 @@ with conn.cursor() as cur:
 
 The syntax for a [selection query][selection] with a two-way [join][joins] is shown below.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT
 	a.col1, b.col1
@@ -134,7 +134,7 @@ Join performance can be a big factor in your application's performance.  For mor
 
 For pagination queries, we strongly recommend keyset pagination (also known as "the seek method").  The syntax for a keyset pagination query is shown below.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT * FROM t AS OF SYSTEM TIME ${time}
   WHERE key > ${value}

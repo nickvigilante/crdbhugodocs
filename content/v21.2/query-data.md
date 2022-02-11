@@ -12,12 +12,12 @@ This page has instructions for making SQL [selection queries][selection] against
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.dedicated  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.dedicated }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Install a Postgres client](install-client-drivers.html).
 - [Connect to the database](connect-to-the-database.html).
 - [Insert data](insert-data.html) that you now want to run queries against.
 
-{%  include {{ page.version.version }}/app/retry-errors.md %}
+{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
 
 ## Simple selects
 
@@ -30,7 +30,7 @@ Before reading this page, do the following:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT id, balance from accounts;
 ~~~
@@ -41,7 +41,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -60,13 +60,13 @@ for rows.Next() {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -87,13 +87,13 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -104,7 +104,7 @@ with conn.cursor() as cur:
         print([str(cell) for cell in row])
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
 
 </section>
 
@@ -114,7 +114,7 @@ To order the results of a query, use an `ORDER BY` clause.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT * FROM bank ORDER BY balance;
 ~~~
@@ -138,7 +138,7 @@ To limit the results of a query, use a `LIMIT` clause.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT * FROM bank LIMIT 5;
 ~~~
@@ -160,7 +160,7 @@ For reference documentation and more examples, see the [`LIMIT`/`OFFSET`](limit-
 
 The syntax for a [selection query][selection] with a two-way [join][joins] is shown below.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT
 	a.col1, b.col1

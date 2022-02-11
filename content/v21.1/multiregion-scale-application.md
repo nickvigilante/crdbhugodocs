@@ -24,7 +24,7 @@ Use an [`ALTER DATABASE ... SET PRIMARY REGION`](set-primary-region.html) statem
 
 Setting the primary region before adding new regional nodes to the cluster prevents CockroachDB from [rebalancing row replications](architecture/replication-layer.html#leaseholder-rebalancing) across all regions each time a node is added in a new region.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Executing `ALTER` statements performs a [schema migration](online-schema-changes.html) on the cluster. If you are using a schema migration tool, you will need to execute these statements as raw SQL, as the [multi-region SQL syntax](multiregion-overview.html) is specific to CockroachDB.
 
 Here are some simple tutorials on executing schema migrations against CockroachDB clusters:
@@ -33,7 +33,7 @@ Here are some simple tutorials on executing schema migrations against CockroachD
 - [Migrate CockroachDB Schemas with Flyway](flyway.html)
 - [Migrate CockroachDB Schemas with Alembic](alembic.html)
 - [Execute SQL statements from a file](cockroach-sql.html#execute-sql-statements-from-a-file) and [Change and Remove Objects in a Database Schema](schema-design-update.html)
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 2. Scale the cluster deployment
 
@@ -41,13 +41,13 @@ Scale the cluster by adding nodes to the cluster in new regions.
 
 For instructions on adding nodes to an existing cluster, see one of the following pages:
 
-- For managed {{  site.data.products.dedicated  }} deployments, see [Cluster Management](../cockroachcloud/cluster-management.html).
+- For managed {{ site.data.products.dedicated }} deployments, see [Cluster Management](../cockroachcloud/cluster-management.html).
 - For orchestrated deployments, see [Orchestrate CockroachDB Across Multiple Kubernetes Clusters](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html).
 - For manual deployments, see [`cockroach start`](cockroach-start.html) and [Manual Deployment](manual-deployment.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For orchestrated and manual deployments, you must specify a [regional locality](cockroach-start.html#locality) for each node at startup. These regional localities are represented as [cluster regions](multiregion-overview.html#cluster-regions) in the cluster.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 3. Scale the database schema
 
@@ -67,16 +67,16 @@ Scaling application deployments in multiple regions can greatly improve latency 
 
 For guidance on connecting to CockroachDB from an application deployment, see one of the following pages:
 
-- For connecting to {{  site.data.products.dedicated  }} deployments, see [Connect to Your {{  site.data.products.dedicated  }} Cluster](../cockroachcloud/connect-to-your-cluster.html) and [Connect to the Database ({{  site.data.products.dedicated  }})](connect-to-the-database-cockroachcloud.html).
+- For connecting to {{ site.data.products.dedicated }} deployments, see [Connect to Your {{ site.data.products.dedicated }} Cluster](../cockroachcloud/connect-to-your-cluster.html) and [Connect to the Database ({{ site.data.products.dedicated }})](connect-to-the-database-cockroachcloud.html).
 - For connecting to a standard CockroachDB deployment, see [`cockroach sql`](cockroach-sql.html) and [Connect to the Database](connect-to-the-database.html).
 
 To limit the latency between the application and the database, each deployment of the application should communicate with the closest database deployment. For details on configuring database connections for individual application deployments, consult your cloud provider's documentation. For an example using Google Cloud services, see [Multi-region Application Deployment](multi-region-deployment.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A multi-region application deployment does not require a multi-region database deployment. Deploying a global application in multiple regions can yield significant latency benefits for the end user, even if you have not yet scaled your database in multiple regions. For an example, see [Reducing Multi-Region Latency with Follower Reads](https://www.cockroachlabs.com/blog/follower-reads/#:~:text=Deployment%202%3A%20Global%20Application%20Deployment%2C%20No%20Follower%20reads).
 
 If you do scale the application first, make sure that you reconfigure each application deployment to communicate with the closest database deployment after deploying the database in multiple regions.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 2. *(Optional)* Update the application code for multi-region
 
@@ -104,14 +104,14 @@ In the absence of an explicit, back-filling computed column for the hidden `crdb
 
 1. Make `crdb_region` visible in the relevant `REGIONAL BY ROW` table(s):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     ALTER TABLE users ALTER COLUMN crdb_region SET VISIBLE;
     ~~~
 
 1. Update the table mappings in the application code (written in Python, with [SQLAlchemy](https://www.sqlalchemy.org/)):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ python
     from models import Base
 
@@ -120,15 +120,15 @@ In the absence of an explicit, back-filling computed column for the hidden `crdb
     Base.metadata.reflect(bind=self.engine, extend_existing=True, autoload_replace=True)
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     SQLAlchemy allows you to update all table mappings to reflect the database with the `sqlalchemy.schema.MetaData` class method [`reflect()`](https://docs.sqlalchemy.org/en/14/core/metadata.html#sqlalchemy.schema.MetaData.reflect). If your ORM framework does not support updating mapping objects dynamically, you might need to add the column to the table-mapping class definition as a `String`-typed column and reinstantiate the object.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Reference the column value as needed.
 
     Here is an example function that updates the region value in a given table, using the values of the `city` column:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ python
     from sqlalchemy_cockroachdb import run_transaction
     ...

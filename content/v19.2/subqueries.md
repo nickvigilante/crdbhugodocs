@@ -27,7 +27,7 @@ notations, and those defined using
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT *
    FROM [INSERT INTO t(x) VALUES (1), (2), (3) RETURNING x]
@@ -45,7 +45,7 @@ A subquery is said to be "correlated" when it uses table or column names defined
 
 For example, to find every customer with at least one order, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT
       c.name
@@ -65,9 +65,9 @@ The [cost-based optimizer](cost-based-optimizer.html) supports most correlated s
 
 ## Performance best practices
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB is currently undergoing major changes to evolve and improve the performance of subqueries. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 - Scalar subqueries currently disable the distribution of the execution of a query. To ensure maximum performance on queries that process a large number of rows, make the client application compute the subquery results ahead of time and pass these results directly in the surrounding query.
 

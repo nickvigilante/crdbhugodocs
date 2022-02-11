@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports the following SQL statements. Click a statement for more details.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 In the [built-in SQL shell](use-the-built-in-sql-client.html#help), use `\h [statement]` to get inline help about a specific statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Data manipulation statements
@@ -154,9 +154,9 @@ Statement | Usage
 
 The following statements are available only to [enterprise](https://www.cockroachlabs.com/product/cockroachdb/) users.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For non-enterprise users, see [Back up Data](backup.html) and [Restore Data](restore.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Statement | Usage
 ----------|------------
@@ -168,9 +168,9 @@ Statement | Usage
 
 <span class="version-tag">New in v2.1:</span> [Change data capture](change-data-capture.html) (CDC) provides row-level change feeds into Apache Kafka for downstream processing.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CDC is an enterprise feature. There will be a core version in a future release.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Statement | Usage
 ----------|------------

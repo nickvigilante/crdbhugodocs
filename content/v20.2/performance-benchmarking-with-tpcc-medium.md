@@ -24,7 +24,7 @@ This page shows you how to reproduce [CockroachDB's TPC-C performance benchmarki
 
 <span class="version-tag">New in v20.2</span>: CockroachDB can achieve a TPC-C run of 13k warehouses on the same cluster size used for 10k in version 19.2, a 30% improvement:
 
-<img src="{{  'images/v20.2/tpcc13k.png' | relative_url  }}" alt="TPC-C 13,000" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/tpcc13k.png' | relative_url }}" alt="TPC-C 13,000" style="border:1px solid #eee;max-width:100%" />
 
 ## Before you begin
 
@@ -39,7 +39,7 @@ TPC-C provides the most realistic and objective measure for OLTP performance at 
 
 Reproducing these TPC-C results involves using CockroachDB's [partitioning](partitioning.html) feature to ensure replicas for any given section of data are located on the same nodes that will be queried by the load generator for that section of data. Partitioning helps distribute the workload evenly across the cluster.
 
-The partitioning feature requires an Enterprise license, so [request a 30-day trial license](https://www.cockroachlabs.com/get-cockroachdb/) before you get started.
+The partitioning feature requires an Enterprise license, so [request a 30-day trial license](https://www.cockroachlabs.com/get-cockroachdb/enterprise/) before you get started.
 
 You should receive your trial license via email within a few minutes. You'll enable your license once your cluster is up-and-running.
 
@@ -57,9 +57,9 @@ You should receive your trial license via email within a few minutes. You'll ena
 
 2. Note the internal IP address of each instance. You'll need these addresses when starting the CockroachDB nodes.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 This configuration is intended for performance benchmarking only. For production deployments, there are other important considerations, such as security, load balancing, and data location techniques to minimize network latency. For more details, see the [Production Checklist](recommended-production-settings.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Configure your network
 
@@ -90,28 +90,28 @@ CockroachDB requires TCP communication on two ports:
 
 ## Step 2. Start CockroachDB
 
-{%  include {{  page.version.version  }}/prod-deployment/insecure-flag.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/insecure-flag.md" . }}
 
 1. SSH to the first VM where you want to run a CockroachDB node.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
     If you get a permissions error, prefix the command with `sudo`.
 
 3. Run the [`cockroach start`](cockroach-start.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -130,7 +130,7 @@ CockroachDB requires TCP communication on two ports:
 
 5. On any of the VMs with the `cockroach` binary, run the one-time [`cockroach init`](cockroach-init.html) command to join the first nodes into a cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node on --join list>
     ~~~
@@ -143,14 +143,14 @@ You'll be importing a large TPC-C data set. To speed that up, you can tweak some
 
 2. Launch the [built-in SQL shell](cockroach-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=<address of any node>
     ~~~
 
 3. Adjust some [cluster settings](cluster-settings.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING rocksdb.ingest_backpressure.l0_file_count_threshold = 100;
     SET CLUSTER SETTING rocksdb.ingest_backpressure.pending_compaction_threshold = '5 GiB';
@@ -162,19 +162,19 @@ You'll be importing a large TPC-C data set. To speed that up, you can tweak some
 
 4. Enable the trial license you requested earlier:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<your organization>';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<your license key>';
     ~~~
 
 5. Exit the SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
@@ -185,24 +185,24 @@ CockroachDB comes with a number of [built-in workloads](cockroach-workload.html)
 
 1. SSH to the VM where you want to run TPC-C.
 
-1. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+1. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
     If you get a permissions error, prefix the command with `sudo`.
 
 1. Import the TPC-C dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload fixtures import tpcc \
     --partitions=5 \
@@ -220,7 +220,7 @@ Next, [partition your database](partitioning.html) to divide all of the TPC-C ta
 
 1. Still on the same VM, briefly run TPC-C to let the cluster balance and the leases settle. Bump the file descriptor limits with `ulimit` to the high value shown below, since the workload generators create a lot of database connections.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ulimit -n 100000 && cockroach workload run tpcc \
     --partitions=5 \
@@ -244,7 +244,7 @@ Next, [partition your database](partitioning.html) to divide all of the TPC-C ta
 
 2. Run TPC-C for 30 minutes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ulimit -n 100000 && cockroach workload run tpcc \
     --partitions=5 \

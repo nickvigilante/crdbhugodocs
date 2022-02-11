@@ -18,13 +18,13 @@ This tutorial shows you how build a simple Node.js application with CockroachDB 
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/example-app-node-prisma
 ~~~
@@ -42,51 +42,51 @@ The project has the following directory structure:
 
 The `dbinit.sql` file initializes the database schema that the application uses:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-node-prisma/main/dbinit.sql %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-node-prisma/main/dbinit.sql %}
 ~~~
 
 The `index.js` file contains the code for `INSERT`, `SELECT`, `UPDATE`, and `DELETE` SQL operations:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ js
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-node-prisma/main/index.js %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-node-prisma/main/index.js %}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In [production](recommended-production-settings.html#transaction-retries), we recommend implementing [client-side transaction retries](transactions.html#client-side-intervention) for all database operations.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 3. Initialize the database
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB does not support Prisma Migrate. We recommend executing DDL SQL statements to initialize your database schema separately. After the database schema is initialized, you can load existing tables into your Prisma schema with the Prisma Client, as demonstrated [here](https://www.prisma.io/docs/concepts/components/introspection).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To initialize the example database schema in CockroachDB, use the [`cockroach sql`](cockroach-sql.html) command to execute the SQL statements in the `dbinit.sql` file:
 
 <div class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach sql --url "<connection-string>" --file dbinit.sql
 ~~~
 
-Where `<connection-string>` is the connection string you obtained earlier from the {{  site.data.products.db  }} Console.
+Where `<connection-string>` is the connection string you obtained earlier from the {{ site.data.products.db }} Console.
 
 </div>
 
 <div class="filter-content" markdown="1" data-scope="local">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach sql --url "postgresql://root@localhost:26257?sslmode=disable" --file dbinit.sql
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `postgresql://root@localhost:26257?sslmode=disable` is the `sql` connection string you obtained earlier from the `cockroach` welcome text.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 </div>
 
@@ -96,18 +96,18 @@ cockroach sql --url "postgresql://root@localhost:26257?sslmode=disable" --file d
 
     <div class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~
     DATABASE_URL="<connection-string>"
     ~~~
 
-    Where `<connection-string>` is the connection string you obtained earlier from the {{  site.data.products.db  }} Console.
+    Where `<connection-string>` is the connection string you obtained earlier from the {{ site.data.products.db }} Console.
 
     </div>
 
     <div class="filter-content" markdown="1" data-scope="local">
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~
     DATABASE_URL="postgresql://root@localhost:26257?sslmode=disable"
     ~~~
@@ -116,21 +116,21 @@ cockroach sql --url "postgresql://root@localhost:26257?sslmode=disable" --file d
 
 1. Install the app requirements:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ npm install
     ~~~
 
 1. Load the database schema from the cluster into your Prisma schema file:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ npx prisma db pull
     ~~~
 
 1. Initialize Prisma Client:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ npx prisma generate
     ~~~
@@ -139,7 +139,7 @@ cockroach sql --url "postgresql://root@localhost:26257?sslmode=disable" --file d
 
 Run the application code:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ node index.js
 ~~~
@@ -261,4 +261,4 @@ All Customer rows deleted. { count: 10 }
 
 Read more about using [Prisma Client](https://www.prisma.io/docs/).
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

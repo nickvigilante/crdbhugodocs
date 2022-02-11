@@ -6,9 +6,9 @@ toc: true
 
 If a [SQL statement](sql-statements.html) returns an unexpected result or takes longer than expected to process, this page will help you troubleshoot the issue.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a developer-centric walkthrough of optimizing SQL query performance, see [Optimize Query Performance](make-queries-fast.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Identify slow queries
 
@@ -18,22 +18,22 @@ Use the [slow query log](#using-the-slow-query-log) or [DB Console](#using-the-d
 
  The slow query log is a record of SQL queries whose service latency exceeds a specified threshold value. When the `sql.log.slow_query.latency_threshold` [cluster setting](cluster-settings.html) is set to a non-zero value, each gateway node will log slow SQL queries to a secondary log file (`cockroach-sql-slow.log`) in the [log directory](debug-and-error-logs.html#write-to-file).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Service latency is the time taken to execute a query once it is received by the cluster. It does not include the time taken to send the query to the cluster or return the result to the client.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Run the [`cockroach sql`](cockroach-sql.html) command against one of your nodes. This opens the interactive SQL shell.
 
 2. Set the `sql.log.slow_query.latency_threshold` [cluster setting](cluster-settings.html) to a threshold of your choosing. For example, 100 milliseconds represents [the limit where a user feels the system is reacting instantaneously](https://www.nngroup.com/articles/response-times-3-important-limits/).
 
-  	{%  include copy-clipboard.html %}
+  	{{ partial "copy-clipboard.html" . }}
   	~~~ sql
   	> SET CLUSTER SETTING sql.log.slow_query.latency_threshold = '100ms';
     ~~~
 
 3. <span class="version-tag">New in v20.2:</span> To write slow internal queries to a separate log, set the `sql.log.slow_query.internal_queries.enabled` cluster setting to `true`.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING sql.log.slow_query.internal_queries.enabled = 'true';
     ~~~
@@ -62,13 +62,13 @@ Service latency is the time taken to execute a query once it is received by the 
     I201008 21:16:06.534587 28912 sql/exec_log.go:225 ⋮ [intExec=‹create-stats›] 10 483.627ms ‹exec-internal› ‹"$ internal-create-stats"› ‹{}› ‹"CREATE STATISTICS __auto__ FROM [56] WITH OPTIONS THROTTLING 0.9 AS OF SYSTEM TIME '-30s'"› ‹{}› 0 ‹""› 0 ‹{ LATENCY_THRESHOLD }›
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Setting `sql.log.slow_query.latency_threshold` to a non-zero value enables tracing on all queries, which impacts performance. After debugging, set the value back to `0s` to disable the log.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
-{%  include {{  page.version.version  }}/ui/ui-log-files.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/ui/ui-log-files.md" . }}
+{{site.data.alerts.end }}
 
 ### Using the DB Console
 
@@ -84,7 +84,7 @@ You can look more closely at the behavior of a statement by visualizing a statem
 
 1. Start Jaeger:
 
-  {%  include copy-clipboard.html %}
+  {{ partial "copy-clipboard.html" . }}
   ~~~ shell
   docker run -d --name jaeger -p 16686:16686 jaegertracing/all-in-one:1.17
   ~~~
@@ -93,23 +93,23 @@ You can look more closely at the behavior of a statement by visualizing a statem
 
 1. Click on **JSON File** in the Jaeger UI and upload `trace-jaeger.json` from the diagnostics bundle. The trace will appear in the list on the right.
 
-    <img src="{{  'images/v20.2/jaeger-trace-json.png' | relative_url  }}" alt="Jaeger Trace Upload JSON" style="border:1px solid #eee;max-width:40%" />
+    <img src="{{ 'images/v20.2/jaeger-trace-json.png' | relative_url }}" alt="Jaeger Trace Upload JSON" style="border:1px solid #eee;max-width:40%" />
 
 1. Click on the trace to view its details. It is visualized as a collection of spans with timestamps. These may include operations executed by different nodes.
 
-    <img src="{{  'images/v20.2/jaeger-trace-spans.png' | relative_url  }}" alt="Jaeger Trace Spans" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.2/jaeger-trace-spans.png' | relative_url }}" alt="Jaeger Trace Spans" style="border:1px solid #eee;max-width:100%" />
 
     The full timeline displays the execution time and [execution phases](architecture/sql-layer.html#sql-parser-planner-executor) for the statement.
 
 1. Click on a span to view details for that span and log messages.
 
-    <img src="{{  'images/v20.2/jaeger-trace-log-messages.png' | relative_url  }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.2/jaeger-trace-log-messages.png' | relative_url }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
 
 1. You can troubleshoot [transaction contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention), for example, by gathering [diagnostics](ui-statements-page.html#diagnostics) on statements with high latency and looking through the log messages in `trace-jaeger.json` for jumps in latency.
 
   In the example below, the trace shows that there is significant latency between a push attempt on a transaction that is holding a [lock](architecture/transaction-layer.html#writing) (56.85ms) and that transaction being committed (131.37ms).
 
-    <img src="{{  'images/v20.2/jaeger-trace-transaction-contention.png' | relative_url  }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.2/jaeger-trace-transaction-contention.png' | relative_url }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
 
 ## `SELECT` statement performance issues
 
@@ -203,7 +203,7 @@ Because this kind of behavior is entirely unexpected, you should [file an issue]
 
 ## SQL logging
 
-{%  include {{  page.version.version  }}/faq/sql-query-logging.md %}
+{{ partial "{{ page.version.version }}/faq/sql-query-logging.md" . }}
 
 ## Something else?
 

@@ -6,9 +6,9 @@ toc: true
 
 The `UPDATE` [statement](sql-statements.html) updates rows in a table.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you update a row that contains a column referenced by a [foreign key constraint](foreign-key.html) and has an [`ON UPDATE` action](foreign-key.html#foreign-key-actions), all of the dependent rows will also be updated.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Required privileges
@@ -18,7 +18,7 @@ The user must have the `SELECT` and `UPDATE` [privileges](authorization.html#ass
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/update.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/update.html" . }}
 </div>
 
 ## Parameters
@@ -42,7 +42,7 @@ Parameter | Description
 
 ### Update a single column in a single row
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -59,12 +59,12 @@ Parameter | Description
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET balance = 5000.0 WHERE id = 2;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -83,12 +83,12 @@ Parameter | Description
 
 ### Update multiple columns in a single row
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET (balance, customer) = (9000.0, 'Kelly') WHERE id = 2;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -105,12 +105,12 @@ Parameter | Description
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET balance = 6300.0, customer = 'Stanley' WHERE id = 3;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -129,14 +129,14 @@ Parameter | Description
 
 ### Update using `SELECT` statement
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET (balance, customer) =
     (SELECT balance, customer FROM accounts WHERE id = 2)
      WHERE id = 4;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -155,12 +155,12 @@ Parameter | Description
 
 ### Update with default values
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET balance = DEFAULT where customer = 'Stanley';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -179,16 +179,16 @@ Parameter | Description
 
 ### Update all rows
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you do not use the `WHERE` clause to specify the rows to be updated, the values for all rows will be updated.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET balance = 5000.0;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -209,9 +209,9 @@ If you do not use the `WHERE` clause to specify the rows to be updated, the valu
 
 In this example, the `RETURNING` clause returns the `id` value of the row updated. The language-specific versions assume that you have installed the relevant [client drivers](install-client-drivers.html).
 
-{{ site.data.alerts.callout_success }}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>UPDATE</code> statements with <code>RETURNING</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>UPDATE</code> statements with <code>RETURNING</code>.{{site.data.alerts.end }}
 
 <section class="filters clearfix">
     <button class="filter-button" data-scope="shell">Shell</button>
@@ -224,7 +224,7 @@ In this example, the `RETURNING` clause returns the `id` value of the row update
 <section class="filter-content" markdown="1" data-scope="shell">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE accounts SET balance = DEFAULT WHERE id = 1 RETURNING id;
 ~~~
@@ -243,7 +243,7 @@ In this example, the `RETURNING` clause returns the `id` value of the row update
 <section class="filter-content" markdown="1" data-scope="python">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # Import the driver.
 import psycopg2
@@ -291,7 +291,7 @@ ID:
 <section class="filter-content" markdown="1" data-scope="ruby">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ruby
 # Import the driver.
 require 'pg'
@@ -333,7 +333,7 @@ ID:
 <section class="filter-content" markdown="1" data-scope="go">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 package main
 
@@ -389,7 +389,7 @@ ID:
 <section class="filter-content" markdown="1" data-scope="js">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ js
 var async = require('async');
 

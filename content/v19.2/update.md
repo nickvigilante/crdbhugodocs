@@ -6,9 +6,9 @@ toc: true
 
 The `UPDATE` [statement](sql-statements.html) updates rows in a table.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you update a row that contains a column referenced by a [foreign key constraint](foreign-key.html) and has an [`ON UPDATE` action](foreign-key.html#foreign-key-actions), all of the dependent rows will also be updated.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Required privileges
@@ -18,7 +18,7 @@ The user must have the `SELECT` and `UPDATE` [privileges](authorization.html#ass
 ## Synopsis
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/update.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/update.html" . }}
 </div>
 
 ## Parameters
@@ -41,20 +41,20 @@ Parameter | Description
 
 <span class="version-tag">New in v19.2:</span> By using the explicit index annotation (also known as "index hinting"), you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for updating rows of a named table.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Index selection can impact [performance](performance-best-practices-overview.html), but does not change the result of a query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The syntax to force an update for a specific index is:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE table@my_idx SET ...
 ~~~
 
 This is equivalent to the longer expression:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE table@{FORCE_INDEX=my_idx} SET ...
 ~~~
@@ -73,11 +73,11 @@ For an example, see [Update using values from a different table](#update-using-v
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Update a single column in a single row
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users LIMIT 10;
 ~~~
@@ -98,12 +98,12 @@ For an example, see [Update using values from a different table](#update-using-v
 (10 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE users SET address = '201 E Randolph St' WHERE id = '851eb851-eb85-4000-8000-00000000001a';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users LIMIT 10;
 ~~~
@@ -126,12 +126,12 @@ For an example, see [Update using values from a different table](#update-using-v
 
 ### Update multiple columns in a single row
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE rides SET (end_address, revenue) = ('201 E Randolph St', 25.00) WHERE id = '851eb851-eb85-4000-8000-000000000104';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM rides WHERE rider_id = '851eb851-eb85-4000-8000-00000000001a';
 ~~~
@@ -147,12 +147,12 @@ For an example, see [Update using values from a different table](#update-using-v
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE rides SET end_address = '10000 W OHare Ave', revenue = 60.00 WHERE id = '94fdf3b6-45a1-4800-8000-000000000123';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM rides WHERE rider_id = '851eb851-eb85-4000-8000-00000000001a';
 ~~~
@@ -170,14 +170,14 @@ For an example, see [Update using values from a different table](#update-using-v
 
 ### Update using `SELECT` statement
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE rides SET (revenue, start_address) =
     (SELECT revenue, end_address FROM rides WHERE id = '94fdf3b6-45a1-4800-8000-000000000123')
      WHERE id = '851eb851-eb85-4000-8000-000000000104';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM rides WHERE rider_id = '851eb851-eb85-4000-8000-00000000001a';
 ~~~
@@ -195,12 +195,12 @@ For an example, see [Update using values from a different table](#update-using-v
 
 ### Update with default values
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE users SET address = DEFAULT WHERE id = '19999999-9999-4a00-8000-000000000005';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users LIMIT 5;
 ~~~
@@ -218,12 +218,12 @@ For an example, see [Update using values from a different table](#update-using-v
 
 ### Update using values from a different table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE rides SET revenue = NULL FROM vehicles WHERE rides.rider_id=vehicles.owner_id AND rides.vehicle_id=vehicles.id;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM rides WHERE revenue IS NULL LIMIT 5;
 ~~~
@@ -241,14 +241,14 @@ For an example, see [Update using values from a different table](#update-using-v
 
 ### Update all rows
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 If you do not use the `WHERE` clause to specify the rows to be updated, the values for all rows will be updated.
-{{ site.data.alerts.end }}
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
 If the [`sql_safe_updates`](cockroach-sql.html#allow-potentially-unsafe-sql-statements) session variable is set to `true`, the client will prevent the update. `sql_safe_updates` is set to `true` by default.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE rides SET revenue = 7.00;
 ~~~
@@ -259,17 +259,17 @@ pq: rejected: UPDATE without WHERE clause (sql_safe_updates = true)
 
 You can use a [`SET`](set-vars.html) statement to set session variables.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET sql_safe_updates = false;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE rides SET revenue = 7.00;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM rides LIMIT 5;
 ~~~
@@ -289,9 +289,9 @@ You can use a [`SET`](set-vars.html) statement to set session variables.
 
 In this example, the `RETURNING` clause returns the `id` value of the row updated. The language-specific versions assume that you have installed the relevant [client drivers](install-client-drivers.html).
 
-{{ site.data.alerts.callout_success }}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>UPDATE</code> statements with <code>RETURNING</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>UPDATE</code> statements with <code>RETURNING</code>.{{site.data.alerts.end }}
 
 <section class="filters clearfix">
     <button class="filter-button" data-scope="shell">Shell</button>
@@ -304,7 +304,7 @@ In this example, the `RETURNING` clause returns the `id` value of the row update
 <section class="filter-content" markdown="1" data-scope="shell">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE vehicles SET status = 'available' WHERE city = 'new york' RETURNING id;
 ~~~
@@ -322,7 +322,7 @@ In this example, the `RETURNING` clause returns the `id` value of the row update
 <section class="filter-content" markdown="1" data-scope="python">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # Import the driver.
 import psycopg2
@@ -371,7 +371,7 @@ IDs:
 <section class="filter-content" markdown="1" data-scope="ruby">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ruby
 # Import the driver.
 require 'pg'
@@ -414,7 +414,7 @@ IDs:
 <section class="filter-content" markdown="1" data-scope="go">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 package main
 
@@ -471,7 +471,7 @@ IDs:
 <section class="filter-content" markdown="1" data-scope="js">
 <p></p>
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ js
 var async = require('async')
 var pg = require('pg')
@@ -536,14 +536,14 @@ IDs:
 
 Suppose that you create a multi-column index on the `users` table with the `name` and `city` columns.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX ON users (name, city);
 ~~~
 
 Now suppose you want to update a couple rows in the table, based on their contents. You can use the [`EXPLAIN (OPT)`](explain.html#opt-option) command to see how the [cost-based optimizer](cost-based-optimizer.html) decides to perform the `UPDATE` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (opt) UPDATE users SET name='Michael Brown (there are two)' WHERE name='Michael Brown';
 ~~~
@@ -565,7 +565,7 @@ The output of the `EXPLAIN` statement shows that the optimizer scans the newly-c
 
 Although `users_name_city_idx` is likely the most efficient index for the table scan, you may want to assess the performance difference between scanning on `users_name_city_idx` and scanning on the primary index. You can provide an index hint (i.e., force the index selection) to use the primary key of the `users` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (opt) UPDATE users@primary SET name='Michael Brown (there are two)' WHERE name='Michael Brown';
 ~~~

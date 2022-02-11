@@ -29,9 +29,9 @@ The `cockroach debug zip` [command](cockroach-commands.html) connects to your cl
 
 Additionally, you can run the [`debug merge-logs`](cockroach-debug-merge-logs.html) command to merge the collected logs in one file, making it easier to parse them to locate an issue with your cluster.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The file produced by `cockroach debug zip` can contain highly [sensitive, identifiable information](debug-and-error-logs.html#redacted-logs), such as usernames, hashed passwords, and possibly your table's data. You can use the [`--redact-logs`](#redact-sensitive-information-from-the-logs) flag to redact the sensitive data out of log files and crash reports before sharing them with Cockroach Labs.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Details
 
@@ -55,7 +55,7 @@ You can locate logs in the unarchived file's `debug/nodes/[node dir]/logs` direc
 
 ## Subcommands
 
-{%  include {{  page.version.version  }}/misc/debug-subcommands.md %}
+{{ partial "{{ page.version.version }}/misc/debug-subcommands.md" . }}
 
 ## Synopsis
 
@@ -101,19 +101,19 @@ If you need to troubleshoot this command's behavior, you can also change its [lo
 
 Generate the debug zip file for an insecure cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --insecure --host=200.100.50.25
 ~~~
 
 Generate the debug zip file for a secure cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --host=200.100.50.25
 ~~~
 
-{{ site.data.alerts.callout_info }}Secure examples assume you have the appropriate certificates in the default certificate directory, <code>${HOME}/.cockroach-certs/</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Secure examples assume you have the appropriate certificates in the default certificate directory, <code>${HOME}/.cockroach-certs/</code>.{{site.data.alerts.end }}
 
 ### Redact sensitive information from the logs
 
@@ -125,7 +125,7 @@ server/server.go:1423 ⋮ password of user ‹admin› was set to ‹"s3cr34?!@x
 
 Enable log redaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach debug zip ./cockroach-data/logs/debug.zip -- redact-logs --insecure --host=200.100.50.25
 ~~~

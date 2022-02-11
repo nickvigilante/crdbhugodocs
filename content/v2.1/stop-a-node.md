@@ -31,7 +31,7 @@ Basic terms:
 
 ### Considerations
 
-{%  include {{  page.version.version  }}/faq/planned-maintenance.md %}
+{{ partial "{{ page.version.version }}/faq/planned-maintenance.md" . }}
 
 ## Synopsis
 
@@ -55,7 +55,7 @@ Flag | Description
 
 ### Client connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
@@ -75,7 +75,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
     If the node is running in the background and you are not using a process manager, send a kill signal to the `cockroach` process, for example:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill cockroach
     ~~~
@@ -84,7 +84,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
 3. Verify that the `cockroach` process has stopped:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ps aux | grep cockroach
     ~~~
@@ -105,7 +105,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
 3. Run the `cockroach quit` command without the `--decommission` flag:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --certs-dir=certs --host=<address of node to stop>
     ~~~
@@ -116,7 +116,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
 2. Run the `cockroach quit` command without the `--decommission` flag:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=<address of node to stop>
     ~~~

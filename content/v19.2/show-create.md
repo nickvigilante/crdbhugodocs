@@ -13,7 +13,7 @@ The user must have any [privilege](authorization.html#assign-privileges) on the 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_create.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_create.html" . }}
 </div>
 
 ## Parameters
@@ -31,11 +31,11 @@ Field | Description
 
 ## Example
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Show the `CREATE TABLE` statement for a table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE drivers (
     id UUID NOT NULL,
@@ -47,7 +47,7 @@ Field | Description
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE drivers;
 ~~~
@@ -68,18 +68,18 @@ Field | Description
 (1 row)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `SHOW CREATE TABLE` also lists any partitions and zone configurations defined on primary and secondary indexes of a table. If partitions are defined, but no zones are configured, the `SHOW CREATE TABLE` output includes a warning.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Show the `CREATE VIEW` statement for a view
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE VIEW user_view (city, name) AS SELECT city, name FROM users;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE user_view;
 ~~~
@@ -95,7 +95,7 @@ Field | Description
 
 To get just a view's `SELECT` statement, you can query the `views` table in the built-in `information_schema` database and filter on the view name:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT view_definition
   FROM information_schema.views
@@ -111,12 +111,12 @@ To get just a view's `SELECT` statement, you can query the `views` table in the 
 
 ### Show the `CREATE SEQUENCE` statement for a sequence
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE desc_customer_list START -1 INCREMENT -2;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE desc_customer_list;
 ~~~

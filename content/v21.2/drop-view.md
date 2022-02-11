@@ -7,7 +7,7 @@ docs_area: reference.sql
 
 The `DROP VIEW` [statement](sql-statements.html) removes a [view](views.html) from a database.
 
-{%  include {{  page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -15,7 +15,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 ## Synopsis
 
-<div>{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/drop_view.html %}</div>
+<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/drop_view.html %}</div>
 
 ## Parameters
 
@@ -33,7 +33,7 @@ The user must have the `DROP` [privilege](authorization.html#assign-privileges) 
 
 In this example, other views do not depend on the view being dropped.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -48,7 +48,7 @@ In this example, other views do not depend on the view being dropped.
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP VIEW bank.user_emails;
 ~~~
@@ -57,7 +57,7 @@ In this example, other views do not depend on the view being dropped.
 DROP VIEW
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -75,9 +75,9 @@ DROP VIEW
 
 In this example, another view depends on the view being dropped. Therefore, it's only possible to drop the view while simultaneously dropping the dependent view using `CASCADE`.
 
-{{ site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent views without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent views without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~
@@ -92,7 +92,7 @@ In this example, another view depends on the view being dropped. Therefore, it's
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP VIEW bank.user_accounts;
 ~~~
@@ -101,7 +101,7 @@ In this example, another view depends on the view being dropped. Therefore, it's
 pq: cannot drop view "user_accounts" because view "user_emails" depends on it
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > DROP VIEW bank.user_accounts CASCADE;
 ~~~
@@ -110,7 +110,7 @@ pq: cannot drop view "user_accounts" because view "user_emails" depends on it
 DROP VIEW
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_type = 'VIEW';
 ~~~

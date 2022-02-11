@@ -13,7 +13,7 @@ twitter: false
     <a href="http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#cockroach-database"><button style="width: 22%" class="filter-button">Use <strong>peewee</strong></button></a>
 </div>
 
-{%  include cockroach_u_pydev.md %}
+{{ partial "cockroach_u_pydev.md" . }}
 
 This tutorial shows you how build a simple Python application with CockroachDB and the psycopg2 driver. For the CockroachDB back-end, you'll use a temporary local cluster.
 
@@ -21,7 +21,7 @@ This tutorial shows you how build a simple Python application with CockroachDB a
 
 To install the Python psycopg2 driver, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ pip install psycopg2-binary
 ~~~
@@ -30,11 +30,11 @@ For other ways to install psycopg2, see the [official documentation](http://init
 
 ## Step 2. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 3. Create a database
 
-{%  include {{ page.version.version }}/app/create-a-database.md %}
+{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
 
 ## Step 4. Run the Python code
 
@@ -52,14 +52,14 @@ Download the <a href="https://raw.githubusercontent.com/cockroachlabs/hello-worl
 
 If you prefer, you can also clone a version of the code:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-python-psycopg2/
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-python-psycopg2/master/example.py %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-python-psycopg2/master/example.py %}
 ~~~
 
 ### Run the code
@@ -71,7 +71,7 @@ The Python code is a command-line utility that accepts the connection string to 
 - Replace `<username>` and `<password>` with the SQL username and password that you created earlier.
 - Replace `<hostname>` and `<port>` with the hostname and port in the `(sql/tcp)` connection string from SQL shell welcome text.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python3 example.py \
 'postgresql://<username>:<password>@<hostname>:<port>/bank?sslmode=require'
@@ -79,21 +79,21 @@ $ python3 example.py \
 
 </section>
 
-{%  comment %}
+{% comment %}
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-- Replace `<username>` and `<password>` with the SQL username and password that you created in the {{  site.data.products.db  }} Console.
-- Replace `<hostname>` and `<port>` with the hostname and port in the connection string you got from the {{  site.data.products.db  }} Console.
-- Replace `<certs_dir>/<ca.crt>` with the path to the CA certificate that you downloaded from the {{  site.data.products.db  }} Console.
+- Replace `<username>` and `<password>` with the SQL username and password that you created in the {{ site.data.products.db }} Console.
+- Replace `<hostname>` and `<port>` with the hostname and port in the connection string you got from the {{ site.data.products.db }} Console.
+- Replace `<certs_dir>/<ca.crt>` with the path to the CA certificate that you downloaded from the {{ site.data.products.db }} Console.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python3 example.py \
 'postgresql://<username>:<password>@<hostname>:<port>/bank?sslmode=verify-full&sslrootcert=<certs_dir>/<ca.crt'
 ~~~
 
 </section>
-{%  endcomment %}
+{% endcomment %}
 
 The output should show the account balances before and after the funds transfer:
 
@@ -110,4 +110,4 @@ Balances at Fri Oct 30 18:27:00 2020:
 
 Read more about using the [Python psycopg2 driver](http://initd.org/psycopg/docs/).
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

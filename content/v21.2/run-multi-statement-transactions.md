@@ -16,7 +16,7 @@ Make sure you have already:
 - [Connected to the database](connect-to-the-database.html).
 - [Inserted data](insert-data.html) that you now want to run queries against.
 
-{%  include {{ page.version.version }}/app/retry-errors.md %}
+{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
 
 
 ## Run a transaction
@@ -30,7 +30,7 @@ Make sure you have already:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 BEGIN;
 DELETE FROM customers WHERE id = 1;

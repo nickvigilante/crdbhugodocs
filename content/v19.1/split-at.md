@@ -6,18 +6,18 @@ toc: true
 
 The `SPLIT AT` [statement](sql-statements.html) forces a key-value layer range split at the specified row in a table or index.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In order to manually split a range, you must turn off automatic range merging by [setting the `kv.range_merge.queue_enabled` cluster setting](range-merges.html#enable-disable-range-merges) to `false`. <br><br> This limitation has been lifted in v19.2. If you disabled automatic range merging in order to use manual splits, and you are upgrading to v19.2, consider setting `kv.range_merge.queue_enabled` to `true` [to improve performance](range-merges.html#why-range-merges-improve-performance).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/split_table_at.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/split_table_at.html" . }}
 </div>
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/split_index_at.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/split_index_at.html" . }}
 </div>
 
 ## Required privileges
@@ -33,7 +33,7 @@ The user must have the `INSERT` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Why manually split a range?
 
@@ -68,7 +68,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 
 ### Split a table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE kv;
 ~~~
@@ -82,7 +82,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE kv SPLIT AT VALUES (10), (20), (30);
 ~~~
@@ -98,7 +98,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE kv;
 ~~~
@@ -121,14 +121,14 @@ You may want to split a table with a composite primary key (e.g., when working w
 
 Given the table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE TABLE t (k1 INT, k2 INT, v INT, w INT, PRIMARY KEY (k1, k2));
 ~~~
 
 we can split it at its primary key like so:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE t SPLIT AT VALUES (5,1), (5,2), (5,3);
 ~~~
@@ -146,7 +146,7 @@ ALTER TABLE t SPLIT AT VALUES (5,1), (5,2), (5,3);
 
 To see more information about the range splits, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 ~~~
@@ -165,7 +165,7 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 
 Alternatively, you could split at a prefix of the primary key columns. For example, to add a split before all keys that start with `3`, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t SPLIT AT VALUES (3);
 ~~~
@@ -181,7 +181,7 @@ Alternatively, you could split at a prefix of the primary key columns. For examp
 
 Conceptually, this means that the second range will include keys that start with `3` through `∞`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 ~~~
@@ -198,12 +198,12 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 
 ### Split an index
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX secondary ON kv (v);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM INDEX kv@secondary;
 ~~~
@@ -217,7 +217,7 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER INDEX kv@secondary SPLIT AT (SELECT v FROM kv LIMIT 3);
 ~~~
@@ -233,7 +233,7 @@ SHOW EXPERIMENTAL_RANGES FROM TABLE t;
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM INDEX kv@secondary;
 ~~~

@@ -17,7 +17,7 @@ The user must have any [privilege](authorization.html#assign-privileges) on the 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_constraints.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_constraints.html" . }}
 </div>
 
 ## Parameters
@@ -40,7 +40,7 @@ Field | Description
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     id INT PRIMARY KEY,
@@ -54,7 +54,7 @@ Field | Description
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CONSTRAINTS FROM orders;
 ~~~

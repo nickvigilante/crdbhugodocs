@@ -6,7 +6,7 @@ toc: true
 
 <div class="filters filters-big clearfix">
   <button class="filter-button current">Local</button>
-  <a href="connect-to-the-database-cockroachcloud.html"><button class="filter-button">{{  site.data.products.db  }}</button></a>
+  <a href="connect-to-the-database-cockroachcloud.html"><button class="filter-button">{{ site.data.products.db }}</button></a>
 </div>
 
 This page has instructions for connecting to a CockroachDB cluster from your application using various programming languages. Each example shows a [connection string][connection_params] for a secure cluster to a `bank` database. Depending on your cluster's configuration, you may need to edit this connection string.
@@ -35,7 +35,7 @@ Do the following:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --host=localhost:26257
 ~~~
@@ -46,7 +46,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 import (
     "database/sql"
@@ -63,13 +63,13 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 import java.sql.*;
 import javax.sql.DataSource;
@@ -88,17 +88,17 @@ ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg con
 ds.setApplicationName("BasicExample");
 ~~~
 
-{{ site.data.alerts.callout_success }}
-{%  include {{ page.version.version }}/app/pkcs8-gen.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/app/pkcs8-gen.md" . }}
+{{site.data.alerts.end }}
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 import psycopg2
 
@@ -114,7 +114,7 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
 
 </section>
 

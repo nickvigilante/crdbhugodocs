@@ -39,7 +39,7 @@ In our [SQL grammar](sql-grammar.html), all values that accept an `identifier` m
 
 To bypass either of these rules, simply surround the identifier with double-quotes (&quot;). You can also use double-quotes to preserve case-sensitivity in database, table, view, and column names. However, all references to such identifiers must also include double-quotes.
 
-{{ site.data.alerts.callout_info }}Some statements have additional requirements for identifiers. For example, each table in a database must have a unique name. These requirements are documented on <a href="sql-statements.html">each statement's page</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Some statements have additional requirements for identifiers. For example, each table in a database must have a unique name. These requirements are documented on <a href="sql-statements.html">each statement's page</a>.{{site.data.alerts.end }}
 
 ## See Also
 

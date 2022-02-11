@@ -8,7 +8,7 @@ toc: true
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/explain_analyze.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/explain_analyze.html" . }}</section>
 
 ## Required privileges
 
@@ -53,15 +53,15 @@ rows routed | How many rows were sent by routers, which can be used to understan
 bytes sent | The number of actual bytes sent (i.e., encoding of the rows). This is only relevant when doing network communication.
 Response | The response back to the client.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Any or all of the above fields may display for a given query plan.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Example
 
 `EXPLAIN ANALYZE` will execute the query and generate a physical query plan with execution statistics:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN ANALYZE SELECT l_shipmode, AVG(l_extendedprice) FROM lineitem GROUP BY l_shipmode;
 ~~~
@@ -74,7 +74,7 @@ Any or all of the above fields may display for a given query plan.
 
 To view the [DistSQL Plan Viewer](#distsql-plan-viewer), point your browser to the URL provided:
 
-<img src="{{  'images/v2.1/explain-analyze-distsql-plan.png' | relative_url  }}" alt="EXPLAIN ANALYZE (DISTSQL)" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/explain-analyze-distsql-plan.png' | relative_url }}" alt="EXPLAIN ANALYZE (DISTSQL)" style="border:1px solid #eee;max-width:100%" />
 
 ## See also
 

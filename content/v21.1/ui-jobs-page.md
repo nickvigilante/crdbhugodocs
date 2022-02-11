@@ -6,16 +6,16 @@ toc: true
 
 The **Jobs** page of the DB Console provides details about long-running tasks performed by your cluster. These can include:
 
-{%  include {{  page.version.version  }}/sql/schema-changes.md %}.
+{{ partial "{{ page.version.version }}/sql/schema-changes.md" . }}.
 - [`IMPORT`](import.html).
 - Enterprise [`BACKUP`](backup.html) and [`RESTORE`](restore.html).
 - [User-created table statistics](create-statistics.html) created for use by the [cost-based optimizer](cost-based-optimizer.html).
 - [Automatic table statistics](cost-based-optimizer.html#table-statistics).
 - [Changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 All users can see their own jobs, and `admin` users can view all jobs performed across all nodes in the cluster.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 To view these details, [access the DB Console](ui-overview.html#db-console-access) and click **Jobs** in the left-hand navigation.
 
@@ -27,11 +27,11 @@ Use the **Type** menu to filter jobs by type.
 
 You can toggle between showing the latest 50 jobs or all jobs on the cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Jobs are deleted every 14 days. This interval can be changed via the `jobs.retention_time` [cluster setting](cluster-settings.html).
 
 The Jobs list is designed for you to manage pending work. It is not intended to display the canonical record of all jobs that have run. If you need a historical record of all jobs you have run, you should log this information externally.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Jobs list
 
@@ -43,7 +43,7 @@ Use the **Jobs** list to see your recently created and completed jobs.
 
 - To view [job details](#job-details), click on the job description.
 
-<img src="{{  'images/v21.1/ui_jobs_page_new.png' | relative_url  }}" alt="DB Console Jobs Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/ui_jobs_page_new.png' | relative_url }}" alt="DB Console Jobs Page" style="border:1px solid #eee;max-width:100%" />
 
 Parameter | Description
 ----------|------------
@@ -71,7 +71,7 @@ Click any description on the [jobs list](#jobs-list) to see the full SQL stateme
 
 The job ID, creation time, users, status, and error messages (if any) are also shown.
 
-<img src="{{  'images/v21.1/ui_jobs_page_details.png' | relative_url  }}" alt="DB Console Jobs Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/ui_jobs_page_details.png' | relative_url }}" alt="DB Console Jobs Page" style="border:1px solid #eee;max-width:100%" />
 
 ## See also
 

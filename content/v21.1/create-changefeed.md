@@ -4,9 +4,9 @@ summary: The CREATE CHANGEFEED statement creates a changefeed of row-level chang
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `CREATE CHANGEFEED` is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [`EXPERIMENTAL CHANGEFEED FOR`](changefeed-for.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The `CREATE CHANGEFEED` [statement](sql-statements.html) creates a new Enterprise changefeed, which targets an allowlist of tables, called "watched rows".  Every change to a watched row is emitted as a record in a configurable format (`JSON` or Avro) to a configurable sink ([Kafka](https://kafka.apache.org/) or a [cloud storage sink](#cloud-storage-sink)). You can [create](#create-a-changefeed-connected-to-kafka), [pause](#pause-a-changefeed), [resume](#resume-a-paused-changefeed), or [cancel](#cancel-a-changefeed) an Enterprise changefeed.
 
@@ -19,7 +19,7 @@ To create a changefeed, the user must be a member of the `admin` role or have th
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/create_changefeed.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/create_changefeed.html" . }}
 </div>
 
 ## Parameters
@@ -60,9 +60,9 @@ Example of a Kafka sink URI:
 
 Use a cloud storage sink to deliver changefeed data to OLAP or big data systems without requiring transport via Kafka.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Currently, cloud storage sinks only work with `JSON` and emits newline-delimited `JSON` files.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Example of a cloud storage sink URI:
 
@@ -74,7 +74,7 @@ Cloud storage sink URIs must be pre-pended with `experimental-` when working wit
 
 #### Query parameters
 
-{%  include {{  page.version.version  }}/cdc/url-encoding.md %}
+{{ partial "{{ page.version.version }}/cdc/url-encoding.md" . }}
 
 Query parameters include:
 
@@ -113,9 +113,9 @@ Option | Value | Description
 `avro_schema_prefix` | Schema prefix name               | <span class="version-tag"> New in v21.1: </span> Provide a namespace for the schema of a table in addition to the default, the table name. This allows multiple databases or clusters to share the same schema registry when the same table name is present in multiple databases.<br><br>Example: `CREATE CHANGEFEED FOR foo WITH format=avro, confluent_schema_registry='registry_url', avro_schema_prefix='super'` will register subjects as `superfoo-key` and `superfoo-value` with the namespace `super`.
 `kafka_sink_config` | [`STRING`](string.html) | Set fields to configure the required level of message acknowledgement from the Kafka server, the version of the server, and batching parameters for Kafka sinks. See [Advanced Configuration](#kafka-sink-configuration) for more detail on configuring all the available fields for this option. <br><br>Example: `CREATE CHANGEFEED FOR table INTO 'kafka://localhost:9092' WITH kafka_sink_config='{"Flush": {"MaxMessages": 1, "Frequency": "1s"}, "RequiredAcks": "ONE"}'`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  Using the `format=experimental_avro`, `envelope=key_only`, and `updated` options together is rejected. `envelope=key_only` prevents any rows with updated fields from being emitted, which makes the `updated` option meaningless.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Avro limitations
 
@@ -126,7 +126,7 @@ Below are clarifications for particular SQL types and values for Avro changefeed
   - [Decimals](decimal.html) must have precision specified.
   - [`BIT`](bit.html) and [`VARBIT`](bit.html) types are encoded as arrays of 64-bit integers.
 
-  {%  include {{  page.version.version  }}/cdc/avro-bit-varbit.md %}
+  {{ partial "{{ page.version.version }}/cdc/avro-bit-varbit.md" . }}
 
 #### Avro types
 
@@ -159,9 +159,9 @@ By default, a Kafka topic has the same name as the table that a changefeed was c
 
 You can either manually create a topic in your Kafka cluster before starting the changefeed, or the topic will be automatically created when the changefeed connects to your Kafka cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You must have the Kafka cluster setting [`auto.create.topics.enable`](https://kafka.apache.org/documentation/#brokerconfigs_auto.create.topics.enable) set to `true` for automatic topic creation. This will create the topic when the changefeed sends its first message. If you create the consumer before that, you will also need the Kafka consumer configuration [`allow.auto.create.topics`](https://kafka.apache.org/documentation/#consumerconfigs_allow.auto.create.topics) to be set to `true`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Kafka has the following topic limitations:
 
@@ -172,9 +172,9 @@ Kafka has the following topic limitations:
 
 ## Advanced changefeed configuration
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The configurations and settings explained in these sections will have significant impact on a changefeed's behavior.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The following sections describe settings, configurations, and details to tune changefeeds for particular use cases:
 
@@ -208,9 +208,9 @@ When designing a system that needs to emit a lot of changefeed messages, whether
 
 The `kafka_sink_config` option allows configuration of a changefeed's message delivery, Kafka server version, and batching parameters.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Each of the following settings have significant impact on a changefeed's behavior, such as latency. For example, it is possible to configure batching parameters to be very high, which would negatively impact changefeed latency. As a result it would take a long time to see messages coming through to the sink. Also, large batches may be rejected by the Kafka server unless it's separately configured to accept a high [`max.message.bytes`](https://kafka.apache.org/documentation/#brokerconfigs_message.max.bytes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ~~~
 kafka_sink_config='{"Flush": {"MaxMessages": 1, "Frequency": "1s"}, "Version": "0.8.2.0", "RequiredAcks": "ONE" }'
@@ -252,7 +252,7 @@ For example:
 
 Statement                                      | Response
 -----------------------------------------------+-----------------------------------------------------------------------
-`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }} }}`
+`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }}}}`
 `DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1 }}	{"after":null}`
 
 ### Files
@@ -262,9 +262,9 @@ The files emitted to a sink use the following naming conventions:
 - [General file format](#general-file-format)
 - [Resolved file format](#resolved-file-format)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The timestamp format is `YYYYMMDDHHMMSSNNNNNNNNNLLLLLLLLLL`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### General file format
 
@@ -294,7 +294,7 @@ For example:
 
 ### Create a changefeed connected to Kafka
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'kafka://host:port'
@@ -313,7 +313,7 @@ For more information on how to create a changefeed connected to Kafka, see [Stre
 
 ### Create a changefeed connected to Kafka using Avro
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'kafka://host:port'
@@ -332,11 +332,11 @@ For more information on how to create a changefeed that emits an [Avro](https://
 
 ### Create a changefeed connected to a cloud storage sink
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This is an experimental feature.** The interface and output are subject to change.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'experimental-scheme://host?parameters'
@@ -357,13 +357,13 @@ For more information on how to create a changefeed connected to a cloud storage 
 
 Use the following SQL statements to pause, resume, and cancel a changefeed.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Changefeed-specific SQL statements (e.g., `CANCEL CHANGEFEED`) will be added in the future.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Pause a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -372,7 +372,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 #### Resume a paused changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -381,7 +381,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 #### Cancel a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -390,13 +390,13 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 #### Configuring all changefeeds
 
-{%  include {{  page.version.version  }}/cdc/configure-all-changefeed.md %}
+{{ partial "{{ page.version.version }}/cdc/configure-all-changefeed.md" . }}
 
 ### Start a new changefeed where another ended
 
 Find the [high-water timestamp](stream-data-out-of-cockroachdb-using-changefeeds.html#monitor-a-changefeed) for the ended changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM crdb_internal.jobs WHERE job_id = <job_id>;
 ~~~
@@ -409,7 +409,7 @@ Find the [high-water timestamp](stream-data-out-of-cockroachdb-using-changefeeds
 
 Use the `high_water_timestamp` to start the new changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name, name2, name3
   INTO 'kafka//host:port'

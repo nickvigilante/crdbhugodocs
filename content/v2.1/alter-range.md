@@ -6,7 +6,7 @@ toc: false
 
 <span class="version-tag">New in v2.1:</span> The `ALTER RANGE` [statement](sql-statements.html) applies a schema change to a system range.
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 For information on using `ALTER RANGE`, see the documents for its relevant subcommands.
 

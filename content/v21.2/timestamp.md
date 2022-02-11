@@ -15,15 +15,15 @@ The `TIMESTAMP` and `TIMESTAMPTZ` [data types](data-types.html) store a date and
 
 - `TIMESTAMPTZ` converts `TIMESTAMP` values from UTC to the client's session time zone (unless another time zone is specified for the value). However, it is conceptually important to note that `TIMESTAMPTZ` **does not** store any time zone data.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The default session time zone is UTC, which means that by default `TIMESTAMPTZ` values display in UTC.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 The difference between these two variants is that `TIMESTAMPTZ` uses the client's session [time zone](set-vars.html#set-time-zone), while the other simply does not. This behavior extends to functions like `now()` and `extract()` on `TIMESTAMPTZ` values.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A time zone offset of `+00:00` is displayed for all [`TIME`](time.html) and `TIMESTAMP` values, but is not stored in the database.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 You can use the [`timezone()`](functions-and-operators.html#date-and-time-functions) and [`AT TIME ZONE`](functions-and-operators.html#special-syntax-forms) functions to convert a `TIMESTAMPTZ` into a `TIMESTAMP` at a specified timezone, or to convert a `TIMESTAMP` into a `TIMESTAMPTZ` at a specified timezone.
 
@@ -68,12 +68,12 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 
 ### Create a table with a `TIMESTAMPTZ`-typed column
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE timestamps (a INT PRIMARY KEY, b TIMESTAMPTZ);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM timestamps;
 ~~~
@@ -86,12 +86,12 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO timestamps VALUES (1, TIMESTAMPTZ '2016-03-26 10:10:10-05:00'), (2, TIMESTAMPTZ '2016-03-26');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM timestamps;
 ~~~
@@ -106,12 +106,12 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 
 ### Create a table with a `TIMESTAMP`-typed column, with precision
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE timestamps (a INT PRIMARY KEY, b TIMESTAMP(3));
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM timestamps;
 ~~~
@@ -124,12 +124,12 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO timestamps VALUES (1, TIMESTAMP '2020-03-25 12:00:00.123456'), (2, TIMESTAMP '2020-03-26 4:00:00.123456');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM timestamps;
 ~~~
@@ -144,7 +144,7 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 
 To change the precision level of a column, you can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE timestamps ALTER COLUMN b SET DATA TYPE TIMESTAMP(4);
 ~~~
@@ -153,7 +153,7 @@ To change the precision level of a column, you can use an [`ALTER COLUMN ... SET
 ALTER TABLE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM timestamps;
 ~~~
@@ -168,7 +168,7 @@ ALTER TABLE
 
 When changing precision level, `TIMESTAMP` can be changed to `TIMESTAMPTZ`, and `TIMESTAMPTZ` can be changed to `TIMESTAMP`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE timestamps ALTER COLUMN b SET DATA TYPE TIMESTAMPTZ(5);
 ~~~
@@ -177,7 +177,7 @@ When changing precision level, `TIMESTAMP` can be changed to `TIMESTAMPTZ`, and 
 ALTER TABLE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM timestamps;
 ~~~
@@ -190,13 +190,13 @@ ALTER TABLE
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If a non-default precision level has already been specified, you cannot change the precision to a lower level.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 In this case, the `b` column, which is of type `TIMESTAMPTZ(5)`, cannot be changed to a precision level below `5`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE timestamps ALTER COLUMN b SET DATA TYPE TIMESTAMPTZ(3);
 ~~~

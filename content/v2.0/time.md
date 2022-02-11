@@ -36,12 +36,12 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE time (a INT PRIMARY KEY, b TIME);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM time;
 ~~~
@@ -54,12 +54,12 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 +-------+------+-------+---------+-------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO time VALUES (1, TIME '05:40:00');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM time;
 ~~~
@@ -70,7 +70,7 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 | 1 | 0000-01-01 05:40:00+00:00 |
 +---+---------------------------+
 ~~~
-{{ site.data.alerts.callout_info }}The <code>cockroach sql</code> shell displays the date and timezone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and timezone are not relevant and are not stored in the database.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>cockroach sql</code> shell displays the date and timezone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and timezone are not relevant and are not stored in the database.{{site.data.alerts.end }}
 
 ## Supported Casting & Conversion
 

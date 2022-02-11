@@ -9,15 +9,15 @@ This page documents best practices for unit testing applications built on Cockro
 
 If you are deploying a self-hosted cluster, see the [Production Checklist](recommended-production-settings.html) for information about preparing your cluster for production.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The settings described on this page are **not recommended** for use in production clusters. They are only recommended for use during unit testing and continuous integration testing (CI).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Use a local, single-node cluster with in-memory storage
 
 The [`cockroach start-single-node`](cockroach-start-single-node.html) command below starts a single-node, insecure cluster with [in-memory storage](cockroach-start-single-node.html#store). Using in-memory storage improves the speed of the cluster for local testing purposes.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach start-single-node --insecure --store=type=mem,size=0.25 --advertise-addr=localhost
 ~~~
@@ -38,7 +38,7 @@ We recommend the following additional [cluster settings](cluster-settings.html) 
 
 To change all of the settings described above at once, run the following SQL statements:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET CLUSTER SETTING kv.raft_log.disable_synchronization_unsafe = true;
 SET CLUSTER SETTING kv.range_merge.queue_interval = '50ms';
@@ -52,9 +52,9 @@ ALTER RANGE default CONFIGURE ZONE USING "gc.ttlseconds" = 5;
 ALTER DATABASE system CONFIGURE ZONE USING "gc.ttlseconds" = 5;
 ~~~
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 These settings **are not** recommended for [performance benchmarking of CockroachDB](performance-benchmarking-with-tpcc-local.html) since they will lead to inaccurate results.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Scope tests to a database when possible
 
@@ -66,7 +66,7 @@ By default, `cockroach start-single-node` logs cluster activity to a file with t
 
 To customize logging behavior for local clusters, use the [`--log` flag](cockroach-start-single-node.html#logging):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach start-single-node --insecure --store=type=mem,size=0.25 --advertise-addr=localhost --log="{file-defaults: {dir: /path/to/logs}, sinks: {stderr: {filter: NONE }}}"
 ~~~

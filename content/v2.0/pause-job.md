@@ -8,7 +8,7 @@ toc: true
 
 After pausing jobs, you can resume them with [`RESUME JOB`](resume-job.html).
 
-{{ site.data.alerts.callout_info }}You cannot pause schema changes.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You cannot pause schema changes.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -18,7 +18,7 @@ By default, only the `root` user can control a job.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/pause_job.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/pause_job.html" . }}
 </div>
 
 ## Parameters

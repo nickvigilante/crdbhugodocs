@@ -6,13 +6,13 @@ toc: true
 
 This page explains how reads and writes are affected by the replicated and distributed nature of data in CockroachDB. It starts by summarizing some important [CockroachDB architectural concepts](overview.html) and then walks you through a few simple read and write scenarios.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For a more detailed information about how transactions work in CockroachDB, see the [Transaction Layer](transaction-layer.html) documentation.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Important concepts
 
-{%  include {{  page.version.version  }}/misc/basic-terms.md %}
+{{ partial "{{ page.version.version }}/misc/basic-terms.md" . }}
 
 As mentioned above, when a query is executed, the cluster routes the request to the leaseholder for the range containing the relevant data. If the query touches multiple ranges, the request goes to multiple leaseholders. For a read request, only the leaseholder of the relevant range retrieves the data. For a write request, the Raft consensus protocol dictates that a majority of the replicas of the relevant range must agree before the write is committed.
 
@@ -27,7 +27,7 @@ First, imagine a simple read scenario where:
 - Ranges are replicated 3 times (the default).
 - A query is executed against node 2 to read from table 3.
 
-<img src="{{  'images/v21.1/perf_tuning_concepts1.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v21.1/perf_tuning_concepts1.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 In this case:
 
@@ -38,13 +38,13 @@ In this case:
 
 If the query is received by the node that has the leaseholder for the relevant range, there are fewer network hops:
 
-<img src="{{  'images/v21.1/perf_tuning_concepts2.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v21.1/perf_tuning_concepts2.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 ## Write scenario
 
 Now imagine a simple write scenario where a query is executed against node 3 to write to table 1:
 
-<img src="{{  'images/v21.1/perf_tuning_concepts3.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v21.1/perf_tuning_concepts3.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 In this case:
 
@@ -57,7 +57,7 @@ In this case:
 
 Just as in the read scenario, if the write request is received by the node that has the leaseholder and Raft leader for the relevant range, there are fewer network hops:
 
-<img src="{{  'images/v21.1/perf_tuning_concepts4.png' | relative_url  }}" alt="Perf tuning concepts" style="max-width:100%" />
+<img src="{{ 'images/v21.1/perf_tuning_concepts4.png' | relative_url }}" alt="Perf tuning concepts" style="max-width:100%" />
 
 ## Network and I/O bottlenecks
 

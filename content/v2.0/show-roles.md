@@ -9,7 +9,7 @@ toc: true
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/show_roles.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/show_roles.html" . }}</section>
 
 ## Required Privileges
 
@@ -17,7 +17,7 @@ The user must have the [`SELECT`](select-clause.html) [privilege](privileges.htm
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ROLES;
 ~~~

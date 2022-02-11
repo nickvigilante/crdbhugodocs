@@ -11,7 +11,7 @@ This page has instructions for deleting rows of data from CockroachDB, using the
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.db  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.db }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Install a Postgres client](install-client-drivers.html).
 - [Connect to the database](connect-to-the-database.html).
 - [Create a database schema](schema-design-overview.html).
@@ -38,9 +38,9 @@ Where:
 - `{comparison_operator}` is a [comparison operator](functions-and-operators.html#operators) that resolves to `TRUE` or `FALSE` (e.g., `=`).
 - `{filter_value}` is the matching value for the filter.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For detailed reference documentation on the `DELETE` statement, including additional examples, see the [`DELETE` syntax page](delete.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Best practices
 
@@ -68,7 +68,7 @@ Suppose that you want to delete the vehicle location history data recorded durin
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 DELETE FROM vehicle_location_histories WHERE timestamp BETWEEN '2021-03-17 14:00:00' AND '2021-03-17 15:00:00';
 ~~~
@@ -79,7 +79,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -96,7 +96,7 @@ return nil
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -119,7 +119,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -133,9 +133,9 @@ with conn.cursor() as cur:
 
 </section>
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If the `WHERE` clause evaluates to `TRUE` for a large number of rows (i.e., tens of thousands of rows), use a [batch-delete loop](bulk-delete-data.html#batch-delete-on-an-indexed-column) instead of executing a simple `DELETE` query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Delete rows filtered on a unique column
 
@@ -150,7 +150,7 @@ Suppose that you want to delete the promo code data for a specific set of codes.
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 DELETE from promo_codes WHERE code IN ('0_explain_theory_something', '100_address_garden_certain', '1000_do_write_words');
 ~~~
@@ -161,7 +161,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -179,7 +179,7 @@ return nil
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -204,7 +204,7 @@ try (Connection connection = ds.getConnection()) {
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 

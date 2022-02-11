@@ -17,9 +17,9 @@ For an application to be resilient to system failures, the application and datab
 
 The replication and distribution of data across multiple machines in a *single region* makes the deployment resilient to individual node failures within the region. Replication and distribution across *multiple regions* makes the deployment resilient to entire regional failures. To achieve the highest level of resiliency, we use a multi-region deployment for MovR database and application.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In the [example deployment](movr-flask-deployment.html), the application and the database deployments are separate and not co-located on the same machine.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Latency in global applications
 

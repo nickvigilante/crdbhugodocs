@@ -6,16 +6,16 @@ toc: true
 
 The `JSONB` [data type](data-types.html) stores JSON (JavaScript Object Notation) data as a binary representation of the `JSONB` value, which eliminates whitespace, duplicate keys, and key ordering. `JSONB` supports [inverted indexes](inverted-indexes.html).
 
-{{ site.data.alerts.callout_success }}For a hands-on demonstration of storing and querying JSON data from a third-party API, see the <a href="demo-json-support.html">JSON tutorial</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a hands-on demonstration of storing and querying JSON data from a third-party API, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end }}
 
-{%  include {{ page.version.version }}/sql/vectorized-support.md %}
+{{ partial "{{ page.version.version }}/sql/vectorized-support.md" . }}
 
 ## Alias
 
 In CockroachDB, `JSON` is an alias for `JSONB`.
 
-{{ site.data.alerts.callout_info }}In PostgreSQL, <code>JSONB</code> and <code>JSON</code> are two different data types. In CockroachDB, the <code>JSONB</code> / <code>JSON</code> data type is similar in behavior to the <a href="https://www.postgresql.org/docs/current/static/datatype-json.html"><code>JSONB</code> data type in PostgreSQL</a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}In PostgreSQL, <code>JSONB</code> and <code>JSON</code> are two different data types. In CockroachDB, the <code>JSONB</code> / <code>JSON</code> data type is similar in behavior to the <a href="https://www.postgresql.org/docs/current/static/datatype-json.html"><code>JSONB</code> data type in PostgreSQL</a>.
+{{site.data.alerts.end }}
 
 ## Considerations
 
@@ -44,7 +44,7 @@ Examples:
 - `'{"type": "account creation", "username": "harvestboy93"}'`
 - `'{"first_name": "Ernie", "status": "Looking for treats", "location" : "Brooklyn"}'`
 
-{{ site.data.alerts.callout_info }}If duplicate keys are included in the input, only the last value is kept.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If duplicate keys are included in the input, only the last value is kept.{{site.data.alerts.end }}
 
 ## Size
 
@@ -76,7 +76,7 @@ For the full list of supported `JSONB` operators, see [Functions and Operators](
 
 ### Create a Table with a `JSONB` Column
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
     profile_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -85,7 +85,7 @@ For the full list of supported `JSONB` operators, see [Functions and Operators](
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -101,14 +101,14 @@ For the full list of supported `JSONB` operators, see [Functions and Operators](
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO users (user_profile) VALUES
     ('{"first_name": "Lola", "last_name": "Dog", "location": "NYC", "online" : true, "friends" : 547}'),
     ('{"first_name": "Ernie", "status": "Looking for treats", "location" : "Brooklyn"}');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -127,7 +127,7 @@ For the full list of supported `JSONB` operators, see [Functions and Operators](
 
 To retrieve `JSONB` data with easier-to-read formatting, use the `jsonb_pretty()` function. For example, retrieve data from the table you created in the [first example](#create-a-table-with-a-jsonb-column):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT profile_id, last_updated, jsonb_pretty(user_profile) FROM users;
 ~~~
@@ -154,7 +154,7 @@ To retrieve `JSONB` data with easier-to-read formatting, use the `jsonb_pretty()
 
 To retrieve a specific field from a `JSONB` value, use the `->` operator. For example, retrieve a field from the table you created in the [first example](#create-a-table-with-a-jsonb-column):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT user_profile->'first_name',user_profile->'location' FROM users;
 ~~~
@@ -169,7 +169,7 @@ To retrieve a specific field from a `JSONB` value, use the `->` operator. For ex
 
 You can also use the `->>` operator to return `JSONB` field values as `STRING` values:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT user_profile->>'first_name', user_profile->>'location' FROM users;
 ~~~
@@ -184,7 +184,7 @@ You can also use the `->>` operator to return `JSONB` field values as `STRING` v
 
 You can use the `@>` operator to filter the values in key-value pairs to return `JSONB` field values:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT user_profile->'first_name', user_profile->'location' FROM users WHERE user_profile @> '{"location":"NYC"}';
 ~~~
@@ -200,7 +200,7 @@ For the full list of functions and operators we support, see [Functions and Oper
 
 ### Create a table with a `JSONB` column and a computed column
 
-{%  include {{  page.version.version  }}/computed-columns/jsonb.md %}
+{{ partial "{{ page.version.version }}/computed-columns/jsonb.md" . }}
 
 ## Supported casting and conversion
 

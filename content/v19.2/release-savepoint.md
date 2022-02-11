@@ -10,12 +10,12 @@ If statements in the transaction [generated any non-retry errors](transactions.h
 
 Note that although issuing this statement commits the transaction, you must also issue a subsequent [`COMMIT`](commit-transaction.html) statement to prepare the connection for the next transaction.
 
-{%  include {{  page.version.version  }}/misc/savepoint-limitations.md %}
+{{ partial "{{ page.version.version }}/misc/savepoint-limitations.md" . }}
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/release_savepoint.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/release_savepoint.html" . }}
 </div>
 
 ## Required privileges
@@ -30,7 +30,7 @@ name      | The name of the savepoint.  Defaults to `cockroach_restart`, but may
 
 ## Customizing the savepoint name
 
-{%  include {{  page.version.version  }}/misc/customizing-the-savepoint-name.md %}
+{{ partial "{{ page.version.version }}/misc/customizing-the-savepoint-name.md" . }}
 
 ## Examples
 
@@ -38,7 +38,7 @@ name      | The name of the savepoint.  Defaults to `cockroach_restart`, but may
 
 After declaring a [`SAVEPOINT`](savepoint.html), commit the transaction with `RELEASE SAVEPOINT` and then prepare the connection for the next transaction with [`COMMIT`](commit-transaction.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 
@@ -53,7 +53,7 @@ After declaring a [`SAVEPOINT`](savepoint.html), commit the transaction with `RE
 > COMMIT;
 ~~~
 
-{{ site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
 
 ## See also
 

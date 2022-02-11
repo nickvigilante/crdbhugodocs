@@ -8,7 +8,7 @@ The `SHOW STATISTICS` [statement](sql-statements.html) lists [table statistics](
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_stats.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_stats.html" . }}
 </div>
 
 ## Required Privileges
@@ -25,7 +25,7 @@ Parameter      | Description
 
 ### List table statistics
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE STATISTICS students ON id FROM students_by_list;
 ~~~
@@ -34,7 +34,7 @@ Parameter      | Description
 CREATE STATISTICS
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE students_by_list;
 ~~~
@@ -48,7 +48,7 @@ CREATE STATISTICS
 
 ### Delete statistics
 
-{%  include {{  page.version.version  }}/misc/delete-statistics.md %}
+{{ partial "{{ page.version.version }}/misc/delete-statistics.md" . }}
 
 ## See Also
 

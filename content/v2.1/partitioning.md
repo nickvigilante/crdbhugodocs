@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB allows you to define table partitions, thus giving you row-level control of how and where your data is stored. Partitioning enables you to reduce latencies and costs and can assist in meeting regulatory requirements for your data.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Table partitioning is an [enterprise-only](enterprise-licensing.html) feature.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Why use table partitioning
 
@@ -75,7 +75,7 @@ See [Partition by List](#define-table-partitions-by-list) example below for more
 
 To define a table partition by range, use the [`PARTITION BY RANGE`](partition-by.html) syntax while creating the table.  While defining a range partition, you can use CockroachDB-defined `MINVALUE` and `MAXVALUE` parameters to define the lower and upper bounds of the ranges respectively.
 
-{{ site.data.alerts.callout_info }}The lower bound of a range partition is inclusive, while the upper bound is exclusive. For range partitions, <code>NULL</code> is considered less than any other data, which is consistent with our key encoding ordering and <code>ORDER BY</code> behavior.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The lower bound of a range partition is inclusive, while the upper bound is exclusive. For range partitions, <code>NULL</code> is considered less than any other data, which is consistent with our key encoding ordering and <code>ORDER BY</code> behavior.{{site.data.alerts.end }}
 
 Partition values can be any SQL expression, but it’s only evaluated once. If you create a partition with value `< (now() - '1d')` on 2017-01-30, it would be contain all values less than 2017-01-29. It would not update the next day, it would continue to contain values less than 2017-01-29.
 
@@ -87,7 +87,7 @@ The primary key required for partitioning is different from the conventional pri
 
 For instance, consider the database of a global online learning portal that has a table for students of all the courses across the world. If you want to geo-partition the table based on the countries of the students, then the primary key needs to be defined as:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE students (
     id INT DEFAULT unique_rowid(),
@@ -114,7 +114,7 @@ To ensure uniqueness or fast lookups, create a unique, unpartitioned secondary i
 
 Indexes can also be partitioned, but are not required to be. Each partition is required to have a name that is unique among all partitions on that table and its indexes. For example, the following `CREATE INDEX` scenario will fail because it reuses the name of a partition of the primary key:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE TABLE foo (a STRING PRIMARY KEY, b STRING) PARTITION BY LIST (a) (
     PARTITION bar VALUES IN ('bar'),
@@ -122,7 +122,7 @@ CREATE TABLE foo (a STRING PRIMARY KEY, b STRING) PARTITION BY LIST (a) (
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE INDEX foo_b_idx ON foo (b) PARTITION BY LIST (b) (
     PARTITION baz VALUES IN ('baz'),
@@ -160,7 +160,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
 
 1. Start 3 nodes in the US datacenter:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -173,7 +173,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
     --join=localhost:26257,localhost:26258,localhost:26259
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -186,7 +186,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
     --join=localhost:26257,localhost:26258,localhost:26259
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -201,7 +201,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
 
 2. Initialize the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init \
     --insecure \
@@ -210,7 +210,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
 
 3. Add 3 nodes in the German datacenter:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -223,7 +223,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
     --join=localhost:26257,localhost:26258,localhost:26259
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -236,7 +236,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
     --join=localhost:26257,localhost:26258,localhost:26259
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -251,7 +251,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
 
 3. Add 3 nodes in the Australian datacenter:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -264,7 +264,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
     --join=localhost:26257,localhost:26258,localhost:26259
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -277,7 +277,7 @@ We want to geo-partition the table to keep the students' data closer to their lo
     --join=localhost:26257,localhost:26258,localhost:26259
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -299,26 +299,26 @@ See [Set the Trial or Enterprise License Key](enterprise-licensing.html#set-the-
 
 1. Open the CockroachDB SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=localhost:26157
     ~~~
 
 2. Create the database and set it as current:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE roachlearn;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET DATABASE = roachlearn;
     ~~~
 
 3. Create the table with the appropriate partitions:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE students (
         id INT DEFAULT unique_rowid(),
@@ -337,7 +337,7 @@ See [Set the Trial or Enterprise License Key](enterprise-licensing.html#set-the-
 
     Alternatively, you can create and partition the table as separate steps:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE students (
         id INT DEFAULT unique_rowid(),
@@ -348,7 +348,7 @@ See [Set the Trial or Enterprise License Key](enterprise-licensing.html#set-the-
         PRIMARY KEY (country, id))
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE students
       PARTITION BY LIST (country) (
@@ -365,7 +365,7 @@ To create replication zone and apply them to corresponding partitions, use the [
 
 1. Create a replication zone for the `north_america` partition and constrain its data to the US datacenter:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION north_america OF TABLE roachlearn.students \
         CONFIGURE ZONE USING constraints='[+region=us]';
@@ -373,7 +373,7 @@ To create replication zone and apply them to corresponding partitions, use the [
 
 2. Create a replication zone for the `europe` partition and constrain its data to the German datacenter:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION europe OF TABLE roachlearn.students \
         CONFIGURE ZONE USING constraints='[+region=de]';
@@ -381,7 +381,7 @@ To create replication zone and apply them to corresponding partitions, use the [
 
 3. Create a replication zone for the `australia` partition and constrain its data to the Australian datacenter:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION australia OF TABLE roachlearn.students \
         CONFIGURE ZONE USING constraints='[+region=aus]';
@@ -389,7 +389,7 @@ To create replication zone and apply them to corresponding partitions, use the [
 
 4. After creating these replication zones, you can view them using the [`SHOW ZONE CONFIGURATION`](show-zone-configurations.html) statement:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ZONE CONFIGURATION FOR PARTITION north_america OF TABLE roachlearn.students;
     ~~~
@@ -409,7 +409,7 @@ To create replication zone and apply them to corresponding partitions, use the [
 
 #### Step 6. Verify table partitions
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW EXPERIMENTAL_RANGES FROM TABLE roachlearn.students] WHERE "start_key" IS NOT NULL AND "start_key" NOT LIKE '%Prefix%';
 ~~~
@@ -452,7 +452,7 @@ To set the enterprise license, see [Set the Trial or Enterprise License Key](ent
 
 #### Step 3. Start each node with the appropriate storage device specified in the `--store` flag
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Start the first node:
 $ cockroach start --insecure \
@@ -461,7 +461,7 @@ $ cockroach start --insecure \
 --join=<node1 hostname>,<node2 hostname>
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Start the first node:
 $ cockroach start --insecure \
@@ -470,7 +470,7 @@ $ cockroach start --insecure \
 --join=<node1 hostname>,<node2 hostname>
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Initialize the cluster:
 $ cockroach init \
@@ -480,7 +480,7 @@ $ cockroach init \
 
 #### Step 4. Create a table with the appropriate partitions
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE students_by_range (
    id INT DEFAULT unique_rowid(),
@@ -498,13 +498,13 @@ $ cockroach init \
 
 To create zone configurations and apply them to corresponding partitions, use the [`ALTER PARTITION ... CONFIGURE ZONE`](configure-zone.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER PARTITION current OF TABLE roachlearn.students_by_range \
     CONFIGURE ZONE USING constraints='[+ssd]';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER PARTITION graduated OF TABLE roachlearn.students_by_range \
     CONFIGURE ZONE USING constraints='[+hdd]';
@@ -512,7 +512,7 @@ To create zone configurations and apply them to corresponding partitions, use th
 
 #### Step 6. Verify table partitions
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE students_by_range;
 ~~~
@@ -535,7 +535,7 @@ Time: 5.850903ms
 
 A list partition can itself be partitioned, forming a subpartition. There is no limit on the number of levels of subpartitioning; that is, list partitions can be infinitely nested.
 
-{{ site.data.alerts.callout_info }}Range partitions cannot be subpartitioned.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Range partitions cannot be subpartitioned.{{site.data.alerts.end }}
 
 Going back to RoachLearn's scenario, suppose we want to do all of the following:
 
@@ -551,7 +551,7 @@ We want to geo-partition as well as archival-partition the table. We can achieve
 
 Start a node in the US datacenter:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -564,7 +564,7 @@ $ cockroach start \
 
 Start a node in the AUS datacenter:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -577,7 +577,7 @@ $ cockroach start \
 
 Initialize the cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init --insecure --host=<address of any node>
 ~~~
@@ -588,7 +588,7 @@ To set the enterprise license, see [Set the Trial or Enterprise License Key](ent
 
 #### Step 4. Create a table with the appropriate partitions
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE students (
     id INT DEFAULT unique_rowid(),
@@ -609,25 +609,25 @@ Subpartition names must be unique within a table. In our example, even though `g
 
 To create zone configurations and apply them to corresponding partitions, use the [`ALTER PARTITION ... CONFIGURE ZONE`](configure-zone.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER PARTITION current_us OF TABLE roachlearn.students \
     CONFIGURE ZONE USING constraints='[+ssd,+datacenter=us1]';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER PARTITION graduated_us OF TABLE roachlearn.students CONFIGURE ZONE \
     USING constraints='[+hdd,+datacenter=us1]';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER PARTITION current_au OF TABLE roachlearn.students \
     CONFIGURE ZONE USING constraints='[+ssd,+datacenter=au1]';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER PARTITION graduated_au OF TABLE roachlearn.students CONFIGURE ZONE \
     USING constraints='[+hdd,+datacenter=au1]';
@@ -635,7 +635,7 @@ To create zone configurations and apply them to corresponding partitions, use th
 
 #### Step 6. Verify table partitions
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW EXPERIMENTAL_RANGES FROM TABLE students;
 ~~~
@@ -669,7 +669,7 @@ Time: 11.586626ms
 
 Consider the partitioned table of students of RoachLearn. Suppose the table has been partitioned on range to store the current students on fast and expensive storage devices (example: SSD) and store the data of the graduated students on slower, cheaper storage devices(example: HDD). Now suppose we want to change the date after which the students will be considered current to `2018-08-15`. We can achieve this by using the [`PARTITION BY`](partition-by.html) subcommand of the [`ALTER TABLE`](alter-table.html) command.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students_by_range PARTITION BY RANGE (expected_graduation_date) (
     PARTITION graduated VALUES FROM (MINVALUE) TO ('2018-08-15'),
@@ -680,7 +680,7 @@ Consider the partitioned table of students of RoachLearn. Suppose the table has 
 
 You can remove the partitions on a table by using the [`PARTITION BY NOTHING`](partition-by.html) syntax:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students PARTITION BY NOTHING;
 ~~~
@@ -689,7 +689,7 @@ You can remove the partitions on a table by using the [`PARTITION BY NOTHING`](p
 
 To view the replication zone for a partition, use the [`SHOW ZONE CONFIGURATION`](show-zone-configurations.html) statement:
 
-{%  include {{  page.version.version  }}/zone-configs/view-the-replication-zone-for-an-index.md %}
+{{ partial "{{ page.version.version }}/zone-configs/view-the-replication-zone-for-an-index.md" . }}
 
 ## Locality–resilience tradeoff
 
@@ -709,7 +709,7 @@ Other databases use partitioning for three additional use cases: secondary index
 
 ## Known limitations
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 ## See also
 

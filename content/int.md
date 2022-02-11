@@ -6,7 +6,7 @@ toc: true
 
 The `INT` [data type](data-types.html) stores 64-bit signed integers, that is, whole numbers from -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807. 
 
-{{ site.data.alerts.callout_info }}To auto-generate globally unique integers, use the <a href="serial.html"><code>SERIAL</code></a> data type.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To auto-generate globally unique integers, use the <a href="serial.html"><code>SERIAL</code></a> data type.{{site.data.alerts.end }}
 
 
 ## Aliases
@@ -30,7 +30,7 @@ An `INT` column supports values up to 64 bits (8 bytes) in width, but the total 
 
 CockroachDB does not offer multiple integer types for different widths; instead, our compression ensures that smaller integers use less disk space than larger integers. However, you can use the `BIT(n)` type, with `n` from 1 to 64, to constrain integers based on their corresponding binary values. For example, `BIT(5)` would allow `31` because it corresponds to the five-digit binary integer `11111`, but would not allow `32` because it corresponds to the six-digit binary integer `100000`, which is 1 bit too long. See the [example](#examples) below for a demonstration.
 
-{{ site.data.alerts.callout_info }}<code>BIT</code> values are input and displayed in decimal format by default like all other integers, not in binary format. Also note that <code>BIT</code> is equivalent to <code>BIT(1)</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<code>BIT</code> values are input and displayed in decimal format by default like all other integers, not in binary format. Also note that <code>BIT</code> is equivalent to <code>BIT(1)</code>.{{site.data.alerts.end }}
 
 ## Examples
 

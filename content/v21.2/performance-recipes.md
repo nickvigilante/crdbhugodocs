@@ -78,12 +78,12 @@ Transaction contention occurs when transactions issued from multiple clients at 
 
 * Your application is experiencing degraded performance with transaction errors like `SQLSTATE: 40001`, `RETRY_WRITE_TOO_OLD`, and `RETRY_SERIALIZABLE`. See [Transaction Retry Error Reference](transaction-retry-error-reference.html).
 * The [SQL Statement Contention graph](ui-sql-dashboard.html#sql-statement-contention) is showing spikes over time.
-<img src="{{  'images/v21.2/ui-statement-contention.png' | relative_url  }}" alt="SQL Statement Contention graph in the DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/ui-statement-contention.png' | relative_url }}" alt="SQL Statement Contention graph in the DB Console" style="border:1px solid #eee;max-width:100%" />
 * The [Transaction Restarts graph](ui-sql-dashboard.html) is showing spikes in retries over time.
 
 #### Fix transaction contention problems
 
-{%  include {{  page.version.version  }}/performance/statement-contention.md %}
+{{ partial "{{ page.version.version }}/performance/statement-contention.md" . }}
 
 ### Statements with full table scans
 
@@ -93,13 +93,13 @@ Full table scans often result in poor statement performance.
 
 * The following query returns statements with full table scans in their statement plan:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SHOW FULL TABLE SCANS;
     ~~~
 * The following query against the `CRDB_INTERNAL.node_statement_statistics` table returns results:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SELECT count(*) as total_full_scans
     FROM crdb_internal.node_statement_statistics

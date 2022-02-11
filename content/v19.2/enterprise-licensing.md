@@ -10,7 +10,7 @@ This page lists enterprise features, and shows you how to obtain and set trial a
 
 ## Enterprise features
 
-{%  include {{  page.version.version  }}/misc/enterprise-features.md %}
+{{ partial "{{ page.version.version }}/misc/enterprise-features.md" . }}
 
 ## Types of licenses
 
@@ -19,13 +19,13 @@ Type | Description
 **Trial License** | A trial license enables you to try out CockroachDB enterprise features for 30 days for free.
 **Enterprise License** | A paid enterprise license enables you to use CockroachDB enterprise features for longer periods (one year or more).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 <span class="version-tag">New in v19.2:</span> For quick local testing of Enterprise features, you can use the [`cockroach demo`](cockroach-demo.html) command, which starts a temporary, in-memory cluster with a SQL shell open and a trial license applied automatically.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Obtain a license
 
-To obtain a trial license, fill out [the registration form](https://www.cockroachlabs.com/get-cockroachdb/) and receive your trial license via email within a few minutes.
+To obtain a trial license, fill out [the registration form](https://www.cockroachlabs.com/get-cockroachdb/enterprise/) and receive your trial license via email within a few minutes.
 
 To upgrade to an enterprise license, <a href="mailto:sales@cockroachlabs.com">contact Sales</a>.
 
@@ -33,17 +33,17 @@ To upgrade to an enterprise license, <a href="mailto:sales@cockroachlabs.com">co
 
 As the CockroachDB `root` user, open the [built-in SQL shell](cockroach-sql.html) in insecure or secure mode, as per your CockroachDB setup. In the following example, we assume that CockroachDB is running in insecure mode. Then use the `SET CLUSTER SETTING` command to set the name of your organization and the license key:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SET CLUSTER SETTING cluster.organization = 'Acme Company';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SET CLUSTER SETTING enterprise.license = 'xxxxxxxxxxxx';
 ~~~
@@ -52,7 +52,7 @@ $ cockroach sql --insecure
 
 To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use the `SHOW CLUSTER SETTING` command to check the organization name and license key:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SHOW CLUSTER SETTING cluster.organization;
 ~~~
@@ -63,7 +63,7 @@ To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use t
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 >  SHOW CLUSTER SETTING enterprise.license;
 ~~~
@@ -76,7 +76,7 @@ To verify a license, open the [built-in SQL shell](cockroach-sql.html) and use t
 
 The license setting is also logged in the cockroach.log on the node where the command is run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 $ cat cockroach.log | grep license
 ~~~

@@ -16,7 +16,7 @@ This tutorial shows you how to build a simple [Spring Boot](https://spring.io/pr
 
 ## Before you begin
 
-{%  include {{ page.version.version }}/app/before-you-begin.md %}
+{{ partial "{{ page.version.version }}/app/before-you-begin.md" . }}
 
 ## Step 1. Install JDK
 
@@ -28,21 +28,21 @@ This example application uses [Gradle](https://gradle.org/) to manage all applic
 
 To install Gradle on macOS, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ brew install gradle
 ~~~
 
 To install Gradle on a Debian-based Linux distribution like Ubuntu:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ apt-get install gradle
 ~~~
 
 To install Gradle on a Red Hat-based Linux distribution like Fedora:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ dnf install gradle
 ~~~
@@ -59,33 +59,33 @@ To get the application code, download or clone the [`mybatis-cockroach-demo` rep
 
 Start the [built-in SQL shell](cockroach-sql.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --certs-dir=certs
 ~~~
 
 In the SQL shell, issue the following statements to create the `maxroach` user and `bank` database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER IF NOT EXISTS maxroach;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
 Give the `bank` user the necessary permissions:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT ALL ON DATABASE bank TO maxroach;
 ~~~
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -94,7 +94,7 @@ Exit the SQL shell:
 
 Create a certificate and key for the `maxroach` user by running the following command. The code samples will run as this user.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-directory/ca.key --also-generate-pkcs8-key
 ~~~
@@ -115,14 +115,14 @@ To run the application:
       ~~~
 1. Open a terminal, and navigate to the `mybatis-cockroach-demo` project directory:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cd <path>/mybatis-cockroach-demo
     ~~~
 
 1. Run the Gradle script to download the application dependencies, compile the code, and run the application:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./gradlew bootRun
     ~~~
@@ -133,33 +133,33 @@ To run the application:
 
 Start the [built-in SQL shell](cockroach-sql.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure
 ~~~
 
 In the SQL shell, issue the following statements to create the `maxroach` user and `bank` database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER IF NOT EXISTS maxroach;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
 Give the `bank` user the necessary permissions:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > GRANT ALL ON DATABASE bank TO maxroach;
 ~~~
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -178,14 +178,14 @@ To run the application:
       ~~~
 1. Open a terminal, and navigate to the `mybatis-cockroach-demo` project directory:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cd <path>/mybatis-cockroach-demo
     ~~~
 
 1. Run the Gradle script to download the application dependencies, compile the code, and run the application:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./gradlew bootRun
     ~~~
@@ -251,18 +251,18 @@ This section walks you through the different components of the application proje
 
 The main process of the application is defined in `src/main/java/com/example/cockroachdemo/CockroachDemoApplication.java`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/CockroachDemoApplication.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/CockroachDemoApplication.java" . }}
 ~~~
 
 The `SpringApplication.run` call in the `main` method bootstraps and launches a Spring application. The [`@SpringBootApplication` annotation](https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-using-springbootapplication-annotation) on the `CockroachDemoApplication` class triggers Spring's [component scanning](https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-structuring-your-code) and [auto-configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-auto-configuration) features.
 
 The `BasicExample` class, defined in `src/main/java/com/example/cockroachdemo/BasicExample.java`, is one of the components detected in the component scan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/BasicExample.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/BasicExample.java" . }}
 ~~~
 
 `BasicExample` implements the [Spring `CommandLineRunner` interface](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-command-line-runner). Implementations of this interface automatically run when detected in a Spring project directory. `BasicExample` runs a series of test methods that are eventually executed as SQL queries in the [data access layer of the application](#mappers).
@@ -281,9 +281,9 @@ This sample application implements [batch write operations](insert.html#performa
 
 The class defined in `src/main/java/com/example/cockroachdemo/MyBatisConfiguration.java` configures the application to meet these requirements:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/MyBatisConfiguration.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/MyBatisConfiguration.java" . }}
 ~~~
 
 This class explicitly defines the batch `SqlSessionTemplate` (i.e., `batchSqlSessionTemplate`), and registers `batchmapper`, the batch mapper interface defined in [`src/main/java/com/example/cockroachdemo/batchmapper/BatchMapper.java`](#mappers) with `batchSqlSessionTemplate`. To complete the MyBatis configuration, the class also declares a `DataSource`, and defines the remaining `SqlSessionFactory` and `SqlSessionTemplate` beans.
@@ -294,9 +294,9 @@ Note that a configuration class is not required for MyBatis-Spring-Boot-Starter 
 
 `src/main/resources/application.yml` contains the metadata used to create a connection to the CockroachDB cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ yaml
-{%  include {{ page.version.version }}/app/spring-mybatis/application.yml %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/application.yml" . }}
 ~~~
 
 Spring Boot uses the application's `datasource` property [to auto-configure the database connection](https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-features.html#boot-features-configure-datasource). This database connection configuration can be injected into the application's `SqlSessionFactoryBean`, as is explicitly done in the [MyBatisConfiguration](#configuration) configuration class definition.
@@ -311,9 +311,9 @@ MyBatis-Spring-Boot-Starter usually scans the project for interfaces annotated w
 
 `src/main/java/com/example/cockroachdemo/mapper/AccountMapper.java` defines the mapper interface to the `accounts` table using the [MyBatis Java API](https://mybatis.org/mybatis-3/java-api.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/mapper/AccountMapper.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/mapper/AccountMapper.java" . }}
 ~~~
 
 The `@Mapper` annotation declares the interface a mapper for MyBatis to scan. The SQL statement annotations on each of the interface methods map them to SQL queries. For example, the first method, `deleteAllAccounts()` is marked as a `DELETE` statement with the `@Delete` annotation. This method executes the SQL statement specified in the string passed to the annotation, "`delete from accounts`", which deletes all rows in the `accounts` table.
@@ -322,9 +322,9 @@ The `@Mapper` annotation declares the interface a mapper for MyBatis to scan. Th
 
 `src/main/java/com/example/cockroachdemo/batchmapper/BatchAccountMapper.java` defines a mapper interface for [batch writes](insert.html#performance-best-practices):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/batchmapper/BatchAccountMapper.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/batchmapper/BatchAccountMapper.java" . }}
 ~~~
 
 This interface has a single `INSERT` statement query method, along with a method for flushing (i.e., executing) a batch of statements.
@@ -333,16 +333,16 @@ This interface has a single `INSERT` statement query method, along with a method
 
 `src/main/java/com/example/cockroachdemo/service/AccountService.java` defines the service interface, with a number of methods for reading and writing to the database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/service/AccountService.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/service/AccountService.java" . }}
 ~~~
 
 `MyBatisAccountService.java` implements the `AccountService` interface, using the mappers defined in [`AccountMapper.java` and `BatchAccountMapper.java`](#mappers), and the models defined in [`Account.java` and `BatchResults.java`](#models):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/service/MyBatisAccountService.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/service/MyBatisAccountService.java" . }}
 ~~~
 
 Note that the public methods (i.e., the methods to be called by other classes in the project) are annotated as [`@Transactional`](https://docs.spring.io/spring/docs/current/spring-framework-reference/data-access.html#transaction-declarative-annotations) methods. This ensures that all of the SQL statements executed in the data access layer are run within the context of a [database transaction](transactions.html)
@@ -355,16 +355,16 @@ For more details on aspect-oriented transaction management in this application, 
 
 Instances of the `Account` class, defined in `src/main/java/com/example/cockroachdemo/model/Account.java`, represent rows in the `accounts` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/model/Account.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/model/Account.java" . }}
 ~~~
 
 Instances of the `BatchResults` class, defined in `src/main/java/com/example/cockroachdemo/model/BatchResults.java`, hold metadata about a batch write operation and its results:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/model/BatchResults.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/model/BatchResults.java" . }}
 ~~~
 
 ### Transaction management
@@ -373,9 +373,9 @@ MyBatis-Spring supports Spring's [declarative, aspect-oriented transaction manag
 
 Transactions may require retries if they experience deadlock or [transaction contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention) that cannot be resolved without allowing [serialization](demo-serializable.html) anomalies. To handle transactions that are aborted due to transient serialization errors, we highly recommend writing [client-side transaction retry logic](transactions.html#client-side-intervention) into applications written on CockroachDB. In this application, transaction retry logic is written into the methods of the `RetryableTransactionAspect` class, defined in `src/main/java/com/example/cockroachdemo/RetryableTransactionAspect.java`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
-{%  include {{ page.version.version }}/app/spring-mybatis/RetryableTransactionAspect.java %}
+{{ partial "{{ page.version.version }}/app/spring-mybatis/RetryableTransactionAspect.java" . }}
 ~~~
 
 The [`@Aspect` annotation](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-at-aspectj) declares `RetryableTransactionAspect` an [aspect](https://en.wikipedia.org/wiki/Aspect_(computer_programming)), with [pointcut](https://en.wikipedia.org/wiki/Pointcut) and [advice](https://en.wikipedia.org/wiki/Advice_(programming)) methods.

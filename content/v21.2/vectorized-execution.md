@@ -9,7 +9,7 @@ CockroachDB supports [column-oriented](https://en.wikipedia.org/wiki/Column-orie
 
 Many SQL databases execute [query plans](https://en.wikipedia.org/wiki/Query_plan) one row of table data at a time. Row-oriented execution models can offer good performance for [online transaction processing (OLTP)](https://en.wikipedia.org/wiki/Online_transaction_processing) queries, but suboptimal performance for [online analytical processing (OLAP)](https://en.wikipedia.org/wiki/Online_analytical_processing) queries. The CockroachDB vectorized execution engine dramatically improves performance over [row-oriented execution](https://en.wikipedia.org/wiki/Column-oriented_DBMS#Row-oriented_systems) by processing each component of a query plan on type-specific batches of column data.
 
-## Configuring vectorized execution
+## Configure vectorized execution
 
 By default, vectorized execution is enabled in CockroachDB.
 
@@ -17,16 +17,16 @@ You can configure vectorized execution with the `vectorize` [session variable](s
 
 Option    | Description
 ----------|------------
-`on`   | Turns on vectorized execution for all queries on rows over the [`vectorize_row_count_threshold`](#setting-the-row-threshold-for-vectorized-execution) (0 rows, by default, meaning all queries will use the vectorized engine).<br><br>**Default:** `vectorize=on`
+`on`   | Turns on vectorized execution for all queries on rows over the [`vectorize_row_count_threshold`](#set-the-row-threshold-for-vectorized-execution) (0 rows, by default, meaning all queries will use the vectorized engine).<br><br>**Default:** `vectorize=on`
 `off`  | Turns off vectorized execution for all queries.
 
 For information about setting session variables, see [`SET` &lt;session variable&gt;](set-vars.html).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To see if CockroachDB will use the vectorized execution engine for a query, run a simple [`EXPLAIN`](explain.html) statement on the query. If `vectorize` is `true`, the query will be executed with the vectorized engine. If it is `false`, the row-oriented execution engine is used instead.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-### Setting the row threshold for vectorized execution
+### Set the row threshold for vectorized execution
 
 The efficiency of vectorized execution increases with the number of rows processed. If you are querying a table with a small number of rows, it is more efficient to use row-oriented execution.
 
@@ -58,14 +58,14 @@ By default, the memory limit allocated per disk-spilling operation is `64MiB`. T
 
 To increase the limit, change the cluster setting:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SET CLUSTER SETTING sql.distsql.temp_storage.workmem = '100MiB';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Operations that do not support disk spilling ignore the `sql.distsql.temp_storage.workmem` limit.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The [`--max-disk-temp-storage` flag](cockroach-start.html#general) sets the maximum on-disk storage capacity for disk spilling. If the maximum on-disk storage capacity is reached, the query will return an error during execution.
 
@@ -85,7 +85,7 @@ The vectorized engine does not support [working with spatial data](spatial-data.
 
 ### Unordered distinct operations
 
-{%  include {{  page.version.version  }}/known-limitations/unordered-distinct-operations.md %}
+{{ partial "{{ page.version.version }}/known-limitations/unordered-distinct-operations.md" . }}
 
 ## See also
 

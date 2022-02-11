@@ -46,19 +46,19 @@ Parameter | Description
 
 ### Create a Table with a Computed Column
 
-{%  include {{  page.version.version  }}/computed-columns/simple.md %}
+{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
 
 ### Create a Table with Geo-partitions and a Computed Column
 
-{%  include {{  page.version.version  }}/computed-columns/partitioning.md %} The `locality` values can then be used for geo-partitioning.
+{{ partial "{{ page.version.version }}/computed-columns/partitioning.md" . }} The `locality` values can then be used for geo-partitioning.
 
 ### Create a Table with a `JSONB` Column and a Computed Column
 
-{%  include {{  page.version.version  }}/computed-columns/jsonb.md %}
+{{ partial "{{ page.version.version }}/computed-columns/jsonb.md" . }}
 
 ### Create a Table with a Secondary Index on a Computed Column
 
-{%  include {{  page.version.version  }}/computed-columns/secondary-index.md %}
+{{ partial "{{ page.version.version }}/computed-columns/secondary-index.md" . }}
 
 ## See Also
 

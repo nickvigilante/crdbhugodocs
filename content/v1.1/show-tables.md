@@ -7,12 +7,12 @@ toc: true
 
 The `SHOW TABLES` [statement](sql-statements.html) lists the tables in a database. Tables can be standard tables as well as virtual tables representing [views](views.html).
 
-{{ site.data.alerts.callout_info }}While a table is being <a href="drop-table.html">dropped</a>, <code>SHOW TABLES</code> will list the table with a <code>(dropped)</code> suffix.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}While a table is being <a href="drop-table.html">dropped</a>, <code>SHOW TABLES</code> will list the table with a <code>(dropped)</code> suffix.{{site.data.alerts.end }}
 
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/show_tables.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_tables.html" . }}
 
 ## Required Privileges
 

@@ -13,20 +13,20 @@ For a list of community-supported third-party tools, see [Third-Party Tools Supp
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{{ site.data.alerts.callout_info }}
-The connection information shown on this page uses [client certificate and key authentication](authentication.html#client-authentication) to connect to a secure, {{  site.data.products.core  }} cluster.
+{{site.data.alerts.callout_info }}
+The connection information shown on this page uses [client certificate and key authentication](authentication.html#client-authentication) to connect to a secure, {{ site.data.products.core }} cluster.
 
-To connect to a {{  site.data.products.core  }} cluster with client certificate and key authentication, you must first [generate server and client certificates](authentication.html#using-digital-certificates-with-cockroachdb).
+To connect to a {{ site.data.products.core }} cluster with client certificate and key authentication, you must first [generate server and client certificates](authentication.html#using-digital-certificates-with-cockroachdb).
 
 For instructions on starting a secure cluster, see [Start a Local Cluster (Secure)](secure-a-cluster.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 </div>
 
 <div class="filters clearfix">
-  <button class="filter-button page-level" data-scope="serverless">{{  site.data.products.serverless  }}</button>
-  <button class="filter-button page-level" data-scope="dedicated">{{  site.data.products.dedicated  }}</button>
-  <button class="filter-button page-level" data-scope="core">{{  site.data.products.core  }}</button>
+  <button class="filter-button page-level" data-scope="serverless">{{ site.data.products.serverless }}</button>
+  <button class="filter-button page-level" data-scope="dedicated">{{ site.data.products.dedicated }}</button>
+  <button class="filter-button page-level" data-scope="core">{{ site.data.products.core }}</button>
 </div>
 
 <div class="filters clearfix">
@@ -51,7 +51,7 @@ To connect to CockroachDB with [node-postgres](https://node-postgres.com), creat
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ js
 const { Client } = require('pg')
 
@@ -66,7 +66,7 @@ node-postgres accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&options=--cluster%3D<routing-id>
 ~~~
@@ -75,7 +75,7 @@ postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&sslrootcert=<root-cert>
 ~~~
@@ -84,7 +84,7 @@ postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>@<host>:<port>/<database>?sslmode=verify-full&sslrootcert=<root-cert>&sslcert=<client-cert>&sslkey=<client-key>
 ~~~
@@ -143,7 +143,7 @@ To connect to CockroachDB with [Sequelize](https://sequelize.org), create a `Seq
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ js
 const Sequelize = require("sequelize-cockroachdb");
 
@@ -157,7 +157,7 @@ Sequelize versions 6.10 and later accept the following format for CockroachDB co
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&options=--cluster%3D<routing-id>
 ~~~
@@ -166,7 +166,7 @@ postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&sslrootcert=<root-cert>
 ~~~
@@ -175,7 +175,7 @@ postgresql://<username>:<password>@<host>:<port>/<database>?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>@<host>:<port>/<database>?sslmode=verify-full&sslrootcert=<root-cert>&sslcert=<client-cert>&sslkey=<client-key>
 ~~~
@@ -186,7 +186,7 @@ For Sequelize versions 6.9 and earlier, use the following format:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<routing-id>.<database>?ssl=true
 ~~~
@@ -195,7 +195,7 @@ postgresql://<username>:<password>@<host>:<port>/<routing-id>.<database>?ssl=tru
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>?ssl=true&sslrootcert=<root-cert>
 ~~~
@@ -204,16 +204,16 @@ postgresql://<username>:<password>@<host>:<port>/<database>?ssl=true&sslrootcert
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>@<host>:<port>/<database>?ssl=true&sslrootcert=<root-cert>&sslcert=<client-cert>&sslkey=<client-key>
 ~~~
 
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To connect to CockroachDB with Sequelize, you must install the [CockroachDB Sequelize adapter](https://github.com/cockroachdb/sequelize-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about connecting with Sequelize, see the [official Sequelize documentation](https://sequelize.org/master/index.html).
 
@@ -273,9 +273,9 @@ For example, suppose that you have a file named `ormconfig.ts` in the project's 
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-CockroachDB {{  site.data.products.serverless  }} requires you to specify the `type`, `url`, `ssl`, and `options: "--cluster"` properties:
+CockroachDB {{ site.data.products.serverless }} requires you to specify the `type`, `url`, `ssl`, and `options: "--cluster"` properties:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ts
 module.exports = {
   type: "cockroachdb",
@@ -292,7 +292,7 @@ Where `DATABASE_URL` is an environment variable set to a valid CockroachDB conne
 
 TypeORM accepts the following format for CockroachDB connection strings:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>
 ~~~
@@ -301,9 +301,9 @@ postgresql://<username>:<password>@<host>:<port>/<database>
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-CockroachDB {{  site.data.products.dedicated  }} requires you to specify the `type`, `url`, and `ssl` properties:
+CockroachDB {{ site.data.products.dedicated }} requires you to specify the `type`, `url`, and `ssl` properties:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ts
 module.exports = {
   type: "cockroachdb",
@@ -322,7 +322,7 @@ Where:
 
 TypeORM accepts the following format for CockroachDB connection strings:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>:<password>@<host>:<port>/<database>
 ~~~
@@ -331,9 +331,9 @@ postgresql://<username>:<password>@<host>:<port>/<database>
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-CockroachDB {{  site.data.products.core  }} requires you to specify the `type`, `url`, and `ssl` properties:
+CockroachDB {{ site.data.products.core }} requires you to specify the `type`, `url`, and `ssl` properties:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ts
 module.exports = {
   type: "cockroachdb",
@@ -356,7 +356,7 @@ Where:
 
 TypeORM accepts the following format for CockroachDB connection strings:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://<username>@<host>:<port>/<database>
 ~~~
@@ -365,7 +365,7 @@ postgresql://<username>@<host>:<port>/<database>
 
 You can then call `createConnection` without any parameters:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ts
 import {createConnection} from "typeorm";
 
@@ -431,9 +431,9 @@ Parameter | Description
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{{ site.data.alerts.callout_info }}
-To connect to a {{  site.data.products.serverless  }} cluster from a Python application, you must have a valid CA certificate located at <code>~/.postgresql/root.crt</code>.<br>For instructions on downloading a CA certificate from the {{  site.data.products.db  }} Console, see <a href="../cockroachcloud/connect-to-a-serverless-cluster.html">Connect to a {{  site.data.products.serverless  }} Cluster</a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+To connect to a {{ site.data.products.serverless }} cluster from a Python application, you must have a valid CA certificate located at <code>~/.postgresql/root.crt</code>.<br>For instructions on downloading a CA certificate from the {{ site.data.products.db }} Console, see <a href="../cockroachcloud/connect-to-a-serverless-cluster.html">Connect to a {{ site.data.products.serverless }} Cluster</a>.
+{{site.data.alerts.end }}
 
 </div>
 
@@ -443,7 +443,7 @@ To connect to CockroachDB with [Psycopg2](https://www.psycopg.org), pass a conne
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 import psycopg2
 import os
@@ -457,7 +457,7 @@ Psycopg2 accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -466,7 +466,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -475,7 +475,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
@@ -492,7 +492,7 @@ To connect to CockroachDB with [SQLAlchemy](http://docs.sqlalchemy.org/en/latest
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 from sqlalchemy import create_engine
 import os
@@ -507,7 +507,7 @@ SQLAlchemy accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 cockroachdb://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -516,7 +516,7 @@ cockroachdb://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 cockroachdb://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -525,16 +525,16 @@ cockroachdb://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 cockroachdb://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
 
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To connect to CockroachDB with SQLAlchemy, you must install the [CockroachDB SQLAlchemy adapter](https://github.com/cockroachdb/sqlalchemy-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about connecting with SQLAlchemy, see the [official SQLAlchemy documentation](https://docs.sqlalchemy.org/en/14/core/engines_connections.html).
 
@@ -552,7 +552,7 @@ Django accepts the following format for CockroachDB connection information:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 ## settings.py
 
@@ -580,7 +580,7 @@ DATABASES = {
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 ## settings.py
 
@@ -608,7 +608,7 @@ DATABASES = {
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 ## settings.py
 
@@ -635,9 +635,9 @@ DATABASES = {
 
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To connect to CockroachDB with Django, you must install the [CockroachDB Django adapter](https://github.com/cockroachdb/django-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about connecting with Django, see the [official Django documentation](https://docs.djangoproject.com/en/3.0).
 
@@ -701,7 +701,7 @@ To connect to CockroachDB with [pgx](https://github.com/jackc/pgx), use the `pgx
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 package main
 
@@ -727,7 +727,7 @@ pgx accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -736,7 +736,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -745,7 +745,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
@@ -762,7 +762,7 @@ To connect to CockroachDB with [pq](https://godoc.org/github.com/lib/pq), use th
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 package main
 
@@ -788,7 +788,7 @@ pq accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -797,7 +797,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -806,7 +806,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
@@ -824,7 +824,7 @@ To connect to CockroachDB with [GORM](http://gorm.io), use the `gorm.Open` funct
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 import (
   "os"
@@ -842,7 +842,7 @@ GORM accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -851,7 +851,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -860,7 +860,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
@@ -929,7 +929,7 @@ To connect to CockroachDB with the [JDBC](https://jdbc.postgresql.org) driver, c
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 PGSimpleDataSource ds = new PGSimpleDataSource();
 ds.setUrl(System.getenv("DATABASE_URL"));
@@ -941,7 +941,7 @@ JDBC accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&sslmode=verify-full&sslfactory=org.postgresql.ssl.DefaultJavaSSLFactory&options=--cluster%3D{routing-id}
 ~~~
@@ -950,7 +950,7 @@ jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&s
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -959,7 +959,7 @@ jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&s
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 jdbc:postgresql://{host}:{port}/{database}?user={username}&sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
@@ -976,7 +976,7 @@ To connect to CockroachDB with [Hibernate](https://hibernate.org/orm) ORM, set t
 
 For example, if you are bootstrapping your application with a [`ServiceRegistry`](https://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#bootstrap-native-registry) object, first read from the Hibernate configuration file, and then set the `hibernate.connection.url` with the `applySetting` class method:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 StandardServiceRegistry standardRegistry = new StandardServiceRegistryBuilder()
     .configure( "hibernate.cfg.xml" ).applySetting("hibernate.connection.url", System.getenv("DATABASE_URL"))
@@ -996,7 +996,7 @@ Hibernate accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&sslmode=verify-full&sslfactory=org.postgresql.ssl.DefaultJavaSSLFactory&options=--cluster%3D{routing-id}
 ~~~
@@ -1005,7 +1005,7 @@ jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&s
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -1014,16 +1014,16 @@ jdbc:postgresql://{host}:{port}/{database}?user={username}&password={password}&s
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 jdbc:postgresql://{host}:{port}/{database}?user={username}&sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
 
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To connect to CockroachDB with Hibernate, you must specify the [CockroachDB Hibernate dialect](install-client-drivers.html?filters=java#hibernate) in your `hibernate.cfg.xml` configuration file.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about connecting with Hibernate, see the [official Hibernate documentation](https://hibernate.org/orm/documentation).
 
@@ -1080,9 +1080,9 @@ Parameter | Description
   <button class="filter-button page-level" data-scope="activerecord">ActiveRecord</button>
 </div>
 
-{{ site.data.alerts.callout_info }}
-To connect to a {{  site.data.products.serverless  }} cluster from a Ruby application, you must have a valid CA certificate located at <code>~/.postgresql/root.crt</code>.<br>For instructions on downloading a CA certificate from the {{  site.data.products.db  }} Console, see <a href="../cockroachcloud/connect-to-a-serverless-cluster.html">Connect to a {{  site.data.products.serverless  }} Cluster</a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+To connect to a {{ site.data.products.serverless }} cluster from a Ruby application, you must have a valid CA certificate located at <code>~/.postgresql/root.crt</code>.<br>For instructions on downloading a CA certificate from the {{ site.data.products.db }} Console, see <a href="../cockroachcloud/connect-to-a-serverless-cluster.html">Connect to a {{ site.data.products.serverless }} Cluster</a>.
+{{site.data.alerts.end }}
 
 <div class="filter-content" markdown="1" data-scope="ruby-pg">
 
@@ -1090,7 +1090,7 @@ To connect to CockroachDB with the [Ruby pg](https://rubygems.org/gems/pg) drive
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ ruby
 #!/usr/bin/env ruby
 
@@ -1105,7 +1105,7 @@ pg accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -1114,7 +1114,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -1123,7 +1123,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
@@ -1156,7 +1156,7 @@ ActiveRecord accepts the following format for CockroachDB connection strings:
 
 <div class="filter-content" markdown="1" data-scope="serverless">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&options=--cluster%3D{routing-id}
 ~~~
@@ -1165,7 +1165,7 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="dedicated">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}
 ~~~
@@ -1174,16 +1174,16 @@ postgresql://{username}:{password}@{host}:{port}/{database}?sslmode=verify-full&
 
 <div class="filter-content" markdown="1" data-scope="core">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 postgresql://{username}@{host}:{port}/{database}?sslmode=verify-full&sslrootcert={root-cert}&sslcert={client-cert}&sslkey={client-key}
 ~~~
 
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To connect to CockroachDB with ActiveRecord, you must install the [ActiveRecord CockroachDB adapter](https://rubygems.org/gems/activerecord-cockroachdb-adapter).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about connecting with ActiveRecord, see the [official ActiveRecord documentation](https://guides.rubyonrails.org/active_record_querying.html).
 

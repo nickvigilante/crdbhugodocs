@@ -19,11 +19,11 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 ## Requirements
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-requirements.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-requirements.md" . }}
 
 ## Recommendations
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-recommendations.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-recommendations.md" . }}
 
 ## Step 1. Configure your network
 
@@ -52,7 +52,7 @@ When creating firewall rules, we recommend using Google Cloud Platform's **tag**
 
 Applications will not connect directly to your CockroachDB nodes. Instead, they'll connect to GCE's TCP Proxy Load Balancing service, which automatically routes traffic to the instances that are closest to the user. Because this service is implemented at the edge of the Google Cloud, you'll need to create a firewall rule to allow traffic from the load balancer and health checker to your instances. This is covered in [Step 4](#step-4-set-up-tcp-proxy-load-balancing).
 
-{{ site.data.alerts.callout_danger }}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance).{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance).{{site.data.alerts.end }}
 
 ## Step 2. Create instances
 
@@ -70,7 +70,7 @@ For more details, see [Hardware Recommendations](recommended-production-settings
 
 ## Step 3. Synchronize clocks
 
-{%  include {{  page.version.version  }}/prod-deployment/synchronize-clocks.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
 
 ## Step 4. Set up TCP Proxy Load Balancing
 
@@ -82,7 +82,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 GCE offers fully-managed [TCP Proxy Load Balancing](https://cloud.google.com/load-balancing/docs/tcp/). This service lets you use a single IP address for all users around the world, automatically routing traffic to the instances that are closest to the user.
 
-{{ site.data.alerts.callout_danger }}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance).{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance).{{site.data.alerts.end }}
 
 To use GCE's TCP Proxy Load Balancing service:
 
@@ -98,36 +98,36 @@ To use GCE's TCP Proxy Load Balancing service:
 
 ## Step 5. Generate certificates
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-generate-certificates.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-generate-certificates.md" . }}
 
 ## Step 6. Start nodes
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-start-nodes.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-start-nodes.md" . }}
 
 ## Step 7. Initialize the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-initialize-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-initialize-cluster.md" . }}
 
 ## Step 8. Test the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-test-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-test-cluster.md" . }}
 
 ## Step 9. Run a sample workload
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-test-load-balancing.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-test-load-balancing.md" . }}
 
 ## Step 10. Set up monitoring and alerting
 
-{%  include {{  page.version.version  }}/prod-deployment/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
 
 ## Step 11. Scale the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-scale-cluster.md" . }}
 
 ## Step 12. Use the database
 
-{%  include {{  page.version.version  }}/prod-deployment/use-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/use-cluster.md" . }}
 
 ## See Also
 
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

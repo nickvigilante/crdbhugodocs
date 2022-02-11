@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{%  include {{ { page.version.version  }}/misc/schema-change-stmt-note.md %}
+{{ partial "{{ { page.version.version }}/misc/schema-change-stmt-note.md" . }}
 
 ## Required privileges
 
@@ -20,55 +20,55 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{%  include {{  page.version.version  }}/sql/diagrams/create_table.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/create_table.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
 </div>
 
 **column_def ::=**
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/column_def.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/column_def.html" . }}
 </div>
 
 **col_qualification ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/col_qualification.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/col_qualification.html" . }}
 </div>
 
 **index_def ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/index_def.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/index_def.html" . }}
 </div>
 
 **family_def ::=**
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/family_def.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/family_def.html" . }}
 </div>
 
 **table_constraint ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/table_constraint.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/table_constraint.html" . }}
 </div>
 
 **opt_interleave ::=**
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/opt_interleave.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/opt_interleave.html" . }}
 </div>
 
 </div>
 
-{{ site.data.alerts.callout_success }}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
+{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -91,7 +91,7 @@ By default, tables are created in the default replication zone but can be placed
 
 CockroachDB allows [enterprise users](enterprise-licensing.html) to [define table partitions](partitioning.html), thus providing row-level control of how and where the data is stored. See [Create a Replication Zone for a Table Partition](configure-replication-zones.html#create-a-replication-zone-for-a-partition) for more information.
 
-{{ site.data.alerts.callout_info }}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end }}
 
 ## Examples
 
@@ -101,9 +101,9 @@ In this example, we create the `users` table with a single [primary key](primary
 
 For performance recommendations on primary keys, see the [Primary Key Constraint](primary-key.html#performance-considerations) page and the [SQL Performance Best Practices](performance-best-practices-overview.html#use-multi-column-primary-keys) page.
 
-{{ site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY,
@@ -115,7 +115,7 @@ For performance recommendations on primary keys, see the [Primary Key Constraint
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -132,7 +132,7 @@ For performance recommendations on primary keys, see the [Primary Key Constraint
 (6 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -148,7 +148,7 @@ For performance recommendations on primary keys, see the [Primary Key Constraint
 
 In this example, we create secondary and inverted indexes during table creation. Secondary indexes allow efficient access to data with keys other than the primary key. [Inverted indexes](inverted-indexes.html) allow efficient access to the schemaless data in a [`JSONB`](jsonb.html) column.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
         id UUID NOT NULL,
@@ -166,7 +166,7 @@ In this example, we create secondary and inverted indexes during table creation.
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM vehicles;
 ~~~
@@ -192,7 +192,7 @@ We also have other resources on indexes:
 
 ### Create a table with auto-generated unique row IDs
 
-{%  include {{  page.version.version  }}/faq/auto-generate-unique-ids.html %}
+{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
 
 ### Create a table with a foreign key constraint
 
@@ -208,7 +208,7 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a foreign key constraint is deleted, all dependent rows are also deleted).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -220,7 +220,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE vehicles (
         id UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -238,7 +238,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -265,12 +265,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO users (name, dl) VALUES ('Annika', 'ABC-123');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -282,12 +282,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO vehicles (city, owner_id) VALUES ('seattle', '26da1fce-59e1-4290-a786-9068242dd195');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM vehicles;
 ~~~
@@ -299,12 +299,12 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DELETE FROM users WHERE id = '26da1fce-59e1-4290-a786-9068242dd195';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM vehicles;
 ~~~
@@ -319,7 +319,7 @@ In this example, we use `ON DELETE CASCADE` (i.e., when row referenced by a fore
 
 In this example, we create the `users` table, but with some column [constraints](constraints.html). One column is the [primary key](primary-key.html), and another column is given a [unique constraint](unique.html) and a [check constraint](check.html) that limits the length of the string. Primary key columns and columns with unique constraints are automatically indexed.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users (
         id UUID PRIMARY KEY,
@@ -331,7 +331,7 @@ In this example, we create the `users` table, but with some column [constraints]
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM users;
 ~~~
@@ -348,7 +348,7 @@ In this example, we create the `users` table, but with some column [constraints]
 (6 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEX FROM users;
 ~~~
@@ -364,13 +364,13 @@ In this example, we create the `users` table, but with some column [constraints]
 
 ### Create a table that mirrors key-value storage
 
-{%  include {{  page.version.version  }}/faq/simulate-key-value-store.html %}
+{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
 
 ### Create a table from a `SELECT` statement
 
 You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a new table from the results of a `SELECT` statement. For example, suppose you have a number of rows of user data in the `users` table, and you want to create a new table from the subset of users that are located in New York.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users WHERE city = 'new york';
 ~~~
@@ -386,12 +386,12 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE users_ny AS SELECT * FROM users WHERE city = 'new york';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users_ny;
 ~~~
@@ -409,19 +409,19 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with a computed column
 
-{%  include {{  page.version.version  }}/computed-columns/simple.md %}
+{{ partial "{{ page.version.version }}/computed-columns/simple.md" . }}
 
 ### Create a table with partitions
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See [Partition using Primary Key](partitioning.html#partition-using-primary-key) for more details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Create a table with partitions by list
 
 In this example, we create a table and [define partitions by list](partitioning.html#partition-by-list).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE rides (
         id UUID NOT NULL,
@@ -449,7 +449,7 @@ In this example, we create a table and [define partitions by list](partitioning.
 
 In this example, we create a table and [define partitions by range](partitioning.html#partition-by-range).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE rides (
         id UUID NOT NULL,
@@ -477,7 +477,7 @@ In this example, we create a table and [define partitions by range](partitioning
 
 To show the definition of a table, use the [`SHOW CREATE`](show-create.html) statement. The contents of the `create_statement` column in the response is a string with embedded line breaks that, when echoed, produces formatted output.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE rides;
 ~~~

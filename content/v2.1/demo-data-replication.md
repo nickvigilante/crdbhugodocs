@@ -12,7 +12,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 ## Step 1. Start a 1-node cluster
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -25,7 +25,7 @@ $ cockroach start \
 
 In a new terminal, use [`cockroach workload`](cockroach-workload.html) command to generate an example `intro` database:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach workload init intro \
 'postgresql://root@localhost:26257?sslmode=disable'
@@ -33,12 +33,12 @@ $ cockroach workload init intro \
 
 In the same terminal, open the [built-in SQL shell](use-the-built-in-sql-client.html) and verify that the new `intro` database was added with one table, `mytable`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --host=localhost:26257
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -53,7 +53,7 @@ $ cockroach sql --insecure --host=localhost:26257
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM intro;
 ~~~
@@ -65,7 +65,7 @@ $ cockroach sql --insecure --host=localhost:26257
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM intro.mytable WHERE (l % 2) = 0;
 ~~~
@@ -99,7 +99,7 @@ $ cockroach sql --insecure --host=localhost:26257
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -108,7 +108,7 @@ Exit the SQL shell:
 
 In a new terminal, add node 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -120,7 +120,7 @@ $ cockroach start \
 
 In a new terminal, add node 3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -134,13 +134,13 @@ $ cockroach start \
 
 Open the Admin UI at <a href="http://localhost:8080" data-proofer-ignore>http://localhost:8080</a> to see that all three nodes are listed. At first, the replica count will be lower for nodes 2 and 3. Very soon, the replica count will be identical across all three nodes, indicating that all data in the cluster has been replicated 3 times; there's a copy of every piece of data on each node.
 
-<img src="{{  'images/v2.1/replication1.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/replication1.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 5. Increase the replication factor
 
 As you just saw, CockroachDB replicates data 3 times by default. Now, in the terminal you used for the built-in SQL shell or in a new terminal, use the [`ALTER RANGE ... CONFIGURE ZONE`](configure-zone.html) statement to change the cluster's `.default` replication factor to 5:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas=5;" --insecure --host=localhost:26257
 ~~~
@@ -149,7 +149,7 @@ $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas
 
 In a new terminal, add node 4:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -161,7 +161,7 @@ $ cockroach start \
 
 In a new terminal, add node 5:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -175,19 +175,19 @@ $ cockroach start \
 
 Back in the Admin UI, you'll see that there are now 5 nodes listed. Again, at first, the replica count will be lower for nodes 4 and 5. But because you changed the default replication factor to 5, very soon, the replica count will be identical across all 5 nodes, indicating that all data in the cluster has been replicated 5 times.
 
-<img src="{{  'images/v2.1/replication2.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/replication2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 8.  Stop the cluster
 
 Once you're done with your test cluster, stop each node by switching to its terminal and pressing **CTRL-C**.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For the last 2 nodes, the shutdown process will take longer (about a minute) and will eventually force stop the nodes. This is because, with only 2 nodes still online, a majority of replicas are no longer available (3 of 5), and so the cluster is not operational. To speed up the process, press **CTRL-C** a second time in the nodes' terminals.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf repdemo-node1 repdemo-node2 repdemo-node3 repdemo-node4 repdemo-node5
 ~~~
@@ -196,4 +196,4 @@ $ rm -rf repdemo-node1 repdemo-node2 repdemo-node3 repdemo-node4 repdemo-node5
 
 Explore other core CockroachDB benefits and features:
 
-{%  include {{  page.version.version  }}/misc/explore-benefits-see-also.md %}
+{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}

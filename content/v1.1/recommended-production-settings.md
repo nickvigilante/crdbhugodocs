@@ -31,7 +31,7 @@ For details about controlling the number and location of replicas, see [Configur
 - Nodes should have sufficient CPU, RAM, network, and storage capacity to handle your workload. It's important to test and tune your hardware setup before deploying to production.
 
 - At a bare minimum, each node should have **2 GB of RAM and one entire core**. More data, complex workloads, higher concurrency, and faster performance require additional resources.
-    {{ site.data.alerts.callout_danger }}Avoid "burstable" or "shared-core" virtual machines that limit the load on a single core.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_danger }}Avoid "burstable" or "shared-core" virtual machines that limit the load on a single core.{{site.data.alerts.end }}
 
 - For best performance:
     - Use SSDs over HDDs.
@@ -75,7 +75,7 @@ Each CockroachDB node is an equally suitable SQL gateway to a cluster, but to en
 - **Performance:** Load balancers spread client traffic across nodes. This prevents any one node from being overwhelmed by requests and improves overall cluster performance (queries per second).
 
 - **Reliability:** Load balancers decouple client health from the health of a single CockroachDB node. In cases where a node fails, the load balancer redirects client traffic to available nodes.
-    {{ site.data.alerts.callout_success }}With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.{{site.data.alerts.end }}
 
 For guidance on load balancing, see the tutorial for your deployment environment:
 
@@ -89,11 +89,11 @@ Environment | Featured Approach
 
 ## Monitoring and Alerting
 
-{%  include {{  page.version.version  }}/prod-deployment/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
 
 ## Clock Synchronization
 
-{%  include {{  page.version.version  }}/faq/clock-synchronization-effects.html %}
+{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.html" . }}
 
 ## Cache and SQL Memory Size <span class="version-tag">Changed in v1.1</span>
 

@@ -163,51 +163,51 @@ UNION ALL SELECT * FROM t1 LEFT JOIN t2 ON st_contains(t1.geom, t2.geom) AND t2.
 
 ### Using `RESTORE` with multi-region table localities
 
-- {%  include {{  page.version.version  }}/known-limitations/restore-tables-non-multi-reg.md %}
+- {{ partial "{{ page.version.version }}/known-limitations/restore-tables-non-multi-reg.md" . }}
 
-- {%  include {{  page.version.version  }}/known-limitations/restore-multiregion-match.md %}
+- {{ partial "{{ page.version.version }}/known-limitations/restore-multiregion-match.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/71071)
 
 ### `SET` does not `ROLLBACK` in a transaction
 
-{%  include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
+{{ partial "{{ page.version.version }}/known-limitations/set-transaction-no-rollback.md" . }}
 
 ### `JSONB`/`JSON` comparison operators are not implemented
 
-{%  include {{ page.version.version }}/sql/jsonb-comparison.md %}
+{{ partial "{{ page.version.version }}/sql/jsonb-comparison.md" . }}
 
 ### Locality-optimized search only works for queries selecting a limited number of records
 
-{%  include {{  page.version.version  }}/sql/locality-optimized-search-limited-records.md %}
+{{ partial "{{ page.version.version }}/sql/locality-optimized-search-limited-records.md" . }}
 
 ### Expression indexes cannot reference computed columns
 
-{%  include {{ page.version.version }}/sql/expression-indexes-cannot-reference-computed-columns.md %}
+{{ partial "{{ page.version.version }}/sql/expression-indexes-cannot-reference-computed-columns.md" . }}
 
 ### Cannot refresh materialized views inside explicit transactions
 
-{%  include {{ page.version.version }}/sql/cannot-refresh-materialized-views-inside-transactions.md %}
+{{ partial "{{ page.version.version }}/sql/cannot-refresh-materialized-views-inside-transactions.md" . }}
 
 ### CockroachDB cannot plan locality optimized searches that use partitioned unique indexes on virtual computed columns
 
-{%  include {{ page.version.version }}/sql/locality-optimized-search-virtual-computed-columns.md %}
+{{ partial "{{ page.version.version }}/sql/locality-optimized-search-virtual-computed-columns.md" . }}
 
 ### Expressions as `ON CONFLICT` targets are not supported
 
-{%  include {{ page.version.version }}/sql/expressions-as-on-conflict-targets.md %}
+{{ partial "{{ page.version.version }}/sql/expressions-as-on-conflict-targets.md" . }}
 
 ## Unresolved limitations
 
 ### Optimizer stale statistics deletion when columns are dropped
 
-- {%  include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
+- {{ partial "{{ page.version.version }}/known-limitations/old-multi-col-stats.md" . }}
 
-- {%  include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
+- {{ partial "{{ page.version.version }}/known-limitations/single-col-stats-deletion.md" . }}
 
 ### Automatic statistics refresher may not refresh after upgrade
 
-{%  include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
+{{ partial "{{ page.version.version }}/known-limitations/stats-refresh-upgrade.md" . }}
 
 ### Differences in syntax and behavior between CockroachDB and PostgreSQL
 
@@ -242,7 +242,7 @@ If you are [performing an `IMPORT` of a `PGDUMP`](migrate-from-postgres.html) wi
 
 ### Historical reads on restored objects
 
-{%  include {{  page.version.version  }}/known-limitations/restore-aost.md %}
+{{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/53044)
 
@@ -296,7 +296,7 @@ CockroachDB supports efficiently storing and querying [spatial data](spatial-dat
 
 It is not currently possible to use a subquery in a [`SET`](set-vars.html) or [`SET CLUSTER SETTING`](set-cluster-setting.html) statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET application_name = (SELECT 'a' || 'b');
 ~~~
@@ -321,7 +321,7 @@ As a workaround, take a cluster backup instead, as the `system.comments` table i
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing. It has the following known limitations:
 
-{%  include {{  page.version.version  }}/known-limitations/cdc.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
 
 ### DB Console may become inaccessible for secure clusters
 
@@ -375,19 +375,19 @@ As a workaround, set `default_int_size` via your database driver, or ensure that
 
 ### `COPY FROM` statements are not supported in the CockroachDB SQL shell
 
-{%  include {{  page.version.version  }}/known-limitations/copy-from-clients.md %}
+{{ partial "{{ page.version.version }}/known-limitations/copy-from-clients.md" . }}
 
 ### `COPY` syntax not supported by CockroachDB
 
-{%  include {{  page.version.version  }}/known-limitations/copy-syntax.md %}
+{{ partial "{{ page.version.version }}/known-limitations/copy-syntax.md" . }}
 
 ### Import with a high amount of disk contention
 
-{%  include {{  page.version.version  }}/known-limitations/import-high-disk-contention.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-high-disk-contention.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/19464)
 
@@ -395,22 +395,22 @@ As a workaround, set `default_int_size` via your database driver, or ensure that
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -424,19 +424,19 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the DB Console
 
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### Schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### Size limits on statement input from SQL clients
 
@@ -475,7 +475,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -487,7 +487,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -537,12 +537,12 @@ The [built-in SQL shell](cockroach-sql.html) stores its command history in a sin
 
 As a workaround, set the `COCKROACH_SQL_CLI_HISTORY` environment variable to different values for the two different shells, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_2
 ~~~
@@ -597,4 +597,4 @@ If the execution of a [join](joins.html) query exceeds the limit set for memory-
 
 ### Disk-spilling not supported for some unordered distinct operations
 
-{%  include {{  page.version.version  }}/known-limitations/unordered-distinct-operations.md %}
+{{ partial "{{ page.version.version }}/known-limitations/unordered-distinct-operations.md" . }}

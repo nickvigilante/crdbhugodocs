@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB comes with built-in load generators for simulating different types of client workloads, printing per-operation statistics and totals after a specific duration or max number of operations. To run one of these load generators, use the `cockroach workload` [command](cockroach-commands.html) as described below.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The `cockroach workload` command is experimental. The interface and output are subject to change.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
@@ -68,15 +68,15 @@ Workload | Description
 [`tpcc`](#tpcc-workload) | Simulates a transaction processing workload using a rich schema of multiple tables.<br><br>For this workload, you run `workload init` to load the schema and then `workload run` to generate data.
 [`ycsb`](#ycsb-workload) | Simulates a high-scale key value workload, either read-heavy, write-heavy, or scan-based, with additional customizations.<br><br>For this workload, you run `workload init` to load the schema and then `workload run` to generate data.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
  `cockroach workload` sets the [`application_name`](set-vars.html#supported-variables) for its workload queries to the name of the workload that is used. You can filter queries on `application_name` on the [Statements page of the DB Console](ui-statements-page.html#search-and-filter-by-application), or in a [`SHOW STATEMENTS`](show-statements.html#filter-for-specific-queries) statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Flags
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `cockroach workload` command does not support connection or security flags like other [`cockroach` commands](cockroach-commands.html). Instead, you must use a [connection string](connection-parameters.html) at the end of the command.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### `bank` workload
 
@@ -101,9 +101,9 @@ Flag | Description
 
 ### `intro` and `startrek` workloads
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 These workloads generate data but do not offer the ability to run continuous load. Thus, only the `init` subcommand is supported.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Flag | Description
 -----|------------
@@ -175,7 +175,7 @@ Flag | Description
 `--histograms` | The file to write per-op incremental and cumulative histogram data to.<br><br>**Applicable command:** `run`
 `--idle-conns` | Tests the TPCC workload with idle connections.
 `--init` | **Deprecated.** Use the `init` command instead.<br><br>**Applicable command:** `run`
-`--interleaved` | Use [interleaved tables](interleave-in-parent.html).<br><br>**Applicable commands:** `init` or `run`<br>{%  include {{  page.version.version  }}/misc/interleave-deprecation-note.md %}
+`--interleaved` | Use [interleaved tables](interleave-in-parent.html).<br><br>**Applicable commands:** `init` or `run`<br>{{ partial "{{ page.version.version }}/misc/interleave-deprecation-note.md" . }}
 `--max-ops` | The maximum number of operations to run.<br><br>**Applicable command:** `run`
 `--max-rate` | The maximum frequency of operations (reads/writes).<br><br>**Applicable command:** `run`<br>**Default:** `0`, which means unlimited.
 `--mix` | Weights for the transaction mix.<br><br>**Applicable commands:** `init` or `run`<br>**Default:** `newOrder=10,payment=10,orderStatus=1,delivery=1,stockLevel=1`, which matches the [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/tpc-c_v5.11.0.pdf).
@@ -228,7 +228,7 @@ If you need to troubleshoot this command's behavior, you can [customize its logg
 
 These examples assume that you have already [started an insecure cluster locally](start-a-local-cluster.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -239,7 +239,7 @@ $ cockroach start \
 
 1. Load the initial schema:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init bank \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -247,7 +247,7 @@ $ cockroach start \
 
 2. Run the workload for 1 minute:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run bank \
     --duration=1m \
@@ -282,7 +282,7 @@ $ cockroach start \
 
 1. Load the initial schema:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init kv \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -290,7 +290,7 @@ $ cockroach start \
 
 2. Run the workload for 1 minute:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run kv \
     --duration=1m \
@@ -325,7 +325,7 @@ $ cockroach start \
 
 1. Load the dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init intro \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -333,12 +333,12 @@ $ cockroach start \
 
 2. Launch the built-in SQL client to view it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM intro;
     ~~~
@@ -350,7 +350,7 @@ $ cockroach start \
     (1 row)
     ~~~    
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ SELECT * FROM intro.mytable WHERE (l % 2) = 0;
     ~~~
@@ -386,7 +386,7 @@ $ cockroach start \
 
 1. Load the dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init startrek \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -394,12 +394,12 @@ $ cockroach start \
 
 2. Launch the built-in SQL client to view it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM startrek;
     ~~~
@@ -412,7 +412,7 @@ $ cockroach start \
     (2 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM startrek.episodes WHERE stardate > 5500;
     ~~~
@@ -441,7 +441,7 @@ $ cockroach start \
 
 1. Load the dataset:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init movr \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -449,12 +449,12 @@ $ cockroach start \
 
 2. Launch the built-in SQL client to view it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM movr;
     ~~~
@@ -471,7 +471,7 @@ $ cockroach start \
 (6 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM movr.users WHERE city='new york';
     ~~~
@@ -491,7 +491,7 @@ $ cockroach start \
 
 1. Load the initial schema:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init movr \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -499,7 +499,7 @@ $ cockroach start \
 
 2. Initialize and run the workload for 1 minute:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run movr \
     --duration=1m \
@@ -540,7 +540,7 @@ $ cockroach start \
 
 1. Load the initial schema and data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init tpcc \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -548,7 +548,7 @@ $ cockroach start \
 
 2. Run the workload for 10 minutes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run tpcc \
     --duration=10m \
@@ -583,7 +583,7 @@ $ cockroach start \
 
 1. Load the initial schema and data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init ycsb \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -591,7 +591,7 @@ $ cockroach start \
 
 2. Run the workload for 10 minutes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run ycsb \
     --duration=10m \
@@ -628,7 +628,7 @@ To customize the frequency of per-operation statistics, use the `--display-every
 
 1. Load the initial schema and data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init ycsb \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -636,7 +636,7 @@ To customize the frequency of per-operation statistics, use the `--display-every
 
 2. Run the workload for 1 minute, printing the output every 5 seconds as JSON:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run ycsb \
     --duration=1m \

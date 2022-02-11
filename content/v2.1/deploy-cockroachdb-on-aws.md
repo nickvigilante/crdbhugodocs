@@ -19,11 +19,11 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 ## Requirements
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-requirements.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-requirements.md" . }}
 
 ## Recommendations
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-recommendations.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-recommendations.md" . }}
 
 - All instances running CockroachDB should be members of the same Security Group.
 
@@ -77,7 +77,7 @@ For more details, see [Hardware Recommendations](recommended-production-settings
 
 ## Step 3. Synchronize clocks
 
-{%  include {{  page.version.version  }}/prod-deployment/synchronize-clocks.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/synchronize-clocks.md" . }}
 
 ## Step 4. Set up load balancing
 
@@ -94,40 +94,40 @@ AWS offers fully-managed load balancing to distribute traffic between instances.
     - Configure health checks to use HTTP port **8080** and path `/health?ready=1`. This [health endpoint](monitoring-and-alerting.html#health-ready-1) ensures that load balancers do not direct traffic to nodes that are live but not ready to receive requests.
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{ site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end }}
 
 ## Step 5. Generate certificates
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-generate-certificates.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-generate-certificates.md" . }}
 
 ## Step 6. Start nodes
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-start-nodes.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-start-nodes.md" . }}
 
 ## Step 7. Initialize the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-initialize-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-initialize-cluster.md" . }}
 
 ## Step 8. Test your cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-test-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-test-cluster.md" . }}
 
 ## Step 9. Run a sample workload
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-test-load-balancing.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-test-load-balancing.md" . }}
 
 ## Step 10. Set up monitoring and alerting
 
-{%  include {{  page.version.version  }}/prod-deployment/monitor-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/monitor-cluster.md" . }}
 
 ## Step 11. Scale the cluster
 
-{%  include {{  page.version.version  }}/prod-deployment/secure-scale-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/secure-scale-cluster.md" . }}
 
 ## Step 12. Use the database
 
-{%  include {{  page.version.version  }}/prod-deployment/use-cluster.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/use-cluster.md" . }}
 
 ## See also
 
-{%  include {{  page.version.version  }}/prod-deployment/prod-see-also.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/prod-see-also.md" . }}

@@ -7,7 +7,7 @@ toc_not_nested: true
 
 Because of CockroachDB's [multi-active availability](multi-active-availability.html) design, you can perform a "rolling upgrade" of your CockroachDB cluster. This means that you can upgrade nodes one at a time without interrupting the cluster's overall health and operations.
 
-{{ site.data.alerts.callout_info }}This page shows you how to upgrade from v1.0 to a patch release in the 1.0.x series. To upgrade from v1.0.x to v1.1, see <a href="https://www.cockroachlabs.com/docs/v1.1/upgrade-cockroach-version.html">the 1.1 version of this page</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}This page shows you how to upgrade from v1.0 to a patch release in the 1.0.x series. To upgrade from v1.0.x to v1.1, see <a href="https://www.cockroachlabs.com/docs/v1.1/upgrade-cockroach-version.html">the 1.1 version of this page</a>.{{site.data.alerts.end }}
 
 
 ## Step 1. Prepare to upgrade
@@ -31,9 +31,9 @@ Before starting the upgrade, complete the following steps.
 
 For each node in your cluster, complete the following steps.
 
-{{ site.data.alerts.callout_success }}We recommend creating scripts to perform these steps instead of performing them by hand.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}We recommend creating scripts to perform these steps instead of performing them by hand.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}Upgrade only one node at a time, and wait at least one minute after a node rejoins the cluster to upgrade the next node. Simultaneously upgrading more than one node increases the risk that ranges will lose a majority of their replicas and cause cluster unavailability.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}Upgrade only one node at a time, and wait at least one minute after a node rejoins the cluster to upgrade the next node. Simultaneously upgrading more than one node increases the risk that ranges will lose a majority of their replicas and cause cluster unavailability.{{site.data.alerts.end }}
 
 1. Connect to the node.
 
@@ -41,14 +41,14 @@ For each node in your cluster, complete the following steps.
 
     Without a process manager, use this command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill cockroach
     ~~~
 
     Then verify that the process has stopped:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ps aux | grep cockroach
     ~~~
@@ -64,24 +64,24 @@ For each node in your cluster, complete the following steps.
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ tar -xzf cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ tar -xzf cockroach-{{ page.release_info.version }}.linux-amd64.tgz
     ~~~
@@ -96,24 +96,24 @@ For each node in your cluster, complete the following steps.
     <p></p>
 
     <div class="filter-content" markdown="1" data-scope="mac">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/cockroach
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     i="$(which cockroach)"; mv "$i" "$i"_old
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/cockroach
     ~~~
@@ -123,7 +123,7 @@ For each node in your cluster, complete the following steps.
 
     Without a process manager, use this command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --join=[IP address of any other node] [other flags]
     ~~~
@@ -133,7 +133,7 @@ For each node in your cluster, complete the following steps.
 
 7. If you use `cockroach` in your `$PATH`, you can remove the old binary:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm /usr/local/bin/cockroach_old
     ~~~

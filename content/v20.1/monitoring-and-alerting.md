@@ -16,9 +16,9 @@ The [Admin UI](admin-ui-overview.html) displays essential metrics about a cluste
 
 The Admin UI is accessible from every node at `http://<host>:<http-port>`, or `http://<host>:8080` by default. For more information on accessing the Admin UI, see [Admin UI access](admin-ui-overview.html#admin-ui-access).
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Because the Admin UI is built into CockroachDB, if a cluster becomes unavailable, most of the Admin UI becomes unavailable as well. Therefore, it's essential to plan additional methods of monitoring cluster health as described below.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Prometheus endpoint
 
@@ -26,7 +26,7 @@ Every node of a CockroachDB cluster exports granular timeseries metrics at `http
 
 For a tutorial on using Prometheus, see [Monitor CockroachDB with Prometheus](monitor-cockroachdb-with-prometheus.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ curl http://localhost:8080/_status/vars
 ~~~
@@ -47,7 +47,7 @@ replicas_quiescent{store="1"} 20
 ...
 ~~~
 
-{{ site.data.alerts.callout_info }}In addition to using the exported timeseries data to monitor a cluster via an external system, you can write alerting rules against them to make sure you are promptly notified of critical events or issues that may require intervention or investigation. See <a href="#events-to-alert-on">Events to Alert On</a> for more details.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}In addition to using the exported timeseries data to monitor a cluster via an external system, you can write alerting rules against them to make sure you are promptly notified of critical events or issues that may require intervention or investigation. See <a href="#events-to-alert-on">Events to Alert On</a> for more details.{{site.data.alerts.end }}
 
 ### Health endpoints
 
@@ -57,7 +57,7 @@ CockroachDB provides two HTTP endpoints for checking the health of individual no
 
 If a node is down, the `http://<host>:<http-port>/health` endpoint returns a `Connection refused` error:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ curl http://localhost:8080/health
 ~~~
@@ -82,15 +82,15 @@ The `http://<node-host>:<http-port>/health?ready=1` endpoint returns an HTTP `50
 
 - The node is draining open SQL connections and rejecting new SQL connections because it is in the process of shutting down (e.g., after being [decommissioned](remove-nodes.html#how-it-works)). This is especially useful for making sure load balancers do not direct traffic to nodes that are live but not "ready", which is a necessary check during [rolling upgrades](upgrade-cockroach-version.html).
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     If you find that your load balancer's health check is not always recognizing a node as unready before the node shuts down, you can increase the `server.shutdown.drain_wait` [cluster setting](cluster-settings.html) to cause a node to return `503 Service Unavailable` even before it has started shutting down.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     <span class="version-tag">Changed in v20.1:</span> In previous releases, [decommissioning](remove-nodes.html#how-it-works) nodes would erroneously be considered unready and return `503 Service Unavailable`. This is no longer the case. Although decommissioned nodes no longer store replicas, they can still function as gateways to route SQL connections to relevant data until they are shut down.
 
 - The node is unable to communicate with a majority of the other nodes in the cluster, likely because the cluster is unavailable due to too many nodes being down.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ curl http://localhost:8080/health?ready=1
 ~~~
@@ -114,7 +114,7 @@ Otherwise, it returns an HTTP `200 OK` status response code with an empty body:
 
 Several endpoints return raw status metrics in JSON at `http://<host>:<http-port>/#/debug`. Feel free to investigate and use these endpoints, but note that they are subject to change.  
 
-<img src="{{  'images/v20.1/raw-status-endpoints.png' | relative_url  }}" alt="Raw Status Endpoints" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/raw-status-endpoints.png' | relative_url }}" alt="Raw Status Endpoints" style="border:1px solid #eee;max-width:100%" />
 
 ### Node status command
 
@@ -129,7 +129,7 @@ The [`cockroach node status`](cockroach-node.html) command gives you metrics abo
 
 Active monitoring helps you spot problems early, but it is also essential to create alerting rules that promptly send notifications when there are events that require investigation or intervention. This section identifies the most important events to create alerting rules for, with the [Prometheus Endpoint](#prometheus-endpoint) metrics to use for detecting the events.
 
-{{ site.data.alerts.callout_success }}If you use Prometheus for monitoring, you can also use our pre-defined <a href="https://github.com/cockroachdb/cockroach/blob/master/monitoring/rules/alerts.rules.yml">alerting rules</a> with Alertmanager. See <a href="monitor-cockroachdb-with-prometheus.html">Monitor CockroachDB with Prometheus</a> for guidance.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}If you use Prometheus for monitoring, you can also use our pre-defined <a href="https://github.com/cockroachdb/cockroach/blob/master/monitoring/rules/alerts.rules.yml">alerting rules</a> with Alertmanager. See <a href="monitor-cockroachdb-with-prometheus.html">Monitor CockroachDB with Prometheus</a> for guidance.{{site.data.alerts.end }}
 
 ### Node is down
 

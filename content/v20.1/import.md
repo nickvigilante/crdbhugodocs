@@ -13,13 +13,13 @@ The `IMPORT` [statement](sql-statements.html) imports the following types of dat
 - [CockroachDB dump files](cockroach-dump.html)
 - [Delimited data files](#delimited-data-files)
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 `IMPORT` only works for creating new tables. For information on how to import into existing tables, see [`IMPORT INTO`](import-into.html). Also, for instructions and working examples on how to migrate data from other databases, see the [Migration Overview](migration-overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `IMPORT` is a blocking statement and cannot be used within a [transaction](transactions.html). Also, `IMPORT` cannot be used during a [rolling upgrade](upgrade-cockroach-version.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -30,13 +30,13 @@ Only members of the `admin` role can run `IMPORT`. By default, the `root` user b
 **Import a table from CSV or Avro**
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/import_csv.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/import_csv.html" . }}
 </div>
 
 **Import a database or table from dump file**
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/import_dump.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/import_dump.html" . }}
 </div>
 
 ## Parameters
@@ -75,7 +75,7 @@ For examples showing how to use the `DELIMITED DATA` format, see the [Examples](
 
 URLs for the files you want to import must use the format shown below.  For examples, see [Example file URLs](#example-file-urls).
 
-{%  include {{  page.version.version  }}/misc/external-urls.md %}
+{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
 
 ### Import options
 
@@ -136,11 +136,11 @@ Your `IMPORT` statement must reference a `CREATE TABLE` statement representing t
 
 We also recommend [specifying all secondary indexes you want to use in the `CREATE TABLE` statement](create-table.html#create-a-table-with-secondary-and-inverted-indexes). It is possible to [add secondary indexes later](create-index.html), but it is significantly faster to specify them during import.
 
-{%  include {{  page.version.version  }}/sql/import-default-value.md %}
+{{ partial "{{ page.version.version }}/sql/import-default-value.md" . }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 By default, the [Postgres][postgres] and [MySQL][mysql] import formats support foreign keys. However, the most common dependency issues during import are caused by unsatisfied foreign key relationships that cause errors like `pq: there is no unique constraint matching given keys for referenced table tablename`. You can avoid these issues by adding the [`skip_foreign_keys`](#import-options) option to your `IMPORT` statement as needed. Ignoring foreign constraints will also speed up data import.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Available storage
 
@@ -177,11 +177,11 @@ Imported tables are treated as new tables, so you must [`GRANT`](grant.html) pri
 
 After CockroachDB initiates an import, you can view its progress with [`SHOW JOBS`](show-jobs.html) and on the [**Jobs** page](admin-ui-jobs-page.html) of the Admin UI, and you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If initiated correctly, the statement returns when the import is finished or if it encounters an error. In some cases, the import can continue after an error has been returned (the error message will tell you that the import has resumed in the background).
 
 <span class="version-tag">Changed in v20.1:</span> When [resumed](resume-job.html), [paused](pause-job.html) imports now continue from their internally recorded progress instead of starting over.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
@@ -191,7 +191,7 @@ To specify the table schema in-line:
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -204,7 +204,7 @@ CSV DATA ('s3://acme-co/customers.csv?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -217,7 +217,7 @@ CSV DATA ('azure://acme-co/customer-import-data.csv?AZURE_ACCOUNT_KEY=hash&AZURE
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -232,7 +232,7 @@ To use a file to specify the table schema:
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 's3://acme-co/customers-create-table.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]'
@@ -242,7 +242,7 @@ CSV DATA ('s3://acme-co/customers.csv?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'azure://acme-co/customer-create-table.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co'
@@ -252,7 +252,7 @@ CSV DATA ('azure://acme-co/customer-import-data.csv?AZURE_ACCOUNT_KEY=hash&AZURE
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'gs://acme-co/customers-create-table.sql'
@@ -260,7 +260,7 @@ CSV DATA ('gs://acme-co/customers.csv')
 ;
 ~~~
 
-{%  include {{  page.version.version  }}/misc/csv-import-callout.md %}
+{{ partial "{{ page.version.version }}/misc/csv-import-callout.md" . }}
 
 ### Import a table from multiple CSV files
 
@@ -268,7 +268,7 @@ CSV DATA ('gs://acme-co/customers.csv')
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -285,7 +285,7 @@ CSV DATA (
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -303,7 +303,7 @@ CSV DATA (
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -331,7 +331,7 @@ These only match files directly under the specified path and do not descend into
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -345,7 +345,7 @@ CSV DATA (
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -359,7 +359,7 @@ CSV DATA (
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -375,7 +375,7 @@ CSV DATA (
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -390,7 +390,7 @@ WITH
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -405,7 +405,7 @@ WITH
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -424,7 +424,7 @@ The `comment` option determines which Unicode character marks the rows in the da
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -439,7 +439,7 @@ WITH
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -454,7 +454,7 @@ WITH
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -473,7 +473,7 @@ The `skip` option determines the number of header rows to skip when importing a 
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -488,7 +488,7 @@ WITH
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -503,7 +503,7 @@ WITH
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -522,7 +522,7 @@ The `nullif` option defines which string should be converted to `NULL`.
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -537,7 +537,7 @@ WITH
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -552,7 +552,7 @@ WITH
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -571,7 +571,7 @@ CockroachDB chooses the decompression codec based on the filename (the common ex
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -584,7 +584,7 @@ CSV DATA ('s3://acme-co/employees.csv.gz?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SEC
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -597,7 +597,7 @@ CSV DATA ('azure://acme-co/customer-import-data.csv.gz?AZURE_ACCOUNT_KEY=hash&AZ
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -612,7 +612,7 @@ Optionally, you can use the `decompress` option to specify the codec to be used 
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -627,7 +627,7 @@ WITH
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -642,7 +642,7 @@ WITH
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -659,21 +659,21 @@ WITH
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 's3://your-external-storage/employees.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]';
 ~~~
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'azure://acme-co/employees.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co';
 ~~~
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'gs://acme-co/employees.sql';
 ~~~
@@ -684,21 +684,21 @@ For the commands above to succeed, you need to have created the dump file with s
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM PGDUMP 's3://your-external-storage/employees-full.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]' WITH skip_foreign_keys;
 ~~~
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM PGDUMP 'azure://acme-co/employees.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' WITH skip_foreign_keys;
 ~~~
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM PGDUMP 'gs://acme-co/employees.sql' WITH skip_foreign_keys;
 ~~~
@@ -713,20 +713,20 @@ Cockroach dump files can be imported using the `IMPORT PGDUMP`.
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 's3://your-external-storage/employees-full.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]';
 ~~~
 
 Azure:
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'azure://acme-co/employees.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co';
 ~~~
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT PGDUMP 'gs://acme-co/employees.sql';
 ~~~
@@ -737,21 +737,21 @@ For more information, see [SQL Dump (Export)](cockroach-dump.html).
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 's3://your-external-storage/employees-full.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]';
 ~~~
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 'azure://acme-co/employees.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co';
 ~~~
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT MYSQLDUMP 'gs://acme-co/employees.sql';
 ~~~
@@ -762,21 +762,21 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM MYSQLDUMP 's3://your-external-storage/employees-full.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]' WITH skip_foreign_keys;
 ~~~
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM MYSQLDUMP 'azure://acme-co/employees.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' WITH skip_foreign_keys;
 ~~~
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees FROM MYSQLDUMP 'gs://acme-co/employees.sql' WITH skip_foreign_keys;
 ~~~
@@ -789,7 +789,7 @@ For more detailed information about importing data from MySQL, see [Migrate from
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT DELIMITED DATA 's3://your-external-storage/employees-full.csv?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]'
   WITH
@@ -800,7 +800,7 @@ Amazon S3:
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT DELIMITED DATA 'azure://acme-co/employees.csv?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co'
   WITH
@@ -811,7 +811,7 @@ Azure:
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT DELIMITED DATA 'gs://acme-co/employees.csv'
   WITH
@@ -820,15 +820,15 @@ Google Cloud:
     fields_escaped_by='"';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Import a table from a delimited data file
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees
     FROM DELIMITED DATA 's3://your-external-storage/employees.csv?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]'
@@ -838,7 +838,7 @@ Amazon S3:
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees
     FROM DELIMITED DATA 'azure://acme-co/employees.csv?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co'
@@ -848,7 +848,7 @@ Azure:
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE employees
     FROM DELIMITED DATA 'gs://acme-co/employees.csv'
@@ -887,7 +887,7 @@ customers.csv
 
 Then, specify which node to access by including the `nodeID` in the `IMPORT` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -908,7 +908,7 @@ To specify the table schema in-line:
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -921,7 +921,7 @@ AVRO DATA ('s3://acme-co/customers.avro?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECR
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -934,7 +934,7 @@ AVRO DATA ('azure://acme-co/customer-import-data.avro?AZURE_ACCOUNT_KEY=hash&AZU
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers (
 		id UUID PRIMARY KEY,
@@ -949,7 +949,7 @@ To use a file to specify the table schema:
 
 Amazon S3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 's3://acme-co/customers-create-table.sql?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECRET_ACCESS_KEY=[placeholder]'
@@ -959,7 +959,7 @@ AVRO DATA ('s3://acme-co/customers.avro?AWS_ACCESS_KEY_ID=[placeholder]&AWS_SECR
 
 Azure:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'azure://acme-co/customer-create-table.sql?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co'
@@ -969,7 +969,7 @@ AVRO DATA ('azure://acme-co/customer-import-data.avro?AZURE_ACCOUNT_KEY=hash&AZU
 
 Google Cloud:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > IMPORT TABLE customers
 CREATE USING 'gs://acme-co/customers-create-table.sql'
@@ -981,7 +981,7 @@ For more detailed information about importing data from Avro and examples, see [
 
 ## Known limitation
 
-{%  include {{  page.version.version  }}/known-limitations/import-high-disk-contention.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-high-disk-contention.md" . }}
 
 ## See also
 

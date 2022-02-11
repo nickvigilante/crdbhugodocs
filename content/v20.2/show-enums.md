@@ -9,22 +9,22 @@ toc: true
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_enums.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_enums.html" . }}
 </div>
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TYPE weekday AS ENUM ('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TYPE weekend AS ENUM ('sunday', 'saturday');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ENUMS;
 ~~~

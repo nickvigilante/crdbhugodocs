@@ -6,9 +6,9 @@ toc: true
 
 The `TIMESTAMP` and `TIMESTAMPTZ` [data types](data-types.html) stores a date and time pair in UTC.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [Vectorized execution](vectorized-execution.html) is not supported for `TIMESTAMPTZ` in CockroachDB v19.2.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Variants
 
@@ -18,9 +18,9 @@ The `TIMESTAMP` and `TIMESTAMPTZ` [data types](data-types.html) stores a date an
 
 - `TIMESTAMPTZ` converts `TIMESTAMP` values from UTC to the client's session time zone (unless another time zone is specified for the value). However, it is conceptually important to note that `TIMESTAMPTZ` **does not** store any time zone data.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The default session time zone is UTC, which means that by default `TIMESTAMPTZ` values display in UTC.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 The difference between these two variants is that `TIMESTAMPTZ` uses the client's session time zone, while the other simply does not. This behavior extends to functions like `now()` and `extract()` on `TIMESTAMPTZ` values.
 
@@ -72,12 +72,12 @@ A `TIMESTAMP`/`TIMESTAMPTZ` column supports values up to 12 bytes in width, but 
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE timestamps (a INT PRIMARY KEY, b TIMESTAMPTZ);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM timestamps;
 ~~~
@@ -90,12 +90,12 @@ A `TIMESTAMP`/`TIMESTAMPTZ` column supports values up to 12 bytes in width, but 
 (2 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO timestamps VALUES (1, TIMESTAMPTZ '2016-03-26 10:10:10-05:00'), (2, TIMESTAMPTZ '2016-03-26');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM timestamps;
 ~~~

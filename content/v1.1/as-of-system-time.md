@@ -11,7 +11,7 @@ This clause can be used to read historical data (also known as "[time
 travel
 queries](https://www.cockroachlabs.com/blog/time-travel-queries-select-witty_subtitle-the_future/)").
 
-{{ site.data.alerts.callout_info }}Historical data is available only within the garbage collection window, which is determined by the <code>ttlseconds</code> field in the <a href="configure-replication-zones.html">replication zone configuration</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Historical data is available only within the garbage collection window, which is determined by the <code>ttlseconds</code> field in the <a href="configure-replication-zones.html">replication zone configuration</a>.{{site.data.alerts.end }}
 
 ## Synopsis
 
@@ -41,7 +41,7 @@ Format | Notes
 
 Imagine this example represents the database's current data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name, balance
     FROM accounts
@@ -58,7 +58,7 @@ Imagine this example represents the database's current data:
 
 We could instead retrieve the values as they were on October 3, 2016 at 12:45 UTC:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name, balance
     FROM accounts
@@ -79,24 +79,24 @@ We could instead retrieve the values as they were on October 3, 2016 at 12:45 UT
 
 Assuming the following statements are run at `2016-01-01 12:00:00`, they would execute as of `2016-01-01 08:00:00`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME '2016-01-01 08:00:00'
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME 1451635200000000000
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME '1451635200000000000'
 ~~~
 
 ### Selecting from Multiple Tables
 
-{{ site.data.alerts.callout_info }}It is not yet possible to select from multiple tables at different timestamps. The entire query runs at the specified time in the past.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not yet possible to select from multiple tables at different timestamps. The entire query runs at the specified time in the past.{{site.data.alerts.end }}
 
 When selecting over multiple tables in a single `FROM` clause, the `AS
 OF SYSTEM TIME` clause must appear at the very end and applies to the
@@ -104,17 +104,17 @@ entire `SELECT` clause.
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT * FROM t, u, v AS OF SYSTEM TIME '2016-01-01 08:00:00';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT * FROM t JOIN u ON t.x = u.y AS OF SYSTEM TIME '2016-01-01 08:00:00';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT * FROM (SELECT * FROM t), (SELECT * FROM u) AS OF SYSTEM TIME '2016-01-01 08:00:00';
 ~~~
@@ -140,7 +140,7 @@ following conditions:
 
 For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > SELECT * FROM (SELECT * FROM t AS OF SYSTEM TIME '2016-01-01 08:00:00') tp
            JOIN u ON tp.x = u.y
@@ -155,7 +155,7 @@ For example:
 
 ## Tech Note
 
-{{ site.data.alerts.callout_info }}Although the following format is supported, it is not intended to be used by most users.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Although the following format is supported, it is not intended to be used by most users.{{site.data.alerts.end }}
 
 HLC timestamps can be specified using a [`DECIMAL`](decimal.html). The
 integer part is the wall time in nanoseconds. The fractional part is

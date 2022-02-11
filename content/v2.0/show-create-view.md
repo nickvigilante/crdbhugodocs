@@ -14,7 +14,7 @@ The user must have any [privilege](privileges.html) on the target view.
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_create_view.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_create_view.html" . }}
 </div>
 
 ## Parameters

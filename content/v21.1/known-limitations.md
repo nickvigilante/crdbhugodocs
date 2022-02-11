@@ -162,19 +162,19 @@ UNION ALL SELECT * FROM t1 LEFT JOIN t2 ON st_contains(t1.geom, t2.geom) AND t2.
 
 ### `SET` does not `ROLLBACK` in a transaction
 
-{%  include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
+{{ partial "{{ page.version.version }}/known-limitations/set-transaction-no-rollback.md" . }}
 
 ## Unresolved limitations
 
 ### Optimizer stale statistics deletion when columns are dropped
 
-* {%  include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
+* {{ partial "{{ page.version.version }}/known-limitations/old-multi-col-stats.md" . }}
 
-* {%  include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
+* {{ partial "{{ page.version.version }}/known-limitations/single-col-stats-deletion.md" . }}
 
 ### Automatic statistics refresher may not refresh after upgrade
 
-{%  include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
+{{ partial "{{ page.version.version }}/known-limitations/stats-refresh-upgrade.md" . }}
 
 ### `IMPORT` into a `REGIONAL BY ROW` table
 
@@ -186,7 +186,7 @@ To work around this limitation, you will need to take the following steps:
 
 1. In the source database, export the [`crdb_region` column](set-locality.html#crdb_region) separately when exporting your data.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     EXPORT INTO CSV 'nodelocal://0/src_rbr' FROM SELECT crdb_region, i from src_rbr;
     ~~~
@@ -195,33 +195,33 @@ To work around this limitation, you will need to take the following steps:
 
 1. In the destination database, create a table that has a `crdb_region` column of the right type as shown below.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     CREATE TABLE dest_rbr (crdb_region public.crdb_internal_region NOT NULL, i INT);
     ~~~
 
 1. Import the data (including the `crdb_region` column explicitly) using [`IMPORT INTO`](import-into.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     IMPORT INTO dest_rbr (crdb_region, i) CSV DATA ('nodelocal://0/src_rbr/export*.csv')
     ~~~
 
 1. Convert the destination table to `REGIONAL BY ROW` using [`ALTER TABLE ... ALTER COLUMN`](alter-column.html) and [`ALTER TABLE ... SET LOCALITY`](set-locality.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     ALTER TABLE dest_rbr ALTER COLUMN crdb_region SET DEFAULT default_to_database_primary_region(gateway_region())::public.crdb_internal_region;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     ALTER TABLE dest_rbr SET LOCALITY REGIONAL BY ROW AS crdb_region;
     ~~~
 
 ### `BACKUP` of multi-region tables
 
-{%  include {{ page.version.version }}/backups/no-multiregion-table-backups.md %}
+{{ partial "{{ page.version.version }}/backups/no-multiregion-table-backups.md" . }}
 
 ### Differences in syntax and behavior between CockroachDB and PostgreSQL
 
@@ -256,7 +256,7 @@ If you are [performing an `IMPORT` of a `PGDUMP`](migrate-from-postgres.html) wi
 
 ### Historical reads on restored objects
 
-{%  include {{  page.version.version  }}/known-limitations/restore-aost.md %}
+{{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/53044)
 
@@ -310,7 +310,7 @@ CockroachDB supports efficiently storing and querying [spatial data](spatial-dat
 
 It is not currently possible to use a subquery in a [`SET`](set-vars.html) or [`SET CLUSTER SETTING`](set-cluster-setting.html) statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET application_name = (SELECT 'a' || 'b');
 ~~~
@@ -335,7 +335,7 @@ As a workaround, take a cluster backup instead, as the `system.comments` table i
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing. It has the following known limitations:
 
-{%  include {{  page.version.version  }}/known-limitations/cdc.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
 
 ### DB Console may become inaccessible for secure clusters
 
@@ -389,19 +389,19 @@ As a workaround, set `default_int_size` via your database driver, or ensure that
 
 ### `COPY FROM` statements are not supported in the CockroachDB SQL shell
 
-{%  include {{  page.version.version  }}/known-limitations/copy-from-clients.md %}
+{{ partial "{{ page.version.version }}/known-limitations/copy-from-clients.md" . }}
 
 ### `COPY` syntax not supported by CockroachDB
 
-{%  include {{  page.version.version  }}/known-limitations/copy-syntax.md %}
+{{ partial "{{ page.version.version }}/known-limitations/copy-syntax.md" . }}
 
 ### Import with a high amount of disk contention
 
-{%  include {{  page.version.version  }}/known-limitations/import-high-disk-contention.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-high-disk-contention.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/19464)
 
@@ -409,22 +409,22 @@ As a workaround, set `default_int_size` via your database driver, or ensure that
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -438,19 +438,19 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the DB Console
 
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### Schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### Size limits on statement input from SQL clients
 
@@ -489,7 +489,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -501,7 +501,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -530,7 +530,7 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### Correlated common table expressions
 
-{%  include {{  page.version.version  }}/known-limitations/correlated-ctes.md %}
+{{ partial "{{ page.version.version }}/known-limitations/correlated-ctes.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/42540)
 
@@ -557,12 +557,12 @@ The [built-in SQL shell](cockroach-sql.html) stores its command history in a sin
 
 As a workaround, set the `COCKROACH_SQL_CLI_HISTORY` environment variable to different values for the two different shells, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_2
 ~~~
@@ -617,11 +617,11 @@ If the execution of a [join](joins.html) query exceeds the limit set for memory-
 
 ### Disk-spilling not supported for some unordered distinct operations
 
-{%  include {{  page.version.version  }}/known-limitations/unordered-distinct-operations.md %}
+{{ partial "{{ page.version.version }}/known-limitations/unordered-distinct-operations.md" . }}
 
 ### Using interleaved tables in backups
 
-{%  include {{  page.version.version  }}/known-limitations/backup-interleaved.md %}
+{{ partial "{{ page.version.version }}/known-limitations/backup-interleaved.md" . }}
 
 ### GIN index scans can't be generated for some statement filters
 

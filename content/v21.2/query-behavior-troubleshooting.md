@@ -7,9 +7,9 @@ docs_area: manage
 
 If a [SQL statement](sql-statements.html) returns an unexpected result or takes longer than expected to process, this page will help you troubleshoot the issue.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a developer-centric walkthrough of optimizing SQL query performance, see [Optimize Statement Performance](make-queries-fast.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Identify slow statements
 
@@ -19,9 +19,9 @@ High latency SQL statements are displayed on the [**Statements page**](ui-statem
 
 You can also check the [service latency graph](ui-sql-dashboard.html#service-latency-sql-99th-percentile) and the [CPU graph](ui-hardware-dashboard.html#cpu-percent) on the SQL and Hardware Dashboards, respectively. If the graphs show latency spikes or CPU usage spikes, these might indicate slow queries in your cluster.
 
-{{ site.data.alerts.callout_info }}
-{%  include {{  page.version.version  }}/prod-deployment/resolution-untuned-query.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/prod-deployment/resolution-untuned-query.md" . }}
+{{site.data.alerts.end }}
 
 ## Visualize statement traces in Jaeger
 
@@ -31,7 +31,7 @@ You can look more closely at the behavior of a statement by visualizing a statem
 
 1. Start Jaeger:
 
-  {%  include copy-clipboard.html %}
+  {{ partial "copy-clipboard.html" . }}
   ~~~ shell
   docker run -d --name jaeger -p 16686:16686 jaegertracing/all-in-one:1.17
   ~~~
@@ -40,23 +40,23 @@ You can look more closely at the behavior of a statement by visualizing a statem
 
 1. Click on **JSON File** in the Jaeger UI and upload `trace-jaeger.json` from the diagnostics bundle. The trace will appear in the list on the right.
 
-    <img src="{{  'images/v21.2/jaeger-trace-json.png' | relative_url  }}" alt="Jaeger Trace Upload JSON" style="border:1px solid #eee;max-width:40%" />
+    <img src="{{ 'images/v21.2/jaeger-trace-json.png' | relative_url }}" alt="Jaeger Trace Upload JSON" style="border:1px solid #eee;max-width:40%" />
 
 1. Click on the trace to view its details. It is visualized as a collection of spans with timestamps. These may include operations executed by different nodes.
 
-    <img src="{{  'images/v21.2/jaeger-trace-spans.png' | relative_url  }}" alt="Jaeger Trace Spans" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v21.2/jaeger-trace-spans.png' | relative_url }}" alt="Jaeger Trace Spans" style="border:1px solid #eee;max-width:100%" />
 
     The full timeline displays the execution time and [execution phases](architecture/sql-layer.html#sql-parser-planner-executor) for the statement.
 
 1. Click on a span to view details for that span and log messages.
 
-    <img src="{{  'images/v21.2/jaeger-trace-log-messages.png' | relative_url  }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v21.2/jaeger-trace-log-messages.png' | relative_url }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
 
 1. You can troubleshoot [transaction contention](performance-best-practices-overview.html#transaction-contention), for example, by gathering [diagnostics](ui-statements-page.html#diagnostics) on statements with high latency and looking through the log messages in `trace-jaeger.json` for jumps in latency.
 
   In the example below, the trace shows that there is significant latency between a push attempt on a transaction that is holding a [lock](architecture/transaction-layer.html#writing) (56.85ms) and that transaction being committed (131.37ms).
 
-    <img src="{{  'images/v21.2/jaeger-trace-transaction-contention.png' | relative_url  }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v21.2/jaeger-trace-transaction-contention.png' | relative_url }}" alt="Jaeger Trace Log Messages" style="border:1px solid #eee;max-width:100%" />
 
 ## `SELECT` statement performance issues
 
@@ -158,13 +158,13 @@ Using the CLI to start a new node, use the `--vmodule` flag with the [`cockroach
 $ cockroach start --insecure --listen-addr=localhost --vmodule=exec_log=2 --join=<join addresses>
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To log CockroachDB-generated SQL queries as well, use `--vmodule=exec_log=3`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 From the SQL prompt on a running node, execute the `crdb_internal.set_vmodule()` [function](functions-and-operators.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT crdb_internal.set_vmodule('exec_log=2');
 ~~~

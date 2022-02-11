@@ -11,7 +11,7 @@ docs_area: reference.sql
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_default_privileges.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_default_privileges.html %}
 </div>
 
 ## Parameters
@@ -21,9 +21,9 @@ Parameter | Description
 `FOR ROLE name`/`FOR USER name` | List the default privileges on objects created by a specific user/role, or a list of users/roles.
 `FOR ALL ROLES` | List the default privileges on objects created by any user/role.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you do not specify a `FOR ...` clause, CockroachDB returns the default privileges on objects created by the current user.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -33,7 +33,7 @@ To show default privileges, the user/role must have any [privilege](authorizatio
 
 ### Show default privileges for objects created by the current user
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DEFAULT PRIVILEGES;
 ~~~
@@ -51,7 +51,7 @@ To show default privileges, the user/role must have any [privilege](authorizatio
 
 ### Show default privileges for objects created by any user/role
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DEFAULT PRIVILEGES FOR ALL ROLES;
 ~~~
@@ -65,12 +65,12 @@ To show default privileges, the user/role must have any [privilege](authorizatio
 
 ### Show default privileges for objects created by a specific user/role
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER max;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DEFAULT PRIVILEGES FOR ROLE max;
 ~~~

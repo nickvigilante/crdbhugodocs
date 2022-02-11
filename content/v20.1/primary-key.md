@@ -19,7 +19,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 ### Column level
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/primary_key_column_level.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_column_level.html" . }}
 </div>
 
  Parameter | Description
@@ -33,7 +33,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 
 **Example**
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -47,7 +47,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 ### Table level
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/primary_key_table_level.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_table_level.html" . }}
 </div>
 
  Parameter | Description
@@ -60,7 +60,7 @@ A table's primary key should be explicitly defined in the [`CREATE TABLE`](creat
 
 **Example**
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -110,7 +110,7 @@ For optimal performance, we recommend that you do the following:
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -120,12 +120,12 @@ For optimal performance, we recommend that you do the following:
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -134,7 +134,7 @@ For optimal performance, we recommend that you do the following:
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~
@@ -150,9 +150,9 @@ pq: null value in column "warehouse_id" violates not-null constraint
 - Issuing an [`ALTER TABLE ... ALTER PRIMARY KEY`](alter-primary-key.html) statement. When you change a primary key with `ALTER PRIMARY KEY`, the old primary key index becomes a secondary index. This helps optimize the performance of queries that still filter on the old primary key column.
 - Issuing an [`ALTER TABLE ... DROP CONSTRAINT ... PRIMARY KEY`](drop-constraint.html) statement to drop the primary key, followed by an [`ALTER TABLE ... ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) statement, in the same transaction, to add a new primary key. This replaces the existing primary key without creating a secondary index from the old primary key. For examples, see the [`ADD CONSTRAINT`](add-constraint.html#examples) and [`DROP CONSTRAINT`](drop-constraint.html#examples) pages.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can use an [`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) statement without a [`DROP CONSTRAINT ... PRIMARY KEY`](drop-constraint.html) if the primary key was not explicitly defined at [table creation](create-table.html), and the current [primary key is on `rowid`](indexes.html#creation).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

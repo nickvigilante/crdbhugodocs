@@ -6,7 +6,7 @@ toc: true
 
 To start a new CockroachDB cluster, or add a node to an existing cluster, run the `cockroach start` [command](cockroach-commands.html) with appropriate flags.
 
-{{ site.data.alerts.callout_info }}Node-level settings are defined by flags passed to the <code>cockroach start</code> command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see <a href="cluster-settings.html">Cluster Settings</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Node-level settings are defined by flags passed to the <code>cockroach start</code> command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see <a href="cluster-settings.html">Cluster Settings</a>.{{site.data.alerts.end }}
 
 
 ## Synopsis
@@ -32,7 +32,7 @@ _all_ flags every time, including the `--join` flag, as that will
 allow restarted nodes to join the cluster even if their data directory
 was destroyed.
 
-{{ site.data.alerts.callout_success }}When adding a node to an existing cluster, include the <code>--join</code> flag.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}When adding a node to an existing cluster, include the <code>--join</code> flag.{{site.data.alerts.end }}
 
 ### General
 
@@ -60,7 +60,7 @@ Flag | Description
 
 By default, `cockroach start` writes all messages to log files, and prints nothing to `stderr`. However, you can control the process's [logging](debug-and-error-logs.html) behavior with the following flags:
 
-{%  include {{  page.version.version  }}/misc/logging-flags.md %}
+{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
 
 #### Defaults
 
@@ -75,7 +75,7 @@ This means, by default, CockroachDB writes all messages to log files, and never 
 
 The `store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{ site.data.alerts.callout_info }}In-memory storage is not suitable for production deployments at this time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}In-memory storage is not suitable for production deployments at this time.{{site.data.alerts.end }}
 
 Field | Description
 ------|------------
@@ -102,7 +102,7 @@ clusterID:  7b9329d0-580d-4035-8319-53ba8b74b213
 nodeID:     1
 ~~~
 
-{{ site.data.alerts.callout_success }}These details are also written to the <code>INFO</code> log in the <code>/logs</code> directory in case you need to refer to them at a later time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}These details are also written to the <code>INFO</code> log in the <code>/logs</code> directory in case you need to refer to them at a later time.{{site.data.alerts.end }}
 
 Field | Description
 ------|------------

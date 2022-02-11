@@ -7,9 +7,9 @@ docs_area: reference.cli
 
  The `cockroach import` [command](cockroach-commands.html) imports a database or table from a local dump file into a running cluster. This command [uploads a userfile](cockroach-userfile-upload.html), imports its data, then [deletes the userfile](cockroach-userfile-delete.html). `PGDUMP` and `MYSQLDUMP` file formats are currently supported.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 We recommend using `cockroach import` for quick imports from your client (about 15MB or smaller). For larger imports, use the [IMPORT](import.html) statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -57,7 +57,7 @@ $ cockroach import --help
 
 To import a database from a local file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach import db mysqldump /Users/maxroach/Desktop/test-db.sql --certs-dir=certs
 ~~~
@@ -70,7 +70,7 @@ successfully imported mysqldump file /Users/maxroach/Desktop/test-db.sql
 
 To import a table from a local file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach import table test_table pgdump /Users/maxroach/Desktop/test-db.sql --certs-dir=certs
 ~~~
@@ -83,7 +83,7 @@ successfully imported table test_table from pgdump file /Users/maxroach/Desktop/
 
  To import a database from a `PGDUMP` file that contains unsupported SQL syntax and log the ignored statements to a [userfile](use-userfile-for-bulk-operations.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach import db pgdump /Users/maxroach/Desktop/test-db.sql --certs-dir=certs --ignore-unsupported-statements=true --log-ignored-statements='userfile://defaultdb.public.userfiles_root/unsupported-statements.log'
 ~~~
@@ -96,7 +96,7 @@ successfully imported table test_table from pgdump file /Users/maxroach/Desktop/
 
  To limit the number of rows imported from a dump file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach import table test_table pgdump /Users/maxroach/Desktop/test-db.sql --certs-dir=certs --row-limit='50'
 ~~~

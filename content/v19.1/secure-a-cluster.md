@@ -11,9 +11,9 @@ toc: true
 
 Once you’ve [installed CockroachDB](install-cockroachdb.html), it’s simple to start a secure multi-node cluster locally, using [TLS certificates](create-security-certificates.html) to encrypt network communication.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Running multiple nodes on a single host is useful for testing out CockroachDB, but it's not recommended for production deployments. To run a physically distributed cluster in production, see [Manual Deployment](manual-deployment.html) or [Orchestrated Deployment](orchestration.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before you begin
 
@@ -25,7 +25,7 @@ You can use either [`cockroach cert`](create-security-certificates.html) command
 
 1. Create a directory for certificates and a safe directory for the CA key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir certs my-safe-directory
     ~~~
@@ -34,7 +34,7 @@ You can use either [`cockroach cert`](create-security-certificates.html) command
 
 2. Create the CA (Certificate Authority) certificate and key pair:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
@@ -43,7 +43,7 @@ You can use either [`cockroach cert`](create-security-certificates.html) command
 
 3. Create the client certificate and key, in this case for the `root` user:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -55,7 +55,7 @@ You can use either [`cockroach cert`](create-security-certificates.html) command
 
 4. Create the node certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-node \
     localhost \
@@ -68,7 +68,7 @@ You can use either [`cockroach cert`](create-security-certificates.html) command
 
 ## Step 2. Start the first node
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -103,7 +103,7 @@ At this point, your cluster is live and operational. With just one node, you can
 
 In a new terminal, add the second node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -115,7 +115,7 @@ $ cockroach start \
 
 In a new terminal, add the third node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -131,9 +131,9 @@ The main difference in these commands is that you use the `--join` flag to conne
 
 Now that you've scaled to 3 nodes, you can use any node as a SQL gateway to the cluster. To demonstrate this, open a new terminal and connect the [built-in SQL client](use-the-built-in-sql-client.html) to node 1:
 
-{{ site.data.alerts.callout_info }}The SQL client is built into the <code>cockroach</code> binary, so nothing extra is needed.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The SQL client is built into the <code>cockroach</code> binary, so nothing extra is needed.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir=certs \
@@ -142,22 +142,22 @@ $ cockroach sql \
 
 Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO bank.accounts VALUES (1, 1000.50);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM bank.accounts;
 ~~~
@@ -171,25 +171,25 @@ Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
 Exit the SQL shell on node 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
 
 Then connect the SQL shell to node 2, this time specifying the node's non-default port:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir=certs \
 --host=localhost:26258
 ~~~
 
-{{ site.data.alerts.callout_info }}In a real deployment, all nodes would likely use the default port <code>26257</code>, and so you wouldn't need to set the <code>--port</code> flag.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}In a real deployment, all nodes would likely use the default port <code>26257</code>, and so you wouldn't need to set the <code>--port</code> flag.{{site.data.alerts.end }}
 
 Now run the same `SELECT` query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM bank.accounts;
 ~~~
@@ -205,14 +205,14 @@ As you can see, node 1 and node 2 behaved identically as SQL gateways.
 
 Finally, [create a user with a password](create-user.html#create-a-user-with-a-password), which you will need in the next step to access the [Admin UI](admin-ui-overview.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE USER roach WITH PASSWORD 'Q7gc8rEdS';
 ~~~
 
 Exit the SQL shell on node 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -225,44 +225,44 @@ The CockroachDB [Admin UI](admin-ui-overview.html) gives you insight into the ov
 
     Run the [`cockroach sql`](use-the-built-in-sql-client.html) command against node 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --certs-dir=certs --host=localhost:26257
     ~~~
 
 2.  Assign `max` to the `admin` role (you only need to do this once):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT admin TO max;
     ~~~
 
 3. Exit the SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
 
 4. Go to <a href="https://localhost:8080" data-proofer-ignore>https://localhost:8080</a>. Note that your browser will consider the CockroachDB-created certificate invalid; you'll need to click through a warning message to get to the UI.
 
-    {%  include {{  page.version.version  }}/misc/chrome-localhost.md %}
+    {{ partial "{{ page.version.version }}/misc/chrome-localhost.md" . }}
 
 5. Log in with the username and password you created earlier (`max`/`roach`).
 
 6. On the [**Cluster Overview**](admin-ui-cluster-overview-page.html), notice that three nodes are live, with an identical replica count on each node:
 
-    <img src="{{  'images/v20.1/admin_ui_cluster_overview_3_nodes.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/admin_ui_cluster_overview_3_nodes.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     This demonstrates CockroachDB's [automated replication](demo-data-replication.html) of data via the Raft consensus protocol.    
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this [limitation](known-limitations.html#available-capacity-metric-in-the-admin-ui).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 7. Click [**Metrics**](admin-ui-overview-dashboard.html) to access a variety of time series dashboards, including graphs of SQL queries and service latency over time:
 
-    <img src="{{  'images/v20.1/admin_ui_overview_dashboard_3_nodes.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/admin_ui_overview_dashboard_3_nodes.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 8. Use the [**Databases**](admin-ui-databases-page.html), [**Statements**](admin-ui-statements-page.html), and [**Jobs**](admin-ui-jobs-page.html) pages to view details about your databases and tables, to assess the performance of specific queries, and to monitor the status of long-running operations like schema changes, respectively.
 
@@ -270,21 +270,21 @@ The CockroachDB [Admin UI](admin-ui-overview.html) gives you insight into the ov
 
 Access the [Admin UI](admin-ui-overview.html) for your cluster by pointing a browser to <a href="https://localhost:8080" data-proofer-ignore>https://localhost:8080</a>, or to the address in the `admin` field in the standard output of any node on startup. Note that your browser will consider the CockroachDB-created certificate invalid; you’ll need to click through a warning message to get to the UI.
 
-{%  include {{  page.version.version  }}/misc/chrome-localhost.md %}
+{{ partial "{{ page.version.version }}/misc/chrome-localhost.md" . }}
 
 Log in with the username and password created earlier (`max`/`roach`). Then click **Metrics** on the left-hand navigation bar.
 
-<img src="{{  'images/v19.1/admin_ui_overview_dashboard.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.1/admin_ui_overview_dashboard.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 As mentioned earlier, CockroachDB automatically replicates your data behind-the-scenes. To verify that data written in the previous step was replicated successfully, scroll down to the **Replicas per Node** graph and hover over the line:
 
-<img src="{{  'images/v19.1/admin_ui_replicas_per_node.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.1/admin_ui_replicas_per_node.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 The replica count on each node is identical, indicating that all data in the cluster was replicated 3 times (the default).
 
-{{ site.data.alerts.callout_info }}Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this <a href="known-limitations.html#available-capacity-metric-in-the-admin-ui">limitation</a>. {{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this <a href="known-limitations.html#available-capacity-metric-in-the-admin-ui">limitation</a>. {{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our <a href="demo-data-replication.html">replication</a>, <a href="demo-automatic-rebalancing.html">rebalancing</a>, <a href="demo-fault-tolerance-and-recovery.html">fault tolerance</a> demos.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our <a href="demo-data-replication.html">replication</a>, <a href="demo-automatic-rebalancing.html">rebalancing</a>, <a href="demo-fault-tolerance-and-recovery.html">fault tolerance</a> demos.{{site.data.alerts.end }}
 
 ## Step 7. Stop the cluster
 
@@ -292,14 +292,14 @@ Once you're done with your test cluster, switch to the terminal running the firs
 
 At this point, with 2 nodes still online, the cluster remains operational because a majority of replicas are available. To verify that the cluster has tolerated this "failure", connect the built-in SQL shell to nodes 2 or 3. You can do this in the same terminal or in a new terminal.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir=certs \
 --host=localhost:26258
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM bank.accounts;
 ~~~
@@ -313,18 +313,18 @@ $ cockroach sql \
 
 Exit the SQL shell:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
 
 Now stop nodes 2 and 3 by switching to their terminals and pressing **CTRL-C**.
 
-{{ site.data.alerts.callout_success }}For node 3, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 of 3 nodes left, a majority of replicas are not available, and so the cluster is no longer operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For node 3, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 of 3 nodes left, a majority of replicas are not available, and so the cluster is no longer operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{site.data.alerts.end }}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf cockroach-data node2 node3
 ~~~
@@ -335,19 +335,19 @@ If you decide to use the cluster for further testing, you'll need to restart at 
 
 Restart the first node from the parent directory of `cockroach-data`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
 --listen-addr=localhost
 ~~~
 
-{{ site.data.alerts.callout_info }}With only 1 node back online, the cluster will not yet be operational, so you will not see a response to the above command until after you restart the second node.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}With only 1 node back online, the cluster will not yet be operational, so you will not see a response to the above command until after you restart the second node.
+{{site.data.alerts.end }}
 
 In a new terminal, restart the second node from the parent directory of `node2`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \
@@ -359,7 +359,7 @@ $ cockroach start \
 
 In a new terminal, restart the third node from the parent directory of `node3`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --certs-dir=certs \

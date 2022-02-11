@@ -72,12 +72,12 @@ Note the following:
 
 1. Create two directories:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir certs
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir my-safe-directory
     ~~~
@@ -88,7 +88,7 @@ Note the following:
 
     You can set the CA certificate expiration period using the `default_days` parameter. We recommend using the CockroachDB default value of the CA certificate expiration period, which is 3660 days.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~
     # OpenSSL CA configuration file
     [ ca ]
@@ -132,22 +132,22 @@ Note the following:
     extendedKeyUsage = clientAuth
     ~~~
 
-    {{ site.data.alerts.callout_danger }}The <code>keyUsage</code> and <code>extendedkeyUsage</code> parameters are vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration and you can add additional usages, but do not omit <code>keyUsage</code> and <code>extendedkeyUsage</code> parameters or remove the listed usages. {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_danger }}The <code>keyUsage</code> and <code>extendedkeyUsage</code> parameters are vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration and you can add additional usages, but do not omit <code>keyUsage</code> and <code>extendedkeyUsage</code> parameters or remove the listed usages. {{site.data.alerts.end }}
 
 3. Create the CA key using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl genrsa -out my-safe-directory/ca.key 2048
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod 400 my-safe-directory/ca.key
     ~~~
 
 4. Create the CA certificate using the [`openssl req`](https://www.openssl.org/docs/manmaster/man1/req.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl req \
     -new \
@@ -161,15 +161,15 @@ Note the following:
 
 5. Reset database and index files.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -f index.txt serial.txt
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ touch index.txt
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ echo '01' > serial.txt
     ~~~
@@ -180,7 +180,7 @@ In the following steps, replace the placeholder text in the code with the actual
 
 1. Create the `node.cnf` file for the first node and copy the following configuration into it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~
     # OpenSSL node configuration file
     [ req ]
@@ -197,22 +197,22 @@ In the following steps, replace the placeholder text in the code with the actual
     subjectAltName = DNS:<node-hostname>,DNS:<node-domain>,IP:<IP Address>
     ~~~
 
-    {{ site.data.alerts.callout_danger }}The <code>commonName</code> and <code>subjectAltName</code> parameters are vital for CockroachDB functions. It is also required that <code>commonName</code> be set to <code>node</code>. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the <code>commonName</code> and <code>subjectAltName</code> parameters.  {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_danger }}The <code>commonName</code> and <code>subjectAltName</code> parameters are vital for CockroachDB functions. It is also required that <code>commonName</code> be set to <code>node</code>. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the <code>commonName</code> and <code>subjectAltName</code> parameters.  {{site.data.alerts.end }}
 
 2. Create the key for the first node using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl genrsa -out certs/node.key 2048
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod 400 certs/node.key
     ~~~
 
 3. Create the CSR for the first node using the [`openssl req`](https://www.openssl.org/docs/manmaster/man1/req.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl req \
     -new \
@@ -226,7 +226,7 @@ In the following steps, replace the placeholder text in the code with the actual
 
     You can set the node certificate expiration period using the `days` flag. We recommend using the CockroachDB default value of the node certificate expiration period, which is 1830 days.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl ca \
     -config ca.cnf \
@@ -243,12 +243,12 @@ In the following steps, replace the placeholder text in the code with the actual
 
 5. Upload certificates to the first node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ssh <username>@<node1 address> "mkdir certs"
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ scp certs/ca.crt \
     certs/node.crt \
@@ -258,12 +258,12 @@ In the following steps, replace the placeholder text in the code with the actual
 
 6. Delete the local copy of the first node's certificate and key:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{ site.data.alerts.callout_info }}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code>.{{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code>.{{site.data.alerts.end }}
 
 7. Repeat steps 1 - 6 for each additional node.
 
@@ -275,7 +275,7 @@ In the following steps, replace the placeholder text in the code with the actual
 
 1. Create the `client.cnf` file for the first client and copy the following configuration into it:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~
     # OpenSSL client configuration file
     [ req ]
@@ -287,22 +287,22 @@ In the following steps, replace the placeholder text in the code with the actual
     commonName = <username>
     ~~~
 
-    {{ site.data.alerts.callout_info }}The <code>commonName</code> parameter is vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the <code>commonName</code> parameter.  {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}The <code>commonName</code> parameter is vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the <code>commonName</code> parameter.  {{site.data.alerts.end }}
 
 2. Create the key for the first client using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl genrsa -out certs/client.<username>.key 2048
     ~~~
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod 400 certs/client.<username>.key
     ~~~
 
 3. Create the CSR for the first client using the [`openssl req`](https://www.openssl.org/docs/manmaster/man1/req.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl req \
     -new \
@@ -314,7 +314,7 @@ In the following steps, replace the placeholder text in the code with the actual
 
 4. Sign the client CSR to create the client certificate for the first client using the [`openssl ca`](https://www.openssl.org/docs/manmaster/man1/ca.html) command. You can set the client certificate expiration period using the `days` flag. We recommend using the CockroachDB default value of the client certificate expiration period, which is 1830 days.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ openssl ca \
     -config ca.cnf \

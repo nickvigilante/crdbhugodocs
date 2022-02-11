@@ -6,9 +6,9 @@ toc: true
 
 The replication layer of CockroachDB's architecture copies data between nodes and ensures consistency between these copies by implementing our consensus algorithm.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 
 ## Overview
@@ -82,11 +82,11 @@ Your table's meta and system ranges (detailed in the distribution layer) are tre
 
 Because CockroachDB serves reads from a range's leaseholder, it benefits your cluster's performance if the replica closest to the primary geographic source of traffic holds the lease. However, as traffic to your cluster shifts throughout the course of the day, you might want to dynamically shift which nodes hold leases.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 
 This feature is also called [Follow-the-Workload](../demo-follow-the-workload.html) in our documentation.
 
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Periodically (every 10 minutes by default in large clusters, but more frequently in small clusters), each leaseholder considers whether it should transfer the lease to another replica by considering the following inputs:
 

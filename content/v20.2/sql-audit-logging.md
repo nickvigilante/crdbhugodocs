@@ -16,11 +16,11 @@ For a detailed description of the audit log file format, see [Audit log file for
 
 Note that enabling SQL audit logs can negatively impact performance. As a result, we recommend using SQL audit logs for security purposes only. For more details, see [Performance considerations](experimental-audit.html#performance-considerations), on the [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html) reference page.
 
-{%  include {{  page.version.version  }}/misc/experimental-warning.md %}
+{{ partial "{{ page.version.version }}/misc/experimental-warning.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To learn about other SQL query logging options, see [SQL logging](query-behavior-troubleshooting.html#sql-logging).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Create sample tables
 
@@ -31,7 +31,7 @@ Use the statements below to create:
 
 Later, we'll show how to turn on audit logs for the `customers` table.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE customers (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -43,7 +43,7 @@ Later, we'll show how to turn on audit logs for the `customers` table.
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -57,20 +57,20 @@ Later, we'll show how to turn on audit logs for the `customers` table.
 
 We turn on auditing for a table using the [`EXPERIMENTAL_AUDIT`](experimental-audit.html) subcommand of [`ALTER TABLE`](alter-table.html).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To turn on auditing for more than one table, issue a separate `ALTER` statement for each table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 3. Populate the `customers` table
 
 Now that we have auditing turned on, let's add some customer data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO customers (name, address, national_id, telephone, email) VALUES (
     'Pritchard M. Cleveland',
@@ -81,7 +81,7 @@ Now that we have auditing turned on, let's add some customer data:
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO customers (name, address, national_id, telephone, email) VALUES (
     'Vainglorious K. Snerptwiddle III',
@@ -94,7 +94,7 @@ Now that we have auditing turned on, let's add some customer data:
 
 Now let's verify that our customers were added successfully:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM customers;
 ~~~
@@ -120,13 +120,13 @@ I201028 16:04:45.504038 1376 sql/exec_log.go:207 ⋮ [n1,client=‹[::1]:59646�
 I201028 16:04:49.785126 1376 sql/exec_log.go:207 ⋮ [n1,client=‹[::1]:59646›,hostnossl,user=root] 4 ‹exec› ‹"$ cockroach sql"› ‹{"customers"[63]:READ}› ‹"SELECT * FROM customers"› ‹{}› 0.669 2 ‹OK› 0
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For reference documentation of the audit log file format, see [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
-{%  include {{  page.version.version  }}/ui/ui-log-files.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/ui/ui-log-files.md" . }}
+{{site.data.alerts.end }}
 
 ## Step 5. Populate the `orders` table
 
@@ -134,14 +134,14 @@ Unlike the `customers` table, `orders` doesn't have any PII, just a Product ID a
 
 Let's populate the `orders` table with some placeholder data using [`CREATE SEQUENCE`](create-sequence.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE product_ids_asc START 1 INCREMENT 1;
 ~~~
 
 Evaluate the below a few times to generate data; note that this would error if [`SELECT`](select-clause.html) returned multiple results, but it doesn't in this case.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO orders (product_id, delivery_status, customer_id) VALUES (
     nextval('product_ids_asc'),
@@ -152,7 +152,7 @@ Evaluate the below a few times to generate data; note that this would error if [
 
 Let's verify that our orders were added successfully:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM orders ORDER BY product_id;
 ~~~
@@ -180,13 +180,13 @@ I201028 16:07:39.476609 1376 sql/exec_log.go:207 ⋮ [n1,client=‹[::1]:59646�
 I201028 16:07:40.450879 1376 sql/exec_log.go:207 ⋮ [n1,client=‹[::1]:59646›,hostnossl,user=root] 10 ‹exec› ‹"$ cockroach sql"› ‹{"customers"[63]:READ, "customers"[63]:READ}› ‹"INSERT INTO orders(product_id, delivery_status, customer_id) VALUES (nextval('product_ids_asc'), 'processing', (SELECT id FROM customers WHERE name ~ 'Cleve'))"› ‹{}› 14.408 1 ‹OK› 0
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For reference documentation of the audit log file format, see [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
-{%  include {{  page.version.version  }}/ui/ui-log-files.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/ui/ui-log-files.md" . }}
+{{site.data.alerts.end }}
 
 ## Known limitations
 

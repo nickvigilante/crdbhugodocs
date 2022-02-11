@@ -23,9 +23,9 @@ For each of the above objects you can control:
 
 This page explains how replication zones work and how to use the [`CONFIGURE ZONE`](configure-zone.html) statement to manage them.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Currently, only members of the `admin` role can configure replication zones. By default, the `root` user belongs to the `admin` role.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Overview
 
@@ -71,9 +71,9 @@ When replicating data, whether table or system, CockroachDB always uses the most
 4. If there's no applicable table replication zone, CockroachDB uses the database replication zone.
 5. If there's no applicable database replication zone, CockroachDB uses the `.default` cluster-wide replication zone.
 
-{{ site.data.alerts.callout_info }}
-{%  include {{ page.version.version }}/known-limitations/system-range-replication.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+{{ partial "{{ page.version.version }}/known-limitations/system-range-replication.md" . }}
+{{site.data.alerts.end }}
 
 ## Manage replication zones
 
@@ -83,18 +83,18 @@ Use the [`CONFIGURE ZONE`](configure-zone.html) statement to [add](#create-a-rep
 
 Use the [`ALTER ... CONFIGURE ZONE`](configure-zone.html) [statement](sql-statements.html) to set a replication zone:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 5, constraints = '[-region=west]';
 ~~~
 
-{%  include v2.1/zone-configs/variables.md %}
+{{ partial "v2.1/zone-configs/variables.md" . }}
 
 ### Replication constraints
 
 The location of replicas, both when they are first added and when they are rebalanced to maintain cluster equilibrium, is based on the interplay between descriptive attributes assigned to nodes and constraints set in zone configurations.
 
-{{ site.data.alerts.callout_success }}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end }}
 
 #### Descriptive attributes assigned to nodes
 
@@ -143,67 +143,67 @@ For more examples, see [`CONFIGURE ZONE`](configure-zone.html) and [`SHOW ZONE C
 
 ### View all replication zones
 
-{%  include v2.1/zone-configs/view-all-replication-zones.md %}
+{{ partial "v2.1/zone-configs/view-all-replication-zones.md" . }}
 
 For more information, see [`SHOW ZONE CONFIGURATIONS`](show-zone-configurations.html).
 
 ### View the default replication zone
 
-{%  include v2.1/zone-configs/view-the-default-replication-zone.md %}
+{{ partial "v2.1/zone-configs/view-the-default-replication-zone.md" . }}
 
 For more information, see [`SHOW ZONE CONFIGURATIONS`](show-zone-configurations.html).
 
 ### Edit the default replication zone
 
-{%  include v2.1/zone-configs/edit-the-default-replication-zone.md %}
+{{ partial "v2.1/zone-configs/edit-the-default-replication-zone.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Create a replication zone for a system range
 
-{%  include v2.1/zone-configs/create-a-replication-zone-for-a-system-range.md %}
+{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-system-range.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Create a replication zone for a database
 
-{%  include v2.1/zone-configs/create-a-replication-zone-for-a-database.md %}
+{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-database.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Create a replication zone for a table
 
-{%  include v2.1/zone-configs/create-a-replication-zone-for-a-table.md %}
+{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-table.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Create a replication zone for a secondary index
 
-{%  include v2.1/zone-configs/create-a-replication-zone-for-a-secondary-index.md %}
+{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-secondary-index.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Create a replication zone for a table or secondary index partition
 
-{%  include v2.1/zone-configs/create-a-replication-zone-for-a-table-partition.md %}
+{{ partial "v2.1/zone-configs/create-a-replication-zone-for-a-table-partition.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Reset a replication zone
 
-{%  include v2.1/zone-configs/reset-a-replication-zone.md %}
+{{ partial "v2.1/zone-configs/reset-a-replication-zone.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Remove a replication zone
 
-{%  include v2.1/zone-configs/remove-a-replication-zone.md %}
+{{ partial "v2.1/zone-configs/remove-a-replication-zone.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
 ### Constrain leaseholders to specific datacenters
 
-{%  include v2.1/zone-configs/constrain-leaseholders-to-specific-datacenters.md %}
+{{ partial "v2.1/zone-configs/constrain-leaseholders-to-specific-datacenters.md" . }}
 
 For more information, see [`CONFIGURE ZONE`](configure-zone.html).
 
@@ -275,21 +275,21 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 2. On any node, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 3. Create the database for the West Coast application:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE west_app_db;
     ~~~
 
 4. Configure a replication zone for the database:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER DATABASE west_app_db \
     CONFIGURE ZONE USING constraints = '{"+region=us-west1": 2, "+region=us-central1": 1}', num_replicas = 3;
@@ -301,7 +301,7 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 5. View the replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ZONE CONFIGURATION FOR DATABASE west_app_db;
     ~~~
@@ -359,21 +359,21 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 2. On any node, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 3. Create the database for application 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE app1_db;
     ~~~
 
 4. Configure a replication zone for the database used by application 1:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER DATABASE app1_db CONFIGURE ZONE USING num_replicas = 5;
     ~~~
@@ -384,7 +384,7 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 5. View the replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ZONE CONFIGURATION FOR DATABASE app1_db;
     ~~~
@@ -406,21 +406,21 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 6. Still in the SQL client, create a database for application 2:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE app2_db;
     ~~~
 
 7. Configure a replication zone for the database used by application 2:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER DATABASE app2_db CONFIGURE ZONE USING constraints = '[+datacenter=us-2]';
     ~~~
 
 8. View the replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ZONE CONFIGURATION FOR DATABASE app2_db;
     ~~~
@@ -477,33 +477,33 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 2. On any node, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 3. Create a database and table:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE db;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE db.important_table;
     ~~~
 
 4. Configure a replication zone for the table that must be replicated more strictly:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE db.important_table CONFIGURE ZONE USING num_replicas = 5, constraints = '[+ssd]'
     ~~~
 
 5. View the replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ZONE CONFIGURATION FOR TABLE db.important_table;
     ~~~
@@ -559,21 +559,21 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 2. On any node, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 3. Configure the default replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE default CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
 4. View the replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW ZONE CONFIGURATION FOR RANGE default;
     ~~~
@@ -594,7 +594,7 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 5. Configure the `.meta` replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE meta CONFIGURE ZONE USING num_replicas = 7;
     ~~~
@@ -616,7 +616,7 @@ There's no need to make zone configuration changes; by default, the cluster is c
 
 6. Configure the `.timeseries` replication zone:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE timeseries CONFIGURE ZONE USING num_replicas = 3;
     ~~~

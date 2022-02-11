@@ -12,21 +12,21 @@ The **Node Map** is useful for:
 
 This page walks you through the process of setting up and enabling the Node Map.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include enterprise-feature.md %}
+{{ partial "enterprise-feature.md" . }}
 
-<img src="{{  'images/v20.2/ui-node-map-navigation3.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-node-map-navigation3.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 ## Set up and enable the Node Map
 
 To enable the Node Map, you need to start the cluster with the correct [`--locality`](cockroach-start.html#locality) flags and assign the latitude and longitude for each locality.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The Node Map will not be displayed until *all* nodes are started with the correct `--locality` flags and all localities are assigned the corresponding latitude and longitude.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Consider a four-node geo-distributed cluster with the following configuration:
 
@@ -43,7 +43,7 @@ To start a new cluster with the correct `--locality` flags:
 
 Start Node 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -56,7 +56,7 @@ $ cockroach start \
 
 Start Node 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -69,7 +69,7 @@ $ cockroach start \
 
 Start Node 3:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -82,7 +82,7 @@ $ cockroach start \
 
 Start Node 4:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 $ cockroach start \
 --insecure \
@@ -95,37 +95,37 @@ $ cockroach start \
 
 Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init --insecure --host=<address of any node>
 ~~~
 
 [Access the DB Console](ui-overview.html#db-console-access). The following page is displayed:
 
-<img src="{{  'images/v20.2/ui-node-map-before-license.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-node-map-before-license.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 ### Step 2. Set the Enterprise license and refresh the DB Console
 
 After [setting the Enterprise license](enterprise-licensing.html), the Node Map should now be displaying the highest-level localities you defined:
 
-<img src="{{  'images/v20.2/ui-node-map-after-license.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-node-map-after-license.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To be displayed on the world map, localities must be assigned a corresponding latitude and longitude.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Step 3. Set the latitudes and longitudes for the localities
 
 Launch the built-in SQL client:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql --insecure --host=<address of any node>
 ~~~
 
 Insert the approximate latitude and longitude of each region into the `system.locations` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO system.locations VALUES
   ('region', 'us-east-1', 37.478397, -76.453077),
@@ -139,7 +139,7 @@ For the latitudes and longitudes of AWS, Azure, and Google Cloud regions, see [L
 
 Refresh the DB Console to see the updated Node Map:
 
-<img src="{{  'images/v20.2/ui-node-map-complete.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-node-map-complete.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 ### Step 5. Navigate the Node Map
 
@@ -147,11 +147,11 @@ Let's say you want to navigate to Node 2, which is in datacenter `us-east-1a` in
 
 1. Click on the map component marked as **region=us-east-1** on the Node Map. The [locality component](ui-cluster-overview-page.html#locality-component) for the datacenter is displayed.
 
-	<img src="{{  'images/v20.2/ui-node-map-navigation1.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v20.2/ui-node-map-navigation1.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 1. Click on the datacenter component marked as **datacenter=us-east-1a**. The individual [node components](ui-cluster-overview-page.html#node-component) are displayed.
 
-	<img src="{{  'images/v20.2/ui-node-map-navigation2.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+	<img src="{{ 'images/v20.2/ui-node-map-navigation2.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 1. To navigate back to the cluster view, either click on **Cluster** in the breadcrumb trail at the top of the Node Map, or click **Up to REGION=US-EAST-1** and then click **Up to CLUSTER** in the lower left-hand side of the Node Map.
 
@@ -165,7 +165,7 @@ All nodes in the cluster must be assigned [localities](cockroach-start.html#loca
 
 To verify both of the above, navigate to the Localities debug page (`https://<address of any node>:8080/#/reports/localities`) in the DB Console.
 
-<img src="{{  'images/v20.2/ui-localities-debug.png' | relative_url  }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/ui-localities-debug.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
 The Localities debug page displays the following:
 
@@ -181,18 +181,18 @@ If a locality (e.g., region) is not assigned latitude/longitude coordinates, it 
 
 ### Displayed **Used Capacity** value is more than configured Capacity
 
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ## Location coordinates
 
 ### AWS locations
 
-{%  include {{  page.version.version  }}/misc/aws-locations.md %}
+{{ partial "{{ page.version.version }}/misc/aws-locations.md" . }}
 
 ### Azure locations
 
-{%  include {{  page.version.version  }}/misc/azure-locations.md %}
+{{ partial "{{ page.version.version }}/misc/azure-locations.md" . }}
 
 ### Google Cloud locations
 
-{%  include {{  page.version.version  }}/misc/gce-locations.md %}
+{{ partial "{{ page.version.version }}/misc/gce-locations.md" . }}

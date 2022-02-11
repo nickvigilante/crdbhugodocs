@@ -6,11 +6,11 @@ toc: true
 
 The `RENAME TABLE` [statement](sql-statements.html) changes the name of a table. It can also be used to move a table from one database to another.
 
-{{ site.data.alerts.callout_info }}It is not possible to rename a table referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not possible to rename a table referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Table renames **are not transactional**. For more information, see [Table renaming considerations](#table-renaming-considerations).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -19,7 +19,7 @@ The user must have the `DROP` [privilege](privileges.html) on the table and the 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/rename_table.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/rename_table.html" . }}
 </div>
 
 ## Parameters
@@ -32,7 +32,7 @@ The user must have the `DROP` [privilege](privileges.html) on the table and the 
 
 ## Viewing Schema Changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Table renaming considerations
 

@@ -17,7 +17,7 @@ For a comprehensive list of tuning recommendations, only some of which are demon
 
 ## Overview
 
-{%  include {{  page.version.version  }}/performance/overview.md %}
+{{ partial "{{ page.version.version }}/performance/overview.md" . }}
 
 ## Single-region deployment
 
@@ -40,7 +40,7 @@ For a comprehensive list of tuning recommendations, only some of which are demon
 
 ### Step 1. Configure your network
 
-{%  include {{  page.version.version  }}/performance/configure-network.md %}
+{{ partial "{{ page.version.version }}/performance/configure-network.md" . }}
 
 ### Step 2. Create instances
 
@@ -59,11 +59,11 @@ You'll start with a 3-node CockroachDB cluster in the `us-east1-b` GCE zone, wit
 
 ### Step 3. Start a 3-node cluster
 
-{%  include {{  page.version.version  }}/performance/start-cluster.md %}
+{{ partial "{{ page.version.version }}/performance/start-cluster.md" . }}
 
 ### Step 4. Import the Movr dataset
 
-{%  include {{  page.version.version  }}/performance/import-movr.md %}
+{{ partial "{{ page.version.version }}/performance/import-movr.md" . }}
 
 ### Step 5. Install the Python client
 
@@ -71,23 +71,23 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
 1. Still on the fourth instance, make sure all of the system software is up-to-date:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get update && sudo apt-get -y upgrade
     ~~~
 
 2. Install the `psycopg2` driver:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get install python-psycopg2
     ~~~
 
 3. Download the Python client:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ wget https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{  page.version.version  }}/performance/tuning.py \
+    $ wget https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/performance/tuning.py \
     && chmod +x tuning.py
     ~~~
 
@@ -101,9 +101,9 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
     When run, the client prints the median time in seconds across all repetitions of the statement. Optionally, you can pass two other flags, `--time` to print the execution time in seconds for each repetition of the statement, and `--cumulative` to print the cumulative time in seconds for all repetitions. `--cumulative` is particularly useful when testing writes.
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     To get similar help directly in your shell, use `./tuning.py --help`.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 ### Step 6. Test/tune read performance
 
@@ -119,7 +119,7 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
 Retrieving a single row based on the primary key will usually return in 2ms or less:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -142,7 +142,7 @@ Median time (milliseconds):
 
 Retrieving a subset of columns will usually be even faster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -169,7 +169,7 @@ Median time (milliseconds):
 
 You'll get generally poor performance when retrieving a single row based on a column that is not in the primary key or any secondary index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -192,7 +192,7 @@ Median time (milliseconds):
 
 To understand why this query performs poorly, use the SQL client built into the `cockroach` binary to [`EXPLAIN`](explain.html) the query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -216,7 +216,7 @@ The row with `spans | ALL` shows you that, without a secondary index on the `nam
 
 To speed up this query, add a secondary index on `name`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -227,7 +227,7 @@ $ cockroach sql \
 
 The query will now return much faster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -250,7 +250,7 @@ Median time (milliseconds):
 
 To understand why performance improved from 4.51ms (without index) to 1.72ms (with index), use [`EXPLAIN`](explain.html) to see the new query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -281,7 +281,7 @@ When you have a query that filters by a specific column but retrieves a subset o
 
 For example, let's say you frequently retrieve a user's name and credit card number:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -304,7 +304,7 @@ Median time (milliseconds):
 
 With the current secondary index on `name`, CockroachDB still needs to scan the primary index to get the credit card number:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -327,7 +327,7 @@ $ cockroach sql \
 
 Let's drop and recreate the index on `name`, this time storing the `credit_card` value in the index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -336,7 +336,7 @@ $ cockroach sql \
 --execute="DROP INDEX users_name_idx;"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -347,7 +347,7 @@ $ cockroach sql \
 
 Now that `credit_card` values are stored in the index on `name`, CockroachDB only needs to scan that index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -367,7 +367,7 @@ $ cockroach sql \
 
 This results in even faster performance, reducing latency from 1.77ms (index without storing) to 0.99ms (index with storing):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -394,7 +394,7 @@ Secondary indexes are crucial when [joining](joins.html) data from different tab
 
 For example, let's say you want to count the number of users who started rides on a given day. To do this, you need to use a join to get the relevant rides from the `rides` table and then map the `rider_id` for each of those rides to the corresponding `id` in the `users` table, counting each mapping only once:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -420,7 +420,7 @@ Median time (milliseconds):
 
 To understand what's happening, use [`EXPLAIN`](explain.html) to see the query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -457,7 +457,7 @@ Given that the `rides` table is large, its data is split across several ranges. 
 
 To track this specifically, let's use the [`SHOW RANGES`](show-ranges.html) statement to find out where the relevant leaseholders reside for `rides` and `users`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -478,7 +478,7 @@ $ cockroach sql \
 (6 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -501,7 +501,7 @@ The results above tell us:
 
 Now, given the `WHERE` condition of the join, the full table scan of `rides`, across all of its 6 ranges, is particularly wasteful. To speed up the query, you can create a secondary index on the `WHERE` condition (`rides.start_time`) storing the join key (`rides.rider_id`):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -512,7 +512,7 @@ $ cockroach sql \
 
 Adding the secondary index reduced the query time from 1573ms to 61.56ms:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -538,7 +538,7 @@ Median time (milliseconds):
 
 To understand why performance improved, again use [`EXPLAIN`](explain.html) to see the new query plan:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -573,7 +573,7 @@ Notice that CockroachDB now starts by using `rides@rides_start_time_idx` seconda
 
 Let's check the ranges for the new index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -598,7 +598,7 @@ This tells us that the index is stored in 4 ranges, with the leaseholders on nod
 
 Now let's say you want to get the latest ride of each of the 5 most used vehicles. To do this, you might think to use a subquery to get the IDs of the 5 most frequent vehicles from the `rides` table, passing the results into the `IN` list of another query to get the most recent ride of each of the 5 vehicles:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -634,7 +634,7 @@ Median time (milliseconds):
 
 However, as you can see, this query is slow because, currently, when the `WHERE` condition of a query comes from the result of a subquery, CockroachDB scans the entire table, even if there is an available index. Use `EXPLAIN` to see this in more detail:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -684,7 +684,7 @@ This is a complex query plan, but the important thing to note is the full table 
 
 Because CockroachDB will not use an available secondary index when using `IN (list)` with a subquery, it's much more performant to have your application first select the top 5 vehicles:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -715,7 +715,7 @@ Median time (milliseconds):
 
 And then put the results into the `IN` list to get the most recent rides of the vehicles:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -761,11 +761,11 @@ This approach reduced the query time from 2489.85ms (query with subquery) to 220
 
 Moving on to writes, let's imagine that you have a batch of 100 new users to insert into the `users` table. The most obvious approach is to insert each row using 100 separate [`INSERT`](insert.html) statements:  
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -788,7 +788,7 @@ Cumulative time (milliseconds):
 
 The 100 inserts took 910.98ms to complete, which isn't bad. However, it's significantly faster to use a single `INSERT` statement with 100 comma-separated `VALUES` clauses:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -817,9 +817,9 @@ Cumulative time (milliseconds):
 
 As you can see, this multi-row `INSERT` technique reduced the total time for 100 inserts from 910.98ms to 15.40ms. It's useful to note that this technique is equally effective for [`UPSERT`](upsert.html) and [`DELETE`](delete.html) statements as well.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v19.2:</span> You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Minimizing unused indexes
 
@@ -827,7 +827,7 @@ Earlier, we saw how important secondary indexes are for read performance. For wr
 
 Let's consider the `users` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -852,7 +852,7 @@ This table has the primary index (the full table) and a secondary index on `name
 
 To make this more concrete, let's count how many rows have a name that starts with `C` and then update those rows to all have the same name:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -870,7 +870,7 @@ Median time (milliseconds):
 2.52604484558
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -889,7 +889,7 @@ Because `name` is in both the `primary` and `users_name_idx` indexes, for each o
 
 Now, assuming that the `users_name_idx` index is no longer needed, lets drop the index and execute an equivalent query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --insecure \
@@ -898,7 +898,7 @@ $ cockroach sql \
 --execute="DROP INDEX users_name_idx;"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -919,7 +919,7 @@ Before, when both the primary and secondary indexes needed to be updated, the up
 
 Now let's focus on the common case of inserting a row into a table and then retrieving the ID of the new row to do some follow-up work. One approach is to execute two statements, an `INSERT` to insert the row and then a `SELECT` to get the new ID:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -932,7 +932,7 @@ Median time (milliseconds):
 10.4398727417
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -951,7 +951,7 @@ Median time (milliseconds):
 
 Combined, these statements are relatively fast, at 15.96ms, but an even more performant approach is to append `RETURNING id` to the end of the `INSERT`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ ./tuning.py \
 --host=<address of any node> \
@@ -1019,7 +1019,7 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
 
 ### Step 9. Scale the cluster
 
-{%  include {{  page.version.version  }}/performance/scale-cluster.md %}
+{{ partial "{{ page.version.version }}/performance/scale-cluster.md" . }}
 
 ### Step 10. Install the Python client
 
@@ -1027,23 +1027,23 @@ In each of the new zones, SSH to the instance not running a CockroachDB node, an
 
 ### Step 11. Check rebalancing
 
-{%  include {{  page.version.version  }}/performance/check-rebalancing.md %}
+{{ partial "{{ page.version.version }}/performance/check-rebalancing.md" . }}
 
 ### Step 12. Test performance
 
-{%  include {{  page.version.version  }}/performance/test-performance.md %}
+{{ partial "{{ page.version.version }}/performance/test-performance.md" . }}
 
 ### Step 13. Partition data by city
 
-{%  include {{  page.version.version  }}/performance/partition-by-city.md %}
+{{ partial "{{ page.version.version }}/performance/partition-by-city.md" . }}
 
 ### Step 14. Check rebalancing after partitioning
 
-{%  include {{  page.version.version  }}/performance/check-rebalancing-after-partitioning.md %}
+{{ partial "{{ page.version.version }}/performance/check-rebalancing-after-partitioning.md" . }}
 
 ### Step 15. Test performance after partitioning
 
-{%  include {{  page.version.version  }}/performance/test-performance-after-partitioning.md %}
+{{ partial "{{ page.version.version }}/performance/test-performance-after-partitioning.md" . }}
 
 ## See also
 

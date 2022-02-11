@@ -6,17 +6,17 @@ toc: true
 
 When you're ready to run CockroachDB in production in a single region, it's important to deploy at least 3 CockroachDB nodes to take advantage of CockroachDB's automatic replication, distribution, rebalancing, and resiliency capabilities.  
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you haven't already, [review the full range of topology patterns](topology-patterns.html) to ensure you choose the right one for your use case.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
-{%  include {{  page.version.version  }}/topology-patterns/fundamentals.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
 
 ## Configuration
 
-<img src="{{  'images/v19.1/topology-patterns/topology_basic_production1.png' | relative_url  }}" alt="Basic production topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_basic_production1.png' | relative_url }}" alt="Basic production topology" style="max-width:100%" />
 
 1. Provision hardware as follows:
     - 1 region with 3 AZs
@@ -26,7 +26,7 @@ If you haven't already, [review the full range of topology patterns](topology-pa
 
 2. Start each node on a separate VM, setting the [`--locality`](start-a-node.html#locality) flag to the node's region and AZ combination. For example, the following command starts a node in the east1 availability zone of the us-east region:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --locality=region=us-east,zone=east1 \
@@ -56,7 +56,7 @@ For example, in the animation below:
 4. The leaseholder retrieves the results and returns to the gateway node.
 5. The gateway node returns the results to the client.
 
-<img src="{{  'images/v19.1/topology-patterns/topology_basic_production_reads.png' | relative_url  }}" alt="Basic production topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_basic_production_reads.png' | relative_url }}" alt="Basic production topology" style="max-width:100%" />
 
 #### Writes
 
@@ -72,18 +72,18 @@ For example, in the animation below:
 6. The leaseholders then return acknowledgement of the commit to the gateway node.
 7. The gateway node returns the acknowledgement to the client.
 
-<img src="{{  'images/v19.1/topology-patterns/topology_basic_production_writes.gif' | relative_url  }}" alt="Leaseholder preferences topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_basic_production_writes.gif' | relative_url }}" alt="Leaseholder preferences topology" style="max-width:100%" />
 
 ### Resiliency
 
 Because each range is balanced across AZs, one AZ can fail without interrupting access to any data:
 
-<img src="{{  'images/v19.1/topology-patterns/topology_basic_production_resiliency1.png' | relative_url  }}" alt="Basic production topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_basic_production_resiliency1.png' | relative_url }}" alt="Basic production topology" style="max-width:100%" />
 
 However, if an additional AZ fails at the same time, the ranges that lose consensus become unavailable for reads and writes:
 
-<img src="{{  'images/v19.1/topology-patterns/topology_basic_production_resiliency2.png' | relative_url  }}" alt="Basic production topology" style="max-width:100%" />
+<img src="{{ 'images/v19.1/topology-patterns/topology_basic_production_resiliency2.png' | relative_url }}" alt="Basic production topology" style="max-width:100%" />
 
 ## See also
 
-{%  include {{  page.version.version  }}/topology-patterns/see-also.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}

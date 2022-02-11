@@ -32,7 +32,7 @@ Basic terms:
 
 ### Considerations
 
-{%  include {{  page.version.version  }}/faq/planned-maintenance.md %}
+{{ partial "{{ page.version.version }}/faq/planned-maintenance.md" . }}
 
 ## Synopsis
 
@@ -56,7 +56,7 @@ Flag | Description
 
 ### Client Connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 

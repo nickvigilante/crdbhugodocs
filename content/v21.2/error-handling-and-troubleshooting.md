@@ -19,7 +19,7 @@ If you have already optimized your SQL queries as described in [Optimize Stateme
 
 Take a look at [Troubleshoot SQL Behavior](query-behavior-troubleshooting.html).
 
-{%  include {{  page.version.version  }}/prod-deployment/check-sql-query-performance.md %}
+{{ partial "{{ page.version.version }}/prod-deployment/check-sql-query-performance.md" . }}
 
 ## Transaction retry errors
 
@@ -29,13 +29,13 @@ If your language's client driver or ORM implements transaction retry logic inter
 
 If your driver or ORM does not implement this logic, then you will need to implement a retry loop in your application.
 
-{%  include {{ page.version.version }}/misc/client-side-intervention-example.md %}
+{{ partial "{{ page.version.version }}/misc/client-side-intervention-example.md" . }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If a consistently high percentage of your transactions are resulting in transaction retry errors, then you may need to evaluate your schema design and data access patterns to find and remove sources of contention. For more information about contention, see [Transaction Contention](performance-best-practices-overview.html#transaction-contention).
 
 For more information about what is causing a specific transaction retry error code, see the [Transaction Retry Error Reference](transaction-retry-error-reference.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For more information about transaction retry errors, see [Transaction retries](transactions.html#client-side-intervention).
 
@@ -47,7 +47,7 @@ Additionally, CockroachDB supports [the PostgreSQL wire protocol and the majorit
 
 However, you may encounter features of SQL or the Postgres dialect that are not supported by CockroachDB. For example, the following Postgres features are not supported:
 
-{%  include {{ page.version.version }}/sql/unsupported-postgres-features.md %}
+{{ partial "{{ page.version.version }}/sql/unsupported-postgres-features.md" . }}
 
 For more information about the differences between CockroachDB and Postgres feature support, see [PostgreSQL Compatibility](postgresql-compatibility.html).
 

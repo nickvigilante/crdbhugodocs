@@ -6,12 +6,12 @@ toc: true
 
 The `SAVEPOINT` statement defines the intent to retry [transactions](transactions.html) using the CockroachDB-provided function for client-side transaction retries. For more information, see [Transaction Retries](transactions.html#transaction-retries).
 
-{%  include {{  page.version.version  }}/misc/savepoint-limitations.md %}
+{{ partial "{{ page.version.version }}/misc/savepoint-limitations.md" . }}
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/savepoint.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/savepoint.html" . }}
 </div>
 
 ## Required privileges
@@ -26,7 +26,7 @@ name      | The name of the savepoint.  Defaults to `cockroach_restart`, but may
 
 ## Customizing the savepoint name
 
-{%  include {{  page.version.version  }}/misc/customizing-the-savepoint-name.md %}
+{{ partial "{{ page.version.version }}/misc/customizing-the-savepoint-name.md" . }}
 
 ## Example
 
@@ -34,32 +34,32 @@ After you `BEGIN` the transaction, you must create the savepoint to identify tha
 
 Applications using `SAVEPOINT` must also include functions to execute retries with [`ROLLBACK TO SAVEPOINT `](rollback-transaction.html#retry-a-transaction).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SAVEPOINT cockroach_restart;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > UPDATE products SET inventory = 0 WHERE sku = '8675309';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO orders (customer, sku, status) VALUES (1001, '8675309', 'new');
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RELEASE SAVEPOINT cockroach_restart;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > COMMIT;
 ~~~

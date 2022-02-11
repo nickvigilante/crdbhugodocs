@@ -14,7 +14,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 1. Use the [`cockroach start`](cockroach-start.html) command to start 3 nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -25,7 +25,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -36,7 +36,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -49,7 +49,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 2. Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init \
     --insecure \
@@ -60,7 +60,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 1. Use the [`cockroach workload`](cockroach-workload.html) command to generate an example `intro` database:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init intro \
     'postgresql://root@localhost:26257?sslmode=disable'
@@ -68,12 +68,12 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 2. Open the [built-in SQL shell](cockroach-sql.html) and verify that the new `intro` database was added with one table, `mytable`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=localhost:26257
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW DATABASES;
     ~~~
@@ -88,7 +88,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     (4 rows)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW TABLES FROM intro;
     ~~~
@@ -100,7 +100,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     (1 row)
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM intro.mytable WHERE (l % 2) = 0;
     ~~~
@@ -134,7 +134,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 3. Exit the SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > \q
     ~~~
@@ -151,7 +151,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 2. With those concepts in mind, open the Admin UI at <a href="http://localhost:8080" data-proofer-ignore>http://localhost:8080</a> and view the **Node List**:
 
-    <img src="{{  'images/v19.2/replication1.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v19.2/replication1.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     Note that the **Replicas** count is the same on all three nodes. This indicates:
     - There are this many "ranges" of data in the cluster. These are mostly internal "system" ranges since you haven't added much table data.
@@ -160,7 +160,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 ## Step 4. Add two more nodes
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -171,7 +171,7 @@ $ cockroach start \
 --background
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start \
 --insecure \
@@ -186,7 +186,7 @@ $ cockroach start \
 
 Back in the Admin UI, you'll see that there are now 5 nodes listed:
 
-<img src="{{  'images/v19.2/replication2.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/replication2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 At first, the replica count will be lower for nodes 4 and 5. Very soon, however, you'll see those numbers even out across all nodes, indicating that data is being automatically rebalanced to utilize the additional capacity of the new nodes.
 
@@ -194,31 +194,31 @@ At first, the replica count will be lower for nodes 4 and 5. Very soon, however,
 
 1. When you're done with your test cluster, use the [`cockroach quit`](cockroach-quit.html) command to gracefully shut down each node.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26257
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26258
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26259
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     For the last 2 nodes, the shutdown process will take longer (about a minute each) and will eventually force the nodes to stop. This is because, with only 2 of 5 nodes left, a majority of replicas are not available, and so the cluster is no longer operational.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26260
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26261
     ~~~
@@ -227,7 +227,7 @@ At first, the replica count will be lower for nodes 4 and 5. Very soon, however,
 
     If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -rf rep-node1 rep-node2 rep-node3 rep-node4 rep-node5
     ~~~
@@ -236,4 +236,4 @@ At first, the replica count will be lower for nodes 4 and 5. Very soon, however,
 
 Explore other core CockroachDB benefits and features:
 
-{%  include {{  page.version.version  }}/misc/explore-benefits-see-also.md %}
+{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}

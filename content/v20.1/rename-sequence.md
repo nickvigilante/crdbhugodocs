@@ -6,9 +6,9 @@ toc: true
 
 The `RENAME TO` [statement](sql-statements.html) is part of [`ALTER SEQUENCE`](alter-sequence.html), and changes the name of a sequence.
 
-{{ site.data.alerts.callout_danger }}You cannot rename a sequence that's being used in a table. To rename the sequence, <a href="alter-column.html#remove-default-constraint">drop the <code>DEFAULT</code> expressions</a> that reference the sequence, rename the sequence, and <a href="alter-column.html#set-or-change-a-default-value">add the <code>DEFAULT</code> expressions</a> back.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_danger }}You cannot rename a sequence that's being used in a table. To rename the sequence, <a href="alter-column.html#remove-default-constraint">drop the <code>DEFAULT</code> expressions</a> that reference the sequence, rename the sequence, and <a href="alter-column.html#set-or-change-a-default-value">add the <code>DEFAULT</code> expressions</a> back.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}To understand how CockroachDB changes schema elements without requiring table locking or other user-visible downtime, see <a href="https://www.cockroachlabs.com/blog/how-online-schema-changes-are-possible-in-cockroachdb/">Online Schema Changes in CockroachDB</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To understand how CockroachDB changes schema elements without requiring table locking or other user-visible downtime, see <a href="https://www.cockroachlabs.com/blog/how-online-schema-changes-are-possible-in-cockroachdb/">Online Schema Changes in CockroachDB</a>.{{site.data.alerts.end }}
 
 
 ## Required privileges
@@ -17,7 +17,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/rename_sequence.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/rename_sequence.html" . }}</section>
 
 ## Parameters
 
@@ -39,7 +39,7 @@ table td:first-child {
 
 In this example, we will change the name of sequence `customer_seq` to `customer_number`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -55,7 +55,7 @@ In this example, we will change the name of sequence `customer_seq` to `customer
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER SEQUENCE test_db.customer_seq RENAME TO test_db.customer_number;
 ~~~
@@ -63,7 +63,7 @@ In this example, we will change the name of sequence `customer_seq` to `customer
 RENAME SEQUENCE
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -83,7 +83,7 @@ RENAME SEQUENCE
 
 In this example, we will move the sequence we renamed in the first example (`customer_number`) to a different database.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.sequences;
 ~~~
@@ -99,7 +99,7 @@ In this example, we will move the sequence we renamed in the first example (`cus
 (4 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER SEQUENCE test_db.customer_number RENAME TO db_2.customer_number;
 ~~~

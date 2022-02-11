@@ -6,9 +6,9 @@ toc: true
 
 This page walks you through deploying an application and database in multiple regions. It is the fifth and final section of the [Develop and Deploy a Multi-Region Web Application](multi-region-overview.html) tutorial.
 
-{%  include {{  page.version.version  }}/misc/movr-flask-211.md %}
+{{ partial "{{ page.version.version }}/misc/movr-flask-211.md" . }}
 
-{%  include {{  page.version.version  }}/misc/movr-live-demo.md %}
+{{ partial "{{ page.version.version }}/misc/movr-live-demo.md" . }}
 
 ## Before you begin
 
@@ -46,14 +46,14 @@ In production, you want to start a secure CockroachDB cluster, with nodes on mac
 
 1. Open a new terminal, and run the `dbinit.sql` file on the running cluster to initialize the database. You can connect to the database from any node on the cluster for this step.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --url any-connection-string < dbinit.sql
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     You need to specify the password in the connection string!
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     e.g.,
 
@@ -61,9 +61,9 @@ In production, you want to start a secure CockroachDB cluster, with nodes on mac
     $ cockroach sql --url \ 'postgresql://user:password@region.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=certs-dir/movr-app-ca.crt' < dbinit.sql
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can also deploy CockroachDB manually. For instructions, see the [Manual Deployment](manual-deployment.html) page of the Cockroach Labs documentation site.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Multi-region application deployment (GKE)
 
@@ -71,9 +71,9 @@ To deploy an application in multiple regions in production, we recommend that yo
 
 In this tutorial, we use [kubemci](https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress) to configure a GCP HTTP Load Balancer to container clusters deployed on GKE.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To serve a secure web application, you also need a public domain name!
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. If you do not have a gcloud account, create one at https://cloud.google.com/.
 
@@ -81,37 +81,37 @@ To serve a secure web application, you also need a public domain name!
 
 1. **Optional:** Enable the [Google Maps Embed API](https://console.cloud.google.com/apis/library), create an API key, restrict the API key to all subdomains of your domain name (e.g., `https://site.com/*`), and retrieve the API key.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The example HTML templates include maps. Not providing an API key to the application will not break the application.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Configure/authorize the `gcloud` CLI to use your project and region.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud init
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud auth login
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud auth application-default login
     ~~~
 
 1. If you haven't already, install `kubectl`.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud components install kubectl
     ~~~
 
 1. Build and run the Docker image locally.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ docker build -t gcr.io/<gcp_project>/movr-app:v1 .
     ~~~
@@ -120,26 +120,26 @@ To serve a secure web application, you also need a public domain name!
 
 1. Push the Docker image to the project’s gcloud container registry.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ docker push gcr.io/<gcp_project>/movr-app:v1
     ~~~
 
 1. Create a K8s cluster for all three regions.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud config set compute/zone us-east1-b && \
       gcloud container clusters create movr-us-east
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud config set compute/zone us-west1-b && \
       gcloud container clusters create movr-us-west
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell  
     $ gcloud config set compute/zone europe-west1-b && \
       gcloud container clusters create movr-europe-west
@@ -147,24 +147,24 @@ To serve a secure web application, you also need a public domain name!
 
 1. Add the container credentials to `kubeconfig`.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ KUBECONFIG=~/mcikubeconfig gcloud container clusters get-credentials --zone=us-east1-b movr-us-east
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ KUBECONFIG=~/mcikubeconfig gcloud container clusters get-credentials --zone=us-west1-b movr-us-west
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ KUBECONFIG=~/mcikubeconfig gcloud container clusters get-credentials --zone=europe-west1-b movr-europe-west
     ~~~
 
 1. For each cluster context, create a secret for the connection string, Google Maps API, and the certs, and then create the k8s deployment and service using the `movr.yaml` manifest file:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ kubectl config use-context <context-name> && \
     kubectl create secret generic movr-db-cert --from-file=cert=<full-path-to-cert> && \
@@ -181,20 +181,20 @@ To serve a secure web application, you also need a public domain name!
       <li>`<APIkey>` is the API key for the [Google Maps Embed API](https://console.cloud.google.com/apis/library). This API key is *not* required to run the demo application. Not providing a Google Maps Embed API key will not break the application.</li>
     </ul>
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     Secrets must be generated for each cluster context.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Reserve a static IP address for the ingress.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud compute addresses create --global movr-ip
     ~~~
 
     To verify that you successfully created the new IP address, run the following command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ gcloud compute addresses list
     ~~~
@@ -202,14 +202,14 @@ To serve a secure web application, you also need a public domain name!
 
 1. Download [`kubemci`](https://github.com/GoogleCloudPlatform/k8s-multicluster-ingress), and then make it executable:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod +x ~/kubemci
     ~~~
 
 1. Use `kubemci` to make the ingress.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ~/kubemci create movr-mci \
     --ingress=<path>/movr-flask/mcingress.yaml \
@@ -217,9 +217,9 @@ To serve a secure web application, you also need a public domain name!
     --kubeconfig=<path>/mcikubeconfig
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     `kubemci` requires full paths.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. In GCP's **Load balancing** console (found under **Network Services**), select and edit the load balancer that you just created.
 
@@ -233,13 +233,13 @@ To serve a secure web application, you also need a public domain name!
         - On the "**Create a new certificate**" page, give a name to the certificate (e.g., "`movr-ssl-cert`"), check "**Create Google-managed certificate**", and then under "Domains", enter a domain name that you own and want to use for your application.
     1. Review and finalize the load balancer, and then "**Update**".
 
-        {{ site.data.alerts.callout_info }}
+        {{site.data.alerts.callout_info }}
         It will take several minutes to provision the SSL certificate that you just created for the frontend.
-        {{ site.data.alerts.end }}
+        {{site.data.alerts.end }}
 
 1. Check the status of the ingress.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ~/kubemci list --gcp-project=<gcp_project>
     ~~~
@@ -250,9 +250,9 @@ To serve a secure web application, you also need a public domain name!
 
 1. Outside of the GCP console, through your domain name provider, add the nameserver addresses to the authoritative nameserver list for your domain name.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     It can take up to 48 hours for changes to the authoritative nameserver list to take effect.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Navigate to the domain name and test out your application.
 

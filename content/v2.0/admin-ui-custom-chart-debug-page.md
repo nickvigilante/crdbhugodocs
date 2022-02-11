@@ -23,19 +23,19 @@ The dropdown menus above the chart are used to set:
 - The time span to chart
 - The units to display
 
-<img src="{{  'images/v2.0/admin-ui-custom-chart-debug-00.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-custom-chart-debug-00.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 The table below the chart shows which metrics are being queried, and how they'll be combined and displayed.
 
 Options include:
 
-{%  include {{ page.version.version }}/admin-ui-custom-chart-debug-page-00.html %}
+{{ partial "{{ page.version.version }}/admin-ui-custom-chart-debug-page-00.html" . }}
 
 ## Examples
 
 ### Query User and System CPU Usage
 
-<img src="{{  'images/v2.0/admin-ui-custom-chart-debug-00.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin-ui-custom-chart-debug-00.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 To compare system vs. userspace CPU usage, select the following values under **Metric Name**:
 
@@ -48,11 +48,11 @@ Checking **Per Node** displays statistics for each node, which could show whethe
 
 ## Available Metrics
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This list is taken directly from the source code and is subject to change. Some of the metrics listed below are already visible in other areas of the [Admin UI](admin-ui-overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{ page.version.version }}/metric-names.md %}
+{{ partial "{{ page.version.version }}/metric-names.md" . }}
 
 ## See Also
 

@@ -11,19 +11,19 @@ The **Changefeeds** dashboard displays the following time series graphs:
 
 ## Max Changefeed Latency
 
-<img src="{{  'images/v19.2/admin_ui_max_changefeed.png' | relative_url  }}" alt="CockroachDB Admin UI Max Changefeed Latency graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/admin_ui_max_changefeed.png' | relative_url }}" alt="CockroachDB Admin UI Max Changefeed Latency graph" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the maximum latency for resolved timestamps of any running changefeed for the node.
 
 - In the cluster view, the graph shows the maximum latency for resolved timestamps of any running changefeed across all nodes.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The maximum latency for resolved timestamps is distinct from and slower than the commit-to-emit latency for individual change messages. For more information about resolved timestamps, see [Ordering guarantees](change-data-capture.html#ordering-guarantees).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Sink Byte Traffic
 
-<img src="{{  'images/v19.2/admin_ui_sink_byte_traffic.png' | relative_url  }}" alt="CockroachDB Admin UI Sink Byte Traffic graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/admin_ui_sink_byte_traffic.png' | relative_url }}" alt="CockroachDB Admin UI Sink Byte Traffic graph" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the number of bytes emitted by CockroachDB into the sink across all changefeeds for the selected node.
 
@@ -37,7 +37,7 @@ Metric | Description
 
 ## Sink Counts
 
-<img src="{{  'images/v19.2/admin_ui_sink_counts.png' | relative_url  }}" alt="CockroachDB Admin UI Sink Counts graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/admin_ui_sink_counts.png' | relative_url }}" alt="CockroachDB Admin UI Sink Counts graph" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the number of messages that CockroachDB sent to the sink as well as the number of flushes that the sink performed for all changefeeds.
 
@@ -52,7 +52,7 @@ Metric | Description
 
 ## Sink Timings
 
-<img src="{{  'images/v19.2/admin_ui_sink_timings.png' | relative_url  }}" alt="CockroachDB Admin UI Sink Timings graph" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v19.2/admin_ui_sink_timings.png' | relative_url }}" alt="CockroachDB Admin UI Sink Timings graph" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the time in milliseconds per second required by CockroachDB to send messages to the sink as well as the time CockroachDB spent waiting for the sink to flush the messages for all changefeeds.
 

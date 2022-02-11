@@ -5,7 +5,7 @@ toc: true
 docs_area: stream_data
 ---
 
-{{  site.data.products.enterprise  }} changefeeds emit messages to configurable downstream sinks. CockroachDB supports the following sinks:
+{{ site.data.products.enterprise }} changefeeds emit messages to configurable downstream sinks. CockroachDB supports the following sinks:
 
 - [Kafka](#kafka)
 - [Cloud Storage](#cloud-storage-sink)
@@ -44,9 +44,9 @@ To modify the default topic naming, you can specify a [topic prefix](create-chan
 
 You can either manually create a topic in your Kafka cluster before starting the changefeed, or the topic will be automatically created when the changefeed connects to your Kafka cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You must have the Kafka cluster setting [`auto.create.topics.enable`](https://kafka.apache.org/documentation/#brokerconfigs_auto.create.topics.enable) set to `true` for automatic topic creation. This will create the topic when the changefeed sends its first message. If you create the consumer before that, you will also need the Kafka consumer configuration [`allow.auto.create.topics`](https://kafka.apache.org/documentation/#consumerconfigs_allow.auto.create.topics) to be set to `true`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Kafka has the following topic limitations:
 
@@ -59,9 +59,9 @@ Kafka has the following topic limitations:
 
 <span class="version-tag">New in v21.2:</span> The `kafka_sink_config` option allows configuration of a changefeed's message delivery, Kafka server version, and batching parameters.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Each of the following settings have significant impact on a changefeed's behavior, such as latency. For example, it is possible to configure batching parameters to be very high, which would negatively impact changefeed latency. As a result it would take a long time to see messages coming through to the sink. Also, large batches may be rejected by the Kafka server unless it's separately configured to accept a high [`max.message.bytes`](https://kafka.apache.org/documentation/#brokerconfigs_message.max.bytes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ~~~
 kafka_sink_config='{"Flush": {"MaxMessages": 1, "Frequency": "1s"}, "Version": "0.8.2.0", "RequiredAcks": "ONE" }'
@@ -118,9 +118,9 @@ Examples of supported cloud storage sink URIs:
 
 ## Webhook sink
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The webhook sink is currently in **beta**. For more information, read about its usage considerations, available [parameters](create-changefeed.html#parameters), and [options](create-changefeed.html#options) below.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <span class="version-tag">New in v21.2:</span> Use a webhook sink to deliver changefeed messages to an arbitrary HTTP endpoint.
 
@@ -150,9 +150,9 @@ Field              | Type                | Description      | Default
 `Retry.Max`        | [`INT`](int.html) or [`STRING`](string.html) | The maximum amount of time the sink will retry a single HTTP request to send a batch. This value must be positive (> 0). If infinite retries are desired, use `inf`. | `"0s"`
 `Retry.Backoff`    | [`INTERVAL`](interval.html) | The initial backoff the sink will wait after the first failure. The backoff will double (exponential backoff strategy), until the max is hit. | `"500ms"`
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Setting either `Messages` or `Bytes` with a non-zero value without setting `Frequency`, will cause the sink to assume `Frequency` has an infinity value. If either `Messages` or `Bytes` have a non-zero value, then a non-zero value for `Frequency` **must** be provided. This configuration is invalid and will cause an error, since the messages could sit in a batch indefinitely if the other conditions do not trigger.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Some complexities to consider when setting `Flush` fields for batching:
 

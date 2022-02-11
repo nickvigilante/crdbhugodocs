@@ -11,7 +11,7 @@ This page provides an overview on changing and removing the objects in a databas
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.db  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.db }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Review the database schema objects](schema-design-overview.html).
 - [Create a database](schema-design-database.html).
 - [Create a user-defined schema](schema-design-schema.html).
@@ -53,9 +53,9 @@ CockroachDB supports the following `ALTER` statements:
 
 - For `ALTER TABLE` statements, combine multiple subcommands in a single `ALTER TABLE` statement, where possible.
 
-- {%  include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {{ partial "{{ page.version.version }}/sql/dev-schema-changes.md" . }}
 
-- {%  include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
+- {{ partial "{{ page.version.version }}/sql/dev-schema-change-limits.md" . }}
 
 ### Altering objects examples
 
@@ -75,21 +75,21 @@ The `ALTER TABLE` statement has subcommands for all of these changes:
 
 Create a new `.sql` file for the changes that you plan to make to the table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ touch update_users_table.sql
 ~~~
 
 Open `update_users_table.sql` in a text editor, and add the `ALTER TABLE` statement for adding the `username` column:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE IF EXISTS movr.max_schema.users ADD COLUMN username STRING;
 ~~~
 
 Under that first `ALTER TABLE` statement, add another `ALTER TABLE` statement for changing the primary key columns to `username` and `email`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE IF EXISTS movr.max_schema.users ALTER PRIMARY KEY USING COLUMNS (username, email);
 ~~~
@@ -98,7 +98,7 @@ In order to add a column to an existing table's primary key index, the column mu
 
 Add a `NOT NULL` constraint to the `ADD COLUMN` subcommand for `username`. In the same `ALTER TABLE` statement, add an [`ALTER COLUMN` subcommand](alter-column.html) to set the `NOT NULL` constraint on the `email` column:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE IF EXISTS movr.max_schema.users
   ADD COLUMN username STRING NOT NULL,
@@ -107,7 +107,7 @@ ALTER TABLE IF EXISTS movr.max_schema.users
 
 The file should now look something like this:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE IF EXISTS movr.max_schema.users
   ADD COLUMN username STRING NOT NULL,
@@ -120,14 +120,14 @@ The remaining changes that you want to make will require `ALTER TABLE` statement
 
 Create a new `.sql` file for the remaining `ALTER TABLE` statements, to be executed by `root`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ touch update_users_owner.sql
 ~~~
 
 Add the following statements to the file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE IF EXISTS movr.max_schema.users SET SCHEMA abbey_schema;
 
@@ -136,7 +136,7 @@ ALTER TABLE IF EXISTS movr.abbey_schema.users OWNER TO abbey;
 
 To execute the statements in the `update_users_table.sql` file as `max`, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -147,7 +147,7 @@ $ cockroach sql \
 
 To execute the statements in the `update_users_owner.sql` file as `root`, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -160,7 +160,7 @@ The `users` table should now have a new column, a different primary key, a diffe
 
 You can verify with some `SHOW` statements:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -232,9 +232,9 @@ CockroachDB supports the following `DROP` statements:
 - [`DROP VIEW`](drop-view.html)
 - [`DROP USER/ROLE`](drop-user.html)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To drop columns and column constraints from a table, use the `DROP COLUMN` and `DROP CONSTRAINT` subcommands of the [`ALTER TABLE`](alter-table.html) statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Drop best practices
 
@@ -244,7 +244,7 @@ To drop columns and column constraints from a table, use the `DROP COLUMN` and `
 
 Suppose that you want to drop an index that isn't being used very much. In particular, you want to drop the index on `first_name` and `last_name` from the `users` table.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -285,23 +285,23 @@ Note that `users_first_name_last_name_key` is a `UNIQUE` index, which means that
 
 Create a new file, and add the `DROP` statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ touch drop_unique_users_idx.sql
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 After creation, the notation for referring to indexes in CockroachDB is `[table_name]@[index_name]`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~
 DROP INDEX movr.abbey_schema.users@users_first_name_last_name_key CASCADE;
 ~~~
 
 To drop the index, execute the file:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -310,7 +310,7 @@ $ cockroach sql \
 -f drop_unique_users_idx.sql
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \

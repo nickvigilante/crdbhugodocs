@@ -8,9 +8,9 @@ The `PRIMARY KEY` [constraint](constraints.html) specifies that the constrained 
 
 Unlike other constraints which have very specific uses, the `PRIMARY KEY` constraint *should be used for every table* because it provides an intrinsic structure to the table's data. This both makes it easier to understand, as well as improving query performance.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A table's primary key can only be specified in the [`CREATE TABLE`](create-table.html) statement. It cannot be changed later using `ALTER TABLE`, though it is possible to [go through a process](constraints.html#change-constraints) to create a new table with the new primary key you want and then migrate the data.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Details
 
@@ -35,7 +35,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 ### Column level
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/primary_key_column_level.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_column_level.html" . }}
 </div>
 
  Parameter | Description
@@ -49,7 +49,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 **Example**
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        INT PRIMARY KEY,
@@ -63,7 +63,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 ### Table level
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/primary_key_table_level.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_table_level.html" . }}
 </div>
 
  Parameter | Description
@@ -76,7 +76,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 **Example**
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -88,7 +88,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 ## Usage example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -98,12 +98,12 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -112,7 +112,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~

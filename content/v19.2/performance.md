@@ -9,15 +9,15 @@ CockroachDB delivers predictable throughput and latency at all scales on commodi
 
 For instructions to reproduce the TPC-C results listed here, see [Performance Benchmarking with TPC-C](performance-benchmarking-with-tpc-c-100k-warehouses.html). If you fail to achieve similar results, there is likely a problem in either the hardware, workload, or test design. Instructions to reproduce Sysbench and KV results are coming soon.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 This document is about CockroachDB’s performance on benchmarks. For guidance on tuning real workloads, see [SQL Best Practices](performance-best-practices-overview.html), and for guidance on data location techniques to minimize network latency, see [Topology Patterns](topology-patterns.html).  
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Scale
 
 TPC-C provides the most realistic and objective measure for OLTP performance at various scale factors, and CockroachDB can process **1.2M tpmC with 100,000 warehouses, a nearly perfect score.** For a refresher on what exactly TPC-C is and how it is measured, see [Benchmarks used](#benchmarks-used) below.
 
-<img src="{{  'images/v19.2/tpcc100k.png' | relative_url  }}" alt="TPC-C 100,000" style="max-width:100%" />
+<img src="{{ 'images/v19.2/tpcc100k.png' | relative_url }}" alt="TPC-C 100,000" style="max-width:100%" />
 
 Metric                             | CockroachDB Results       
 -----------------------------------|-------------------
@@ -34,7 +34,7 @@ CockroachDB achieves this performance in [`SERIALIZABLE` isolation](demo-seriali
 
 CockroachDB has **no theoretical scaling limit** and, in practice, can achieve near-linear performance at 256 nodes. Because the TPC-C results above reflect leaps in scale, to test linear scaling, Cockroach Labs ran a simple benchmark named KV 95 (95% point reads, 5% point writes, all uniformly distributed) on AWS `c5d.4xlarge` machines:
 
-<img src="{{  'images/v19.2/linearscale.png' | relative_url  }}" alt="CRDB Linear Scale" style="max-width:100%" />
+<img src="{{ 'images/v19.2/linearscale.png' | relative_url }}" alt="CRDB Linear Scale" style="max-width:100%" />
 
 This chart shows that adding nodes increases throughput linearly while holding p50 and p99 latency constant. The concurrency for each scale was chosen to optimize throughput while maintaining an acceptable latency and can be observed in the table below.
 
@@ -51,7 +51,7 @@ As mentioned above, Cockroach Labs believes TPC-C provides the most realistic an
 
 With that in mind, however, you can use [Sysbench](https://github.com/akopytov/sysbench) for straight-forward throughput benchmarking. For example, on a 3-node cluster of AWS `c5d.9xlarge` machines across AWS’s `us-east-1` region (availability zones `a`, `b`, and `c`), CockroachDB can achieve 118,000 inserts per second on the `oltp_insert` workload and 336,000 reads per second on the `oltp_point_select` workload. We used a concurrency of 480 on the `oltp_insert` workload and a concurrency of 216 on the `oltp_point_select` workload to generate these numbers.
 
-<img src="{{  'images/v19.2/sysbench-throughput.png' | relative_url  }}" alt="Sysbench Throughput" style="max-width:100%" />
+<img src="{{ 'images/v19.2/sysbench-throughput.png' | relative_url }}" alt="Sysbench Throughput" style="max-width:100%" />
 
 
 ## Latency
@@ -62,7 +62,7 @@ For benchmarking latency, again, Cockroach Labs believes TPC-C provides the most
 
 For example, when running Sysbench on a 3-node cluster of AWS `c5d.9xlarge` machines across AWS’s `us-east-1` region (availability zones `a`, `b`, and `c`), CockroachDB can achieve an average of 4.3ms on the `oltp_insert` workload and 0.7ms on the `oltp_point_select` workload.
 
-<img src="{{  'images/v19.2/sysbench-latency.png' | relative_url  }}" alt="Sysbench Latency" style="max-width:100%" />
+<img src="{{ 'images/v19.2/sysbench-latency.png' | relative_url }}" alt="Sysbench Latency" style="max-width:100%" />
 
 CockroachDB provides a number of important tuning practices for both single-region and multi-region deployments, including [secondary indexes](indexes.html) and various [data topologies](topology-patterns.html) to achieve low latency.
 

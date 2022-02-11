@@ -12,25 +12,25 @@ In a multi-region deployment, [follower reads](follower-reads.html) are a good c
 - Rows in the table, and all latency-sensitive queries, **cannot** be tied to specific geographies (e.g., a reference table).
 - Table data must remain available during a region failure.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If reads from a table must be exactly up-to-date, use [global tables](global-tables.html) or [regional tables](regional-tables.html) instead. Up-to-date reads are required by tables referenced by [foreign keys](foreign-key.html), for example.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
 ### Fundamentals
 
-{%  include {{  page.version.version  }}/topology-patterns/fundamentals.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
 
 ### Cluster setup
 
-{%  include {{  page.version.version  }}/topology-patterns/multi-region-cluster-setup.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
 
 ## Configuration
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Follower reads requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Summary
 
@@ -38,11 +38,11 @@ You configure your application to use [follower reads](follower-reads.html) by a
 
 ### Steps
 
-<img src="{{  'images/v21.2/topology-patterns/topology_follower_reads1.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v21.2/topology-patterns/topology_follower_reads1.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE postal_codes (
     id INT PRIMARY KEY,
@@ -52,7 +52,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 Insert some data:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO postal_codes (ID, code) VALUES (1, '10001'), (2, '10002'), (3, '10003'), (4,'60601'), (5,'60602'), (6,'60603'), (7,'90001'), (8,'90002'), (9,'90003');
 ~~~
@@ -63,7 +63,7 @@ Insert some data:
 
    - To use [_exact staleness_ follower reads](follower-reads.html#exact-staleness-reads), configure your app to use [`AS OF SYSTEM TIME`](as-of-system-time.html) with the [`follower_read_timestamp()` function](functions-and-operators.html) whenever reading from the table:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT code FROM postal_codes
         AS OF SYSTEM TIME follower_read_timestamp()
@@ -72,7 +72,7 @@ Insert some data:
 
     You can also set the `AS OF SYSTEM TIME` value for all operations in a read-only transaction:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > BEGIN;
 
@@ -87,13 +87,13 @@ Insert some data:
     COMMIT;
     ~~~
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use exact staleness follower reads from [drivers and ORMs](install-client-drivers.html).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
    - <span class="version-tag">New in v21.2:</span> To use [_bounded staleness_ follower reads](follower-reads.html#bounded-staleness-reads), configure your app to use [`AS OF SYSTEM TIME`](as-of-system-time.html) with the [`with_min_timestamp()` or `with_max_staleness()` functions](functions-and-operators.html) whenever reading from the table. Note that only single-row point reads in single-statement (implicit) transactions are supported.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SELECT code FROM postal_codes AS OF SYSTEM TIME with_max_staleness('10s') where id = 5;
     ~~~
@@ -114,7 +114,7 @@ For example, in the animation below:
 4. The replica retrieves the results as of your preferred staleness interval in the past and returns to the gateway node.
 5. The gateway node returns the results to the client.
 
-<img src="{{  'images/v21.2/topology-patterns/topology_follower_reads_reads.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v21.2/topology-patterns/topology_follower_reads_reads.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 #### Writes
 
@@ -130,14 +130,14 @@ For example, in the animation below:
 6. The leaseholder then returns acknowledgement of the commit to the gateway node.
 7. The gateway node returns the acknowledgement to the client.
 
-<img src="{{  'images/v21.2/topology-patterns/topology_follower_reads_writes.gif' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v21.2/topology-patterns/topology_follower_reads_writes.gif' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 ### Resiliency
 
 Because this pattern balances the replicas for the table across regions, one entire region can fail without interrupting access to the table:
 
-<img src="{{  'images/v21.2/topology-patterns/topology_follower_reads_resiliency.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v21.2/topology-patterns/topology_follower_reads_resiliency.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
 ## See also
 
-{%  include {{  page.version.version  }}/topology-patterns/see-also.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}

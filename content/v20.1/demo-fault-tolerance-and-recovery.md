@@ -14,7 +14,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 1. Use the [`cockroach start`](cockroach-start.html) command to start 6 nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -25,7 +25,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -36,7 +36,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -47,7 +47,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -58,7 +58,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -69,7 +69,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -82,7 +82,7 @@ Make sure you have already [installed CockroachDB](install-cockroachdb.html).
 
 2. Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init \
     --insecure \
@@ -103,7 +103,7 @@ In this module, you'll run a sample workload to simulate multiple client connect
 
     <div class="filter-content" markdown="1" data-scope="mac">
     If you're on a Mac and use Homebrew, run:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ brew install haproxy
     ~~~
@@ -111,7 +111,7 @@ In this module, you'll run a sample workload to simulate multiple client connect
 
     <div class="filter-content" markdown="1" data-scope="linux">
     If you're using Linux and use apt-get, run:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get install haproxy
     ~~~
@@ -119,7 +119,7 @@ In this module, you'll run a sample workload to simulate multiple client connect
 
 2. Run the [`cockroach gen haproxy`](cockroach-gen.html) command, specifying the port of any node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach gen haproxy \
     --insecure \
@@ -131,14 +131,14 @@ In this module, you'll run a sample workload to simulate multiple client connect
 
 3. In `haproxy.cfg`, change `bind :26257` to `bind :26000`. This changes the port on which HAProxy accepts requests to a port that is not already in use by a node.
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     sed -i.saved 's/^    bind :26257/    bind :26000/' haproxy.cfg
     ~~~
 
 4. Start HAProxy, with the `-f` flag pointing to the `haproxy.cfg` file:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ haproxy -f haproxy.cfg &
     ~~~
@@ -149,7 +149,7 @@ Now that you have a load balancer running in front of your cluster, use the [`co
 
 1. Load the initial `ycsb` schema and data, pointing it at HAProxy's port:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload init ycsb --splits=50 \
     'postgresql://root@localhost:26000?sslmode=disable'
@@ -159,7 +159,7 @@ Now that you have a load balancer running in front of your cluster, use the [`co
 
 2. Run the `ycsb` workload, pointing it at HAProxy's port:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach workload run ycsb \
     --duration=20m \
@@ -198,25 +198,25 @@ Initially, the workload creates a new database called `ycsb`, creates a `usertab
 
 2. To check the SQL queries getting executed, click **Metrics** on the left, and hover over the **SQL Queries** graph at the top:
 
-    <img src="{{  'images/v20.1/fault-tolerance-1.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/fault-tolerance-1.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 3. To check the client connections from the load generator, select the **SQL** dashboard and hover over the **SQL Connections** graph:
 
-    <img src="{{  'images/v20.1/fault-tolerance-2.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/fault-tolerance-2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     You'll notice 3 client connections from the load generator. If you want to check that HAProxy balanced each connection to a different node, you can change the **Graph** dropdown from **Cluster** to specific nodes.
 
 4. To see more details about the `ycsb` database and `usertable` table, click **Databases** in the upper left and then scroll down until you see **ycsb**:
 
-    <img src="{{  'images/v20.1/fault-tolerance-3.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/fault-tolerance-3.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     You can also view the schema of the `usertable` by clicking the table name:
 
-    <img src="{{  'images/v20.1/fault-tolerance-4.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />    
+    <img src="{{ 'images/v20.1/fault-tolerance-4.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />    
 
 5. By default, CockroachDB replicates all data 3 times and balances it across all nodes. To see this balance, click **Overview** and check the replica count across all nodes:
 
-    <img src="{{  'images/v20.1/fault-tolerance-6.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/fault-tolerance-6.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 ## Step 5. Simulate a single node failure
 
@@ -224,7 +224,7 @@ When a node fails, the cluster waits for the node to remain offline for 5 minute
 
 1. In a new terminal, [edit the default replication zone](configure-replication-zones.html) to reduce the amount of time the cluster waits before considering a node dead to the minimum allowed of 1 minute and 15 seconds:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -234,7 +234,7 @@ When a node fails, the cluster waits for the node to remain offline for 5 minute
 
 2. Then use the [`cockroach quit`](cockroach-quit.html) command to stop a node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit \
     --insecure \
@@ -245,7 +245,7 @@ When a node fails, the cluster waits for the node to remain offline for 5 minute
 
 Go back to the Admin UI, click **Metrics** on the left, and verify that the cluster as a whole continues serving data, despite one of the nodes being unavailable and marked as **Suspect**:
 
-<img src="{{  'images/v20.1/fault-tolerance-7.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/fault-tolerance-7.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 This shows that when all ranges are replicated 3 times (the default), the cluster can tolerate a single node failure because the surviving nodes have a majority of each range's replicas (2/3).
 
@@ -253,7 +253,7 @@ This shows that when all ranges are replicated 3 times (the default), the cluste
 
 Click **Overview** on the left:
 
-<img src="{{  'images/v20.1/fault-tolerance-5.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.1/fault-tolerance-5.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 Because you reduced the time it takes for the cluster to consider the down node dead, after 1 minute or so, the cluster will consider the down node "dead", and you'll see the replica count on the remaining nodes increase and the number of under-replicated ranges decrease to 0. This shows the cluster repairing itself by re-replicating missing replicas.
 
@@ -265,7 +265,7 @@ To be able to tolerate 2 of 5 nodes failing simultaneously without any service i
 
 1. Restart the dead node, using the same command you used to start the node initially:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -278,14 +278,14 @@ To be able to tolerate 2 of 5 nodes failing simultaneously without any service i
 
 2. Use the [`ALTER RANGE ... CONFIGURE ZONE`](configure-zone.html) command to change the cluster's `default` replication factor to 5:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas=5;" --insecure --host=localhost:26000
     ~~~
 
 3. Back in the Admin UI **Overview** dashboard, watch the replica count increases and even out across all 6 nodes:
 
-    <img src="{{  'images/v20.1/fault-tolerance-8.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/fault-tolerance-8.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     This shows the cluster up-replicating so that each range has 5 replicas, one on each node.
 
@@ -293,12 +293,12 @@ To be able to tolerate 2 of 5 nodes failing simultaneously without any service i
 
 Use the [`cockroach quit`](cockroach-quit.html) command to stop two nodes:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach quit --insecure --host=localhost:26260
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach quit --insecure --host=localhost:26261
 ~~~
@@ -307,13 +307,13 @@ $ cockroach quit --insecure --host=localhost:26261
 
 1. Like before, go to the Admin UI, click **Metrics** on the left, and verify that the cluster as a whole continues serving data, despite 2 nodes being offline:
 
-    <img src="{{  'images/v20.1/fault-tolerance-9.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+    <img src="{{ 'images/v20.1/fault-tolerance-9.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
     This shows that when all ranges are replicated 5 times, the cluster can tolerate 2 simultaneous node outages because the surviving nodes have a majority of each range's replicas (3/5).
 
 2. To verify this further, use the `cockroach sql` command to count the number of rows in the `ycsb.usertable` table and verify that it is still serving reads:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -330,7 +330,7 @@ $ cockroach quit --insecure --host=localhost:26261
 
     And writes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -338,7 +338,7 @@ $ cockroach quit --insecure --host=localhost:26261
     --execute="INSERT INTO ycsb.usertable VALUES ('asdf', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);"
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql \
     --insecure \
@@ -359,28 +359,28 @@ $ cockroach quit --insecure --host=localhost:26261
 
 2. Terminate HAProxy:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ pkill haproxy
     ~~~
 
 3. Use the [`cockroach quit`](cockroach-quit.html) command to shut down the remaining 4 nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26257
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     For the final 2 nodes, the shutdown process will take longer (about a minute each) and will eventually force the nodes to stop. This is because, with only 2 of 5 nodes left, a majority of replicas are not available, and so the cluster is no longer operational.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26258
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=localhost:26259
     ~~~
@@ -389,7 +389,7 @@ $ cockroach quit --insecure --host=localhost:26261
 
     If you do not plan to restart the cluster, you may want to remove the nodes' data stores and the HAProxy config files:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -rf fault-node1 fault-node2 fault-node3 fault-node4 fault-node5 fault-node6 haproxy.cfg haproxy.cfg.saved
     ~~~
@@ -398,4 +398,4 @@ $ cockroach quit --insecure --host=localhost:26261
 
 Explore other core CockroachDB benefits and features:
 
-{%  include {{  page.version.version  }}/misc/explore-benefits-see-also.md %}
+{{ partial "{{ page.version.version }}/misc/explore-benefits-see-also.md" . }}

@@ -33,7 +33,7 @@ In addition to the information listed below, see the following pages for specifi
 - [Migrate from GeoPackage][gpkg]
 - [Migrate from GeoJSON][geojson]
 
-{%  include {{  page.version.version  }}/misc/import-perf.md %}
+{{ partial "{{ page.version.version }}/misc/import-perf.md" . }}
 
 ## File storage during import
 

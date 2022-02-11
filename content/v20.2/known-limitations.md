@@ -42,7 +42,7 @@ If you are [performing an `IMPORT` of a `PGDUMP`](migrate-from-postgres.html) wi
 
 ### Historical reads on restored objects
 
-{%  include {{  page.version.version  }}/known-limitations/restore-aost.md %}
+{{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/53044)
 
@@ -98,19 +98,19 @@ CockroachDB supports efficiently storing and querying [spatial data](spatial-dat
 
 ### `SET` does not `ROLLBACK` in a transaction
 
-{%  include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
+{{ partial "{{ page.version.version }}/known-limitations/set-transaction-no-rollback.md" . }}
 
 ## Unresolved limitations
 
 ### Optimizer stale statistics deletion when columns are dropped
 
-* {%  include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
+* {{ partial "{{ page.version.version }}/known-limitations/old-multi-col-stats.md" . }}
 
-* {%  include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
+* {{ partial "{{ page.version.version }}/known-limitations/single-col-stats-deletion.md" . }}
 
 ### Automatic statistics refresher may not refresh after upgrade
 
-{%  include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
+{{ partial "{{ page.version.version }}/known-limitations/stats-refresh-upgrade.md" . }}
 
 ### Differences in syntax and behavior between CockroachDB and PostgreSQL
 
@@ -124,17 +124,17 @@ Using a [collation](collate.html) name with upper-case letters or hyphens may re
 
 For example, the following SQL will result in an error:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE nocase_strings (s STRING COLLATE "en-US-u-ks-level2");
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO nocase_strings VALUES ('Aaa' COLLATE "en-US-u-ks-level2"), ('Bbb' COLLATE "en-US-u-ks-level2");
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT s FROM nocase_strings WHERE s = ('bbb' COLLATE "en-US-u-ks-level2");
 ~~~
@@ -151,7 +151,7 @@ As a workaround, only use collation names that have lower-case letters and under
 
 It is not currently possible to use a subquery in a [`SET`](set-vars.html) or [`SET CLUSTER SETTING`](set-cluster-setting.html) statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET application_name = (SELECT 'a' || 'b');
 ~~~
@@ -174,9 +174,9 @@ As a workaround, take a cluster backup instead, as the `system.comments` table i
 
 ### Cold starts of large clusters may require manual intervention
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Resolved as of [v20.2.9](../releases/v20.2.9.html). See [#64567](https://github.com/cockroachdb/cockroach/pull/64567).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If a cluster contains a large amount of data (>500GiB / node), and all nodes are stopped and then started at the same time, clusters can enter a state where they're unable to startup without manual intervention. In this state, logs fill up rapidly with messages like `refusing gossip from node x; forwarding to node y`, and data and metrics may become inaccessible.
 
@@ -192,15 +192,15 @@ Once restarted, monitor the Replica Quiescence graph on the [**Replication Dashb
 
 ### Requests to restarted node in need of snapshots may hang
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Resolved as of [v20.2.4](../releases/v20.2.4.html). See [#57789](https://github.com/cockroachdb/cockroach/pull/57789).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 When a node is offline, the [Raft logs](architecture/replication-layer.html#raft-logs) for the ranges on the node get truncated. When the node comes back online, it therefore often needs [Raft snapshots](architecture/replication-layer.html#snapshots) to get many of its ranges back up-to-date. While in this state, requests to a range will hang until its snapshot has been applied, which can take a long time.
 
 To work around this limitation, you can adjust the `kv.snapshot_recovery.max_rate` [cluster setting](cluster-settings.html) to temporarily relax the throughput rate limiting applied to snapshots. For example, changing the rate limiting from the default 8 MB/s, at which 1 GB of snapshots takes at least 2 minutes, to 64 MB/s can result in an 8x speedup in snapshot transfers and, therefore, a much shorter interruption of requests to an impacted node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.snapshot_recovery.max_rate = '64mb';
 ~~~
@@ -211,7 +211,7 @@ Before increasing this value, however, verify that you will not end up saturatin
 
 ### Slow (or hung) backups and queries due to write intent buildup
 
-{%  include {{  page.version.version  }}/known-limitations/write-intent-buildup.md %}
+{{ partial "{{ page.version.version }}/known-limitations/write-intent-buildup.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/59704)
 
@@ -231,7 +231,7 @@ Make sure to do this across all nodes in the cluster and to keep this time zone 
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{%  include {{  page.version.version  }}/known-limitations/cdc.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
 
 ### DB Console may become inaccessible for secure clusters
 
@@ -265,7 +265,7 @@ CockroachDB tries to optimize most comparisons operators in `WHERE` and `HAVING`
 
 ### Using SQLAlchemy with CockroachDB
 
-Users of the SQLAlchemy adapter provided by Cockroach Labs must [upgrade the adapter to the latest release](https://github.com/cockroachdb/sqlalchemy-cockroachdb) before upgrading to CockroachDB {{  page.version.version  }}.
+Users of the SQLAlchemy adapter provided by Cockroach Labs must [upgrade the adapter to the latest release](https://github.com/cockroachdb/sqlalchemy-cockroachdb) before upgrading to CockroachDB {{ page.version.version }}.
 
 ### DB Console: CPU percentage calculation
 
@@ -307,19 +307,19 @@ As a workaround, set `default_int_size` via your database driver, or ensure that
 
 ### `COPY FROM` statements are not supported in the CockroachDB SQL shell
 
-{%  include {{  page.version.version  }}/known-limitations/copy-from-clients.md %}
+{{ partial "{{ page.version.version }}/known-limitations/copy-from-clients.md" . }}
 
 ### `COPY` syntax not supported by CockroachDB
 
-{%  include {{  page.version.version  }}/known-limitations/copy-syntax.md %}
+{{ partial "{{ page.version.version }}/known-limitations/copy-syntax.md" . }}
 
 ### Import with a high amount of disk contention
 
-{%  include {{  page.version.version  }}/known-limitations/import-high-disk-contention.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-high-disk-contention.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/19464)
 
@@ -327,22 +327,22 @@ As a workaround, set `default_int_size` via your database driver, or ensure that
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -356,19 +356,19 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the DB Console
 
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### Schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### Size limits on statement input from SQL clients
 
@@ -407,7 +407,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -419,7 +419,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -448,7 +448,7 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### Correlated common table expressions
 
-{%  include {{  page.version.version  }}/known-limitations/correlated-ctes.md %}
+{{ partial "{{ page.version.version }}/known-limitations/correlated-ctes.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/42540)
 
@@ -475,12 +475,12 @@ The [built-in SQL shell](cockroach-sql.html) stores its command history in a sin
 
 As a workaround, set the `COCKROACH_SQL_CLI_HISTORY` environment variable to different values for the two different shells, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_2
 ~~~
@@ -535,7 +535,7 @@ If the execution of a [join](joins.html) query exceeds the limit set for memory-
 
 ### Disk-spilling not supported for unordered aggregation operations
 
-{%  include {{  page.version.version  }}/known-limitations/unordered-operations.md %}
+{{ partial "{{ page.version.version }}/known-limitations/unordered-operations.md" . }}
 
 ### GIN indexes cannot be partitioned
 

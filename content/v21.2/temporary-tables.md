@@ -9,13 +9,13 @@ docs_area: develop
 
 To create a temp table, add `TEMP`/`TEMPORARY` to a [`CREATE TABLE`](create-table.html) or [`CREATE TABLE AS`](create-table-as.html) statement. For full syntax details, see the [`CREATE TABLE`](create-table.html#synopsis) and [`CREATE TABLE AS`](create-table-as.html#synopsis) pages. For example usage, see [Examples](#examples).
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This is an experimental feature**. The interface and output are subject to change. For details, see the tracking issue [cockroachdb/cockroach#46260](https://github.com/cockroachdb/cockroach/issues/46260).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 By default, temp tables are disabled in CockroachDB. To enable temp tables, set the `experimental_enable_temp_tables` [session variable](set-vars.html) to `on`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 CockroachDB also supports [temporary views](views.html#temporary-views) and [temporary sequences](create-sequence.html#temporary-sequences).
 
@@ -34,22 +34,22 @@ By default, every 30 minutes CockroachDB cleans up all temporary objects that ar
 
 Temp tables are not part of the `public` schema. Instead, when you create the first temp table for a session, CockroachDB generates a single temporary schema (`pg_temp_<id>`) for all of the temp tables, [temporary views](views.html#temporary-views), and [temporary sequences](create-sequence.html#temporary-sequences) in the current session for a database. In a session, you can reference the session's temporary schema as `pg_temp`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Because the [`SHOW TABLES`](show-tables.html) statement defaults to the `public` schema (which doesn't include temp tables), using `SHOW TABLES` without specifying a schema will not return any temp tables.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
 To use temp tables, you need to set `experimental_enable_temp_tables` to `on`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET experimental_enable_temp_tables=on;
 ~~~
 
 ### Create a temp table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TEMP TABLE users (
         id UUID,
@@ -62,7 +62,7 @@ To use temp tables, you need to set `experimental_enable_temp_tables` to `on`:
 
 You can use [`SHOW CREATE`](show-create.html) to view temp tables:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -83,7 +83,7 @@ You can use [`SHOW CREATE`](show-create.html) to view temp tables:
 
 To show the newly created `pg_temp` schema, use [`SHOW SCHEMAS`](show-schemas.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~
@@ -104,7 +104,7 @@ To show the newly created `pg_temp` schema, use [`SHOW SCHEMAS`](show-schemas.ht
 
 To create another temp table that references `users`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TEMP TABLE vehicles (
         id UUID NOT NULL,
@@ -117,7 +117,7 @@ To create another temp table that references `users`:
 );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -143,7 +143,7 @@ To create another temp table that references `users`:
 
 To show all temp tables in a session's temporary schema, use `SHOW TABLES FROM pg_temp`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES FROM pg_temp;
 ~~~
@@ -164,7 +164,7 @@ Although temp tables are not included in the `public` schema, metadata for temp 
 
 For example, the [`information_schema.tables`](information-schema.html#tables) table includes information about all tables in all schemas in all databases, including temp tables:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM information_schema.tables WHERE table_schema='pg_temp_1602087923187609000_1';
 ~~~
@@ -181,7 +181,7 @@ For example, the [`information_schema.tables`](information-schema.html#tables) t
 
 If you end the session, all temp tables are lost.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW session_id;
 ~~~
@@ -193,7 +193,7 @@ If you end the session, all temp tables are lost.
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL SESSION '15fd69f9831c1ed00000000000000001';
 ~~~
@@ -204,7 +204,7 @@ warning: connection lost!
 opening new connection: all session settings will be lost
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~

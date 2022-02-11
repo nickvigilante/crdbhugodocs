@@ -6,16 +6,16 @@ toc: true
 
 The `RENAME DATABASE` [statement](sql-statements.html) changes the name of a database.
 
-{{ site.data.alerts.callout_info }}It is not possible to rename a database referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not possible to rename a database referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Database renames **are not transactional**. For more information, see [Database renaming considerations](#database-renaming-considerations).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/rename_database.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/rename_database.html" . }}
 </div>
 
 ## Required privileges
@@ -44,7 +44,7 @@ This is a [known limitation](known-limitations.html#database-and-table-renames-a
 
 ### Rename a Database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -62,12 +62,12 @@ This is a [known limitation](known-limitations.html#database-and-table-renames-a
 (5 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER DATABASE db1 RENAME TO db3;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~
@@ -87,7 +87,7 @@ This is a [known limitation](known-limitations.html#database-and-table-renames-a
 
 ### Rename fails (new name already in use)
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER DATABASE db2 RENAME TO db3;
 ~~~

@@ -7,9 +7,9 @@ docs_area: reference.architecture
 
 The distribution layer of CockroachDB's architecture provides a unified view of your cluster's data.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Overview
 
@@ -204,9 +204,9 @@ To reduce the number of small ranges, your cluster can have any range below a ce
 
 If the combined size of the small range and its neighbor is less than the maximum range size, the ranges merge into a single range. In our example, this will create a new range of keys `[1000, 3000)`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When ranges merge, the left-hand-side (LHS) range consumes the right-hand-side (RHS) range.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Why range merges improve performance
 

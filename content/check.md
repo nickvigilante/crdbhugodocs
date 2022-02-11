@@ -10,7 +10,7 @@ The `CHECK` [constraint](constraints.html) specifies that values for the column 
 ## Details
 
 - If you add a `CHECK` constraint to an existing table, existing values are not checked. However, any updates to those values will be.
-  {{ site.data.alerts.callout_info }}In the future we plan to expand the Check constraint to include a check on any existing values in the column.{{ site.data.alerts.end }}
+  {{site.data.alerts.callout_info }}In the future we plan to expand the Check constraint to include a check on any existing values in the column.{{site.data.alerts.end }}
 - `CHECK` constraints may be specified at the column or table level and can reference other columns within the table. Internally, all column-level `CHECK` constraints are converted to table-level constraints so they can be handled consistently.
 - You can have multiple `CHECK` constraints on a single column but ideally, for performance optimization, these should be combined using the logical operators. For example:
 
@@ -28,11 +28,11 @@ The `CHECK` [constraint](constraints.html) specifies that values for the column 
 
 `CHECK` constraints can be defined at the [table level](#table-level). However, if you only want the constraint to apply to a single column, it can be applied at the [column level](#column-level).
 
-{{ site.data.alerts.callout_info }}You can also add the <code>CHECK</code> constraint to existing tables through <a href="add-constraint.html#add-the-check-constraint"><code>ADD CONSTRAINT</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}You can also add the <code>CHECK</code> constraint to existing tables through <a href="add-constraint.html#add-the-check-constraint"><code>ADD CONSTRAINT</code></a>.{{site.data.alerts.end }}
 
 ### Column Level
 
-{%  include {{  page.version.version  }}/sql/diagrams/check_column_level.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/check_column_level.html" . }}
 
 | Parameter | Description |
 |-----------|-------------|
@@ -57,7 +57,7 @@ The `CHECK` [constraint](constraints.html) specifies that values for the column 
 
 ### Table Level
 
-{%  include {{  page.version.version  }}/sql/diagrams/check_table_level.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/check_table_level.html" . }}
 
 | Parameter | Description |
 |-----------|-------------|

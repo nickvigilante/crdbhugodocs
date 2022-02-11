@@ -6,7 +6,7 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{ site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
 
 
 ## Required Privileges
@@ -15,7 +15,7 @@ The user must have the `DELETE` and `SELECT` [privileges](privileges.html) on th
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/delete.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/delete.html" . }}
 
 ## Parameters
 
@@ -88,7 +88,7 @@ TRUNCATE
 
 As you can see, one difference is that `TRUNCATE` does not return the number of rows it deleted.
 
-{{ site.data.alerts.callout_info }}The <code>TRUNCATE</code> statement removes all rows from a table by dropping the table and recreating a new table with the same name. This is much more performant than deleting each of the rows.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}The <code>TRUNCATE</code> statement removes all rows from a table by dropping the table and recreating a new table with the same name. This is much more performant than deleting each of the rows.{{site.data.alerts.end }}
 
 ### Delete Specific Rows
 

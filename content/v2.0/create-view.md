@@ -14,7 +14,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the parent datab
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/create_view.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_view.html" . }}
 </div>
 
 ## Parameters
@@ -27,7 +27,7 @@ Parameter | Description
 
 ## Example
 
-{{ site.data.alerts.callout_success }}This example highlights one key benefit to using views: simplifying complex queries. For additional benefits and examples, see <a href="views.html">Views</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This example highlights one key benefit to using views: simplifying complex queries. For additional benefits and examples, see <a href="views.html">Views</a>.{{site.data.alerts.end }}
 
 Let's say you're using our [sample `startrek` database](generate-cockroachdb-resources.html#generate-example-data), which contains two tables, `episodes` and `quotes`. There's a foreign key constraint between the `episodes.id` column and the `quotes.episode` column. To count the number of famous quotes per season, you could run the following join:
 
@@ -101,10 +101,10 @@ Executing the query is as easy as `SELECT`ing from the view, as you would from a
 
 ## Known Limitations
 
-{{ site.data.alerts.callout_info }} The following limitations may be lifted
-in a future version of CockroachDB.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }} The following limitations may be lifted
+in a future version of CockroachDB.{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/known-limitations/cte-with-view.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-with-view.md" . }}
 
 ## See Also
 

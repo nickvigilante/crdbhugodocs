@@ -6,11 +6,11 @@ toc: false
 
 CockroachDB supports the PostgreSQL wire protocol, so most available PostgreSQL client drivers should work with CockroachDB.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For code samples using these drivers, see [Build an App with CockroachDB](build-an-app-with-cockroachdb.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{ page.version.version }}/misc/drivers.md %}
+{{ partial "{{ page.version.version }}/misc/drivers.md" . }}
 
 ## See also
 

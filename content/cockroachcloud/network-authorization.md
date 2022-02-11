@@ -1,45 +1,45 @@
 ---
 title: Network Authorization
-summary: Learn about the network authorization features for {{  site.data.products.db  }} clusters.
+summary: Learn about the network authorization features for {{ site.data.products.db }} clusters.
 toc: true
 docs_area: manage
 ---
 
-To prevent denial-of-service and brute force password attacks, {{  site.data.products.dedicated  }} requires you to authorize networks that can access your cluster by [allowlisting the public IP addresses](#ip-allowlisting) for your application. Optionally, you can [set up Virtual Private Cloud (VPC) peering](#vpc-peering) or [AWS PrivateLink](#aws-privatelink) for your cluster for enhanced network security and lower network latency.
+To prevent denial-of-service and brute force password attacks, {{ site.data.products.dedicated }} requires you to authorize networks that can access your cluster by [allowlisting the public IP addresses](#ip-allowlisting) for your application. Optionally, you can [set up Virtual Private Cloud (VPC) peering](#vpc-peering) or [AWS PrivateLink](#aws-privatelink) for your cluster for enhanced network security and lower network latency.
 
 ## IP allowlisting
 
-Authorize your application server’s network and your local machine’s network by [adding their public IP addresses (in the CIDR format) to the {{  site.data.products.dedicated  }} cluster's allowlist](connect-to-your-cluster.html#step-1-authorize-your-network). If you change your location, you will need to authorize the new location’s network, else the connection from that network will be rejected.
+Authorize your application server’s network and your local machine’s network by [adding their public IP addresses (in the CIDR format) to the {{ site.data.products.dedicated }} cluster's allowlist](connect-to-your-cluster.html#step-1-authorize-your-network). If you change your location, you will need to authorize the new location’s network, else the connection from that network will be rejected.
 
 - In a development environment, you need to authorize your application server’s network and your local machine’s network. If you change your location, you need to authorize the new location’s network, or else the connection from that network will be rejected.
 - In a production environment, you need to authorize your application server’s network.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 While developing and testing your application, you may add `0.0.0.0/0` to the allowlist, which allows all networks. However, before moving into production, make sure you delete the `0.0.0.0/0` network.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-You can add up to 20 IP addresses to your allowlist. If your application servers’ IP addresses are not static, or you want to limit your cluster's exposure to the public network, you can connect to your {{  site.data.products.dedicated  }} clusters using VPC Peering or AWS PrivateLink instead.
+You can add up to 20 IP addresses to your allowlist. If your application servers’ IP addresses are not static, or you want to limit your cluster's exposure to the public network, you can connect to your {{ site.data.products.dedicated }} clusters using VPC Peering or AWS PrivateLink instead.
 
 ## VPC peering
 
-If you select GCP as your cloud provider while [creating your {{  site.data.products.dedicated  }} cluster](create-your-cluster.html), you can use [Google Cloud's VPC Network Peering](https://cloud.google.com/vpc/docs/vpc-peering) feature to connect your GCP application directly to your {{  site.data.products.dedicated  }} cluster using internal IP addresses, thus limiting exposure to the public network and reducing network latency.
+If you select GCP as your cloud provider while [creating your {{ site.data.products.dedicated }} cluster](create-your-cluster.html), you can use [Google Cloud's VPC Network Peering](https://cloud.google.com/vpc/docs/vpc-peering) feature to connect your GCP application directly to your {{ site.data.products.dedicated }} cluster using internal IP addresses, thus limiting exposure to the public network and reducing network latency.
 
-GKE users should note that we recommend deploying your application to a VPC-native cluster that uses [alias IP addresses](https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips). If you are connecting from a [routes-based GKE cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/routes-based-cluster) instead, you will have to [export custom routes](https://cloud.google.com/vpc/docs/vpc-peering#importing-exporting-routes). {{  site.data.products.db  }} will import your custom routes by default.
+GKE users should note that we recommend deploying your application to a VPC-native cluster that uses [alias IP addresses](https://cloud.google.com/kubernetes-engine/docs/how-to/alias-ips). If you are connecting from a [routes-based GKE cluster](https://cloud.google.com/kubernetes-engine/docs/how-to/routes-based-cluster) instead, you will have to [export custom routes](https://cloud.google.com/vpc/docs/vpc-peering#importing-exporting-routes). {{ site.data.products.db }} will import your custom routes by default.
 
-Setting up a VPC peering connection between your {{  site.data.products.dedicated  }} cluster and GCP application is a two-part process:
+Setting up a VPC peering connection between your {{ site.data.products.dedicated }} cluster and GCP application is a two-part process:
 
-1. [Configure the IP range and size while creating the {{  site.data.products.dedicated  }} cluster](create-your-cluster.html#step-7-enable-vpc-peering-optional)
+1. [Configure the IP range and size while creating the {{ site.data.products.dedicated }} cluster](create-your-cluster.html#step-7-enable-vpc-peering-optional)
 1. [Establish a VPC Peering connection after creating the cluster](connect-to-your-cluster.html#establish-vpc-peering-or-aws-privatelink)
 
-{{ site.data.alerts.callout_info }}
-Self-service VPC peering setup is not supported for {{  site.data.products.dedicated  }} clusters deployed before March 5, 2020. If your cluster was deployed before March 5, 2020, you will have to [create a new cluster](create-your-cluster.html) with VPC peering enabled, then [export your data](backups-page.html) from the old cluster to the new cluster. If your cluster was deployed on or after March 5, 2020, it will be locked into {{  site.data.products.dedicated  }}'s default IP range (`172.28.0.0/14`) unless you explicitly configured a different IP range during cluster creation.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}
+Self-service VPC peering setup is not supported for {{ site.data.products.dedicated }} clusters deployed before March 5, 2020. If your cluster was deployed before March 5, 2020, you will have to [create a new cluster](create-your-cluster.html) with VPC peering enabled, then [export your data](backups-page.html) from the old cluster to the new cluster. If your cluster was deployed on or after March 5, 2020, it will be locked into {{ site.data.products.dedicated }}'s default IP range (`172.28.0.0/14`) unless you explicitly configured a different IP range during cluster creation.
+{{site.data.alerts.end }}
 
 ## AWS PrivateLink
 
-If your cloud provider is AWS, you can use [AWS PrivateLink](https://aws.amazon.com/privatelink/) to securely connect your AWS application with your {{  site.data.products.dedicated  }} cluster using a private endpoint. Like VPC Peering, a PrivateLink connection will prevent your traffic from being exposed to the public internet and reduce network latency. If you have multiple clusters, you will have to repeat these steps for each cluster that you want to connect to using AWS PrivateLink.
+If your cloud provider is AWS, you can use [AWS PrivateLink](https://aws.amazon.com/privatelink/) to securely connect your AWS application with your {{ site.data.products.dedicated }} cluster using a private endpoint. Like VPC Peering, a PrivateLink connection will prevent your traffic from being exposed to the public internet and reduce network latency. If you have multiple clusters, you will have to repeat these steps for each cluster that you want to connect to using AWS PrivateLink.
 
-There are four steps to setting up an AWS PrivateLink connection between your {{  site.data.products.dedicated  }} cluster and AWS application:
+There are four steps to setting up an AWS PrivateLink connection between your {{ site.data.products.dedicated }} cluster and AWS application:
 
 1.  [Set up a cluster](#set-up-a-cluster)
 1.  [Create an AWS endpoint](#create-an-aws-endpoint)
@@ -48,11 +48,11 @@ There are four steps to setting up an AWS PrivateLink connection between your {{
 
 ### Set up a cluster
 
-1.  Use the {{  site.data.products.db  }} Console to [create your {{  site.data.products.dedicated  }} cluster](create-your-cluster.html) on AWS in the same region as your application.
+1.  Use the {{ site.data.products.db }} Console to [create your {{ site.data.products.dedicated }} cluster](create-your-cluster.html) on AWS in the same region as your application.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     If you have a multi-region cluster, you will have to create a PrivateLink connection for each region you are operating in.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1.  Navigate to the **Networking** page.
 1.  Select the **PrivateLink** tab.
@@ -99,7 +99,7 @@ Use either the Amazon VPC Console or the [AWS Command Line Interface (CLI)](http
 
       The VPC Endpoint ID displays.  
 
-1.  Copy the Endpoint ID to your clipboard and return to {{  site.data.products.db  }}'s **Add PrivateLink** modal.
+1.  Copy the Endpoint ID to your clipboard and return to {{ site.data.products.db }}'s **Add PrivateLink** modal.
 
   </section>
 
@@ -107,7 +107,7 @@ Use either the Amazon VPC Console or the [AWS Command Line Interface (CLI)](http
 
 1.  Substitute the values from the previous steps and run the following AWS CLI command:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws ec2 create-vpc-endpoint --region $REGION \
     --vpc-id $VPC_ID --subnet-ids $SUBNET_ID1 $SUBNET_ID2 \
@@ -118,7 +118,7 @@ Use either the Amazon VPC Console or the [AWS Command Line Interface (CLI)](http
 
 1.  Locate the VPC Endpoint ID in the CLI output.
 
-1.  Copy the Endpoint ID to your clipboard and return to {{  site.data.products.db  }}'s **Add PrivateLink** modal.
+1.  Copy the Endpoint ID to your clipboard and return to {{ site.data.products.db }}'s **Add PrivateLink** modal.
 
   </section>
 
@@ -126,7 +126,7 @@ Use either the Amazon VPC Console or the [AWS Command Line Interface (CLI)](http
 
 1.  Paste the Endpoint ID you created into the **VPC Endpoint ID** field.
 1.  Click **Verify**.
-1.  {{  site.data.products.db  }} will accept the endpoint request. You can confirm the request acceptance by checking if the status is listed as Available on the Amazon VPC Console **Endpoints** page.
+1.  {{ site.data.products.db }} will accept the endpoint request. You can confirm the request acceptance by checking if the status is listed as Available on the Amazon VPC Console **Endpoints** page.
 
 ### Enable private DNS
 
@@ -140,7 +140,7 @@ Alternatively, use the AWS CLI to modify the Private DNS Name:
 
 1.  After the endpoint status changes to Available, run the following AWS CLI command:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws ec2 modify-vpc-endpoint --region $REGION \
     --private-dns-enabled --vpc-endpoint-id $VPC_ENDPOINT_ID
@@ -152,5 +152,5 @@ After a short (less than 5 minute) delay, the status will change to Available. Y
 
 ## See also
 
-- [Client Connection Parameters](../{{ site.versions["stable"] }}/connection-parameters.html)
-- [Connect to Your {{  site.data.products.dedicated  }} Cluster](connect-to-your-cluster.html)
+- [Client Connection Parameters](../{{site.versions["stable"] }}/connection-parameters.html)
+- [Connect to Your {{ site.data.products.dedicated }} Cluster](connect-to-your-cluster.html)

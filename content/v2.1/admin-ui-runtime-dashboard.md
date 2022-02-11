@@ -10,7 +10,7 @@ The **Runtime** dashboard displays the following time series graphs:
 
 ## Live Node Count
 
-<img src="{{  'images/v2.1/admin_ui_node_count.png' | relative_url  }}" alt="CockroachDB Admin UI Node Count" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_node_count.png' | relative_url }}" alt="CockroachDB Admin UI Node Count" style="border:1px solid #eee;max-width:100%" />
 
 In the node view as well as the cluster view, the graph shows the number of live nodes in the cluster.
 
@@ -18,7 +18,7 @@ A dip in the graph indicates decommissioned nodes, dead nodes, or nodes that are
 
 ## Memory Usage
 
-<img src="{{  'images/v2.1/admin_ui_memory_usage.png' | relative_url  }}" alt="CockroachDB Admin UI Memory Usage" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_memory_usage.png' | relative_url }}" alt="CockroachDB Admin UI Memory Usage" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the memory in use for the selected node.
 
@@ -34,11 +34,11 @@ Go Total | Total memory managed by the Go layer.
 CGo Allocated | Memory allocated by the C layer.
 CGo Total | Total memory managed by the C layer.
 
-{{ site.data.alerts.callout_info }}If Go Total or CGO Total fluctuates or grows steadily over time, <a href="https://forum.cockroachlabs.com/">contact us</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}If Go Total or CGO Total fluctuates or grows steadily over time, <a href="https://forum.cockroachlabs.com/">contact us</a>.{{site.data.alerts.end }}
 
 ## CPU Time
 
-<img src="{{  'images/v2.1/admin_ui_cpu_time.png' | relative_url  }}" alt="CockroachDB Admin UI CPU Time" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_cpu_time.png' | relative_url }}" alt="CockroachDB Admin UI CPU Time" style="border:1px solid #eee;max-width:100%" />
 
 
 - In the node view, the graph shows the [CPU time](https://en.wikipedia.org/wiki/CPU_time) used by CockroachDB user and system-level operations for the selected node.
@@ -53,7 +53,7 @@ Sys CPU Time | Total CPU seconds per second used for CockroachDB system-level op
 
 ## Clock Offset
 
-<img src="{{  'images/v2.0/admin_ui_clock_offset.png' | relative_url  }}" alt="CockroachDB Admin UI Clock Offset" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.0/admin_ui_clock_offset.png' | relative_url }}" alt="CockroachDB Admin UI Clock Offset" style="border:1px solid #eee;max-width:100%" />
 
 - In the node view, the graph shows the mean clock offset of the node against the rest of the cluster.
 - In the cluster view, the graph shows the mean clock offset of each node against the rest of the cluster.

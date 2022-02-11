@@ -11,7 +11,7 @@ For the list of privileges that can be granted to and revoked from users, see [`
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/revoke.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/revoke.html" . }}
 
 ## Required Privileges
 
@@ -66,7 +66,7 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }} Note that any tables that previously inherited the database-level privileges retain the privileges.{{ site.data.alerts.end }} 
+{{site.data.alerts.callout_info }} Note that any tables that previously inherited the database-level privileges retain the privileges.{{site.data.alerts.end }} 
 
 ### Revoke Privileges on Specific Tables in a Database
 

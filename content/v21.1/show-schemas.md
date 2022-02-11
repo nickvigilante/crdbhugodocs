@@ -13,7 +13,7 @@ The `SELECT` [privilege](authorization.html#assign-privileges) on the database i
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/show_schemas.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/show_schemas.html" . }}
 </div>
 
 ## Parameters
@@ -24,16 +24,16 @@ Parameter | Description
 
 ## Example
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Show schemas in the current database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SCHEMA org_one;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW SCHEMAS;
 ~~~

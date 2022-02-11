@@ -33,7 +33,7 @@ Read about how an [electronic lock manufacturer](https://www.cockroachlabs.com/c
 
 ### Request a trial license
 
-Some CockroachDB features used in this tutorial require an Enterprise license, so [request a 30-day trial license](https://www.cockroachlabs.com/get-cockroachdb/) before you get started.
+Some CockroachDB features used in this tutorial require an Enterprise license, so [request a 30-day trial license](https://www.cockroachlabs.com/get-cockroachdb/enterprise) before you get started.
 
 You should receive your trial license via email within a few minutes. You'll enable your license once your cluster is up-and-running.
 
@@ -45,7 +45,7 @@ To understand performance in a geographically distributed CockroachDB cluster, i
 
 You'll deploy a 9-node CockroachDB cluster across 3 GCE regions, with each node on a VM in a distinct availability zone for optimal resiliency:
 
-<img src="{{  'images/v20.2/topology-patterns/topology_multi-region_hardware.png' | relative_url  }}" alt="Multi-region hardware setup" style="max-width:100%" />
+<img src="{{ 'images/v20.2/topology-patterns/topology_multi-region_hardware.png' | relative_url }}" alt="Multi-region hardware setup" style="max-width:100%" />
 
 A few notes:
 
@@ -59,7 +59,7 @@ For your application, you'll use our open-source, fictional, peer-to-peer vehicl
 
 #### The schema
 
-{%  include {{  page.version.version  }}/misc/movr-schema.md %}
+{{ partial "{{ page.version.version }}/misc/movr-schema.md" . }}
 
 All of the tables except `promo_codes` have a multi-column primary key of `city` and `id`, with `city` being the first in the key. As such, the rows in these tables are geographically specific and ordered by geography. These tables are read and updated very frequently, and so to keep read and write latency low, you'll use the [Geo-Partitioned Replicas](topology-geo-partitioned-replicas.html) topology for these tables.
 
@@ -67,7 +67,7 @@ In contrast, the data in the `promo_codes` table is not tied to geography, and t
 
 #### The workflow
 
-{%  include {{  page.version.version  }}/misc/movr-workflow.md %}
+{{ partial "{{ page.version.version }}/misc/movr-workflow.md" . }}
 
 ## Step 1. Set up the environment
 
@@ -76,7 +76,7 @@ In contrast, the data in the `promo_codes` table is not tied to geography, and t
 
 ### Configure your network
 
-{%  include {{  page.version.version  }}/performance/configure-network.md %}
+{{ partial "{{ page.version.version }}/performance/configure-network.md" . }}
 
 ### Provision VMs
 
@@ -119,22 +119,22 @@ Now that you have VMs in place, start your CockroachDB cluster across the three 
 
 1. SSH to the first VM in the US East region where you want to run a CockroachDB node.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 3. Run the [`cockroach start`](cockroach-start.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -154,22 +154,22 @@ Now that you have VMs in place, start your CockroachDB cluster across the three 
 
 1. SSH to the first VM in the US Central region where you want to run a CockroachDB node.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 3. Run the [`cockroach start`](cockroach-start.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -189,22 +189,22 @@ Now that you have VMs in place, start your CockroachDB cluster across the three 
 
 1. SSH to the first VM in the US West region where you want to run a CockroachDB node.
 
-2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 3. Run the [`cockroach start`](cockroach-start.html) command:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -224,7 +224,7 @@ Now that you have VMs in place, start your CockroachDB cluster across the three 
 
 On any of the VMs, run the one-time [`cockroach init`](cockroach-init.html) command to join the first nodes into a cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init --insecure --host=<address of any node>
 ~~~
@@ -245,7 +245,7 @@ Next, install Docker and HAProxy on each client VM. Docker is required so you ca
 
 2. Install Docker:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get update && \
     sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && \
@@ -260,34 +260,34 @@ Next, install Docker and HAProxy on each client VM. Docker is required so you ca
 
 3. Install HAProxy:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get update
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo apt-get install haproxy
     ~~~
 
-4. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
+4. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{  page.release_info.version  }}.linux-amd64.tgz \
+    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
-    $ sudo cp -i cockroach-{{  page.release_info.version  }}.linux-amd64/cockroach /usr/local/bin/
+    $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
     The `cockroach` binary needs to be on these VMs so you can run some client commands built into the binary, such as the command in the next step and the command for starting the built-in SQL shell.
 
 5. Run the [`cockroach gen haproxy`](cockroach-gen.html) command to generate an HAProxy config file, specifying the address of any CockroachDB node and the `--locality` of nodes in the US East region:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach gen haproxy \
     --insecure \
@@ -323,7 +323,7 @@ Next, install Docker and HAProxy on each client VM. Docker is required so you ca
 
 6. Start HAProxy, with the `-f` flag pointing to the `haproxy.cfg` file:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ haproxy -f haproxy.cfg &
     ~~~
@@ -338,33 +338,33 @@ Before you can run MovR against the cluster, you must create a `movr` database a
 
 2. Use the [`cockroach sql`](cockroach-sql.html) command to start the built-in SQL shell, specifying the address of the HAProxy load balancer in the region:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=<address of HAProxy in US East>
     ~~~
 
 3. In the SQL shell, create the `movr` database:    
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE movr;
     ~~~
 
 4. Enable the trial license you requested earlier:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<your organization>';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<your license key>';
     ~~~
 
 5. Set the longitude and latitude of the regions where you are running CockroachDB nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT into system.locations VALUES
         ('region', 'us-east1', 33.836082, -81.163727),
@@ -376,20 +376,20 @@ Before you can run MovR against the cluster, you must create a `movr` database a
 
 6. Exit the SQL shell:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     \q
     ~~~
 
 ### Start MovR in US East
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Be sure to use the exact version of MovR specified in the commands: `movr:19.09.2`. This tutorial relies on the SQL schema in this specific version.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Still on the client VM in the US East region, load the MovR schema and initial data for the cities of New York, Chicago, and Seattle, pointing at the address of the US East load balancer:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker run --rm cockroachdb/movr:19.09.2 \
     --app-name "movr-load" \
@@ -431,7 +431,7 @@ Be sure to use the exact version of MovR specified in the commands: `movr:19.09.
 
 2. Start MovR in the US East region, representing users in New York. Be sure to point at the address of the US East load balancer:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker run -it --rm cockroachdb/movr:19.09.2 \
     --app-name "movr-east" \
@@ -447,7 +447,7 @@ Be sure to use the exact version of MovR specified in the commands: `movr:19.09.
 
 2. Start MovR in the US Central region, representing users in Chicago. Be sure to point at the address of the US Central load balancer:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker run -it --rm cockroachdb/movr:19.09.2 \
     --app-name "movr-central" \
@@ -463,7 +463,7 @@ Be sure to use the exact version of MovR specified in the commands: `movr:19.09.
 
 2. Start MovR in the US West region, representing users in Seattle. Be sure to point at the address of the US West load balancer:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ sudo docker run -it --rm cockroachdb/movr:19.09.2 \
     --app-name "movr-west" \
@@ -481,15 +481,15 @@ Now that you've deployed and configured your cluster, take a look at it in the D
 
 2. On the **Cluster Overview** page, select **View: Node Map** to access the [Node Map](enable-node-map.html), which visualizes your CockroachDB cluster on a map of the US:
 
-    <img src="{{  'images/v20.2/geo-partitioning-node-map-1.png' | relative_url  }}" alt="Geo-partitioning node map" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-node-map-1.png' | relative_url }}" alt="Geo-partitioning node map" style="max-width:100%" />
 
 3. Drill down one level to see your nodes across 3 regions:
 
-    <img src="{{  'images/v20.2/geo-partitioning-node-map-2.png' | relative_url  }}" alt="Geo-partitioning node map" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-node-map-2.png' | relative_url }}" alt="Geo-partitioning node map" style="max-width:100%" />
 
 4. Drill into a region to see that each node is in a distinct availability zone:
 
-    <img src="{{  'images/v20.2/geo-partitioning-node-map-3.png' | relative_url  }}" alt="Geo-partitioning node map" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-node-map-3.png' | relative_url }}" alt="Geo-partitioning node map" style="max-width:100%" />
 
 ## Step 5. Check latency
 
@@ -497,13 +497,13 @@ Use the DB Console to see the effect of network latency before applying multi-re
 
 1. Still in the DB Console, click **Metrics** on the left and hover over the **Service Latency: SQL, 99th percentile** timeseries graph:
 
-    <img src="{{  'images/v20.2/geo-partitioning-sql-latency-before.png' | relative_url  }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-sql-latency-before.png' | relative_url }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
 
     For each node, you'll see that the max latency of 99% of queries is in the 100s of milliseconds. To understand why SQL latency is so high, it's important to first look at how long it takes requests to physically travel between the nodes in your cluster.
 
 2. Click **Network Latency** in the left-hand navigation:
 
-    <img src="{{  'images/v20.2/geo-partitioning-network-latency.png' | relative_url  }}" alt="Geo-partitioning network latency" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-network-latency.png' | relative_url }}" alt="Geo-partitioning network latency" style="max-width:100%" />
 
     The **Network Latency** page shows the round-trip latency between any two nodes in your cluster. Here's a node/region mapping:
 
@@ -523,14 +523,14 @@ With network latency in mind, now use the built-in SQL shell to check the distri
 
 2. Use the [`cockroach sql`](cockroach-sql.html) command to start the built-in SQL shell, specifying the address of the HAProxy load balancer in the region:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --database=movr --host=<address of HAProxy in region>
     ~~~
 
 3. In the SQL shell, use the [`SHOW RANGES`](show-ranges.html) statement to view the location of replicas for the tables and their secondary indexes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW RANGES FROM TABLE users;
     SHOW RANGES FROM TABLE vehicles;
@@ -631,7 +631,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
 1. Back in the SQL shell on one of your client VMs, use [`ALTER TABLE/INDEX ... PARTITION BY`](partition-by.html) statements to define partitions by `city` for the geo-specific tables and their secondary indexes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE users PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -640,7 +640,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE vehicles PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -649,7 +649,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER INDEX vehicles_auto_index_fk_city_ref_users PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -658,7 +658,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE rides PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -667,7 +667,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER INDEX rides_auto_index_fk_city_ref_users PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -676,7 +676,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER INDEX rides_auto_index_fk_vehicle_city_ref_vehicles PARTITION BY LIST (vehicle_city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -685,7 +685,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE user_promo_codes PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -694,7 +694,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
       );
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE vehicle_location_histories PARTITION BY LIST (city) (
         PARTITION new_york VALUES IN ('new york'),
@@ -705,11 +705,11 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
 2. Use the [`SHOW CREATE TABLE`](show-create.html) statement to review the partition definition for one of the geo-specific tables:
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     The warning at the bottom tells you that partitions are not yet applied because corresponding replication zones still need to be created.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW CREATE TABLE vehicles;
     ~~~
@@ -745,11 +745,11 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
 3. Use [`ALTER PARTITION ... CONFIGURE ZONE`](configure-zone.html) statements to create replication zones that pin each partition to nodes in the relevant region, using the localities specified when nodes were started:
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     The `<table>@*` syntax lets you create zone configurations for all identically named partitions of a table, saving you multiple steps.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION new_york OF INDEX movr.users@*
         CONFIGURE ZONE USING constraints='[+region=us-east1]';
@@ -759,7 +759,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
         CONFIGURE ZONE USING constraints='[+region=us-west1]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION new_york OF INDEX movr.vehicles@*
         CONFIGURE ZONE USING constraints='[+region=us-east1]';
@@ -769,7 +769,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
         CONFIGURE ZONE USING constraints='[+region=us-west1]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION new_york OF INDEX movr.rides@*
         CONFIGURE ZONE USING constraints='[+region=us-east1]';
@@ -779,7 +779,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
         CONFIGURE ZONE USING constraints='[+region=us-west1]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION new_york OF INDEX movr.user_promo_codes@*
         CONFIGURE ZONE USING constraints='[+region=us-east1]';
@@ -789,7 +789,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
         CONFIGURE ZONE USING constraints='[+region=us-west1]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER PARTITION new_york OF INDEX movr.vehicle_location_histories@*
         CONFIGURE ZONE USING constraints='[+region=us-east1]';
@@ -801,7 +801,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
 3. At this point, you can use the [`SHOW CREATE TABLE`](show-create.html) statement to confirm that partitions are in effect:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW CREATE TABLE vehicles;
     ~~~
@@ -850,7 +850,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
     The [`SHOW PARTITIONS`](show-partitions.html) statement is another way to confirm that partitions are in effect:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW PARTITIONS FROM TABLE vehicles;
     ~~~
@@ -897,7 +897,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
     (6 rows)
     ~~~
 
-      {%  include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+      {{ partial "{{ page.version.version }}/sql/crdb-internal-partitions.md" . }}
 
 ### Duplicate the reference table
 
@@ -905,13 +905,13 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
 
 1. Create two indexes on the `promo_codes` table, and make them complete copies of the primary index:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE INDEX promo_codes_idx_east ON promo_codes (code)
         STORING (description, creation_time, expiration_time, rules);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE INDEX promo_codes_idx_west ON promo_codes (code)
         STORING (description, creation_time, expiration_time, rules);
@@ -919,7 +919,7 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
 
 2. Use [`ALTER TABLE/INDEX ... CONFIGURE ZONE`](configure-zone.html) statements to create replication zones for the primary index and each secondary index, in each case setting a leaseholder preference telling CockroachDB to put the leaseholder for the index in a distinct region:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE promo_codes
         CONFIGURE ZONE USING
@@ -928,7 +928,7 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
           lease_preferences = '[[+region=us-central1]]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER INDEX promo_codes@promo_codes_idx_east
         CONFIGURE ZONE USING
@@ -937,7 +937,7 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
           lease_preferences = '[[+region=us-east1]]';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql   
     > ALTER INDEX promo_codes@promo_codes_idx_west
         CONFIGURE ZONE USING
@@ -950,7 +950,7 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
 
 1. Still in the SQL shell on one of your client VMs, use the [`SHOW RANGES`](show-ranges.html) statement to check replica placement of the geo-specific tables after partitioning:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM [SHOW RANGES FROM TABLE users]
         WHERE "start_key" NOT LIKE '%Prefix%';
@@ -1053,7 +1053,7 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
 
 2. Now use the [`SHOW RANGES`](show-ranges.html) statement to check replica placement of the `promo_codes` reference table and indexes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SHOW RANGES FROM TABLE promo_codes;
       SHOW RANGES FROM INDEX promo_codes_idx_east;
@@ -1094,7 +1094,7 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
 
 1. Now that you've verified that replicas are located properly, go back to the DB Console, click **Metrics** on the left, and hover over the **Service Latency: SQL, 99th percentile** timeseries graph:
 
-    <img src="{{  'images/v20.2/geo-partitioning-sql-latency-after-1.png' | relative_url  }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-sql-latency-after-1.png' | relative_url }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
 
     For each node, you'll see that **99% of all queries are now under 4 milliseconds**.
 
@@ -1104,13 +1104,13 @@ In contrast to the other tables, the `promo_codes` table is not tied to geograph
     http://<external address of any node>:8080/#/debug/chart?charts=%5B%7B%22metrics%22%3A%5B%7B%22downsampler%22%3A3%2C%22aggregator%22%3A3%2C%22derivative%22%3A0%2C%22perNode%22%3Atrue%2C%22source%22%3A%22%22%2C%22metric%22%3A%22cr.node.sql.exec.latency-p90%22%7D%5D%2C%22axisUnits%22%3A2%7D%5D
     ~~~
 
-    <img src="{{  'images/v20.2/geo-partitioning-sql-latency-after-2.png' | relative_url  }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
+    <img src="{{ 'images/v20.2/geo-partitioning-sql-latency-after-2.png' | relative_url }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
 
     As you can see, **90% of all SQL queries execute in less than 2 milliseconds**. In some cases, latency is even sub-millisecond.
 
 3. Most of the latency reduction is due to the geo-partitioned tables. However, the duplicate indexes approach for the `promo_codes` table is also relevant. To validate that the cost-based optimizer is picking the appropriate leaseholder from reads from `promo_codes` in each region, click **Statements** on the left, select **APP > MOVR-EAST**, and then click the `SELECT FROM promo_codes` statement:
 
-    <img src="{{  'images/v20.2/geo-partitioning-sql-latency-after-3.png' | relative_url  }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />    
+    <img src="{{ 'images/v20.2/geo-partitioning-sql-latency-after-3.png' | relative_url }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />    
 
     In the "Logical Plan" area, note the `table = promo_codes@promo_codes_idx_east` scan. This proves that the cost-based optimizer used the leaseholder for that index and, thus, didn't leave the region for the instance of MovR running in US East.
 
@@ -1129,18 +1129,18 @@ Given that most of the data in your cluster is geo-partitioned, let's focus on A
 
 2. Use the [`cockroach quit`](cockroach-quit.html) command to stop one node, effectively simulating one of the 3 AZ's failing:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure --host=<address of one node in US East>
     ~~~
 
 3. Back in the DB Console, click **Overview** and note that the cluster now considers that node "suspect":
 
-    <img src="{{  'images/v20.2/geo-partitioning-resiliency-1.png' | relative_url  }}" alt="Geo-partitioning resiliency" style="max-width:100%" />    
+    <img src="{{ 'images/v20.2/geo-partitioning-resiliency-1.png' | relative_url }}" alt="Geo-partitioning resiliency" style="max-width:100%" />    
 
 4. Despite the node being unavailable, the MovR instance in US East continues to make progress because the other 2 nodes, each in a distinct AZ, remain available, and all partitions in the region therefore remain available. To verify this, click **Metrics**, select node 1 or 2 from the **Graph** menu, and check that SQL traffic continues on the node:
 
-    <img src="{{  'images/v20.2/geo-partitioning-resiliency-2.png' | relative_url  }}" alt="Geo-partitioning resiliency" style="max-width:100%" />    
+    <img src="{{ 'images/v20.2/geo-partitioning-resiliency-2.png' | relative_url }}" alt="Geo-partitioning resiliency" style="max-width:100%" />    
 
 ## See also
 

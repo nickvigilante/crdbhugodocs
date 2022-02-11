@@ -6,9 +6,9 @@ toc: true
 
 The `EXPLAIN` [statement](sql-statements.html) returns CockroachDB's query plan for an [explainable statement](sql-grammar.html#preparable_stmt). You can then use this information to optimize the query.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To actually execute a statement and return a physical query plan with execution statistics, use [`EXPLAIN ANALYZE`](explain-analyze.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Query optimization
 
@@ -28,7 +28,7 @@ For more information, see [Find the Indexes and Key Ranges a Query Uses](#find-t
 
 ## Synopsis
 
-<section>{%  include {{  page.version.version  }}/sql/diagrams/explain.html %}</section>
+<section>{{ partial "{{ page.version.version }}/sql/diagrams/explain.html" . }}</section>
 
 ## Required privileges
 
@@ -44,9 +44,9 @@ The user requires the appropriate [privileges](authorization.html#assign-privile
  `DISTSQL`          | <span class="version-tag">New in v2.1:</span> Generate a link to a [distributed SQL physical query plan tree](explain-analyze.html#distsql-plan-viewer).
  `preparable_stmt` | The [statement](sql-grammar.html#preparable_stmt) you want details about. All preparable statements are explainable.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 `EXPLAIN` also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Success responses
 
@@ -66,7 +66,7 @@ Successful `EXPLAIN` statements return tables with the following columns:
 
 By default, `EXPLAIN` includes the least detail about the query plan but can be useful to find out which indexes and index key ranges are used by a query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT * FROM kv WHERE v > 3 ORDER BY v;
 ~~~
@@ -92,7 +92,7 @@ The `VERBOSE` option:
 - Includes SQL expressions that are involved in each processing stage, providing more granular detail about which portion of your query is represented at each level.
 - Includes detail about which columns are being used by each level, as well as properties of the result set on that level.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (VERBOSE) SELECT * FROM kv AS a JOIN kv USING (k) WHERE a.v > 3 ORDER BY a.v DESC;
 ~~~
@@ -124,7 +124,7 @@ The `VERBOSE` option:
 
 The `TYPES` mode includes the types of the values used in the query plan.  It also includes the SQL expressions that were involved in each processing stage, and includes the columns used by each level.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (TYPES) SELECT * FROM kv WHERE v > 3 ORDER BY v;
 ~~~
@@ -147,7 +147,7 @@ The `TYPES` mode includes the types of the values used in the query plan.  It al
 
 For example, the following query returns the query plan tree, which means that it will be run with the cost-based optimizer:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN(OPT) SELECT l_shipmode, avg(l_extendedprice) from lineitem GROUP BY l_shipmode;
 ~~~
@@ -176,7 +176,7 @@ group-by
 
 In contrast, this query returns `pq: unsupported statement: *tree.Insert`, which means that it will use the heuristic planner instead of the cost-based optimizer:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (OPT) INSERT INTO l_shipmode VALUES ("truck");
 ~~~
@@ -191,7 +191,7 @@ pq: unsupported statement: *tree.Insert
 
 `EXPLAIN (DISTSQL)` generates a physical query plan that provides high level information about how a query will be executed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN (DISTSQL) SELECT l_shipmode, AVG(l_extendedprice) FROM lineitem GROUP BY l_shipmode;
 ~~~
@@ -204,20 +204,20 @@ pq: unsupported statement: *tree.Insert
 
 To view the [DistSQL Plan Viewer](explain-analyze.html#distsql-plan-viewer), point your browser to the URL provided:
 
-<img src="{{  'images/v2.1/explain-distsql-plan.png' | relative_url  }}" alt="EXPLAIN (DISTSQL)" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/explain-distsql-plan.png' | relative_url }}" alt="EXPLAIN (DISTSQL)" style="border:1px solid #eee;max-width:100%" />
 
 ### Find the indexes and key ranges a query uses
 
 You can use `EXPLAIN` to understand which indexes and key ranges queries use, which can help you ensure a query isn't performing a full table scan.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE kv (k INT PRIMARY KEY, v INT);
 ~~~
 
 Because column `v` is not indexed, queries filtering on it alone scan the entire table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT * FROM kv WHERE v BETWEEN 4 AND 5;
 ~~~
@@ -234,12 +234,12 @@ Because column `v` is not indexed, queries filtering on it alone scan the entire
 
 If there were an index on `v`, CockroachDB would be able to avoid scanning the entire table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE INDEX v ON kv (v);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT * FROM kv WHERE v BETWEEN 4 AND 5;
 ~~~

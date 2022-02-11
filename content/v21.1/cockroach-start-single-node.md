@@ -6,9 +6,9 @@ toc: true
 
 This page explains the `cockroach start-single-node` [command](cockroach-commands.html), which you use to start a single-node cluster with replication disabled. A single-node cluster is all you need for quick SQL testing or app development.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To run a multi-node cluster with replicated data for availability and consistency, use [`cockroach start`](cockroach-start.html) and [`cockroach init`](cockroach-init.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
@@ -30,9 +30,9 @@ The `cockroach start-single-node` command supports the following [general-use](#
 
 Many flags have useful defaults that can be overridden by specifying the flags explicitly. If you specify flags explicitly, however, be sure to do so each time the node is restarted, as they will not be remembered.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `cockroach start-single-node` flags are identical to [`cockroach start`](cockroach-start.html#flags) flags. However, many of them are not relevant for single-node clusters but are provided for users who want to test concepts that appear in multi-node clusters. These flags are called out as such. In most cases, accepting most defaults is sufficient (see the [examples](#examples) below).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### General
 
@@ -72,9 +72,9 @@ Flag | Description
 
 The `--store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In-memory storage is not suitable for production deployments at this time.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Field | Description
 ------|------------
@@ -87,7 +87,7 @@ Field | Description
 
 By default, `cockroach start-single-node` writes all messages to log files, and prints nothing to `stderr`. This includes events with `INFO` [severity](logging.html#logging-levels-severities) and higher. However, you can [customize the logging behavior](configure-logs.html) of this command by using the `--log` flag:
 
-{%  include {{  page.version.version  }}/misc/logging-flags.md %}
+{{ partial "{{ page.version.version }}/misc/logging-flags.md" . }}
 
 #### Defaults
 
@@ -98,7 +98,7 @@ See the [default logging configuration](configure-logs.html#default-logging-conf
 When you run `cockroach start-single-node`, some helpful details are printed to the standard output:
 
 ~~~ shell
-CockroachDB node starting at {{ page.release_info.start_time }}
+CockroachDB node starting at {{ now | date: "%Y-%m-%d %H:%M:%S.%6 +0000 UTC" }}
 build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }} (go1.12.6)
 webui:               http://localhost:8080
 sql:                 postgresql://root@localhost:26257?sslmode=disable
@@ -112,9 +112,9 @@ clusterID:           8a681a16-9623-4fc1-a537-77e9255daafd
 nodeID:              1
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 These details are also written to the `INFO` log in the `/logs` directory. You can retrieve them with a command like `grep 'node starting' node1/logs/cockroach.log -A 11`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Field | Description
 ------|------------
@@ -144,7 +144,7 @@ Field | Description
 <section class="filter-content" markdown="1" data-scope="secure">
 1. Create two directories for certificates:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ mkdir certs my-safe-directory
     ~~~
@@ -156,7 +156,7 @@ Field | Description
 
 2. Create the CA (Certificate Authority) certificate and key pair:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-ca \
     --certs-dir=certs \
@@ -165,7 +165,7 @@ Field | Description
 
 3. Create the certificate and key pair for the node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-node \
     localhost \
@@ -176,7 +176,7 @@ Field | Description
 
 4. Create a client certificate and key pair for the `root` user:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach cert create-client \
     root \
@@ -186,7 +186,7 @@ Field | Description
 
 5. Start the single-node cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start-single-node \
     --certs-dir=certs \
@@ -198,7 +198,7 @@ Field | Description
 
 <section class="filter-content" markdown="1" data-scope="insecure">
 <p></p>
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start-single-node \
 --insecure \
@@ -220,7 +220,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 <section class="filter-content" markdown="1" data-scope="secure">
 1. Stop the single-node cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit \
     --certs-dir=certs \
@@ -229,7 +229,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 
 2. Restart the node with the [`cockroach start`](cockroach-start.html) command:  
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -241,11 +241,11 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 
     The new flag to note is `--join`, which specifies the addresses and ports of the nodes that will initially comprise your cluster. You'll use this exact `--join` flag when starting other nodes as well.
 
-    {%  include {{  page.version.version  }}/prod-deployment/join-flag-single-region.md %}
+    {{ partial "{{ page.version.version }}/prod-deployment/join-flag-single-region.md" . }}
 
 3. Add two more nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -256,7 +256,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --certs-dir=certs \
@@ -271,49 +271,49 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 
 4. Open the [built-in SQL shell](cockroach-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --certs-dir=certs --host=localhost:26257
     ~~~
 
 5. Update preconfigured [replication zones](configure-replication-zones.html) to replicate user data 3 times and import internal data 5 times:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE default CONFIGURE ZONE USING num_replicas = 3;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE system CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER database system CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE liveness CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE meta CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE system.public.jobs CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE system.public.replication_constraint_stats CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE system.public.replication_stats CONFIGURE ZONE USING num_replicas = 5;
     ~~~
@@ -322,7 +322,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 <section class="filter-content" markdown="1" data-scope="insecure">
 1. Stop the single-node cluster:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit \
     --insecure \
@@ -331,7 +331,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 
 2. Restart the node with the [`cockroach start`](cockroach-start.html) command:  
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -345,7 +345,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 
 3. Add two more nodes:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -356,7 +356,7 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
     --background
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start \
     --insecure \
@@ -371,49 +371,49 @@ Scaling a cluster started with `cockroach start-single-node` involves restarting
 
 4. Open the [built-in SQL shell](cockroach-sql.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure --host=localhost:26257
     ~~~
 
 5. Update preconfigured [replication zones](configure-replication-zones.html) to replicate user data 3 times and import internal data 5 times:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE default CONFIGURE ZONE USING num_replicas = 3;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE system CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER database system CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE liveness CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER RANGE meta CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE system.public.jobs CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE system.public.replication_constraint_stats CONFIGURE ZONE USING num_replicas = 5;
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > ALTER TABLE system.public.replication_stats CONFIGURE ZONE USING num_replicas = 5;
     ~~~

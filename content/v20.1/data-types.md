@@ -38,11 +38,11 @@ CockroachDB supports explicit type conversions using the following methods:
 - `<value>::<data type>`, or its equivalent longer form `CAST(<value> AS <data type>)`, which converts an arbitrary expression of one built-in type to another (this is also known as type coercion or "casting"). For example:
   `NOW()::DECIMAL`, `VARIANCE(a+2)::INT`.
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     To create constant values, consider using a
     <a href="scalar-expressions.html#explicitly-typed-expressions">type annotation</a>
     instead of a cast, as it provides more predictable results.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - Other [built-in conversion functions](functions-and-operators.html) when the type is not a SQL type, for example `from_ip()`, `to_ip()` to convert IP addresses between `STRING` and `BYTES` values.
 

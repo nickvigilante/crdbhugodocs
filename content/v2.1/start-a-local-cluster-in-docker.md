@@ -17,14 +17,14 @@ To link directly to the linux or windows tab, append #os-linux or #os-windows to
 
 Once you've [installed the official CockroachDB Docker image](install-cockroachdb.html), it's simple to run an insecure multi-node cluster across multiple Docker containers on a single host, using Docker volumes to persist node data.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Running a stateful application like CockroachDB in Docker is more complex and error-prone than most uses of Docker and is not recommended for production deployments. To run a physically distributed cluster in containers, use an orchestration tool like Kubernetes or Docker Swarm. See [Orchestration](orchestration.html) for more details.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <div id="toc" style="display: none"></div>
 
 <div class="filter-content current" markdown="1" data-scope="os-mac">
-{%  include {{  page.version.version  }}/start-in-docker/mac-linux-steps.md %}
+{{ partial "{{ page.version.version }}/start-in-docker/mac-linux-steps.md" . }}
 
 ## Step 5. Monitor the cluster
 
@@ -32,36 +32,36 @@ When you started the first container/node, you mapped the node's default HTTP po
 
 As mentioned earlier, CockroachDB automatically replicates your data behind-the-scenes. To verify that data written in the previous step was replicated successfully, scroll down to the **Replicas per Node** graph and hover over the line:
 
-<img src="{{  'images/v2.1/admin_ui_replicas_per_node.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_replicas_per_node.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 The replica count on each node is identical, indicating that all data in the cluster was replicated 3 times (the default).
 
-{{ site.data.alerts.callout_success }}For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our <a href="demo-data-replication.html">replication</a>, <a href="demo-automatic-rebalancing.html">rebalancing</a>, <a href="demo-fault-tolerance-and-recovery.html">fault tolerance</a> demos.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our <a href="demo-data-replication.html">replication</a>, <a href="demo-automatic-rebalancing.html">rebalancing</a>, <a href="demo-fault-tolerance-and-recovery.html">fault tolerance</a> demos.{{site.data.alerts.end }}
 
 ## Step 6.  Stop the cluster
 
 Use the `docker stop` and `docker rm` commands to stop and remove the containers (and therefore the cluster):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ docker stop roach1 roach2 roach3
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ docker rm roach1 roach2 roach3
 ~~~
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf cockroach-data
 ~~~
 </div>
 
 <div class="filter-content" markdown="1" data-scope="os-linux">
-{%  include {{  page.version.version  }}/start-in-docker/mac-linux-steps.md %}
+{{ partial "{{ page.version.version }}/start-in-docker/mac-linux-steps.md" . }}
 
 ## Step 5. Monitor the cluster
 
@@ -69,31 +69,31 @@ When you started the first container/node, you mapped the node's default HTTP po
 
 As mentioned earlier, CockroachDB automatically replicates your data behind-the-scenes. To verify that data written in the previous step was replicated successfully, scroll down to the **Replicas per Node** graph and hover over the line:
 
-<img src="{{  'images/v2.1/admin_ui_replicas_per_node.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_replicas_per_node.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 The replica count on each node is identical, indicating that all data in the cluster was replicated 3 times (the default).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our [replication](demo-data-replication.html), [rebalancing](demo-automatic-rebalancing.html), [fault tolerance](demo-fault-tolerance-and-recovery.html) demos.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 6.  Stop the cluster
 
 Use the `docker stop` and `docker rm` commands to stop and remove the containers (and therefore the cluster):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ docker stop roach1 roach2 roach3
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ docker rm roach1 roach2 roach3
 ~~~
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ rm -rf cockroach-data
 ~~~
@@ -114,7 +114,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
 ## Step 2. Start the first node
 
-{{ site.data.alerts.callout_info }}Be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{site.data.alerts.end }}
 
 <div class="language-powershell highlighter-rouge"><pre class="highlight"><code><span class="nb">PS </span>C:\Users\username&gt; docker run -d <span class="sb">`</span>
 --name<span class="o">=</span>roach1 <span class="sb">`</span>
@@ -141,7 +141,7 @@ At this point, your cluster is live and operational. With just one node, you can
 
 To simulate a real deployment, scale your cluster by adding two more nodes:
 
-{{ site.data.alerts.callout_info }}Again, be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Again, be sure to replace <code>&#60;username&#62;</code> in the <code>-v</code> flag with your actual username.{{site.data.alerts.end }}
 
 <div class="language-powershell highlighter-rouge"><pre class="highlight"><code><span class="c1"># Start the second container/node:</span>
 <span class="nb">PS </span>C:\Users\username&gt; docker run -d <span class="sb">`</span>
@@ -175,22 +175,22 @@ Now that you've scaled to 3 nodes, you can use any node as a SQL gateway to the 
 
 Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO bank.accounts VALUES (1, 1000.50);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM bank.accounts;
 ~~~
@@ -206,7 +206,7 @@ Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
 Exit the SQL shell on node 1:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -220,7 +220,7 @@ Then start the SQL shell in the second container:
 
 Now run the same `SELECT` query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM bank.accounts;
 ~~~
@@ -238,7 +238,7 @@ As you can see, node 1 and node 2 behaved identically as SQL gateways.
 
 When you're done, exit the SQL shell on node 2:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > \q
 ~~~
@@ -249,13 +249,13 @@ When you started the first container/node, you mapped the node's default HTTP po
 
 As mentioned earlier, CockroachDB automatically replicates your data behind-the-scenes. To verify that data written in the previous step was replicated successfully, scroll down to the **Replicas per Node** graph and hover over the line:
 
-<img src="{{  'images/v2.1/admin_ui_replicas_per_node.png' | relative_url  }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/admin_ui_replicas_per_node.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
 The replica count on each node is identical, indicating that all data in the cluster was replicated 3 times (the default).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our [replication](demo-data-replication.html), [rebalancing](demo-automatic-rebalancing.html), [fault tolerance](demo-fault-tolerance-and-recovery.html) demos.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 6.  Stop the cluster
 

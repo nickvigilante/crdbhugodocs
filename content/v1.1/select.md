@@ -10,10 +10,10 @@ The `SELECT` [statement](sql-statements.html) retrieves data from a table. The `
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/select.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/select.html" . }}
 </div>
 
-{{ site.data.alerts.callout_success }}<code>SELECT</code> also has other applications not covered here, such as executing <a href="functions-and-operators.html">functions</a> like <code>SELECT current_timestamp();</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}<code>SELECT</code> also has other applications not covered here, such as executing <a href="functions-and-operators.html">functions</a> like <code>SELECT current_timestamp();</code>.{{site.data.alerts.end }}
 
 ## Required Privileges
 
@@ -456,7 +456,7 @@ FROM accounts;
 
 You can use an `ORDER BY` clause to sort retrieved rows by one or more columns.
 
-{{ site.data.alerts.callout_info }}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.<br><br>Also, CockroachDB sorts <a href="null-handling.html#nulls-and-sorting"><code>NULL</code> values</a> first with <code>ASC</code> and last with <code>DESC</code>. This differs from PostgreSQL, which sorts <code>NULL</code> values last with <code>ASC</code> and first with <code>DESC</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.<br><br>Also, CockroachDB sorts <a href="null-handling.html#nulls-and-sorting"><code>NULL</code> values</a> first with <code>ASC</code> and last with <code>DESC</code>. This differs from PostgreSQL, which sorts <code>NULL</code> values last with <code>ASC</code> and first with <code>DESC</code>.{{site.data.alerts.end }}
 
 #### Order Retrieved Rows by One Column
 
@@ -555,7 +555,7 @@ OFFSET 5;
 
 By using "index hints", you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for your `SELECT` statement.
 
-{{ site.data.alerts.callout_info }}Index selection can impact performance, but does not change the result of a <code>SELECT</code> statement.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Index selection can impact performance, but does not change the result of a <code>SELECT</code> statement.{{site.data.alerts.end }}
 
 ~~~ sql
 > SHOW INDEXES FROM accounts;

@@ -20,11 +20,11 @@ Set a [`REGION` survival goal](multiregion-overview.html#surviving-region-failur
 - The database must remain available, even if a region goes down.
 - You can accept the performance cost: write latency will be increased by at least as much as the round-trip time to the nearest region. Read performance will be unaffected.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more information about how to choose a multi-region configuration, see [Choosing a multi-region configuration](choosing-a-multi-region-configuration.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include enterprise-feature.md %}
+{{ partial "enterprise-feature.md" . }}
 
 ## See also
 

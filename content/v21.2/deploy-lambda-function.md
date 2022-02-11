@@ -7,7 +7,7 @@ referral_id: docs_lambda_python
 docs_area: 
 ---
 
-This tutorial shows you how to create an [AWS Lambda](https://aws.amazon.com/lambda) function that communicates with a {{  site.data.products.serverless  }} cluster.
+This tutorial shows you how to create an [AWS Lambda](https://aws.amazon.com/lambda) function that communicates with a {{ site.data.products.serverless }} cluster.
 
 The example function used for this tutorial is written in Python. The function uses the [Psycopg](https://www.psycopg.org/) PostgreSQL adapter to connect to CockroachDB.
 
@@ -15,7 +15,7 @@ The example function used for this tutorial is written in Python. The function u
 
 Before starting the tutorial, do the following:
 
-1. Create a [{{  site.data.products.db  }}](https://cockroachlabs.cloud/signup?referralId={{ page.referral_id }}) account.
+1. Create a [{{ site.data.products.db }}](https://cockroachlabs.cloud/signup?referralId={{ page.referral_id }}) account.
 
 1. Create an [AWS](https://aws.amazon.com/) account.
 
@@ -23,23 +23,23 @@ Before starting the tutorial, do the following:
 
 1. Install the [AWS CLI](https://aws.amazon.com/cli/).
 
-## Step 1. Create a {{  site.data.products.serverless  }} cluster
+## Step 1. Create a {{ site.data.products.serverless }} cluster
 
-{%  include cockroachcloud/quickstart/create-a-free-cluster.md %}
+{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
 
 <a name="connection-string"></a>
 
 After the cluster is created, the **Connection info** window appears. Click the **Connection string** tab and copy the connection string to a secure location. You will use this connection string to connect to CockroachDB later in the tutorial.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The connection string is pre-populated with your username, cluster name, and other details, including your password. Your password, in particular, will be provided only once. Save it in a secure place (we recommend a password manager) to connect to your cluster in the future. If you forget your password, you can reset it by going to the [**SQL Users** page](../cockroachcloud/user-authorization.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 2. Get the sample code
 
 Open a terminal window and copy the sample code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/examples-aws-lambda
 ~~~
@@ -58,39 +58,39 @@ The function's code is available under the `examples-aws-lambda/python` director
 
 ## Step 3. (Optional) Create the deployment package
 
-{{ site.data.alerts.callout_info }}    
+{{site.data.alerts.callout_info }}    
 This step is optional, as you do not need to create a new deployment package to deploy the sample function. The `examples-aws-lambda` repo includes a deployment package that is ready to deploy.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Download and install the `psycopg2-binary` Python library to a new directory:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ python3 -m pip install --only-binary :all: --platform manylinux1_x86_64  --target ./my-package -r requirements.txt
     ~~~
 
-    {{ site.data.alerts.callout_info }}    
+    {{site.data.alerts.callout_info }}    
     To run on Amazon Linux distributions, `pscyopg2` dependencies must be compiled for Linux.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. Compress the project files to a ZIP file for deployment:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cd my-package
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ zip -r ../my-deployment-package.zip .
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     cd ..
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     zip -g my-deployment-package.zip init_db.py root.crt
     ~~~
@@ -99,7 +99,7 @@ This step is optional, as you do not need to create a new deployment package to 
 
 1. Configure the AWS CLI to authenticate with your AWS account:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws configure
     ~~~
@@ -108,12 +108,12 @@ This step is optional, as you do not need to create a new deployment package to 
 
 1. Create an execution role for the Lambda function and attach the `AWSLambdaBasicExecutionRole` policy to the role:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws iam create-role --role-name lambda-ex --assume-role-policy-document '{"Version": "2012-10-17","Statement": [{ "Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"}, "Action": "sts:AssumeRole"}]}'
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws iam attach-role-policy --role-name lambda-ex --policy-arn arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
     ~~~
@@ -124,7 +124,7 @@ This step is optional, as you do not need to create a new deployment package to 
 
 1. In the deployment package directory, use the AWS CLI to create a Lambda function:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws lambda create-function \
         --function-name init-crdb \
@@ -140,7 +140,7 @@ This step is optional, as you do not need to create a new deployment package to 
 
 1. Invoke the function:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ aws lambda invoke --function-name init-crdb out --region us-east-1 --log-type Tail \
         --query 'LogResult' --output text |  base64 -d
@@ -164,4 +164,4 @@ This step is optional, as you do not need to create a new deployment package to 
 - [Build a Simple Django App with CockroachDB](build-a-python-app-with-cockroachdb-django.html)
 - [Deploy a Global, Serverless Application](movr-flask-deployment.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

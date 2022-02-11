@@ -6,9 +6,9 @@ toc: true
 
 The transaction layer of CockroachDB's architecture implements support for ACID transactions by coordinating concurrent operations.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Overview
 
@@ -213,7 +213,7 @@ If the refreshing is unsuccessful, then the transaction must be retried at the p
 
 Transactional writes are pipelined when being replicated and when being written to disk, dramatically reducing the latency of transactions that perform multiple writes. For example, consider the following transaction:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 -- CREATE TABLE kv (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), key VARCHAR, value VARCHAR);
 > BEGIN;
@@ -247,9 +247,9 @@ The transaction coordinator is able to do this while maintaining correctness gua
 
 For an example showing how the Parallel Commits feature works in more detail, see [Parallel Commits - step by step](#parallel-commits-step-by-step).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The latency until intents are resolved is unchanged by the introduction of Parallel Commits: two rounds of consensus are still required to resolve intents. This means that [contended workloads](../performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention) are expected to profit less from this feature.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Parallel Commits - step by step
 
@@ -267,9 +267,9 @@ The client issues a write to the "Apple" key. The transaction coordinator begins
 
 The coordinator avoids creating the record for as long as possible in the transaction's lifecycle as an optimization. The fact that the transaction record does not yet exist is denoted in the diagram by its dotted lines.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The coordinator does not need to wait for write intents to replicate from leaseholders before moving on to the next statement from the client, since that is handled in parallel by [Transaction Pipelining](#transaction-pipelining).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ![parallel-commits-01.png](../../images/{{ page.version.version }}/parallel-commits-01.png "Parallel Commits Diagram #2")
 

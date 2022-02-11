@@ -7,7 +7,7 @@ docs_area: deploy
 
 A [_table locality_](multiregion-overview.html#table-locality) indicates how CockroachDB optimizes access to a table's data in a multi-region cluster. CockroachDB uses the table locality setting to determine how to optimize access to the table's data from that locality.
 
-{%  include enterprise-feature.md %}
+{{ partial "enterprise-feature.md" . }}
 
 The following table localities are available:
 
@@ -24,9 +24,9 @@ Use a [`GLOBAL` table locality](multiregion-overview.html#global-tables) if:
 - Your application has a "read-mostly" table of reference data that is rarely updated, and that needs to be available to all regions.
 - You can accept that writes to the table will incur higher latencies from any given region, since writes use a novel [non-blocking transaction protocol](architecture/transaction-layer.html#non-blocking-transactions) that uses a timestamp "in the future". Note that the observed write latency is dependent on the [`--max-offset`](cockroach-start.html#flags-max-offset) setting.
 
-{{ site.data.alerts.callout_success }}
-{%  include {{ page.version.version }}/misc/multiregion-max-offset.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{{site.data.alerts.end }}
 
 ## See also
 

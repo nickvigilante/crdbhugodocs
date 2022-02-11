@@ -6,9 +6,9 @@ toc: true
 
 To reduce latency for read queries, you can use the follower reads feature, which lets the closest replica serve the read request at the expense of only not guaranteeing that data is up to date.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The follower reads feature is an [enterprise-only](enterprise-licensing.html) feature. For insight into how to use this feature to get low latency, historical reads in multi-region deployments, see the [Follower Reads](topology-follower-reads.html) topology pattern.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## What are Follower reads?
 
@@ -27,7 +27,7 @@ Use [`SET CLUSTER SETTING`](set-cluster-setting.html) to set `kv.closed_timestam
 - `true` to enable follower reads _(default)_
 - `false` to disable follower reads
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.closed_timestamp.follower_reads_enabled = false;
 ~~~
@@ -69,9 +69,9 @@ SELECT ...
 COMMIT;
 ```
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use the follower reads feature from [drivers and ORMs](install-client-drivers.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How follower reads works
 

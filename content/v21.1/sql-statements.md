@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports the following SQL statements. Click a statement for more details.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 In the [built-in SQL shell](cockroach-sql.html#help), use `\h [statement]` to get inline help about a specific statement.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Data manipulation statements
 

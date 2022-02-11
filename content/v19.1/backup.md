@@ -4,9 +4,9 @@ summary: Back up your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The `BACKUP` feature is only available to [enterprise](https://www.cockroachlabs.com/product/cockroachdb/) users. For non-enterprise backups, see [`cockroach dump`](sql-dump.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 CockroachDB's `BACKUP` [statement](sql-statements.html) allows you to create full or incremental backups of your cluster's schema and data that are consistent as of a given timestamp. Backups can be with or without [revision history](backup.html#backups-with-revision-history).
 
@@ -19,9 +19,9 @@ Because CockroachDB is designed with high fault tolerance, these backups are des
 
 You can backup entire tables (which automatically includes their indexes) or [views](views.html). Backing up a database simply backs up all of its tables and views.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `BACKUP` only offers table-level granularity; it _does not_ support backing up subsets of a table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Object dependencies
 
@@ -60,7 +60,7 @@ You can configure garbage collection periods using the `ttlseconds` [replication
 
 ### Backups with revision history
 
-{%  include {{  page.version.version  }}/misc/beta-warning.md %}
+{{ partial "{{ page.version.version }}/misc/beta-warning.md" . }}
 
 You can create full or incremental backups with revision history:
 
@@ -95,19 +95,19 @@ After CockroachDB successfully initiates a backup, it registers the backup as a 
 
 After the backup has been initiated, you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If initiated correctly, the statement returns when the backup is finished or if it encounters an error. In some cases, the backup can continue after an error has been returned (the error message will tell you that the backup has resumed in background).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/backup.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/backup.html" . }}
 </div>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `BACKUP` statement cannot be used within a [transaction](transactions.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -129,7 +129,7 @@ Only members of the `admin` role can run `BACKUP`. By default, the `root` user b
 
 We will use the URL provided to construct a secure API call to the service you specify. The path to each backup must be unique, and the URL for your backup's destination/locations must use the following format:
 
-{%  include {{  page.version.version  }}/misc/external-urls.md %}
+{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
 
 ## Examples
 
@@ -137,7 +137,7 @@ Per our guidance in the [Performance](#performance) section, we recommend starti
 
 ### Backup a single table or view
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP bank.customers \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -146,7 +146,7 @@ AS OF SYSTEM TIME '-10s';
 
 ### Backup multiple tables
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP bank.customers, bank.accounts \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -155,7 +155,7 @@ AS OF SYSTEM TIME '-10s';
 
 ### Backup an entire database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -164,7 +164,7 @@ AS OF SYSTEM TIME '-10s';
 
 ### Backup with revision history
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -175,7 +175,7 @@ AS OF SYSTEM TIME '-10s' WITH revision_history;
 
 Incremental backups must be based off of full backups you've already created.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/db/bank/2017-03-29-nightly' \
@@ -185,7 +185,7 @@ INCREMENTAL FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://ac
 
 ### Create incremental backups with revision history
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BACKUP DATABASE bank \
 TO 'gs://acme-co-backup/database-bank-2017-03-29-nightly' \

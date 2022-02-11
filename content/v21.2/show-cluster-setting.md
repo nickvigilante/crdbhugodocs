@@ -9,9 +9,9 @@ The `SHOW CLUSTER SETTING` [statement](sql-statements.html) displays the values 
 
 To configure cluster settings, use [`SET CLUSTER SETTING`](set-cluster-setting.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `SHOW` statement for cluster settings is unrelated to the other `SHOW` statements: <a href="show-vars.html"><code>SHOW (session variable)</code></a>, <a href="show-create.html"><code>SHOW CREATE</code></a>, <a href="show-users.html"><code>SHOW USERS</code></a>, <a href="show-databases.html"><code>SHOW DATABASES</code></a>, <a href="show-columns.html"><code>SHOW COLUMNS</code></a>, <a href="show-grants.html"><code>SHOW GRANTS</code></a>, and <a href="show-constraints.html"><code>SHOW CONSTRAINTS</code></a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Details
 
@@ -48,7 +48,7 @@ Only members of the `admin` role can display cluster settings. By default, the `
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_cluster_setting.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_cluster_setting.html %}
 </div>
 
 ## Parameters
@@ -75,7 +75,7 @@ Field | Description
 
 ### Show the value of a single cluster setting
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER SETTING diagnostics.reporting.enabled;
 ~~~
@@ -89,7 +89,7 @@ Field | Description
 
 ### Show the values of all public cluster settings
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER SETTINGS;
 ~~~
@@ -106,7 +106,7 @@ Field | Description
 
 ### Show the values of all cluster settings
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ALL CLUSTER SETTINGS;
 ~~~

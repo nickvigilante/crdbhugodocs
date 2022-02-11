@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports various signed integer [data types](data-types.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For instructions showing how to auto-generate integer values (e.g., to auto-number rows in a table), see [this FAQ entry](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Names and Aliases
 
@@ -46,18 +46,18 @@ If your application needs to use an integer size that is different than the Cock
 1. The `default_int_size` [session variable](set-vars.html).
 2. The `sql.defaults.default_int_size` [cluster setting](cluster-settings.html).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If your application requires arbitrary precision numbers, use the [`DECIMAL`](decimal.html) data type.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE ints (a INT PRIMARY KEY, b SMALLINT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW COLUMNS FROM ints;
 ~~~
@@ -72,7 +72,7 @@ If your application requires arbitrary precision numbers, use the [`DECIMAL`](de
 (3 rows)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO ints VALUES (1, 32);
 ~~~
@@ -81,7 +81,7 @@ If your application requires arbitrary precision numbers, use the [`DECIMAL`](de
 INSERT 1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM ints;
 ~~~

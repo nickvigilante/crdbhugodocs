@@ -5,14 +5,14 @@ toc: true
 ---
 The `SHOW STATISTICS` [statement](sql-statements.html) lists [table statistics](create-statistics.html) used by the [cost-based optimizer](cost-based-optimizer.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 [By default, CockroachDB automatically generates statistics](cost-based-optimizer.html#table-statistics) on all indexed columns, and up to 100 non-indexed columns.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/show_stats.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/show_stats.html" . }}
 </div>
 
 ## Required Privileges
@@ -27,11 +27,11 @@ Parameter      | Description
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### List table statistics
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW STATISTICS FOR TABLE rides;
 ~~~
@@ -54,7 +54,7 @@ Parameter      | Description
 
 ### Delete statistics
 
-{%  include {{  page.version.version  }}/misc/delete-statistics.md %}
+{{ partial "{{ page.version.version }}/misc/delete-statistics.md" . }}
 
 ## See Also
 

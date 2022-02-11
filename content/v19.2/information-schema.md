@@ -8,9 +8,9 @@ CockroachDB provides a virtual schema called `information_schema` that contains 
 
 The definition of `information_schema` is part of the SQL standard and can therefore be relied on to remain stable over time. This contrasts with CockroachDB's `SHOW` statements, which provide similar data and are meant to be stable in CockroachDB but not standardized. It also contrasts with the virtual schema `crdb_internal`, which reflects the internals of CockroachDB and may thus change across CockroachDB versions.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `information_schema` views typically represent objects that the current user has privilege to access. To ensure you can view all the objects in a database, access it as the `root` user.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Data exposed by information_schema
 
@@ -41,13 +41,13 @@ Currently, there are some `information_schema` tables that are empty but provide
 - `routines`
 - `parameters`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A query can specify a table name without a database name (e.g., `SELECT * FROM information_schema.sequences`). See [Name Resolution](sql-name-resolution.html) for more information.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 <span class="version-tag">New in v19.2:</span> The virtual tables in `information_schema` contain useful comments with links to further documentation. To view these comments, use `SHOW TABLES FROM information_schema WITH COMMENT`:
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### administrable_role_authorizations
 
@@ -304,8 +304,8 @@ Column | Description
 
 `user_privileges` identifies global [privileges](authorization.html#assign-privileges).
 
-{{ site.data.alerts.callout_info }}Currently, CockroachDB does not support global privileges for non-<code>root</code> users. Therefore, this view contains global privileges only for <code>root</code>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Currently, CockroachDB does not support global privileges for non-<code>root</code> users. Therefore, this view contains global privileges only for <code>root</code>.
+{{site.data.alerts.end }}
 
 Column | Description
 -------|-----------
@@ -333,11 +333,11 @@ Column | Description
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Retrieve all columns from an information schema table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM movr.information_schema.table_constraints;
 ~~~
@@ -361,7 +361,7 @@ Column | Description
 
 ### Retrieve specific columns from an information schema table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT table_name, constraint_name FROM movr.information_schema.table_constraints;
 ~~~

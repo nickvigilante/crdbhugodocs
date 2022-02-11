@@ -9,9 +9,9 @@ By default, the DB Console and each node of a CockroachDB cluster share anonymou
 
 This page summarizes the details that get shared, how to view the details yourself, and how to opt out of sharing.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For insights into your cluster's performance and health, use the built-in [DB Console](ui-overview.html) or a third-party monitoring tool like [Prometheus](monitor-cockroachdb-with-prometheus.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## What gets shared
 
@@ -22,9 +22,9 @@ When diagnostics reporting is on, each node of a CockroachDB cluster shares anon
 
 To view the full diagnostics details that a node reports to Cockroach Labs, use the `http://<node-address>:<http-port>/_status/diagnostics/local` JSON endpoint.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 In all cases, names and other string values are scrubbed and replaced with underscores. Also, the details that get shared may change over time, but as that happens, we will announce the changes in release notes.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Opt out of diagnostics reporting
 
@@ -36,7 +36,7 @@ To make sure that absolutely no diagnostic details are shared, you can set the e
 
 To stop sending diagnostic details to Cockroach Labs once a cluster is running, [use the built-in SQL client](cockroach-sql.html) to execute the following [`SET CLUSTER SETTING`](set-cluster-setting.html) statement, which switches the `diagnostics.reporting.enabled` [cluster setting](cluster-settings.html) to `false`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING diagnostics.reporting.enabled = false;
 ~~~
@@ -47,7 +47,7 @@ This change will not be instantaneous, as it must be propagated to other nodes i
 
 To check the state of diagnostics reporting, [use the built-in SQL client](cockroach-sql.html) to execute the following [`SHOW CLUSTER SETTING`](show-cluster-setting.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER SETTING diagnostics.reporting.enabled;
 ~~~

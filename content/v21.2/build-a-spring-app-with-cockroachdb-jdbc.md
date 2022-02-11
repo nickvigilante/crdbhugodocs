@@ -10,16 +10,16 @@ filter_sort: 1
 docs_area: develop
 ---
 
-{%  include filter-tabs.md %}
+{{ partial "filter-tabs.md" . }}
 
 This tutorial shows you how to build a [Spring Boot](https://spring.io/projects/spring-boot) web application with CockroachDB, using the [Spring Data JDBC](https://spring.io/projects/spring-data-jdbc) module for data access. The code for the example application is available for download from [GitHub](https://github.com/cockroachlabs/roach-data/tree/master), along with identical examples that use [JPA](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-jpa), [jOOQ](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-jooq), and [MyBatis](https://github.com/cockroachlabs/roach-data/tree/master/roach-data-mybatis) for data access.
 
 ## Step 1. Start CockroachDB
 
-Choose whether to run a local cluster or a free {{  site.data.products.db  }} cluster.
+Choose whether to run a local cluster or a free {{ site.data.products.db }} cluster.
 
 <div class="filters clearfix">
-  <button class="filter-button page-level" data-scope="cockroachcloud">Use {{  site.data.products.serverless  }}</button>
+  <button class="filter-button page-level" data-scope="cockroachcloud">Use {{ site.data.products.serverless }}</button>
   <button class="filter-button page-level" data-scope="local">Use a Local Cluster</button>
 </div>
 
@@ -34,11 +34,11 @@ Choose whether to run a local cluster or a free {{  site.data.products.db  }} cl
 
 ### Create a free cluster
 
-{%  include cockroachcloud/quickstart/create-a-free-cluster.md %}
+{{ partial "cockroachcloud/quickstart/create-a-free-cluster.md" . }}
 
 ### Set up your cluster connection
 
-{%  include cockroachcloud/quickstart/set-up-your-cluster-connection.md %}
+{{ partial "cockroachcloud/quickstart/set-up-your-cluster-connection.md" . }}
 
   </section>
 
@@ -48,7 +48,7 @@ Choose whether to run a local cluster or a free {{  site.data.products.db  }} cl
 
 1. Open a SQL shell to your local cluster using the [`cockroach sql`](cockroach-sql.html) command:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql --certs-dir={certs-dir} --host=localhost:{port}
     ~~~
@@ -57,14 +57,14 @@ Choose whether to run a local cluster or a free {{  site.data.products.db  }} cl
 
 1. In the SQL shell, create the `roach_data` database that your application will use:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE roach_data;
     ~~~
 
 1. Create a SQL user for your app:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE USER {username} WITH PASSWORD {password};
     ~~~
@@ -73,14 +73,14 @@ Choose whether to run a local cluster or a free {{  site.data.products.db  }} cl
 
 1. Give the user the necessary permissions:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > GRANT ALL ON DATABASE roach_data TO {username};
     ~~~
 
 1. Exit the shell, and generate a certificate and key for your user by running the following command:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach cert create-client {user} --certs-dir={certs-dir} --ca-key={certs-dir}/ca.key --also-generate-pkcs8-key
 ~~~
@@ -92,9 +92,9 @@ The [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) generates
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
 1. If you haven't already, [download the CockroachDB binary](install-cockroachdb.html).
-1. Start the [built-in SQL shell](cockroach-sql.html) using the connection string you got from the {{  site.data.products.db  }} Console [earlier](#set-up-your-cluster-connection):
+1. Start the [built-in SQL shell](cockroach-sql.html) using the connection string you got from the {{ site.data.products.db }} Console [earlier](#set-up-your-cluster-connection):
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach sql \
     --url 'postgresql://<user>@<cluster-name>-<short-id>.<region>.<host>:26257/<database>?sslmode=verify-full&sslrootcert='$HOME'/Library/CockroachCloud/certs/<cluster-name>-ca.crt'
@@ -104,7 +104,7 @@ The [`--also-generate-pkcs8-key` flag](cockroach-cert.html#flag-pkcs8) generates
 
 1. In the SQL shell, create the `roach_data` database that your application will use:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE roach_data;
     ~~~
@@ -121,21 +121,21 @@ This example application uses [Maven](http://maven.apache.org/) to manage all ap
 
 To install Maven on macOS, run the following command:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ brew install maven
 ~~~
 
 To install Maven on a Debian-based Linux distribution like Ubuntu:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ apt-get install maven
 ~~~
 
 To install Maven on a Red Hat-based Linux distribution like Fedora:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ dnf install maven
 ~~~
@@ -217,27 +217,27 @@ datasource:
 ...
 ~~~
 
-{%  include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
 
 </section>
 
 Open a terminal, and navigate to the `roach-data-jdbc` project subfolder:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cd <path>/roach-data/roach-data-jdbc
 ~~~
 
 Use Maven to download the application dependencies and compile the code:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ mvn clean install
 ~~~
 
 From the `roach-data-jdbc` directory, run the application JAR file:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ java -jar target/roach-data-jdbc.jar
 ~~~
@@ -343,7 +343,7 @@ The `http://localhost:9090/account` endpoint returns information about all accou
 
 The following `curl` command sends a `GET` request to the endpoint. The `json_pp` command formats the JSON response.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/account | json_pp
 ~~~
@@ -410,7 +410,7 @@ $ curl -X GET http://localhost:9090/account | json_pp
 
 For a single account, specify the account number in the endpoint. For example, to see information about the accounts `1` and `2`:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/account/1 | json_pp
 ~~~
@@ -428,7 +428,7 @@ $ curl -X GET http://localhost:9090/account/1 | json_pp
 }
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/account/2 | json_pp
 ~~~
@@ -452,14 +452,14 @@ The `http://localhost:9090/transfer` endpoint performs transfers between account
 
 To make a transfer, send a `POST` request to the `transfer` endpoint, using the arguments specified in the `"href`" URL (i.e., `http://localhost:9090/transfer%7B?fromId,toId,amount`).
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X POST -d fromId=2 -d toId=1 -d amount=150 http://localhost:9090/transfer
 ~~~
 
 You can use the `accounts` endpoint to verify that the transfer was successfully completed:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/account/1 | json_pp
 ~~~
@@ -477,7 +477,7 @@ $ curl -X GET http://localhost:9090/account/1 | json_pp
 }
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/account/2 | json_pp
 ~~~
@@ -499,7 +499,7 @@ $ curl -X GET http://localhost:9090/account/2 | json_pp
 
 `http://localhost:9090/actuator` is the base URL for a number of [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#production-ready) endpoints that let you monitor the activity and health of the application.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/actuator | json_pp
 ~~~
@@ -561,7 +561,7 @@ $ curl -X GET http://localhost:9090/actuator | json_pp
 
 Each actuator endpoint shows specific metrics on the application. For example:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ curl -X GET http://localhost:9090/actuator/health | json_pp
 ~~~
@@ -605,9 +605,9 @@ This section walks you through the different components of the application proje
 
 Here are the contents of [`JdbcApplication.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/JdbcApplication.java):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/JdbcApplication.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/JdbcApplication.java %}
 ~~~
 
 The annotations listed at the top of the `JdbcApplication` class definition declare some important configuration properties for the entire application:
@@ -630,16 +630,16 @@ Liquibase uses [changelog files](https://docs.liquibase.com/concepts/basic/chang
 
 `resources/db/changelog-master.xml` defines the changelog for this application:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/resources/db/changelog-master.xml %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/resources/db/changelog-master.xml %}
 ~~~
 
 The first changeset uses [the `sqlFile` tag](https://docs.liquibase.com/change-types/community/sql-file.html), which tells Liquibase that an external `.sql` file contains some SQL statements to execute. The file specified by the changeset, `resources/db/create.sql`, creates the `account` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/resources/db/create.sql %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/resources/db/create.sql %}
 ~~~
 
 The second changeset in the changelog uses the [Liquibase XML syntax](https://docs.liquibase.com/concepts/basic/xml-format.html) to specify a series of sequential `INSERT` statements that initialize the `account` table with some values.
@@ -648,12 +648,12 @@ When the application is started, all of the queries specified by the changesets 
 
 To see the completed changesets after starting the application, open a new terminal, start the [built-in SQL shell](cockroach-sql.html), and query the `databasechangelog` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM roach_data.databasechangelog;
 ~~~
@@ -666,9 +666,9 @@ $ cockroach sql --certs-dir=certs
 (2 rows)
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Liquibase does not [retry transactions](transactions.html#transaction-retries) automatically. If a changeset fails at startup, you might need to restart the application manually to complete the changeset.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Liquibase configuration
 
@@ -695,9 +695,9 @@ For simplicity, `application.yml` only specifies properties for a single [Spring
 
 Here are the contents of [`Account.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/Account.java):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/Account.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/Account.java %}
 ~~~
 
 ### Hypermedia representation
@@ -706,9 +706,9 @@ To represent database objects as [HAL+JSON](https://en.wikipedia.org/wiki/Hypert
 
 The contents of [`AccountModel.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountModel.java):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountModel.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountModel.java %}
 ~~~
 
 We do not go into much detail about hypermedia representation in this tutorial. For more information, see the [Spring HATEOAS Reference Documentation](https://docs.spring.io/spring-hateoas/docs/current/reference/html/).
@@ -719,9 +719,9 @@ To abstract the database layer, Spring applications use the [`Repository` interf
 
 [`AccountRepository.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountRepository.java) defines the main repository for the `accounts` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountRepository.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountRepository.java %}
 ~~~
 
 `AccountRepository` extends a subinterface of `Repository` that is provided by Spring for generic [CRUD operations](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) called `CrudRepository`. To support [pagination queries](pagination.html), repositories in other Spring Data modules, like those in Spring Data JPA, usually extend a subinterface of `CrudRepository`, called `PagingAndSortingRepository`, that includes pagination and sorting methods. At the time this sample application was created, Spring Data JDBC did not support pagination. As a result, `AccountRepository` extends a custom repository, called `PagedAccountRepository`, to provide basic [`LIMIT`/`OFFSET` pagination](pagination.html) on queries against the `accounts` table. The `AccountRepository` methods use the [`@Query`](https://docs.spring.io/spring-data/jdbc/docs/current/reference/html/#jdbc.query-methods.at-query) annotation strategy to define queries manually, as strings.
@@ -736,9 +736,9 @@ The aspects declared in `TransactionHintsAspect.java` and `RetryableTransactionA
 
 There are several endpoints exposed by the application's web layer, some of which monitor the health of the application, and some that map to queries executed against the connected database. All of the endpoints served by the application are handled by the `AccountController` class, which is defined in [`AccountController.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountController.java):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountController.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/AccountController.java %}
 ~~~
 
  Annotated with [`@RestController`](https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html), `AccountController` defines the primary [web controller](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) component of the application. The `AccountController` methods define the endpoints, routes, and business logic of REST services for account querying and money transferring. Its attributes include an instantiation of [`AccountRepository`](#spring-repositories), called `accountRepository`, that establishes an interface to the `accounts` table through the data access layer.
@@ -772,9 +772,9 @@ For more details about advice ordering, see [Advice Ordering](https://docs.sprin
 
 The `TransactionHintsAspect` class, declared as an aspect with the [`@Aspect` annotation](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-at-aspectj), declares an advice method that defines the attributes of a transaction. The `@Order` annotation is passed the lowest level of precedence, `Ordered.LOWEST_PRECEDENCE`, indicating that this advisor must run after the main transaction advisor, within the context of a transaction. Here are the contents of [`TransactionHintsAspect.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/TransactionHintsAspect.java):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/TransactionHintsAspect.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/TransactionHintsAspect.java %}
 ~~~
 
 The `anyTransactionBoundaryOperation` method is declared as a pointcut with the [`@Pointcut` annotation](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-pointcuts). In Spring, pointcut declarations must include an expression to determine where [join points](https://en.wikipedia.org/wiki/Join_point) occur in the application control flow. To help define these expressions, Spring supports a set of [designators](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-pointcuts-designators). The application uses two of them here: `execution`, which matches method execution joint points (i.e., defines a joint point when a specific method is executed, in this case, *any* method in the `io.roach.` namespace), and `@annotation`, which limits the matches to methods with a specific annotation, in this case `@Transactional`.
@@ -789,9 +789,9 @@ Transactions may require retries if they experience deadlock or [transaction con
 
 In this application, transaction retry logic is written into the methods of the `RetryableTransactionAspect` class. This class is declared an aspect with the `@Aspect` annotation. The `@Order` annotation on this aspect class is passed `Ordered.LOWEST_PRECEDENCE-2`, a level of precedence above the primary transaction advisor. This indicates that the transaction retry advisor must run outside the context of a transaction. Here are the contents of [`RetryableTransactionAspect.java`](https://github.com/cockroachlabs/roach-data/blob/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/RetryableTransactionAspect.java):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/RetryableTransactionAspect.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/roach-data/master/roach-data-jdbc/src/main/java/io/roach/data/jdbc/RetryableTransactionAspect.java %}
 ~~~
 
 The `anyTransactionBoundaryOperation` pointcut definition is identical to the one declared in `TransactionHintsAspect`. The `execution` designator matches all methods in the `io.roach.` namespace, and the `@annotation` designator limits the matches to methods with the `@Transactional` annotation.

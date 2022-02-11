@@ -14,11 +14,11 @@ as part of [`INSERT`](insert.html) or [`UPSERT`](upsert.html).
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/limit_clause.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/limit_clause.html" . }}
 </div>
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/offset_clause.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/offset_clause.html" . }}
 </div>
 
 `LIMIT` restricts the operation to only retrieve `limit_val` number of rows.
@@ -26,9 +26,9 @@ as part of [`INSERT`](insert.html) or [`UPSERT`](upsert.html).
 `OFFSET` restricts the operation to skip the first `offset_value` number of rows.
 It is often used in conjunction with `LIMIT` to "paginate" through retrieved rows.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Using `LIMIT`/`OFFSET` to implement pagination can be very slow for large tables.  We recommend using [keyset pagination](selection-queries.html#pagination-example) instead.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For PostgreSQL compatibility, CockroachDB also supports `FETCH FIRST
 limit_val ROWS ONLY` and `FETCH NEXT limit_val ROWS ONLY` as aliases

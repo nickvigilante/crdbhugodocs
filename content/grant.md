@@ -11,7 +11,7 @@ For privileges required by specific statements, see the documentation for the re
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/grant.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/grant.html" . }}
 
 ## Required Privileges
 

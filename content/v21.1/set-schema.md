@@ -6,11 +6,11 @@ toc: true
 
  The `SET SCHEMA` [statement](sql-statements.html) changes the [schema](sql-name-resolution.html) of a [table](create-table.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `SET SCHEMA` is a subcommand of [`ALTER TABLE`](alter-table.html).
 
 CockroachDB also supports `SET SCHEMA` as an [alias for setting the `search_path` session variable](set-vars.html#supported-variables).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -33,7 +33,7 @@ ALTER TABLE [IF EXISTS] <name> SET SCHEMA <newschemaname>
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements.md" . }}
 
 ### Change the schema of a table
 
@@ -41,7 +41,7 @@ Suppose you want to add the `promo_codes` table to a new schema called `cockroac
 
 By default, [unqualified tables](sql-name-resolution.html#lookup-with-unqualified-names) created in the database belong to the `public` schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES;
 ~~~
@@ -60,19 +60,19 @@ By default, [unqualified tables](sql-name-resolution.html#lookup-with-unqualifie
 
 If the new schema does not already exist, [create it](create-schema.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SCHEMA IF NOT EXISTS cockroach_labs;
 ~~~
 
 Then, change the table's schema:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE promo_codes SET SCHEMA cockroach_labs;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW TABLES;
 ~~~

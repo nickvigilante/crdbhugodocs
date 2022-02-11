@@ -10,7 +10,7 @@ The `SHOW DATABASES` [statement](sql-statements.html) lists all databases in the
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/show_databases.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/show_databases.html" . }}
 </div>
 
 ## Required privileges
@@ -19,7 +19,7 @@ No [privileges](authorization.html#assign-privileges) are required to list the d
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW DATABASES;
 ~~~

@@ -11,15 +11,15 @@ Several new and updated tables (listed below) are available to help you query th
 - Show which of your localities (if any) are critical. A locality is "critical" for a range if all of the nodes in that locality becoming unreachable would cause the range to become unavailable. In other words, the locality contains a majority of the range's replicas.
 - See if any of your cluster's data placement constraints are being violated.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The information on this page assumes you are familiar with [replication zones](configure-replication-zones.html) and [partitioning](partitioning.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This is an experimental feature.**  The interface and output are subject to change.
 
 In particular, the direct access to `system` tables shown here will not be a supported way to inspect CockroachDB in future versions. We're committed to adding stable ways to inspect these replication reports in the future, likely via `SHOW` statements and/or [views](views.html) and [built-in functions](functions-and-operators.html) in the `crdb_internal` schema.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Conformance reporting tables
 
@@ -33,7 +33,7 @@ The following new and updated tables are available for verifying constraint conf
 
 To configure how often the conformance reports are run, adjust the `kv.replication_reports.interval` [cluster setting](cluster-settings.html), which accepts an [`INTERVAL`](interval.html). For example, to run it every five minutes:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SET CLUSTER setting kv.replication_reports.interval = '5m';
 ~~~
@@ -42,7 +42,7 @@ Only members of the `admin` role can access these tables. By default, the `root`
 
 <a name="necessary-attributes"></a>
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The replication reports are only generated for zones that meet the following criteria:
 
 - The zone overrides some replication attributes compared to their parent zone. Ranges in zones for which a report is not generated are counted in the report of the first ancestor zone for which a report is generated.
@@ -56,7 +56,7 @@ The attributes that must be overridden to trigger each report to run are:
 | `replication_stats`               | `constraints`, `num_replicas`  |
 
 In addition to the above, the system's `default` zone always gets a report.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### system.replication_stats
 
@@ -102,9 +102,9 @@ For an example using this table, see [Find out which databases and tables have r
 | report_id      | [`INT8`](int.html)      | The ID of the [report](#system-reports_meta) that generated all of the rows in this table.                                          |
 | at_risk_ranges | [`INT8`](int.html)      | The [ranges](architecture/overview.html#architecture-range) that are at risk of becoming unavailable as of the time of this report. |
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you have not [defined any localities](configure-replication-zones.html#zone-config-node-locality), this report will not return any results. It only reports on localities that have been explicitly defined.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### system.replication_constraint_stats
 
@@ -144,7 +144,7 @@ The `crdb_internal.zones` table is useful for:
 - Viewing your cluster's zone configurations in various formats: YAML, SQL, etc.
 - Matching up data returned from the various replication reports with the names of the databases and tables, indexes, and partitions where that data lives.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW COLUMNS FROM crdb_internal.zones;
 ~~~
@@ -167,7 +167,7 @@ SHOW COLUMNS FROM crdb_internal.zones;
 
 ## Examples
 
-{%  include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
 
 ### Find out which of your tables have a constraint violation
 
@@ -177,7 +177,7 @@ To introduce a violation that we can then query for, we'll modify the zone confi
 
 First, let's see what existing zone configurations are attached to the `users` table, so we know what to modify.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SHOW CREATE TABLE users;
 ~~~
@@ -209,7 +209,7 @@ SHOW CREATE TABLE users;
 
 To create a constraint violation, let's tell the ranges in the `europe_west` partition that they are explicitly supposed to *not* be in the `region=europe-west1` locality by issuing the following statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER PARTITION europe_west of INDEX movr.public.users@primary CONFIGURE ZONE USING constraints = '[-region=europe-west1]';
 ~~~
@@ -222,7 +222,7 @@ By default, the system constraint conformance report runs once every minute. You
 
 After the internal constraint conformance report has run again, the following query should report a violation:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT * FROM system.replication_constraint_stats WHERE violating_ranges > 0;
 ~~~
@@ -244,7 +244,7 @@ SELECT * FROM system.replication_constraint_stats WHERE violating_ranges > 0;
 
 To be more useful, we'd like to find out the database and table names where these constraint-violating ranges live. To get that information we'll need to join the output of `system.replication_constraint_stats` report with the `crdb_internal.zones` table using a query like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 WITH
     partition_violations
@@ -316,7 +316,7 @@ By default, this geo-distributed demo cluster will not have any [under-replicate
 
 To force it into a state where some ranges are under-replicated, issue the following statement, which tells it to store 9 copies of each range underlying the `rides` table (by default [it stores 3](configure-replication-zones.html#num_replicas)).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 ALTER TABLE rides CONFIGURE ZONE USING num_replicas=9;
 ~~~
@@ -327,7 +327,7 @@ By default, the internal constraint conformance report runs once every minute. Y
 
 After the system constraint conformance report has run again, the following query should report under-replicated ranges:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT * FROM system.replication_stats WHERE under_replicated_ranges > 0;
 ~~~
@@ -344,7 +344,7 @@ SELECT * FROM system.replication_stats WHERE under_replicated_ranges > 0;
 
 To be more useful, we'd like to find out the database and table names where these under-replicated ranges live. To get that information we'll need to join the output of `system.replication_stats` report with the `crdb_internal.zones` table using a query like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 WITH
     under_replicated_zones
@@ -419,9 +419,9 @@ That said, a locality being critical is not necessarily a bad thing as long as y
 
 By default, the [movr demo cluster](cockroach-demo.html) has some ranges in critical localities. This is expected because it ties data for latency-sensitive queries to specific geographies at the cost of data unavailability during a region-wide failure.
 
-{%  include {{ page.version.version }}/sql/use-multiregion-instead-of-partitioning.md %}
+{{ partial "{{ page.version.version }}/sql/use-multiregion-instead-of-partitioning.md" . }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT * FROM system.replication_critical_localities WHERE at_risk_ranges > 0;
 ~~~
@@ -449,7 +449,7 @@ SELECT * FROM system.replication_critical_localities WHERE at_risk_ranges > 0;
 
 To be more useful, we'd like to find out the database and table names where these ranges live that are at risk of unavailability in the event of a locality becoming unreachable. To get that information we'll need to join the output of `system.replication_critical_localities` report with the `crdb_internal.zones` table using a query like the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 WITH
 	at_risk_zones AS (

@@ -8,20 +8,20 @@ To delete a large number of rows (i.e., tens of thousands of rows or more), we r
 
 This page provides guidance on batch deleting with the `DELETE` query filter [on an indexed column](#batch-delete-on-an-indexed-column) and [on a non-indexed column](#batch-delete-on-a-non-indexed-column). Filtering on an indexed column is both simpler to implement and more efficient, but adding an index to a table can slow down insertions to the table and may cause bottlenecks. Queries that filter on a non-indexed column must perform at least one full-table scan, a process that takes time proportional to the size of the entire table.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you want to delete all of the rows in a table (and not just a large subset of the rows), use a [`TRUNCATE` statement](#delete-all-of-the-rows-in-a-table).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Exercise caution when batch deleting rows from tables with foreign key constraints and explicit [`ON DELETE` foreign key actions](foreign-key.html#foreign-key-actions). To preserve `DELETE` performance on tables with foreign key actions, we recommend using smaller batch sizes, as additional rows updated or deleted due to `ON DELETE` actions can make batch loops significantly slower.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Before you begin
 
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.db  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.db }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Install a Postgres client](install-client-drivers.html).
 
     For the example on this page, we use the `psycopg2` Python driver.
@@ -34,9 +34,9 @@ Before reading this page, do the following:
 
 For high-performance batch deletes, we recommending filtering the `DELETE` query on an [indexed column](indexes.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Having an indexed filtering column can make delete operations faster, but it might lead to bottlenecks in execution, especially if the filtering column is a [timestamp](timestamp.html). To reduce bottlenecks, we recommend using a [hash-sharded index](hash-sharded-indexes.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Each iteration of a batch-delete loop should execute a transaction containing a single `DELETE` query. When writing this `DELETE` query:
 
@@ -49,7 +49,7 @@ For example, suppose that you want to delete all rows in the [`tpcc`](cockroach-
 
 In Python, the script would look similar to the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 #!/usr/bin/env python3
 
@@ -94,7 +94,7 @@ For example, suppose that you want to delete all rows in the [`tpcc`](cockroach-
 
 In Python, the script would look similar to the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 #!/usr/bin/env python3
 
@@ -128,13 +128,13 @@ conn.close()
 
 At each iteration, the selection query returns the primary key values of up to 20,000 rows of matching historical data from 5 seconds in the past, in a read-only transaction. Then, a nested loop iterates over the returned primary key values in smaller batches of 5,000 rows. At each iteration of the nested `DELETE` loop, a batch of rows is deleted. After the nested `DELETE` loop deletes all of the rows from the initial selection query, a time delay ensures that the next selection query reads historical data from the table after the last iteration's `DELETE` final delete.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB records the timestamp of each row created in a table in the `crdb_internal_mvcc_timestamp` metadata column. In the absence of an explicit timestamp column in your table, you can use `crdb_internal_mvcc_timestamp` to filter expired data.
 
 `crdb_internal_mvcc_timestamp` cannot be indexed. As a result, we recommend following the [non-indexed column pattern](#batch-delete-on-a-non-indexed-column) if you plan to use `crdb_internal_mvcc_timestamp` as a filter for large deletes.
 
 **Exercise caution when using `crdb_internal_mvcc_timestamp` in production, as the column is subject to change without prior notice in new releases of CockroachDB.**
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Batch-delete "expired" data
 
@@ -145,18 +145,18 @@ For example, suppose that every morning you want to delete all rows in the [`tpc
 To run the script with a daily `cron` job:
 
 1. Make the file executable:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ chmod +x cleanup.py
     ~~~
 
 2. Create a new `cron` job:
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ crontab -e
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ txt
     30 10 * * * DB_URI='cockroachdb://user@host:26257/bank' cleanup.py >> ~/cron.log 2>&1
     ~~~
@@ -169,7 +169,7 @@ To delete all of the rows in a table, use a [`TRUNCATE` statement](truncate.html
 
 For example, to delete all rows in the [`tpcc`](cockroach-workload.html#tpcc-workload) `new_order` table, execute the following SQL statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 TRUNCATE new_order;
 ~~~
@@ -178,7 +178,7 @@ You can execute the statement from a compatible SQL client (e.g., the [Cockroach
 
 For example, in Python, using the `psycopg2` client driver:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 #!/usr/bin/env python3
 
@@ -192,9 +192,9 @@ with conn:
       cur.execute("TRUNCATE new_order")
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For detailed reference documentation on the `TRUNCATE` statement, including additional examples, see the [`TRUNCATE` syntax page](truncate.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

@@ -9,7 +9,7 @@ toc: true
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/release_savepoint.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/release_savepoint.html" . }}
 </div>
 
 ## Required privileges
@@ -38,13 +38,13 @@ To completely remove the marker of a nested transaction after it encounters an e
 
 ### Commit a nested transaction by releasing a savepoint
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This example uses the [MovR data set](movr.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 In the example below, we roll back the inner [nested transaction](transactions.html#nested-transactions) (marked by the savepoint `lower`) and release (commit) the outer savepoint `higher`, which raises the promo code discount to 15% using CockroachDB's [JSONB functions](jsonb.html#functions).
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 SAVEPOINT higher;
@@ -62,11 +62,11 @@ COMMIT
 
 ### Commit a transaction by releasing a retry savepoint
 
-{%  include {{ page.version.version }}/sql/retry-savepoints.md %}
+{{ partial "{{ page.version.version }}/sql/retry-savepoints.md" . }}
 
 After declaring a retry savepoint, commit the transaction with `RELEASE SAVEPOINT` and then prepare the connection for the next transaction with [`COMMIT`](commit-transaction.html):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
 SAVEPOINT cockroach_restart;

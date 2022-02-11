@@ -35,13 +35,13 @@ Currently, there are some `information_schema` tables that are empty but provide
 - `routines`
 - `parameters`
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A query can specify a table name without a database name (e.g., `SELECT * FROM information_schema.sequences`). See [Name Resolution](sql-name-resolution.html) for more information.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 The virtual tables in `information_schema` contain useful comments with links to further documentation. To view these comments, use `SHOW TABLES FROM information_schema WITH COMMENT`:
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### administrable_role_authorizations
 
@@ -554,17 +554,17 @@ Column | Description
 
 You can run [`SELECT` queries](selection-queries.html) on the tables in `information_schema`.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 The `information_schema` views typically represent objects that the current user has privilege to access. To ensure you can view all the objects in a database, access it as a user with [`admin` privileges](authorization.html#admin-role).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Unless specified otherwise, queries to `information_schema` assume the [current database](sql-name-resolution.html#current-database).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For example, to retrieve all columns from the `table_constraints` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM movr.information_schema.table_constraints;
 ~~~
@@ -582,7 +582,7 @@ For example, to retrieve all columns from the `table_constraints` table:
 
 And to retrieve specific columns from the `table_constraints` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT table_name, constraint_name FROM movr.information_schema.table_constraints;
 ~~~

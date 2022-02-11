@@ -19,45 +19,45 @@ The user must have the `CREATE` [privilege](privileges.html) on the parent datab
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{%  include {{  page.version.version  }}/sql/diagrams/create_table.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
-{%  include {{  page.version.version  }}/sql/diagrams/create_table.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_table.html" . }}
 
 **column_def ::=**
 
-{%  include {{  page.version.version  }}/sql/diagrams/column_def.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/column_def.html" . }}
 
 **col_qual_list ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/col_qual_list.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/col_qual_list.html" . }}
 </div>
 
 **index_def ::=**
 
-{%  include {{  page.version.version  }}/sql/diagrams/index_def.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/index_def.html" . }}
 
 **family_def ::=**
 
-{%  include {{  page.version.version  }}/sql/diagrams/family_def.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/family_def.html" . }}
 
 **table_constraint ::=**
 
 <div class="horizontal-scroll">
-  {%  include {{  page.version.version  }}/sql/diagrams/table_constraint.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/table_constraint.html" . }}
 </div>
 
 **opt_interleave ::=**
 
-{%  include {{  page.version.version  }}/sql/diagrams/opt_interleave.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/opt_interleave.html" . }}
 
 </div>
 
-{{ site.data.alerts.callout_success }}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
+{{site.data.alerts.end }}
 
 ## Parameters
 
@@ -81,7 +81,7 @@ By default, tables are created in the default replication zone but can be placed
 
 In CockroachDB, every table requires a [primary key](primary-key.html). If one is not explicitly defined, a column called `rowid` of the type `INT` is added automatically as the primary key, with the `unique_rowid()` function used to ensure that new rows always default to unique `rowid` values. The primary key is automatically indexed.
 
-{{ site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
 
 ~~~ sql
 > CREATE TABLE logon (
@@ -206,7 +206,7 @@ We also have other resources on indexes:
 
 ### Create a Table with Auto-Generated Unique Row IDs
 
-{%  include {{  page.version.version  }}/faq/auto-generate-unique-ids.html %}
+{{ partial "{{ page.version.version }}/faq/auto-generate-unique-ids.html" . }}
 
 ### Create a Table with Foreign Keys
 
@@ -250,7 +250,7 @@ In this example, we'll show a series of tables using different formats of foreig
 
 ### Create a Table that Mirrors Key-Value Storage
 
-{%  include {{  page.version.version  }}/faq/simulate-key-value-store.html %}
+{{ partial "{{ page.version.version }}/faq/simulate-key-value-store.html" . }}
 
 ### Create a Table from a `SELECT` Statement
 

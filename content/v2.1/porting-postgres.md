@@ -8,7 +8,7 @@ Although CockroachDB supports PostgreSQL syntax and drivers, it does not offer e
 
 Note that some of these differences only apply to rare inputs, and so no change will be needed, even if the listed feature is being used. In these cases, it is safe to ignore the porting instructions.
 
-{{ site.data.alerts.callout_info }}This document currently only covers how to rewrite SQL expressions. It does not discuss strategies for porting applications that use <a href="sql-feature-support.html">SQL features CockroachDB does not currently support</a>, such as the <code>ENUM</code> type.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}This document currently only covers how to rewrite SQL expressions. It does not discuss strategies for porting applications that use <a href="sql-feature-support.html">SQL features CockroachDB does not currently support</a>, such as the <code>ENUM</code> type.{{site.data.alerts.end }}
 
 
 ### Overflow of `float`
@@ -24,7 +24,7 @@ ERROR:  zero raised to a negative power is undefined
 
 In CockroachDB, these expressions instead return Infinity:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT 1e300::float * 1e10::float;
 ~~~
@@ -37,7 +37,7 @@ SELECT 1e300::float * 1e10::float;
 +----------------------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT pow(0::float, -1::float);
 ~~~
@@ -54,7 +54,7 @@ SELECT pow(0::float, -1::float);
 
 In PostgreSQL, the unary `~` (bitwise not) operator has a low precedence. For example, the following query is parsed as `~ (1 + 2)` because `~` has a lower precedence than `+`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT ~1 + 2
 ~~~
@@ -75,7 +75,7 @@ In CockroachDB, the precedence from highest to lowest is: `&`, `#`, `|`.
 
 In PostgreSQL, division of integers results in an integer. For example, the following query returns `1`, since the `1 / 2` is truncated to `0`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT 1 + 1 / 2
 ~~~
@@ -88,7 +88,7 @@ In CockroachDB, integer division results in a `decimal`. CockroachDB instead pro
 
 In PostgreSQL, the shift operators (`<<`, `>>`) sometimes modulo their second argument to the bit size of the underlying type. For example, the following query results in a `1` because the int type is 32 bits, and `32 % 32` is `0`, so this is the equivalent of `1 << 0`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT 1::int << 32
 ~~~
@@ -97,7 +97,7 @@ In CockroachDB, no such modulo is performed.
 
 **Porting instructions:** Manually add a modulo to the second argument. Also note that CockroachDB's [`INT`](int.html) type is always 64 bits. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 SELECT 1::int << (x % 64)
 ~~~

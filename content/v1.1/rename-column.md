@@ -6,12 +6,12 @@ toc: true
 
 The `RENAME COLUMN` [statement](sql-statements.html) changes the name of a column in a table.
 
-{{ site.data.alerts.callout_info }}It is not possible to rename a column referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not possible to rename a column referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
 
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/rename_column.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/rename_column.html" . }}
 
 ## Required Privileges
 
@@ -27,7 +27,7 @@ The user must have the `CREATE` [privilege](privileges.html) on the table.
 | `name` | The [`name`](sql-grammar.html#name) you want to use for the column, which must be unique to its table and follow these [identifier rules](keywords-and-identifiers.html#identifiers). |
 
 ## Viewing Schema Changes <span class="version-tag">New in v1.1</span>
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Example
 

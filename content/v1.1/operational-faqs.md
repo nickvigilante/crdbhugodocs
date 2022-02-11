@@ -44,11 +44,11 @@ Collecting information about CockroachDB's real world usage helps us prioritize 
 
 ## What happens when node clocks are not properly synchronized?
 
-{%  include {{  page.version.version  }}/faq/clock-synchronization-effects.html %}
+{{ partial "{{ page.version.version }}/faq/clock-synchronization-effects.html" . }}
 
 ## How can I tell how well node clocks are synchronized?
 
-{%  include {{  page.version.version  }}/faq/clock-synchronization-monitoring.html %}
+{{ partial "{{ page.version.version }}/faq/clock-synchronization-monitoring.html" . }}
 
 ## See Also
 

@@ -15,21 +15,21 @@ referral_id: docs_hello_world_java_hibernate
 
 This tutorial shows you how build a simple Java application with CockroachDB and the Hibernate ORM.
 
-{%  include {{ page.version.version }}/app/java-version-note.md %}
+{{ partial "{{ page.version.version }}/app/java-version-note.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JPA (Hibernate) and CockroachDB, see [Build a Spring App with CockroachDB and JPA](build-a-spring-app-with-cockroachdb-jpa.html).
 
 For another use of Hibernate with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 2. Create a database
 
-{%  include {{ page.version.version }}/app/create-a-database.md %}
+{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
 
 ## Step 3. Run the Java code
 
@@ -47,23 +47,23 @@ It does all of the above using the practices we recommend for using Hibernate (a
 <a name="code-contents"></a>
 The contents of `Sample.java`:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-hibernate/master/src/main/java/com/cockroachlabs/Sample.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-java-hibernate/master/src/main/java/com/cockroachlabs/Sample.java %}
 ~~~
 
 ### Get the code
 
 Clone the `example-app-java-hibernate` repo to your machine:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 git clone https://github.com/cockroachlabs/example-app-java-hibernate/
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The version of the CockroachDB Hibernate dialect in `hibernate.cfg.xml` corresponds to a version of CockroachDB. For more information, see [Install Client Drivers: Hibernate](install-client-drivers.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Update the connection parameters
 
@@ -73,7 +73,7 @@ Edit `src/main/resources/hibernate.cfg.xml` in a text editor.
 
 1. Modify the `hibernate.connection.url` property with the port number from the connection string above:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ xml
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:{port}/bank?ssl=true&amp;sslmode=require</property>
     ~~~
@@ -90,12 +90,12 @@ Edit `src/main/resources/hibernate.cfg.xml` in a text editor.
 
 Modify the `hibernate.connection.url` property with the information from the connection string you copied [earlier](#set-up-your-cluster-connection) host, cluster and database name, and path to the SSL certificate:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ xml
 <property name="hibernate.connection.url">jdbc:postgresql://{globalhost}:26257/{cluster_name}.bank?sslmode=verify-full&amp;sslrootcert={path to the CA certificate}</property>
 ~~~
 
-{%  include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
 
 </section>
 
@@ -103,7 +103,7 @@ Modify the `hibernate.connection.url` property with the information from the con
 
 Compile and run the code using `gradlew`, which will also download the dependencies.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ ./gradlew run
 ~~~
@@ -138,7 +138,7 @@ APP: getAccountBalance(2) --> 350.00
 
 To verify that the account balances were updated successfully, start the [built-in SQL client](cockroach-sql.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir={certs_dir}
 ~~~
@@ -148,7 +148,7 @@ Where:
 
 To check the account balances, issue the following statement:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT id, balance FROM accounts;
 ~~~
@@ -168,11 +168,11 @@ id |  balance
 
 ### Generate PKCS8 keys for client authentication
 
-{%  include {{ page.version.version }}/app/pkcs8-gen.md %}
+{{ partial "{{ page.version.version }}/app/pkcs8-gen.md" . }}
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include cockroachcloud/cc-no-user-certs.md %}
+{{ partial "cockroachcloud/cc-no-user-certs.md" . }}
 
 </section>
 
@@ -202,4 +202,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Hibernate ORM](http://hibernate.org/orm/), or check out a more realistic implementation of Hibernate with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

@@ -6,9 +6,9 @@ toc: true
 
 This page has instructions for authors of [database drivers and ORMs](install-client-drivers.html) who would like to implement client-side retries in their database driver or ORM for maximum efficiency and ease of use by application developers.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you are an application developer who needs to implement an application-level retry loop, see the [Client-side intervention example](transactions.html#client-side-intervention-example).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Overview
 
@@ -21,7 +21,7 @@ To improve the performance of transactions that fail due to [contention](perform
 
 A retryable transaction goes through the process described below, which maps to the following SQL statements:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;                                  -- #1
 > SAVEPOINT cockroach_restart;            -- #2
@@ -58,7 +58,7 @@ Note that you can [customize the retry savepoint name](#customizing-the-retry-sa
 
 ## Customizing the retry savepoint name
 
-{%  include {{  page.version.version  }}/misc/customizing-the-savepoint-name.md %}
+{{ partial "{{ page.version.version }}/misc/customizing-the-savepoint-name.md" . }}
 
 ## Examples
 

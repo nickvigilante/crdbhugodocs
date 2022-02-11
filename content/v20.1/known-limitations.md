@@ -14,11 +14,11 @@ This page describes newly identified limitations in the CockroachDB {{ page.rele
 
 ### Dropping and renaming objects during an upgrade to v20.1.0
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This limitation applies only for upgrades to v20.1.0. Upgrades to v20.1.1 and later are not susceptible to this issue.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/known-limitations/dropping-renaming-during-upgrade.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dropping-renaming-during-upgrade.md" . }}
 
 If your cluster gets into this state, rolling all nodes back to v19.2 will not resolve the issue. Instead, you must do the following:
 
@@ -26,7 +26,7 @@ If your cluster gets into this state, rolling all nodes back to v19.2 will not r
 
 1. Select all orphaned namespace rows:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT id, name
       FROM system.namespace2
@@ -37,26 +37,26 @@ If your cluster gets into this state, rolling all nodes back to v19.2 will not r
 
 1. Grant node-level permissions to `root`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO system.users VALUES ('node', '', true);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > GRANT node TO root;
     ~~~
 
 1. For each ID returned by the first query, delete the orphaned namespace rows:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > DELETE FROM system.namespace2 WHERE id = <id>
     ~~~
 
 1. Revoke node-level permissions:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > REVOKE node FROM root;
     ~~~
@@ -65,9 +65,9 @@ If your cluster gets into this state, rolling all nodes back to v19.2 will not r
 
 ### Admin UI Data Distribution page not accessible after some version upgrades
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This limitation applies only for upgrades to v20.1.0, v20.1.1, and v20.1.2. Upgrades to v20.1.3 and later are not susceptible to this issue. First-time installations of v20.1.0, v20.1.1, and v20.1.2 are also unaffected.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Upgrading to v20.1.0, v20.1.1, or v20.1.2 will break the [Data Distribution](admin-ui-debug-pages.html) page in the Admin UI.
 
@@ -147,12 +147,12 @@ The [built-in SQL shell](cockroach-sql.html) stores its command history in a sin
 
 As a workaround, set the `COCKROACH_SQL_CLI_HISTORY` environment variable to different values for the two different shells, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ export COCKROACH_SQL_CLI_HISTORY=.cockroachsql_history_shell_2
 ~~~
@@ -165,17 +165,17 @@ Using a [collation](collate.html) name with upper-case letters or hyphens may re
 
 For example, the following SQL will result in an error:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE nocase_strings (s STRING COLLATE "en-US-u-ks-level2");
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO nocase_strings VALUES ('Aaa' COLLATE "en-US-u-ks-level2"), ('Bbb' COLLATE "en-US-u-ks-level2");
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT s FROM nocase_strings WHERE s = ('bbb' COLLATE "en-US-u-ks-level2");
 ~~~
@@ -192,7 +192,7 @@ As a workaround, only use collation names that have lower-case letters and under
 
 It is not currently possible to use a subquery in a [`SET`](set-vars.html) or [`SET CLUSTER SETTING`](set-cluster-setting.html) statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET application_name = (SELECT 'a' || 'b');
 ~~~
@@ -209,12 +209,12 @@ DETAIL: subqueries are not allowed in SET
 
 When filtering a query by `now()`, the [cost-based optimizer](cost-based-optimizer.html) currently cannot constrain an index on the filtered timestamp column. This results in a full table scan. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE bydate (a TIMESTAMP NOT NULL, INDEX (a));
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT * FROM bydate WHERE a > (now() - '1h'::interval);
 ~~~
@@ -233,12 +233,12 @@ When filtering a query by `now()`, the [cost-based optimizer](cost-based-optimiz
 
 As a workaround, pass the correct date into the query as a parameter to a prepared query with a placeholder, which will allow the optimizer to constrain the index correctly:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PREPARE q AS SELECT * FROM bydate WHERE a > ($1::timestamp - '1h'::interval);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXECUTE q ('2020-05-12 00:00:00');
 ~~~
@@ -255,7 +255,7 @@ As a workaround, alongside a `BACKUP`, run the [`cockroach dump`](cockroach-dump
 
 ### Adding stores to a node
 
-{%  include {{  page.version.version  }}/known-limitations/adding-stores-to-node.md %}
+{{ partial "{{ page.version.version }}/known-limitations/adding-stores-to-node.md" . }}
 
 ### `CHECK` constraint validation for `INSERT ON CONFLICT` differs from PostgreSQL
 
@@ -263,7 +263,7 @@ CockroachDB validates [`CHECK`](check.html) constraints on the results of [`INSE
 
 If this difference matters to your client, you can `INSERT ON CONFLICT` from a `SELECT` statement and check the inserted value as part of the `SELECT`. For example, instead of defining `CHECK (x > 0)` on `t.x` and using `INSERT INTO t(x) VALUES (3) ON CONFLICT (x) DO UPDATE SET x = excluded.x`, you could do the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t (x)
     SELECT if (x <= 0, crdb_internal.force_error('23514', 'check constraint violated'), x)
@@ -282,9 +282,9 @@ pq: check constraint violated
 
 ### Cold starts of large clusters may require manual intervention
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Resolved as of [v20.1.16](../releases/v20.1.16.html). See [#64568](https://github.com/cockroachdb/cockroach/pull/64568).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 If a cluster contains a large amount of data (>500GiB / node), and all nodes are stopped and then started at the same time, clusters can enter a state where they're unable to startup without manual intervention. In this state, logs fill up rapidly with messages like `refusing gossip from node x; forwarding to node y`, and data and metrics may become inaccessible.
 
@@ -304,7 +304,7 @@ When a node is offline, the [Raft logs](architecture/replication-layer.html#raft
 
 To work around this limitation, you can adjust the `kv.snapshot_recovery.max_rate` [cluster setting](cluster-settings.html) to temporarily relax the throughput rate limiting applied to snapshots. For example, changing the rate limiting from the default 8 MB/s, at which 1 GB of snapshots takes at least 2 minutes, to 64 MB/s can result in an 8x speedup in snapshot transfers and, therefore, a much shorter interruption of requests to an impacted node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.snapshot_recovery.max_rate = '64mb';
 ~~~
@@ -329,7 +329,7 @@ Make sure to do this across all nodes in the cluster and to keep this time zone 
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{%  include {{  page.version.version  }}/known-limitations/cdc.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
 
 ### Admin UI may become inaccessible for secure clusters
 
@@ -363,7 +363,7 @@ CockroachDB tries to optimize most comparisons operators in `WHERE` and `HAVING`
 
 ### Using SQLAlchemy with CockroachDB
 
-Users of the SQLAlchemy adapter provided by Cockroach Labs must [upgrade the adapter to the latest release](https://github.com/cockroachdb/sqlalchemy-cockroachdb) before upgrading to CockroachDB {{  page.version.version  }}.
+Users of the SQLAlchemy adapter provided by Cockroach Labs must [upgrade the adapter to the latest release](https://github.com/cockroachdb/sqlalchemy-cockroachdb) before upgrading to CockroachDB {{ page.version.version }}.
 
 ### Admin UI: CPU percentage calculation
 
@@ -411,44 +411,44 @@ Currently, the built-in SQL shell provided with CockroachDB (`cockroach sql` / `
 
 ### Dumping a table with no user-visible columns
 
-{%  include {{ page.version.version }}/known-limitations/dump-table-with-no-columns.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-table-with-no-columns.md" . }}
 
 ### Dumping a table with collations
 
-{%  include {{ page.version.version }}/known-limitations/dump-table-with-collations.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-table-with-collations.md" . }}
 
 ### Import with a high amount of disk contention
 
-{%  include {{  page.version.version  }}/known-limitations/import-high-disk-contention.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-high-disk-contention.md" . }}
 
 ### Assigning latitude/longitude for the Node Map
 
-{%  include {{  page.version.version  }}/known-limitations/node-map.md %}
+{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 ### Adding a column with sequence-based `DEFAULT` values
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -462,19 +462,19 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the Admin UI
 
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### Schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### `INSERT ON CONFLICT` vs. `UPSERT`
 
@@ -519,7 +519,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -533,7 +533,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -570,7 +570,7 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### Correlated common table expressions
 
-{%  include {{  page.version.version  }}/known-limitations/correlated-ctes.md %}
+{{ partial "{{ page.version.version }}/known-limitations/correlated-ctes.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/42540)
 

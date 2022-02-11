@@ -14,7 +14,7 @@ referral_id: docs_hello_world_python_psycopg2
     <a href="http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#cockroach-database"><button class="filter-button page-level"><strong>peewee</strong></button></a>
 </div>
 
-{%  include cockroach_u_pydev.md %}
+{{ partial "cockroach_u_pydev.md" . }}
 
 This tutorial shows you how build a simple Python application with CockroachDB and the psycopg2 driver. For the CockroachDB back-end, you'll use a temporary local cluster.
 
@@ -22,7 +22,7 @@ This tutorial shows you how build a simple Python application with CockroachDB a
 
 To install the Python psycopg2 driver, run the following command:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ pip install psycopg2-binary
 ~~~
@@ -31,11 +31,11 @@ For other ways to install psycopg2, see the [official documentation](http://init
 
 ## Step 2. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 3. Create a database
 
-{%  include {{ page.version.version }}/app/create-a-database.md %}
+{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
 
 ## Step 4. Run the Python code
 
@@ -53,14 +53,14 @@ Download the [`example.py`](https://raw.githubusercontent.com/cockroachlabs/hell
 
 If you prefer, you can also clone a version of the code:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-python-psycopg2/
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-python-psycopg2/master/example.py %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-python-psycopg2/master/example.py %}
 ~~~
 
 ### Run the code
@@ -69,7 +69,7 @@ The Python code is a command-line utility that accepts the connection string to 
 
 <section class="filter-content" markdown="1" data-scope="local">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ python3 example.py \
 "postgresql://<username>:<password>@<hostname>:<port>/bank?sslmode=require"
@@ -84,7 +84,7 @@ Before running the command, update the connection string as follows:
 
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ python3 example.py \
 "postgres://<username>:<password>@<globalhost>:26257/<cluster-name>.bank?sslmode=verify-full&sslrootcert=<certs_directory>/cc-ca.crt"
@@ -93,13 +93,13 @@ $ python3 example.py \
 Before running the command, update the connection string that you copied [earlier](#set-up-your-cluster-connection) from the **Connection info** dialog as follows:
 
 - Replace `<username>` and `<password>` with the SQL username and password that you created earlier.
-- Replace `<globalhost>` with the name of the {{  site.data.products.serverless  }} host (e.g., `free-tier.gcp-us-central1.cockroachlabs.cloud`).
+- Replace `<globalhost>` with the name of the {{ site.data.products.serverless }} host (e.g., `free-tier.gcp-us-central1.cockroachlabs.cloud`).
 - Replace `<cluster-name>` with the name of your cluster.
-- Replace `<certs_directory>` with the path to the `cc-ca.crt` file that you downloaded from the {{  site.data.products.db  }} Console.
+- Replace `<certs_directory>` with the path to the `cc-ca.crt` file that you downloaded from the {{ site.data.products.db }} Console.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you are using the connection string that you [copied from the **Connection info** dialog](#set-up-your-cluster-connection), your username, password, and cluster name will be pre-populated.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 </section>
 
@@ -118,4 +118,4 @@ Balances at Fri Oct 30 18:27:00 2020:
 
 Read more about using the [Python psycopg2 driver](http://initd.org/psycopg/docs/).
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

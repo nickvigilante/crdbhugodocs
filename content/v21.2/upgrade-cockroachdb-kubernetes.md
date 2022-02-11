@@ -7,9 +7,9 @@ secure: true
 docs_area: deploy
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This article assumes you have already [deployed CockroachDB on a single Kubernetes cluster](deploy-cockroachdb-with-kubernetes.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 We strongly recommend that you regularly upgrade your CockroachDB version in order to pick up bug fixes, performance improvements, and new features.
 
@@ -22,11 +22,11 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 </div>
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{%  include {{  page.version.version  }}/orchestration/operator-check-namespace.md %}
+{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 1. Verify that you can upgrade.
 
@@ -47,9 +47,9 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
         - Make sure all nodes are on the same version. If not all nodes are on the same version, upgrade them to the cluster's highest current version first, and then start this process over.
         - Make sure capacity and memory usage are reasonable for each node. Nodes must be able to tolerate some increase in case the new version uses more resources for your workload. Also go to **Metrics > Dashboard: Hardware** and make sure CPU percent is reasonable across the cluster. If there's not enough headroom on any of these metrics, consider [adding nodes](scale-cockroachdb-kubernetes.html#add-nodes) to your cluster before beginning your upgrade.
 
-{%  comment %}
+{% comment %}
 1. Review the [backward-incompatible changes in v21.2](../releases/v21.2.0.html#backward-incompatible-changes) and [deprecated features](../releases/v21.2.0.html#deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.2.
-{%  endcomment %}
+{% endcomment %}
 
 1. Review the backward-incompatible changes in v21.2 and deprecated features. If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.2.
 
@@ -62,26 +62,26 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
 
 1. Apply the new settings to the cluster:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl apply -f example.yaml
     ~~~
 
     The Operator will perform the staged update.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The Operator automatically sets the `cluster.preserve_downgrade_option` [cluster setting](cluster-settings.html) to the version you are upgrading from. This disables auto-finalization of the upgrade so that you can monitor the stability and performance of the upgraded cluster before manually finalizing the upgrade. This will enable certain [features and performance improvements introduced in v21.2](upgrade-cockroach-version.html#features-that-require-upgrade-finalization).
 
     Note that after finalization, it will no longer be possible to perform a downgrade to v21.1. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from a [backup](take-full-and-incremental-backups.html) created prior to performing the upgrade.
 
     Finalization only applies when performing a major version upgrade (for example, from v21.1.x to v21.2). Patch version upgrades (for example, within the v21.2.x series) can always be downgraded.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 1. To check the status of the rolling upgrade, run `kubectl get pods`. The pods are restarted one at a time with the new image.
 
 1. Verify that all pods have been upgraded by running:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods \
     -o jsonpath='{range .items[*]}{.metadata.name}{"\t"}{.spec.containers[0].image}{"\n"}'
@@ -93,15 +93,15 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
 
     If you decide to roll back the upgrade, revert the image name in the custom resource and apply the new value.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     This is only possible when performing a major version upgrade (for example, from v21.1.x to v21.2). Patch version upgrades (for example, within the v21.2.x series) are auto-finalized.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     To finalize the upgrade, re-enable auto-finalization:
 
     1. Start the CockroachDB [built-in SQL client](cockroach-sql.html). For example, if you followed the steps in [Deploy CockroachDB with Kubernetes](deploy-cockroachdb-with-kubernetes.html#step-3-use-the-built-in-sql-client) to launch a secure client pod, get a shell into the `cockroachdb-client-secure` pod:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         $ kubectl exec -it cockroachdb-client-secure \-- ./cockroach sql \
         --certs-dir=/cockroach/cockroach-certs \
@@ -110,14 +110,14 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
 
     1. Re-enable auto-finalization:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ sql
         > RESET CLUSTER SETTING cluster.preserve_downgrade_option;
         ~~~
 
     1. Exit the SQL shell and pod:
 
-        {%  include_cached copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ sql
         > \q
         ~~~
@@ -125,9 +125,9 @@ If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kuber
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster-manual.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-manual.md" . }}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-{%  include {{  page.version.version  }}/orchestration/kubernetes-upgrade-cluster-helm.md %}
+{{ partial "{{ page.version.version }}/orchestration/kubernetes-upgrade-cluster-helm.md" . }}
 </section>

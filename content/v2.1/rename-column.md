@@ -6,13 +6,13 @@ toc: true
 
 The `RENAME COLUMN` [statement](sql-statements.html) changes the name of a column in a table.
 
-{{ site.data.alerts.callout_info }}It is not possible to rename a column referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}It is not possible to rename a column referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
 
 
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/rename_column.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/rename_column.html" . }}
 </div>
 
 ## Required privileges
@@ -30,13 +30,13 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Viewing schema changes
 
-{%  include {{  page.version.version  }}/misc/schema-change-view-job.md %}
+{{ partial "{{ page.version.version }}/misc/schema-change-view-job.md" . }}
 
 ## Example
 
 ### Rename a column
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -49,12 +49,12 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 +----+-------+-------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE users RENAME COLUMN title TO species;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM users;
 ~~~

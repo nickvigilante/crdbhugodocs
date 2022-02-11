@@ -20,7 +20,7 @@ Selection queries can occur:
 
 ## Synopsis
 
-<div>{%  include {{  page.version.version  }}/sql/diagrams/select.html %}</div>
+<div>{{ partial "{{ page.version.version }}/sql/diagrams/select.html" . }}</div>
 
 <div markdown="1"></div>
 
@@ -36,7 +36,7 @@ Parameter | Description
 
 The optional `LIMIT` and `OFFSET` clauses can appear in any order, but must appear after `ORDER BY`, if also present.
 
-{{ site.data.alerts.callout_info }}Because the <code>WITH</code>, <code>ORDER BY</code>, <code>LIMIT</code> and <code>OFFSET</code> sub-clauses are all optional, any simple <a href="#selection-clauses">selection clause</a> is also a valid selection query.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Because the <code>WITH</code>, <code>ORDER BY</code>, <code>LIMIT</code> and <code>OFFSET</code> sub-clauses are all optional, any simple <a href="#selection-clauses">selection clause</a> is also a valid selection query.{{site.data.alerts.end }}
 
 ## Selection Clauses
 
@@ -50,12 +50,12 @@ Form | Usage
 [`TABLE`](#table-clause) | Load tabular data from the database.
 [Set Operations](#set-operations) | Combine tabular data from two or more selection clauses.
 
-{{ site.data.alerts.callout_info }}To perform joins or other relational operations over selection clauses, use a <a href="table-expressions.html">table expression</a> and <a href="#composability">convert it back</a> into a selection clause with <a href="#table-clause"><code>TABLE</code></a> or <a href="#select-clause"><code>SELECT</code></a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}To perform joins or other relational operations over selection clauses, use a <a href="table-expressions.html">table expression</a> and <a href="#composability">convert it back</a> into a selection clause with <a href="#table-clause"><code>TABLE</code></a> or <a href="#select-clause"><code>SELECT</code></a>.{{site.data.alerts.end }}
 
 ### Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/select_clause.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/select_clause.html" . }}
 </div>
 
 <div markdown="1"></div>
@@ -68,7 +68,7 @@ Form | Usage
 #### Syntax
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/values_clause.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/values_clause.html" . }}
 </div>
 
 A `VALUES` clause defines tabular data defined by the expressions
@@ -82,7 +82,7 @@ names. [These names can be modified with
 
 #### Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > VALUES (1, 2, 3), (4, 5, 6);
 ~~~
@@ -101,7 +101,7 @@ names. [These names can be modified with
 #### Syntax
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/table_clause.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/table_clause.html" . }}
 </div>
 
 <div markdown="1"></div>
@@ -113,12 +113,12 @@ table.
 In general, `TABLE x` is equivalent to `SELECT * FROM x`, but it is
 shorter to type.
 
-{{ site.data.alerts.callout_info }}Any <a href="table-expressions.html">table expression</a> between parentheses is a valid operand for <code>TABLE</code>, not just
-<a href="table-expressions.html#table-or-view-names">simple table or view names</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Any <a href="table-expressions.html">table expression</a> between parentheses is a valid operand for <code>TABLE</code>, not just
+<a href="table-expressions.html#table-or-view-names">simple table or view names</a>.{{site.data.alerts.end }}
 
 #### Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > CREATE TABLE employee_copy AS TABLE employee;
 ~~~
@@ -131,12 +131,12 @@ will likely have a simpler schema than `employee`.
 
 Other examples:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > TABLE employee;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~sql
 > INSERT INTO employee_copy TABLE employee;
 ~~~
@@ -154,7 +154,7 @@ set operations or as main component in a selection query.
 
 ### Synopsis
 
-<div>{%  include {{  page.version.version  }}/sql/diagrams/set_operation.html %}</div>
+<div>{{ partial "{{ page.version.version }}/sql/diagrams/set_operation.html" . }}</div>
 
 <div markdown="1"></div>
 
@@ -172,7 +172,7 @@ By default, each of these comparisons displays only one copy of each value (simi
 
 `UNION` combines the results of two queries into one result.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -195,7 +195,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 To show duplicate rows, you can use `ALL`.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -222,7 +222,7 @@ WHERE state_opened IN ('AZ', 'NY');
 
 `INTERSECT` finds only values that are present in both query operands.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM accounts
@@ -244,7 +244,7 @@ FROM mortgages;
 
 `EXCEPT` finds values that are present in the first query operand but not the second.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name
 FROM mortgages
@@ -455,16 +455,16 @@ For example:
 
 ## Known Limitations
 
-{{ site.data.alerts.callout_info }} The following limitations may be lifted
-in a future version of CockroachDB.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }} The following limitations may be lifted
+in a future version of CockroachDB.{{site.data.alerts.end }}
 
 ### Using `VALUES` Clauses with Common Table Expressions
 
-{%  include {{  page.version.version  }}/known-limitations/cte-in-values-clause.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-in-values-clause.md" . }}
 
 ### Using Set Operations with Common Table Expressions
 
-{%  include {{  page.version.version  }}/known-limitations/cte-in-set-expression.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-in-set-expression.md" . }}
 
 ## See Also
 

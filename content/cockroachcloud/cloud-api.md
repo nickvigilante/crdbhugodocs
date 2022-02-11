@@ -7,7 +7,7 @@ docs_area: manage
 
 The Cloud API is a [REST interface](https://en.wikipedia.org/wiki/Representational_state_transfer) that allows users programmatic access to manage the lifecycle of clusters within their organization.
 
-{%  include_cached cockroachcloud/experimental-warning.md %}
+{% include_cached cockroachcloud/experimental-warning.md %}
 
 ## API reference
 
@@ -25,7 +25,7 @@ To send the secret key when making an API call, add the secret key to the `Autho
 </div>
 
 <section class="filter-content" markdown="1" data-scope="curl">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request GET \
   --url 'https://cockroachlabs.cloud/api/v1/clusters' \
@@ -34,7 +34,7 @@ curl --request GET \
 </section>
 
 <section class="filter-content" markdown="1" data-scope="raw">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ text
 Authorization: Bearer {secret_key}
 ~~~
@@ -52,26 +52,28 @@ To create a cluster, send a `POST` request to the `/v1/clusters` endpoint. The s
 </div>
 
 <section class="filter-content" markdown="1" data-scope="curl">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request POST \
   --url https://cockroachlabs.cloud/api/v1/clusters \
   --header 'Authorization: Bearer {secret_key}' \
-  --data '{"name":"{cluster_name}","provider":"{cloud_provider}","serverless":{"regions":["{region_name}"],"spendLimit":{spend_limit }}}'
+  --data '{"name":"{cluster_name}","provider":"{cloud_provider}","spec":{"serverless":{"regions":["{region_name}"],"spendLimit":{spend_limit }}}}'
 ~~~
 </section>
 
 <section class="filter-content" markdown="1" data-scope="raw">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "name": "{cluster_name}",
   "provider": "{cloud_provider}",
-  "serverless": {
-    "regions": [
-      "{region_name}"
-    ],
-    "spendLimit": {spend_limit}
+  "spec": {
+    "serverless": {
+      "regions": [
+        "{region_name}"
+      ],
+      "spendLimit": {spend_limit}
+    }
   }
 }
 ~~~
@@ -92,22 +94,25 @@ For example, to create a new free Serverless cluster named "notorious-moose" usi
 </div>
 
 <section class="filter-content" markdown="1" data-scope="curl">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request POST \
   --url https://cockroachlabs.cloud/api/v1/clusters \
   --header 'Authorization: Bearer {secret_key}' \
-  --data '{"name":"notorious-moose","serverless":{"regions":["us-central1"],"spendLimit":0 }}'
+  --data '{"name":"notorious-moose","provider":"GCP","spec":{"serverless":{"regions":["us-central1"],"spendLimit":0 }}}'
 ~~~
 </section>
 
 <section class="filter-content" markdown="1" data-scope="raw">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ JSON
 {
   "name": "notorious-moose",
-  "serverless": {
-    "spendLimit": 0
+  "provider": "GCP",
+  "spec": {
+    "serverless": {
+      "spendLimit": 0
+    }
   }
 }
 ~~~
@@ -115,7 +120,7 @@ curl --request POST \
 
 If the request was successful, the API will return information about the newly created cluster.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "cloud_provider": "{cloud_provider}",
@@ -151,9 +156,9 @@ Where:
 
   - `{cloud_provider}` is the name of the cloud infrastructure provider on which you want your cluster to run. Possible values are: `GCP` and `AWS`. The default value is `GCP`.
   - `{cluster_id}` is the unique ID of this cluster. Use this ID when making API requests for this particular cluster.
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
   - `{cluster_name}` is the name of the cluster you specified when creating the cluster.
   - `{account_id}` is the ID of the account that created the cluster. If the cluster was created using the API, this will be the service account ID associated with the secret key used when creating the cluster.
   - `{region_name}` is the zone code of the cloud infrastructure provider where the cluster is located.
@@ -164,7 +169,7 @@ Where:
 
 To retrieve detailed information about a specific cluster, make a `GET` request to the `/v1/clusters/{cluster_id}` endpoint. The service account associated with the secret key must have `ADMIN` or `READ` permission to retrieve information about an organization's clusters.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request GET \
   --url https://cockroachlabs.cloud/api/v1/clusters/{cluster_id} \
@@ -174,14 +179,14 @@ curl --request GET \
 Where:
 
   - `{cluster_id}` is the cluster ID returned after creating the cluster.
-  {{ site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info }}
   The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-  {{ site.data.alerts.end }}
+  {{site.data.alerts.end }}
   - `{secret_key}` is the secret key for the service account.
 
 If the request was successful, the API will return detailed information about the cluster.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "cloud_provider": "{cloud_provider}",
@@ -216,9 +221,9 @@ If the request was successful, the API will return detailed information about th
 Where:
 
   - `{cluster_id}` is the unique ID of this cluster. Use this ID when making API requests for this particular cluster.
-  {{ site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info }}
   The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-  {{ site.data.alerts.end }}
+  {{site.data.alerts.end }}
   - `{cluster_name}` is the name of the cluster you specified when creating the cluster.
   - `{cloud_provider}` is the name of the cloud infrastructure provider on which you want your cluster to run. Possible values are: `GCP` and `AWS`. The default value is `GCP`.
   - `{account_id}` is the ID of the account that created the cluster. If the cluster was created using the API, this will be the service account ID associated with the secret key used when creating the cluster.
@@ -231,7 +236,7 @@ Where:
 
 To retrieve information about a cluster's nodes, including the node status, make a `GET` request to the `/v1/clusters/{cluster_id}/nodes` endpoint. The service account associated with the secret key must have `ADMIN` or `READ` permission to retrieve information about an organization's clusters.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request GET \
   --url https://cockroachlabs.cloud/api/v1/clusters/{cluster_id}/nodes \
@@ -241,14 +246,14 @@ curl --request GET \
 Where:
 
   - `{cluster_id}` is the cluster ID returned after creating the cluster.
-  {{ site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info }}
   The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-  {{ site.data.alerts.end }}
+  {{site.data.alerts.end }}
   - `{secret_key}` is the secret key for the service account.
 
 If the request was successful, the API will return detailed information about the nodes in the cluster.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "nodes": [
@@ -285,7 +290,7 @@ To set the maximum spend limit for a Serverless cluster, send a `PUT` request to
 </div>
 
 <section class="filter-content" markdown="1" data-scope="curl">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request PUT \
   --url https://cockroachlabs.cloud/api/v1/clusters/{cluster_id}/spend-limit \
@@ -295,7 +300,7 @@ curl --request PUT \
 </section>
 
 <section class="filter-content" markdown="1" data-scope="raw">
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "spendLimit": {spend_limit}
@@ -306,9 +311,9 @@ curl --request PUT \
 Where:
 
   - `{cluster_id}` is the unique ID of this cluster.
-  {{ site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info }}
   The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-  {{ site.data.alerts.end }}
+  {{site.data.alerts.end }}
   - `{secret_key}` is the secret key for the service account.
   - `{spend_limit}` is the [maximum amount of money, in US cents, you want to spend per month](serverless-cluster-management.html#planning-your-cluster) on this cluster.
 
@@ -320,7 +325,7 @@ To delete a cluster, send a `DELETE` request to the `/v1/clusters/{cluster_id}` 
 
 Deleting a cluster will permanently delete the cluster and all the data within the cluster.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request DELETE \
   --url https://cockroachlabs.cloud/api/v1/clusters/{cluster_id} \
@@ -330,9 +335,9 @@ curl --request DELETE \
 Where:
 
   - `{cluster_id}` is the unique ID of this cluster.
-  {{ site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info }}
   The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-  {{ site.data.alerts.end }}
+  {{site.data.alerts.end }}
   - `{secret_key}` is the secret key for the service account.
 
 If the `DELETE` request was successful the client will not receive a response payload.
@@ -341,7 +346,7 @@ If the `DELETE` request was successful the client will not receive a response pa
 
 To list all clusters within an organization, send a `GET` request to the `/v1/clusters` endpoint. The service account associated with the secret key must have `ADMIN` or `READ` permission to list an organization's clusters.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request GET \
   --url 'https://cockroachlabs.cloud/api/v1/clusters' \
@@ -354,7 +359,7 @@ Where:
 
 If the request was successful, the client will receive a list of all clusters within the organization.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "clusters": [
@@ -395,9 +400,9 @@ If the request was successful, the client will receive a list of all clusters wi
 Where:
 
   - `{cluster_id}` is the unique ID of this cluster.
-  {{ site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info }}
   The cluster ID used in the Cloud API is different than the routing ID used when [connecting to clusters](connect-to-a-serverless-cluster.html).
-  {{ site.data.alerts.end }}
+  {{site.data.alerts.end }}
   - `{cluster_name}` is the name of the cluster.
   - `{cloud_provider}` is the name of the cloud infrastructure provider. Possible values are: `GCP` and `AWS`.
   - `{account_id}` is the ID of the account that created the cluster. If the cluster was created using the API, this will be the service account ID associated with the secret key used when creating the cluster.
@@ -408,7 +413,7 @@ Where:
 
 To list the available regions for creating new clusters, send a `GET` request to the `/v1/clusters/available-regions?provider={cloud_provider}` endpoint. The service account associated with the secret key must have `ADMIN` or `READ` permission to list the available regions.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 curl --request GET \
   --url 'https://cockroachlabs.cloud/api/v1/clusters/available-regions?provider={cloud_provider}' \
@@ -422,7 +427,7 @@ Where:
 
 If the request was successful, the client will receive a list of available regions for the specified cloud infrastructure provider.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ json
 {
   "regions": [

@@ -4,9 +4,9 @@ summary: Restore your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v20.2:</span> `RESTORE` no longer requires an Enterprise license, regardless of the options passed to it or to the backup it is restoring.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The `RESTORE` [statement](sql-statements.html) restores your cluster's schemas and data from [a `BACKUP`][backup] stored on a services such as AWS S3, Google Cloud Storage, NFS, or HTTP storage.
 
@@ -18,9 +18,9 @@ You can restore:
 - [Databases](#databases)
 - [Tables](#tables)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE` is a blocking statement. To run a restore job asynchronously, use the `DETACHED` option. See the [options](#options) below.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Required privileges
 
@@ -29,12 +29,12 @@ You can restore:
 
 ### Source privileges
 
-{%  include {{  page.version.version  }}/misc/source-privileges.md %}
+{{ partial "{{ page.version.version }}/misc/source-privileges.md" . }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/restore.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/restore.html" . }}
 </div>
 
 ## Parameters
@@ -87,9 +87,9 @@ You can restore:
 - All [tables](create-table.html) (which automatically includes their [indexes](indexes.html))
 - All [views](views.html)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When you restore a full cluster with an Enterprise license, it will restore the [Enterprise license](enterprise-licensing.html) of the cluster you are restoring from. If you want to use a different license in the new cluster, make sure to [update the license](licensing-faqs.html#set-a-license) _after_ the restore is complete.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Databases
 
@@ -99,9 +99,9 @@ When you restore a full cluster with an Enterprise license, it will restore the 
 RESTORE DATABASE backup_database_name FROM 'your_backup_location';
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If [dropping](drop-database.html) or [renaming](rename-database.html) an existing database is not an option, you can use _table_ restore to restore all tables into a specific database by using the [`WITH into_db` option](#options).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Tables
 
@@ -114,9 +114,9 @@ The target database must not have tables or views with the same name as the tabl
 - [`DROP TABLE`](drop-table.html), [`DROP VIEW`](drop-view.html), or [`DROP SEQUENCE`](drop-sequence.html) and then restore them. Note that a sequence cannot be dropped while it is being used in a column's `DEFAULT` expression, so those expressions must be dropped before the sequence is dropped, and recreated after the sequence is recreated. The `setval` [function](functions-and-operators.html#sequence-functions) can be used to set the value of the sequence to what it was previously.
 - [Restore the table or view into a different database](#into_db).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE` only offers table-level granularity; it _does not_ support restoring subsets of a table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <span class="version-tag">New in v20.2:</span> When restoring an individual table that references a user-defined type (e.g., [`ENUM`](enum.html)), CockroachDB will first check to see if the type already exists. The restore will attempt the following for each user-defined type within a table backup:
 
@@ -161,9 +161,9 @@ Full backup + <br>incremental backups | If the full backup and incremental backu
 
 The `RESTORE` process minimizes its impact to the cluster's performance by distributing work to all nodes. Subsets of the restored data (known as ranges) are evenly distributed among randomly selected nodes, with each range initially restored to only one node. Once the range is restored, the node begins replicating it others.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When a `RESTORE` fails or is canceled, partially restored data is properly cleaned up. This can have a minor, temporary impact on cluster performance.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Viewing and controlling restore jobs
 
@@ -171,13 +171,13 @@ After CockroachDB successfully initiates a restore, it registers the restore as 
 
 After the restore has been initiated, you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If initiated correctly, the statement returns when the restore is finished or if it encounters an error. In some cases, the restore can continue after an error has been returned (the error message will tell you that the restore has resumed in background).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Known limitations
 
-{%  include {{  page.version.version  }}/known-limitations/restore-aost.md %}
+{{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }}
 
 ## Examples
 
@@ -185,34 +185,34 @@ If initiated correctly, the statement returns when the restore is finished or if
 
  To restore a full cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM 'gs://acme-co-backup/test-cluster';
 ~~~
 
 ### Restore a database
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE DATABASE bank FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE DATABASE` can only be used if the entire database was backed up.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a table
 
 To restore a single table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.customers FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
 
 To restore multiple tables:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.customers, bank.accounts FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly';
 ~~~
@@ -221,34 +221,34 @@ To restore multiple tables:
 
 Restoring from incremental backups requires previous full and incremental backups. To restore from a destination containing the full backup, as well as the incremental backups (stored as subdirectories):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM 'gs://acme-co-backup/test-cluster';
 ~~~
 
 To explicitly point to where your incremental backups are, provide the previous full and incremental backup locations in a comma-separated list. In this example, `-weekly` is the full backup and the two `-nightly` are incremental backups.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup/database-bank-2017-03-28-nightly', 'gs://acme-co-backup/database-bank-2017-03-29-nightly';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you are restoring from HTTP storage, provide the previous full and incremental backup locations in a comma-separated list. You cannot use the simplified syntax.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE` will re-validate [indexes](indexes.html) when [incremental backups](take-full-and-incremental-backups.html) are created from an older version, but restored from a newer version.
 
 Incremental backups created by v20.2.2 and prior v20.2.x releases or v20.1.4 and prior v20.1.x releases may include incomplete data for indexes that were in the process of being created. Therefore, when incremental backups taken by these versions are restored by v20.2.8+, any indexes created during those incremental backups will be re-validated by `RESTORE`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a backup asynchronously
 
 <span class="version-tag">New in v20.2:</span> Use the `DETACHED` [option](#options) to execute the restore job asynchronously:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE FROM \
 'gs://acme-co-backup/test-cluster' \
@@ -279,7 +279,7 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 By default, tables and views are restored to the database they originally belonged to. However, using the [`into_db` option](#into_db), you can control the target database.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.customers \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -290,7 +290,7 @@ WITH into_db = 'newdb';
 
 By default, tables with [Foreign Key](foreign-key.html) constraints must be restored at the same time as the tables they reference. However, using the [`skip_missing_foreign_keys`](restore.html#skip_missing_foreign_keys) option you can remove the Foreign Key constraint from the table and then restore it.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE bank.accounts \
 FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly' \
@@ -303,24 +303,24 @@ The `system.users` table stores your cluster's usernames and their hashed passwo
 
 After it's restored into a new database, you can write the restored `users` table data to the cluster's existing `system.users` table.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE DATABASE newdb;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESTORE system.users \
 FROM 'azure://acme-co-backup/table-users-2017-03-27-full?AZURE_ACCOUNT_KEY=hash&AZURE_ACCOUNT_NAME=acme-co' \
 WITH into_db = 'newdb';
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO system.users SELECT * FROM newdb.users;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > DROP TABLE newdb.users;
 ~~~

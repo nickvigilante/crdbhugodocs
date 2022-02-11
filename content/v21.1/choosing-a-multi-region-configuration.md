@@ -6,19 +6,19 @@ toc: true
 
 This page has high-level information about how to configure a [multi-region cluster's](multiregion-overview.html) [survival goals](multiregion-overview.html#survival-goals) and [table locality](multiregion-overview.html#table-locality).
 
-{%  include enterprise-feature.md %}
+{{ partial "enterprise-feature.md" . }}
 
 The options for configuring your multi-region cluster include:
 
 - _Change nothing_: Using the [default settings](multiregion-overview.html#default-settings), you get:
   - Zone survival (the default).
   - Low-latency reads and writes from a single region.
-  - Low-latency stale reads from all other regions.
+  - A choice of low-latency stale reads or high-latency fresh reads from other regions (and high-latency fresh reads is the default).
 
 - _Change only [survival goals](multiregion-overview.html#survival-goals)_: This configuration is useful for single-region apps that need higher levels of survival. In this configuration, you move from availability zone (AZ) survival to get:
   - Region survival.
   - Low-latency reads from a single region.
-  - Low-latency stale reads from all other regions.
+  - A choice of low-latency stale reads or high-latency fresh reads from other regions (and high-latency fresh reads is the default).
   - Higher-latency writes from all regions (due to region survival).
 
 - _Change only [table locality](multiregion-overview.html#table-locality)_: This is useful for multi-region apps that require different read/write latency guarantees for different tables in the database, and are not concerned with surviving a region failure. In this configuration, you get:
@@ -45,13 +45,13 @@ The table below offers another view of how the configuration options described a
 | `GLOBAL`                                                            | Low-latency multi-region reads. Writes are higher latency than reads.                                                                  | Low-latency multi-region reads.  Writes are higher latency than reads. There should be minimal difference in write latencies between ZONE and REGION survival due to a new custom non-blocking transaction protocol. |
 |                                                                     | For multi-region apps that need low-latency reads of a "read-mostly" table.                                                            | For multi-region apps that need low-latency reads of a "read-mostly" table, and the ability to survive region failures.                                                                                              |
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Different databases and tables within the same cluster can each use different combinations of the settings above.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
-{%  include {{ page.version.version }}/misc/multiregion-max-offset.md %}
-{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}
+{{ partial "{{ page.version.version }}/misc/multiregion-max-offset.md" . }}
+{{site.data.alerts.end }}
 
 ## See also
 

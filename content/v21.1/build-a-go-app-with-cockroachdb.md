@@ -16,13 +16,13 @@ This tutorial shows you how build a simple CRUD Go application with CockroachDB 
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/example-app-go-pgx/
 ~~~
@@ -37,38 +37,38 @@ The project has the following directory structure:
 
 The `dbinit.sql` file initializes the database schema that the application uses:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ go
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-go-pgx/master/dbinit.sql %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-go-pgx/master/dbinit.sql %}
 ~~~
 
 The `main.go` file contains the code for `INSERT`, `SELECT`, `UPDATE`, and `DELETE` SQL operations. The file also executes the `main` method of the program.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ go
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-go-pgx/master/main.go %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-go-pgx/master/main.go %}
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in the case of read/write contention. The [CockroachDB Go client](https://github.com/cockroachdb/cockroach-go) includes a generic **retry function** (`ExecuteTx()`) that runs inside a transaction and retries it as needed. The code sample shows how you can use this function to wrap SQL statements.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 3. Initialize the database
 
-{%  include {{  page.version.version  }}/app/init-bank-sample.md %}
+{{ partial "{{ page.version.version }}/app/init-bank-sample.md" . }}
 
 ## Step 4. Run the code
 
 1. Initialize the module:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ go mod init basic-sample && go mod tidy
     ~~~
 
 1. Run the code:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ go run main.go
     ~~~
@@ -83,21 +83,21 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
     <section class="filter-content" markdown="1" data-scope="local">
 
-    {{ site.data.alerts.callout_success }}
+    {{site.data.alerts.callout_success}}
     `postgresql://root@localhost:26257?sslmode=disable` should be the `sql` connection URL provided in the `cockroach` welcome text.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
     </section>
 
     <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
-    {{ site.data.alerts.callout_success }}
-    Use the connection string provided in the **Connection info** window of the {{  site.data.products.db  }} Console.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}
+    Use the connection string provided in the **Connection info** window of the {{ site.data.products.db }} Console.
+    {{site.data.alerts.end }}
 
-    {{ site.data.alerts.callout_info }}
-    You need to provide a SQL user password in order to securely connect to a {{  site.data.products.db  }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.callout_info }}
+    You need to provide a SQL user password in order to securely connect to a {{ site.data.products.db }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
+    {{site.data.alerts.end }}
 
     </section>
 
@@ -133,12 +133,12 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
 1. To verify that the SQL statements were executed, run the following query from inside the SQL shell:
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > USE bank;
     ~~~
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT id, balance FROM accounts;
     ~~~
@@ -157,4 +157,4 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
 Read more about using the [Go pgx driver](https://pkg.go.dev/github.com/jackc/pgx?tab=doc).
 
-{%  include {{  page.version.version  }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

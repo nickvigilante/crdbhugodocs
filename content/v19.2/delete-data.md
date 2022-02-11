@@ -15,7 +15,7 @@ Make sure you have already:
 - [Connected to the database](connect-to-the-database.html).
 - [Inserted data](insert-data.html) that you now want to delete.
 
-{%  include {{ page.version.version }}/app/retry-errors.md %}
+{{ partial "{{ page.version.version }}/app/retry-errors.md" . }}
 
 ## Delete a single row
 
@@ -28,7 +28,7 @@ Make sure you have already:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 DELETE from accounts WHERE id = 1;
 ~~~
@@ -39,7 +39,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ go
 // 'db' is an open database connection
 
@@ -48,13 +48,13 @@ if _, err := db.Exec("DELETE FROM accounts WHERE id = 1"); err != nil {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-go.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ java
 // ds is an org.postgresql.ds.PGSimpleDataSource
 
@@ -67,13 +67,13 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-java.md" . }}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
 # conn is a psycopg2 connection
 
@@ -82,7 +82,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{%  include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{{ partial "{{ page.version.version }}/app/for-a-complete-example-python.md" . }}
 
 </section>
 
@@ -92,27 +92,27 @@ You can delete multiple rows from a table in several ways:
 
 - Using a `WHERE` clause to limit the number of rows based on one or more predicates:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     DELETE FROM student_loan_accounts WHERE loan_amount < 30000;
     ~~~
 
 - Using a `WHERE` clause to specify multiple records by a specific column's value (in this case, `id`):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     DELETE FROM accounts WHERE id IN (1, 2, 3, 4, 5);
     ~~~
 
 - Using [`TRUNCATE`](truncate.html) instead of [`DELETE`](delete.html) to delete all of the rows from a table, as recommended in our [performance best practices](performance-best-practices-overview.html#use-truncate-instead-of-delete-to-delete-all-rows-in-a-table).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 We recommend [deleting large amounts of data in batches](delete.html#batch-deletes).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Before deleting large amounts of data, see [Performance considerations](#performance-considerations).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Performance considerations
 

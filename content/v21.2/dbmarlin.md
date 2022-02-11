@@ -11,9 +11,9 @@ In this tutorial, you will enable the CockroachDB integration in DBmarlin, run a
 
 For more information about the integration, see the [Cockroach Labs blog post](https://www.cockroachlabs.com/blog/dbmarlin-cockroachdb/).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more information about using DBmarlin, see the [DBmarlin documentation](https://docs.dbmarlin.com/).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
@@ -30,14 +30,14 @@ To test the dashboard functionality, use [`cockroach workload`](cockroach-worklo
 
 Initialize the workload for MovR, a fictional vehicle-sharing company:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach workload init movr  "postgresql://<username>:<password>@<host-address>:26257/movr?sslmode=verify-full&sslrootcert=$HOME/.postgresql/root.crt&options=--cluster%<cluster-id>"
 ~~~
 
 Run the MovR workload for 5 minutes:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach workload run movr --duration=5m <username>:<password>@<host-address>:26257/movr?sslmode=verify-full&sslrootcert=$HOME/.postgresql/root.crt&options=--cluster%<cluster-id>"
 ~~~
@@ -48,7 +48,7 @@ Follow the steps in [Instance Dashboard](https://docs.dbmarlin.com/docs/Using-DB
 
 When you open the dashboard you'll see :
 
-<img src="{{  'images/v21.2/dbmarlin-crdb-dashboard.png' | relative_url  }}" alt="CockroachDB Overview dashboard for DBmarlin" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.2/dbmarlin-crdb-dashboard.png' | relative_url }}" alt="CockroachDB Overview dashboard for DBmarlin" style="border:1px solid #eee;max-width:100%" />
 
 ## See also
 

@@ -31,12 +31,12 @@ To resolve this issue, do one of the following:
 
 If you're not sure what the IP address/hostname and port values might have been, you can look in the node's [logs](debug-and-error-logs.html). If necessary, you can also terminate the `cockroach` process, and then restart the node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ pkill cockroach
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach start [flags]
 ~~~
@@ -56,16 +56,16 @@ Several different types of transaction retry errors are described below:
 - [`read within uncertainty interval`](#read-within-uncertainty-interval)
 - [`transaction deadline exceeded`](#transaction-deadline-exceeded)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Your application's retry logic does not need to distinguish between these types of errors. They are listed here for reference.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 To understand how transactions work in CockroachDB, and why transaction retries are necessary to maintain serializable isolation in a distributed database, see:
 
 - [Transaction Layer](architecture/transaction-layer.html)
 - [Life of a Distributed Transaction](architecture/life-of-a-distributed-transaction.html)
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### read within uncertainty interval
 
@@ -83,9 +83,9 @@ When errors like this occur, the application has the following options:
 - Design the schema and queries to reduce contention. For information on how to avoid contention, see [Understanding and Avoiding Transaction Contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention).
 - Be prepared to retry on uncertainty (and other) errors. For more information, see [Transaction retries](transactions.html#transaction-retries).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Uncertainty errors are a form of transaction conflict. For more information about transaction conflicts, see [Transaction conflicts](architecture/transaction-layer.html#transaction-conflicts).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### transaction deadline exceeded
 
@@ -95,9 +95,9 @@ This error can occur for long-running transactions (with execution time on the o
 
 When this error occurs, the application must retry the transaction. For more information about how to retry transactions, see [Transaction retries](transactions.html#transaction-retries).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 For more information about the mechanics of the transaction conflict resolution process described above, see [Life of a Distributed Transaction](architecture/life-of-a-distributed-transaction.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 <!-- ### write too old -->
 
@@ -109,19 +109,19 @@ This message usually indicates that a node tried to connect to a cluster, but th
 
 - Choose a different directory to store the CockroachDB data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start [flags] --store=[new directory] --join=[cluster host]:26257
     ~~~
 
 - Remove the existing directory and start a node joining the cluster again:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ rm -r cockroach-data/
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start [flags] --join=[cluster host]:26257
     ~~~
@@ -173,13 +173,13 @@ E160407 09:53:50.337328 storage/queue.go:511  [replicate] 7 replicas failing wit
 
 This happens because CockroachDB expects three nodes by default. If you do not intend to add additional nodes, you can stop this error by using [`ALTER RANGE ... CONFIGURE ZONE`](configure-zone.html) to update your default zone configuration to expect only one node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Insecure cluster:
 $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas=1;" --insecure
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 # Secure cluster:
 $ cockroach sql --execute="ALTER RANGE default CONFIGURE ZONE USING num_replicas=1;" --certs-dir=[path to certs directory]

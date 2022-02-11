@@ -5,9 +5,9 @@ toc: true
 docs_area: stream_data
 ---
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 The configurations and settings explained on this page will significantly impact a changefeed's behavior.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The following sections describe settings, configurations, and details to tune changefeeds for these use cases:
 

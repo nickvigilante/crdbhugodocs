@@ -58,20 +58,20 @@ Component | Description | Required
 `<database>` | A database name to use as current database in the new session.  | ✗
 `<parameters>` | [Additional connection parameters](#additional-connection-parameters), including SSL/TLS certificate settings. | ✗
 
-{{ site.data.alerts.callout_info }}You can specify the URL for
+{{site.data.alerts.callout_info }}You can specify the URL for
 <code>cockroach</code> commands that accept a URL with the
 command-line flag <code>--url</code>. If <code>--url</code> is not
 specified but the environment variable <code>COCKROACH_URL</code> is
 defined, the environment variable is used. Otherwise, the
 <code>cockroach</code> command will use <a
 href="#connect-using-discrete-parameters">discrete connection parameters</a>
-as described below.{{ site.data.alerts.end }}
+as described below.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}The <code>&lt;database&gt;</code>
+{{site.data.alerts.callout_info }}The <code>&lt;database&gt;</code>
 part should not be specified for any <a
 href="cockroach-commands.html"><code>cockroach</code> command</a>
 other than <a href="use-the-built-in-sql-client.html"><code>cockroach
-sql</code></a>.{{ site.data.alerts.end }}
+sql</code></a>.{{site.data.alerts.end }}
 
 ### Additional Connection Parameters
 
@@ -98,11 +98,11 @@ Parameter | Description | Recommended for use
 `sslmode=verify-ca` | Force a secure connection and verify that the server certificate is signed by a known CA. |
 `sslmode=verify-full` | Force a secure connection, verify that the server certificate is signed by a known CA, and verify that the server address matches that specified in the certificate. | Use for [secure deployments](secure-a-cluster.html).
 
-{{ site.data.alerts.callout_danger }}Some client drivers and the
+{{site.data.alerts.callout_danger }}Some client drivers and the
 <code>cockroach</code> commands do not support
 <code>sslmode=allow</code> and <code>sslmode=prefer</code>. Check the
 documentation of your SQL driver to determine whether these options
-are supported.{{ site.data.alerts.end }}
+are supported.{{site.data.alerts.end }}
 
 ### Example URL for an Insecure Connection
 
@@ -149,13 +149,13 @@ For each command-line flag that directs a connection parameter,
 CockroachDB also recognizes an environment variable. The environment
 variable is used when the command-line flag is not specified.
 
-{%  include {{  page.version.version  }}/sql/connection-parameters-with-url.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters-with-url.md" . }}
 
-{{ site.data.alerts.callout_info }}The command-line flag
+{{site.data.alerts.callout_info }}The command-line flag
 <code>--url</code> is only supported for <code>cockroach</code>
 commands that use a SQL connection. See <a
 href="#supported-connection-parameters">Supported Connection
-Parameters</a> for details.{{ site.data.alerts.end }}
+Parameters</a> for details.{{site.data.alerts.end }}
 
 ### Example Command-Line Flags for an Insecure Connection
 
@@ -195,12 +195,12 @@ This uses the following components:
   - Client certificate `path/to/client.<user>.crt` (`path/to/certs/client.root.crt` with `--user root`)
   - Client key `path/to/client.<user>.key` (`path/to/certs/client.root.key` with `--user root`)
 
-{{ site.data.alerts.callout_info }}When using discrete connection
+{{site.data.alerts.callout_info }}When using discrete connection
 parameters, the file names of the CA and client certificates and
 client key are derived automatically from the value of <code>--certs-dir</code>,
 and cannot be customized. To use customized file names, use a <a
 href="#connect-using-a-url">connection URL</a>
-instead.{{ site.data.alerts.end }}
+instead.{{site.data.alerts.end }}
 
 ## See Also
 

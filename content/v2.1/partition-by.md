@@ -6,11 +6,11 @@ toc: true
 
 `PARTITION BY` is a subcommand of [`ALTER TABLE`](alter-table.html) that is used to define partitions and subpartitions on a table, and repartition or unpartition a table.
 
-{{ site.data.alerts.callout_info }}<a href="partitioning.html">Defining table partitions</a> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}<a href="partitioning.html">Defining table partitions</a> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If you are looking for the `PARTITION BY` used in SQL window functions, see [Window Functions](window-functions.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Primary key requirements
 
@@ -21,7 +21,7 @@ As of CockroachDB v2.0, you cannot alter the primary key after it has been defin
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/diagrams/alter_table_partition_by.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/alter_table_partition_by.html" . }}
 </div>
 
 ## Parameters
@@ -43,7 +43,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 Suppose we have an existing table named `students_by_list` in a global online learning portal, and the primary key of the table is defined as `(country, id)`. We can define partitions on the table by list:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students_by_list PARTITION BY LIST (country)
       (PARTITION north_america VALUES IN ('CA','US'),
@@ -55,7 +55,7 @@ Suppose we have an existing table named `students_by_list` in a global online le
 
 Suppose we have an another existing table named `students_by_range` and the primary key of the table is defined as `(expected_graduation_date, id)`. We can define partitions on the table by range:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students_by_range PARTITION BY RANGE (expected_graduation_date)
       (PARTITION graduated VALUES FROM (MINVALUE) TO ('2017-08-15'),
@@ -66,7 +66,7 @@ Suppose we have an another existing table named `students_by_range` and the prim
 
 Suppose we have an yet another existing table named `students` with the primary key defined as `(country, expected_graduation_date, id)`. We can define partitions and subpartitions on the table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students PARTITION BY LIST (country)(
         PARTITION australia VALUES IN ('AU','NZ') PARTITION BY RANGE (expected_graduation_date)(PARTITION graduated_au VALUES FROM (MINVALUE) TO ('2017-08-15'), PARTITION current_au VALUES FROM ('2017-08-15') TO (MAXVALUE)),
@@ -76,7 +76,7 @@ Suppose we have an yet another existing table named `students` with the primary 
 
 ### Repartition a table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students_by_range PARTITION BY RANGE (expected_graduation_date) (
     PARTITION graduated VALUES FROM (MINVALUE) TO ('2018-08-15'),
@@ -85,7 +85,7 @@ Suppose we have an yet another existing table named `students` with the primary 
 
 ### Unpartition a table
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE students PARTITION BY NOTHING;
 ~~~

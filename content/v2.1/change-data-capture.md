@@ -6,13 +6,13 @@ toc: true
 
 <span class="version-tag">New in v2.1:</span> Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 **This feature is under active development** and only works for a [targeted use case](#usage-examples). Please [file a Github issue](file-an-issue.html) if you have feedback on the roadmap.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 CDC is an [enterprise-only](enterprise-licensing.html). There will be a core version in a future release.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## What is change data capture?
 
@@ -95,7 +95,7 @@ For example, start with the changefeed created in the [example below](#create-a-
 
 Add a column to the watched table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE office_dogs ADD COLUMN likes_treats BOOL DEFAULT TRUE;
 ~~~
@@ -120,7 +120,7 @@ The changefeed emits duplicate records 1, 2, and 3 before outputting the records
 
 To create a changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name INTO 'kafka://host:port';
 ~~~
@@ -131,7 +131,7 @@ For more information, see [`CREATE CHANGEFEED`](create-changefeed.html).
 
 To pause a changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -142,7 +142,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 To resume a paused changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -153,7 +153,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 To cancel a changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -167,7 +167,7 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
 - On the [Jobs page](admin-ui-jobs-page.html) of the Admin UI. Hover over the high-water timestamp to view the [system time](as-of-system-time.html).
 - Using `crdb_internal.jobs`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SELECT * FROM crdb_internal.jobs WHERE job_id = <job_id>;
     ~~~
@@ -178,9 +178,9 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
     (1 row)
     ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You can use the high-water timestamp to [start a new changefeed where another ended](create-changefeed.html#start-a-new-changefeed-where-another-ended).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Usage examples
 
@@ -192,7 +192,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 2. In a terminal window, start `cockroach`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --insecure --listen-addr=localhost --background
     ~~~
@@ -201,7 +201,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 4. Move into the extracted `confluent-<version>` directory and start Confluent:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/confluent start
     ~~~
@@ -210,7 +210,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 5. Create a Kafka topic:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -220,67 +220,67 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 6. As the `root` user, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 7. Set your organization name and [enterprise license](enterprise-licensing.html) key that you received via email:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<organization name>';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<secret>';
     ~~~
 
 8. Create a database called `cdc_demo`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE cdc_demo;
     ~~~
 
 9. Set the database as the default:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET DATABASE = cdc_demo;
     ~~~
 
 10. Create a table and add data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE office_dogs (
          id INT PRIMARY KEY,
          name STRING);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO office_dogs VALUES
        (1, 'Petee'),
        (2, 'Carl');
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > UPDATE office_dogs SET name = 'Petee H' WHERE id = 1;
     ~~~
 
 11. Start the changefeed:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs INTO 'kafka://localhost:9092';
     ~~~
@@ -296,7 +296,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 12. In a new terminal, move into the extracted `confluent-<version>` directory and start watching the Kafka topic:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/kafka-console-consumer \
     --bootstrap-server=localhost:9092 \
@@ -314,7 +314,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 13. Back in the SQL client, insert more data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO office_dogs VALUES (3, 'Ernie');
     ~~~
@@ -329,14 +329,14 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 16. To stop `cockroach`, run:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 17. To stop Kafka, move into the extracted `confluent-<version>` directory and stop Confluent:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/confluent stop
     ~~~
@@ -349,7 +349,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 2. In a terminal window, start `cockroach`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach start --insecure --listen-addr=localhost --background
     ~~~
@@ -358,7 +358,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 4. Move into the extracted `confluent-<version>` directory and start Confluent:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/confluent start
     ~~~
@@ -367,7 +367,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 5. Create a Kafka topic:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/kafka-topics \
     --create \
@@ -377,67 +377,67 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 6. As the `root` user, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach sql --insecure
     ~~~
 
 7. Set your organization name and [enterprise license](enterprise-licensing.html) key that you received via email:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING cluster.organization = '<organization name>';
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET CLUSTER SETTING enterprise.license = '<secret>';
     ~~~
 
 8. Create a database called `cdc_demo`:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE DATABASE cdc_demo;
     ~~~
 
 9. Set the database as the default:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > SET DATABASE = cdc_demo;
     ~~~
 
 10. Create a table and add data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE TABLE office_dogs (
          id INT PRIMARY KEY,
          name STRING);
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO office_dogs VALUES
        (1, 'Petee'),
        (2, 'Carl');
     ~~~
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > UPDATE office_dogs SET name = 'Petee H' WHERE id = 1;
     ~~~
 
 11. Start the changefeed:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > CREATE CHANGEFEED FOR TABLE office_dogs INTO 'kafka://localhost:9092' WITH format = 'experimental-avro', confluent_schema_registry = 'http://localhost:8081';
     ~~~
@@ -453,7 +453,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 12. In a new terminal, move into the extracted `confluent-<version>` directory and start watching the Kafka topic:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/kafka-avro-console-consumer \
     --bootstrap-server=localhost:9092 \
@@ -471,7 +471,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 13. Back in the SQL client, insert more data:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ sql
     > INSERT INTO office_dogs VALUES (3, 'Ernie');
     ~~~
@@ -486,21 +486,21 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 16. To stop `cockroach`, run:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach quit --insecure
     ~~~
 
 17. To stop Kafka, move into the extracted `confluent-<version>` directory and stop Confluent:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ ./bin/confluent stop
     ~~~
 
 ## Known limitations
 
-{%  include v2.1/known-limitations/cdc.md %}
+{{ partial "v2.1/known-limitations/cdc.md" . }}
 
 ## See also
 

@@ -10,9 +10,9 @@ Unlike other constraints which have very specific uses, the `PRIMARY KEY` constr
 
 A table's primary key should be explicitly defined in the [`CREATE TABLE`](create-table.html) statement. Tables can only have one primary key.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A table's primary key can only be specified in the [`CREATE TABLE`](create-table.html) statement. It cannot be changed later using `ALTER TABLE`, though it is possible to [go through a process](constraints.html#change-constraints) to create a new table with the new primary key you want and then migrate the data.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Syntax
 
@@ -21,7 +21,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 ### Column level
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/primary_key_column_level.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_column_level.html" . }}
 </div>
 
  Parameter | Description
@@ -35,7 +35,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 **Example**
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -49,7 +49,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 ### Table level
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/primary_key_table_level.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/primary_key_table_level.html" . }}
 </div>
 
  Parameter | Description
@@ -62,7 +62,7 @@ A table's primary key can only be specified in the [`CREATE TABLE`](create-table
 
 **Example**
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -110,7 +110,7 @@ For optimal performance, we recommend that you do the following:
 
 ## Example
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -120,12 +120,12 @@ For optimal performance, we recommend that you do the following:
   );
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -134,7 +134,7 @@ For optimal performance, we recommend that you do the following:
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~

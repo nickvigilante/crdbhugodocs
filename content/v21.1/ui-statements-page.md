@@ -4,9 +4,9 @@ summary: The Statements page helps you identify frequently executed or high late
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The **Statements** page helps you:
 
@@ -30,13 +30,13 @@ You can also search for statements using the search bar.
 
 Use this page to identify SQL statements that you may want to [troubleshoot](query-behavior-troubleshooting.html). This might include statements that are experiencing high latencies, multiple [retries](transactions.html#transaction-retries), or execution failures. You can optionally create and retrieve [diagnostics](#diagnostics) for these statements.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If you haven't yet executed any queries in the cluster as a user, this page will initially be blank.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Columns | Description
 -----|------------
-{%  include {{  page.version.version  }}/ui/statement_table.md %}
+{{ partial "{{ page.version.version }}/ui/statement_table.md" . }}
 Diagnostics | Option to activate [diagnostics](#diagnostics) for this fingerprint. If activated, this displays the status of diagnostics collection (`WAITING FOR QUERY`, `READY`, OR `ERROR`). When `READY`, the most recent diagnostics bundle can be downloaded here. Access the full history of diagnostics for the fingerprint in the [**Statement Details**](#statement-details-page) page.
 
 ### Time interval
@@ -120,13 +120,13 @@ The **Diagnostics** section of the Statement Details page allows you to activate
 
 When you activate diagnostics for a fingerprint, CockroachDB waits for the next SQL query that matches this fingerprint to be run on any node. On the next match, information about the SQL statement is written to a diagnostics bundle that you can download. This bundle consists of [statement traces](show-trace.html) in various formats (including a JSON file that can be [imported to Jaeger](query-behavior-troubleshooting.html#visualize-statement-traces-in-jaeger)), a physical query plan, execution statistics, and other information about the query. The bundle contents are identical to those produced by [`EXPLAIN ANALYZE (DEBUG)`](explain-analyze.html#debug-option).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Diagnostics will be collected a maximum of *N* times for a given activated fingerprint where *N* is the number of nodes in your cluster.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/sql/statement-bundle-warning.md %}
+{{ partial "{{ page.version.version }}/sql/statement-bundle-warning.md" . }}
 
-<img src="{{  'images/v21.1/ui_statements_diagnostics.png' | relative_url  }}" alt="DB Console Statements Page" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v21.1/ui_statements_diagnostics.png' | relative_url }}" alt="DB Console Statements Page" style="border:1px solid #eee;max-width:100%" />
 
 - Click the **Activate** button to begin collecting diagnostics for the fingerprint. This will open the list of **Statement diagnostics** with a status next to each activated diagnostic.
 	- `WAITING FOR QUERY` indicates that a SQL statement matching the fingerprint has not yet been recorded.
@@ -144,7 +144,7 @@ The **Logical Plan** section displays CockroachDB's query plan for an [explainab
 
 By default, the logical plan for each fingerprint is sampled every 5 minutes. You can change the interval with the [`sql.metrics.statement_details.plan_collection.period`](cluster-settings.html#settings) cluster setting. For example, to change the interval to 2 minutes, run the following [`SET CLUSTER SETTING`](set-cluster-setting.html) command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.metrics.statement_details.plan_collection.period  = '2m0s';
 ~~~
@@ -153,13 +153,13 @@ By default, the logical plan for each fingerprint is sampled every 5 minutes. Yo
 
 **Execution Latency by Phase** displays the service latency of statements matching this fingerprint, broken down by [phase](architecture/sql-layer.html#sql-parser-planner-executor) (parse, plan, run, overhead), as well as the overall service latency. The gray bar indicates the mean latency. The blue bar indicates one standard deviation from the mean.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 "Overhead" comprises the statements that remain after subtracting parse, plan, and run latencies from the overall latency. These might include fetching table descriptors that were not cached, or other background tasks required to execute the query.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Service latency can be affected by network latency, which is displayed for your cluster on the [Network Latency](ui-network-latency-page.html) page.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 **Other Execution Statistics** displays the following statistics.
 

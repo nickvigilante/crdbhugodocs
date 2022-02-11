@@ -4,9 +4,9 @@ summary: The CREATE CHANGEFEED statement creates a changefeed of row-level chang
 toc: true
 ---
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `CREATE CHANGEFEED` is an [enterprise-only](enterprise-licensing.html) feature. For the core version, see [`EXPERIMENTAL CHANGEFEED FOR`](changefeed-for.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The `CREATE CHANGEFEED` [statement](sql-statements.html) creates a new enterprise changefeed, which targets an allowlist of tables, called "watched rows".  Every change to a watched row is emitted as a record in a configurable format (`JSON` or Avro) to a configurable sink ([Kafka](https://kafka.apache.org/) or a [cloud storage sink](#cloud-storage-sink)). You can [create](#create-a-changefeed-connected-to-kafka), [pause](#pause-a-changefeed), [resume](#resume-a-paused-changefeed), or [cancel](#cancel-a-changefeed) an enterprise changefeed.
 
@@ -19,7 +19,7 @@ Changefeeds can only be created by superusers, i.e., [members of the `admin` rol
 ## Synopsis
 
 <div>
-  {%  include {{  page.version.version  }}/sql/diagrams/create_changefeed.html %}
+  {{ partial "{{ page.version.version }}/sql/diagrams/create_changefeed.html" . }}
 </div>
 
 ## Parameters
@@ -66,9 +66,9 @@ Parameter | Value | Description
 
 <span class="version-tag">New in v19.1:</span> Use a cloud storage sink to deliver changefeed data to OLAP or big data systems without requiring transport via Kafka.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Currently, cloud storage sinks only work with `JSON` and emits newline-delimited `JSON` files.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Example of a cloud storage sink (i.e., AWS S3) URI:
 
@@ -76,13 +76,13 @@ Example of a cloud storage sink (i.e., AWS S3) URI:
 'experimental-s3://test-s3encryption/test?AWS_ACCESS_KEY_ID=ABCDEFGHIJKLMNOPQ&AWS_SECRET_ACCESS_KEY=LS0tLS1CRUdJTiBDRVJUSUZ'
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The `scheme` for a cloud storage sink should be prepended with `experimental-`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 Any of the cloud storages below can be used as a sink:
 
-{%  include {{  page.version.version  }}/misc/external-urls.md %}
+{{ partial "{{ page.version.version }}/misc/external-urls.md" . }}
 
 ### Options
 
@@ -103,9 +103,9 @@ Currently, support for Avro is limited and experimental. Below is a list of unsu
 - [Decimals](decimal.html) must have precision specified.
 - [Decimals](decimal.html) with `NaN` or infinite values cannot be written in Avro.
 
-    {{ site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info }}
     To avoid `NaN` or infinite values, add a [`CHECK` constraint](check.html) to prevent these values from being inserted into decimal columns.
-    {{ site.data.alerts.end }}
+    {{site.data.alerts.end }}
 
 - [`TIME`, `DATE`, `INTERVAL`](https://github.com/cockroachdb/cockroach/issues/32472), [`UUID`, `INET`](https://github.com/cockroachdb/cockroach/issues/34417), [`ARRAY`](https://github.com/cockroachdb/cockroach/issues/34420), [`JSONB`](https://github.com/cockroachdb/cockroach/issues/34421), `BIT`, and collated `STRING` are not supported in Avro yet.
 
@@ -145,14 +145,14 @@ For example:
 
 Statement                                      | Response
 -----------------------------------------------+-----------------------------------------------------------------------
-`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }} }}`
+`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }}}}`
 `DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1 }}	{"after":null}`
 
 ## Examples
 
 ### Create a changefeed connected to Kafka
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'kafka://host:port'
@@ -171,7 +171,7 @@ For more information on how to create a changefeed connected to Kafka, see [Chan
 
 ### Create a changefeed connected to Kafka using Avro
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'kafka://host:port'
@@ -190,9 +190,9 @@ For more information on how to create a changefeed that emits an [Avro](https://
 
 ### Create a changefeed connected to a cloud storage sink
 
-{%  include {{  page.version.version  }}/cdc/correctness-warning.md %}
+{{ partial "{{ page.version.version }}/cdc/correctness-warning.md" . }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'experimental-scheme://host?parameters'
@@ -213,13 +213,13 @@ For more information on how to create a changefeed connected to a cloud storage 
 
 Use the following SQL statements to pause, resume, and cancel a changefeed.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Changefeed-specific SQL statements (e.g., `CANCEL CHANGEFEED`) will be added in the future.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Pause a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PAUSE JOB job_id;
 ~~~
@@ -228,7 +228,7 @@ For more information, see [`PAUSE JOB`](pause-job.html).
 
 #### Resume a paused changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESUME JOB job_id;
 ~~~
@@ -237,7 +237,7 @@ For more information, see [`RESUME JOB`](resume-job.html).
 
 #### Cancel a changefeed
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CANCEL JOB job_id;
 ~~~
@@ -248,7 +248,7 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 Find the [high-water timestamp](change-data-capture.html#monitor-a-changefeed) for the ended changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM crdb_internal.jobs WHERE job_id = <job_id>;
 ~~~
@@ -261,7 +261,7 @@ Find the [high-water timestamp](change-data-capture.html#monitor-a-changefeed) f
 
 Use the `high_water_timestamp` to start the new changefeed:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE CHANGEFEED FOR TABLE name
   INTO 'kafka//host:port'

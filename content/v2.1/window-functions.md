@@ -8,13 +8,13 @@ CockroachDB supports the application of a function over a subset of the rows ret
 
 For a complete list of supported window functions, see [Functions and Operators](functions-and-operators.html#window-functions).
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 All [aggregate functions][aggregate-functions] can also be used as [window functions][window-functions]. For more information, see the [Examples](#examples) below.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The examples on this page use the `users`, `rides`, and `vehicles` tables from our open-source, fictional peer-to-peer ride-sharing application,[MovR](https://github.com/cockroachdb/movr).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How window functions work
 
@@ -26,7 +26,7 @@ At a high level, window functions work by:
 
 For example, consider this query:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT DISTINCT(city),
              SUM(revenue) OVER (PARTITION BY city) AS city_revenue
@@ -40,7 +40,7 @@ Its operation can be described as follows (numbered steps listed here correspond
 2. The window function `SUM(revenue) OVER ()` operates on a window frame containing all rows of the query output.
 3. The window function `SUM(revenue) OVER (PARTITION BY city)` operates on several window frames in turn; each frame contains the `revenue` columns for a different city (Amsterdam, Boston, L.A., etc.).
 
-<img src="{{  'images/v2.1/window-functions.png' | relative_url  }}" alt="Window function diagram" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v2.1/window-functions.png' | relative_url }}" alt="Window function diagram" style="border:1px solid #eee;max-width:100%" />
 
 ## Caveats
 
@@ -62,7 +62,7 @@ Because of this, you should be aware of the behavior of any [aggregate function]
 
 The tables used in the examples are shown below.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -83,7 +83,7 @@ The tables used in the examples are shown below.
 +-------+-------------------------------------------------------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE rides;
 ~~~
@@ -118,7 +118,7 @@ The tables used in the examples are shown below.
 +-------+--------------------------------------------------------------------------+
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -149,7 +149,7 @@ The tables used in the examples are shown below.
 
 To see which customers have taken the most rides, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM
     (SELECT distinct(name) as "name",
@@ -180,7 +180,7 @@ To see which customers have taken the most rides, run:
 
 To see which customers have generated the most revenue, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT DISTINCT name,
     SUM(revenue) OVER (PARTITION BY name) AS "total rider revenue"
@@ -211,7 +211,7 @@ To see which customers have generated the most revenue, run:
 
 To add row numbers to the output, kick the previous query down into a subquery and run the `row_number()` window function.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT row_number() OVER (), *
   FROM (
@@ -248,7 +248,7 @@ To add row numbers to the output, kick the previous query down into a subquery a
 
 To see which customers have taken the most rides while generating the most revenue, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM (
     SELECT DISTINCT name,
@@ -284,7 +284,7 @@ To see which customers have taken the most rides while generating the most reven
 
 To see which customers have the highest average revenue per ride, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT name,
     COUNT(*)     OVER w AS "number of rides",
@@ -317,7 +317,7 @@ To see which customers have the highest average revenue per ride, run:
 
 To see which customers have the highest average revenue per ride, given that they have taken at least 3 rides, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM (
     SELECT DISTINCT name,
@@ -353,7 +353,7 @@ To see which customers have the highest average revenue per ride, given that the
 
 To find out the total number of riders and total revenue generated thus far by the app, run:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT
     COUNT("name") AS "total # of riders",
@@ -377,7 +377,7 @@ To find out the total number of riders and total revenue generated thus far by t
 
 ### How many vehicles of each type
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT DISTINCT type, COUNT(*) OVER (PARTITION BY type) AS cnt FROM vehicles ORDER BY cnt DESC;
 ~~~
@@ -395,7 +395,7 @@ To find out the total number of riders and total revenue generated thus far by t
 
 ### How much revenue per city
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT DISTINCT(city), SUM(revenue) OVER (PARTITION BY city) AS city_revenue FROM rides ORDER BY city_revenue DESC;
 ~~~

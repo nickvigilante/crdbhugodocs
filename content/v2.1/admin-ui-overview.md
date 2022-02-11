@@ -26,9 +26,9 @@ Area | Description
 
 The Admin UI also provides details about the way data is **Distributed**, the state of specific **Queues**, and metrics for **Slow Queries**, but these details are largely internal and intended for use by CockroachDB developers.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 By default, the Admin UI shares anonymous usage details with Cockroach Labs. For information about the details shared and how to opt-out of reporting, see [Diagnostics Reporting](diagnostics-reporting.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

@@ -17,13 +17,13 @@ This page describes how to configure the following, using the [Operator](https:/
 
 These settings control how CockroachDB pods can be identified or scheduled onto worker nodes.
 
-{%  include {{  page.version.version  }}/orchestration/operator-check-namespace.md %}
+{{ partial "{{ page.version.version }}/orchestration/operator-check-namespace.md" . }}
 
 ## Enable feature gates
 
-The [affinity](#affinities-and-anti-affinities) and [toleration](#taints-and-tolerations) rules are not yet fully supported. To enable them, [download the Operator manifest](https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{ site.operator_version }}/install/operator.yaml) and add the following line to the `spec.containers.args` field:
+The [affinity](#affinities-and-anti-affinities) and [toleration](#taints-and-tolerations) rules are not yet fully supported. To enable them, [download the Operator manifest](https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml) and add the following line to the `spec.containers.args` field:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   containers:
@@ -39,7 +39,7 @@ Specify the labels in `nodeSelector` in the Operator's custom resource, which is
 
 The following configuration causes CockroachDB pods to be scheduled onto worker nodes that have *both* the labels `worker-pool-name=crdb-workers` and `kubernetes.io/arch=amd64`:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   nodeSelector:
@@ -51,9 +51,9 @@ For an example of labeling nodes, see [Scheduling CockroachDB onto labeled nodes
 
 ## Affinities and anti-affinities
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To use the affinity rules, first [enable the feature gates](#enable-feature-gates).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 A pod with a *node affinity* seeks out worker nodes that have matching [labels](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/). A pod with a *pod affinity* seeks out pods that have matching labels. A pod with a *pod anti-affinity* avoids pods that have matching labels.
 
@@ -72,7 +72,7 @@ Specify node affinities in `affinity.nodeAffinity` in the Operator's custom reso
 
 The following configuration requires that CockroachDB pods are scheduled onto worker nodes running either an `intel` or `amd64` CPU, with a preference against worker nodes in the `us-east4-b` availability zone.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   affinity:
@@ -107,7 +107,7 @@ Specify pod affinities and anti-affinities in `affinity.podAffinity` and `affini
 
 The following configuration attempts to schedule CockroachDB pods in the same zones as the pods that run our example [load generator](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/example-app.yaml) app. It disallows CockroachDB pods from being co-located on the same worker node.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   affinity:
@@ -145,7 +145,7 @@ In this example, CockroachDB has not yet been deployed to a running Kubernetes c
 
 1. List the worker nodes on the running Kubernetes cluster:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl get nodes
 	~~~
@@ -162,7 +162,7 @@ In this example, CockroachDB has not yet been deployed to a running Kubernetes c
 	
 1. Add a `node=crdb` label to 3 of the running worker nodes.
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl label nodes gke-cockroachdb-default-pool-263138a5-kp3v gke-cockroachdb-default-pool-41796213-75c9 gke-cockroachdb-default-pool-ccd74623-dghs node=crdb
 	~~~
@@ -175,13 +175,13 @@ In this example, CockroachDB has not yet been deployed to a running Kubernetes c
 
 	In this example, 6 GKE nodes are deployed in 3 [node pools](https://cloud.google.com/kubernetes-engine/docs/concepts/node-pools), and each node pool resides in a separate availability zone. To maintain an even distribution of CockroachDB pods as specified in our [topology recommendations](recommended-production-settings.html#topology), each of the 3 labeled worker nodes must belong to a different node pool.
 
-	{{ site.data.alerts.callout_success }}
+	{{site.data.alerts.callout_success}}
 	This also ensures that the CockroachDB pods, which will be bound to persistent volumes in the same 3 availability zones, can be scheduled onto worker nodes in their respective zones.
-	{{ site.data.alerts.end }}
+	{{site.data.alerts.end }}
 
 1. Add the following rules to the Operator's custom resource, which is used to [deploy the cluster](deploy-cockroachdb-with-kubernetes.html#initialize-the-cluster):
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ yaml
 	spec:
 	  affinity:
@@ -208,14 +208,14 @@ In this example, CockroachDB has not yet been deployed to a running Kubernetes c
 
 1. Apply the settings to the cluster:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl apply -f example.yaml
 	~~~
 
 1. The CockroachDB pods will be deployed to the 3 labeled nodes. To observe this:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl get pods -o wide
 	~~~
@@ -230,9 +230,9 @@ In this example, CockroachDB has not yet been deployed to a running Kubernetes c
 
 ## Taints and tolerations
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 To use the toleration rules, first [enable the feature gates](#enable-feature-gates).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 When a *taint* is added to a Kubernetes worker node, pods are prevented from being scheduled onto that node. This effect is ignored by adding a *toleration* to a pod that specifies a matching taint.
 
@@ -249,7 +249,7 @@ Specify pod tolerations in the `tolerations` object of the Operator's custom res
 
 The following toleration matches a taint with the specified key, value, and `NoSchedule` effect, using the `Equal` operator. A toleration that uses the `Equal` operator must include a `value` field:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   tolerations:
@@ -261,13 +261,13 @@ spec:
 
 A `NoSchedule` taint on a node prevents pods from being scheduled onto the node. The matching toleration allows a pod to be scheduled onto the node. A `NoSchedule` toleration is therefore best included before [deploying the cluster](deploy-cockroachdb-with-kubernetes.html#initialize-the-cluster).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 A `PreferNoSchedule` taint discourages, but does not disallow, pods from being scheduled onto the node.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 The following toleration matches every taint with the specified key and `NoExecute` effect, using the `Exists` operator. A toleration that uses the `Exists` operator must exclude a `value` field:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   tolerations:
@@ -287,7 +287,7 @@ In this example, CockroachDB has already been deployed on a Kubernetes cluster. 
 
 1. List the worker nodes on the running Kubernetes cluster:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl get nodes
 	~~~
@@ -304,7 +304,7 @@ In this example, CockroachDB has already been deployed on a Kubernetes cluster. 
 
 1. Add a taint to a running worker node:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl taint nodes gke-cockroachdb-default-pool-4e5ce539-j1h1 test=example:NoExecute
 	~~~
@@ -327,14 +327,14 @@ In this example, CockroachDB has already been deployed on a Kubernetes cluster. 
 
 1. Apply the new settings to the cluster:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	$ kubectl apply -f example.yaml
 	~~~
 
 1. The CockroachDB pod running on the tainted node (in this case, `cockroachdb-2`) will be evicted and started on a different worker node. To observe this:
 
-	{%  include_cached copy-clipboard.html %}
+	{% include_cached copy-clipboard.html %}
 	~~~ shell
 	kubectl get pods -o wide
 	~~~
@@ -355,7 +355,7 @@ To assist in working with your cluster, you can add labels and annotations to yo
 
 Specify labels in `additionalLabels` and annotations in `additionalAnnotations` in the Operator's custom resource, which is used to [deploy the cluster](deploy-cockroachdb-with-kubernetes.html#initialize-the-cluster):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ yaml
 spec:
   additionalLabels:

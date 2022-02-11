@@ -13,17 +13,17 @@ Benefits of online schema changes include:
 - Your application's queries can run normally, with no effect on read/write latency. The schema is cached for performance.
 - Your data is kept in a safe, [consistent][consistent] state throughout the entire schema change process.
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 Schema changes consume additional resources, and if they are run when the cluster is near peak capacity, latency spikes can occur. This is especially true for any schema change that adds columns, drops columns, or adds an index. We do not recommend doing more than one schema change at a time while in production.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 Support for schema changes within [transactions][txns] is [limited](#limitations). We recommend doing schema changes outside transactions where possible. When a schema management tool uses transactions on your behalf, we recommend only doing one schema change operation per transaction.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You cannot start an online schema change on a table if a [primary key change](alter-primary-key.html) is currently in progress on the same table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How online schema changes work
 
@@ -41,15 +41,15 @@ Once backfilling is complete, all nodes will switch over to the new schema, and 
 
 For more technical details, see [How online schema changes are possible in CockroachDB][blog].
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If a schema change fails, the schema change job will be cleaned up automatically. However, there are limitations with rolling back schema changes within a transaction; for more information, [see below](#schema-change-ddl-statements-inside-a-multi-statement-transaction-can-fail-while-other-statements-succeed).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Examples
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For more examples of schema change statements, see the [`ALTER TABLE`][alter-table] subcommands.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Run schema changes inside a transaction with `CREATE TABLE`
 
@@ -57,7 +57,7 @@ As noted in [Limitations](#limitations), you cannot run schema changes inside tr
 
 However, as of version v2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > BEGIN;
   SAVEPOINT cockroach_restart;
@@ -101,7 +101,7 @@ As of v19.1, some schema changes can be used in combination in a single `ALTER T
 
 You can check on the status of the schema change jobs on your system at any time using the [`SHOW JOBS`][show-jobs] statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT * FROM [SHOW JOBS] WHERE job_type = 'SCHEMA CHANGE';
 ~~~
@@ -119,6 +119,12 @@ You can check on the status of the schema change jobs on your system at any time
 
 All schema change jobs can be [paused](pause-job.html), [resumed](resume-job.html), and [canceled](cancel-job.html).
 
+## Undoing a schema change
+
+Prior to [garbage collection](architecture/storage-layer.html#garbage-collection), it's possible to recover data that may have been lost prior to schema changes by using the [`AS OF SYSTEM TIME`](as-of-system-time.html) parameter. However, this solution is limited in terms of time, and doesn't work beyond the designated garbage collection window.
+
+For more long-term recovery solutions, consider taking either a [full or incremental backup](take-full-and-incremental-backups.html) of your cluster.
+
 ## Limitations
 
 ### Overview
@@ -129,15 +135,15 @@ Specifically, this behavior is necessary because making schema changes transacti
 
 ### Limited support for schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### No schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### Examples of statements that fail
 
@@ -145,7 +151,7 @@ The following statements fail due to [limited support for schema changes within 
 
 #### Create an index and then run a select against that index inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo (id INT PRIMARY KEY, name VARCHAR);
   BEGIN;
@@ -168,7 +174,7 @@ ROLLBACK
 
 #### Add a column and then add a constraint against that column inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;
@@ -191,7 +197,7 @@ ROLLBACK
 
 #### Add a column and then select against that column inside a transaction
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE foo ();
   BEGIN;

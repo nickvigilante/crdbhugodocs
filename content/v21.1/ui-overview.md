@@ -36,9 +36,9 @@ The DB Console is accessible from every node at `http://<host>:<http-port>`, or 
 - If you didn't include the [`--http-addr`](cockroach-start.html#networking) flag when starting nodes, use the IP address/hostname specified by the [`--listen-addr`](cockroach-start.html#networking) flag and port `8080`.
 - If you are running a [secure cluster](#db-console-security), use `https` instead of `http`. You will also need to [create a user with a password](create-user.html#create-a-user-with-a-password) to log in.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For guidance on accessing the DB Console in the context of cluster deployment, see [Start a Local Cluster](start-a-local-cluster.html) and [Manual Deployment](manual-deployment.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### DB Console security
 
@@ -46,11 +46,11 @@ On insecure clusters, all areas of the DB Console are accessible to all users.
 
 On secure clusters, for each user who should have access to the DB Console, you must [create a user with a password](create-user.html#create-a-user-with-a-password) and optionally [grant the user membership to the `admin` role](grant.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The default `root` user is a member of the `admin` role. Use the following command to [grant users membership to the `admin` role](grant.html):
 
 <code style="white-space:pre-wrap">GRANT admin TO \<sql_user\>;</code>
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For security reasons, non-admin users access only the data over which they have privileges (e.g., their tables, jobs, and list of sessions), and data that does not require privileges (e.g., cluster health, node status, metrics).
 
@@ -63,9 +63,9 @@ Secure area | Privileged information
 [Statements](ui-statements-page.html) | SQL statements
 [Advanced Debug](ui-debug-pages.html) (some reports) | Stored table data, operational details, internal IP addresses, names, credentials, application data (depending on report)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 By default, the DB Console shares anonymous usage details with Cockroach Labs. For information about the details shared and how to opt-out of reporting, see [Diagnostics Reporting](diagnostics-reporting.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See also
 

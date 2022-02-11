@@ -13,40 +13,40 @@ twitter: false
     <a href="http://docs.peewee-orm.com/en/latest/peewee/playhouse.html#cockroach-database"><button style="width: 22%" class="filter-button">Use <strong>peewee</strong></button></a>
 </div>
 
-{%  include cockroach_u_pydev.md %}
+{{ partial "cockroach_u_pydev.md" . }}
 
 This tutorial shows you how build a simple Python application with CockroachDB and the [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) ORM. For the CockroachDB back-end, you'll use a temporary local cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The example code on this page uses Python 3.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
-{{ site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger }}
 SQLAlchemy relies on the existence of [foreign keys](foreign-key.html) to generate [`JOIN` expressions](joins.html) from your application code. If you remove foreign keys from your schema, SQLAlchemy will not generate joins for you. As a workaround, you can [create a "custom foreign condition" by adding a `relationship` field to your table objects](https://stackoverflow.com/questions/37806625/sqlalchemy-create-relations-but-without-foreign-key-constraint-in-db), or do the equivalent work in your application.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Step 1. Install SQLAlchemy
 
 To install SQLAlchemy, as well as a [CockroachDB Python package](https://github.com/cockroachdb/sqlalchemy-cockroachdb) that accounts for some differences between CockroachDB and PostgreSQL, run the following command:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 You can substitute psycopg2 for other alternatives that include the psycopg python package.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 For other ways to install SQLAlchemy, see the [official documentation](http://docs.sqlalchemy.org/en/latest/intro.html#installation-guide).
 
 ## Step 2. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 3. Create a database
 
-{%  include {{ page.version.version }}/app/create-a-database.md %}
+{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
 
 ## Step 4. Run the Python code
 
@@ -62,18 +62,18 @@ Specifically, the script:
 
 It does all of the above using the practices we recommend for using SQLAlchemy with CockroachDB, which are listed in the [Best practices](#best-practices) section below.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.create_engine`](https://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=create_engine#sqlalchemy.create_engine) to make sure the [`cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroachdb) dialect is used. Using the `postgres://` URL prefix to connect to your CockroachDB cluster will not work.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Get the code
 
 Copy the code below or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/python/sqlalchemy/example.py">download it directly</a>.
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ python
-{%  include {{ page.version.version }}/app/python/sqlalchemy/example.py %}
+{{ partial "{{ page.version.version }}/app/python/sqlalchemy/example.py" . }}
 ~~~
 
 ### Update the connection parameters
@@ -87,20 +87,20 @@ In the `create_engine()` function, update the connection string as follows:
 
 </section>
 
-{%  comment %}
+{% comment %}
 <section class="filter-content" markdown="1" data-scope="cockroachcloud">
 
 - Comment out the connection string for `cockroach demo`, and uncomment the connection string for CockroachCloud.
-- Replace `<username>` and `<password>` with the SQL username and password that you created in the {{  site.data.products.db  }} Console.
-- Replace `<hostname>` and `<port>` with the hostname and port in the connection string you got from the {{  site.data.products.db  }} Console.
-- Replace `<certs_dir>/<ca.crt>` with the path to the CA certificate that you downloaded from the {{  site.data.products.db  }} Console.
+- Replace `<username>` and `<password>` with the SQL username and password that you created in the {{ site.data.products.db }} Console.
+- Replace `<hostname>` and `<port>` with the hostname and port in the connection string you got from the {{ site.data.products.db }} Console.
+- Replace `<certs_dir>/<ca.crt>` with the path to the CA certificate that you downloaded from the {{ site.data.products.db }} Console.
 
 </section>
-{%  endcomment %}
+{% endcomment %}
 
 ### Run the code
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ python3 example.py
 ~~~
@@ -154,7 +154,7 @@ WHERE accounts.id = %(id_1)s
 
 Back in the terminal where the SQL shell is running, verify that the table and rows were created successfully:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT COUNT(*) FROM bank.accounts;
 ~~~
@@ -202,7 +202,7 @@ If you see an error message like `transaction is too large to complete; try spli
 Instead, we recommend breaking your transaction into smaller units of work (or "chunks"). A pattern that works for inserting large numbers of objects using `run_transaction` to handle retries automatically for you is shown below.
 
 ~~~ python
-{%  include {{ page.version.version }}/app/python/sqlalchemy/sqlalchemy-large-txns.py %}
+{{ partial "{{ page.version.version }}/app/python/sqlalchemy/sqlalchemy-large-txns.py" . }}
 ~~~
 
 ### Use `IMPORT` to read in large data sets
@@ -225,7 +225,7 @@ In general, we recommend using the query-builder APIs of SQLAlchemy (e.g., [`Eng
 - The [SQLAlchemy](https://docs.sqlalchemy.org/en/latest/) docs
 - [Transactions](transactions.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}
 
 <!-- Reference Links -->
 

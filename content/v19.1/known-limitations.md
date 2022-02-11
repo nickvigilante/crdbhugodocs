@@ -22,12 +22,12 @@ As a workaround, alongside a `BACKUP`, run the [`cockroach dump`](sql-dump.html)
 
 When filtering a query by `now()`, the [cost-based optimizer](cost-based-optimizer.html) currently cannot constrain an index on the filtered timestamp column. This results in a full table scan. For example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE bydate (a TIMESTAMP NOT NULL, INDEX (a));
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXPLAIN SELECT * FROM bydate WHERE a > (now() - '1h'::interval);
 ~~~
@@ -46,12 +46,12 @@ When filtering a query by `now()`, the [cost-based optimizer](cost-based-optimiz
 
 As a workaround, pass the correct date into the query as a parameter to a prepared query with a placeholder, which will allow the optimizer to constrain the index correctly:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > PREPARE q AS SELECT * FROM bydate WHERE a > ($1::timestamp - '1h'::interval);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > EXECUTE q ('2020-05-12 00:00:00');
 ~~~
@@ -60,7 +60,7 @@ As a workaround, pass the correct date into the query as a parameter to a prepar
 
 ### Adding stores to a node
 
-{%  include {{  page.version.version  }}/known-limitations/adding-stores-to-node.md %}
+{{ partial "{{ page.version.version }}/known-limitations/adding-stores-to-node.md" . }}
 
 ### Cold starts of large clusters may require manual intervention
 
@@ -84,7 +84,7 @@ When a node is offline, the [Raft logs](architecture/replication-layer.html#raft
 
 To work around this limitation, you can adjust the `kv.snapshot_recovery.max_rate` [cluster setting](cluster-settings.html) to temporarily relax the throughput rate limiting applied to snapshots. For example, changing the rate limiting from the default 8 MB/s, at which 1 GB of snapshots takes at least 2 minutes, to 64 MB/s can result in an 8x speedup in snapshot transfers and, therefore, a much shorter interruption of requests to an impacted node:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.snapshot_recovery.max_rate = '64mb';
 ~~~
@@ -115,7 +115,7 @@ Specifically, when run inside a [`BEGIN`](begin-transaction.html) ... [`COMMIT`]
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{%  include {{  page.version.version  }}/known-limitations/cdc.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cdc.md" . }}
 
 ### Admin UI may become inaccessible for secure clusters
 
@@ -237,55 +237,55 @@ Currently, the built-in SQL shell provided with CockroachDB (`cockroach sql` / `
 
 ### Dumping a table with no user-visible columns
 
-{%  include {{ page.version.version }}/known-limitations/dump-table-with-no-columns.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-table-with-no-columns.md" . }}
 
 ### Importing an interleaved table from a `cockroach dump` output
 
-{%  include {{ page.version.version }}/known-limitations/import-interleaved-table.md %}
+{{ partial "{{ page.version.version }}/known-limitations/import-interleaved-table.md" . }}
 
 ### Import with a high amount of disk contention
 
 [`IMPORT`](import.html) can sometimes fail with a "context canceled" error, or can restart itself many times without ever finishing. If this is happening, it is likely due to a high amount of disk contention. This can be mitigated by setting the `kv.bulk_io_write.max_rate` [cluster setting](cluster-settings.html) to a value below your max disk write speed. For example, to set it to 10MB/s, execute:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.bulk_io_write.max_rate = '10MB';
 ~~~
 
 ### Referring to a CTE by name more than once
 
-{%  include {{  page.version.version  }}/known-limitations/cte-by-name.md %}
+{{ partial "{{ page.version.version }}/known-limitations/cte-by-name.md" . }}
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/31095)
 
 ### Assigning latitude/longitude for the Node Map
 
-{%  include {{  page.version.version  }}/known-limitations/node-map.md %}
+{{ partial "{{ page.version.version }}/known-limitations/node-map.md" . }}
 
 ### Placeholders in `PARTITION BY`
 
-{%  include {{  page.version.version  }}/known-limitations/partitioning-with-placeholders.md %}
+{{ partial "{{ page.version.version }}/known-limitations/partitioning-with-placeholders.md" . }}
 
 ### Adding a column with sequence-based `DEFAULT` values
 
 It is currently not possible to [add a column](add-column.html) to a table when the column uses a [sequence](create-sequence.html) as the [`DEFAULT`](default-value.html) value, for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE TABLE t (x INT);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > INSERT INTO t(x) VALUES (1), (2), (3);
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > CREATE SEQUENCE s;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER TABLE t ADD COLUMN y INT DEFAULT nextval('s');
 ~~~
@@ -299,19 +299,19 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the Admin UI
 
-{%  include {{  page.version.version  }}/misc/available-capacity-metric.md %}
+{{ partial "{{ page.version.version }}/misc/available-capacity-metric.md" . }}
 
 ### Schema changes within transactions
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-within-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-within-transactions.md" . }}
 
 ### Schema change DDL statements inside a multi-statement transaction can fail while other statements succeed
 
-{%  include {{  page.version.version  }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-change-ddl-inside-multi-statement-transactions.md" . }}
 
 ### Schema changes between executions of prepared statements
 
-{%  include {{  page.version.version  }}/known-limitations/schema-changes-between-prepared-statements.md %}
+{{ partial "{{ page.version.version }}/known-limitations/schema-changes-between-prepared-statements.md" . }}
 
 ### `INSERT ON CONFLICT` vs. `UPSERT`
 
@@ -360,7 +360,7 @@ For example, let's say that latency is 10ms from nodes in datacenter A to nodes 
 
 Many string operations are not properly overloaded for [collated strings](collate.html), for example:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT 'string1' || 'string2';
 ~~~
@@ -374,7 +374,7 @@ Many string operations are not properly overloaded for [collated strings](collat
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SELECT ('string1' collate en) || ('string2' collate en);
 ~~~
@@ -411,6 +411,6 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### `cockroach dump` does not support cyclic foreign key references
 
-{{ site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.1.0-alpha.20180507.html">v2.1.0-alpha.20180507</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24716">#24716</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.1.0-alpha.20180507.html">v2.1.0-alpha.20180507</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24716">#24716</a>.{{site.data.alerts.end }}
 
-{%  include {{  page.version.version  }}/known-limitations/dump-cyclic-foreign-keys.md %}
+{{ partial "{{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md" . }}

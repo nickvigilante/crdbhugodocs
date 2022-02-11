@@ -15,7 +15,7 @@ Use [`SET CLUSTER SETTING`](set-cluster-setting.html) to set `kv.range_merge.que
 - `true` to enable range merges *(default)*
 - `false` to disable range merges
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING kv.range_merge.queue_enabled = true;
 ~~~
@@ -28,9 +28,9 @@ Range merges can provide performance improvements if you're working with a Cockr
 
 Disable (or do not use) range merges if you want to manually control range splits using [`SPLIT AT`](split-at.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This limitation has been lifted in v19.2. If you disabled automatic range merging in order to use manual splits, and you are upgrading to v19.2, consider setting `kv.range_merge.queue_enabled` to `true` [to improve performance](range-merges.html#why-range-merges-improve-performance).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## How range merges work
 
@@ -44,11 +44,11 @@ To reduce the number of small ranges, your cluster can have any range below a ce
 
 If the combined size of the small range and its neighbor is less than the maximum range size, the ranges merge into a single range. In our example, this would create a new range of keys `[1000, 3000)`.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 
 Ranges only attempt to merge with their right-hand neighbor. Ranges do not currently attempt to merge with their left-hand neighbor (i.e., the range that ends where this range begins).
 
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Why range merges improve performance
 

@@ -16,17 +16,17 @@ We have tested the [Node.js pg driver](https://www.npmjs.com/package/pg) enough 
 
 ## Step 1. Start CockroachDB
 
-{%  include {{ page.version.version }}/app/start-cockroachdb.md %}
+{{ partial "{{ page.version.version }}/app/start-cockroachdb.md" . }}
 
 ## Step 2. Create a database
 
-{%  include {{ page.version.version }}/app/create-a-database.md %}
+{{ partial "{{ page.version.version }}/app/create-a-database.md" . }}
 
 ## Step 3. Install client driver
 
 To let your application communicate with CockroachDB, install the [Node.js pg driver](https://www.npmjs.com/package/pg):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ npm install pg
 ~~~
@@ -51,14 +51,14 @@ Open the `app.js` file, and edit the connection configuration parameters:
 
 - At the top of the file, uncomment the `const fs = require('fs');` line.
 
-    This line imports the `fs` Node module, which enables you to read in the CA cert that you downloaded from the {{  site.data.products.db  }} Console.
+    This line imports the `fs` Node module, which enables you to read in the CA cert that you downloaded from the {{ site.data.products.db }} Console.
 - Replace the value for `user` with the user you created earlier.
 - Replace the value for `password` with the password you created for your user.
-- Replace the value for `host` with the name of the {{  site.data.products.serverless-plan  }} host (e.g., `host: 'free-tier.gcp-us-central1.cockroachlabs.cloud'`).
+- Replace the value for `host` with the name of the {{ site.data.products.serverless-plan }} host (e.g., `host: 'free-tier.gcp-us-central1.cockroachlabs.cloud'`).
 - Replace the value for `port` with the port to your cluster.
 - Replace the value for `database` with the database that you created earlier, suffixed with the name of the cluster (e.g., `database: '{cluster_name}.bank'`).
 - Remove the existing `ssl` object and its contents.
-- Uncomment the `ssl` object with the `ca` key-value pair, and edit the `fs.readFileSync('/certs/ca.crt').toString()` call to use the path to the `cc-ca.crt` file that you downloaded from the {{  site.data.products.db  }} Console.
+- Uncomment the `ssl` object with the `ca` key-value pair, and edit the `fs.readFileSync('/certs/ca.crt').toString()` call to use the path to the `cc-ca.crt` file that you downloaded from the {{ site.data.products.db }} Console.
 
 </section>
 
@@ -68,16 +68,16 @@ The sample code creates a table, inserts some rows, and then reads and updates v
 
 Here are the contents of `app.js`:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ js
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-node-postgres/main/app.js %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-node-postgres/main/app.js %}
 ~~~
 
 Note that all of the database operations are wrapped in the `retryTxn` function. This function attempts to commit statements in the context of an explicit transaction. If a [retry error](transaction-retry-error-reference.html) is thrown, the wrapper will retry committing the transaction, with [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff), until the maximum number of retries is reached (by default, 15).
 
 To run the code:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ node app.js
 ~~~
@@ -99,4 +99,4 @@ New account balances:
 
 Read more about using the [Node.js pg driver](https://www.npmjs.com/package/pg).
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

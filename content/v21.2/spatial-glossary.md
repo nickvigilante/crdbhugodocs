@@ -7,9 +7,9 @@ docs_area: reference.sql
 
 This page contains a glossary of terms common to spatial databases and geographic information systems (GIS). Where possible, we provide links to further information.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This page is provided for reference purposes only. The inclusion of a term in this glossary does not imply that CockroachDB has support for any feature(s) related to that term. For more information about the specific spatial and GIS features supported by CockroachDB, see [Working with Spatial Data](spatial-data.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Geometry Terms
 

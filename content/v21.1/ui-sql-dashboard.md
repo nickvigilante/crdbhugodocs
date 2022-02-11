@@ -6,7 +6,7 @@ toc: true
 
 The **SQL** dashboard in the DB Console lets you monitor the performance of your SQL queries. To view this dashboard, [access the DB Console](ui-overview.html#db-console-access), click **Metrics** on the left-hand navigation bar, and then select **Dashboard** > **SQL**.
 
-{%  include {{  page.version.version  }}/ui/ui-metrics-navigation.md %}
+{{ partial "{{ page.version.version }}/ui/ui-metrics-navigation.md" . }}
 
 For monitoring CockroachDB, it is sufficient to use the [**Open SQL Sessions**](#open-sql-sessions), [**SQL Byte Traffic**](#sql-byte-traffic), [**SQL Statements**](#sql-statements), [**Service Latency**](#service-latency-sql-99th-percentile), and [**Transactions**](#transactions) graphs.
 
@@ -73,7 +73,7 @@ See the [Statements page](ui-statements-page.html) for more details on the clust
 
 ## Service Latency: SQL, 99th percentile
 
-{%  include {{  page.version.version  }}/ui/ui-sql-latency-99th-percentile.md %}
+{{ partial "{{ page.version.version }}/ui/ui-sql-latency-99th-percentile.md" . }}
 
 ## Service Latency: SQL, 90th percentile
 
@@ -153,7 +153,7 @@ Statement denials are statements that were denied due to a [cluster setting](clu
 
 - In the cluster view, the graph shows the total number of statements denied per second across all nodes in the cluster.
 
-{%  include {{  page.version.version  }}/ui/ui-summary-events.md %}
+{{ partial "{{ page.version.version }}/ui/ui-summary-events.md" . }}
 
 ## See also
 

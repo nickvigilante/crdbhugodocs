@@ -11,13 +11,13 @@ This tutorial shows you how build a simple Hello World Java application with Coc
 
 ## Step 1. Start CockroachDB
 
-{%  include {{  page.version.version  }}/app/sample-setup.md %}
+{{ partial "{{ page.version.version }}/app/sample-setup.md" . }}
 
 ## Step 2. Get the code
 
 Clone the code's GitHub repo:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ git clone https://github.com/cockroachlabs/hello-world-java-jdbc/
 ~~~
@@ -26,7 +26,7 @@ $ git clone https://github.com/cockroachlabs/hello-world-java-jdbc/
 
 Check out the `cockroachcloud` branch:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~shell
 git checkout cockroachcloud
 ~~~
@@ -35,9 +35,9 @@ git checkout cockroachcloud
 
 The `app/src/main/java/example/app/App.java` file contains all of the code for the sample Hello World app:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
-{%  remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-java-jdbc/master/app/src/main/java/example/app/App.java %}
+{% remote_include https://raw.githubusercontent.com/cockroachlabs/hello-world-java-jdbc/master/app/src/main/java/example/app/App.java %}
 ~~~
 
 The `main` method of this program does the following:
@@ -53,7 +53,7 @@ The `main` method of this program does the following:
 
 In a text editor modify `app/src/main/java/example/app/App.java` with the settings to connect to the cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
 ds.setServerNames(new String[]{"{globalhost}"});
 ds.setDatabaseName("{cluster_name}.defaultdb");
@@ -62,17 +62,17 @@ ds.setPassword("{password}");
 ds.setSslRootCert(System.getenv("{path to the CA certificate}"));
 ~~~
 
-{%  include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{{ partial "{{ page.version.version }}/app/cc-free-tier-params.md" . }}
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 For guidance on connection pooling, with an example using JDBC and [HikariCP](https://github.com/brettwooldridge/HikariCP), see [Connection Pooling](connection-pooling.html).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 </section>
 
 Compile and run the code:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 ./gradlew run
 ~~~
@@ -102,4 +102,4 @@ Hey! You successfully connected to your CockroachDB cluster.
 
 - [Build a Simple CRUD Java App with CockroachDB](build-a-java-app-with-cockroachdb.html)
 
-{%  include {{ page.version.version }}/app/see-also-links.md %}
+{{ partial "{{ page.version.version }}/app/see-also-links.md" . }}

@@ -198,11 +198,11 @@ For example:
 +---------+------------+
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <code>WITH ORDINALITY</code> necessarily prevents some optimizations of the
 surrounding query. Use it sparingly if performance is a concern, and
 always check the output of <a href="explain.html">EXPLAIN</a> in case of doubt.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## See Also
 

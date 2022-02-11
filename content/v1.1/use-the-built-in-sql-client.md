@@ -43,7 +43,7 @@ Flag | Description
 
 ### Client Connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters-with-url.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters-with-url.md" . }}
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
@@ -456,7 +456,7 @@ INSERT 2
 
 In this example, we use `\!` to look at the rows in a CSV file before creating a table and then using `\|` to insert those rows into the table.
 
-{{ site.data.alerts.callout_info }}This example works only if the values in the CSV file are numbers. For values in other formats, use an online CSV-to-SQL converter or make your own import program.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}This example works only if the values in the CSV file are numbers. For values in other formats, use an online CSV-to-SQL converter or make your own import program.{{site.data.alerts.end }}
 
 ~~~ sql
 > \! cat test.csv
@@ -556,7 +556,7 @@ $ cockroach sql --insecure --unsafe-updates=true --execute="DELETE FROM db1.t1"
 DELETE 10
 ~~~
 
-{{ site.data.alerts.callout_info }}Potentially unsafe SQL statements can also be allowed/disallowed for an entire session via the <code>sql_safe_updates</code> <a href="set-vars.html">session variable</a>.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_info }}Potentially unsafe SQL statements can also be allowed/disallowed for an entire session via the <code>sql_safe_updates</code> <a href="set-vars.html">session variable</a>.{{site.data.alerts.end }}
 
 ### Reveal the SQL statements sent implicitly by the command-line utility
 

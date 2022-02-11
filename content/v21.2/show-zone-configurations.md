@@ -10,7 +10,7 @@ Use the `SHOW ZONE CONFIGURATIONS` [statement](sql-statements.html) to view deta
 ## Synopsis
 
 <div>
-{%  remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_zone.html %}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_zone.html %}
 </div>
 
 ## Required privileges
@@ -29,23 +29,23 @@ Parameter | Description
 
 ## Examples
 
-{%  include {{  page.version.version  }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{{ partial "{{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md" . }}
 
 ### View all replication zones
 
-{%  include {{  page.version.version  }}/zone-configs/view-all-replication-zones.md %}
+{{ partial "{{ page.version.version }}/zone-configs/view-all-replication-zones.md" . }}
 
 ### View the default replication zone for the cluster
 
-{%  include {{  page.version.version  }}/zone-configs/view-the-default-replication-zone.md %}
+{{ partial "{{ page.version.version }}/zone-configs/view-the-default-replication-zone.md" . }}
 
 ### View the replication zone for a database
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-database.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-database.md" . }}
 
 ### View the replication zone for a table
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-table.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table.md" . }}
 
 You can also use [`SHOW CREATE TABLE`](show-create.html) to view zone configurations for a table. If a table is partitioned, but no zones are configured, the `SHOW CREATE TABLE` output includes a warning.
 
@@ -53,7 +53,7 @@ You can also use [`SHOW CREATE TABLE`](show-create.html) to view zone configurat
 
 To control replication for a specific table,  use the `ALTER INDEX ... CONFIGURE ZONE` statement to define the relevant values (other values will be inherited from the parent zone):
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > ALTER INDEX vehicles@vehicles_auto_index_fk_city_ref_users CONFIGURE ZONE USING num_replicas = 5, gc.ttlseconds = 100000;
 ~~~
@@ -62,7 +62,7 @@ To control replication for a specific table,  use the `ALTER INDEX ... CONFIGURE
 CONFIGURE ZONE 1
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW ZONE CONFIGURATION FROM INDEX vehicles@vehicles_auto_index_fk_city_ref_users;
 ~~~
@@ -82,9 +82,9 @@ CONFIGURE ZONE 1
 
 ### View the replication zone for a partition
 
-{%  include {{ page.version.version }}/sql/use-multiregion-instead-of-partitioning.md %}
+{{ partial "{{ page.version.version }}/sql/use-multiregion-instead-of-partitioning.md" . }}
 
-{%  include {{  page.version.version  }}/zone-configs/create-a-replication-zone-for-a-table-partition.md %}
+{{ partial "{{ page.version.version }}/zone-configs/create-a-replication-zone-for-a-table-partition.md" . }}
 
 ## See also
 

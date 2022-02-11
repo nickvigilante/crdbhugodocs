@@ -6,22 +6,22 @@ toc: true
 
 This page explains the `cockroach init` [command](cockroach-commands.html), which you use to perform a one-time initialization of a new multi-node cluster. For a full walk-through of the cluster startup and initialization process, see one of the [Manual Deployment](manual-deployment.html) tutorials.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When [starting a single-node cluster](start-a-node.html#start-a-single-node-cluster), you do not need to use the `cockroach init` command. You can simply run the `cockroach start` command without the `--join` flag to start and initialize the single-node cluster.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Synopsis
 
 Perform a one-time initialization of a cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init <flags>
 ~~~
 
 View help:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach init --help
 ~~~
@@ -32,7 +32,7 @@ The `cockroach init` command supports the following [client connection](#client-
 
 ### Client connection
 
-{%  include {{  page.version.version  }}/sql/connection-parameters.md %}
+{{ partial "{{ page.version.version }}/sql/connection-parameters.md" . }}
 
 See [Client Connection Parameters](connection-parameters.html) for details.
 
@@ -60,7 +60,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 3. Run the `cockroach init` command with the `--certs-dir` flag set to the directory containing the `ca.crt` file and the files for the `root` user, and with the `--host` flag set to the address of the current node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=<address of this node>
     ~~~
@@ -73,7 +73,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 2. Run the `cockroach init` command with the `--host` flag set to the address of the current node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of this node>
     ~~~
@@ -95,7 +95,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 3. Run the `cockroach init` command with the `--certs-dir` flag set to the directory containing the `ca.crt` file and the files for the `root` user, and with the `--host` flag set to the address of any node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --certs-dir=certs --host=<address of any node>
     ~~~
@@ -108,7 +108,7 @@ These examples assume that nodes have already been started with [`cockroach star
 
 2. Run the `cockroach init` command with the `--host` flag set to the address of any node:
 
-    {%  include copy-clipboard.html %}
+    {{ partial "copy-clipboard.html" . }}
     ~~~ shell
     $ cockroach init --insecure --host=<address of any node>
     ~~~

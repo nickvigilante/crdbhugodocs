@@ -19,7 +19,7 @@ This page provides best-practice guidance on creating secondary indexes, with a 
 Before reading this page, do the following:
 
 - [Install CockroachDB](install-cockroachdb.html).
-- [Start a local cluster](secure-a-cluster.html), or [create a {{  site.data.products.dedicated  }} cluster](../cockroachcloud/create-your-cluster.html).
+- [Start a local cluster](secure-a-cluster.html), or [create a {{ site.data.products.dedicated }} cluster](../cockroachcloud/create-your-cluster.html).
 - [Review the database schema objects](schema-design-overview.html).
 - [Create a database](schema-design-database.html).
 - [Create a user-defined schema](schema-design-schema.html).
@@ -59,10 +59,10 @@ To add a secondary index to a table do one of the following:
 
 For an example, see [Example](#example).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 - If you do not specify a name for an index, CockroachDB will generate a name.
 - The notation for referring to an index is `{table_name}@{index_name}`.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Best practices
 
@@ -70,7 +70,7 @@ Here are some best practices for creating and using indexes:
 
 - Index all columns that you plan to use for [sorting](order-by.html) or [filtering](select-clause.html#filter-rows) data.
 
-    {%  include {{ page.version.version }}/sql/covering-index.md %}
+    {{ partial "{{ page.version.version }}/sql/covering-index.md" . }}
 
     Columns listed in a filtering [`WHERE` clause](select-clause.html#parameters) with the equality operators (`=` or `IN`) should come first in the index, before those referenced with inequality operators (`<`, `>`).
 
@@ -92,14 +92,14 @@ Here are some best practices for creating and using indexes:
 
     To find which indexes are being used in a database, query the [`crdb_internal.index_usage_statistics`](crdb-internal.html) table, which will show the total reads and time the primary and secondary indexes were last read.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SELECT * FROM crdb_internal.index_usage_statistics;
     ~~~
 
     To get more detailed information about the table and index names, run a join query against `crdb_internal.index_usage_statistics` and `crdb_internal.table_indexes`.
 
-    {%  include_cached copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     SELECT ti.descriptor_name as table_name, ti.index_name, total_reads, last_read
     FROM crdb_internal.index_usage_statistics AS us
@@ -134,9 +134,9 @@ Here are some best practices for creating and using indexes:
 
 - Do not create indexes as the `root` user. Instead, create indexes as a [different user](schema-design-overview.html#control-access-to-objects), with fewer privileges, following [authorization best practices](authorization.html#authorization-best-practices). This will likely be the same user that created the table to which the index belongs.
 
-- {%  include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {{ partial "{{ page.version.version }}/sql/dev-schema-changes.md" . }}
 
-- {%  include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
+- {{ partial "{{ page.version.version }}/sql/dev-schema-change-limits.md" . }}
 
 ## Example
 
@@ -146,7 +146,7 @@ Recall that the `vehicles` table that you created in [Create a Table](schema-des
 
 Open `max_init.sql`, and, under the `CREATE TABLE` statement for the `vehicles` table, add a `CREATE INDEX` statement for an index on the `type` and `available` columns of the `vehicles` table:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE INDEX type_available_idx ON movr.vehicles (type, available));
 ~~~
@@ -157,7 +157,7 @@ The MovR app might also need to display the vehicle's location and ID, but the a
 
 To help avoid unnecessary full table scans, add a `STORING` clause to the index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE INDEX type_available_idx ON movr.vehicles (type, available) STORING (last_location);
 ~~~
@@ -166,7 +166,7 @@ The index will now store the values in `last_location`, which will improve the p
 
 The `max_init.sql` file should now look similar to the following:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -199,7 +199,7 @@ CREATE TABLE movr.max_schema.rides (
 
 If you executed this file when following the [Create a Table](schema-design-table.html) example, then all of these objects already exist. To clear the database and re-initialize the schemas, first execute the statements in the `dbinit.sql` file as the `root` user:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -209,7 +209,7 @@ $ cockroach sql \
 
 Then, execute the statements in the `max_init.sql` and `abbey_init.sql` files:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -218,7 +218,7 @@ $ cockroach sql \
 -f max_init.sql
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -231,7 +231,7 @@ After the statements have been executed, you can see the new index in the [Cockr
 
 Open the SQL shell to your cluster:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -241,7 +241,7 @@ $ cockroach sql \
 
 To view the indexes in the `vehicles` table, issue a [`SHOW INDEXES`](show-index.html) statement:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW INDEXES FROM movr.max_schema.vehicles;
 ~~~
@@ -263,7 +263,7 @@ Note that the `last_location` column's `storing` value is `true` in the `type_av
 
 To see an index definition, use a [`SHOW CREATE`](show-create.html) statement on the table that contains the index:
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CREATE TABLE movr.max_schema.vehicles;
 ~~~

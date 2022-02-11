@@ -14,7 +14,7 @@ Only members of the `admin` role can modify cluster settings. By default, the `r
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/reset_csetting.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/reset_csetting.html" . }}
 </div>
 
 ## Parameters
@@ -25,14 +25,14 @@ Only members of the `admin` role can modify cluster settings. By default, the `r
 
 ## Example
 
-{{ site.data.alerts.callout_success }}You can use <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING .. TO DEFAULT</code></a> to reset a cluster setting as well.{{ site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING .. TO DEFAULT</code></a> to reset a cluster setting as well.{{site.data.alerts.end }}
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SET CLUSTER SETTING sql.metrics.statement_details.enabled = false;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER SETTING sql.metrics.statement_details.enabled;
 ~~~
@@ -46,12 +46,12 @@ Only members of the `admin` role can modify cluster settings. By default, the `r
 (1 row)
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > RESET CLUSTER SETTING sql.metrics.statement_details.enabled;
 ~~~
 
-{%  include copy-clipboard.html %}
+{{ partial "copy-clipboard.html" . }}
 ~~~ sql
 > SHOW CLUSTER SETTING sql.metrics.statement_details.enabled;
 ~~~

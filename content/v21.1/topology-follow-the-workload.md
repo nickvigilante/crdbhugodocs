@@ -11,31 +11,31 @@ In a multi-region deployment, follow-the-workload is the default behavior for ta
 - In non-active regions, both read and write latency can be higher.
 - Table data must remain available during a region failure.
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If read performance is your main focus for a table, but you want low-latency reads everywhere instead of just in the most active region, consider [Global Tables](global-tables.html) or [Follower Reads](topology-follower-reads.html).
 
 Note that if you start using the [multi-region SQL abstractions](multiregion-overview.html) for a database, CockroachDB will no longer provide the follow-the-workload behavior described on this page for that database.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Prerequisites
 
 ### Fundamentals
 
-{%  include {{  page.version.version  }}/topology-patterns/fundamentals.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/fundamentals.md" . }}
 
 ### Cluster setup
 
-{%  include {{  page.version.version  }}/topology-patterns/multi-region-cluster-setup.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/multi-region-cluster-setup.md" . }}
 
 ## Configuration
 
 Aside from [deploying a cluster across three regions](#cluster-setup) properly, with each node started with the [`--locality`](cockroach-start.html#locality) flag specifying its region and zone combination, this behavior requires no extra configuration. CockroachDB will balance the replicas for a table across the three regions and will assign the range lease to the replica in the region with the greatest demand at any given time (the follow-the-workload feature). This means that read latency in the active region will be low while read latency in other regions will be higher due to having to leave the region to reach the leaseholder. Write latency will be higher as well due to always involving replicas in multiple regions.
 
-<img src="{{  'images/v21.1/topology-patterns/topology_follower_reads1.png' | relative_url  }}" alt="Follower reads topology" style="max-width:100%" />
+<img src="{{ 'images/v21.1/topology-patterns/topology_follower_reads1.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 Follow-the-workload is also used by [system ranges containing important internal data](configure-replication-zones.html#create-a-replication-zone-for-a-system-range).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Characteristics
 
@@ -53,7 +53,7 @@ For example, in the animation below, the most active region is `us-east` and, th
 4. The leaseholder retrieves the results and returns to the gateway node.
 5. The gateway node returns the results to the client. In this case, reads in the `us-east` remain in the region and are lower-latency than reads in other regions.
 
-<img src="{{  'images/v21.1/topology-patterns/topology_follow_the_workload_reads.png' | relative_url  }}" alt="Follow-the-workload topology" style="max-width:100%" />
+<img src="{{ 'images/v21.1/topology-patterns/topology_follow_the_workload_reads.png' | relative_url }}" alt="Follow-the-workload topology" style="max-width:100%" />
 
 #### Writes
 
@@ -69,18 +69,18 @@ For example, in the animation below, assuming the most active region is still `u
 6. The leaseholders then return acknowledgement of the commit to the gateway node.
 7. The gateway node returns the acknowledgement to the client.
 
-<img src="{{  'images/v21.1/topology-patterns/topology_follow_the_workload_writes.gif' | relative_url  }}" alt="Follow-the-workload topology" style="max-width:100%" />
+<img src="{{ 'images/v21.1/topology-patterns/topology_follow_the_workload_writes.gif' | relative_url }}" alt="Follow-the-workload topology" style="max-width:100%" />
 
 ### Resiliency
 
 Because this pattern balances the replicas for the table across regions, one entire region can fail without interrupting access to the table:
 
-<img src="{{  'images/v21.1/topology-patterns/topology_follower_reads_resiliency.png' | relative_url  }}" alt="Follow-the-workload topology" style="max-width:100%" />
+<img src="{{ 'images/v21.1/topology-patterns/topology_follower_reads_resiliency.png' | relative_url }}" alt="Follow-the-workload topology" style="max-width:100%" />
 
 <!-- However, if an additional machine holding a replica for the table fails at the same time as the region failure, the range to which the replica belongs becomes unavailable for reads and writes:
 
-<img src="{{  'images/v21.1/topology-patterns/topology_follower_reads3.png' | relative_url  }}" alt="Follow-the-workload topology" style="max-width:100%" /> -->
+<img src="{{ 'images/v21.1/topology-patterns/topology_follower_reads3.png' | relative_url }}" alt="Follow-the-workload topology" style="max-width:100%" /> -->
 
 ## See also
 
-{%  include {{  page.version.version  }}/topology-patterns/see-also.md %}
+{{ partial "{{ page.version.version }}/topology-patterns/see-also.md" . }}

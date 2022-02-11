@@ -27,12 +27,12 @@ You can restore:
 
 ### Source privileges
 
-{%  include {{  page.version.version  }}/misc/source-privileges.md %}
+{{ partial "{{ page.version.version }}/misc/source-privileges.md" . }}
 
 ## Synopsis
 
 <div>
-{%  include {{  page.version.version  }}/sql/generated/diagrams/restore.html %}
+{{ partial "{{ page.version.version }}/sql/generated/diagrams/restore.html" . }}
 </div>
 
 ## Parameters
@@ -85,9 +85,9 @@ You can restore:
 - All [tables](create-table.html) (which automatically includes their [indexes](indexes.html))
 - All [views](views.html)
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When you restore a full cluster with an Enterprise license, it will restore the [Enterprise license](enterprise-licensing.html) of the cluster you are restoring from. If you want to use a different license in the new cluster, make sure to [update the license](licensing-faqs.html#set-a-license) _after_ the restore is complete.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Databases
 
@@ -97,9 +97,9 @@ When you restore a full cluster with an Enterprise license, it will restore the 
 RESTORE DATABASE backup_database_name FROM 'subdirectory' IN 'your_backup_location';
 ~~~
 
-{{ site.data.alerts.callout_success }}
+{{site.data.alerts.callout_success}}
 If [dropping](drop-database.html) or [renaming](rename-database.html) an existing database is not an option, you can use [_table_ restore](#restore-a-table) to restore all tables into the existing database by using the [`WITH into_db` option](#options).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 #### Tables
 
@@ -112,9 +112,9 @@ The target database must not have tables or views with the same name as the tabl
 - [`DROP TABLE`](drop-table.html), [`DROP VIEW`](drop-view.html), or [`DROP SEQUENCE`](drop-sequence.html) and then restore them. Note that a sequence cannot be dropped while it is being used in a column's `DEFAULT` expression, so those expressions must be dropped before the sequence is dropped, and recreated after the sequence is recreated. The `setval` [function](functions-and-operators.html#sequence-functions) can be used to set the value of the sequence to what it was previously.
 - [Restore the table or view into a different database](#into_db).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE` only offers table-level granularity; it _does not_ support restoring subsets of a table.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 When restoring an individual table that references a user-defined type (e.g., [`ENUM`](enum.html)), CockroachDB will first check to see if the type already exists. The restore will attempt the following for each user-defined type within a table backup:
 
@@ -158,9 +158,9 @@ Full backup + <br>incremental backups | Include the path that contains the backu
 
 The `RESTORE` process minimizes its impact to the cluster's performance by distributing work to all nodes. Subsets of the restored data (known as ranges) are evenly distributed among randomly selected nodes, with each range initially restored to only one node. Once the range is restored, the node begins replicating it others.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 When a `RESTORE` fails or is canceled, partially restored data is properly cleaned up. This can have a minor, temporary impact on cluster performance.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Viewing and controlling restore jobs
 
@@ -168,17 +168,17 @@ After CockroachDB successfully initiates a restore, it registers the restore as 
 
 After the restore has been initiated, you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 If initiated correctly, the statement returns when the restore is finished or if it encounters an error. In some cases, the restore can continue after an error has been returned (the error message will tell you that the restore has resumed in background).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Known limitations
 
-{%  include {{  page.version.version  }}/known-limitations/restore-aost.md %}
+{{ partial "{{ page.version.version }}/known-limitations/restore-aost.md" . }}
 
 ## Examples
 
-{%  include {{  page.version.version  }}/backups/bulk-auth-options.md %}
+{{ partial "{{ page.version.version }}/backups/bulk-auth-options.md" . }}
 
 <div class="filters clearfix">
   <button class="filter-button" data-scope="s3">Amazon S3</button>
@@ -188,15 +188,15 @@ If initiated correctly, the statement returns when the restore is finished or if
 
 <section class="filter-content" markdown="1" data-scope="s3">
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The examples in this section use the **default** `AUTH=specified` parameter. For more detail on how to use `implicit` authentication with Amazon S3 buckets, read [Use Cloud Storage for Bulk Operations — Authentication](use-cloud-storage-for-bulk-operations.html#authentication).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### View the backup subdirectories
 
 <span class="version-tag">New in v21.1:</span> `BACKUP ... INTO` adds a backup to a collection within the backup destination. The path to the backup is created using a date-based naming scheme. To view the backup paths in a given destination, use [`SHOW BACKUPS`](show-backup.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW BACKUPS IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
@@ -233,7 +233,7 @@ See [Incremental backups with explicitly specified destinations](take-full-and-i
 
 To restore a full cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
@@ -244,29 +244,29 @@ To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subd
 
 To restore a database:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
 
 To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subdirectories).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE DATABASE` can only be used if the entire database was backed up.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a table
 
 To restore a single table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE bank.customers FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
 
 To restore multiple tables:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE bank.customers, bank.accounts FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
@@ -277,20 +277,20 @@ To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subd
 
 Restoring from [incremental backups](take-full-and-incremental-backups.html#incremental-backups) requires full and incremental backups to be in the same subdirectory:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup-collection}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v21.1:</span> `RESTORE` will re-validate [indexes](indexes.html) when [incremental backups](take-full-and-incremental-backups.html) are created from an older version (v20.2.2 and earlier or v20.1.4 and earlier), but restored by a newer version (v21.1.0+). These earlier releases may have included incomplete data for indexes that were in the process of being created.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a backup asynchronously
 
 Use the `DETACHED` [option](#options) to execute the restore [job](show-jobs.html) asynchronously:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 RESTORE TABLE bank.customers FROM '2021/03/23-213101.37' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}' WITH DETACHED;
 ~~~
@@ -319,7 +319,7 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 By default, tables and views are restored to the database they originally belonged to. However, using the [`into_db` option](#into_db), you can control the target database.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers \
 FROM '2021/09/29-153014.47' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}' \
@@ -330,7 +330,7 @@ WITH into_db = 'newdb';
 
 By default, tables with [foreign key](foreign-key.html) constraints must be restored at the same time as the tables they reference. However, using the [`skip_missing_foreign_keys`](restore.html#skip_missing_foreign_keys) option you can remove the foreign key constraint from the table and then restore it.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.accounts \
 FROM '2021/09/29-153014.47' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}' \
@@ -345,12 +345,12 @@ After it's restored into a new database, you can write the restored `users` tabl
 
 First, create the new database that you'll restore the `system.users` table into:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE newdb;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE system.users \
 FROM '2021/09/29-153014.47' IN 's3://{bucket_name}/{path/to/backup}?AWS_ACCESS_KEY_ID={key_id}&AWS_SECRET_ACCESS_KEY={access_key}' \
@@ -359,12 +359,12 @@ WITH into_db = 'newdb';
 
 After the restore completes, add the `users` to the existing `system.users` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.users SELECT * FROM newdb.users;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE newdb.users;
 ~~~
@@ -377,7 +377,7 @@ After the restore completes, add the `users` to the existing `system.users` tabl
 
 <span class="version-tag">New in v21.1:</span> `BACKUP ... INTO` adds a backup to a collection within the backup destination. The path to the backup is created using a date-based naming scheme. To view the backup paths in a given destination, use [`SHOW BACKUPS`](show-backup.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW BACKUPS IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}';
 ~~~
@@ -414,7 +414,7 @@ See [Incremental backups with explicitly specified destinations](take-full-and-i
 
 To restore a full cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}';
 ~~~
@@ -425,29 +425,29 @@ To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subd
 
 To restore a database:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}';
 ~~~
 
 To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subdirectories).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE DATABASE` can only be used if the entire database was backed up.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a table
 
 To restore a single table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE bank.customers FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}';
 ~~~
 
 To restore multiple tables:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE bank.customers, bank.accounts FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}';
 ~~~
@@ -458,20 +458,20 @@ To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subd
 
 Restoring from [incremental backups](take-full-and-incremental-backups.html#incremental-backups) requires full and incremental backups to be in the same subdirectory:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup-collection}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v21.1:</span> `RESTORE` will re-validate [indexes](indexes.html) when [incremental backups](take-full-and-incremental-backups.html) are created from an older version (v20.2.2 and earlier or v20.1.4 and earlier), but restored by a newer version (v21.1.0+). These earlier releases may have included incomplete data for indexes that were in the process of being created.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a backup asynchronously
 
 Use the `DETACHED` [option](#options) to execute the restore [job](show-jobs.html) asynchronously:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}' WITH DETACHED;
 ~~~
@@ -500,7 +500,7 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 By default, tables and views are restored to the database they originally belonged to. However, using the [`into_db` option](#into_db), you can control the target database.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers \
 FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}' \
@@ -511,7 +511,7 @@ WITH into_db = 'newdb';
 
 By default, tables with [foreign key](foreign-key.html) constraints must be restored at the same time as the tables they reference. However, using the [`skip_missing_foreign_keys`](restore.html#skip_missing_foreign_keys) option you can remove the foreign key constraint from the table and then restore it.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.accounts \
 FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}' \
@@ -526,12 +526,12 @@ After it's restored into a new database, you can write the restored `users` tabl
 
 First, create the new database that you'll restore the `system.users` table into:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE newdb;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE system.users \
 FROM '2021/03/23-213101.37' IN 'azure://{container name}/{path/to/backup}?AZURE_ACCOUNT_NAME={account name}&AZURE_ACCOUNT_KEY={url-encoded key}' \
@@ -540,12 +540,12 @@ WITH into_db = 'newdb';
 
 After the restore completes, add the `users` to the existing `system.users` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.users SELECT * FROM newdb.users;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE newdb.users;
 ~~~
@@ -554,15 +554,15 @@ After the restore completes, add the `users` to the existing `system.users` tabl
 
 <section class="filter-content" markdown="1" data-scope="gcs">
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 The examples in this section use the `AUTH=specified` parameter, which will be the default behavior in v21.2 and beyond for connecting to Google Cloud Storage. For more detail on how to pass your Google Cloud Storage credentials with this parameter, or, how to use `implicit` authentication, read [Use Cloud Storage for Bulk Operations — Authentication](use-cloud-storage-for-bulk-operations.html#authentication).
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### View the backup subdirectories
 
 <span class="version-tag">New in v21.1:</span> `BACKUP ... INTO` adds a backup to a collection within the backup destination. The path to the backup is created using a date-based naming scheme. To view the backup paths in a given destination, use [`SHOW BACKUPS`](show-backup.html):
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW BACKUPS IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}';
 ~~~
@@ -599,7 +599,7 @@ See [Incremental backups with explicitly specified destinations](take-full-and-i
 
 To restore a full cluster:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}';
 ~~~
@@ -610,29 +610,29 @@ To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subd
 
 To restore a database:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}';
 ~~~
 
 To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subdirectories).
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 `RESTORE DATABASE` can only be used if the entire database was backed up.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a table
 
 To restore a single table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE bank.customers FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}';
 ~~~
 
 To restore multiple tables:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE TABLE bank.customers, bank.accounts FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}';
 ~~~
@@ -643,20 +643,20 @@ To view the available subdirectories, use [`SHOW BACKUPS`](#view-the-backup-subd
 
 Restoring from [incremental backups](take-full-and-incremental-backups.html#incremental-backups) requires full and incremental backups to be in the same subdirectory:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 RESTORE DATABASE bank FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup-collection}?AUTH=specified&CREDENTIALS={encoded key}';
 ~~~
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 <span class="version-tag">New in v21.1:</span> `RESTORE` will re-validate [indexes](indexes.html) when [incremental backups](take-full-and-incremental-backups.html) are created from an older version (v20.2.2 and earlier or v20.1.4 and earlier), but restored by a newer version (v21.1.0+). These earlier releases may have included incomplete data for indexes that were in the process of being created.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ### Restore a backup asynchronously
 
 Use the `DETACHED` [option](#options) to execute the restore [job](show-jobs.html) asynchronously:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}'
 WITH DETACHED;
@@ -686,7 +686,7 @@ job_id             |  status   | fraction_completed | rows | index_entries | byt
 
 By default, tables and views are restored to the database they originally belonged to. However, using the [`into_db` option](#into_db), you can control the target database.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.customers FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}' \
 WITH into_db = 'newdb';
@@ -696,7 +696,7 @@ WITH into_db = 'newdb';
 
 By default, tables with [foreign key](foreign-key.html) constraints must be restored at the same time as the tables they reference. However, using the [`skip_missing_foreign_keys`](restore.html#skip_missing_foreign_keys) option you can remove the foreign key constraint from the table and then restore it.
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE bank.accounts FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}' \
 WITH skip_missing_foreign_keys;
@@ -710,12 +710,12 @@ After it's restored into a new database, you can write the restored `users` tabl
 
 First, create the new database that you'll restore the `system.users` table into:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE newdb;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RESTORE system.users FROM '2021/03/23-213101.37' IN 'gs://{bucket name}/{path/to/backup}?AUTH=specified&CREDENTIALS={encoded key}' \
 WITH into_db = 'newdb';
@@ -723,12 +723,12 @@ WITH into_db = 'newdb';
 
 After the restore completes, add the `users` to the existing `system.users` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.users SELECT * FROM newdb.users;
 ~~~
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE newdb.users;
 ~~~

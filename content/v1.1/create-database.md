@@ -13,7 +13,7 @@ Only the `root` user can create databases.
 
 ## Synopsis
 
-{%  include {{  page.version.version  }}/sql/diagrams/create_database.html %}
+{{ partial "{{ page.version.version }}/sql/diagrams/create_database.html" . }}
 
 ## Parameters
 

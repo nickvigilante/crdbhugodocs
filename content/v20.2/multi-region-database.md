@@ -6,7 +6,7 @@ toc: true
 
 This page walks you through creating a database schema for an example multi-region application. It is the second section of the [Develop and Deploy a Multi-Region Web Application](multi-region-overview.html) tutorial.
 
-{%  include {{  page.version.version  }}/misc/movr-flask-211.md %}
+{{ partial "{{ page.version.version }}/misc/movr-flask-211.md" . }}
 
 ## Before you begin
 
@@ -24,13 +24,13 @@ These tables store information about the users and vehicles registered with MovR
 
 Here's a diagram of the database schema, generated with [DBeaver](dbeaver.html):
 
-<img src="{{  'images/v20.2/movr_v2.png' | relative_url  }}" alt="MovR database schema" style="border:1px solid #eee;max-width:100%" />
+<img src="{{ 'images/v20.2/movr_v2.png' | relative_url }}" alt="MovR database schema" style="border:1px solid #eee;max-width:100%" />
 
 Initialization statements for `movr` are defined in [`dbinit.sql`](https://github.com/cockroachlabs/movr-flask/blob/v1.0/dbinit.sql), a SQL file that you use later in this tutorial to load the database to a running cluster.
 
-{{ site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info }}
 This database is a slightly simplified version of the [`movr` database](movr.html) that is built into the `cockroach` binary. Although the two databases are similar, they have different schemas.
-{{ site.data.alerts.end }}
+{{site.data.alerts.end }}
 
 ## Geo-partition the `movr` database
 
@@ -73,9 +73,9 @@ See below for the [`CREATE TABLE`](create-table.html) statements for each table 
 
 Here is the `CREATE TABLE` statement for the `users` table:
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v1-doc-includes/dbinit.sql |-- START users |-- END users %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v1-doc-includes/dbinit.sql |-- START users |-- END users %}
 ~~~
 
 Note the following:
@@ -87,9 +87,9 @@ Note the following:
 
 ## The `vehicles` table
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v1-doc-includes/dbinit.sql |-- START vehicles |-- END vehicles %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v1-doc-includes/dbinit.sql |-- START vehicles |-- END vehicles %}
 ~~~
 
 Note the following:
@@ -112,9 +112,9 @@ Note the following:
 
 ## The `rides` table
 
-{%  include_cached copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
-> {%  remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v1-doc-includes/dbinit.sql |-- START rides |-- END rides %}
+> {% remote_include https://raw.githubusercontent.com/cockroachlabs/movr-flask/v1-doc-includes/dbinit.sql |-- START rides |-- END rides %}
 ~~~
 
 Note the following:
