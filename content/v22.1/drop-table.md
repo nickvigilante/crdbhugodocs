@@ -17,7 +17,7 @@ The user must have the `DROP` [privilege](security-reference/authorization.html#
 
 ## Synopsis
 
-<div>{{< sql-diagram "drop_table.html" >}}</div>
+<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/drop_table.html %}</div>
 
 ## Parameters
 

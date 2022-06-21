@@ -16,7 +16,7 @@ The user must have the `CREATE` [privilege](security-reference/authorization.htm
 ## Synopsis
 
 <div>
-{{< sql-diagram "comment.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/comment.html %}
 </div>
 
 ## Parameters

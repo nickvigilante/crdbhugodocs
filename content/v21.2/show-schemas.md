@@ -14,7 +14,7 @@ The `CONNECT` [privilege](security-reference/authorization.html#managing-privile
 ## Synopsis
 
 <div>
-{{< sql-diagram "show_schemas.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_schemas.html %}
 </div>
 
 ## Parameters

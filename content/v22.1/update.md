@@ -19,7 +19,7 @@ The user must have the `SELECT` and `UPDATE` [privileges](security-reference/aut
 ## Synopsis
 
 <div>
-{{< sql-diagram "update.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/update.html %}
 </div>
 
 ## Parameters

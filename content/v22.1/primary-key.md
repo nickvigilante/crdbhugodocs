@@ -20,7 +20,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 ### Column level
 
 <div>
-{{< sql-diagram "primary_key_column_level.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/primary_key_column_level.html %}
 </div>
 
  Parameter | Description
@@ -48,7 +48,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 ### Table level
 
 <div>
-{{< sql-diagram "primary_key_table_level.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/primary_key_table_level.html %}
 </div>
 
  Parameter | Description

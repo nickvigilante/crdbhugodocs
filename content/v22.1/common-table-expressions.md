@@ -12,7 +12,7 @@ You can use CTEs in combination with [`SELECT` clauses](select-clause.html) and 
 ## Synopsis
 
 <div>
-{{< sql-diagram "with_clause.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/with_clause.html %}
 </div>
 
 ## Parameters

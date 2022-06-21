@@ -36,7 +36,7 @@ By default, only the `root` user can execute `SHOW JOBS`.
 ## Synopsis
 
 <div>
-{{< sql-diagram "show_jobs.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/show_jobs.html %}
 </div>
 
 ## Parameters

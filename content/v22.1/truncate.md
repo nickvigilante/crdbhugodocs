@@ -12,7 +12,7 @@ The `TRUNCATE` [statement](sql-statements.html) removes all rows from a table. A
 ## Synopsis
 
 <div>
-{{< sql-diagram "truncate.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/truncate.html %}
 </div>
 
 ## Required privileges

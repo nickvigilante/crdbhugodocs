@@ -32,7 +32,7 @@ To use `ON CONFLICT DO UPDATE`, the user must additionally have the `UPDATE` pri
 ## Synopsis
 
 <div>
-{{< sql-diagram "insert.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/insert.html %}
 </div>
 
 ## Parameters
@@ -50,7 +50,7 @@ Parameter | Description
 ### `ON CONFLICT` clause
 
 <div>
-{{< sql-diagram "on_conflict.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/on_conflict.html %}
 </div>
 
 Normally, when inserted values
