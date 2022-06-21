@@ -14,7 +14,7 @@ docs_area: reference.sql
 ## Synopsis
 
 <div>
-{{< sql-diagram "add_column.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/add_column.html %}
 </div>
 
 

@@ -14,7 +14,7 @@ The `DROP TYPE` [statement](sql-statements.html) drops a specified [enumerated d
 ## Synopsis
 
 <div>
-{{< sql-diagram "drop_type.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/drop_type.html %}
 </div>
 
 ## Parameters

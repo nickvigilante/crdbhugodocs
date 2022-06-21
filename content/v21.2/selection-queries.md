@@ -22,7 +22,7 @@ Selection queries can occur:
 ## Synopsis
 
 <div>
-{{< sql-diagram "select.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/select.html %}
 </div>
 
 ## Parameters
@@ -57,7 +57,7 @@ Form | Usage
 ### Synopsis
 
 <div>
-{{< sql-diagram "select_clause.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/select_clause.html %}
 </div>
 
 ### `VALUES` clause
@@ -65,7 +65,7 @@ Form | Usage
 #### Syntax
 
 <div>
-{{< sql-diagram "values_clause.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/values_clause.html %}
 </div>
 
 A `VALUES` clause defines tabular data defined by the expressions
@@ -98,7 +98,7 @@ names. [These names can be modified with
 #### Syntax
 
 <div>
-{{< sql-diagram "table_clause.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/table_clause.html %}
 </div>
 
 A `TABLE` clause reads tabular data from a specified table. The
@@ -149,7 +149,7 @@ set operations or as main component in a selection query.
 ### Synopsis
 
 <div>
-{{< sql-diagram "set_operation.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/set_operation.html %}
 </div>
 
 ### Set operators

@@ -10,7 +10,7 @@ docs_area: reference.sql
 ## Synopsis
 
 <div>
-{{< sql-diagram "release_savepoint.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/release_savepoint.html %}
 </div>
 
 ## Required privileges

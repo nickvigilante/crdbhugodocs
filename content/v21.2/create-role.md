@@ -43,7 +43,7 @@ Unless a role is a member of the admin role, additional [privileges](#parameters
 ## Synopsis
 
 <div>
-{{< sql-diagram "create_role.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/create_role.html %}
 </div>
 
 ## Parameters

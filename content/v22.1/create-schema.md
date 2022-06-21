@@ -18,7 +18,7 @@ The `CREATE SCHEMA` [statement](sql-statements.html) creates a user-defined [sch
 ## Syntax
 
 <div>
-{{< sql-diagram "create_schema.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/create_schema.html %}
 </div>
 
 ### Parameters

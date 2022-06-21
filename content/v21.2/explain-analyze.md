@@ -19,7 +19,7 @@ In CockroachDB, the following are aliases for `EXPLAIN ANALYZE`:
 
 ## Synopsis
 
-<div>{{< sql-diagram "explain_analyze.html" >}}</div>
+<div>{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/explain_analyze.html %}</div>
 
 ## Parameters
 

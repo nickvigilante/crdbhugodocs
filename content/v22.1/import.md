@@ -46,7 +46,7 @@ The user must have the `CREATE` [privileges](security-reference/authorization.ht
 ## Synopsis
 
 <div>
-{{< sql-diagram "import_dump.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/import_dump.html %}
 </div>
 
 ## Parameters

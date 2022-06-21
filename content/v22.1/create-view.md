@@ -20,7 +20,7 @@ The user must have the `CREATE` [privilege](security-reference/authorization.htm
 ## Synopsis
 
 <div>
-{{< sql-diagram "create_view.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/create_view.html %}
 </div>
 
 ## Parameters

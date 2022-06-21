@@ -55,7 +55,7 @@ To view the contents of an Enterprise backup created with the `BACKUP` statement
 ## Synopsis
 
 <div>
-{{< sql-diagram "backup.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/backup.html %}
 </div>
 
 ## Parameters

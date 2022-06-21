@@ -44,13 +44,13 @@ The user must have the `CREATE` [privileges](security-reference/authorization.ht
 **Import a table from CSV or Avro**
 
 <div>
-{{< sql-diagram "import_csv.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/import_csv.html %}
 </div>
 
 **Import a database or table from dump file**
 
 <div>
-{{< sql-diagram "import_dump.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-21.2/grammar_svg/import_dump.html %}
 </div>
 
 ## Parameters

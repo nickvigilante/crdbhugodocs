@@ -16,7 +16,7 @@ CockroachDB currently only supports [enumerated user-defined types](enum.html).
 ## Synopsis
 
 <div>
-{{< sql-diagram "create_type.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/create_type.html %}
 </div>
 
 ## Parameters

@@ -14,7 +14,7 @@ To show range information for a specific row in a table or index, use the [`SHOW
 ## Synopsis
 
 <div>
-{{< sql-diagram "show_ranges.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/show_ranges.html %}
 </div>
 
 ## Required privileges

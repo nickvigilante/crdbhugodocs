@@ -26,67 +26,67 @@ To create a table, the user must have one of the following:
 </div><p></p>
 
 <div class="filter-content" markdown="1" data-scope="basic">
-{{< sql-diagram "create_table.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/create_table.html %}
 </div>
 
 <div class="filter-content" markdown="1" data-scope="expanded">
 
 <div>
-{{< sql-diagram "create_table.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/create_table.html %}
 </div>
 
 **opt_persistence_temp_table ::=**
 
 <div>
-{{< sql-diagram "opt_persistence_temp_table.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/opt_persistence_temp_table.html %}
 </div>
 
 **column_def ::=**
 
 <div>
-{{< sql-diagram "column_def.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/column_def.html %}
 </div>
 
 **col_qualification ::=**
 
 <div>
-{{< sql-diagram "col_qualification.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/col_qualification.html %}
 </div>
 
 **index_def ::=**
 
 <div>
-{{< sql-diagram "index_def.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/index_def.html %}
 </div>
 
 **family_def ::=**
 
 <div>
-{{< sql-diagram "family_def.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/family_def.html %}
 </div>
 
 **table_constraint ::=**
 
 <div>
-{{< sql-diagram "table_constraint.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/table_constraint.html %}
 </div>
 
 **like_table_option_list::=**
 
 <div>
-{{< sql-diagram "like_table_option_list.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/like_table_option_list.html %}
 </div>
 
 **opt_with_storage_parameter_list ::=**
 
 <div>
-{{< sql-diagram "opt_with_storage_parameter_list.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/opt_with_storage_parameter_list.html %}
 </div>
 
 **opt_locality ::=**
 
 <div>
-{{< sql-diagram "opt_locality.html" >}}
+{% remote_include https://raw.githubusercontent.com/cockroachdb/generated-diagrams/release-22.1/grammar_svg/opt_locality.html %}
 </div>
 
 </div>
