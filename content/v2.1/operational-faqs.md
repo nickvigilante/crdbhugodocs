@@ -41,7 +41,7 @@ The timeseries data used to power the graphs in the Admin UI is stored within th
 
 Yes. By default, CockroachDB stores timeseries data for the last 30 days for display in the Admin UI, but you can [reduce the interval for timeseries storage](#reduce-the-interval-for-timeseries-storage) or [disable timeseries storage entirely](#disable-timeseries-storage-entirely).
 
-{{site.data.alerts.callout_info }}After reducing or disabling timeseries storage, it can take up to 24 hours for timeseries data to be deleted and for the change to be reflected in Admin UI metrics.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}After reducing or disabling timeseries storage, it can take up to 24 hours for timeseries data to be deleted and for the change to be reflected in Admin UI metrics.{{site.data.alerts.end}}
 
 ### Reduce the interval for timeseries storage
 
@@ -68,7 +68,7 @@ To reduce the interval for storage of timeseries data, change the `timeseries.re
 
 ### Disable timeseries storage entirely
 
-{{site.data.alerts.callout_info }}Disabling timeseries storage is recommended only if you exclusively use a third-party tool such as <a href="monitor-cockroachdb-with-prometheus.html">Prometheus</a> for timeseries monitoring. Prometheus and other such tools do not rely on CockroachDB-stored timeseries data; instead, they ingest metrics exported by CockroachDB from memory and then store the data themselves.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Disabling timeseries storage is recommended only if you exclusively use a third-party tool such as <a href="monitor-cockroachdb-with-prometheus.html">Prometheus</a> for timeseries monitoring. Prometheus and other such tools do not rely on CockroachDB-stored timeseries data; instead, they ingest metrics exported by CockroachDB from memory and then store the data themselves.{{site.data.alerts.end}}
 
 To disable the storage of timeseries data entirely, run the following command:
 

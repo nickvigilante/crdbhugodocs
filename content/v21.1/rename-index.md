@@ -6,7 +6,7 @@ toc: true
 
 The `RENAME INDEX` [statement](sql-statements.html) changes the name of an index for a table.
 
-{{site.data.alerts.callout_info }}It is not possible to rename an index referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}It is not possible to rename an index referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/misc/schema-change-view-job.md %}
 
@@ -33,7 +33,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ### Rename an Index
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~
@@ -49,12 +49,12 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 (3 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER INDEX users@name_idx RENAME TO users_name_idx;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~

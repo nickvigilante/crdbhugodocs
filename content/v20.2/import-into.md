@@ -15,6 +15,10 @@ The `IMPORT INTO` [statement](sql-statements.html) imports CSV, Avro, or delimit
 - `IMPORT INTO` is an insert-only statement; it cannot be used to update existing rows—see [`UPDATE`](update.html). Imported rows cannot conflict with primary keys in the existing table, or any other [`UNIQUE`](unique.html) constraint on the table.
 - `IMPORT INTO` does not offer `SELECT` or `WHERE` clauses to specify subsets of rows. To do this, use [`INSERT`](insert.html#insert-from-a-select-statement).
 
+{{site.data.alerts.callout_info}}
+Optimize import operations in your applications by following our [Import Performance Best Practices](import-performance-best-practices.html).
+{{site.data.alerts.end}}
+
 ## Required privileges
 
 #### Table privileges
@@ -42,9 +46,9 @@ Learn more about [cloud storage for bulk operations](use-cloud-storage-for-bulk-
 {% include {{ page.version.version }}/sql/diagrams/import_into.html %}
 </div>
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 While importing into an existing table, the table is taken offline.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -153,9 +157,9 @@ After the import has been initiated, you can control it with [`PAUSE JOB`](pause
 
 If initiated correctly, the statement returns when the import is finished or if it encounters an error. In some cases, the import can continue after an error has been returned (the error message will tell you that the import has resumed in background).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Pausing and then resuming an `IMPORT INTO` job will cause it to restart from the beginning.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
@@ -210,9 +214,9 @@ IMPORT INTO users (id, city, name, address, credit_card)
     );
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The column order in your `IMPORT` statement must match the column order in the CSV being imported, regardless of the order in the existing table's schema.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import into an existing table from multiple CSV files
 
@@ -265,9 +269,9 @@ For more information about importing data from Avro, including examples, see [Mi
 
 To import into a new table, use [`CREATE TABLE`](create-table.html) followed by `IMPORT INTO`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that as of v21.2 [`IMPORT TABLE`](import.html) will be deprecated; therefore, we recommend using the following example to import data into a new table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 First, create the new table with the necessary columns and data types:
 
@@ -302,9 +306,9 @@ IMPORT INTO users (id, city, name, address, credit_card)
     );
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The column order in your `IMPORT` statement must match the column order in the CSV being imported, regardless of the order in the existing table's schema.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import into an existing table from multiple CSV files
 
@@ -360,9 +364,9 @@ For more information about importing data from Avro, including examples, see [Mi
 
 To import into a new table, use [`CREATE TABLE`](create-table.html) followed by `IMPORT INTO`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that as of v21.2 [`IMPORT TABLE`](import.html) will be deprecated; therefore, we recommend using the following example to import data into a new table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 First, create the new table with the necessary columns and data types:
 
@@ -397,9 +401,9 @@ IMPORT INTO users (id, city, name, address, credit_card)
     );
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The column order in your `IMPORT` statement must match the column order in the CSV being imported, regardless of the order in the existing table's schema.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import into an existing table from multiple CSV files
 

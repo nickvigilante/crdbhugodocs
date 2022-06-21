@@ -10,8 +10,8 @@ The `ADD CONSTRAINT` [statement](sql-statements.html) is part of `ALTER TABLE` a
 - [Foreign Keys](foreign-key.html)
 - [Unique](unique.html)
 
-{{site.data.alerts.callout_info }}
-The <a href="primary-key.html">Primary Key</a> and <a href="not-null.html">Not Null</a> constraints can only be applied through <a href="create-table.html"><code>CREATE TABLE</code></a>. The <a href="default-value.html">Default</a> constraint is managed through <a href="alter-column.html"><code>ALTER COLUMN</code>.</a>{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+The <a href="primary-key.html">Primary Key</a> and <a href="not-null.html">Not Null</a> constraints can only be applied through <a href="create-table.html"><code>CREATE TABLE</code></a>. The <a href="default-value.html">Default</a> constraint is managed through <a href="alter-column.html"><code>ALTER COLUMN</code>.</a>{{site.data.alerts.end}}
 
 
 ## Synopsis
@@ -116,9 +116,9 @@ Then you add the Foreign Key constraint.
 
 In this example, let's use `ON DELETE CASCADE` (i.e., when referenced row is deleted, all dependent objects are also deleted).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` does not list objects it drops or updates, so it should be used cautiously.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

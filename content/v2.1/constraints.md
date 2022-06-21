@@ -39,9 +39,9 @@ How you add constraints depends on the number of columns you want to constrain, 
     > CREATE TABLE bar (a INT, b INT, PRIMARY KEY (a,b));
     ~~~
 
-  {{site.data.alerts.callout_info }}
+  {{site.data.alerts.callout_info}}
   The `DEFAULT` and `NOT NULL` constraints cannot be applied to multiple columns.
-  {{site.data.alerts.end }}
+  {{site.data.alerts.end}}
 
 - **Existing tables** can have the following constraints added:
   - `CHECK`, `FOREIGN KEY`, and `UNIQUE` constraints can be added through [`ALTER TABLE...ADD CONSTRAINT`](add-constraint.html). For example, this statement adds the `UNIQUE` constraint to `baz.id`:

@@ -6,7 +6,7 @@ toc: true
 
 CockroachDB allows you to rotate security certificates without restarting nodes.
 
-{{site.data.alerts.callout_success}}For an introduction to how security certificates work in a secure CockroachDB cluster, see <a href="cockroach-cert.html">Create Security Certificates</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For an introduction to how security certificates work in a secure CockroachDB cluster, see <a href="cockroach-cert.html">Create Security Certificates</a>.{{site.data.alerts.end}}
 
 
 ## When to rotate certificates
@@ -101,7 +101,7 @@ For more background, see [Why CockroachDB creates a combined CA certificate](rot
 
     This results in the [combined CA certificate](rotate-certificates.html#why-cockroachdb-creates-a-combined-ca-certificate), `ca.crt`, which contains the new certificate followed by the old certificate.
 
-    {{site.data.alerts.callout_danger }}The CA key is never loaded automatically by <code>cockroach</code> commands, so it should be created in a separate directory, identified by the <code>--ca-key</code> flag.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_danger}}The CA key is never loaded automatically by <code>cockroach</code> commands, so it should be created in a separate directory, identified by the <code>--ca-key</code> flag.{{site.data.alerts.end}}
 
 2. Upload the new CA certificate to each node:
 

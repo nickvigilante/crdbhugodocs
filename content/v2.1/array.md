@@ -9,9 +9,9 @@ The `ARRAY` data type stores one-dimensional, 1-indexed, homogeneous arrays of a
 The `ARRAY` data type is useful for ensuring compatibility with ORMs and other tools. However, if such compatibility is not a concern, it's more flexible to design your schema with normalized tables.
 
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB does not support nested arrays, creating database indexes on arrays, and ordering by arrays.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
@@ -28,7 +28,7 @@ The size of an `ARRAY` value is variable, but it's recommended to keep values un
 
 {{site.data.alerts.callout_success}}
 For a complete list of array functions built into CockroachDB, see the [documentation on array functions](functions-and-operators.html#array-functions).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Creating an array column by appending square brackets
 
@@ -83,9 +83,9 @@ For a complete list of array functions built into CockroachDB, see the [document
 ~~~
 
 ### Accessing an array element using array index
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Arrays in CockroachDB are 1-indexed.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

@@ -8,9 +8,9 @@ This page summarizes how `NULL` values are handled in CockroachDB
 SQL. Each topic is demonstrated via the [built-in SQL
 client](use-the-built-in-sql-client.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When using the built-in client, `NULL` values are displayed using the word `NULL`. This distinguishes them from a character field that contains an empty string ("").
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## NULLs and simple comparisons
 

@@ -16,12 +16,12 @@ We have tested the [Node.js pg driver](https://www.npmjs.com/package/pg) and the
 
 {{site.data.alerts.callout_success}}
 For a more realistic use of Sequelize with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms)repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the Sequelize ORM
 
@@ -36,7 +36,7 @@ $ npm install sequelize sequelize-cockroachdb
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -98,7 +98,7 @@ $ cockroach sql --certs-dir=/tmp/certs -e 'SELECT id, balance FROM accounts' --d
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Node.js code
 

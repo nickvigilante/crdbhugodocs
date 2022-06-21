@@ -8,7 +8,7 @@ If a [SQL statement](sql-statements.html) returns an unexpected result or takes 
 
 {{site.data.alerts.callout_success}}
 For a developer-centric walkthrough of optimizing SQL query performance, see [Optimize Query Performance](make-queries-fast.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Identify slow queries
 
@@ -18,9 +18,9 @@ Use the [slow query log](#using-the-slow-query-log) or [DB Console](#using-the-d
 
  The slow query log is a record of SQL queries whose service latency exceeds a specified threshold value. When the `sql.log.slow_query.latency_threshold` [cluster setting](cluster-settings.html) is set to a non-zero value, each gateway node will log slow SQL queries to a secondary log file (`cockroach-sql-slow.log`) in the [log directory](debug-and-error-logs.html#write-to-file).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Service latency is the time taken to execute a query once it is received by the cluster. It does not include the time taken to send the query to the cluster or return the result to the client.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Run the [`cockroach sql`](cockroach-sql.html) command against one of your nodes. This opens the interactive SQL shell.
 
@@ -62,13 +62,13 @@ Service latency is the time taken to execute a query once it is received by the 
     I201008 21:16:06.534587 28912 sql/exec_log.go:225 ⋮ [intExec=‹create-stats›] 10 483.627ms ‹exec-internal› ‹"$ internal-create-stats"› ‹{}› ‹"CREATE STATISTICS __auto__ FROM [56] WITH OPTIONS THROTTLING 0.9 AS OF SYSTEM TIME '-30s'"› ‹{}› 0 ‹""› 0 ‹{ LATENCY_THRESHOLD }›
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Setting `sql.log.slow_query.latency_threshold` to a non-zero value enables tracing on all queries, which impacts performance. After debugging, set the value back to `0s` to disable the log.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 {% include {{ page.version.version }}/ui/ui-log-files.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Using the DB Console
 

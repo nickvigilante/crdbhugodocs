@@ -52,11 +52,11 @@ Choose how you want to deploy and maintain the CockroachDB cluster:
 
 {{site.data.alerts.callout_success}}
 <span class="version-tag">New in v20.2:</span> The [CockroachDB Kubernetes Operator](https://github.com/cockroachdb/cockroach-operator) eases the creation of StatefulSets, pod authentication, cluster scaling, and rolling upgrades. The Operator is currently in **beta** and is not yet production-ready.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The CockroachDB Kubernetes Operator can also be run on platforms such as [Red Hat OpenShift](https://marketplace.redhat.com/en-us/products/cockroachdb-operator) and [IBM Cloud Pak for Data](https://www.ibm.com/products/cloud-pak-for-data).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div class="filters filters-big clearfix">
     <button class="filter-button" data-scope="operator">Use Operator</button>
@@ -111,9 +111,9 @@ The CockroachDB Kubernetes Operator can also be run on platforms such as [Red Ha
 ### Expand disk size
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Expansion of persistent volumes with the Operator is forthcoming. See the [GitHub project](https://github.com/cockroachdb/cockroach-operator) for progress.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 {% include {{ page.version.version }}/orchestration/kubernetes-expand-disk-size.md %}
@@ -143,9 +143,9 @@ To delete the Kubernetes cluster:
     $ eksctl delete cluster --name cockroachdb
     ~~~   
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

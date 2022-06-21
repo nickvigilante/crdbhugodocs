@@ -20,7 +20,7 @@
     {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
-    {{ page.certs}} \
+    {{page.certs}} \
     --advertise-host=<node1 internal address> \
     --join=<node1 internal address>:26257,<node2 internal address>:26257,<node3 internal address>:26257 \
     --locality=cloud=gce,region=us-east1,zone=us-east1-b \
@@ -54,7 +54,7 @@
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ cockroach init {{ page.certs}} --host=<address of any node>
+    $ cockroach init {{page.certs}} --host=<address of any node>
     ~~~
 
     Each node then prints helpful details to the [standard output](cockroach-start.html#standard-output), such as the CockroachDB version, the URL for the DB Console, and the SQL URL for clients.

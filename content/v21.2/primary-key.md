@@ -26,7 +26,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
  Parameter | Description
 -----------|-------------
  `table_name` | The name of the table you're creating.
- `column_name` | The name of the Primary Key column.
+ `column_name` | The name of the Primary Key column. For [multi-region tables](multiregion-overview.html#table-localities), you can use the `crdb_region` column within a composite primary key in the event the original primary key may contain non-unique entries across multiple, unique regions.
  `column_type` | The Primary Key column's [data type](data-types.html).
  `column_constraints` | Any other column-level [constraints](constraints.html) you want to apply to this column.
  `column_def` | Definitions for any other columns in the table.
@@ -34,7 +34,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 
 **Example**
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE orders (
     order_id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -61,7 +61,7 @@ You can [change the primary key](#changing-primary-key-columns) of an existing t
 
 **Example**
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -81,7 +81,7 @@ For best practices, see [Schema Design: Select primary key columns](schema-desig
 
 ## Example
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE IF NOT EXISTS inventories (
     product_id        INT,
@@ -91,12 +91,12 @@ For best practices, see [Schema Design: Select primary key columns](schema-desig
   );
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 100);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, 1, 200);
 ~~~
@@ -105,7 +105,7 @@ For best practices, see [Schema Design: Select primary key columns](schema-desig
 pq: duplicate key value (product_id,warehouse_id)=(1,1) violates unique constraint "primary"
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO inventories VALUES (1, NULL, 100);
 ~~~
@@ -121,9 +121,9 @@ You can change the primary key of an existing table by doing one of the followin
 - Issuing an [`ALTER TABLE ... ALTER PRIMARY KEY`](alter-primary-key.html) statement. When you change a primary key with `ALTER PRIMARY KEY`, the old primary key index becomes a secondary index. This helps optimize the performance of queries that still filter on the old primary key column.
 - Issuing an [`ALTER TABLE ... DROP CONSTRAINT ... PRIMARY KEY`](drop-constraint.html) statement to drop the primary key, followed by an [`ALTER TABLE ... ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) statement, in the same transaction, to add a new primary key. This replaces the existing primary key without creating a secondary index from the old primary key. For examples, see the [`ADD CONSTRAINT`](add-constraint.html#examples) and [`DROP CONSTRAINT`](drop-constraint.html#examples) pages.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can use an [`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) statement without a [`DROP CONSTRAINT ... PRIMARY KEY`](drop-constraint.html) if the primary key was not explicitly defined at [table creation](create-table.html), and the current [primary key is on `rowid`](indexes.html#creation).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

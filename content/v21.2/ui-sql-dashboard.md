@@ -167,9 +167,9 @@ See the [Transactions page](ui-transactions-page.html) for more details on the t
 
 - In the cluster view, the graph shows the current amount of memory in KiB allocated to the SQL layer on all nodes in the cluster. This amount is what is compared against the node's [`--max-sql-memory` flag](cockroach-start.html#general).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/prod-deployment/healthy-sql-memory.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Schema Changes
 

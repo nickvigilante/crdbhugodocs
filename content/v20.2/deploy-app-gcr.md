@@ -12,7 +12,7 @@ This tutorial shows you how to use Google Cloud Run to deploy a containerized Dj
 
 Before starting the tutorial, do the following:
 
-1. Create a [{{ site.data.products.db }}](https://cockroachlabs.cloud/signup?referralId={{ page.referral_id }}) account.
+1. Create a [{{ site.data.products.db }}](https://cockroachlabs.cloud/signup?referralId={{page.referral_id}}) account.
 1. Create a [Google Cloud](https://cloud.google.com/) account.
 1. Install the [Google Cloud SDK](https://cloud.google.com/sdk).
 1. Install [Docker Desktop](https://www.docker.com/products/docker-desktop).
@@ -116,9 +116,9 @@ Before starting the tutorial, do the following:
 
     This Django app uses the `dj_database_url` module to configure the database connection from a connection URL. The module uses the value assigned to the `DATABASE_URL` environment variable for the connection.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     In the Cloud Run deployment, we use the Google Cloud Secret Manager to define the `DATABASE_URL` environment variable for the deployment.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Execute the initial database schema migration:
 
@@ -188,9 +188,9 @@ Before starting the tutorial, do the following:
 
 1. In the terminal, authenticate the `gcloud` command-line tool with your Google Cloud account:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `gcloud` is included with the [Google Cloud SDK](https://cloud.google.com/sdk) installation.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -206,9 +206,9 @@ Before starting the tutorial, do the following:
     $ gcloud projects create <gcp_project_id>
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You can specify a location for the project within your Google Cloud resources with the `--organization` or `--folder` flags.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Configure the CLI to use your Google Cloud account and the new project ID by default:
 
@@ -326,14 +326,14 @@ $ curl https://<GCR_HOST>/customer/
 [{"id": "bb7d6c4d-efb3-45f8-b790-9911aae7d8b2", "name": "Carl"}]
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 By default, the sample application allows all hosts/domain names to serve the application.
 
 After testing, we recommend that you update the [`ALLOWED_HOSTS` property in `settings.py`](https://docs.djangoproject.com/en/3.2/ref/settings/#allowed-hosts) to allow only a local testing URL and the Cloud Run service URL to serve the application.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 
 - [Build a Simple Django App with CockroachDB](build-a-python-app-with-cockroachdb-django.html)
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

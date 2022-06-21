@@ -24,7 +24,7 @@ Parameter | Description
 
 ## Example
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Show schemas in the current database
 

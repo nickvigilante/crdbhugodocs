@@ -53,7 +53,7 @@ Our multi-region deployment approached relies on pod IP addresses being routable
 
     This includes installing `gcloud`, which is used to create and delete Kubernetes Engine clusters, and `kubectl`, which is the command-line tool used to manage Kubernetes from your workstation.
 
-    {{site.data.alerts.callout_success}}The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the CockroachDB Admin UI using the steps in this guide.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the CockroachDB Admin UI using the steps in this guide.{{site.data.alerts.end}}
 
 2. From your local workstation, start the first Kubernetes cluster, specifying the [zone](https://cloud.google.com/compute/docs/regions-zones/) it should run in:
 
@@ -106,11 +106,11 @@ Our multi-region deployment approached relies on pod IP addresses being routable
               gke_cockroach-shared_us-central1-a_cockroachdb3       gke_cockroach-shared_us-central1-a_cockroachdb3       gke_cockroach-shared_us-central1-a_cockroachdb3                        
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     All of the `kubectl` commands in this tutorial use the `--context` flag to tell `kubectl` which Kubernetes cluster to talk to. Each Kubernetes cluster operates independently; you have to tell each of them what to do separately, and when you want to get the status of something in a particular cluster, you have to make it clear to `kubectl` which cluster you're interested in.
 
     The context with `*` in the `CURRENT` column indicates the cluster that `kubectl` will talk to by default if you do not specify the `--context` flag.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 6. Get the email address associated with your Google Cloud account:
 
@@ -123,9 +123,9 @@ Our multi-region deployment approached relies on pod IP addresses being routable
     Account: [your.google.cloud.email@example.org]
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This command returns your email address in all lowercase. However, in the next step, you must enter the address using the accurate capitalization. For example, if your address is YourName@example.com, you must use YourName@example.com and not yourname@example.com.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 6. For each Kubernetes cluster, [create the RBAC roles](https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#prerequisites_for_using_role-based_access_control) CockroachDB needs for running on GKE, using the email address and relevant "context" name from the previous steps:
 
@@ -261,7 +261,7 @@ Our multi-region deployment approached relies on pod IP addresses being routable
 
 {{site.data.alerts.callout_success}}
 In each Kubernetes cluster, the StatefulSet configuration sets all CockroachDB nodes to write to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname> --namespace=<cluster-namespace> --context=<cluster-context>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Use the built-in SQL client
 
@@ -370,9 +370,9 @@ To access the cluster's [Web UI](admin-ui-overview.html):
     Forwarding from 127.0.0.1:8080 -> 8080
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The `port-forward` command must be run on the same machine as the web browser in which you want to view the Web UI. If you have been running these commands from a cloud instance or other non-local shell, you will not be able to view the UI without configuring `kubectl` locally and running the above `port-forward` command on your local machine.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 2. Go to <a href="https://localhost:8080/" data-proofer-ignore>https://localhost:8080</a> and log in with the username and password created in the [Use the built-in SQL client](#step-3-use-the-built-in-sql-client) step.
 
@@ -451,7 +451,7 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 1. Decide how the upgrade will be finalized.
 
-    {{site.data.alerts.callout_info }}This step is relevant only when upgrading from v2.0.x to v2.1. For upgrades within the v2.1.x series, skip this step.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This step is relevant only when upgrading from v2.0.x to v2.1. For upgrades within the v2.1.x series, skip this step.{{site.data.alerts.end}}
 
     By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain performance improvements and bug fixes introduced in v2.1. After finalization, however, it will no longer be possible to perform a downgrade to v2.0. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade.
 
@@ -509,7 +509,7 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 4. Finish the upgrade.
 
-    {{site.data.alerts.callout_info }}This step is relevant only when upgrading from v2.0.x to v2.1. For upgrades within the v2.1.x series, skip this step.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This step is relevant only when upgrading from v2.0.x to v2.1. For upgrades within the v2.1.x series, skip this step.{{site.data.alerts.end}}
 
     If you disabled auto-finalization in step 1 above, monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 

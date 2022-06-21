@@ -12,7 +12,7 @@ twitter: false
 
 This tutorial shows you how build a simple Python application with CockroachDB using a PostgreSQL-compatible driver or ORM. We've tested and can recommend the [Python psycopg2 driver](http://initd.org/psycopg/docs/) and the [SQLAlchemy ORM](https://docs.sqlalchemy.org/en/latest/), so those are featured here.
 
-{{site.data.alerts.callout_success}}For a more realistic use of SQLAlchemy with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a more realistic use of SQLAlchemy with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end}}
 
 
 ## Before You Begin
@@ -30,7 +30,7 @@ $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 
 {{site.data.alerts.callout_success}}
 You can substitute psycopg2 for other alternatives that include the psycopg python package.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For other ways to install SQLAlchemy, see the [official documentation](http://docs.sqlalchemy.org/en/latest/intro.html#installation-guide).
 
@@ -41,9 +41,9 @@ For other ways to install SQLAlchemy, see the [official documentation](http://do
 The following code uses the [SQLAlchemy ORM](https://docs.sqlalchemy.org/en/latest/) to map Python-specific objects to SQL operations. Specifically, `Base.metadata.create_all(engine)` creates an `accounts` table based on the Account class, `session.add_all([Account(),...
 ])` inserts rows into the table, and `session.query(Account)` selects from the table so that balances can be printed.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The <a href="https://github.com/cockroachdb/sqlalchemy-cockroachdb">sqlalchemy-cockroachdb python package</a> installed earlier is triggered by the <code>cockroachdb://</code> prefix in the engine URL. Using <code>postgres://</code> to connect to your cluster will not work.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Copy the code or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/sqlalchemy-basic-sample.py" download>download it directly</a>.

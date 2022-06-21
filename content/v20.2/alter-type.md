@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v20.2:</span> The `ALTER TYPE` [statement](sql-statements.html) modifies a user-defined, [enumerated data type](enum.html) in the current database.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can only reference a user-defined type from the database that contains the type.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 

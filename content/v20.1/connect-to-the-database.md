@@ -54,7 +54,7 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -79,7 +79,7 @@ ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg con
 ds.setApplicationName("BasicExample");
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -101,7 +101,7 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

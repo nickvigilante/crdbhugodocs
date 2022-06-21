@@ -9,11 +9,11 @@ This page explains the `cockroach start` [command](cockroach-commands.html), whi
 
 {{site.data.alerts.callout_success}}
 If you need a simple single-node backend for app development, use [`cockroach start-single-node`](cockroach-start-single-node.html) instead. For quick SQL testing, consider using [`cockroach demo`](cockroach-demo.html) to start a temporary, in-memory cluster with immediate access to an interactive SQL shell.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Node-level settings are defined by [flags](#flags) passed to the `cockroach start` command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see [Cluster Settings](cluster-settings.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -139,9 +139,9 @@ Supported options:
 
 The `--store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In-memory storage is not suitable for production deployments at this time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Field | Description
 ------|------------
@@ -171,7 +171,7 @@ When you run `cockroach start`, some helpful details are printed to the standard
 
 ~~~ shell
 CockroachDB node starting at {{ now | date: "%Y-%m-%d %H:%M:%S.%6 +0000 UTC" }}
-build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }} (go1.12.6)
+build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}} (go1.12.6)
 webui:               http://localhost:8080
 sql:                 postgresql://root@localhost:26257?sslmode=disable
 RPC client flags:    cockroach <client cmd> --host=localhost:26257 --insecure
@@ -186,7 +186,7 @@ nodeID:              1
 
 {{site.data.alerts.callout_success}}
 These details are also written to the `INFO` log in the `/logs` directory. You can retrieve them with a command like `grep 'node starting' node1/logs/cockroach.log -A 11`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Field | Description
 ------|------------
@@ -217,15 +217,15 @@ To start a multi-node cluster, run the `cockroach start` command for each node, 
 
 {% include {{ page.version.version }}/prod-deployment/join-flag-single-region.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/prod-deployment/join-flag-multi-region.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div class="filter-content" markdown="1" data-scope="secure">
 
 {{site.data.alerts.callout_success}}
 Before starting the cluster, use [`cockroach cert`](cockroach-cert.html) to generate node and client certificates for a secure cluster connection.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell

@@ -37,7 +37,7 @@ Each node in the CockroachDB cluster needs to have access to the files being imp
 
 {{site.data.alerts.callout_success}}
 We strongly recommend using cloud storage such as Amazon S3 or Google Cloud to host the data files you want to import.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Import the CSV
 
@@ -70,9 +70,9 @@ Repeat the above for each CSV file you want to import.
 
 {% include {{ page.version.version }}/misc/csv-import-callout.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You will need to run [`ALTER TABLE ... ADD CONSTRAINT`](add-constraint.html) to add any foreign key relationships.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Configuration Options
 

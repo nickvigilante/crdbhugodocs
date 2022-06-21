@@ -16,11 +16,11 @@ This tutorial shows you how build a simple Go application with CockroachDB and t
 
 {{site.data.alerts.callout_success}}
 For another use of GORM with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the GORM ORM
 
@@ -40,7 +40,7 @@ $ go get -u github.com/jinzhu/gorm
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -67,7 +67,7 @@ Copy the code or
 To clone a version of the code below that connects to insecure clusters, run the command below. Note that you will need to edit the connection string to use the certificates that you generated when you set up your secure cluster.
 
 `git clone https://github.com/cockroachlabs/hello-world-go-gorm`
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ go
@@ -98,7 +98,7 @@ Balance at '2019-08-06 13:37:19.325654 -0400 EDT m=+0.048303286':
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Go code
 

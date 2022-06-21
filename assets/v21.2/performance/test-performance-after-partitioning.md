@@ -10,9 +10,9 @@ Again imagine we are a Movr administrator in New York, and we want to get the ID
 
 2. Query for the data:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ {{ page.app }} \
+    $ {{page.app}} \
     --host=<address of a node in us-east1-b> \
     --statement="SELECT id, ext FROM vehicles \
     WHERE city = 'new york' \
@@ -50,9 +50,9 @@ Now let's again imagine 100 people in New York and 100 people in Seattle and 100
 
 2. Create 100 Seattle-based users:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
-    {{ page.app }} \
+    {{page.app}} \
     --host=<address of a node in us-west1-a> \
     --statement="INSERT INTO users VALUES (gen_random_uuid(), 'seattle', 'Seatller', '111 East Street', '1736352379937347')" \
     --repeat=100 \
@@ -73,9 +73,9 @@ Now let's again imagine 100 people in New York and 100 people in Seattle and 100
 
 4. Create 100 new NY-based users:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
-    {{ page.app }} \
+    {{page.app}} \
     --host=<address of a node in us-east1-b> \
     --statement="INSERT INTO users VALUES (gen_random_uuid(), 'new york', 'New Yorker', '111 West Street', '9822222379937347')" \
     --repeat=100 \

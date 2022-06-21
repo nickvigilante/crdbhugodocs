@@ -13,7 +13,7 @@ CockroachDB stores the contents of the following data types in GIN indexes:
 - [Arrays](array.html)
 - [Spatial data (`GEOMETRY` and `GEOGRAPHY` types)](spatial-indexes.html)
 
-{{site.data.alerts.callout_success}}For a hands-on demonstration of using a GIN index to improve query performance on a <code>JSONB</code> column, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a hands-on demonstration of using a GIN index to improve query performance on a <code>JSONB</code> column, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end}}
 
 ## How do GIN indexes work?
 

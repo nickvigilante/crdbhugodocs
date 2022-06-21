@@ -6,9 +6,9 @@ toc: true
 
 The `RENAME COLUMN` [statement](sql-statements.html) changes the name of a column in a table.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 It is not possible to rename a column referenced by a view. For more details, see [View Dependencies](views.html#view-dependencies).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 

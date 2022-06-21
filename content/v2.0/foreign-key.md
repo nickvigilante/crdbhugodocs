@@ -11,7 +11,7 @@ For example, if you create a foreign key on `orders.customer` that references `c
 - Each value inserted or updated in `orders.customer` must exactly match a value in `customers.id`.
 - Values in `customers.id` that are referenced by `orders.customer` cannot be deleted or updated. However, `customers.id` values that _aren't_ present in `orders.customer` can be.
 
-{{site.data.alerts.callout_success}}If you plan to use Foreign Keys in your schema, consider using <a href="interleave-in-parent.html">interleaved tables</a>, which can dramatically improve query performance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}If you plan to use Foreign Keys in your schema, consider using <a href="interleave-in-parent.html">interleaved tables</a>, which can dramatically improve query performance.{{site.data.alerts.end}}
 
 
 ## Details
@@ -68,13 +68,13 @@ Because the Foreign Key constraint requires per-row checks on two tables, statem
 
 We're currently working to improve the performance of these statements, though.
 
-{{site.data.alerts.callout_success}}You can improve the performance of some statements that use Foreign Keys by also using <code><a href="interleave-in-parent.html">INTERLEAVE IN PARENT</a></code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can improve the performance of some statements that use Foreign Keys by also using <code><a href="interleave-in-parent.html">INTERLEAVE IN PARENT</a></code>.{{site.data.alerts.end}}
 
 ## Syntax
 
 Foreign Key constraints can be defined at the [table level](#table-level). However, if you only want the constraint to apply to a single column, it can be applied at the [column level](#column-level).
 
-{{site.data.alerts.callout_info }}You can also add the Foreign Key constraint to existing tables through <a href="add-constraint.html#add-the-foreign-key-constraint-with-cascade"><code>ADD CONSTRAINT</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You can also add the Foreign Key constraint to existing tables through <a href="add-constraint.html#add-the-foreign-key-constraint-with-cascade"><code>ADD CONSTRAINT</code></a>.{{site.data.alerts.end}}
 
 ### Column Level
 
@@ -101,7 +101,7 @@ Foreign Key constraints can be defined at the [table level](#table-level). Howev
     INDEX (customer)
   );
 ~~~
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops or updates, so it should be used cautiously.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> does not list objects it drops or updates, so it should be used cautiously.{{site.data.alerts.end}}
 
 ### Table Level
 

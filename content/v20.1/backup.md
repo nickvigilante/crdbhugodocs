@@ -4,9 +4,9 @@ summary: Back up your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `BACKUP` is an [enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. For non-enterprise backups, see [`cockroach dump`](cockroach-dump.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 CockroachDB's `BACKUP` [statement](sql-statements.html) allows you to create [full or incremental backups](backup-and-restore.html#perform-enterprise-backup-and-restore) of your cluster's schema and data that are consistent as of a given timestamp.
 
@@ -25,13 +25,13 @@ You can also back up:
 
 Because CockroachDB is designed with high fault tolerance, these backups are designed primarily for disaster recovery (i.e., if your cluster loses a majority of its nodes) through [`RESTORE`](restore.html). Isolated issues (such as small-scale node outages) do not require any intervention.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `BACKUP` only offers table-level granularity; it _does not_ support backing up subsets of a table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 To view the contents of an enterprise backup created with the `BACKUP` statement, use [`SHOW BACKUP`](show-backup.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -56,9 +56,9 @@ To view the contents of an enterprise backup created with the `BACKUP` statement
 `incremental_backup_location` | Create an incremental backup that includes all backups listed at the provided URLs. <br/><br/>Lists of incremental backups must be sorted from oldest to newest. The newest incremental backup's timestamp must be within the table's garbage collection period. <br/><br/>For information about this URL structure, see [Backup File URLs](#backup-file-urls). <br/><br/>For more information about garbage collection, see [Configure Replication Zones](configure-replication-zones.html#replication-zone-variables).
 `kv_option_list` | Control the backup behavior with a comma-separated list of [these options](#options).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `BACKUP` statement is a blocking statement and cannot be used within a [transaction](transactions.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Options
 
@@ -104,11 +104,11 @@ Full backups contain an unreplicated copy of your data and can always be used to
 
 Incremental backups are smaller and faster to produce than full backups because they contain only the data that has changed since a base set of backups you specify (which must include one full backup, and can include many incremental backups). You can take incremental backups either as of a given timestamp or with full [revision history](backup-and-restore.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Incremental backups can only be created within the garbage collection period of the base backup's most recent timestamp. This is because incremental backups are created by finding which data has been created or modified since the most recent timestamp in the base backup––that timestamp data, though, is deleted by the garbage collection process.
 
 You can configure garbage collection periods using the `ttlseconds` [replication zone setting](configure-replication-zones.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For an example of an incremental backup, see the [Create incremental backups](#create-incremental-backups) example below.
 
@@ -137,9 +137,9 @@ Cancel the backup      | [`CANCEL JOB`](cancel-job.html)
 
 You can also visit the [**Jobs** page](admin-ui-jobs-page.html) of the Admin UI to view job details. The `BACKUP` statement will return when the backup is finished or if it encounters an error.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The presence of a `BACKUP-CHECKPOINT` file in the backup destination usually means the backup is not complete. This file is created when a backup is initiated, and is replaced with a `BACKUP` file once the backup is finished.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
@@ -207,9 +207,9 @@ AS OF SYSTEM TIME '-10s';
 AS OF SYSTEM TIME '-10s';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This incremental backup syntax does not work for backups using HTTP storage; you must [explicitly control where your incremental backups go](backup-and-restore.html) by using the [`INCREMENTAL FROM` syntax](#synopsis).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Advanced examples
 

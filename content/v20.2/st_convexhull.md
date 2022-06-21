@@ -13,9 +13,9 @@ In other words, given a set of points _A_ in the plane, the convex hull is the s
 
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `ST_ConvexHull` is not an aggregate function.  It operates on a single `GEOMETRY` object.  This means that in practice it is most often used in combination with an aggregate function such as [`ST_Union`](st_union.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 

@@ -1,8 +1,8 @@
 To safely remove a node from your cluster, you must first decommission the node and only then adjust the `--replicas` value of your StatefulSet configuration to permanently remove it. This sequence is important because the decommissioning process lets a node finish in-flight requests, rejects any new requests, and transfers all range replicas and range leases off the node.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 If you remove nodes without first telling CockroachDB to decommission them, you may cause data or even cluster unavailability. For more details about how this works and what to consider before removing nodes, see [Decommission Nodes](remove-nodes.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Get a shell into the `cockroachdb-client-secure` pod you created earlier and use the `cockroach node status` command to get the internal IDs of nodes:
 
@@ -44,9 +44,9 @@ If you remove nodes without first telling CockroachDB to decommission them, you 
 
 2. Note the ID of the node with the highest number in its address (in this case, the address including `cockroachdb-3`) and use the [`cockroach node decommission`](view-node-details.html) command to decommission it:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     It's important to decommission the node with the highest number in its address because, when you reduce the `--replica` count, Kubernetes will remove the pod for that node.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     <section class="filter-content" markdown="1" data-scope="manual">
     {% include copy-clipboard.html %}

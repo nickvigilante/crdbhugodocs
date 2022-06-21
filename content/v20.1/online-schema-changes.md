@@ -13,17 +13,17 @@ Benefits of online schema changes include:
 - Your application's queries can run normally, with no effect on read/write latency. The schema is cached for performance.
 - Your data is kept in a safe, [consistent][consistent] state throughout the entire schema change process.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Schema changes consume additional resources, and if they are run when the cluster is near peak capacity, latency spikes can occur. This is especially true for any schema change that adds columns, drops columns, or adds an index. We do not recommend doing more than one schema change at a time while in production.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 Support for schema changes within [transactions][txns] is [limited](#limitations). We recommend doing schema changes outside transactions where possible. When a schema management tool uses transactions on your behalf, we recommend only doing one schema change operation per transaction.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You cannot start an online schema change on a table if a [primary key change](alter-primary-key.html) is currently in progress on the same table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## How online schema changes work
 
@@ -41,15 +41,15 @@ Once backfilling is complete, all nodes will switch over to the new schema, and 
 
 For more technical details, see [How online schema changes are possible in CockroachDB][blog].
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a schema change fails, the schema change job will be cleaned up automatically. However, there are limitations with rolling back schema changes within a transaction; for more information, [see below](#schema-change-ddl-statements-inside-a-multi-statement-transaction-can-fail-while-other-statements-succeed).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
 {{site.data.alerts.callout_success}}
 For more examples of schema change statements, see the [`ALTER TABLE`][alter-table] subcommands.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Run schema changes inside a transaction with `CREATE TABLE`
 

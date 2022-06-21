@@ -11,7 +11,7 @@ The `DROP TABLE` [statement](sql-statements.html) removes a table and all its in
 
 ## Required privileges
 
-The user must have the `DROP` [privilege](authorization.html#assign-privileges) on the specified table(s). If `CASCADE` is used, the user must have the privileges required to drop each dependent object as well.
+The user must have the `DROP` [privilege](security-reference/authorization.html#managing-privileges) on the specified table(s). If `CASCADE` is used, the user must have the privileges required to drop each dependent object as well.
 
 ## Synopsis
 
@@ -32,13 +32,13 @@ Parameter | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Remove a table (no dependencies)
 
 In this example, other objects do not depend on the table being dropped.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -55,7 +55,7 @@ In this example, other objects do not depend on the table being dropped.
 (6 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE promo_codes;
 ~~~
@@ -64,7 +64,7 @@ In this example, other objects do not depend on the table being dropped.
 DROP TABLE
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -84,9 +84,9 @@ DROP TABLE
 
 In this example, a [foreign key](foreign-key.html) from a different table references the table being dropped. Therefore, it's only possible to drop the table while simultaneously dropping the dependent foreign key constraint using `CASCADE`.
 
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end}}
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -102,7 +102,7 @@ In this example, a [foreign key](foreign-key.html) from a different table refere
 (5 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP TABLE users;
 ~~~
@@ -113,7 +113,7 @@ pq: "users" is referenced by foreign key from table "vehicles"
 
 To see how `users` is referenced from `vehicles`, you can use the [`SHOW CREATE`](show-create.html) statement. `SHOW CREATE` shows how the columns in a table are created, including data types, default values, indexes, and constraints.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~
@@ -139,7 +139,7 @@ To see how `users` is referenced from `vehicles`, you can use the [`SHOW CREATE`
 ~~~
 
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > DROP TABLE users CASCADE;
 ~~~
@@ -148,7 +148,7 @@ To see how `users` is referenced from `vehicles`, you can use the [`SHOW CREATE`
 DROP TABLE
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM movr;
 ~~~
@@ -165,7 +165,7 @@ DROP TABLE
 
 Use a `SHOW CREATE TABLE` statement to verify that the foreign key constraint has been removed from `vehicles`.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE vehicles;
 ~~~

@@ -9,9 +9,9 @@ The `CREATE TYPE` [statement](sql-statements.html) creates a new, [enumerated da
 
 {% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB currently only supports [enumerated user-defined types](enum.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -29,17 +29,17 @@ Parameter | Description
 
 ## Required privileges
 
-- To create a type, the user must have the `CREATE` [privilege](authorization.html#assign-privileges) on the parent database.
+- To create a type, the user must have the `CREATE` [privilege](security-reference/authorization.html#managing-privileges) on the parent database.
 - To use a user-defined type in a table (e.g., when defining a column's type), the user must have the `USAGE` privilege on the type.
 
 ## Example
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE status AS ENUM ('open', 'closed', 'inactive');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW ENUMS;
 ~~~
@@ -51,7 +51,7 @@ Parameter | Description
 (1 row)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE accounts (
         id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -60,12 +60,12 @@ Parameter | Description
 );
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO accounts(balance,status) VALUES (500.50,'open'), (0.00,'closed'), (1.25,'inactive');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts;
 ~~~
@@ -79,7 +79,7 @@ Parameter | Description
 (3 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE accounts;
 ~~~
@@ -97,7 +97,7 @@ Parameter | Description
 (1 row)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM accounts WHERE status='open';
 ~~~

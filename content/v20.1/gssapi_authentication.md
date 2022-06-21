@@ -132,7 +132,7 @@ Copy the resulting keytab to the database nodes. If clients are connecting to mu
     ~~~
 
 6. [Enable an enterprise license](licensing-faqs.html#obtain-a-license).
-    {{site.data.alerts.callout_info }} You need the enterprise license if you want to use the GSSAPI feature. However, if you only want to test that the GSSAPI setup is working, you do not need to enable an enterprise license. {{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}} You need the enterprise license if you want to use the GSSAPI feature. However, if you only want to test that the GSSAPI setup is working, you do not need to enable an enterprise license. {{site.data.alerts.end}}
 
 7. Enable GSSAPI authentication:
 
@@ -163,9 +163,9 @@ Copy the resulting keytab to the database nodes. If clients are connecting to mu
 
 ## Configuring the client
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `cockroach sql` shell does not yet support GSSAPI authentication. You need to use a GSSAPI-compatible Postgres client, such as Postgres's `psql` client.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Install and configure your Kerberos client:
 

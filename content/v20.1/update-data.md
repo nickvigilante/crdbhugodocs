@@ -15,7 +15,7 @@ Make sure you have already:
 - [Connected to the database](connect-to-the-database.html).
 - [Inserted data](insert-data.html) that you now want to update.
 
-{% include {{ page.version.version }}/app/retry-errors.md %}
+{% include {{< page-version >}}/app/retry-errors.md %}
 
 ## Update a row
 
@@ -51,7 +51,7 @@ if _, err := tx.Exec("UPDATE accounts SET balance = balance - $1 WHERE id = $2",
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -74,7 +74,7 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -93,7 +93,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

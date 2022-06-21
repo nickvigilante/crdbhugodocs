@@ -1,5 +1,5 @@
 {% if page.cloud == true %}
-  {% capture link_prefix %}../{{site.versions["stable"] }}/{% endcapture %}
+  {% capture link_prefix %}../{{site.versions["stable"]}}/{% endcapture %}
   {% assign page_prefix = "" %}
 {% else %}
   {% assign link_prefix = "" %}
@@ -12,6 +12,6 @@ Aggregated statistics are flushed from memory to statistics tables in the [`crdb
 
 To reset SQL statistics in the DB Console UI and `crdb_internal` system catalog, click **clear SQL stats**.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `diagnostics.sql_stat_reset.interval` [cluster setting]({{ link_prefix }}cluster-settings.html) no longer controls the DB Console UI or the persisted statistics tables. `diagnostics.sql_stat_reset.interval` still resets the `node_statement_statistics` and `node_transaction_statistics` in-memory statistics.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

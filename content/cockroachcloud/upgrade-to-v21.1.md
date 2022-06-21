@@ -6,7 +6,7 @@ toc: true
 docs_area: manage
 ---
 
-Now that [CockroachDB v21.1](../releases/v21.1.0.html) is available, your [Console Admin](console-access-management.html#console-admin) can upgrade your cluster directly from the {{ site.data.products.db }} Console. This page walks through the process.
+Now that [CockroachDB v21.1](../releases/v21.1.html) is available, your [Console Admin](console-access-management.html#console-admin) can upgrade your cluster directly from the {{ site.data.products.db }} Console. This page guides you through the process.
 
 ## Step 1. Verify that you can upgrade
 
@@ -25,7 +25,7 @@ The upgrade process depends on the number of nodes in your cluster. Select wheth
 
 <section class="filter-content" markdown="1" data-scope="multi-node">
 
-In a multi-node cluster, the upgrade happens without interrupting the cluster's overall health and availability. One node is stopped and restarted with the new version, then the next, and so on, with a few minutes pause between each. In total, this "rolling upgrade" approach takes approximately 4-5 minutes per node and is possible due to CockroachDB's [multi-active availability](../{{site.versions["stable"] }}/multi-active-availability.html) design.
+In a multi-node cluster, the upgrade happens without interrupting the cluster's overall health and availability. One node is stopped and restarted with the new version, then the next, and so on, with a few minutes pause between each. In total, this "rolling upgrade" approach takes approximately 4-5 minutes per node and is possible due to CockroachDB's [multi-active availability](../{{site.versions["stable"]}}/multi-active-availability.html) design.
 
 Approximately 72 hours after all nodes are running v21.1, the upgrade will be automatically finalized. This enables certain [features and performance improvements introduced in v21.1](#respect-temporary-limitations). Finalization also removes the ability to roll back to v20.2, so it's important to monitor your application during this 72-hour window and, if you see unexpected behavior, trigger a rollback from the {{ site.data.products.db }} Console.
 
@@ -52,7 +52,7 @@ Because your cluster will be unavailable while its single node is stopped and re
 
 ### Review breaking changes
 
-Review the [backward-incompatible changes in v21.1](../releases/v21.1.0.html#backward-incompatible-changes), and if any affect your application, make necessary changes.
+Review the [backward-incompatible changes in v21.1](../releases/v21.1.html#v21-1-0-backward-incompatible-changes), and if any affect your application, make necessary changes.
 
 ## Step 5. Start the upgrade
 
@@ -123,4 +123,4 @@ Because your cluster contains a single node, the cluster will be briefly unavail
 ## See also
 
 - [Upgrade Policy](upgrade-policy.html)
-- [CockroachDB v21.1 Release Notes](../releases/v21.1.0.html)
+- [CockroachDB v21.1 Release Notes](../releases/v21.1.html)

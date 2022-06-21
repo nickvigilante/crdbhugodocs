@@ -11,9 +11,9 @@ This doc provides information about how to take and restore encrypted backups in
 - <span class="version-tag">New in v20.2:</span> [Using AWS Key Management Service (KMS)](#use-aws-key-management-service)
 - [Using a passphrase](#use-a-passphrase)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Encrypted [`BACKUP`](backup.html) is an [Enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. However, you can take [full backups](take-full-and-incremental-backups.html) without an Enterprise license.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Use AWS Key Management Service
 

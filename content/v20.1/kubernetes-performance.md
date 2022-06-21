@@ -105,7 +105,7 @@ standard (default)   kubernetes.io/gce-pd
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false" }}}'
+$ kubectl patch storageclass standard -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"false"}}}'
 ~~~
 
 ~~~
@@ -114,7 +114,7 @@ storageclass "standard" patched
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ kubectl patch storageclass ssd -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true" }}}'
+$ kubectl patch storageclass ssd -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 ~~~
 
 ~~~
@@ -213,7 +213,7 @@ Once you've picked out an amount of CPU and memory to reserve for Cockroach, you
 ~~~ yaml
       containers:
       - name: cockroachdb
-        image: {{ page.release_info.docker_image }}:{{ page.release_info.version }}
+        image: {{page.release_info.docker_image}}:{{page.release_info.version}}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 26257
@@ -227,7 +227,7 @@ To be:
 ~~~ yaml
       containers:
       - name: cockroachdb
-        image: {{ page.release_info.docker_image }}:{{ page.release_info.version }}
+        image: {{page.release_info.docker_image}}:{{page.release_info.version}}
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -251,7 +251,7 @@ Setting resource limits works about the same as setting resource requests. If yo
 ~~~ yaml
       containers:
       - name: cockroachdb
-        image: {{ page.release_info.docker_image }}:{{ page.release_info.version }}
+        image: {{page.release_info.docker_image}}:{{page.release_info.version}}
         imagePullPolicy: IfNotPresent
         resources:
           requests:
@@ -269,7 +269,7 @@ Setting resource limits works about the same as setting resource requests. If yo
 
 The pods would then be restricted to only use the resource they have reserved and guaranteed to not be preempted except in very exceptional circumstances. This typically will not give you better performance on an under-utilized Kubernetes cluster, but will give you more predictable performance as other workloads are run.
 
-{{site.data.alerts.callout_danger }}While setting memory limits is strongly recommended, <a href="https://github.com/kubernetes/kubernetes/issues/51135">setting CPU limits can hurt tail latencies as currently implemented by Kubernetes</a>. We recommend not setting CPU limits at all unless you have explicitly enabled the non-default <a href="https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy">Static CPU Management Policy</a> when setting up your Kubernetes cluster, and even then only setting integer (non-fractional) CPU limits and memory limits exactly equal to the corresponding requests.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}While setting memory limits is strongly recommended, <a href="https://github.com/kubernetes/kubernetes/issues/51135">setting CPU limits can hurt tail latencies as currently implemented by Kubernetes</a>. We recommend not setting CPU limits at all unless you have explicitly enabled the non-default <a href="https://kubernetes.io/docs/tasks/administer-cluster/cpu-management-policies/#static-policy">Static CPU Management Policy</a> when setting up your Kubernetes cluster, and even then only setting integer (non-fractional) CPU limits and memory limits exactly equal to the corresponding requests.{{site.data.alerts.end}}
 
 #### Default resource requests and limits
 
@@ -587,7 +587,7 @@ Kubernetes makes it easy to modify some, but not all, of an existing resource's 
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ kubectl patch statefulset cockroachdb --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"{{ page.release_info.docker_image }}:VERSION"}]
+    $ kubectl patch statefulset cockroachdb --type='json' -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"{{page.release_info.docker_image}}:VERSION"}]
     ~~~
 
 See [the Kubernetes documentation on in-place updates](https://kubernetes.io/docs/concepts/cluster-administration/manage-deployment/#in-place-updates-of-resources) or the `kubectl <command> --help` output for more information on these commands.

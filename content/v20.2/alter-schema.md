@@ -27,7 +27,7 @@ Parameter | Description
 
 ## Example
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Rename a schema
 

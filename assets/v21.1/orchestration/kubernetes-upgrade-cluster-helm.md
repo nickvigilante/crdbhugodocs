@@ -1,6 +1,6 @@
 1. Verify that you can upgrade.
 
-    To upgrade to a new major version, you must first be on a production release of the previous version. The release does not need to be the latest production release of the previous version, but it must be a [production release](../releases/index.html#production-releases) and not a [testing release](../releases/index.html#testing-releases) (alpha/beta).
+    To upgrade to a new major version, you must first be on a production release of the previous version. The release does not need to be the latest production release of the previous version, but it must be a production [release](../releases/index.html) and not a testing release (alpha/beta).
 
     Therefore, in order to upgrade to v21.1, you must be on a production release of v20.2.
 
@@ -17,15 +17,15 @@
         - Make sure all nodes are on the same version. If not all nodes are on the same version, upgrade them to the cluster's highest current version first, and then start this process over.
         - Make sure capacity and memory usage are reasonable for each node. Nodes must be able to tolerate some increase in case the new version uses more resources for your workload. Also go to **Metrics > Dashboard: Hardware** and make sure CPU percent is reasonable across the cluster. If there's not enough headroom on any of these metrics, consider [adding nodes](#add-nodes) to your cluster before beginning your upgrade.
 
-1. Review the [backward-incompatible changes in v21.1](../releases/v21.1.0.html#backward-incompatible-changes) and [deprecated features](../releases/v21.1.0.html#deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.1.
+1. Review the [backward-incompatible changes in v21.1](../releases/v21.1.html#v21-1-0-backward-incompatible-changes) and [deprecated features](../releases/v21.1.html#v21-1-0-deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.1.
 
 1. Decide how the upgrade will be finalized.
 
     By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain [features and performance improvements introduced in v21.1](upgrade-cockroach-version.html#features-that-require-upgrade-finalization). After finalization, however, it will no longer be possible to perform a downgrade to v20.2. In the event of a catastrophic failure or corruption, the only option is to start a new cluster using the old binary and then restore from a [backup](take-full-and-incremental-backups.html) created prior to the upgrade. For this reason, **we recommend disabling auto-finalization** so you can monitor the stability and performance of the upgraded cluster before finalizing the upgrade, but note that you will need to follow all of the subsequent directions, including the manual finalization in a later step.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Finalization only applies when performing a major version upgrade (for example, from v20.2.x to v21.1). Patch version upgrades (for example, within the v21.1.x series) can always be downgraded.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% if page.secure == true %}
 
@@ -82,9 +82,9 @@
 
 1. Kick off the upgrade process by changing the Docker image used in the CockroachDB StatefulSet:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For Helm, you must remove the cluster initialization job from when the cluster was created before the cluster version can be changed.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -96,7 +96,7 @@
     $ helm upgrade \
     my-release \
     cockroachdb/cockroachdb \
-    --set image.tag={{ page.release_info.version }} \
+    --set image.tag={{page.release_info.version}} \
     --reuse-values
     ~~~
 
@@ -116,9 +116,9 @@
     ...
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Ignore the pod for cluster initialization. It is re-created as a byproduct of the StatefulSet configuration but does not impact your existing cluster.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. After the pod has been restarted with the new image, start the CockroachDB [built-in SQL client](cockroach-sql.html):
 
@@ -190,9 +190,9 @@
     ~~~
 
     ~~~
-    my-release-cockroachdb-0    cockroachdb/cockroach:{{ page.release_info.version }}
-    my-release-cockroachdb-1    cockroachdb/cockroach:{{ page.release_info.version }}
-    my-release-cockroachdb-2    cockroachdb/cockroach:{{ page.release_info.version }}
+    my-release-cockroachdb-0    cockroachdb/cockroach:{{page.release_info.version}}
+    my-release-cockroachdb-1    cockroachdb/cockroach:{{page.release_info.version}}
+    my-release-cockroachdb-2    cockroachdb/cockroach:{{page.release_info.version}}
     ...
     ~~~
 
@@ -203,9 +203,9 @@
 
     If you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This is only possible when performing a major version upgrade (for example, from v20.2.x to v21.1). Patch version upgrades (for example, within the v21.1.x series) are auto-finalized.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     To finalize the upgrade, re-enable auto-finalization:
 

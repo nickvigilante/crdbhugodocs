@@ -17,7 +17,7 @@ We have tested the [Node.js pg driver](https://www.npmjs.com/package/pg) and the
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install Node.js packages
 
@@ -39,7 +39,7 @@ $ npm install async
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -62,7 +62,7 @@ Download the [`basic-sample.js`](https://raw.githubusercontent.com/cockroachdb/d
 
 {% include copy-clipboard.html %}
 ~~~ js
-{% include {{ page.version.version }}/app/basic-sample.js %}
+{% include {{< page-version >}}/app/basic-sample.js %}
 ~~~
 
 Then run the code:
@@ -90,7 +90,7 @@ Download the [`txn-sample.js`](https://raw.githubusercontent.com/cockroachdb/doc
 
 {% include copy-clipboard.html %}
 ~~~ js
-{% include {{ page.version.version }}/app/txn-sample.js %}
+{% include {{< page-version >}}/app/txn-sample.js %}
 ~~~
 
 Then run the code:
@@ -138,7 +138,7 @@ To check the account balances, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Node.js code
 
@@ -152,7 +152,7 @@ Download the [`basic-sample.js`](https://raw.githubusercontent.com/cockroachdb/d
 
 {% include copy-clipboard.html %}
 ~~~ js
-{% include {{ page.version.version }}/app/insecure/basic-sample.js %}
+{% include {{< page-version >}}/app/insecure/basic-sample.js %}
 ~~~
 
 Then run the code:
@@ -180,7 +180,7 @@ Download the [`txn-sample.js`](https://raw.githubusercontent.com/cockroachdb/doc
 
 {% include copy-clipboard.html %}
 ~~~ js
-{% include {{ page.version.version }}/app/insecure/txn-sample.js %}
+{% include {{< page-version >}}/app/insecure/txn-sample.js %}
 ~~~
 
 Then run the code:
@@ -228,4 +228,4 @@ To check the account balances, issue the following statement:
 
 Read more about using the [Node.js pg driver](https://www.npmjs.com/package/pg).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

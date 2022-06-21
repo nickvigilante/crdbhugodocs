@@ -16,9 +16,9 @@ The `DEFAULT` value [constraint](constraints.html) specifies a value to write in
 
 You can only apply the `DEFAULT` value constraint to individual columns.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also add the `DEFAULT` value constraint to an existing table through [`ALTER COLUMN`](alter-column.html#set-or-change-a-default-value).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div>{% include {{ page.version.version }}/sql/diagrams/default_value_column_level.html %}</div>
 

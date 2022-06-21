@@ -19,9 +19,9 @@ Partial indexes can improve cluster performance in a number of ways:
 - Read queries on rows included in a partial index only scan the rows in the partial index. This contrasts with queries on columns in full indexes, which must scan all rows in the indexed column.
 - Write queries on tables with a partial index only perform an index write when the rows inserted satisfy the partial index predicate. This contrasts with write queries on tables with full indexes, which incur the overhead of a full index write when the rows inserted modify an indexed column.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When a query on a table with a partial index has a filter expression, the [cost-based optimizer](cost-based-optimizer.html) attempts to prove that the filter implies the partial index predicate. It is not guaranteed that the optimizer can prove the implication of arbitrarily complex expressions. Although unlikely, it is possible that a filter implies a predicate, but the optimizer cannot prove the implication.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Creation
 
@@ -75,7 +75,7 @@ For another example, see [Create a partial index that enforces uniqueness on a s
 
 {{site.data.alerts.callout_success}}
 When [inserted values](insert.html) conflict with a `UNIQUE` constraint on one or more columns, CockroachDB normally returns an error. We recommend adding an [`ON CONFLICT`](insert.html#on-conflict-clause) clause to all `INSERT` statements that might conflict with rows in the unique index.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Index hints
 

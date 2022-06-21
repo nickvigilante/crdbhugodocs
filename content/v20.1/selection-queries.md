@@ -37,7 +37,7 @@ Parameter | Description
 
 The optional `LIMIT` and `OFFSET` clauses can appear in any order, but must appear after `ORDER BY`, if also present.
 
-{{site.data.alerts.callout_info }}Because the <code>WITH</code>, <code>ORDER BY</code>, <code>LIMIT</code> and <code>OFFSET</code> sub-clauses are all optional, any simple <a href="#selection-clauses">selection clause</a> is also a valid selection query.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Because the <code>WITH</code>, <code>ORDER BY</code>, <code>LIMIT</code> and <code>OFFSET</code> sub-clauses are all optional, any simple <a href="#selection-clauses">selection clause</a> is also a valid selection query.{{site.data.alerts.end}}
 
 ## Selection clauses
 
@@ -51,7 +51,7 @@ Form | Usage
 [`TABLE`](#table-clause) | Load tabular data from the database.
 [Set Operations](#set-operations) | Combine tabular data from two or more selection clauses.
 
-{{site.data.alerts.callout_info }}To perform joins or other relational operations over selection clauses, use a <a href="table-expressions.html">table expression</a> and <a href="#composability">convert it back</a> into a selection clause with <a href="#table-clause"><code>TABLE</code></a> or <a href="#select-clause"><code>SELECT</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}To perform joins or other relational operations over selection clauses, use a <a href="table-expressions.html">table expression</a> and <a href="#composability">convert it back</a> into a selection clause with <a href="#table-clause"><code>TABLE</code></a> or <a href="#select-clause"><code>SELECT</code></a>.{{site.data.alerts.end}}
 
 ### Synopsis
 
@@ -107,7 +107,7 @@ table.
 In general, `TABLE x` is equivalent to `SELECT * FROM x`, but it is
 shorter to type.
 
-{{site.data.alerts.callout_info }}Any <a href="table-expressions.html">table expression</a> between parentheses is a valid operand for <code>TABLE</code>, not just <a href="table-expressions.html#table-or-view-names">simple table or view names</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Any <a href="table-expressions.html">table expression</a> between parentheses is a valid operand for <code>TABLE</code>, not just <a href="table-expressions.html#table-or-view-names">simple table or view names</a>.{{site.data.alerts.end}}
 
 #### Example
 
@@ -356,9 +356,9 @@ SELECT * FROM t AS OF SYSTEM TIME ${time}
 
 This is faster than using `LIMIT`/`OFFSET` because, instead of doing a full table scan up to the value of the `OFFSET`, a keyset pagination query looks at a fixed-size set of records for each iteration. This can be done quickly provided that the key used in the `WHERE` clause to implement the pagination is [indexed](indexes.html#best-practices) and [unique](unique.html). A [primary key](primary-key.html) meets both of these criteria.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB does not have cursors. To support a cursor-like use case, namely "operate on a snapshot of the database at the moment the cursor is opened", use the [`AS OF SYSTEM TIME`](as-of-system-time.html) clause as shown in the examples below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Pagination example
 
@@ -393,11 +393,11 @@ Time: 1.31ms
 
 {{site.data.alerts.callout_success}}
 When writing your own queries of this type, use a known minimum value for the key's data type. If you do not know what the minimum value of the key is, you can use `SELECT min(key) FROM table`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 We use [`AS OF SYSTEM TIME`](as-of-system-time.html) in these examples to ensure that we are operating on a consistent snapshot of the database as of the specified timestamp. This reduces the chance that there will be any concurrent updates to the data the query is accessing, and thus no missing or duplicated rows during the pagination. It also reduces the risk of [transaction retries](transactions.html#client-side-intervention) due to concurrent data access. The value of `-1m` passed to `AS OF SYSTEM TIME` may need to be updated depending on your application's data access patterns.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To get the second page of results, run:
 
@@ -501,13 +501,13 @@ EXPLAIN SELECT * FROM employees WHERE emp_no > 300025 ORDER BY emp_no LIMIT 25;
 (6 rows)
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Using a sequential (i.e., non-[UUID](uuid.html)) primary key creates hot spots in the database for write-heavy workloads, since concurrent [`INSERT`](insert.html)s to the table will attempt to write to the same (or nearby) underlying [ranges](architecture/overview.html#architecture-range). This can be mitigated by designing your schema with [multi-column primary keys which include a monotonically increasing column](performance-best-practices-overview.html#use-multi-column-primary-keys).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Row-level locking for concurrency control with `SELECT FOR UPDATE`
 
-{% include {{ page.version.version }}/sql/select-for-update-overview.md %}
+{% include {{< page-version >}}/sql/select-for-update-overview.md %}
 
 For an example showing how to use it, see  [`SELECT FOR UPDATE`](select-for-update.html).
 

@@ -9,11 +9,11 @@ Once you [create a table](create-table.html) and load data into it (e.g., [`INSE
 
 <span class="version-tag">New in v20.2:</span> For compatibility with PostgreSQL, CockroachDB supports the `ANALYZE`/`ANALYSE` statement as an alias for `CREATE STATISTICS`. For syntax, [see below](#aliases).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [By default, CockroachDB automatically generates statistics](cost-based-optimizer.html#table-statistics) on all indexed columns, and up to 100 non-indexed columns. As a result, most users do not need to issue `CREATE STATISTICS` statements directly.
 
 <span class="version-tag">New in v20.2:</span> CockroachDB also automatically collects [multi-column statistics](#create-statistics-on-multiple-columns) on columns that prefix each index.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
@@ -52,7 +52,7 @@ Parameter | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Create statistics on a single column
 

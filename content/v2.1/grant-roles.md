@@ -6,7 +6,7 @@ toc: true
 
 The `GRANT <roles>` [statement](sql-statements.html) lets you add a [role](authorization.html#create-and-manage-roles) or [user](create-and-manage-users.html) as a member to a role.
 
-{{site.data.alerts.callout_info }}<code>GRANT &lt;roles&gt;</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<code>GRANT &lt;roles&gt;</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end}}
 
 
 ## Synopsis

@@ -1,8 +1,8 @@
 By using the explicit index annotation, you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) when reading from a named table.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Index selection can impact [performance](performance-best-practices-overview.html), but does not change the result of a query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The syntax to force a scan of a specific index is:
 

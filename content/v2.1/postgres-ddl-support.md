@@ -7,9 +7,9 @@ toc_not_nested: true
 
 This page lists Postgres DDL statements and describes the level of support for each statement in CockroachDB. In some cases where features are not implemented, workarounds are suggested. Where relevant, CockroachDB extensions are listed.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The Postgres reference syntax used in this document was taken from [the Postgres 10 docs](https://www.postgresql.org/docs/10/). Any features specific to Postgres 11 are not covered here.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Tablespace-level DDL
 
@@ -30,9 +30,9 @@ Instead, CockroachDB nodes should be [started with the `--store` parameter](star
 
 ## Database-level DDL
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Postgres uses the terms "database" and "catalog" interchangeably.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `CREATE DATABASE`
 
@@ -126,9 +126,9 @@ For more information, see [`DROP DATABASE`](drop-database.html).
 
 ## Schema-level DDL
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, CockroachDB supports a single pre-defined schema called `public`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `CREATE SCHEMA`
 
@@ -197,9 +197,9 @@ Most options are supported. For details, see the table below.
 
 For more information, see [`CREATE SEQUENCE`](create-sequence.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Sequences are **not** the preferred way to create row IDs in CockroachDB. For best performance, use [UUIDs](uuid.html). For more information, see [How do I generate unique, slowly increasing sequential numbers in CockroachDB?](sql-faqs.html#how-do-i-generate-unique-slowly-increasing-sequential-numbers-in-cockroachdb)
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 | Qualifier                    | Supported? | Notes                                                                                                                                              |
 |------------------------------+------------+----------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -270,9 +270,9 @@ DROP SEQUENCE [ IF EXISTS ] name [, ...] [ CASCADE | RESTRICT ]
 
 Supported in CockroachDB. For more information, see [`DROP SEQUENCE`](drop-sequence.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Note that because `OWNED BY` and sequence dependencies are not tracked properly in CockroachDB, the effects of `CASCADE`/`RESTRICT` are different (incomplete) in CockroachDB when compared to Postgres. For more information, see [#20965](https://github.com/cockroachdb/cockroach/issues/20965).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## View DDL
 
@@ -327,7 +327,7 @@ Not supported. For more information, see [#24747](https://github.com/cockroachdb
 
 {{site.data.alerts.callout_success}}
 Consider using [computed columns](computed-columns.html) instead, which are materialized in CockroachDB.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `ALTER VIEW`
 
@@ -649,7 +649,7 @@ Some options are supported, with the restrictions described below. For more info
 
 {{site.data.alerts.callout_success}}
 The information in this section applies to [`ALTER TABLE`](alter-table.html) statement forms that [change the schema](online-schema-changes.html) of a table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 From the [Postgres `ALTER TABLE` documentation][pg_alter_table]:
 

@@ -16,7 +16,7 @@ This tutorial shows you how to build a simple [Spring Boot](https://spring.io/pr
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install JDK
 
@@ -245,7 +245,7 @@ For more details about the application code, see [Application details](#applicat
 
 ## Application details
 
-This section walks you through the different components of the application project in detail.
+This section guides you through the different components of the application project in detail.
 
 ### Main process
 

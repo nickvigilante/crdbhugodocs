@@ -6,7 +6,7 @@ Locally, you'll need to [create the following certificates and keys](cockroach-c
 - A node key pair for each node, issued to its IP addresses and any common names the machine uses, as well as to the IP addresses and common names for machines running load balancers.
 - A client key pair for the `root` user. You'll use this to run a sample workload against the cluster as well as some `cockroach` client commands from your local machine.
 
-{{site.data.alerts.callout_success}}Before beginning, it's useful to collect each of your machine's internal and external IP addresses, as well as any server names you want to issue certificates for.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}Before beginning, it's useful to collect each of your machine's internal and external IP addresses, as well as any server names you want to issue certificates for.{{site.data.alerts.end}}
 
 1. [Install CockroachDB](install-cockroachdb.html) on your local machine, if you haven't already.
 
@@ -61,9 +61,9 @@ Locally, you'll need to [create the following certificates and keys](cockroach-c
     --command "mkdir certs"
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `gcloud compute ssh` associates your public SSH key with the GCP project and is only needed when connecting to the first node. See the [GCP docs](https://cloud.google.com/sdk/gcloud/reference/compute/ssh) for more details.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -114,9 +114,9 @@ Locally, you'll need to [create the following certificates and keys](cockroach-c
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This is necessary because the certificates and keys for additional nodes will also be named `node.crt` and `node.key`. As an alternative to deleting these files, you can run the next `cockroach cert create-node` commands with the `--overwrite` flag.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 7. Create the certificate and key for the second node, issued to all common names you might use to refer to the node as well as to the load balancer instances:
 
@@ -196,6 +196,6 @@ Locally, you'll need to [create the following certificates and keys](cockroach-c
 
     In later steps, you'll also use the `root` user's certificate to run [`cockroach`](cockroach-commands.html) client commands from your local machine. If you might also want to run `cockroach` client commands directly on a node (e.g., for local debugging), you'll need to copy the `root` user's certificate and key to that node as well.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On accessing the DB Console in a later step, your browser will consider the CockroachDB-created certificate invalid and you’ll need to click through a warning message to get to the UI. You can avoid this issue by [using a certificate issued by a public CA](create-security-certificates-custom-ca.html#accessing-the-db-console-for-a-secure-cluster).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

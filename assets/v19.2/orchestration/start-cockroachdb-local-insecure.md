@@ -80,4 +80,4 @@
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

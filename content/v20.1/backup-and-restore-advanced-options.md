@@ -16,9 +16,9 @@ This doc provides information about the advanced options you can use when you [b
 - [Remove the foreign key before restore](#remove-the-foreign-key-before-restore)
 - [Restoring users from `system.users` backup](#restoring-users-from-system-users-backup)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The advanced options covered in this doc are included in [`BACKUP`](backup.html), which is an [enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. For non-enterprise backups, see [`cockroach dump`](cockroach-dump.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Incremental backups with explicitly specified destinations
 
@@ -88,9 +88,9 @@ This is useful for:
 
 A locality-aware backup is specified by a list of URIs, each of which has a `COCKROACH_LOCALITY` URL parameter whose single value is either `default` or a single locality key-value pair such as `region=us-east`. At least one `COCKROACH_LOCALITY` must be the `default`. Given a list of URIs that together contain the locations of all of the files for a single locality-aware backup, [`RESTORE` can read in that backup](#restore-from-a-locality-aware-backup).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The locality query string parameters must be [URL-encoded](https://en.wikipedia.org/wiki/Percent-encoding).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 During locality-aware backups, backup file placement is determined by leaseholder placement, as each node is responsible for backing up the ranges for which it is the leaseholder.  Nodes write files to the backup storage location whose locality matches their own node localities, with a preference for more specific values in the locality hierarchy.  If there is no match, the `default` locality is used.
 
@@ -135,9 +135,9 @@ When restoring a [full backup](backup-and-restore.html#full-backups), the cluste
 And the restored cluster does not have [nodes with the locality](partitioning.html#node-attributes) `region=us-west1`, the restored cluster will still have a zone configuration for `us-west1`. This means that the cluster's data will _not_ be reshuffled to `us-west1` because the region does not exist. The data will be distributed as if the zone configuration does not exist. For the data to be distributed correctly, you can [add node(s)](cockroach-start.html) with the missing region or [remove the zone configuration](configure-zone.html#remove-a-replication-zone).
 
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [`RESTORE`][restore] is not truly locality-aware; while restoring from backups, a node may read from a store that does not match its locality. This can happen in the cases that either the [`BACKUP`][backup] or [`RESTORE`][restore] was not full cluster. Note that during a locality-aware restore, some data may be temporarily located on another node before it is eventually relocated to the appropriate node. To avoid this, you can [manually restore zone configurations from a locality-aware backup](#manually-restore-zone-configurations-from-a-locality-aware-backup).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Create an incremental locality-aware backup
 
@@ -149,9 +149,9 @@ To create an incremental locality-aware backup from a full locality-aware backup
 	  ('s3://us-east-bucket?COCKROACH_LOCALITY=default', 's3://us-west-bucket?COCKROACH_LOCALITY=region%3Dus-west');
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 It is recommend that the same localities be included for every incremental backup in the series of backups; however, only the `default` locality is required. When [restoring from an incremental locality-aware backup](#restore-from-an-incremental-locality-aware-backup), you need to include _every_ locality ever used, even if it was only used once.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 And if you want to explicitly control where your incremental backups go, use the `INCREMENTAL FROM` syntax:
 
@@ -169,9 +169,9 @@ For example, to create an incremental locality-aware backup from a previous full
 INCREMENTAL FROM 's3://us-east-bucket/test-cluster-2019-10-07-weekly';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that only the backup URIs you set as the `default` when you created the previous backup(s) are needed in the `INCREMENTAL FROM` clause of your incremental `BACKUP` statement (as shown in the example). This is because the `default` destination for a locality-aware backup contains a manifest file that contains all the metadata required to create additional incremental backups based on it.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Restore from an incremental locality-aware backup
 
@@ -196,9 +196,9 @@ can be restored by running:
 	  ('s3://us-east-bucket/database-bank-2019-10-08-nightly', 's3://us-west-bucket/database-bank-2019-10-08-nightly');
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When restoring from an incremental locality-aware backup, you need to include _every_ locality ever used, even if it was only used once.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Create an incremental locality-aware backup from a previous locality-aware backup
 
@@ -233,9 +233,9 @@ Given the above, to take the incremental locality-aware backup scheduled for tod
   	's3://us-east-bucket/test-cluster-2019-10-09-nightly';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that only the backup URIs you set as the `default` when you created the previous backup(s) are needed in the `INCREMENTAL FROM` clause of your incremental `BACKUP` statement (as shown in the example). This is because the `default` destination for a locality-aware backup contains a manifest file that contains all the metadata required to create additional incremental backups based on it.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Manually restore zone configurations from a locality-aware backup
 

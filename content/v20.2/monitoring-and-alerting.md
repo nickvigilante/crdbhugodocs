@@ -16,9 +16,9 @@ The [DB Console](ui-overview.html) displays essential metrics about a cluster's 
 
 The DB Console is accessible from every node at `http://<host>:<http-port>`, or `http://<host>:8080` by default. For more information on accessing the DB Console, see [DB Console access](ui-overview.html#db-console-access).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Because the DB Console is built into CockroachDB, if a cluster becomes unavailable, most of the DB Console becomes unavailable as well. Therefore, it's essential to plan additional methods of monitoring cluster health as described below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Prometheus endpoint
 
@@ -47,7 +47,7 @@ replicas_quiescent{store="1"} 20
 ...
 ~~~
 
-{{site.data.alerts.callout_info }}In addition to using the exported timeseries data to monitor a cluster via an external system, you can write alerting rules against them to make sure you are promptly notified of critical events or issues that may require intervention or investigation. See <a href="#events-to-alert-on">Events to Alert On</a> for more details.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}In addition to using the exported timeseries data to monitor a cluster via an external system, you can write alerting rules against them to make sure you are promptly notified of critical events or issues that may require intervention or investigation. See <a href="#events-to-alert-on">Events to Alert On</a> for more details.{{site.data.alerts.end}}
 
 ### Health endpoints
 
@@ -84,7 +84,7 @@ The `http://<node-host>:<http-port>/health?ready=1` endpoint returns an HTTP `50
 
     {{site.data.alerts.callout_success}}
     If you find that your load balancer's health check is not always recognizing a node as unready before the node shuts down, you can increase the `server.shutdown.drain_wait` [cluster setting](cluster-settings.html) to cause a node to return `503 Service Unavailable` even before it has started shutting down.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     Prior to v20.1, [decommissioning](remove-nodes.html#how-it-works) nodes would erroneously be considered unready and return `503 Service Unavailable`. This is no longer the case. Although decommissioned nodes no longer store replicas, they can still function as gateways to route SQL connections to relevant data until they are shut down. 
 
@@ -129,7 +129,7 @@ The [`cockroach node status`](cockroach-node.html) command gives you metrics abo
 
 Active monitoring helps you spot problems early, but it is also essential to create alerting rules that promptly send notifications when there are events that require investigation or intervention. This section identifies the most important events to create alerting rules for, with the [Prometheus Endpoint](#prometheus-endpoint) metrics to use for detecting the events.
 
-{{site.data.alerts.callout_success}}If you use Prometheus for monitoring, you can also use our pre-defined <a href="https://github.com/cockroachdb/cockroach/blob/master/monitoring/rules/alerts.rules.yml">alerting rules</a> with Alertmanager. See <a href="monitor-cockroachdb-with-prometheus.html">Monitor CockroachDB with Prometheus</a> for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}If you use Prometheus for monitoring, you can also use our pre-defined <a href="https://github.com/cockroachdb/cockroach/blob/master/monitoring/rules/alerts.rules.yml">alerting rules</a> with Alertmanager. See <a href="monitor-cockroachdb-with-prometheus.html">Monitor CockroachDB with Prometheus</a> for guidance.{{site.data.alerts.end}}
 
 ### Node is down
 

@@ -4,9 +4,9 @@ summary: The Statements page helps you identify frequently executed or high late
 toc: true
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The **Statements** page helps you:
 
@@ -32,7 +32,7 @@ Use this page to identify SQL statements that you may want to [troubleshoot](que
 
 {{site.data.alerts.callout_success}}
 If you haven't yet executed any queries in the cluster as a user, this page will initially be blank.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Columns | Description
 -----|------------
@@ -122,7 +122,7 @@ When you activate diagnostics for a fingerprint, CockroachDB waits for the next 
 
 {{site.data.alerts.callout_success}}
 Diagnostics will be collected a maximum of *N* times for a given activated fingerprint where *N* is the number of nodes in your cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/sql/statement-bundle-warning.md %}
 
@@ -144,7 +144,7 @@ The **Logical Plan** section displays CockroachDB's query plan for an [explainab
 
 By default, the logical plan for each fingerprint is sampled every 5 minutes. You can change the interval with the [`sql.metrics.statement_details.plan_collection.period`](cluster-settings.html#settings) cluster setting. For example, to change the interval to 2 minutes, run the following [`SET CLUSTER SETTING`](set-cluster-setting.html) command:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING sql.metrics.statement_details.plan_collection.period  = '2m0s';
 ~~~
@@ -155,11 +155,11 @@ By default, the logical plan for each fingerprint is sampled every 5 minutes. Yo
 
 {{site.data.alerts.callout_success}}
 "Overhead" comprises the statements that remain after subtracting parse, plan, and run latencies from the overall latency. These might include fetching table descriptors that were not cached, or other background tasks required to execute the query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Service latency can be affected by network latency, which is displayed for your cluster on the [Network Latency](ui-network-latency-page.html) page.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 **Other Execution Statistics** displays the following statistics.
 

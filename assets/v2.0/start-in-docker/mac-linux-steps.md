@@ -23,7 +23,7 @@ $ docker run -d \
 --net=roachnet \
 -p 26257:26257 -p 8080:8080  \
 -v "${PWD}/cockroach-data/roach1:/cockroach/cockroach-data"  \
-{{ page.release_info.docker_image }}:{{ page.release_info.version }} start --insecure
+{{page.release_info.docker_image}}:{{page.release_info.version}} start --insecure
 ~~~
 
 This command creates a container and starts the first CockroachDB node inside it. Let's look at each part:
@@ -35,7 +35,7 @@ This command creates a container and starts the first CockroachDB node inside it
 - `--net`: The bridge network for the container to join. See step 1 for more details.
 - `-p 26257:26257 -p 8080:8080`: These flags map the default port for inter-node and client-node communication (`26257`) and the default port for HTTP requests to the Admin UI (`8080`) from the container to the host. This enables inter-container communication and makes it possible to call up the Admin UI from a browser.
 - `-v "${PWD}/cockroach-data/roach1:/cockroach/cockroach-data"`: This flag mounts a host directory as a data volume. This means that data and logs for this node will be stored in `${PWD}/cockroach-data/roach1` on the host and will persist after the container is stopped or deleted. For more details, see Docker's <a href="https://docs.docker.com/engine/admin/volumes/bind-mounts/">Bind Mounts</a> topic.
-- `{{ page.release_info.docker_image }}:{{ page.release_info.version }} start --insecure`: The CockroachDB command to [start a node](start-a-node.html) in the container in insecure mode.
+- `{{page.release_info.docker_image}}:{{page.release_info.version}} start --insecure`: The CockroachDB command to [start a node](start-a-node.html) in the container in insecure mode.
 
 ## Step 3. Add nodes to the cluster
 
@@ -50,7 +50,7 @@ $ docker run -d \
 --hostname=roach2 \
 --net=roachnet \
 -v "${PWD}/cockroach-data/roach2:/cockroach/cockroach-data" \
-{{ page.release_info.docker_image }}:{{ page.release_info.version }} start --insecure --join=roach1
+{{page.release_info.docker_image}}:{{page.release_info.version}} start --insecure --join=roach1
 ~~~
 
 {% include copy-clipboard.html %}
@@ -60,7 +60,7 @@ $ docker run -d \
 --hostname=roach3 \
 --net=roachnet \
 -v "${PWD}/cockroach-data/roach3:/cockroach/cockroach-data" \
-{{ page.release_info.docker_image }}:{{ page.release_info.version }} start --insecure --join=roach1
+{{page.release_info.docker_image}}:{{page.release_info.version}} start --insecure --join=roach1
 ~~~
 
 These commands add two more containers and start CockroachDB nodes inside them, joining them to the first node. There are only a few differences to note from step 2:

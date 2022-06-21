@@ -45,13 +45,13 @@ The table below offers another view of how the configuration options described a
 | `GLOBAL`                                                            | Low-latency multi-region reads. Writes are higher latency than reads.                                                                  | Low-latency multi-region reads.  Writes are higher latency than reads. There should be minimal difference in write latencies between ZONE and REGION survival due to a new custom non-blocking transaction protocol. |
 |                                                                     | For multi-region apps that need low-latency reads of a "read-mostly" table.                                                            | For multi-region apps that need low-latency reads of a "read-mostly" table, and the ability to survive region failures.                                                                                              |
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Different databases and tables within the same cluster can each use different combinations of the settings above.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
-{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
-{{site.data.alerts.end }}
+{% include {{< page-version >}}/misc/multiregion-max-offset.md %}
+{{site.data.alerts.end}}
 
 ## See also
 

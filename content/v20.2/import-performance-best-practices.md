@@ -11,9 +11,9 @@ Import speed primarily depends on the amount of data the you want to import. How
 - [Splitting data](#split-your-data-into-multiple-files)
 - [Import format](#choose-a-performant-import-format)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If the import size is small, then you do not need to do anything to optimize performance. In this case, the import should run quickly, regardless of the settings.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Split your data into multiple files
 
@@ -43,9 +43,9 @@ CSV DATA (
 
 CockroachDB imports the files that you give it, and does not further split them. For example, if you import one large file for all of your data, CockroachDB will process that file on one node– even if you have more nodes available. However, if you import two files (and your cluster has at least two nodes), each node will process a file in parallel. This is why splitting your data into as many files as you have nodes will dramatically decrease the time it takes to import data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you split the data into _more_ files than you have nodes, it will not have a large impact on performance.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Choose a performant import format
 
@@ -92,7 +92,7 @@ CSV DATA (
 
 {{site.data.alerts.callout_success}}
 If you need to import multiple tables, you can start multiple [`IMPORT`](import.html) jobs to import tables in parallel from the same import file.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import the schema separately from the data
 

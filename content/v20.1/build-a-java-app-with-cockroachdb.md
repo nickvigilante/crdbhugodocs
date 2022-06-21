@@ -14,15 +14,15 @@ twitter: false
 
 This tutorial shows you how to build a simple Java application with CockroachDB and the Java JDBC driver.
 
-{% include {{ page.version.version }}/app/java-version-note.md %}
+{% include {{< page-version >}}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JDBC and CockroachDB, see [Build a Spring App with CockroachDB and JDBC](build-a-spring-app-with-cockroachdb-jdbc.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the Java JDBC driver
 
@@ -32,7 +32,7 @@ Download and set up the Java JDBC driver as described in the [official documenta
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -84,7 +84,7 @@ The contents of [`BasicExample.java`](https://raw.githubusercontent.com/cockroac
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/BasicExample.java %}
+{% include {{< page-version >}}/app/BasicExample.java %}
 ~~~
 
 </section>
@@ -93,7 +93,7 @@ The contents of [`BasicExample.java`](https://raw.githubusercontent.com/cockroac
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -132,7 +132,7 @@ The contents of [`BasicExample.java`](https://raw.githubusercontent.com/cockroac
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/insecure/BasicExample.java %}
+{% include {{< page-version >}}/app/insecure/BasicExample.java %}
 ~~~
 
 </section>
@@ -270,4 +270,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Java JDBC driver](https://jdbc.postgresql.org/).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

@@ -9,7 +9,7 @@ This page provides best-practice guidance on creating indexes, with a simple exa
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `CREATE INDEX` statement, including additional examples, see the [`CREATE INDEX` syntax page](create-index.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -61,11 +61,11 @@ To add a secondary index to a table, do one of the following, following the [bes
 
 For an example, see [below](#example).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you do not specify a name for an index, CockroachDB will generate a name.
 
 After creation, the notation for referring to indexes in CockroachDB is `{table_name}@{index_name}`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Best practices
 
@@ -95,9 +95,9 @@ Here are some best practices for creating indexes:
 
 - Do not create indexes as the `root` user. Instead, create indexes as a [different user](schema-design-overview.html#controlling-access-to-objects), with fewer privileges, following [authorization best practices](authorization.html#authorization-best-practices). This will likely be the same user that created the table to which the index belongs.
 
-- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {% include {{< page-version >}}/sql/dev-schema-changes.md %}
 
-- {% include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
+- {% include {{< page-version >}}/sql/dev-schema-change-limits.md %}
 
 ### Example
 

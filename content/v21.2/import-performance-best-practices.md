@@ -7,14 +7,14 @@ docs_area: migrate
 
 This page provides best practices for optimizing [import](import.html) performance in CockroachDB.
 
-Import speed primarily depends on the amount of data the you want to import. However, there are two main factors that have can have a large impact on the amount of time it will take to run an import:
+Import speed primarily depends on the amount of data that you want to import. However, there are two main factors that have can have a large impact on the amount of time it will take to run an import:
 
 - [Splitting data](#split-your-data-into-multiple-files)
 - [Import format](#choose-a-performant-import-format)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If the import size is small, then you do not need to do anything to optimize performance. In this case, the import should run quickly, regardless of the settings.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Split your data into multiple files
 
@@ -28,7 +28,7 @@ For these formats, we recommend splitting your data into as many files as there 
 
 For example, if you have a 3-node cluster, split your data into 3 files and [import](import.html):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE customers (
         id UUID PRIMARY KEY,
@@ -44,9 +44,9 @@ CSV DATA (
 
 CockroachDB imports the files that you give it, and does not further split them. For example, if you import one large file for all of your data, CockroachDB will process that file on one node– even if you have more nodes available. However, if you import two files (and your cluster has at least two nodes), each node will process a file in parallel. This is why splitting your data into as many files as you have nodes will dramatically decrease the time it takes to import data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you split the data into _more_ files than you have nodes, it will not have a large impact on performance.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Choose a performant import format
 
@@ -72,7 +72,7 @@ However, `MYSQLDUMP` and `PGDUMP` run a single thread to parse their data, and t
 
 When importing bundled data formats, it is often faster to provide schema for the imported table in-line. For example, instead of importing both the table schema and data from the same file:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE employees
 FROM PGDUMP
@@ -82,7 +82,7 @@ FROM PGDUMP
 
 You can dump the table data into a CSV file and provide the table schema in the statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > IMPORT TABLE employees (
         id UUID PRIMARY KEY,
@@ -95,7 +95,7 @@ CSV DATA (
 
 {{site.data.alerts.callout_success}}
 If you need to import multiple tables, you can start multiple [`IMPORT`](import.html) jobs to import tables in parallel from the same import file.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import the schema separately from the data
 
@@ -139,7 +139,7 @@ However, in **large** imports, it may be preferable to remove the secondary inde
 - [`IMPORT`](import.html)
 - [Migration Overview](migration-overview.html)
 - [Migrate from Oracle](migrate-from-oracle.html)
-- [Migrate from Postgres](migrate-from-postgres.html)
+- [Migrate from PostgreSQL](migrate-from-postgres.html)
 - [Migrate from MySQL](migrate-from-mysql.html)
 - [Migrate from CSV](migrate-from-csv.html)
 - [Migrate from Avro](migrate-from-avro.html)

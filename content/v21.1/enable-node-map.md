@@ -10,11 +10,11 @@ The **Node Map** is useful for:
 - Viewing real-time cluster metrics.
 - Drilling down to individual nodes for monitoring health and performance.
 
-This page walks you through the process of setting up and enabling the Node Map.
+This page guides you through the process of setting up and enabling the Node Map.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include enterprise-feature.md %}
 
@@ -24,9 +24,9 @@ On a secure cluster, this area of the DB Console can only be accessed by an `adm
 
 To enable the Node Map, you need to start the cluster with the correct [`--locality`](cockroach-start.html#locality) flags and assign the latitude and longitude for each locality.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The Node Map will not be displayed until *all* nodes are started with the correct `--locality` flags and all localities are assigned the corresponding latitude and longitude.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Consider a four-node geo-distributed cluster with the following configuration:
 
@@ -43,7 +43,7 @@ To start a new cluster with the correct `--locality` flags:
 
 Start Node 1:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -56,7 +56,7 @@ $ cockroach start \
 
 Start Node 2:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -69,7 +69,7 @@ $ cockroach start \
 
 Start Node 3:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -82,7 +82,7 @@ $ cockroach start \
 
 Start Node 4:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~
 $ cockroach start \
 --insecure \
@@ -95,7 +95,7 @@ $ cockroach start \
 
 Use the [`cockroach init`](cockroach-init.html) command to perform a one-time initialization of the cluster:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach init --insecure --host=<address of any node>
 ~~~
@@ -110,22 +110,22 @@ After [setting the Enterprise license](enterprise-licensing.html), the Node Map 
 
 <img src="{{ 'images/v21.1/ui-node-map-after-license.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To be displayed on the world map, localities must be assigned a corresponding latitude and longitude.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 3. Set the latitudes and longitudes for the localities
 
 Launch the built-in SQL client:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --insecure --host=<address of any node>
 ~~~
 
 Insert the approximate latitude and longitude of each region into the `system.locations` table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO system.locations VALUES
   ('region', 'us-east-1', 37.478397, -76.453077),

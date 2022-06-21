@@ -8,9 +8,9 @@ toc: true
 
 In CockroachDB, you can use **replication zones** to control the number and location of replicas for specific sets of data, both when replicas are first added and when they are rebalanced to maintain cluster equilibrium.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Adding replication zones for secondary indexes and partitions is an [Enterprise-only](enterprise-licensing.html) feature.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -53,7 +53,7 @@ If the target is a [`system` range](#create-a-replication-zone-for-a-system-rang
  Parameter | Description
 -----------+-------------
 `range_name` | The name of the system [range](architecture/overview.html#glossary) whose [replication zone configurations](configure-replication-zones.html) you want to change.
-`database_name` | The name of the [database](create-database.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.<br><span class="version-tag">New in v21.1:</span> If you directly change a database's zone configuration with `ALTER DATABASE ... CONFIGURE ZONE`, CockroachDB will block all [`ALTER DATABASE ... SET PRIMARY REGION`](set-primary-region.html) statements on the database.
+`database_name` | The name of the [database](create-database.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.<br>{% include_cached new-in.html version="v21.1" %} If you directly change a database's zone configuration with `ALTER DATABASE ... CONFIGURE ZONE`, CockroachDB will block all [`ALTER DATABASE ... SET PRIMARY REGION`](set-primary-region.html) statements on the database.
 `table_name` | The name of the [table](create-table.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.
 `partition_name` | The name of the [partition](partitioning.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.
 `index_name` | The name of the [index](indexes.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.
@@ -75,7 +75,7 @@ If the target is a [`system` range](#create-a-replication-zone-for-a-system-rang
 
 ### Edit a replication zone
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 4;
 ~~~

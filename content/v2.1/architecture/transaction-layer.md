@@ -6,9 +6,9 @@ toc: true
 
 The transaction layer of CockroachDB's architecture implements support for ACID transactions by coordinating concurrent operations.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 

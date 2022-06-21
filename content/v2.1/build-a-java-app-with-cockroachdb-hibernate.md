@@ -16,15 +16,15 @@ We have tested the [Java JDBC driver](https://jdbc.postgresql.org/) and the [Hib
 
 {{site.data.alerts.callout_success}}
 For a more realistic use of Hibernate with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The examples on this page assume you are using a Java version <= 9. They do not work with Java 10.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Install the Gradle build tool
 
@@ -57,7 +57,7 @@ For other ways to install Gradle, see [its official documentation](https://gradl
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -139,7 +139,7 @@ The Java code shown below uses the [Hibernate ORM](http://hibernate.org/orm/) to
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/hibernate-basic-sample/Sample.java %}
+{% include {{< page-version >}}/app/hibernate-basic-sample/Sample.java %}
 ~~~
 
 ### hibernate.cfg.xml
@@ -148,7 +148,7 @@ The Hibernate config (in `hibernate.cfg.xml`, shown below) specifies how to conn
 
 {% include copy-clipboard.html %}
 ~~~ xml
-{% include {{ page.version.version }}/app/hibernate-basic-sample/hibernate.cfg.xml %}
+{% include {{< page-version >}}/app/hibernate-basic-sample/hibernate.cfg.xml %}
 ~~~
 
 ### build.gradle
@@ -157,7 +157,7 @@ The Gradle build file specifies the dependencies (in this case the Postgres JDBC
 
 {% include copy-clipboard.html %}
 ~~~ groovy
-{% include {{ page.version.version }}/app/hibernate-basic-sample/build.gradle %}
+{% include {{< page-version >}}/app/hibernate-basic-sample/build.gradle %}
 ~~~
 
 </section>
@@ -166,7 +166,7 @@ The Gradle build file specifies the dependencies (in this case the Postgres JDBC
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -228,7 +228,7 @@ The Java code shown below uses the [Hibernate ORM](http://hibernate.org/orm/) to
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java %}
+{% include {{< page-version >}}/app/insecure/hibernate-basic-sample/Sample.java %}
 ~~~
 
 ### hibernate.cfg.xml
@@ -237,7 +237,7 @@ The Hibernate config (in `hibernate.cfg.xml`, shown below) specifies how to conn
 
 {% include copy-clipboard.html %}
 ~~~ xml
-{% include {{ page.version.version }}/app/insecure/hibernate-basic-sample/hibernate.cfg.xml %}
+{% include {{< page-version >}}/app/insecure/hibernate-basic-sample/hibernate.cfg.xml %}
 ~~~
 
 ### build.gradle
@@ -246,7 +246,7 @@ The Gradle build file specifies the dependencies (in this case the Postgres JDBC
 
 {% include copy-clipboard.html %}
 ~~~ groovy
-{% include {{ page.version.version }}/app/insecure/hibernate-basic-sample/build.gradle %}
+{% include {{< page-version >}}/app/insecure/hibernate-basic-sample/build.gradle %}
 ~~~
 
 </section>
@@ -255,4 +255,4 @@ The Gradle build file specifies the dependencies (in this case the Postgres JDBC
 
 Read more about using the [Hibernate ORM](http://hibernate.org/orm/), or check out a more realistic implementation of Hibernate with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

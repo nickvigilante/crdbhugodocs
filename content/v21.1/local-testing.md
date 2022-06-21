@@ -27,7 +27,7 @@ To customize logging behavior for local clusters, use the [`--log` flag](cockroa
 
 {% include_cached copy-clipboard.html %}
 ~~~ shell
-cockroach start-single-node --insecure --store=type=mem,size=0.25 --advertise-addr=localhost --log="{file-defaults: {dir: /path/to/logs}, sinks: {stderr: {filter: NONE }}}"
+cockroach start-single-node --insecure --store=type=mem,size=0.25 --advertise-addr=localhost --log="{file-defaults: {dir: /path/to/logs}, sinks: {stderr: {filter: NONE}}}"
 ~~~
 
 The `log` flag has two suboptions:

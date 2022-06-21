@@ -11,7 +11,7 @@ The `SELECT` [statement](sql-statements.html) retrieves data from a table.
 
 {% include {{ page.version.version }}/sql/diagrams/select.html %}
 
-{{site.data.alerts.callout_success}}<code>SELECT</code> also has other applications not covered here, such as executing <a href="functions-and-operators.html">functions</a> like <code>SELECT current_timestamp();</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}<code>SELECT</code> also has other applications not covered here, such as executing <a href="functions-and-operators.html">functions</a> like <code>SELECT current_timestamp();</code>.{{site.data.alerts.end}}
 
 ## Required Privileges
 
@@ -454,7 +454,7 @@ FROM accounts;
 
 You can use an `ORDER BY` clause to sort retrieved rows by one or more columns.
 
-{{site.data.alerts.callout_info }}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.{{site.data.alerts.end}}
 
 #### Order Retrieved Rows by One Column
 
@@ -553,7 +553,7 @@ OFFSET 5;
 
 By using "index hints", you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for your `SELECT` statement.
 
-{{site.data.alerts.callout_info }}Index selection can impact performance, but does not change the result of a <code>SELECT</code> statement.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Index selection can impact performance, but does not change the result of a <code>SELECT</code> statement.{{site.data.alerts.end}}
 
 ~~~ sql
 > SHOW INDEXES FROM accounts;
@@ -586,7 +586,7 @@ WHERE name = 'Edna Barath';
 
 CockroachDB lets you find data as it was stored at a given point in time using `AS OF SYSTEM TIME` with various [supported formats](as-of-system-time.html).
 
-{{site.data.alerts.callout_info }}Historical data is available only within the garbage collection window, which is determined by the <code>ttlseconds</code> field in the <a href="configure-replication-zones.html">replication zone configuration</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Historical data is available only within the garbage collection window, which is determined by the <code>ttlseconds</code> field in the <a href="configure-replication-zones.html">replication zone configuration</a>.{{site.data.alerts.end}}
 
 Imagine this example represents the database's current data.
 

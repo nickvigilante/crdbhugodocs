@@ -60,22 +60,22 @@ Component | Description | Required
 `<directory-path>` |  The directory path to the client listening for a socket connection. | Required when specifying a Unix domain socket URI.
 `<parameters>` | [Additional connection parameters](#additional-connection-parameters), including SSL/TLS certificate settings. | [`options=--cluster=<cluster name>`](#supported-options-parameters) is required for {{ site.data.products.serverless }} clusters.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For cockroach commands that accept a URL, you can specify the URL with the command-line flag `--url`.
 If `--url` is not specified but
 the environment variable `COCKROACH_URL` is defined, the environment
 variable is used. Otherwise, the `cockroach` command will use
 [discrete connection parameters](#connect-using-discrete-parameters)
 as described below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `<database>` part is not used for [`cockroach`
 commands](cockroach-commands.html) other than [`cockroach
 sql`](cockroach-sql.html). A warning
 is currently printed if it is mistakenly specified, and
 future versions of CockroachDB may return an error in that case.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Additional connection parameters
 
@@ -100,9 +100,9 @@ Parameter | Description
 `--cluster=<routing-id>` | Identifies your tenant cluster on a [multi-tenant host](../cockroachcloud/architecture.html#architecture). For example, `funny-skunk-123`.
 `-c <session_variable>=<value>` |  Sets a [session variable](set-vars.html) for the SQL session.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that some drivers require certain characters to be properly encoded in URL connection strings. For example, spaces in [a JDBC connection string](https://jdbc.postgresql.org/documentation/head/connect.html#connection-parameters) must specified as `%20`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Secure connections with URLs
 
@@ -117,15 +117,15 @@ Parameter | Description | Recommended for use
 `sslmode=verify-ca` | Force a secure connection and verify that the server certificate is signed by a known CA. |
 `sslmode=verify-full` | Force a secure connection, verify that the server certificate is signed by a known CA, and verify that the server address matches that specified in the certificate. | Use for [secure deployments](secure-a-cluster.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Some client drivers and the `cockroach` commands do not support
 `sslmode=allow` and `sslmode=prefer`. Check the documentation of your
 SQL driver to determine whether these options are supported.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Convert a URL for different drivers
 
-<span class="version-tag">New in v21.2:</span> The subcommand `cockroach convert-url` converts a connection URL, such as those printed out by [`cockroach start`](cockroach-start.html) or included in the online documentation, to the syntax recognized by various [client drivers](third-party-database-tools.html#drivers). For example:
+{% include_cached new-in.html version="v21.2" %} The subcommand `cockroach convert-url` converts a connection URL, such as those printed out by [`cockroach start`](cockroach-start.html) or included in the online documentation, to the syntax recognized by various [client drivers](third-party-database-tools.html#drivers). For example:
 
 ~~~
 $ ./cockroach convert-url --url "postgres://foo/bar"
@@ -135,7 +135,7 @@ $ ./cockroach convert-url --url "postgres://foo/bar"
 # Connection URL for libpq (C/C++), psycopg (Python), lib/pq & pgx (Go),node-postgres (JS)
 and most pq-compatible drivers:
   postgresql://root@foo:26257/bar
-# Connection DSN (Data Source Name) for Postgres drivers that accept DSNs - most drivers
+# Connection DSN (Data Source Name) for PostgreSQL drivers that accept DSNs - most drivers
 and also ODBC:
   database=bar user=root host=foo port=26257
 # Connection URL for JDBC (Java and JVM-based languages):
@@ -232,11 +232,11 @@ This uses the following components:
   - Client certificate `path/to/client.<user>.crt` (`path/to/certs/client.root.crt` with `--user root`)
   - Client key `path/to/client.<user>.key` (`path/to/certs/client.root.key` with `--user root`)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When using discrete connection parameters, the file names of the CA
 and client certificates and client key are derived automatically from
 the value of `--certs-dir`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Using both URL and client parameters
 
@@ -274,4 +274,4 @@ cockroach sql --url "postgres://root@servername:26257/mydb?sslmode=disable"
 - [`cockroach` commands](cockroach-commands.html)
 - [Create Security Certificates](cockroach-cert.html)
 - [Secure a Cluster](secure-a-cluster.html)
-- [Create and Manage Users](authorization.html#create-and-manage-users)
+- [Create and Manage Users](security-reference/authorization.html#create-and-manage-users)

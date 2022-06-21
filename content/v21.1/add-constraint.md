@@ -47,19 +47,19 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
   - No primary key was explicitly defined at [table creation](create-table.html). In this case, the table is created with a default [primary key on `rowid`](indexes.html#creation). Using `ADD CONSTRAINT ... PRIMARY KEY` drops the default primary key and replaces it with a new primary key.
   - A [`DROP CONSTRAINT`](drop-constraint.html) statement precedes the `ADD CONSTRAINT ... PRIMARY KEY` statement, in the same transaction. For an example, see [Drop and add the primary key constraint](#drop-and-add-a-primary-key-constraint) below.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `ALTER TABLE ... ADD PRIMARY KEY` is an alias for `ALTER TABLE ... ADD CONSTRAINT ... PRIMARY KEY`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Add the `UNIQUE` constraint
 
 Adding the [`UNIQUE` constraint](unique.html) requires that all of a column's values be distinct from one another (except for *NULL* values).
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ADD CONSTRAINT id_name_unique UNIQUE (id, name);
 ~~~
@@ -68,14 +68,14 @@ Adding the [`UNIQUE` constraint](unique.html) requires that all of a column's va
 
 Adding the [`CHECK` constraint](check.html) requires that all of a column's values evaluate to `TRUE` for a Boolean expression.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE rides ADD CONSTRAINT check_revenue_positive CHECK (revenue >= 0);
 ~~~
 
 Check constraints can be added to columns that were created earlier in the transaction. For example:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 > ALTER TABLE users ADD COLUMN is_owner STRING;
@@ -90,12 +90,12 @@ ALTER TABLE
 COMMIT
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The entire transaction will be rolled back, including any new columns that were added, in the following cases:
 
 - If an existing column is found containing values that violate the new constraint.
 - If a new column has a default value or is a [computed column](computed-columns.html) that would have contained values that violate the new constraint.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Add the foreign key constraint with `CASCADE`
 
@@ -103,7 +103,7 @@ To add a foreign key constraint, use the steps shown below.
 
 Given two tables, `users` and `vehicles`, without foreign key constraints:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE users;
 ~~~
@@ -123,7 +123,7 @@ Given two tables, `users` and `vehicles`, without foreign key constraints:
 (1 row)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE vehicles;
 ~~~
@@ -150,24 +150,24 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 Using `ON DELETE CASCADE` will ensure that when the referenced row is deleted, all dependent objects are also deleted.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` does not list the objects it drops or updates, so it should be used with caution.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE vehicles ADD CONSTRAINT users_fk FOREIGN KEY (city, owner_id) REFERENCES users (city, id) ON DELETE CASCADE;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  By default, referenced columns must be in the same database as the referencing foreign key column. To enable cross-database foreign key references, set the `sql.cross_db_fks.enabled` [cluster setting](cluster-settings.html) to `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Drop and add a primary key constraint
 
 Suppose that you want to add `name` to the composite primary key of the `users` table, [without creating a secondary index of the existing primary key](#changing-primary-keys-with-add-constraint-primary-key).
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -189,14 +189,14 @@ Suppose that you want to add `name` to the composite primary key of the `users` 
 
 First, add a [`NOT NULL`](not-null.html) constraint to the `name` column with [`ALTER COLUMN`](alter-column.html).
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ALTER COLUMN name SET NOT NULL;
 ~~~
 
 Then, in the same transaction, [`DROP`](drop-constraint.html) the old `"primary"` constraint and `ADD` the new one:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 > ALTER TABLE users DROP CONSTRAINT "primary";
@@ -208,7 +208,7 @@ Then, in the same transaction, [`DROP`](drop-constraint.html) the old `"primary"
 NOTICE: primary key changes are finalized asynchronously; further schema changes on this table may be restricted until the job completes
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -232,7 +232,7 @@ Using [`ALTER PRIMARY KEY`](alter-primary-key.html) would have created a `UNIQUE
 
 ### Add a unique index to a `REGIONAL BY ROW` table
 
-{% include {{ page.version.version }}/sql/indexes-regional-by-row.md %}
+{% include {{< page-version >}}/sql/indexes-regional-by-row.md %}
 
 This example assumes you have a simulated multi-region database running on your local machine following the steps described in [Low Latency Reads and Writes in a Multi-Region Cluster](demo-low-latency-multi-region-deployment.html). It shows how a `UNIQUE` index is partitioned, but it's similar to how all indexes are partitioned on `REGIONAL BY ROW` tables.
 
@@ -244,19 +244,19 @@ To show how the automatic partitioning of indexes on `REGIONAL BY ROW` tables wo
 
 First, add a column and its unique constraint. We'll use `email` since that is something that should be unique per user.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE users ADD COLUMN email STRING;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE users ADD CONSTRAINT user_email_unique UNIQUE (email);
 ~~~
 
 Next, issue the [`SHOW INDEXES`](show-index.html) statement. You will see that [the implicit region column](set-locality.html#set-the-table-locality-to-regional-by-row) that was added when the table [was converted to regional by row](demo-low-latency-multi-region-deployment.html#configure-regional-by-row-tables) is now indexed:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW INDEXES FROM users;
 ~~~
@@ -277,7 +277,7 @@ SHOW INDEXES FROM users;
 
 Next, issue the [`SHOW PARTITIONS`](show-partitions.html) statement. The output below (which is edited for length) will verify that the unique index was automatically [partitioned](partitioning.html) for you. It shows that the `user_email_unique` index is now partitioned by the database regions `europe-west1`, `us-east1`, and `us-west1`.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW PARTITIONS FROM TABLE users;
 ~~~
@@ -296,13 +296,13 @@ To ensure that the uniqueness constraint is enforced properly across regions whe
 1. Run a one-time-only validation query to ensure that the existing data in the table satisfies the unique constraint.
 1. Thereafter, the [optimizer](cost-based-optimizer.html) will automatically add a "uniqueness check" when necessary to any [`INSERT`](insert.html), [`UPDATE`](update.html), or [`UPSERT`](upsert.html) statement affecting the columns in the unique constraint.
 
-{% include {{ page.version.version }}/sql/locality-optimized-search.md %}
+{% include {{< page-version >}}/sql/locality-optimized-search.md %}
 
 ### Using `DEFAULT gen_random_uuid()` in `REGIONAL BY ROW` tables
 
-To auto-generate unique row IDs in `REGIONAL BY ROW` tables, use the [`UUID`](uuid.html) column with the `gen_random_uuid()` [function](functions-and-operators.html#id-generation-functions) as the [default value](default-value.html):
+To auto-generate unique row identifiers in `REGIONAL BY ROW` tables, use the [`UUID`](uuid.html) column with the `gen_random_uuid()` [function](functions-and-operators.html#id-generation-functions) as the [default value](default-value.html):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
         id UUID NOT NULL DEFAULT gen_random_uuid(),
@@ -315,12 +315,12 @@ To auto-generate unique row IDs in `REGIONAL BY ROW` tables, use the [`UUID`](uu
 );
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO users (name, city) VALUES ('Petee', 'new york'), ('Eric', 'seattle'), ('Dan', 'seattle');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM users;
 ~~~
@@ -334,9 +334,9 @@ To auto-generate unique row IDs in `REGIONAL BY ROW` tables, use the [`UUID`](uu
 (3 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When using `DEFAULT gen_random_uuid()` on columns in `REGIONAL BY ROW` tables, uniqueness checks on those columns are disabled by default for performance purposes. CockroachDB assumes uniqueness based on the way this column generates [`UUIDs`](uuid.html#create-a-table-with-auto-generated-unique-row-ids). To enable this check, you can modify the `sql.optimizer.uniqueness_checks_for_gen_random_uuid.enabled` [cluster setting](cluster-settings.html). Note that while there is virtually no chance of a [collision](https://en.wikipedia.org/wiki/Universally_unique_identifier#Collisions) occurring when enabling this setting, it is not truly zero.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Using implicit vs. explicit index partitioning in `REGIONAL BY ROW` tables
 
@@ -361,24 +361,24 @@ To illustrate the different behavior of explicitly vs. implicitly partitioned in
 
 1. Start [`cockroach demo`](cockroach-demo.html) as follows:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     cockroach demo --geo-partitioned-replicas
     ~~~
 
 1. Create a multi-region database and an `employees` table. There are three indexes in the table, all `UNIQUE` and all partitioned by the `crdb_region` column. The table schema guarantees that both `id` and `email` are globally unique, while `desk_id` is only unique per region. The indexes on `id` and `email` are implicitly partitioned, while the index on `(crdb_region, desk_id)` is explicitly partitioned. `UNIQUE` indexes can only directly enforce uniqueness on all columns in the index, including partitioning columns, so each of these indexes enforce uniqueness for `id`, `email`, and `desk_id` per region, respectively.
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     CREATE DATABASE multi_region_test_db PRIMARY REGION "europe-west1" REGIONS "us-west1", "us-east1";
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     USE multi_region_test_db;
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     CREATE TABLE employee (
       id INT PRIMARY KEY,
@@ -390,7 +390,7 @@ To illustrate the different behavior of explicitly vs. implicitly partitioned in
 
 1. In the statement below, we add a new user with the required `id`, `email`, and `desk_id` columns. CockroachDB needs to do additional work to enforce global uniqueness for the `id` and `email` columns, which are implicitly partitioned. This additional work is in the form of "uniqueness checks" that the optimizer adds as part of mutation queries.
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     EXPLAIN INSERT INTO employee VALUES (1, 'joe@example.com', 1);
     ~~~
@@ -455,7 +455,7 @@ To illustrate the different behavior of explicitly vs. implicitly partitioned in
 
 1. The statement below updates the user's `email` column. Because the unique index on the `email` column is implicitly partitioned, the optimizer must perform a uniqueness check.
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     EXPLAIN UPDATE employee SET email = 'joe1@exaple.com' WHERE id = 1;
     ~~~
@@ -516,7 +516,7 @@ To illustrate the different behavior of explicitly vs. implicitly partitioned in
 
 1. If we only update the user's `desk_id` as shown below, no uniqueness checks are needed, since the index on that column is explicitly partitioned (it's really `(crdb_region, desk_id)`).
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     EXPLAIN UPDATE employee SET desk_id = 2 WHERE id = 1;
     ~~~

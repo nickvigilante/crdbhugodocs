@@ -5,35 +5,35 @@ toc: true
 docs_area: get_started
 ---
 
-This tutorial walks you through some of the most essential CockroachDB SQL statements. For a complete list of supported SQL statements and related details, see [SQL Statements](../{{site.versions["stable"] }}/sql-statements.html).
+This tutorial walks you through some of the most essential CockroachDB SQL statements. For a complete list of supported SQL statements and related details, see [SQL Statements](../{{site.versions["stable"]}}/sql-statements.html).
 
 ## Before you begin
 
-Make sure you have already [connected the CockroachDB SQL client](connect-to-your-cluster.html#step-3-connect-to-your-cluster) to your cluster. Alternatively, you can [use a local demo cluster](../{{site.versions["stable"] }}/learn-cockroachdb-sql.html) or click below to run through the tutorial entirely in your browser.
+Make sure you have already [connected the CockroachDB SQL client](connect-to-your-cluster.html#step-3-connect-to-your-cluster) to your cluster. Alternatively, you can [use a local demo cluster](../{{site.versions["stable"]}}/learn-cockroachdb-sql.html) or click below to run through the tutorial entirely in your browser.
 
-<div class=" clearfix">
-  <a class="btn btn-outline-primary" href="../tutorials/learn-cockroachdb-sql-interactive.html" target="_blank">Run this in your browser &rarr;</a>
+<div class="clearfix">
+  <a class="btn btn-outline-primary" href="../tutorials/learn-cockroachdb-sql-interactive.html" target="_blank" rel="noopener">Run this in your browser &rarr;</a>
 </div>
 
 ## Create a database
 
 Your {{ site.data.products.db }} cluster comes with a `defaultdb` for testing and some internal databases.
 
-To create a new database, connect with your initial "admin" user and use [`CREATE DATABASE`](../{{site.versions["stable"] }}/create-database.html) followed by a database name:
+To create a new database, connect with your initial "admin" user and use [`CREATE DATABASE`](../{{site.versions["stable"]}}/create-database.html) followed by a database name:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE bank;
 ~~~
 
-Database names must follow [these identifier rules](../{{site.versions["stable"] }}/keywords-and-identifiers.html#identifiers). To avoid an error in case the database already exists, you can include `IF NOT EXISTS`:
+Database names must follow [these identifier rules](../{{site.versions["stable"]}}/keywords-and-identifiers.html#identifiers). To avoid an error in case the database already exists, you can include `IF NOT EXISTS`:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE DATABASE IF NOT EXISTS bank;
 ~~~
 
-When you no longer need a database, use [`DROP DATABASE`](../{{site.versions["stable"] }}/drop-database.html) followed by the database name to remove the database and all its objects:
+When you no longer need a database, use [`DROP DATABASE`](../{{site.versions["stable"]}}/drop-database.html) followed by the database name to remove the database and all its objects:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -42,7 +42,7 @@ When you no longer need a database, use [`DROP DATABASE`](../{{site.versions["st
 
 ## Show databases
 
-To see all databases, use the [`SHOW DATABASES`](../{{site.versions["stable"] }}/show-databases.html) statement or the `\l` [shell command](../{{site.versions["stable"] }}/cockroach-sql.html#commands):
+To see all databases, use the [`SHOW DATABASES`](../{{site.versions["stable"]}}/show-databases.html) statement or the `\l` [shell command](../{{site.versions["stable"]}}/cockroach-sql.html#commands):
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -84,7 +84,7 @@ When working in the default database, you do not need to reference it explicitly
 
 ## Create a table
 
-To create a table, use [`CREATE TABLE`](../{{site.versions["stable"] }}/create-table.html) followed by a table name, the column names, and the [data type](../{{site.versions["stable"] }}/data-types.html) and [constraint](../{{site.versions["stable"] }}/constraints.html), if any, for each column:
+To create a table, use [`CREATE TABLE`](../{{site.versions["stable"]}}/create-table.html) followed by a table name, the column names, and the [data type](../{{site.versions["stable"]}}/data-types.html) and [constraint](../{{site.versions["stable"]}}/constraints.html), if any, for each column:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -94,7 +94,7 @@ To create a table, use [`CREATE TABLE`](../{{site.versions["stable"] }}/create-t
 );
 ~~~
 
-Table and column names must follow [these rules](../{{site.versions["stable"] }}/keywords-and-identifiers.html#identifiers). Also, when you do not explicitly define a [primary key](../{{site.versions["stable"] }}/primary-key.html), CockroachDB will automatically add a hidden `rowid` column as the primary key.
+Table and column names must follow [these rules](../{{site.versions["stable"]}}/keywords-and-identifiers.html#identifiers). Also, when you do not explicitly define a [primary key](../{{site.versions["stable"]}}/primary-key.html), CockroachDB will automatically add a hidden `rowid` column as the primary key.
 
 To avoid an error in case the table already exists, you can include `IF NOT EXISTS`:
 
@@ -106,7 +106,7 @@ To avoid an error in case the table already exists, you can include `IF NOT EXIS
 );
 ~~~
 
-To show all of the columns from a table, use the [`SHOW COLUMNS FROM <table>`](../{{site.versions["stable"] }}/show-columns.html) statement or the `\d <table>` [shell command](../{{site.versions["stable"] }}/cockroach-sql.html#commands):
+To show all of the columns from a table, use the [`SHOW COLUMNS FROM <table>`](../{{site.versions["stable"]}}/show-columns.html) statement or the `\d <table>` [shell command](../{{site.versions["stable"]}}/cockroach-sql.html#commands):
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -121,7 +121,7 @@ To show all of the columns from a table, use the [`SHOW COLUMNS FROM <table>`](.
 (2 rows)
 ~~~
 
-When you no longer need a table, use [`DROP TABLE`](../{{site.versions["stable"] }}/drop-table.html) followed by the table name to remove the table and all its data:
+When you no longer need a table, use [`DROP TABLE`](../{{site.versions["stable"]}}/drop-table.html) followed by the table name to remove the table and all its data:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -130,7 +130,7 @@ When you no longer need a table, use [`DROP TABLE`](../{{site.versions["stable"]
 
 ## Show tables
 
-To see all tables in the active database, use the [`SHOW TABLES`](../{{site.versions["stable"] }}/show-tables.html) statement or the `\dt` [shell command](../{{site.versions["stable"] }}/cockroach-sql.html#commands):
+To see all tables in the active database, use the [`SHOW TABLES`](../{{site.versions["stable"]}}/show-tables.html) statement or the `\dt` [shell command](../{{site.versions["stable"]}}/cockroach-sql.html#commands):
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -146,7 +146,7 @@ To see all tables in the active database, use the [`SHOW TABLES`](../{{site.vers
 
 ## Insert rows
 
-To insert a row into a table, use [`INSERT INTO`](../{{site.versions["stable"] }}/insert.html) followed by the table name and then the column values listed in the order in which the columns appear in the table:
+To insert a row into a table, use [`INSERT INTO`](../{{site.versions["stable"]}}/insert.html) followed by the table name and then the column values listed in the order in which the columns appear in the table:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -170,7 +170,7 @@ To insert multiple rows into a table, use a comma-separated list of parentheses,
     (4, 9400.10);
 ~~~
 
-[Default values](../{{site.versions["stable"] }}/default-value.html) are used when you leave specific columns out of your statement, or when you explicitly request default values. For example, both of the following statements would create a row with `balance` filled with its default value, in this case `NULL`:
+[Default values](../{{site.versions["stable"]}}/default-value.html) are used when you leave specific columns out of your statement, or when you explicitly request default values. For example, both of the following statements would create a row with `balance` filled with its default value, in this case `NULL`:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -199,9 +199,9 @@ To insert multiple rows into a table, use a comma-separated list of parentheses,
 
 ## Create an index
 
-[Indexes](../{{site.versions["stable"] }}/indexes.html) help locate data without having to look through every row of a table. They're automatically created for the [primary key](../{{site.versions["stable"] }}/primary-key.html) of a table and any columns with a [`UNIQUE` constraint](../{{site.versions["stable"] }}/unique.html).
+[Indexes](../{{site.versions["stable"]}}/indexes.html) help locate data without having to look through every row of a table. They're automatically created for the [primary key](../{{site.versions["stable"]}}/primary-key.html) of a table and any columns with a [`UNIQUE` constraint](../{{site.versions["stable"]}}/unique.html).
 
-To create an index for non-unique columns, use [`CREATE INDEX`](../{{site.versions["stable"] }}/create-index.html) followed by an optional index name and an `ON` clause identifying the table and column(s) to index.  For each column, you can choose whether to sort ascending (`ASC`) or descending (`DESC`).
+To create an index for non-unique columns, use [`CREATE INDEX`](../{{site.versions["stable"]}}/create-index.html) followed by an optional index name and an `ON` clause identifying the table and column(s) to index.  For each column, you can choose whether to sort ascending (`ASC`) or descending (`DESC`).
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -221,7 +221,7 @@ You can create indexes during table creation as well; just include the `INDEX` k
 
 ## Show indexes
 
-To show the indexes on a table, use [`SHOW INDEX FROM`](../{{site.versions["stable"] }}/show-index.html) followed by the name of the table:
+To show the indexes on a table, use [`SHOW INDEX FROM`](../{{site.versions["stable"]}}/show-index.html) followed by the name of the table:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -231,15 +231,16 @@ To show the indexes on a table, use [`SHOW INDEX FROM`](../{{site.versions["stab
 ~~~
   table_name | index_name  | non_unique | seq_in_index | column_name | direction | storing | implicit
 +------------+-------------+------------+--------------+-------------+-----------+---------+----------+
-  accounts   | primary     |   false    |            1 | id          | ASC       |  false  |  false
   accounts   | balance_idx |    true    |            1 | balance     | DESC      |  false  |  false
   accounts   | balance_idx |    true    |            2 | id          | ASC       |  false  |   true
-(3 rows)
+  accounts   | primary     |   false    |            1 | id          | ASC       |  false  |  false
+  accounts   | primary     |   false    |            2 | balance     | N/A       |  true   |  false
+(4 rows)
 ~~~
 
 ## Query a table
 
-To query a table, use [`SELECT`](../{{site.versions["stable"] }}/select-clause.html) followed by a comma-separated list of the columns to be returned and the table from which to retrieve the data:
+To query a table, use [`SELECT`](../{{site.versions["stable"]}}/select-clause.html) followed by a comma-separated list of the columns to be returned and the table from which to retrieve the data:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -314,7 +315,7 @@ To sort the results, add an `ORDER BY` clause identifying the columns to sort by
 
 ## Update rows
 
-To update rows in a table, use [`UPDATE`](../{{site.versions["stable"] }}/update.html) followed by the table name, a `SET` clause identifying the columns to update and their new values, and a `WHERE` clause identifying the rows to update:
+To update rows in a table, use [`UPDATE`](../{{site.versions["stable"]}}/update.html) followed by the table name, a `SET` clause identifying the columns to update and their new values, and a `WHERE` clause identifying the rows to update:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql
@@ -342,7 +343,7 @@ If a table has a primary key, you can use that in the `WHERE` clause to reliably
 
 ## Delete rows
 
-To delete rows from a table, use [`DELETE FROM`](../{{site.versions["stable"] }}/delete.html) followed by the table name and a `WHERE` clause identifying the rows to delete:
+To delete rows from a table, use [`DELETE FROM`](../{{site.versions["stable"]}}/delete.html) followed by the table name and a `WHERE` clause identifying the rows to delete:
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql

@@ -22,7 +22,7 @@ Format | Description
 IPv4 | Standard [RFC791](https://tools.ietf.org/html/rfc791)-specified format of 4 octets expressed individually in decimal numbers and separated by periods. Optionally, the address can be followed by a subnet mask.<br><br>Examples: `'190.0.0.0'`, `'190.0.0.0/24'`
 IPv6 | Standard [RFC8200](https://tools.ietf.org/html/rfc8200)-specified format of 8 colon-separated groups of 4 hexadecimal digits. An IPv6 address can be mapped to an IPv4 address. Optionally, the address can be followed by a subnet mask.<br><br>Examples: `'2001:4f8:3:ba:2e0:81ff:fe22:d1f1'`, `'2001:4f8:3:ba:2e0:81ff:fe22:d1f1/120'`, `'::ffff:192.168.0.1/24'`
 
-{{site.data.alerts.callout_info }}IPv4 addresses will sort before IPv6 addresses, including IPv4-mapped IPv6 addresses.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}IPv4 addresses will sort before IPv6 addresses, including IPv4-mapped IPv6 addresses.{{site.data.alerts.end}}
 
 ## Size
 
@@ -30,7 +30,7 @@ An `INET` value is 32 bits for IPv4 or 128 bits for IPv6.
 
 ## Example
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE computers (
     ip INET PRIMARY KEY,
@@ -39,7 +39,7 @@ An `INET` value is 32 bits for IPv4 or 128 bits for IPv6.
   );
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM computers;
 ~~~
@@ -55,7 +55,7 @@ An `INET` value is 32 bits for IPv4 or 128 bits for IPv6.
 (3 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO computers
   VALUES
@@ -64,7 +64,7 @@ An `INET` value is 32 bits for IPv4 or 128 bits for IPv6.
     ('2001:4f8:3:ba:2e0:81ff:fe22:d1f1/120', 'test@cockroachlabs.com', '2018-01-31');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM computers;
 ~~~

@@ -22,9 +22,9 @@ CockroachDB also supports using uninterpreted
 [string literals](sql-constants.html#string-literals) in contexts
 where a `DATE` value is otherwise expected.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `DATE` values in CockroachDB are fully [PostgreSQL-compatible](https://www.postgresql.org/docs/current/datatype-datetime.html), including support for special values (e.g., `+/- infinity`). Existing dates outside of the PostgreSQL date range (`4714-11-24 BC` to `5874897-12-31`) are converted to `+/- infinity` dates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Size
 
@@ -32,12 +32,12 @@ A `DATE` column supports values up to 16 bytes in width, but the total storage s
 
 ## Examples
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE dates (a DATE PRIMARY KEY, b INT);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM dates;
 ~~~
@@ -53,18 +53,18 @@ A `DATE` column supports values up to 16 bytes in width, but the total storage s
 ~~~
 
 Explicitly typed `DATE` literal:
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO dates VALUES (DATE '2016-03-26', 12345);
 ~~~
 
 String literal implicitly typed as `DATE`:
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO dates VALUES ('2016-03-27', 12345);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM dates;
 ~~~

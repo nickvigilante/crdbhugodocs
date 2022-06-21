@@ -8,7 +8,7 @@ A savepoint is a marker that defines the beginning of a [nested transaction](tra
 
 <span class="version-tag">New in v20.1:</span> CockroachDB supports [general purpose savepoints for nested transactions](#savepoints-for-nested-transactions), in addition to continued support for [special-purpose retry savepoints](#savepoints-for-client-side-transaction-retries).
 
-{% include {{ page.version.version }}/sql/savepoint-ddl-rollbacks.md %}
+{% include {{< page-version >}}/sql/savepoint-ddl-rollbacks.md %}
 
 ## Synopsis
 
@@ -28,11 +28,11 @@ name      | The name of the savepoint.  [Nested transactions](savepoint.html#sav
 
 ## Savepoints and row locks
 
-{% include {{ page.version.version }}/sql/savepoints-and-row-locks.md %}
+{% include {{< page-version >}}/sql/savepoints-and-row-locks.md %}
 
 ## Savepoints and high priority transactions
 
-{% include {{ page.version.version }}/sql/savepoints-and-high-priority-transactions.md %}
+{% include {{< page-version >}}/sql/savepoints-and-high-priority-transactions.md %}
 
 ## Examples
 
@@ -52,9 +52,9 @@ To establish a savepoint inside a transaction:
 > SAVEPOINT foo;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Due to the [rules for identifiers in our SQL grammar](keywords-and-identifiers.html#identifiers), `SAVEPOINT foo` and `SAVEPOINT Foo` define the same savepoint, whereas `SAVEPOINT "Foo"` defines another.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To roll back a transaction partially to a previously established savepoint:
 
@@ -246,7 +246,7 @@ COMMIT;
 
 ### Savepoints for client-side transaction retries
 
-{% include {{ page.version.version }}/sql/retry-savepoints.md %}
+{% include {{< page-version >}}/sql/retry-savepoints.md %}
 
 The example below shows basic usage of a retry savepoint.
 
@@ -266,7 +266,7 @@ Note that you can [customize the retry savepoint name](#customizing-the-retry-sa
 
 #### Customizing the retry savepoint name
 
-{% include {{ page.version.version }}/misc/customizing-the-savepoint-name.md %}
+{% include {{< page-version >}}/misc/customizing-the-savepoint-name.md %}
 
 ### Showing savepoint status
 

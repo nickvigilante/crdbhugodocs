@@ -1,6 +1,6 @@
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The Operator is currently supported for GKE only.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Install the Operator
 
@@ -8,7 +8,7 @@ The Operator is currently supported for GKE only.
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/crds.yaml
+    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/crds.yaml
     ~~~
 
     ~~~
@@ -19,7 +19,7 @@ The Operator is currently supported for GKE only.
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
+    $ kubectl apply -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/operator.yaml
     ~~~
 
     ~~~
@@ -49,7 +49,7 @@ On a production cluster, you will need to modify the StatefulSet configuration w
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/examples/example.yaml
+    $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/examples/example.yaml
     ~~~
 
     {% include copy-clipboard.html %}
@@ -61,7 +61,7 @@ On a production cluster, you will need to modify the StatefulSet configuration w
 
     {{site.data.alerts.callout_success}}
     Resource `requests` and `limits` should have identical values. 
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     ~~~
       resources:
@@ -73,9 +73,9 @@ On a production cluster, you will need to modify the StatefulSet configuration w
           memory: "8Gi"
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     If no resource limits are specified, the pods will be able to consume the maximum available CPUs and memory. However, to avoid overallocating resources when another memory-intensive workload is on the same instance, always set resource requests and limits explicitly.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Modify `resources.requests.storage` to allocate the appropriate amount of disk storage for your workload. This configuration defaults to 60Gi of disk space per pod. For more context on provisioning storage, see the [Production Checklist](recommended-production-settings.html#storage).
 
@@ -87,9 +87,9 @@ On a production cluster, you will need to modify the StatefulSet configuration w
 
 ### Initialize the cluster
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 By default, the Operator will generate and sign 1 client and 1 node certificate to secure the cluster. To authenticate using your own CA, see [Operate CockroachDB on Kubernetes](../v21.1/operate-cockroachdb-kubernetes.html#use-a-custom-ca).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Apply `example.yaml`:
 
@@ -120,7 +120,3 @@ By default, the Operator will generate and sign 1 client and 1 node certificate 
 	~~~
 
     Each pod should have `READY` status soon after being created.
-
-    {{site.data.alerts.callout_info }}
-    Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/575), in rare cases the Operator can crash while installing CockroachDB. This causes the CockroachDB pods to fail to start, while the version checker [job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) continues to run. If this happens, run `kubectl get jobs` to find the names of any running `cockroachdb-vcheck` jobs, and delete these jobs with `kubectl delete job {cockroachdb-vcheck-job}`. Then reapply the custom resource (e.g., `kubectl apply -f example.yaml`).
-    {{site.data.alerts.end }}

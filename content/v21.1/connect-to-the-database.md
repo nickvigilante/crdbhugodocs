@@ -35,7 +35,7 @@ Do the following:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql --certs-dir=certs --host=localhost:26257
 ~~~
@@ -46,7 +46,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ go
 import (
     "database/sql"
@@ -63,13 +63,13 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
 import java.sql.*;
 import javax.sql.DataSource;
@@ -89,16 +89,16 @@ ds.setApplicationName("BasicExample");
 ~~~
 
 {{site.data.alerts.callout_success}}
-{% include {{ page.version.version }}/app/pkcs8-gen.md %}
-{{site.data.alerts.end }}
+{% include {{< page-version >}}/app/pkcs8-gen.md %}
+{{site.data.alerts.end}}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
 import psycopg2
 
@@ -114,7 +114,7 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

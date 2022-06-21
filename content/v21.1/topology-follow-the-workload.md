@@ -15,7 +15,7 @@ In a multi-region deployment, follow-the-workload is the default behavior for ta
 If read performance is your main focus for a table, but you want low-latency reads everywhere instead of just in the most active region, consider [Global Tables](global-tables.html) or [Follower Reads](topology-follower-reads.html).
 
 Note that if you start using the [multi-region SQL abstractions](multiregion-overview.html) for a database, CockroachDB will no longer provide the follow-the-workload behavior described on this page for that database.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -33,9 +33,9 @@ Aside from [deploying a cluster across three regions](#cluster-setup) properly, 
 
 <img src="{{ 'images/v21.1/topology-patterns/topology_follower_reads1.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Follow-the-workload is also used by [system ranges containing important internal data](configure-replication-zones.html#create-a-replication-zone-for-a-system-range).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Characteristics
 

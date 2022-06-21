@@ -2,20 +2,20 @@
 title: ADD REGION
 summary: The ADD REGION statement adds a region to a multi-region database.
 toc: true
-docs_area: reference.sql 
+docs_area: reference.sql
 ---
 
- The `ALTER DATABASE .. ADD REGION` [statement](sql-statements.html) adds a [region](multiregion-overview.html#database-regions) to a [multi-region database](multiregion-overview.html).
+ The `ALTER DATABASE .. ADD REGION` [statement](sql-statements.html) adds a [region](multiregion-overview.html#database-regions) to a [multi-region database](multiregion-overview.html). While CockroachDB processes an index modification or changing a table to or from a [`REGIONAL BY ROW` table](multiregion-overview.html#regional-by-row-tables), attempting to drop a region from the database containing that `REGIONAL BY ROW` table will produce an error. Similarly, while this statement is running, all index modifications and locality changes on [`REGIONAL BY ROW`](multiregion-overview.html#regional-by-row-tables) tables will be blocked.
 
 {% include enterprise-feature.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `ADD REGION` is a subcommand of [`ALTER DATABASE`](alter-database.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 In order to add a region with `ADD REGION`, you must first set a primary database region with [`SET PRIMARY REGION`](set-primary-region.html), or at [database creation](create-database.html). For an example showing how to add a primary region with `ALTER DATABASE`, see [Set the primary region](#set-the-primary-region).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -34,12 +34,12 @@ In order to add a region with `ADD REGION`, you must first set a primary databas
 
 To add a region to a database, the user must have one of the following:
 
-- Membership to the [`admin`](authorization.html#roles) role for the cluster.
-- Membership to the [owner](authorization.html#object-ownership) role, or the [`CREATE` privilege](authorization.html#supported-privileges), for the database and all [`REGIONAL BY ROW`](multiregion-overview.html#regional-by-row-tables) tables in the database.
+- Membership to the [`admin`](security-reference/authorization.html#admin-role) role for the cluster.
+- Either [ownership](security-reference/authorization.html#object-ownership) or the [`CREATE` privilege](security-reference/authorization.html#supported-privileges) for the database and all [`REGIONAL BY ROW`](multiregion-overview.html#regional-by-row-tables) tables in the database.
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/multiregion-example-setup.md %}
+{% include {{< page-version >}}/sql/multiregion-example-setup.md %}
 
 ### Set the primary region
 
@@ -47,7 +47,7 @@ Suppose you have a database `foo` in your cluster, and you want to make it a mul
 
 To add the first region to the database, or to set an already-added region as the primary region, use a [`SET PRIMARY REGION`](set-primary-region.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE foo SET PRIMARY REGION "us-east1";
 ~~~
@@ -65,7 +65,7 @@ Given a cluster with multiple regions, any databases in that cluster that have n
 
 To add more regions to a database that already has at least one region, use an `ADD REGION` statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER database foo ADD region "us-west1";
 ~~~
@@ -74,7 +74,7 @@ ALTER database foo ADD region "us-west1";
 ALTER DATABASE ADD REGION
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER database foo ADD region "europe-west1";
 ~~~
@@ -87,7 +87,7 @@ ALTER DATABASE ADD REGION
 
 To view the regions associated with a multi-region database, use a [`SHOW REGIONS FROM DATABASE`](show-regions.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW REGIONS FROM DATABASE foo;
 ~~~
@@ -105,7 +105,7 @@ SHOW REGIONS FROM DATABASE foo;
 
 To [drop a region](drop-region.html) from a multi-region database, use a [`DROP REGION`](drop-region.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE foo DROP REGION "us-west1";
 ~~~
@@ -114,7 +114,7 @@ ALTER DATABASE foo DROP REGION "us-west1";
 ALTER DATABASE DROP REGION
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SHOW REGIONS FROM DATABASE foo;
 ~~~
@@ -133,4 +133,4 @@ SHOW REGIONS FROM DATABASE foo;
 - [`DROP REGION`](drop-region.html)
 - [`SHOW REGIONS`](show-regions.html)
 - [`ALTER TABLE`](alter-table.html)
-- [Other SQL Statements](sql-statements.html)
+- [SQL Statements](sql-statements.html)

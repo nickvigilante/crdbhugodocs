@@ -7,13 +7,13 @@ Target Name | Description
 `system` | There are system ranges for a variety of other important internal data, including information needed to allocate new table IDs and track the status of a cluster's nodes.<br><br>These ranges must retain a majority of replicas for the cluster as a whole to remain available, so CockroachDB comes with a **pre-configured** `system` replication zone with `num_replicas` set to 5 to make these ranges more resilient to node failure.
 `timeseries` | The "timeseries" ranges contain monitoring data about the cluster that powers the graphs in CockroachDB's DB Console. If necessary, you can add a `timeseries` replication zone to control the replication of this data.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Use caution when editing replication zones for system ranges, as they could cause some (or all) parts of your cluster to stop working.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To control replication for one of the above sets of system ranges, use the [`ALTER RANGE ... CONFIGURE ZONE`](configure-zone.html) statement to define the relevant values (other values will be inherited from the parent zone):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER RANGE meta CONFIGURE ZONE USING num_replicas = 7;
 ~~~
@@ -22,7 +22,7 @@ To control replication for one of the above sets of system ranges, use the [`ALT
 CONFIGURE ZONE 1
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW ZONE CONFIGURATION FROM RANGE meta;
 ~~~

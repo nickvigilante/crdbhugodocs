@@ -5,7 +5,7 @@ keywords: concurrency control, locking, transactions, update locking, update, co
 toc: true
 ---
 
-{% include {{ page.version.version }}/sql/select-for-update-overview.md %}
+{% include {{< page-version >}}/sql/select-for-update-overview.md %}
 
 ## Syntax
 

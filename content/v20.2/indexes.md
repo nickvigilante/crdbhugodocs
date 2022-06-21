@@ -56,7 +56,7 @@ To maximize your indexes' performance, we recommend following the [secondary ind
 
 {{site.data.alerts.callout_success}}
 For more information about how to tune CockroachDB's performance, see [SQL Performance Best Practices](performance-best-practices-overview.html) and the [Performance Tuning](performance-tuning.html) tutorial.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Storing columns
 

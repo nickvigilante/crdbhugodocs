@@ -20,15 +20,15 @@ ISO 8601 | `INTERVAL 'P1Y2M3DT4H5M6S'`
 Traditional PostgreSQL | `INTERVAL '1 year 2 months 3 days 4 hours 5 minutes 6 seconds'`
 Abbreviated PostgreSQL | `INTERVAL '1 yr 2 mons 3 d 4 hrs 5 mins 6 secs'`
 
-<span class="version-tag">New in v21.2</span>: By default, CockroachDB displays `INTERVAL` values in the traditional PostgreSQL format (e.g., `INTERVAL '1 year 2 months 3 days 4 hours 5 minutes 6 seconds'`). To change the display format of `INTERVAL` values, set the `intervalstyle` [session variable](set-vars.html) or the `sql.defaults.intervalstyle` [cluster setting](cluster-settings.html) to a supported format (`iso_8601` for the ISO 8601 format; `sql_standard` for the SQL Standard format).
+{% include_cached new-in.html version="v21.2" %} By default, CockroachDB displays `INTERVAL` values in the traditional PostgreSQL format (e.g., `INTERVAL '1 year 2 months 3 days 4 hours 5 minutes 6 seconds'`). To change the display format of `INTERVAL` values, set the `intervalstyle` [session variable](set-vars.html) or the `sql.defaults.intervalstyle` [cluster setting](cluster-settings.html) to a supported format (`iso_8601` for the ISO 8601 format; `sql_standard` for the SQL Standard format).
 
 The value of `intervalstyle` affects how CockroachDB parses certain `INTERVAL` values. Specifically, when `intervalstyle = 'sql_standard'`, and when the `INTERVAL` value begins with a negative symbol, CockroachDB parses all fields as negative values (e.g., `-3 years 1 day` is parsed as `-(3 years 1 day)`, or `-3 years, -1 day`). When `intervalstyle = 'postgres'` (the default format), and when the `INTERVAL` value begins with a negative symbol, CockroachDB only applies the negative symbol to the field that it directly precedes (e.g., `-3 years 1 day` is parsed as `-3 years, +1 day`).
 
 To set the `intervalstyle` session variable, the `intervalstyle_enabled` session variable must be set to `true`. At the beginning of each session, the `intervalstyle_enabled` variable is set to the value of the `sql.defaults.intervalstyle.enabled` cluster setting (`false`, by default).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When the `intervalstyle_enabled` [session variable](set-vars.html) is set to `true`, you cannot [cast values](#supported-casting-and-conversion) from `INTERVAL` to `STRING` or from `STRING` to `INTERVAL` if the value belongs to a [computed column](computed-columns.html), a [partially-indexed column](partial-indexes.html), or a [geo-partitioned column](partitioning.html). To work around this limitation, use the `to_char_with_style(interval, style)` or `parse_interval(interval, intervalstyle)` [built-in functions](functions-and-operators.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Details on SQL Standard input
 
@@ -69,12 +69,12 @@ If the interval input is ambiguous, specifying two duration fields stores the in
 
 ## Example
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE intervals (a INT PRIMARY KEY, b INTERVAL);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM intervals;
 ~~~
@@ -83,11 +83,11 @@ If the interval input is ambiguous, specifying two duration fields stores the in
   column_name | data_type | is_nullable | column_default | generation_expression |  indices  | is_hidden
 --------------+-----------+-------------+----------------+-----------------------+-----------+------------
   a           | INT8      |    false    | NULL           |                       | {primary} |   false
-  b           | INTERVAL  |    true     | NULL           |                       | {}        |   false
+  b           | INTERVAL  |    true     | NULL           |                       | {primary} |   false
 (2 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO
     intervals
@@ -96,7 +96,7 @@ If the interval input is ambiguous, specifying two duration fields stores the in
            (3, '1-2 3 4:5:6');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM intervals;
 ~~~

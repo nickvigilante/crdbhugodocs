@@ -12,7 +12,7 @@ In this tutorial, you will enable the CockroachDB module for Metricbeat and visu
 For more information about using the CockroachDB module for Metricbeat, see the [Elastic documentation](https://www.elastic.co/guide/en/beats/metricbeat/current/metricbeat-module-cockroachdb.html).
 
 If you run into problems with this integration, please file an issue on the [Beats issue tracker](https://github.com/elastic/beats).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -21,9 +21,9 @@ Either of the following:
 - Hosted [Elasticsearch Service](https://www.elastic.co/guide/en/kibana/current/get-started.html#set-up-on-cloud) with [Metricbeat configured](https://www.elastic.co/guide/en/beats/metricbeat/current/configure-cloud-id.html)
 - Self-managed [Elastic Stack](https://www.elastic.co/guide/en/elastic-stack-get-started/current/get-started-elastic-stack.html) with [Metricbeat installed](https://www.elastic.co/guide/en/beats/metricbeat/7.13/metricbeat-installation-configuration.html)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This tutorial assumes that you have [started a secure CockroachDB cluster](secure-a-cluster.html). Note that [{{ site.data.products.serverless }}](../cockroachcloud/index.html) does not currently expose a compatible monitoring endpoint.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Enable CockroachDB module
 

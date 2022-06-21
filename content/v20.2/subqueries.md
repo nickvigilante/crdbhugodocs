@@ -130,9 +130,9 @@ FROM
 (6 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In a `LATERAL` subquery join, the rows returned by the inner subquery are added to the result of the join with the outer query. Without the `LATERAL` keyword, each subquery is evaluated independently and cannot refer to objects defined in separate queries.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Limitations
 
@@ -140,9 +140,9 @@ The [cost-based optimizer](cost-based-optimizer.html) supports most correlated s
 
 ## Performance best practices
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB is currently undergoing major changes to evolve and improve the performance of subqueries. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - Scalar subqueries currently disable the distribution of the execution of a query. To ensure maximum performance on queries that process a large number of rows, make the client application compute the subquery results ahead of time and pass these results directly in the surrounding query.
 

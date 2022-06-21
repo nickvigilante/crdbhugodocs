@@ -17,11 +17,11 @@ This tutorial shows you how build a simple Python application with CockroachDB a
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The example code on this page uses Python 3.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Step 1. Install PonyORM
@@ -37,7 +37,7 @@ $ python -m pip install pony
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -56,7 +56,7 @@ $ cockroach cert create-client maxroach --certs-dir=certs --ca-key=my-safe-direc
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Python code
 
@@ -71,11 +71,11 @@ The code below uses PonyORM to map Python objects and methods to SQL operations.
 <section class="filter-content" markdown="1" data-scope="secure">
 
 Copy the code below to a file or
-<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/pony-basic-sample.py">download it directly</a>.
+<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{< page-version >}}/app/pony-basic-sample.py">download it directly</a>.
 
 {% include copy-clipboard.html %}
 ~~~ python
-{% include {{ page.version.version }}/app/pony-basic-sample.py %}
+{% include {{< page-version >}}/app/pony-basic-sample.py %}
 ~~~
 
 </section>
@@ -83,11 +83,11 @@ Copy the code below to a file or
 <section class="filter-content" markdown="1" data-scope="insecure">
 
 Copy the code below to a file or
-<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/pony-basic-sample.py">download it directly</a>.
+<a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{< page-version >}}/app/insecure/pony-basic-sample.py">download it directly</a>.
 
 {% include copy-clipboard.html %}
 ~~~ python
-{% include {{ page.version.version }}/app/insecure/pony-basic-sample.py %}
+{% include {{< page-version >}}/app/insecure/pony-basic-sample.py %}
 ~~~
 
 </section>

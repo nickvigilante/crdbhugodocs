@@ -184,7 +184,7 @@ As each pod is created, it issues a Certificate Signing Request, or CSR, to have
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 5. Use the built-in SQL client
 
@@ -261,7 +261,7 @@ To use the built-in SQL client, you need to launch a pod that runs indefinitely 
     > \q
     ~~~
 
-{{site.data.alerts.callout_success}}This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other <a href="cockroach-commands.html"><code>cockroach</code> client commands</a>, such as <code>cockroach node</code> or <code>cockroach zone</code>, repeat step 2 using the appropriate <code>cockroach</code> command.<br></br>If you'd prefer to delete the pod and recreate it when needed, run <code>kubectl delete pod cockroachdb-client-secure</code>{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other <a href="cockroach-commands.html"><code>cockroach</code> client commands</a>, such as <code>cockroach node</code> or <code>cockroach zone</code>, repeat step 2 using the appropriate <code>cockroach</code> command.<br></br>If you'd prefer to delete the pod and recreate it when needed, run <code>kubectl delete pod cockroachdb-client-secure</code>{{site.data.alerts.end}}
 
 ## Step 6. Access the Admin UI
 

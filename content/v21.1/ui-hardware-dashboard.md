@@ -16,25 +16,25 @@ The **Hardware** dashboard displays the following time series graphs:
 
 <img src="{{ 'images/v21.1/ui_cpu_percent.png' | relative_url }}" alt="DB Console CPU Percent graph" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This graph shows the CPU consumption by the CockroachDB process only and is useful as long as there are no other processes consuming significant CPU on the node. In case you have other processes running on the node, use a separate monitoring tool to measure the total CPU consumption across all processes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - In the node view, the graph shows the percentage of CPU in use by the CockroachDB process for the selected node.
 
 - In the cluster view, the graph shows the percentage of CPU in use by the CockroachDB process across all nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For multi-core systems, the percentage of CPU usage is calculated by normalizing the CPU usage across all cores, whereby 100% utilization indicates that all cores are fully utilized.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Memory Usage
 
 <img src="{{ 'images/v21.1/ui_memory_usage_new.png' | relative_url }}" alt="DB Console Memory Usage graph" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This graph shows the memory consumption by the CockroachDB process only and is useful as long as there are no other processes consuming significant memory on the node. In case you have other processes running on the node, use a separate monitoring tool to measure the total memory consumption across all processes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - In the node view, the graph shows the memory in use by CockroachDB for the selected node.
 
@@ -80,9 +80,9 @@ This graph shows the memory consumption by the CockroachDB process only and is u
 
 - In the cluster view, the graph shows the number of disk reads and writes in queue for all processes, including CockroachDB, across all nodes in the cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For Mac OS, this graph is not populated and shows zero disk IOPS in progress. This is a [known limitation](https://github.com/cockroachdb/cockroach/issues/27927) that may be lifted in the future.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Available Disk Capacity
 
@@ -101,9 +101,9 @@ The **available** disk capacity equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Available Disk Capacity** graph.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Network Bytes Received
 

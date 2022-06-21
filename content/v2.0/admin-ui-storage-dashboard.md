@@ -27,9 +27,9 @@ Capacity | The maximum storage capacity allocated to CockroachDB. You can config
 Available | The free storage capacity available to CockroachDB.
 Used | Disk space used by the data in the CockroachDB store. Note that this value is less than (Capacity - Available) because Capacity and Available metrics consider the entire disk and all applications on the disk including CockroachDB, whereas Used metric tracks only the store's disk usage.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include v2.0/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## File Descriptors
 
@@ -41,7 +41,7 @@ Used | Disk space used by the data in the CockroachDB store. Note that this valu
 
 If the Open count is almost equal to the Limit count, increase [File Descriptors](recommended-production-settings.html#file-descriptors-limit).
 
-{{site.data.alerts.callout_info }}If you are running multiple nodes on a single machine (not recommended), the actual number of open file descriptors are considered open on each node. Thus the limit count value displayed on the Admin UI is the actual value of open file descriptors multiplied by the number of nodes, compared with the file descriptor limit. {{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you are running multiple nodes on a single machine (not recommended), the actual number of open file descriptors are considered open on each node. Thus the limit count value displayed on the Admin UI is the actual value of open file descriptors multiplied by the number of nodes, compared with the file descriptor limit. {{site.data.alerts.end}}
 
 For Windows systems, you can ignore the File Descriptors graph because the concept of file descriptors is not applicable to Windows.
 

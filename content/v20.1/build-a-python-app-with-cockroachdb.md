@@ -30,11 +30,11 @@ For other ways to install psycopg2, see the [official documentation](http://init
 
 ## Step 2. Start CockroachDB
 
-{% include {{ page.version.version }}/app/start-cockroachdb.md %}
+{% include {{< page-version >}}/app/start-cockroachdb.md %}
 
 ## Step 3. Create a database
 
-{% include {{ page.version.version }}/app/create-a-database.md %}
+{% include {{< page-version >}}/app/create-a-database.md %}
 
 ## Step 4. Run the Python code
 
@@ -110,4 +110,4 @@ Balances at Fri Oct 30 18:27:00 2020:
 
 Read more about using the [Python psycopg2 driver](http://initd.org/psycopg/docs/).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

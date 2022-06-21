@@ -13,8 +13,8 @@ $ cockroach version
 ~~~
 
 ~~~
-Build Tag:   {{ page.release_info.version }}
-Build Time:  {{ page.release_info.build_time }}
+Build Tag:   {{page.release_info.version}}
+Build Time:  {{page.release_info.build_time}}
 Distribution: CCL
 Platform:     darwin amd64
 Go Version:   go1.8.3

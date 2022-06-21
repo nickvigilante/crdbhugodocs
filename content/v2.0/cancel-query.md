@@ -70,7 +70,7 @@ In this example, we nest a [`SELECT` clause](select-clause.html) that retrieves 
           AND query = 'SELECT * FROM test.kv ORDER BY k');
 ~~~
 
-{{site.data.alerts.callout_info }}<code>CANCEL QUERY</code> accepts a single query ID. If subquery is used and returns multiple IDs, the <code>CANCEL QUERY</code> statement will therefore fail.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<code>CANCEL QUERY</code> accepts a single query ID. If subquery is used and returns multiple IDs, the <code>CANCEL QUERY</code> statement will therefore fail.{{site.data.alerts.end}}
 
 ## See Also
 

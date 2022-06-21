@@ -24,7 +24,7 @@ You can use the [`timezone()`](functions-and-operators.html#date-and-time-functi
 
 {{site.data.alerts.callout_success}}
 We recommend always using `TIME` instead of `TIMETZ`. Convert UTC values to the appropriate time zone on the client side.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Aliases
 
@@ -43,11 +43,11 @@ A constant value of type `TIME` can be expressed using an [interpreted literal](
 
 The string format for `TIME` is `HH:MM:SS.SSSSSS`. For example: `TIME '05:40:00.000001'`. The fractional portion is optional and is rounded to microseconds (i.e., six digits after the decimal) for compatibility with the [PostgreSQL wire protocol](https://www.postgresql.org/docs/current/static/protocol.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A date of `0000-01-01` is displayed for all `TIME`/`TIMETZ` values, but is not stored in the database. To print without a date, you can cast the type to a `STRING`.
 
 A time zone offset of `+00:00` is also displayed for all `TIME` and [`TIMESTAMP`](timestamp.html) values, but is not stored in the database.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `TIMETZ`
 
@@ -73,12 +73,12 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 
 ### Create a table with a `TIME`-typed column
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE time (time_id INT PRIMARY KEY, time_val TIME);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM time;
 ~~~
@@ -91,12 +91,12 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 (2 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO time VALUES (1, TIME '05:40:00'), (2, TIME '05:41:39');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM time;
 ~~~
@@ -109,13 +109,13 @@ You can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement t
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The SQL shell displays the date and time zone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and time zone are not relevant and are not stored in the database.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Comparing `TIME` values:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT (SELECT time_val FROM time WHERE time_id = 1) < (SELECT time_val FROM time WHERE time_id = 2);
 ~~~
@@ -130,12 +130,12 @@ Comparing `TIME` values:
 
 ### Create a table with a `TIME`-typed column, with precision
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE time (time_id INT PRIMARY KEY, time_val TIME(4));
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM time;
 ~~~
@@ -148,12 +148,12 @@ Comparing `TIME` values:
 (2 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO time VALUES (1, TIME '05:40:00.123456'), (2, TIME '05:41:39.12345');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM time;
 ~~~
@@ -168,7 +168,7 @@ Comparing `TIME` values:
 
 To change the precision level of a column, you can use an [`ALTER COLUMN ... SET DATA TYPE`](alter-column.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE time ALTER COLUMN time_val SET DATA TYPE TIME(5);
 ~~~
@@ -177,7 +177,7 @@ To change the precision level of a column, you can use an [`ALTER COLUMN ... SET
 ALTER TABLE
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW COLUMNS FROM time;
 ~~~
@@ -190,13 +190,13 @@ ALTER TABLE
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a non-default precision level has already been specified, you cannot change the precision to a lower level.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 In this case, the `time_val` column, which is of type `TIME(5)`, cannot be changed to a precision level below `5`:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE time ALTER COLUMN time_val SET DATA TYPE TIME(3);
 ~~~
@@ -216,9 +216,9 @@ Type | Details
 `INTERVAL` | Converts to the span of time since midnight (00:00)
 `STRING` | Converts to format `'HH:MM:SS.SSSSSS'` (microsecond precision)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB displays `TIME '24:00:00'` and `TIMETZ '24:00:00'` as `0000-01-01 00:00:00`. To display the proper stored value (`24:00:00`), you can [cast the data type to a `STRING`](time.html#supported-casting-conversion).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

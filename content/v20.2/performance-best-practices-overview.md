@@ -8,11 +8,11 @@ This page provides best practices for optimizing query performance in CockroachD
 
 {{site.data.alerts.callout_success}}
 For a demonstration of some of these techniques, see [Performance Tuning](performance-tuning.html). For guidance on deployment and data location techniques to minimize network latency, see [Topology Patterns](topology-patterns.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you aren't sure whether SQL query performance needs to be improved on your cluster, see [Identify slow queries](query-behavior-troubleshooting.html#identify-slow-queries).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## DML best practices
 
@@ -49,13 +49,13 @@ To bulk-insert data into an existing table, batch multiple rows in one multi-row
 
 {{site.data.alerts.callout_success}}
 You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For more information, see [Insert Multiple Rows](insert.html#insert-multiple-rows-into-an-existing-table).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Large multi-row `INSERT` queries can lead to long-running transactions that result in [transaction retry errors](transaction-retry-error-reference.html). If a multi-row `INSERT` query results in an error code [`40001` with the message `"transaction deadline exceeded"`](transaction-retry-error-reference.html#retry_commit_deadline_exceeded), we recommend breaking up the query up into smaller batches of rows.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Use `IMPORT` instead of `INSERT` for bulk-inserts into new tables
 
@@ -175,7 +175,7 @@ Note that the above query also follows the [indexing best practice](indexes.html
 
 ### Use `UUID` to generate unique IDs
 
-To auto-generate unique row IDs, use the [`UUID`](uuid.html) column with the `gen_random_uuid()` [function](functions-and-operators.html#id-generation-functions) as the [default value](default-value.html):
+To auto-generate unique row identifiers, use the [`UUID`](uuid.html) column with the `gen_random_uuid()` [function](functions-and-operators.html#id-generation-functions) as the [default value](default-value.html):
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -344,7 +344,7 @@ However, because `AS OF SYSTEM TIME` returns historical data, your reads might b
 
 {{site.data.alerts.callout_success}}
 You can use a [statement trace](query-behavior-troubleshooting.html#visualize-statement-traces-in-jaeger) to identify transaction contention on a running cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Transaction contention occurs when the following three conditions are met:
 

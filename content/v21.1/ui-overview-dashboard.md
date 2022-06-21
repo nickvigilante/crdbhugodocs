@@ -8,9 +8,9 @@ The **Overview** dashboard lets you monitor important SQL performance, replicati
 
 {% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 All timestamps in the DB Console are shown in Coordinated Universal Time (UTC).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The **Overview** dashboard displays the following time series graphs:
 
@@ -38,9 +38,9 @@ Ranges are subsets of your data, which are replicated to ensure survivability. R
 
 For details about how to control the number and location of replicas, see [Configure Replication Zones](configure-replication-zones.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The timeseries data used to power the graphs in the DB Console is stored within the cluster and accumulates for 30 days before it starts getting truncated. As a result, for the first 30 days or so of a cluster's life, you will see a steady increase in disk usage and the number of ranges even if you aren't writing data to the cluster yourself. For more details, see this [FAQ](operational-faqs.html#why-is-disk-usage-increasing-despite-lack-of-writes).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Capacity
 
@@ -65,9 +65,9 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/ui/ui-summary-events.md %}
 

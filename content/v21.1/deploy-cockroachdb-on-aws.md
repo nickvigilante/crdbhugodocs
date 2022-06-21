@@ -20,9 +20,9 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 {% include cockroachcloud/use-cockroachcloud-instead.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you need a license to use [{{ site.data.products.enterprise }} features](enterprise-licensing.html), obtain a private offer link on the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-ph5bx6fhm4nlq) or see [CockroachDB Pricing](https://www.cockroachlabs.com/pricing/) to learn about custom pricing.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -30,9 +30,9 @@ If you need a license to use [{{ site.data.products.enterprise }} features](ente
 
 {% include {{ page.version.version }}/prod-deployment/secure-requirements.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB is supported in all [AWS regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Recommendations
 
@@ -124,7 +124,7 @@ AWS offers fully-managed load balancing to distribute traffic between instances.
     - Register your instances with the target group you created, specifying port **26257**. You can add and remove instances later.
 2. To test load balancing and connect your application to the cluster, you will need the provisioned internal (private) **IP address** for the load balancer. To find this, open the Network Interfaces section of the Amazon EC2 console and look up the load balancer by its name.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end}}
 
 ## Step 5. Generate certificates
 

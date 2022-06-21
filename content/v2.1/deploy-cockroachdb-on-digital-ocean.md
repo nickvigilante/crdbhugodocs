@@ -24,7 +24,7 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 {% include {{ page.version.version }}/prod-deployment/secure-recommendations.md %}
 
-- If all of your CockroachDB nodes and clients will run on Droplets in a single region, consider using [private networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking).
+- If all of your CockroachDB nodes and clients will run on Droplets in a single region, consider using [private networking](https://docs.digitalocean.com/products/networking/vpc/how-to/create/).
 
 ## Step 1. Create Droplets
 
@@ -55,7 +55,7 @@ Digital Ocean offers fully-managed load balancers to distribute traffic between 
     - Configure health checks to use HTTP port **8080** and path `/health?ready=1`. This [health endpoint](monitoring-and-alerting.html#health-ready-1) ensures that load balancers do not direct traffic to nodes that are live but not ready to receive requests.
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end}}
 
 ## Step 4. Configure your network
 

@@ -105,7 +105,7 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
     {{site.data.alerts.callout_success}}
     To get similar help directly in your shell, use `./tuning.py --help`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ### Step 6. Test/tune read performance
 
@@ -781,9 +781,9 @@ This approach reduced the query time from 2489.85ms (query with subquery) to 220
 
 Moving on to writes, let's imagine that you have a batch of 100 new users to insert into the `users` table. The most obvious approach is to insert each row using 100 separate [`INSERT`](insert.html) statements:  
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell
@@ -837,9 +837,9 @@ Cumulative time (milliseconds):
 
 As you can see, this multi-row `INSERT` technique reduced the total time for 100 inserts from 910.98ms to 15.40ms. It's useful to note that this technique is equally effective for [`UPSERT`](upsert.html) and [`DELETE`](delete.html) statements as well.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Minimizing unused indexes
 

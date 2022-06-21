@@ -44,9 +44,9 @@ Parameter            | Description
 CREATE STATISTICS
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Multi-column statistics are not supported yet.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Delete all statistics
 

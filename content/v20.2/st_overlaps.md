@@ -17,18 +17,18 @@ In other words, `ST_Overlaps` returns `true` if the shapes intersect (in the [`S
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
 {% if page.has_prefixed_variant %}
-{{site.data.alerts.callout_info }}
-`{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+`{{page.title}}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{page.title}}` if you do not want any spatial indexes to be used.
+{{site.data.alerts.end}}
 {% endif %}
 
 ## Examples
 
-{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{% include {{< page-version >}}/misc/geojson_geometry_note.md %}
 
 ### True
 
-In this example, `{{ page.title }}` returns `true` because:
+In this example, `{{page.title}}` returns `true` because:
 
 - There is a Point in the set that comprises Polygon _A_ that is also a member of the set of Points that make up Polygon _B_.
 - Neither of the shapes is contained by the other, in the [`ST_Contains`](st_contains.html) sense.
@@ -50,7 +50,7 @@ SELECT st_overlaps(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95
 
 ### False
 
-In this example, `{{ page.title }}` returns `false` because:
+In this example, `{{page.title}}` returns `false` because:
 
 - - There is not any Point in the set that comprises Polygon _A_ that is also a member of the set of Points that make up Polygon _B_.
 

@@ -8,7 +8,7 @@ Because of CockroachDB's [multi-active availability](multi-active-availability.h
 
 ## Step 1. Verify that you can upgrade
 
-To upgrade to a new version, you must first be on a [production release](../releases/#production-releases) of the previous version. The release does not need to be the **latest** production release of the previous version, but it must be a production release rather than a testing release (alpha/beta).
+To upgrade to a new version, you must first be on a [production release](../releases/) of the previous version. The release does not need to be the **latest** production release of the previous version, but it must be a production release rather than a testing release (alpha/beta).
 
 Therefore, if you are upgrading from v19.2 to v20.2, or from a testing release (alpha/beta) of v20.1 to v20.2:
 
@@ -40,13 +40,13 @@ Verify the overall health of your cluster using the [DB Console](ui-overview.htm
 
 ### Review breaking changes
 
-Review the [backward-incompatible changes in v20.2](../releases/v20.2.0.html#backward-incompatible-changes) and [deprecated features](../releases/v20.2.0.html#deprecations). If any affect your application, make the necessary changes.
+Review the [backward-incompatible changes in v20.2](../releases/v20.2.html#v20-2-0-backward-incompatible-changes) and [deprecated features](../releases/v20.2.html#v20-2-0-deprecations). If any affect your application, make the necessary changes.
 
 ## Step 3. Decide how the upgrade will be finalized
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This step is relevant only when upgrading from v20.1.x to v20.2. For upgrades within the v20.2.x series, skip this step.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain [features and performance improvements introduced in v20.2](#features-that-require-upgrade-finalization). However, it will no longer be possible to perform a downgrade to v20.1. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade. For this reason, **we recommend disabling auto-finalization** so you can monitor the stability and performance of the upgraded cluster before finalizing the upgrade, but note that you will need to follow all of the subsequent directions, including the manual finalization in [step 5](#step-5-finish-the-upgrade):
 
@@ -89,7 +89,7 @@ For each node in your cluster, complete the following steps. Be sure to upgrade 
 
 {{site.data.alerts.callout_success}}
 We recommend creating scripts to perform these steps instead of performing them manually. Also, if you are running CockroachDB on Kubernetes, see our documentation on [single-cluster](orchestrate-cockroachdb-with-kubernetes.html#upgrade-the-cluster) and/or [multi-cluster](orchestrate-cockroachdb-with-kubernetes-multi-cluster.html#upgrade-the-cluster) orchestrated deployments for upgrade guidance instead.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Drain and stop the node using one of the following methods:
 
@@ -115,14 +115,14 @@ We recommend creating scripts to perform these steps instead of performing them 
     <div class="filter-content" markdown="1" data-scope="mac">
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.darwin-10.9-amd64.tgz|tar -xzf -
+    $ curl https://binaries.cockroachdb.com/cockroach-{{page.release_info.version}}.darwin-10.9-amd64.tgz|tar -xzf -
     ~~~
     </div>
 
     <div class="filter-content" markdown="1" data-scope="linux">
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz|tar -xzf -
+    $ curl https://binaries.cockroachdb.com/cockroach-{{page.release_info.version}}.linux-amd64.tgz|tar -xzf -
     ~~~
     </div>
 
@@ -142,7 +142,7 @@ We recommend creating scripts to perform these steps instead of performing them 
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ cp -i cockroach-{{ page.release_info.version }}.darwin-10.9-amd64/cockroach /usr/local/bin/cockroach
+    $ cp -i cockroach-{{page.release_info.version}}.darwin-10.9-amd64/cockroach /usr/local/bin/cockroach
     ~~~
     </div>
 
@@ -154,15 +154,15 @@ We recommend creating scripts to perform these steps instead of performing them 
 
     {% include copy-clipboard.html %}
     ~~~ shell
-    $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/cockroach
+    $ cp -i cockroach-{{page.release_info.version}}.linux-amd64/cockroach /usr/local/bin/cockroach
     ~~~
     </div>
 
 1. Start the node to have it rejoin the cluster.
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     For maximum availability, do not wait more than a few minutes before restarting the node with the new binary. See [this open issue](https://github.com/cockroachdb/cockroach/issues/37906) for context.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     Without a process manager like `systemd`, re-run the [`cockroach start`](cockroach-start.html) command that you used to start the node initially, for example:
 
@@ -207,9 +207,9 @@ We recommend creating scripts to perform these steps instead of performing them 
 
 ## Step 5. Finish the upgrade
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This step is relevant only when upgrading from v20.1.x to v20.2. For upgrades within the v20.2.x series, skip this step.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you disabled auto-finalization in [step 3](#step-3-decide-how-the-upgrade-will-be-finalized), monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 
@@ -239,4 +239,4 @@ In the event of catastrophic failure or corruption, the only option will be to s
 - [View Node Details](cockroach-node.html)
 - [Collect Debug Information](cockroach-debug-zip.html)
 - [View Version Details](cockroach-version.html)
-- [Release notes for our latest version](../releases/{{ page.release_info.version }}.html)
+- [Release notes for our latest version](../releases/{{< page-version >}}.html)

@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE SEQUENCE` [statement](sql-statements.html) creates a new sequence in a database. Use a sequence to auto-increment integers in a table.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Considerations
 
@@ -46,7 +46,7 @@ table td:first-child {
 We support the following [SQL sequence functions](functions-and-operators.html):
 
 - `nextval('seq_name')`
-    {{site.data.alerts.callout_info }}If <code>nextval()</code> is used in conjunction with <code>RETURNING NOTHING</code> statements, the sequence increments can be reordered. For more information, see <a href="parallel-statement-execution.html">Parallel Statement Execution</a>.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}If <code>nextval()</code> is used in conjunction with <code>RETURNING NOTHING</code> statements, the sequence increments can be reordered. For more information, see <a href="parallel-statement-execution.html">Parallel Statement Execution</a>.{{site.data.alerts.end}}
 - `currval('seq_name')`
 - `lastval()`
 - `setval('seq_name', value, is_called)`
@@ -175,7 +175,7 @@ To view the current value without incrementing the sequence, use:
 +------------+---------+-----------+
 ~~~
 
-{{site.data.alerts.callout_info }}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{site.data.alerts.end}}
 
 If a value has been obtained from the sequence in the current session, you can also use the `currval('seq_name')` function to get that most recently obtained value:
 

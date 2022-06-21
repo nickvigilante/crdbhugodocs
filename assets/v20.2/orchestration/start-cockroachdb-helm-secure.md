@@ -1,10 +1,10 @@
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The CockroachDB Helm chart is undergoing maintenance for compatibility with Kubernetes versions 1.17 through 1.21 (the latest version as of this writing). No new feature development is currently planned. For new production and local deployments, we currently recommend using a manual configuration (**Configs** option). If you are experiencing issues with a Helm deployment on production, contact our [Support team](https://support.cockroachlabs.com/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](https://github.com/cockroachdb/cockroach/issues/38847).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. [Install the Helm client](https://helm.sh/docs/intro/install) (version 3.0 or higher) and add the `cockroachdb` chart repository:
 
@@ -30,7 +30,7 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
     {{site.data.alerts.callout_success}}
     Resource `requests` and `limits` should have identical values. 
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~
@@ -53,7 +53,7 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
         {{site.data.alerts.callout_success}}
         For example, if you are allocating 8Gi of `memory` to each CockroachDB node, allocate 2Gi to `cache` and 2Gi to `max-sql-memory`.
-        {{site.data.alerts.end }}
+        {{site.data.alerts.end}}
 
     2. You may want to modify `storage.persistentVolume.size` and `storage.persistentVolume.storageClass` for your use case. This chart defaults to 100Gi of disk space per pod. For more details on customizing disks for performance, see [these instructions](kubernetes-performance.html#disk-type).
 
@@ -63,9 +63,9 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
     Provide a "release" name to identify and track this particular deployment of the chart, and override the default values with those in `my-values.yaml`.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This tutorial uses `my-release` as the release name. If you use a different value, be sure to adjust the release name in subsequent commands.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -192,4 +192,4 @@ Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](ht
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

@@ -8,9 +8,9 @@ The `PRIMARY KEY` [constraint](constraints.html) specifies that the constrained 
 
 Unlike other constraints which have very specific uses, the `PRIMARY KEY` constraint *should be used for every table* because it provides an intrinsic structure to the table's data. This both makes it easier to understand, as well as improving query performance.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A table's primary key can only be specified in the [`CREATE TABLE`](create-table.html) statement. It cannot be changed later using `ALTER TABLE`, though it is possible to [go through a process](constraints.html#change-constraints) to create a new table with the new primary key you want and then migrate the data.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Details
 

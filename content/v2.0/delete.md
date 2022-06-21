@@ -6,9 +6,9 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions-new-in-v2-0"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions-new-in-v2-0"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end}}
 
 
 ## Required Privileges
@@ -96,7 +96,7 @@ TRUNCATE
 
 As you can see, one difference is that `TRUNCATE` does not return the number of rows it deleted.
 
-{{site.data.alerts.callout_info }}The <code>TRUNCATE</code> statement removes all rows from a table by dropping the table and recreating a new table with the same name. This is much more performant than deleting each of the rows. {{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>TRUNCATE</code> statement removes all rows from a table by dropping the table and recreating a new table with the same name. This is much more performant than deleting each of the rows. {{site.data.alerts.end}}
 
 ### Delete Specific Rows
 

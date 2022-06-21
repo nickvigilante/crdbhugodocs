@@ -177,7 +177,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end}}
 
 4. Create the certificate and key for the second node:
 

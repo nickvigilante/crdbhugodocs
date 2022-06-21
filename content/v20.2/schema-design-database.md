@@ -8,7 +8,7 @@ This page provides best-practice guidance on creating databases, with a couple e
 
 {{site.data.alerts.callout_success}}
 For reference documentation on the `CREATE DATABASE` statement, including additional examples, see the [`CREATE DATABASE` syntax page](create-database.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -34,7 +34,7 @@ Here are some best practices to follow when creating and using databases:
 
 - Limit the number of databases you create. If you need to create multiple tables with the same name in your cluster, do so in different [user-defined schemas](schema-design-schema.html), in the same database.
 
-- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {% include {{< page-version >}}/sql/dev-schema-changes.md %}
 
 ### Example
 

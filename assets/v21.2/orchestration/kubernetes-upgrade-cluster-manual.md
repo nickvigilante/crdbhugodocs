@@ -1,6 +1,6 @@
 1. Verify that you can upgrade.
 
-    To upgrade to a new major version, you must first be on a production release of the previous version. The release does not need to be the latest production release of the previous version, but it must be a [production release](../releases/index.html#production-releases) and not a [testing release](../releases/index.html#testing-releases) (alpha/beta).
+    To upgrade to a new major version, you must first be on a production release of the previous version. The release does not need to be the latest production release of the previous version, but it must be a production [release](../releases/index.html) and not a testing release (alpha/beta).
 
     Therefore, in order to upgrade to v21.2, you must be on a production release of v21.1.
 
@@ -17,19 +17,15 @@
         - Make sure all nodes are on the same version. If not all nodes are on the same version, upgrade them to the cluster's highest current version first, and then start this process over.
         - Make sure capacity and memory usage are reasonable for each node. Nodes must be able to tolerate some increase in case the new version uses more resources for your workload. Also go to **Metrics > Dashboard: Hardware** and make sure CPU percent is reasonable across the cluster. If there's not enough headroom on any of these metrics, consider [adding nodes](scale-cockroachdb-kubernetes.html?filters=manual#add-nodes) to your cluster before beginning your upgrade.
 
-{% comment %}
-1. Review the [backward-incompatible changes in v21.2](../releases/v21.2.0.html#backward-incompatible-changes) and [deprecated features](../releases/v21.2.0.html#deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.2.
-{% endcomment %}
-
-1. Review the backward-incompatible changes in v21.2 and deprecated features. If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.2.
+1. Review the [backward-incompatible changes in v21.2](../releases/v21.2.html#v21-2-0-backward-incompatible-changes) and [deprecated features](../releases/v21.2.html#v21-2-0-deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.2.
 
 1. Decide how the upgrade will be finalized.
 
     By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain [features and performance improvements introduced in v21.2](upgrade-cockroach-version.html#features-that-require-upgrade-finalization). After finalization, however, it will no longer be possible to perform a downgrade to v21.1. In the event of a catastrophic failure or corruption, the only option is to start a new cluster using the old binary and then restore from a [backup](take-full-and-incremental-backups.html) created prior to the upgrade. For this reason, **we recommend disabling auto-finalization** so you can monitor the stability and performance of the upgraded cluster before finalizing the upgrade, but note that you will need to follow all of the subsequent directions, including the manual finalization in a later step.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Finalization only applies when performing a major version upgrade (for example, from v21.1.x to v21.2). Patch version upgrades (for example, within the v21.2.x series) can always be downgraded.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% if page.secure == true %}
 
@@ -78,7 +74,7 @@
     {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl patch statefulset cockroachdb \
-    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2 }}}}'
+    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
     ~~~
 
     ~~~
@@ -91,7 +87,7 @@
     ~~~ shell
     $ kubectl patch statefulset cockroachdb \
     --type='json' \
-    -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"cockroachdb/cockroach:{{ page.release_info.version }}"}]'
+    -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"cockroachdb/cockroach:{{page.release_info.version}}"}]'
     ~~~
 
     ~~~
@@ -166,7 +162,7 @@
     {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl patch statefulset cockroachdb \
-    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":1 }}}}'
+    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":1}}}}'
     ~~~
 
     ~~~
@@ -184,9 +180,9 @@
     ~~~
 
     ~~~
-    cockroachdb-0   cockroachdb/cockroach:{{ page.release_info.version }}
-    cockroachdb-1   cockroachdb/cockroach:{{ page.release_info.version }}
-    cockroachdb-2   cockroachdb/cockroach:{{ page.release_info.version }}
+    cockroachdb-0   cockroachdb/cockroach:{{page.release_info.version}}
+    cockroachdb-1   cockroachdb/cockroach:{{page.release_info.version}}
+    cockroachdb-2   cockroachdb/cockroach:{{page.release_info.version}}
     ...
     ~~~
 
@@ -196,9 +192,9 @@
 
     If you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This is only possible when performing a major version upgrade (for example, from v21.1.x to v21.2). Patch version upgrades (for example, within the v21.2.x series) are auto-finalized.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     To finalize the upgrade, re-enable auto-finalization:
 

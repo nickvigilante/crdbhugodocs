@@ -18,17 +18,17 @@ This tutorial shows you how build a simple Python application with CockroachDB a
 
 CockroachDB supports Django versions 3.1+.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The example code and instructions on this page use Python 3.9 and Django 3.1.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Start CockroachDB
 
-{% include {{ page.version.version }}/app/start-cockroachdb.md %}
+{% include {{< page-version >}}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database
 
-{% include {{ page.version.version }}/app/create-a-database.md %}
+{% include {{< page-version >}}/app/create-a-database.md %}
 
 ## Step 3. Get the sample code
 
@@ -108,9 +108,9 @@ To use CockroachDB with Django, the following modules are required:
 - [`psycopg2`](https://pypi.org/project/psycopg2/) (recommended for production environments) or [`psycopg2-binary`](https://pypi.org/project/psycopg2-binary/) (recommended for development and testing).
 - [`django-cockroachdb`](https://github.com/cockroachdb/django-cockroachdb)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The major version of `django-cockroachdb` must correspond to the major version of `django`. The minor release numbers do not need to match.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The `requirements.txt` file at the top level of the `example-app-python-django` project directory contains a list of the requirements needed to run this application:
 
@@ -119,9 +119,9 @@ The `requirements.txt` file at the top level of the `example-app-python-django` 
 {% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-python-django/master/requirements.txt %}
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `requirements.txt` file also lists the `dj_database_url` module, which is not a strict requirement. The sample app uses this module to configure the database connection from a connection URL.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. At the top level of the app's project directory, create and then activate a virtual environment:
 
@@ -322,4 +322,4 @@ Lastly, define some [URL routes](https://docs.djangoproject.com/en/3.1/topics/ht
 
 Read more about writing a [Django app](https://docs.djangoproject.com/en/3.1/intro/tutorial01/).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

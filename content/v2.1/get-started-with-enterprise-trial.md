@@ -20,9 +20,9 @@ As the CockroachDB `root` user, open the [built-in SQL shell](use-the-built-in-s
 $ cockroach sql --insecure
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you've secured your deployment, you'll need to [include the flags for your certificates](create-security-certificates.html) instead of the `--insecure` flag.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Now, use the `SET CLUSTER SETTING` command to set the name of your organization and the license key:
 

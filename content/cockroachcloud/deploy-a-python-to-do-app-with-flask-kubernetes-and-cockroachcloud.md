@@ -42,7 +42,7 @@ Once you are [logged in](https://cockroachlabs.cloud/), you can use the Console 
 4. From the **Network** dropdown, select **Current Network**. Your local machine's IP address will be auto-populated in the box.
 5. Select both networks: **DB Console to monitor the cluster** and **CockroachDB Client to access the databases**.
 
-    The **DB Console** refers to the cluster's DB Console, where you can observe your cluster's health and performance. For more information, see [DB Console Overview](../{{site.versions["stable"] }}/ui-overview.html).
+    The **DB Console** refers to the cluster's DB Console, where you can observe your cluster's health and performance. For more information, see [DB Console Overview](../{{site.versions["stable"]}}/ui-overview.html).
 
 6. Click **Apply**.
 
@@ -79,7 +79,7 @@ Once you are [logged in](https://cockroachlabs.cloud/), you can use the Console 
 
 On your local workstation's terminal:
 
-1. If you haven't already, [Download the CockroachDB binary](../{{site.versions["stable"] }}/install-cockroachdb.html) and copy it into the `PATH`:
+1. If you haven't already, [Download the CockroachDB binary](../{{site.versions["stable"]}}/install-cockroachdb.html) and copy it into the `PATH`:
 
     <div class="filters clearfix">
       <button style="width: 15%" class="filter-button" data-scope="mac">Mac</button>
@@ -166,9 +166,9 @@ In a new terminal:
     SQLALCHEMY_DATABASE_URI = 'cockroachdb://<username>@<host>:26257/todos?sslmode=verify-full&sslrootcert=$Home/Library/CockroachCloud/certs/<cluster-name>-ca.crt'
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.create_engine`](https://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=create_engine#sqlalchemy.create_engine) to make sure the [`cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroachdb) dialect is used. Using the `postgres://` URL prefix to connect to your CockroachDB cluster will not work.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     Copy the application connection string to an accessible location since you need it to configure the sample application in the next step.
 
@@ -200,9 +200,9 @@ In a new terminal:
 
 ## Deploy the app
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 These steps focus on deploying your app locally. For production Kubernetes deployments, use a service like GKE.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - [Step 1. Start a local Kubernetes cluster](#step-1-start-a-local-kubernetes-cluster)
 - [Step 2. Create a Kubernetes secret](#step-2-create-a-kubernetes-secret)
@@ -252,9 +252,9 @@ In the `hello.cfg` file in the `flask-alchemy` folder, replace the certificate d
 SQLALCHEMY_DATABASE_URI = 'cockroachdb://<username>@<host>:26257/todos?sslmode=verify-full&sslrootcert=$Home/Library/CockroachCloud/certs/<cluster-name>-ca.crt'
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.create_engine`](https://docs.sqlalchemy.org/en/latest/core/engines.html?highlight=create_engine#sqlalchemy.create_engine) to make sure the [`cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroachdb) dialect is used. Using the `postgres://` URL prefix to connect to your CockroachDB cluster will not work.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 4. Dockerize the application
 
@@ -450,7 +450,7 @@ You must use the `cockroachdb://` prefix in the URL passed to [`sqlalchemy.creat
 
 ### Step 2. Monitor cluster health, metrics, and SQL statements
 
-On the [**Cluster Overview** page](../{{site.versions["stable"] }}/ui-cluster-overview-page.html), view essential metrics about the cluster's health:
+On the [**Cluster Overview** page](../{{site.versions["stable"]}}/ui-cluster-overview-page.html), view essential metrics about the cluster's health:
 
 - Number of live, dead, and suspect nodes
 - Number of unavailable and under-replicated ranges
@@ -460,7 +460,7 @@ On the [**Cluster Overview** page](../{{site.versions["stable"] }}/ui-cluster-ov
 #### Monitor the hardware metrics
 
 1. Click **Metrics** on the left, and then select **Dashboard > Hardware**.
-2. On the [**Hardware** dashboard](../{{site.versions["stable"] }}/ui-hardware-dashboard.html), view metrics about CPU usage, disk throughput, network traffic, storage capacity, and memory.
+2. On the [**Hardware** dashboard](../{{site.versions["stable"]}}/ui-hardware-dashboard.html), view metrics about CPU usage, disk throughput, network traffic, storage capacity, and memory.
 
 #### Monitor inter-node latencies
 
@@ -469,4 +469,4 @@ On the [**Cluster Overview** page](../{{site.versions["stable"] }}/ui-cluster-ov
 #### Identify frequently executed or high latency SQL statements
 
 1. Click **Statements** on the left.
-2. The [**Statements** page](../{{site.versions["stable"] }}/ui-statements-page.html) helps you identify frequently executed or high latency SQL statements. The **Statements** page also allows you to view the details of an individual SQL statement by clicking on the statement to view the **Statement Details** page.
+2. The [**Statements** page](../{{site.versions["stable"]}}/ui-statements-page.html) helps you identify frequently executed or high latency SQL statements. The **Statements** page also allows you to view the details of an individual SQL statement by clicking on the statement to view the **Statement Details** page.

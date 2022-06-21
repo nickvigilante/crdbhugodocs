@@ -86,9 +86,9 @@ To turn the cost-based optimizer off for all sessions:
 > SET CLUSTER SETTING sql.defaults.optimizer = 'off';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Changing the cluster setting does not immediately turn the optimizer off; instead, it changes the default session setting to `off`. To see the change, restart your session.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Known limitations
 

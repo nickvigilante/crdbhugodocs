@@ -1,6 +1,6 @@
 {{ $currentPage := . }}
 <div class="col-xl-9 bg-white position-relative shadow-sm">
-  <img class="nav-bg-img" src="{{ .Site.Params.img_url }}/img/nav-bg.svg" alt="">
+  <img class="nav-bg-img" src="{{.Site.Params.img_url}}/img/nav-bg.svg" alt="">
   <div class="p-4 megamenu-main position-relative">
     <div class="row">
 
@@ -22,9 +22,9 @@
             <!-- Loop over menus.main where why -->
             {{ range .Site.Menus.why }}
               <li class="nav-item mb-3 pb-1">
-                  <div class="font-weight-bold item-title">{{ .Pre }}</div>
-                  <a href="{{ .URL }}" class="nav-link text-small pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                    >{{ .Name }}</a
+                  <div class="font-weight-bold item-title">{{.Pre}}</div>
+                  <a href="{{ item.url }}" class="nav-link text-small pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                    >{{ item.name }}</a
                   >
                 </li>
             {{ end }}
@@ -39,9 +39,9 @@
             <!-- Loop over menus.main where why -->
             {{ range .Site.Menus.survive }}
               <li class="nav-item mb-3 pb-1">
-                  <div class="font-weight-bold item-title">{{ .Pre }}</div>
-                  <a href="{{ .URL }}" class="nav-link text-small pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                    >{{ .Name }}</a
+                  <div class="font-weight-bold item-title">{{.Pre}}</div>
+                  <a href="{{ item.url }}" class="nav-link text-small pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                    >{{ item.name }}</a
                   >
                 </li>
             {{ end }}
@@ -57,9 +57,9 @@
             <!-- Loop over menus.main where why -->
             {{ range .Site.Menus.thrive }}
               <li class="nav-item mb-3 pb-1">
-                  <div class="font-weight-bold item-title">{{ .Pre }}</div>
-                  <a href="{{ .URL }}" class="nav-link text-small pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
-                    >{{ .Name }}</a
+                  <div class="font-weight-bold item-title">{{.Pre}}</div>
+                  <a href="{{ item.url }}" class="nav-link text-small pb-0 {{ if $currentPage.HasMenuCurrent "main" . }} active {{ end }}"
+                    >{{ item.name }}</a
                   >
                 </li>
             {{ end }}

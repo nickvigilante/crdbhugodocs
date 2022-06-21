@@ -8,7 +8,7 @@ This page provides best-practice guidance on creating user-defined schemas, with
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `CREATE SCHEMA` statement, including additional examples, see the [`CREATE SCHEMA` syntax page](create-schema.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -41,7 +41,7 @@ Here are some best practices to follow when creating and using user-defined sche
 
 - When referring to a lower-level object in a database (e.g., a table), include the object's schema name (e.g., `schema_name.table_name`). Specifying the schema name in a lower-level object reference can prevent users from attempting to access the wrong object, if there are multiple objects with the same name in a database.
 
-- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {% include {{< page-version >}}/sql/dev-schema-changes.md %}
 
 ### Examples
 

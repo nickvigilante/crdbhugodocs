@@ -8,7 +8,7 @@ This page walks you through deploying an application and database in multiple re
 
 {% include {{ page.version.version }}/misc/movr-flask-211.md %}
 
-{% include {{ page.version.version }}/misc/movr-live-demo.md %}
+<!-- {% include {{ page.version.version }}/misc/movr-live-demo.md %} -->
 
 ## Before you begin
 
@@ -51,9 +51,9 @@ In production, you want to start a secure CockroachDB cluster, with nodes on mac
     $ cockroach sql --url any-connection-string < dbinit.sql
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You need to specify the password in the connection string!
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     e.g.,
 
@@ -61,9 +61,9 @@ In production, you want to start a secure CockroachDB cluster, with nodes on mac
     $ cockroach sql --url \ 'postgresql://user:password@region.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full&sslrootcert=certs-dir/movr-app-ca.crt' < dbinit.sql
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also deploy CockroachDB manually. For instructions, see the [Manual Deployment](manual-deployment.html) page of the Cockroach Labs documentation site.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Multi-region application deployment (GKE)
 
@@ -71,9 +71,9 @@ To deploy an application in multiple regions in production, we recommend that yo
 
 In this tutorial, we use [kubemci](https://cloud.google.com/kubernetes-engine/docs/how-to/multi-cluster-ingress) to configure a GCP HTTP Load Balancer to container clusters deployed on GKE.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To serve a secure web application, you also need a public domain name!
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. If you do not have a gcloud account, create one at https://cloud.google.com/.
 
@@ -81,9 +81,9 @@ To serve a secure web application, you also need a public domain name!
 
 1. **Optional:** Enable the [Google Maps Embed API](https://console.cloud.google.com/apis/library), create an API key, restrict the API key to all subdomains of your domain name (e.g., `https://site.com/*`), and retrieve the API key.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The example HTML templates include maps. Not providing an API key to the application will not break the application.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Configure/authorize the `gcloud` CLI to use your project and region.
 
@@ -181,9 +181,9 @@ To serve a secure web application, you also need a public domain name!
       <li>`<APIkey>` is the API key for the [Google Maps Embed API](https://console.cloud.google.com/apis/library). This API key is *not* required to run the demo application. Not providing a Google Maps Embed API key will not break the application.</li>
     </ul>
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Secrets must be generated for each cluster context.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Reserve a static IP address for the ingress.
 
@@ -217,9 +217,9 @@ To serve a secure web application, you also need a public domain name!
     --kubeconfig=<path>/mcikubeconfig
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `kubemci` requires full paths.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. In GCP's **Load balancing** console (found under **Network Services**), select and edit the load balancer that you just created.
 
@@ -233,9 +233,9 @@ To serve a secure web application, you also need a public domain name!
         - On the "**Create a new certificate**" page, give a name to the certificate (e.g., "`movr-ssl-cert`"), check "**Create Google-managed certificate**", and then under "Domains", enter a domain name that you own and want to use for your application.
     1. Review and finalize the load balancer, and then "**Update**".
 
-        {{site.data.alerts.callout_info }}
+        {{site.data.alerts.callout_info}}
         It will take several minutes to provision the SSL certificate that you just created for the frontend.
-        {{site.data.alerts.end }}
+        {{site.data.alerts.end}}
 
 1. Check the status of the ingress.
 
@@ -250,9 +250,9 @@ To serve a secure web application, you also need a public domain name!
 
 1. Outside of the GCP console, through your domain name provider, add the nameserver addresses to the authoritative nameserver list for your domain name.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     It can take up to 48 hours for changes to the authoritative nameserver list to take effect.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Navigate to the domain name and test out your application.
 
@@ -268,7 +268,7 @@ Some time after you have deployed your application, you will likely need to push
 
 ## See also
 
-- [MovR (live demo)](https://movr.cloud)
+<!-- [MovR (live demo)](https://movr.cloud)-->
 - [CockroachCloud documentation](../cockroachcloud/quickstart.html)
 - [Google Cloud Platform documentation](https://cloud.google.com/docs/)
 - [Docker documentation](https://docs.docker.com/)

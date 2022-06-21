@@ -9,11 +9,11 @@ The `SHOW TABLES` [statement](sql-statements.html) lists the schema, table name,
 
 {{site.data.alerts.callout_success}}
 Estimating the number of rows in a table costs resources. To improve the performance of `SHOW TABLES` queries, disable row-count estimation by setting the `sql.show_tables.estimated_row_count.enabled` [cluster setting](cluster-settings.html) to `false` before executing a `SHOW TABLES` statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 While a table or view is being [dropped](drop-table.html), `SHOW TABLES` will list the object with a `(dropped)` suffix.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -38,7 +38,7 @@ When a `database_name` and `schema_name` are omitted, the tables of the [current
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Show tables in the current database
 

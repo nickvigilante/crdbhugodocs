@@ -36,7 +36,7 @@ Go Total | Total memory managed by the Go layer.
 CGo Allocated | Memory allocated by the C layer.
 CGo Total | Total memory managed by the C layer.
 
-{{site.data.alerts.callout_info }}If Go Total or CGO Total fluctuates or grows steadily over time, <a href="https://forum.cockroachlabs.com/">contact us</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If Go Total or CGO Total fluctuates or grows steadily over time, <a href="https://forum.cockroachlabs.com/">contact us</a>.{{site.data.alerts.end}}
 
 ## CPU Time
 

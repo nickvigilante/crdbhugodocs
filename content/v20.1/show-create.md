@@ -31,7 +31,7 @@ Field | Description
 
 ## Example
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Show the `CREATE TABLE` statement for a table
 
@@ -91,9 +91,9 @@ To return just the `create_statement` value:
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `SHOW CREATE TABLE` also lists any partitions and zone configurations defined on primary and secondary indexes of a table. If partitions are defined, but no zones are configured, the `SHOW CREATE TABLE` output includes a warning.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Show the `CREATE VIEW` statement for a view
 

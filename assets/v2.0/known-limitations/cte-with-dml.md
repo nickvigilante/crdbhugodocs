@@ -1,6 +1,6 @@
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Resolved as of v2.1.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If a [common table expression](common-table-expressions.html) containing data-modifying statement is not referred to
 by the top level query, either directly or indirectly, the

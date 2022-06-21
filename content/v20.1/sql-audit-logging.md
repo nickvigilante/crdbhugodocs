@@ -20,7 +20,7 @@ Note that enabling SQL audit logs can negatively impact performance. As a result
 
 {{site.data.alerts.callout_success}}
 To learn about other SQL query logging options, see [SQL logging](query-behavior-troubleshooting.html#sql-logging).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Create sample tables
 
@@ -62,9 +62,9 @@ We turn on auditing for a table using the [`EXPERIMENTAL_AUDIT`](experimental-au
 > ALTER TABLE customers EXPERIMENTAL_AUDIT SET READ WRITE;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To turn on auditing for more than one table, issue a separate `ALTER` statement for each table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Populate the `customers` table
 
@@ -120,13 +120,13 @@ I180321 20:54:30.080592 351 sql/exec_log.go:163  [n1,client=127.0.0.1:60754,user
 I180321 20:54:39.377395 351 sql/exec_log.go:163  [n1,client=127.0.0.1:60754,user=root] 5 exec "cockroach sql" {"customers"[76]:READ} "SELECT * FROM customers" {} 1.236 2 OK
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For reference documentation of the audit log file format, see [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 {% include {{ page.version.version }}/admin-ui/admin-ui-log-files.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 5. Populate the `orders` table
 
@@ -178,13 +178,13 @@ I180321 21:04:07.497555 351 sql/exec_log.go:163  [n1,client=127.0.0.1:60754,user
 I180321 21:04:08.730379 351 sql/exec_log.go:163  [n1,client=127.0.0.1:60754,user=root] 9 exec "cockroach sql" {"customers"[76]:READ, "customers"[76]:READ} "INSERT INTO orders(product_id, delivery_status, customer_id) VALUES (nextval('product_ids_asc'), 'processing', (SELECT id FROM customers WHERE \"name\" ~ 'Cleve'))" {} 5.392 1 OK
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For reference documentation of the audit log file format, see [`ALTER TABLE ... EXPERIMENTAL_AUDIT`](experimental-audit.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 {% include {{ page.version.version }}/admin-ui/admin-ui-log-files.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Known limitations
 

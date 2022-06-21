@@ -185,9 +185,9 @@ To create a view, use the [`CREATE VIEW`](create-view.html) statement:
 CREATE VIEW
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Any [selection query](selection-queries.html) is valid as operand to `CREATE VIEW`, not just [simple `SELECT` clauses](select-clause.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Listing views
 
@@ -333,9 +333,9 @@ There is an exception to the rule above, however: When [dropping a table](drop-t
 DROP TABLE
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` drops **all** dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Renaming views
 

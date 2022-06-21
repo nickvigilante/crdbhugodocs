@@ -45,12 +45,12 @@ An expression in a query can refer to columns in the current data source in two 
 
   *This is a CockroachDB SQL extension.*
 
-  {{site.data.alerts.callout_danger }}
+  {{site.data.alerts.callout_danger}}
   Ordinal references should be used with care in production
   code! During schema updates, column ordinal positions can change and
   invalidate existing queries that use ordinal positions based on a
   previous version of the schema.
-  {{site.data.alerts.end }}
+  {{site.data.alerts.end}}
 
 ## Unary and binary operations
 
@@ -257,7 +257,7 @@ For example:
 > SELECT ('x', 123) IN (SELECT * FROM rows);
 ~~~
 
-{{site.data.alerts.callout_info }}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end}}
 
 #### Typing rule
 
@@ -568,7 +568,7 @@ and `OR` is not evaluated in any particular order. Some operand may
 not even be evaluated at all if the result can be fully ascertained using
 only the other operand.
 
-{{site.data.alerts.callout_info }}This is different from the left-to-right "short-circuit logic" found in other programming languages. When it is essential to force evaluation order, use <a href="#conditional-expressions">a conditional expression</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}This is different from the left-to-right "short-circuit logic" found in other programming languages. When it is essential to force evaluation order, use <a href="#conditional-expressions">a conditional expression</a>.{{site.data.alerts.end}}
 
 See also [NULLs and Ternary Logic](null-handling.html#nulls-and-ternary-logic).
 
@@ -698,9 +698,9 @@ specified explicitly using a type annotation. For example:
 > SELECT ARRAY[]:::int[];
 ~~~
 
-{{site.data.alerts.callout_success}}To convert the results of a subquery to an array, use <a href="#conversion-of-subquery-results-to-an-array"><code>ARRAY(...)</code></a> instead.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To convert the results of a subquery to an array, use <a href="#conversion-of-subquery-results-to-an-array"><code>ARRAY(...)</code></a> instead.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_success}}CockroachDB also recognizes the syntax <code>ARRAY(a, b, c)</code> as an alias for <code>ARRAY[a, b, c]</code>. This is an experimental, CockroachDB-specific SQL extension and may be removed in a later version of CockroachDB.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}CockroachDB also recognizes the syntax <code>ARRAY(a, b, c)</code> as an alias for <code>ARRAY[a, b, c]</code>. This is an experimental, CockroachDB-specific SQL extension and may be removed in a later version of CockroachDB.{{site.data.alerts.end}}
 
 #### Typing rule
 
@@ -824,7 +824,7 @@ For example, the following query returns `TRUE` if there are more rows in table 
 > SELECT (SELECT COUNT(*) FROM users) > (SELECT COUNT(*) FROM admins);
 ~~~
 
-{{site.data.alerts.callout_info }}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end}}
 
 #### Typing rule
 
@@ -845,7 +845,7 @@ whether the subquery returned any row (for `EXISTS`) or didn't return
 any row (for `NOT EXISTS`). Any [selection query](selection-queries.html)
 can be used as subquery.
 
-{{site.data.alerts.callout_info }}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end}}
 
 #### Typing rule
 
@@ -862,9 +862,9 @@ ARRAY( ... subquery ... )
 Evaluates the subquery and converts its results to an array. Any
 [selection query](selection-queries.html) can be used as subquery.
 
-{{site.data.alerts.callout_info }}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}See <a href="subqueries.html">Subqueries</a> for more details and performance best practices.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_success}}To convert a list of scalar expressions to an array, use <a href="#array-constructors"><code>ARRAY[...]</code></a> instead.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To convert a list of scalar expressions to an array, use <a href="#array-constructors"><code>ARRAY[...]</code></a> instead.{{site.data.alerts.end}}
 
 ## See also
 

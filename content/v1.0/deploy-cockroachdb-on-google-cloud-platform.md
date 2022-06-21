@@ -56,7 +56,7 @@ When creating firewall rules, we recommend using Google Cloud Platform's **tag**
 
 Applications will not connect directly to your CockroachDB nodes. Instead, they'll connect to GCE's TCP Proxy Load Balancing service, which automatically routes traffic to the instances that are closest to the user. Because this service is implemented at the edge of the Google Cloud, you'll need to create a firewall rule to allow traffic from the load balancer and health checker to your instances. This is covered in [Step 3](#step-3-set-up-tcp-proxy-load-balancing).
 
-{{site.data.alerts.callout_danger }}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance).{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance).{{site.data.alerts.end}}
 
 ## Step 2. Create instances
 
@@ -77,7 +77,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 GCE offers fully-managed [TCP Proxy Load Balancing](https://cloud.google.com/load-balancing/docs/tcp/). This service lets you use a single IP address for all users around the world, automatically routing traffic to the instances that are closest to the user.
 
-{{site.data.alerts.callout_danger }}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see <a href="manual-deployment.html">Manual Deployment</a> for guidance).{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}When using TCP Proxy Load Balancing, you cannot use firewall rules to control access to the load balancer. If you need such control, consider using <a href="https://cloud.google.com/compute/docs/load-balancing/network/">Network TCP Load Balancing</a> instead, but note that it cannot be used across regions. You might also consider using the HAProxy load balancer (see <a href="manual-deployment.html">Manual Deployment</a> for guidance).{{site.data.alerts.end}}
 
 To use GCE's TCP Proxy Load Balancing service:
 
@@ -98,7 +98,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
 - A node key pair for each node, issued to its IP addresses and any common names the machine uses, as well as to the IP address provisioned for the GCE load balancer.
 - A client key pair for the `root` user.
 
-{{site.data.alerts.callout_success}}Before beginning, it's useful to collect each of your machine's internal and external IP addresses, as well as any server names you want to issue certificates for.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}Before beginning, it's useful to collect each of your machine's internal and external IP addresses, as well as any server names you want to issue certificates for.{{site.data.alerts.end}}
 
 1. [Install CockroachDB](install-cockroachdb.html) on your local machine, if you haven't already.
 
@@ -173,7 +173,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end}}
 
 7. Create the certificate and key for the second node, issued to all common names you might use to refer to the node as well as to addresses provisioned for the GCE load balancer:
 
@@ -221,7 +221,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
 	--ca-key=my-safe-directory/ca.key
 	~~~
 
-    {{site.data.alerts.callout_success}}In later steps, you'll use the <code>root</code> user's certificate to run <a href="cockroach-commands.html"><code>cockroach</code></a> client commands from your local machine. If you might also want to run <code>cockroach</code> client commands directly on a node (e.g., for local debugging), you'll need to copy the <code>root</code> user's certificate and key to that node as well.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}In later steps, you'll use the <code>root</code> user's certificate to run <a href="cockroach-commands.html"><code>cockroach</code></a> client commands from your local machine. If you might also want to run <code>cockroach</code> client commands directly on a node (e.g., for local debugging), you'll need to copy the <code>root</code> user's certificate and key to that node as well.{{site.data.alerts.end}}
 
 ## Step 5. Start the first node
 
@@ -419,7 +419,7 @@ To test this, use the [built-in SQL client](use-the-built-in-sql-client.html) lo
 
 View your cluster's Admin UI by going to `https://<any node's external IP address>:8080`.
 
-{{site.data.alerts.callout_info }}Note that your browser will consider the CockroachDB-created certificate invalid; you’ll need to click through a warning message to get to the UI.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Note that your browser will consider the CockroachDB-created certificate invalid; you’ll need to click through a warning message to get to the UI.{{site.data.alerts.end}}
 
 On this page, verify that the cluster is running as expected:
 

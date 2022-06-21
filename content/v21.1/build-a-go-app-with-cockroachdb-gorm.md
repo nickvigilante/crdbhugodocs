@@ -9,6 +9,7 @@ referral_id: docs_hello_world_go_gorm
 <div class="filters filters-big clearfix">
     <a href="build-a-go-app-with-cockroachdb.html"><button class="filter-button">Use <strong>pgx</strong></button></a>
     <a href="build-a-go-app-with-cockroachdb-gorm.html"><button class="filter-button current">Use <strong>GORM</strong></button></a>
+    <a href="build-a-go-app-with-cockroachdb-pq.html"><button class="filter-button">Use <strong>pq</strong></button></a>
     <a href="build-a-go-app-with-cockroachdb-upperdb.html"><button class="filter-button">Use <strong>upper/db</strong></button></a>
 </div>
 
@@ -16,7 +17,7 @@ This tutorial shows you how build a simple CRUD Go application with CockroachDB 
 
 {{site.data.alerts.callout_success}}
 For another use of GORM with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Start CockroachDB
 
@@ -45,9 +46,9 @@ The `main.go` file defines an `Account` struct that maps to a new `accounts` tab
 {% remote_include https://raw.githubusercontent.com/cockroachlabs/example-app-go-gorm/master/main.go %}
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in the case of read/write contention. The [CockroachDB Go client](https://github.com/cockroachdb/cockroach-go) includes a generic **retry function** (`ExecuteTx()`) that runs inside a transaction and retries it as needed. The code sample shows how you can use this function to wrap SQL statements.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Run the code
 
@@ -77,7 +78,7 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
     {{site.data.alerts.callout_success}}
     `postgresql://root@localhost:26257?sslmode=disable` should be the `sql` connection URL provided in the `cockroach` welcome text.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     </section>
 
@@ -85,11 +86,11 @@ CockroachDB may require the [client to retry a transaction](transactions.html#tr
 
     {{site.data.alerts.callout_success}}
     Use the connection string provided in the **Connection info** window of the {{ site.data.products.db }} Console.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You need to provide a SQL user password in order to securely connect to a {{ site.data.products.db }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     </section>
 

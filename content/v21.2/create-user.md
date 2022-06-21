@@ -5,15 +5,15 @@ toc: true
 docs_area: reference.sql
 ---
 
-The `CREATE USER` [statement](sql-statements.html) creates SQL users, which let you control [privileges](authorization.html#assign-privileges) on your databases and tables.
+The `CREATE USER` [statement](sql-statements.html) creates SQL users, which let you control [privileges](security-reference/authorization.html#managing-privileges) on your databases and tables.
 
 {% include {{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
-{{site.data.alerts.callout_info }}
-The keywords `ROLE` and `USER` can be used interchangeably in SQL statements for enhanced Postgres compatibility.
+{{site.data.alerts.callout_info}}
+The keywords `ROLE` and `USER` can be used interchangeably in SQL statements for enhanced PostgreSQL compatibility.
 
 `CREATE USER` is equivalent to the statement `CREATE ROLE`, with one exception: `CREATE ROLE` sets the [`NOLOGIN`](#parameters) option by default, preventing the new role from being used to log in to the database. You can use `CREATE ROLE` and specify the [`LOGIN`](#parameters) option to achieve the same result as `CREATE USER`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Considerations
 
@@ -22,8 +22,8 @@ The keywords `ROLE` and `USER` can be used interchangeably in SQL statements for
     - Must start with a letter, number, or underscore
     - Must contain only letters, numbers, periods, or underscores
     - Must be between 1 and 63 characters.
-    - <span class="version-tag">New in v21.2</span>: Cannot be `none`.
-    - <span class="version-tag">New in v21.2</span>: Cannot start with `pg_` or `crdb_internal`. Object names with these prefixes are reserved for [system catalogs](system-catalogs.html).
+    - {% include_cached new-in.html version="v21.2" %} Cannot be `none`.
+    - {% include_cached new-in.html version="v21.2" %} Cannot start with `pg_` or `crdb_internal`. Object names with these prefixes are reserved for [system catalogs](system-catalogs.html).
 - After creating users, you must [grant them privileges to databases and tables](grant.html).
 - All users belong to the `public` role, to which you can [grant](grant.html) and [revoke](revoke.html) privileges.
 - On secure clusters, you must [create client certificates for users](cockroach-cert.html#create-the-certificate-and-key-pair-for-a-client) and users must [authenticate their access to the cluster](#user-authentication).
@@ -64,7 +64,7 @@ Role option | Description
 `PASSWORD password`/`PASSWORD NULL` | The credential the role uses to [authenticate their access to a secure cluster](authentication.html#client-authentication). A password should be entered as a [string literal](sql-constants.html#string-literals). For compatibility with PostgreSQL, a password can also be entered as an identifier. <br><br>To prevent a role from using [password authentication](authentication.html#client-authentication) and to mandate [certificate-based client authentication](authentication.html#client-authentication), [set the password as `NULL`](create-role.html#prevent-a-role-from-using-password-authentication).
 `SQLLOGIN`/`NOSQLLOGIN` | Allow or disallow a role to log in using the SQL CLI with one of the [client authentication methods](authentication.html#client-authentication). The role option to `NOSQLLOGIN` prevents the role from logging in using the SQL CLI with any authentication method while retaining the ability to log in to DB Console. It is possible to have both `NOSQLLOGIN` and `LOGIN` set for a role and `NOSQLLOGIN` takes precedence on restrictions. <br><br>Without any role options all login behavior is permitted.
 `VALID UNTIL` |  The date and time (in the [`timestamp`](timestamp.html) format) after which the [password](#parameters) is not valid.
-`VIEWACTIVITY`/`NOVIEWACTIVITY` | Allow or disallow a role to see other roles' [queries](show-statements.html) and [sessions](show-sessions.html) using `SHOW STATEMENTS`, `SHOW SESSIONS`, and the [Statements](ui-statements-page.html) and [Transactions](ui-transactions-page.html) pages in the DB Console. With `NOVIEWACTIVITY`, the `SHOW` commands show only the role's own data and the DB Console pages are unavailable. If a user has the `VIEWACTIVITYREDACTED` role, they will be able to see DB Console pages. <br><br>By default, the role option is set to `NOVIEWACTIVITY` for all non-admin roles.
+`VIEWACTIVITY`/`NOVIEWACTIVITY` | Allow or disallow the user to see other users' [queries](show-statements.html) and [sessions](show-sessions.html) using `SHOW STATEMENTS`, `SHOW SESSIONS`, and the [**Statements**](ui-statements-page.html) and [**Transactions**](ui-transactions-page.html) pages in the DB Console. `VIEWACTIVITY` also permits visibility of node hostnames and IP addresses in the DB Console. With `NOVIEWACTIVITY`, the `SHOW` commands show only the user's own data, and DB Console pages redact node hostnames and IP addresses.<br><br>By default, the role option is set to `NOVIEWACTIVITY` for all non-`admin` users.
 `VIEWACTIVITYREDACTED`/`NOVIEWACTIVITYREDACTED` | Allow or disallow a role to see other roles' queries and sessions using `SHOW STATEMENTS`, `SHOW SESSIONS`, and the Statements and Transactions pages in the DB Console. With `VIEWACTIVITYREDACTED`, a user won't have access to the usage of statements diagnostics bundle, which can contain PII information, in the DB Console. It is possible to have both `VIEWACTIVITY` and `VIEWACTIVITYREDACTED`, and `VIEWACTIVITYREDACTED` takes precedence on restrictions. If the user has `VIEWACTIVITY` but doesn't have `VIEWACTIVITYREDACTED`, they will be able to see DB Console pages and have access to the statements diagnostics bundle. <br><br>By default, the role option is set to `NOVIEWACTIVITYREDACTED` for all non-admin roles.
 
 
@@ -104,9 +104,9 @@ root     |         | {admin}
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The following statements are run by the `root` user that is a member of the `admin` role and has `ALL` privileges.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Create a user
 
@@ -158,7 +158,7 @@ with_password | VALID UNTIL=2021-10-10 00:00:00+00:00 | {}
 
 The following statement prevents the user from using password authentication and mandates certificate-based client authentication:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 root@:26257/defaultdb> CREATE USER no_password WITH PASSWORD NULL;
 ~~~
@@ -348,5 +348,5 @@ with_password              | VALID UNTIL=2021-10-10 00:00:00+00:00 | {}
 - [`GRANT`](grant.html)
 - [`SHOW GRANTS`](show-grants.html)
 - [Create Security Certificates](cockroach-cert.html)
-- [Other SQL Statements](sql-statements.html)
+- [SQL Statements](sql-statements.html)
 - [Online Schema Changes](online-schema-changes.html)

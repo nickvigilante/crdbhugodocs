@@ -6,12 +6,12 @@ toc: true
 
 The `crdb_internal` [system catalog](system-catalogs.html) is a schema that contains information about internal objects, processes, and metrics related to a specific database.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We do not recommend using `crdb_internal` tables in production environments for the following reasons:
 
 - The contents of `crdb_internal` are unstable, and subject to change in new releases of CockroachDB, without prior notice.
 - There are memory and latency costs associated with each table in `crdb_internal`. Accessing the tables in the schema can impact cluster stability and performance.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Data exposed by `crdb_internal`
 
@@ -31,6 +31,7 @@ Table | Description
 `cluster_transactions` | Contains information about transactions running on your cluster.
 `create_statements` | Contains information about tables and indexes in your database.
 `create_type_statements` | Contains information about [user-defined types](enum.html) in your database.
+`cross_db_references` | Contains information about cross-database references in your cluster.
 `databases` | Contains information about the databases in your cluster.
 `feature_usage` | Contains information about feature usage on your cluster.
 `forward_dependencies` | Contains information about forward dependencies.
@@ -39,6 +40,8 @@ Table | Description
 `gossip_network` | Contains information about your cluster's gossip network.
 `gossip_nodes` | Contains information about nodes in your cluster's gossip network.
 `index_columns` | Contains information about indexed columns in your cluster.
+`interleaved_tables` | Contains information about interleaved tables in your cluster.
+`interleaved_views` | Contains information about interleaved views in your cluster.
 `invalid_objects` | Contains information about invalid objects in your cluster.
 `jobs` | Contains information about [jobs](show-jobs.html) running on your cluster.
 `kv_node_status` | Contains information about node status at the [key-value layer](architecture/storage-layer.html).
@@ -70,7 +73,7 @@ Table | Description
 
 To list the `crdb_internal` tables for the [current database](sql-name-resolution.html#current-database), use the following [`SHOW TABLES`](show-tables.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TABLES FROM crdb_internal;
 ~~~
@@ -89,15 +92,15 @@ To get detailed information about objects, processes, or metrics related to your
 
 {{site.data.alerts.callout_success}}
 To ensure that you can view all of the tables in `crdb_internal`, query the tables as a user with [`admin` privileges](authorization.html#admin-role).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Unless specified otherwise, queries to `crdb_internal` assume the [current database](sql-name-resolution.html#current-database).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For example, to return the `crdb_internal` table for the ranges of the [`movr`](movr.html) database, you can use the following statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM movr.crdb_internal.ranges;
 ~~~

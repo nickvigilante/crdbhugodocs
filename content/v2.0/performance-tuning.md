@@ -16,9 +16,9 @@ You'll start with a 3-node CockroachDB cluster in a single Google Compute Engine
 
 <img src="{{ 'images/v2.0/perf_tuning_single_region_topology.png' | relative_url }}" alt="Perf tuning topology" style="max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Within a single GCE zone, network latency between instances should be sub-millisecond.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You'll then scale the cluster to 9 nodes running across 3 GCE regions, with an extra instance in each region for a client application workload:
 
@@ -137,9 +137,9 @@ Source IP ranges | Your local network's IP ranges
 Allowed protocols | **tcp:8080**
 Target tags | `cockroachdb`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The **tag** feature will let you easily apply the rule to your instances.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 2. Create instances
 
@@ -341,7 +341,7 @@ Now you'll import Movr data representing users, vehicles, and rides in 3 eastern
 
     {{site.data.alerts.callout_success}}
     You can observe the progress of imports as well as all schema change operations (e.g., adding secondary indexes) on the [**Jobs** page](admin-ui-jobs-page.html) of the Web UI.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 7. Logically, there should be a number of [foreign key](foreign-key.html) relationships between the tables:
 
@@ -422,7 +422,7 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
     {{site.data.alerts.callout_success}}
     To get similar help directly in your shell, use `./tuning.py --help`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ### Step 6. Test/tune read performance
 
@@ -459,9 +459,9 @@ Average time (milliseconds):
 1.18108272552
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When reading from a table or index for the first time in a session, the query will be slower than usual because the node issuing the query loads the schema of the table or index into memory first. For this reason, the first query took 24ms, whereas all others were sub-millisecond.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Retrieving a subset of columns will usually be even faster:
 
@@ -848,9 +848,9 @@ $ cockroach sql \
 --execute="CREATE INDEX ON rides (start_time) STORING (rider_id);"
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `rides` table contains 1 million rows, so adding this index will take a few minutes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Adding the secondary index reduced the query time from 1081.04ms to 71.89ms:
 
@@ -1107,9 +1107,9 @@ This approach reduced the query time from 4356.70ms (query with subquery) to 160
 
 Moving on to writes, let's imagine that you have a batch of 100 new users to insert into the `users` table. The most obvious approach is to insert each row using 100 separate [`INSERT`](insert.html) statements:  
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell
@@ -1764,9 +1764,9 @@ For this service, the most effective technique for improving read and write late
     --execute="DROP INDEX rides_start_time_idx;"
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The `rides` table contains 1 million rows, so dropping this index will take a few minutes.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 7. Now [create replication zones](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition-new-in-v2-0) to require city data to be stored on specific nodes based on node locality.
 
@@ -1779,9 +1779,9 @@ For this service, the most effective technique for improving read and write late
     San Francisco | `zone=us-west2-a`
     Los Angelese | `zone=us-west2-a`
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Since our nodes are located in 3 specific GCE zones, we're only going to use the `zone=` portion of node locality. If we were using multiple zones per regions, we would likely use the `region=` portion of the node locality instead.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     Start with the `users` table partitions:
 

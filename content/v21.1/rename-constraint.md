@@ -6,9 +6,9 @@ toc: true
 
 The `RENAME CONSTRAINT` [statement](sql-statements.html) changes the name of a constraint on a column.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 It is not possible to rename a constraint for a column referenced by a view. For more details, see [View Dependencies](views.html#view-dependencies).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
@@ -39,7 +39,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ### Rename a constraint
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE logon (
     login_id INT PRIMARY KEY,
@@ -49,7 +49,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
   );
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS FROM logon;
 ~~~
@@ -62,12 +62,12 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 (2 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE logon RENAME CONSTRAINT logon_customer_id_sales_id_key TO unique_customer_id_sales_id;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS FROM logon;
 ~~~

@@ -6,7 +6,7 @@ toc: true
 
 The `ALTER SEQUENCE` [statement](sql-statements.html) [changes the name](rename-sequence.html), increment values, and other settings of a sequence.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -72,7 +72,7 @@ Next, we'll add another record to the table and check that the new record adhere
 
 In this example, we're going to change the next value of the example sequence (`customer_seq`). Currently, the next value will be `7` (i.e., `5` + `INCREMENT 2`). We will change the next value to `20`.
 
-{{site.data.alerts.callout_info }}You cannot set a value outside the <code>MAXVALUE</code> or <code>MINVALUE</code> of the sequence. {{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You cannot set a value outside the <code>MAXVALUE</code> or <code>MINVALUE</code> of the sequence. {{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -86,9 +86,9 @@ In this example, we're going to change the next value of the example sequence (`
 +--------+
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `setval('seq_name', value, is_called)` function in CockroachDB SQL mimics the `setval()` function in PostgreSQL, but it does not store the `is_called` flag. Instead, it sets the value to `val - increment` for `false` or `val` for `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Let's add another record to the table to check that the new record adheres to the new next value.
 

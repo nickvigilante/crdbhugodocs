@@ -94,7 +94,7 @@ A `role admin` is a member of the role that's allowed to grant or revoke role me
 
 {{site.data.alerts.callout_success}}
 The terms “`admin` role” and “`role admin`” can be confusing. A user who is a member of the `admin` role has all privileges on all database objects across the entire cluster, whereas a `role admin` has privileges limited to the role they are a member of. Assign the `admin` role to a SQL user if you want the user to have privileges across the cluster. Make a SQL user the `role admin` if you want to limit the user’s privileges to its current role, but with an option to grant or revoke role membership to other users. This applies to the `admin` role as well - only admin users with the `WITH ADMIN OPTION` can add or remove other users from the `admin` role.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Direct member
 
@@ -136,9 +136,9 @@ Take the following points into consideration while granting privileges to roles 
 
 - When a role or user is granted privileges for a database, new tables created in the database will inherit the privileges, but the privileges can then be changed. To grant privileges to a user on all existing tables in a database, see [Grant privileges on all tables in a database](grant.html#grant-privileges-on-all-tables-in-a-database-or-schema)
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The user does not get privileges to existing tables in the database.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - When a role or user is granted privileges for a table, the privileges are limited to the table.
 - In CockroachDB, privileges are granted to users and roles at the database and table levels. They are not yet supported for other granularities such as columns or rows.

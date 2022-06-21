@@ -23,7 +23,7 @@ with other constructs to form more complex [selection queries](selection-queries
 
 {{site.data.alerts.callout_success}}
 The simple `SELECT` clause also has other applications not covered here, such as executing [functions](functions-and-operators.html) like `SELECT current_timestamp();`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -59,7 +59,7 @@ using the [scalar expressions](scalar-expressions.html) listed with `ON`. When t
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Choose columns
 
@@ -370,9 +370,9 @@ WHERE city IN ('new york', 'chicago', 'seattle') GROUP BY city;
 (3 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  If the group is created on a primary key column, any column in the table can be selected as a `target_elem`. If a selected column is in a [subquery](subqueries.html) that references a higher scope, a `GROUP BY` clause is not needed.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Filter aggregate groups
 
@@ -512,7 +512,7 @@ If you include multiple aggregate functions in a single `SELECT` clause, you can
 
 ### Select from a specific index
 
-{% include {{ page.version.version }}/misc/force-index-selection.md %}
+{% include {{< page-version >}}/misc/force-index-selection.md %}
 
 ### Select historical data (time-travel)
 
@@ -540,7 +540,7 @@ in the result, you can combine it with `ORDER BY` or `LIMIT` /
 See [Ordering Query Results](order-by.html) and [Limiting Query
 Results](limit-offset.html) for more details.
 
-{{site.data.alerts.callout_info }}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.<br><br>Also, CockroachDB sorts <a href="null-handling.html#nulls-and-sorting"><code>NULL</code> values</a> first with <code>ASC</code> and last with <code>DESC</code>. This differs from PostgreSQL, which sorts <code>NULL</code> values last with <code>ASC</code> and first with <code>DESC</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.<br><br>Also, CockroachDB sorts <a href="null-handling.html#nulls-and-sorting"><code>NULL</code> values</a> first with <code>ASC</code> and last with <code>DESC</code>. This differs from PostgreSQL, which sorts <code>NULL</code> values last with <code>ASC</code> and first with <code>DESC</code>.{{site.data.alerts.end}}
 
 ### Combining results from multiple queries
 
@@ -553,7 +553,7 @@ Results from two or more queries can be combined together as follows:
 
 ### Row-level locking for concurrency control with `SELECT FOR UPDATE`
 
-{% include {{ page.version.version }}/sql/select-for-update-overview.md %}
+{% include {{< page-version >}}/sql/select-for-update-overview.md %}
 
 For an example showing how to use it, see  [`SELECT FOR UPDATE`](select-for-update.html).
 

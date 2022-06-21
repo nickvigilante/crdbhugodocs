@@ -5,11 +5,11 @@ toc: true
 docs_area: manage
 ---
 
-Now that [CockroachDB v21.2](../releases/v21.2.0.html) is available, a [Console Admin](console-access-management.html#console-admin) can upgrade your {{ site.data.products.dedicated }} cluster from the {{ site.data.products.db }} Console. This page walks through the process for an Admin.
+Now that [CockroachDB v21.2](../releases/v21.2.html) is available, a [Console Admin](console-access-management.html#console-admin) can upgrade your {{ site.data.products.dedicated }} cluster from the {{ site.data.products.db }} Console. This page guides you through the process for an Admin.
 
 {{site.data.alerts.callout_success}}
 Upgrading a {{ site.data.products.dedicated }} cluster to a new major version is opt-in. Before proceeding, review the {{ site.data.products.db }} [upgrade policy](upgrade-policy.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Verify that you can upgrade
 
@@ -27,7 +27,7 @@ The upgrade process depends on the number of nodes in your cluster. Select wheth
 ## Step 3. Understand the upgrade process
 
 <section class="filter-content" markdown="1" data-scope="multi-node">
-In a multi-node cluster, the upgrade does not interrupt the cluster's overall health and availability. One node is stopped and restarted with the new version, then the next, and so on, pausing for a few minutes between each node. This "rolling upgrade" takes approximately 4-5 minutes per node and is enabled by CockroachDB's [multi-active availability](../{{site.versions["stable"] }}/multi-active-availability.html) design.
+In a multi-node cluster, the upgrade does not interrupt the cluster's overall health and availability. One node is stopped and restarted with the new version, then the next, and so on, pausing for a few minutes between each node. This "rolling upgrade" takes approximately 4-5 minutes per node and is enabled by CockroachDB's [multi-active availability](../{{site.versions["stable"]}}/multi-active-availability.html) design.
 
 Approximately 72 hours after all nodes are running v21.2, the upgrade will be automatically finalized. This enables certain [features and performance improvements introduced in v21.2](#respect-temporary-limitations). Finalization also removes the ability to roll back to v21.1, so it's important to monitor your application during this 72-hour window and, if you see unexpected behavior, [roll back the upgrade](#roll-back-the-upgrade) from the {{ site.data.products.db }} Console.
 </section>
@@ -54,7 +54,7 @@ The [**SQL Users**](user-authorization.html#create-a-sql-user) and [**Monitoring
 
 ### Review breaking changes
 
-Review the [backward-incompatible changes in v21.2](../releases/v21.2.0.html#backward-incompatible-changes). If any affect your applications, make the necessary changes before proceeding.
+Review the [backward-incompatible changes in v21.2](../releases/v21.2.html#v21-2-0-backward-incompatible-changes). If any affect your applications, make the necessary changes before proceeding.
 
 ## Step 5. Start the upgrade
 
@@ -100,7 +100,7 @@ Most v21.2 features can be used right away, but some will be enabled only after 
 - **Restricted and default placement:** You can now use the [`ALTER DATABASE ... PLACEMENT RESTRICTED`](../v21.2/placement-restricted.html) statement to constrain the replica placement for a [multi-region database](../v21.2/multiregion-overview.html)'s [regional tables](../v21.2/regional-tables.html) to the [home regions](../v21.2/set-locality.html#crdb_region) associated with those tables.
 - **`ON UPDATE` expressions:** An [`ON UPDATE` expression](../v21.2/add-column.html#add-a-column-with-an-on-update-expression) can now be added to a column to update column values when an [`UPDATE`](../v21.2/update.html) or [`UPSERT`](../v21.2/upsert.html) statement modifies a different column value in the same row, or when an `ON UPDATE CASCADE` expression on a different column modifies an existing value in the same row.
 
-For an expanded list of features included in the v21.2 release, see the [v21.2 release notes](../releases/v21.2.0.html).
+For an expanded list of features included in the v21.2 release, see the [v21.2 release notes](../releases/v21.2.html).
 
 ### Roll back the upgrade
 
@@ -131,4 +131,4 @@ After finalization, all [temporary limitations](#respect-temporary-limitations) 
 ## See also
 
 - [Upgrade Policy](upgrade-policy.html)
-- [CockroachDB v21.2 Release Notes](../releases/v21.2.0.html)
+- [CockroachDB v21.2 Release Notes](../releases/v21.2.html)

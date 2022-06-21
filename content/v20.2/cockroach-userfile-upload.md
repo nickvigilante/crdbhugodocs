@@ -8,9 +8,9 @@ toc: true
 
 This command takes in a source file to upload and a destination filename. It will then use a SQL connection to upload the file to the [destination](#file-destination).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A userfile uses storage space in the cluster, and is replicated with the rest of the cluster's data. We recommended using `cockroach userfile upload` for quick imports from your client (about 15MB or smaller).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -26,9 +26,9 @@ Upload a file:
 $ cockroach userfile upload <location/of/file> <destination/of/file> [flags]
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You must specify a source path.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 View help:
 
@@ -49,13 +49,13 @@ Userfile operations are backed by two tables: `files` (which holds file metadata
 
 
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Userfile is **not** a filesystem and does not support filesystem semantics. The destination file path must be the same after normalization (i.e., if you pass any path that results in a different path after normalization, it will be rejected).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Files are uploaded with a `.tmp` suffix and are renamed once the userfile upload transaction has committed (i.e, the process ends gracefully). Therefore, if a file you believed had finished uploading has a `.tmp` suffix, then the upload should be retried.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Flags
 

@@ -6,7 +6,7 @@ toc: true
 
 CockroachDB's support of the PostgreSQL wire protocol enables support for many [drivers](hello-world-example-apps.html), [ORMs](hello-world-example-apps.html), and other types of third-party database tools.
 
-{% include {{ page.version.version }}/misc/tooling.md %}
+{% include {{< page-version >}}/misc/tooling.md %}
 
 ## See also
 

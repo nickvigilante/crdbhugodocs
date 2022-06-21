@@ -383,9 +383,9 @@ Before you can run MovR against the cluster, you must create a `movr` database a
 
 ### Start MovR in US East
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Be sure to use the exact version of MovR specified in the commands: `movr:19.09.2`. This tutorial relies on the SQL schema in this specific version.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Still on the client VM in the US East region, load the MovR schema and initial data for the cities of New York, Chicago, and Seattle, pointing at the address of the US East load balancer:
 
@@ -707,7 +707,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
     {{site.data.alerts.callout_success}}
     The warning at the bottom tells you that partitions are not yet applied because corresponding replication zones still need to be created.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ sql
@@ -747,7 +747,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
 
     {{site.data.alerts.callout_success}}
     The `<table>@*` syntax lets you create zone configurations for all identically named partitions of a table, saving you multiple steps.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ sql
@@ -897,7 +897,7 @@ As mentioned earlier, all of the tables except `promo_codes` are geographically 
     (6 rows)
     ~~~
 
-      {% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+      {% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ### Duplicate the reference table
 

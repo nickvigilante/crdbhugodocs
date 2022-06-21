@@ -6,7 +6,7 @@ toc: true
 
 The `DROP ROLE` [statement](sql-statements.html) removes one or more SQL roles.
 
-{{site.data.alerts.callout_info }}<code>DROP ROLE</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<code>DROP ROLE</code> is an <a href="enterprise-licensing.html">enterprise-only</a> feature.{{site.data.alerts.end}}
 
 
 ## Considerations
@@ -50,7 +50,7 @@ In this example, first check a role's privileges. Then, revoke the role's privil
 > REVOKE INSERT ON documents FROM dev_ops;
 ~~~
 
-{{site.data.alerts.callout_info }}All of a role's privileges must be revoked before the role can be dropped.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}All of a role's privileges must be revoked before the role can be dropped.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

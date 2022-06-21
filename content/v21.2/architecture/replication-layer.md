@@ -2,14 +2,14 @@
 title: Replication Layer
 summary: The replication layer of CockroachDB's architecture copies data between nodes and ensures consistency between copies.
 toc: true
-docs_area: reference.architecture 
+docs_area: reference.architecture
 ---
 
 The replication layer of CockroachDB's architecture copies data between nodes and ensures consistency between these copies by implementing our consensus algorithm.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -50,7 +50,7 @@ Because this log is treated as serializable, it can be replayed to bring a node 
 
 #### Non-voting replicas
 
-In versions prior to v21.1, CockroachDB only supported _voting_ replicas: that is, [replicas](overview.html#glossary) that participate as voters in the [Raft consensus protocol](#raft). However, the need for all replicas to participate in the consensus algorithm meant that increasing the [replication factor](../configure-replication-zones.html#num_replicas) came at a cost of increased write latency, since the additional replicas needed to participate in Raft [quorum](overview.html#architecture-overview-consensus).
+In versions prior to v21.1, CockroachDB only supported _voting_ replicas: that is, [replicas](overview.html#architecture-replica) that participate as voters in the [Raft consensus protocol](#raft). However, the need for all replicas to participate in the consensus algorithm meant that increasing the [replication factor](../configure-replication-zones.html#num_replicas) came at a cost of increased write latency, since the additional replicas needed to participate in Raft [quorum](overview.html#architecture-overview-consensus).
 
  In order to provide [better support for multi-region clusters](../multiregion-overview.html), (including the features that make [fast multi-region reads](../multiregion-overview.html#global-tables) and [surviving region failures](../multiregion-overview.html#surviving-region-failures) possible), a new type of replica is introduced: the _non-voting_ replica.
 
@@ -78,7 +78,7 @@ When serving [strongly-consistent (aka "non-stale") reads](transaction-layer.htm
 
 #### Co-location with Raft leadership
 
-The range lease is completely separate from Raft leadership, and so without further efforts, Raft leadership and the Range lease might not be held by the same replica. However, we can optimize query performance by making the same node both Raft leader and the leaseholder; it reduces network round trips if the leaseholder receiving the requests can simply propose the Raft commands to itself, rather than communicating them to another node.
+The range lease is completely separate from Raft leadership, and so without further efforts, Raft leadership and the range lease might not be held by the same replica. However, we can optimize query performance by making the same node both Raft leader and the leaseholder; it reduces network round trips if the leaseholder receiving the requests can simply propose the Raft commands to itself, rather than communicating them to another node.
 
 To achieve this, each lease renewal or transfer also attempts to collocate them. In practice, that means that the mismatch is rare and self-corrects quickly.
 
@@ -115,11 +115,11 @@ Finally, note that the process described above is lazily initiated: it only occu
 
 Because CockroachDB serves reads from a range's leaseholder, it benefits your cluster's performance if the replica closest to the primary geographic source of traffic holds the lease. However, as traffic to your cluster shifts throughout the course of the day, you might want to dynamically shift which nodes hold leases.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 
 This feature is also called [Follow-the-Workload](../topology-follow-the-workload.html) in our documentation.
 
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Periodically (every 10 minutes by default in large clusters, but more frequently in small clusters), each leaseholder considers whether it should transfer the lease to another replica by considering the following inputs:
 

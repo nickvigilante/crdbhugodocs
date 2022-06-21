@@ -6,9 +6,9 @@ toc: true
 
  The `SHOW TYPES` statement lists the user-defined [data types](data-types.html) in the current database.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB currently only supports [enumerated user-defined types](enum.html). As a result, [`SHOW ENUMS`](show-enums.html) and `SHOW TYPES` return the same results.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
@@ -22,17 +22,17 @@ The `SELECT` [privilege](authorization.html#assign-privileges) on the database i
 
 ## Examples
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE weekday AS ENUM ('monday', 'tuesday', 'wednesday', 'thursday', 'friday');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TYPE weekend AS ENUM ('sunday', 'saturday');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TYPES;
 ~~~

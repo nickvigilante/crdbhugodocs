@@ -1,8 +1,8 @@
 Download and modify our StatefulSet configuration, depending on how you want to sign your certificates.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Some environments, such as Amazon EKS, do not support certificates signed by Kubernetes' built-in CA. In this case, use the second configuration below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - Using the Kubernetes CA: [`cockroachdb-statefulset-secure.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/cockroachdb-statefulset-secure.yaml). 
 
@@ -40,7 +40,7 @@ Modify the values in the StatefulSet configuration.
 
     {{site.data.alerts.callout_success}}
     For example, if you are allocating 8Gi of `memory` to each CockroachDB node, allocate 2Gi to `cache` and 2Gi to `max-sql-memory`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     ~~~
     --cache 2Gi --max-sql-memory 2Gi
@@ -54,13 +54,13 @@ Modify the values in the StatefulSet configuration.
         storage: "100Gi"
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     If necessary, you can [expand disk size](orchestrate-cockroachdb-with-kubernetes.html#expand-disk-size) after the cluster is live.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 If you change the StatefulSet name from the default `cockroachdb`, be sure to start and end with an alphanumeric character and otherwise use lowercase alphanumeric characters, `-`, or `.` so as to comply with [CSR naming requirements](orchestrate-cockroachdb-with-kubernetes.html#csr-names).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Initialize the cluster
 
@@ -71,7 +71,7 @@ Choose the authentication method that corresponds to the StatefulSet configurati
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ##### Kubernetes CA
 
@@ -235,9 +235,9 @@ The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so 
 
 ##### Non-Kubernetes CA
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly generate and sign the CockroachDB node and client certificates. Read our [Authentication](authentication.html#using-digital-certificates-with-cockroachdb) docs to learn about other methods of signing certificates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Create two directories:
 

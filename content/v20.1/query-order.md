@@ -41,9 +41,9 @@ selected by the selection that immediately precedes.
 
 <span class="version-tag">New in v20.1:</span> CockroachDB supports `NULLS FIRST`/`NULLS LAST` in `ORDER BY` clauses for compatibility with [PostgreSQL row-sorting syntax](https://www.postgresql.org/docs/current/queries-order.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Support for `NULLS LAST` is currently syntax-only. If you specify `NULLS LAST` in an `ORDER BY` clause, CockroachDB uses `NULLS FIRST` and does not return an error.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Order preservation
 
@@ -275,7 +275,7 @@ of deletes](#sorting-the-output-of-deletes).
 
 ## Sorting the output of deletes
 
-{% include {{ page.version.version }}/misc/sorting-delete-output.md %}
+{% include {{< page-version >}}/misc/sorting-delete-output.md %}
 
 ## See also
 

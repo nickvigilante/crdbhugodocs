@@ -15,7 +15,7 @@ Benefits of online schema changes include:
 
 {{site.data.alerts.callout_success}}
 Support for schema changes within [transactions][txns] is [limited](#limitations). We recommend doing schema changes outside transactions where possible. When a schema management tool uses transactions on your behalf, we recommend only doing one schema change operation per transaction.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## How online schema changes work
 
@@ -37,7 +37,7 @@ For more technical details, see [How online schema changes are possible in Cockr
 
 {{site.data.alerts.callout_success}}
 For more examples of schema change statements, see the [`ALTER TABLE`][alter-table] subcommands.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Run schema changes inside a transaction with `CREATE TABLE`
 
@@ -111,7 +111,7 @@ Specifically, this behavior is necessary because making schema changes transacti
 
 {{site.data.alerts.callout_success}}
 As of version 2.1, you can run schema changes inside the same transaction as a [`CREATE TABLE`][create-table] statement. For more information, [see this example](#run-schema-changes-inside-a-transaction-with-create-table).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### No schema changes within transactions
 

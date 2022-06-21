@@ -15,17 +15,17 @@
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, [changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html) connected to [Kafka versions < v1.0](https://docs.confluent.io/platform/current/installation/versions-interoperability.html) are not supported in CockroachDB v21.1.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For more information on how to create a changefeed connected to Kafka, see [Stream Data Out of CockroachDB Using Changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html#create-a-changefeed-connected-to-kafka).
 
 #### Create a changefeed connected to a cloud storage sink
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature.** The interface and output are subject to change.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include_cached copy-clipboard.html %}
 ~~~ sql

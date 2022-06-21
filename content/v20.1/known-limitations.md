@@ -4,7 +4,7 @@ summary: Learn about newly identified limitations in CockroachDB as well as unre
 toc: true
 ---
 
-This page describes newly identified limitations in the CockroachDB {{ page.release_info.version }} release as well as unresolved limitations identified in earlier releases.
+This page describes newly identified limitations in the CockroachDB {{page.release_info.version}} release as well as unresolved limitations identified in earlier releases.
 
 ## New limitations
 
@@ -14,9 +14,9 @@ This page describes newly identified limitations in the CockroachDB {{ page.rele
 
 ### Dropping and renaming objects during an upgrade to v20.1.0
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This limitation applies only for upgrades to v20.1.0. Upgrades to v20.1.1 and later are not susceptible to this issue.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/known-limitations/dropping-renaming-during-upgrade.md %}
 
@@ -65,9 +65,9 @@ If your cluster gets into this state, rolling all nodes back to v19.2 will not r
 
 ### Admin UI Data Distribution page not accessible after some version upgrades
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This limitation applies only for upgrades to v20.1.0, v20.1.1, and v20.1.2. Upgrades to v20.1.3 and later are not susceptible to this issue. First-time installations of v20.1.0, v20.1.1, and v20.1.2 are also unaffected.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Upgrading to v20.1.0, v20.1.1, or v20.1.2 will break the [Data Distribution](admin-ui-debug-pages.html) page in the Admin UI.
 
@@ -282,9 +282,9 @@ pq: check constraint violated
 
 ### Cold starts of large clusters may require manual intervention
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Resolved as of [v20.1.16](../releases/v20.1.16.html). See [#64568](https://github.com/cockroachdb/cockroach/pull/64568).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If a cluster contains a large amount of data (>500GiB / node), and all nodes are stopped and then started at the same time, clusters can enter a state where they're unable to startup without manual intervention. In this state, logs fill up rapidly with messages like `refusing gossip from node x; forwarding to node y`, and data and metrics may become inaccessible.
 
@@ -411,11 +411,11 @@ Currently, the built-in SQL shell provided with CockroachDB (`cockroach sql` / `
 
 ### Dumping a table with no user-visible columns
 
-{% include {{ page.version.version }}/known-limitations/dump-table-with-no-columns.md %}
+{% include {{< page-version >}}/known-limitations/dump-table-with-no-columns.md %}
 
 ### Dumping a table with collations
 
-{% include {{ page.version.version }}/known-limitations/dump-table-with-collations.md %}
+{% include {{< page-version >}}/known-limitations/dump-table-with-collations.md %}
 
 ### Import with a high amount of disk contention
 

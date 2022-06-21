@@ -70,9 +70,9 @@ When errors like this occur, the application has the following options:
 - Design the schema and queries to reduce contention. For information on how to avoid contention, see [Understanding and Avoiding Transaction Contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention).
 - Be prepared to retry on uncertainty (and other) errors. For more information, see [Transaction retries](transactions.html#transaction-retries).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Uncertainty errors are a form of transaction conflict. For more information about transaction conflicts, see [Transaction conflicts](architecture/transaction-layer.html#transaction-conflicts).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <!-- ### write too old -->
 

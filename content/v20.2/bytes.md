@@ -32,7 +32,7 @@ The size of a `BYTES` value is variable, but it's recommended to keep values und
 
 {{site.data.alerts.callout_success}}
 If your application requires large binary input in single queries, you can store the blobs somewhere your client can access them (using a cloud storage service, for example), and then reference their addresses from a statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Example
 

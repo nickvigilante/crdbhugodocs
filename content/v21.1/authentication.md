@@ -45,7 +45,7 @@ CockroachDB offers the following methods for client authentication:
 - **Client certificate and key authentication**, which is available to all users. To ensure the highest level of security, we recommend only using client certificate and key authentication.
 
    Example:
-   {% include copy-clipboard.html %}
+   {% include_cached copy-clipboard.html %}
    ~~~ shell
    $ cockroach sql --certs-dir=certs --user=jpointsman
    ~~~
@@ -53,7 +53,7 @@ CockroachDB offers the following methods for client authentication:
 - **Password authentication**, which is available to users and roles who you've created passwords for. Password creation is supported only in secure clusters.
 
    Example:
-   {% include copy-clipboard.html %}
+   {% include_cached copy-clipboard.html %}
    ~~~ shell
    $ cockroach sql --certs-dir=certs --user=jpointsman
    ~~~
@@ -75,7 +75,7 @@ CockroachDB offers the following methods for client authentication:
    With this flag, SQL clients can establish a session over TCP without a TLS handshake. They still need to present valid authentication credentials, for example a password in the default configuration. Different authentication schemes can be further configured as per `server.host_based_authentication.configuration`.
 
    Example:
-   {% include copy-clipboard.html %}
+   {% include_cached copy-clipboard.html %}
    ~~~ shell
    $ cockroach sql --user=jpointsman --insecure
    ~~~
@@ -194,9 +194,9 @@ Alternatively, you can use [password authentication](#client-authentication). Re
 
 ### Using split CA certificates
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We do not recommend you use split CA certificates unless your organizational security practices mandate you to do so.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You might encounter situations where you need separate CAs to sign and verify node and client certificates. In that case, you would need two CAs and their respective certificates and keys: `ca.crt` and `ca-client.crt`.
 

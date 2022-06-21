@@ -14,7 +14,7 @@ This page shows you how to orchestrate a secure CockroachDB deployment across th
 
 {{site.data.alerts.callout_success}}
 To deploy CockroachDB in a single Kubernetes cluster instead, see [Kubernetes Single-Cluster Deployment](orchestrate-cockroachdb-with-kubernetes.html). Also, for details about potential performance bottlenecks to be aware of when running CockroachDB in Kubernetes and guidance on how to optimize your deployment for better performance, see [CockroachDB Performance on Kubernetes](kubernetes-performance.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -59,11 +59,11 @@ To enable the pods to communicate across regions, we peer the VPCs in all 3 regi
 <section class="filter-content" markdown="1" data-scope="gke">
 #### Exposing DNS servers
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Until December 2019, Google Cloud Platform restricted clients to using a load balancer in the same region. In the approach documented below, the DNS servers from each Kubernetes cluster are hooked together by exposing them via a load balanced IP address that is visible to the public Internet. None of the services in your Kubernetes cluster will be accessible publicly, but their names could leak out to a motivated attacker.
 
 You can now [enable global access](https://cloud.google.com/load-balancing/docs/internal/setting-up-internal#ilb-global-access) on Google Cloud Platform to allow clients from one region to use an internal load balancer in another. We will update this tutorial accordingly.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 ## Step 1. Start Kubernetes clusters
@@ -77,7 +77,7 @@ If you want to run on another cloud or on-premises, use this [basic network test
 
     This includes installing `gcloud`, which is used to create and delete Kubernetes Engine clusters, and `kubectl`, which is the command-line tool used to manage Kubernetes from your workstation.
 
-    {{site.data.alerts.callout_success}}The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the CockroachDB Admin UI using the steps in this guide.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the CockroachDB Admin UI using the steps in this guide.{{site.data.alerts.end}}
 
 1. From your local workstation, start the first Kubernetes cluster, specifying the [zone](https://cloud.google.com/compute/docs/regions-zones/) it should run in:
 
@@ -92,9 +92,9 @@ If you want to run on another cloud or on-premises, use this [basic network test
 
     This creates GKE instances in the zone specified and joins them into a single Kubernetes cluster named `cockroachdb1`.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The process can take a few minutes, so do not move on to the next step until you see a `Creating cluster cockroachdb1...done` message and details about your cluster.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Start the second Kubernetes cluster, specifying the [zone](https://cloud.google.com/compute/docs/regions-zones/) it should run in:
 
@@ -132,7 +132,7 @@ If you want to run on another cloud or on-premises, use this [basic network test
               gke_cockroach-shared_us-central1-a_cockroachdb3       gke_cockroach-shared_us-central1-a_cockroachdb3       gke_cockroach-shared_us-central1-a_cockroachdb3                        
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `kubectl` commands are run against the `CURRENT` context by default. You can change the current context with this command:
 
     {% include copy-clipboard.html %}
@@ -141,7 +141,7 @@ If you want to run on another cloud or on-premises, use this [basic network test
     ~~~
 
     When sending commands to another context, you need to use the `--context` flag to specify the context. For clarity, every `kubectl` command in this tutorial uses the `--context` flag to indicate the proper context.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Get the email address associated with your Google Cloud account:
 
@@ -154,9 +154,9 @@ If you want to run on another cloud or on-premises, use this [basic network test
     Account: [your.google.cloud.email@example.org]
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This command returns your email address in all lowercase. However, in the next step, you must enter the address using the accurate capitalization. For example, if your address is YourName@example.com, you must use YourName@example.com and not yourname@example.com.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. For each Kubernetes cluster, [create the RBAC roles](https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#prerequisites_for_using_role-based_access_control) CockroachDB needs for running on GKE, using the email address and relevant "context" name from the previous steps:
 
@@ -183,13 +183,13 @@ If you want to run on another cloud or on-premises, use this [basic network test
 
 1. From your local workstation, create three Kubernetes clusters. For each cluster, specify a unique region and a **non-overlapping** IP range for the VPC in CIDR notation (e.g., 10.0.0.0/16). Refer to the AWS documentation for valid [regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#concepts-available-regions) and [CIDR blocks](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Subnets.html#VPC_Sizing).
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     In order to enable VPC peering between the regions, the CIDR blocks of the VPCs **must not** overlap. This value cannot change once the cluster has been created, so be sure that your IP ranges do not overlap.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {{site.data.alerts.callout_success}}
     To ensure that all 3 nodes can be placed into a different availability zone, you may want to first [confirm that at least 3 zones are available in the region](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#availability-zones-describe) for your account.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -231,9 +231,9 @@ If you want to run on another cloud or on-premises, use this [basic network test
 
     In each region, the EKS instances are joined into a separate Kubernetes cluster: `cockroachdb1`, `cockroachdb2`, and `cockroachdb3`. The `--node-type` flag tells the node pool to use the [`m5.xlarge`](https://aws.amazon.com/ec2/instance-types/) instance type (4 vCPUs, 16 GB memory), which meets our [recommended CPU and memory configuration](recommended-production-settings.html#basic-hardware-recommendations).
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Cluster provisioning usually takes between 10 and 15 minutes. Do not move on to the next step until you see a message like `[✔]  EKS cluster "cockroachdb1" in "us-east-1" region is ready` for each cluster.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Open the [Amazon EC2 console](https://console.aws.amazon.com/ec2/) and verify that three instances, using the node group name you specified, are running in each region. You will need to toggle between each region in the console.
 
@@ -251,11 +251,11 @@ If you want to run on another cloud or on-premises, use this [basic network test
               maxroach@cockroachdb3.eu-north-1.eksctl.io     cockroachdb3.eu-north-1.eksctl.io     maxroach@cockroachdb3.eu-north-1.eksctl.io
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `kubectl` commands are run against the "current" context by default. You can change the current context with `kubectl config use-context <context-name>`.
 
     When running commands on another region, you need to use the `--context` flag to specify that region's context. For clarity, every `kubectl` command in this tutorial uses the `--context` flag to indicate the proper context.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Create three namespaces, one corresponding to each region. The CockroachDB cluster in each region will run in this namespace.
 
@@ -270,11 +270,11 @@ If you want to run on another cloud or on-premises, use this [basic network test
     kubectl create namespace eu-central-1 --context maxroach@cockroachdb1.eu-central-1.eksctl.io
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `kubectl` commands are run against the namespace named `default` by default. You can change the default namespace for a given context with `kubectl config set-context <context-name> --namespace <namespace-name>`.
 
     For clarity, every `kubectl` command in this tutorial uses the `--namespace` flag to indicate the proper namespace.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ## Step 2. Configure your network
 
@@ -288,7 +288,7 @@ For pods to communicate across three separate Kubernetes clusters, the VPCs in a
 
     {{site.data.alerts.callout_success}}
     You need to create a total of 3 VPC peering connections between your 3 VPCs, which means switching regions at least once in the console. For example, if you are deploying in `eu-central-1`, `eu-north-1`, and `ca-central-1`, you can select `eu-central-1` in the console and create VPC peering connections to both `eu-north-1` and `ca-central-1`. Then switch to either `eu-north-1` or `ca-central-1` to create the VPC peering connection between those two regions.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. To complete the VPC peering connections, switch to each destination region and [accept the pending connection](https://docs.aws.amazon.com/vpc/latest/peering/create-vpc-peering-connection.html#accept-vpc-peering-connection) in the VPC console.
 
@@ -301,9 +301,9 @@ For each region, navigate to the Security Groups section of the [Amazon EC2 cons
 - `26257` for inter-node and client-node communication. This enables the nodes to work as a cluster, the load balancer to route traffic to the nodes, and applications to connect to the load balancer.
 - `8080` for exposing the Admin UI to the user, and for routing the load balancer to the health check endpoint.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Remember to create these inbound rules in all 3 regions. This enables CockroachDB to communicate across each Kubernetes cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Inter-region communication
 
@@ -404,9 +404,9 @@ To enable traffic forwarding to CockroachDB pods in all 3 regions, you need to [
 
     You will end up with 3 different ConfigMaps. Give each ConfigMap a unique filename like `configmap-1.yaml`.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     If you configure your Network Load Balancer to support UDP traffic, you can drop the `force_tcp` line.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. For each region, first back up the existing ConfigMap:
 
@@ -442,9 +442,9 @@ kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_EXCLUDE_SNAT_CIDRS="c
 
 Remember that these are the CIDR blocks you chose when [starting your Kubernetes clusters](#step-1-start-kubernetes-clusters). You can also get the IP range of a VPC by opening the [Amazon VPC console](https://console.aws.amazon.com/vpc/) and finding the VPC listed in the section called Your VPCs.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you plan to run your instances exclusively on private subnets, set the following environment variable instead on each region: <code style="white-space:pre-line">kubectl set env ds aws-node -n kube-system AWS_VPC_K8S_CNI_EXTERNALSNAT=true --context \<cluster-context\></code>
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="gke">
@@ -569,9 +569,9 @@ If you plan to run your instances exclusively on private subnets, set the follow
 
 ### Generate certificates
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Amazon EKS does not support certificates signed by Kubernetes' built-in CA. The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly generate and sign the CockroachDB node and client certificates. Read our [Authentication](authentication.html#using-digital-certificates-with-cockroachdb) docs to learn about other methods of signing certificates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Create two directories:
 
@@ -608,7 +608,7 @@ Amazon EKS does not support certificates signed by Kubernetes' built-in CA. The 
 
     {{site.data.alerts.callout_success}}
     Specify the namespace in which the CockroachDB pods will run. You defined these namespaces after [starting your Kubernetes clusters](#step-1-start-kubernetes-clusters).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -702,7 +702,7 @@ Amazon EKS does not support certificates signed by Kubernetes' built-in CA. The 
 
     {{site.data.alerts.callout_success}}
     These values should be appropriate for the instances that you have provisioned. Run `kubectl describe nodes` to see the available resources.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     For example, to allocate 8Gi of memory to CockroachDB in each pod:
 
@@ -714,9 +714,9 @@ Amazon EKS does not support certificates signed by Kubernetes' built-in CA. The 
         memory: "8Gi"
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     If you do not specify a memory request, no memory will be allocated to CockroachDB. If you do not specify a memory limit, the Kubernetes scheduler will allocate the maximum possible amount.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. The StatefulSet configuration includes a [`cockroach start`](cockroach-start.html) command that creates the nodes on the Kubernetes pods.
 
@@ -736,7 +736,7 @@ Amazon EKS does not support certificates signed by Kubernetes' built-in CA. The 
 
     {{site.data.alerts.callout_success}}
     If you change the StatefulSet name from the default `cockroachdb`, be sure to start and end with an alphanumeric character and otherwise use lowercase alphanumeric characters, `-`, or `.` so as to comply with [CSR naming requirements](orchestrate-cockroachdb-with-kubernetes.html#csr-names).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Create and save a StatefulSet configuration for each of the other 2 regions in the same way, being sure to use the correct namespaces for those regions in steps 2 and 4.
 
@@ -790,7 +790,7 @@ Amazon EKS does not support certificates signed by Kubernetes' built-in CA. The 
 
 {{site.data.alerts.callout_success}}
 In each Kubernetes cluster, the StatefulSet configuration sets all CockroachDB nodes to write to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname> --context <cluster-context> --namespace <cluster-namespace>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <section class="filter-content" markdown="1" data-scope="gke">
 ## Step 3. Use the built-in SQL client
@@ -947,9 +947,9 @@ To access the cluster's [Admin UI](admin-ui-overview.html):
     Forwarding from 127.0.0.1:8080 -> 8080
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The `port-forward` command must be run on the same machine as the web browser in which you want to view the Admin UI. If you have been running these commands from a cloud instance or other non-local shell, you will not be able to view the UI without configuring `kubectl` locally and running the above `port-forward` command on your local machine.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Go to <a href="https://localhost:8080/" data-proofer-ignore>https://localhost:8080</a> and log in with the username and password created in the [Use the built-in SQL client](#step-3-use-the-built-in-sql-client) step.
 
@@ -1050,7 +1050,7 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 1. Decide how the upgrade will be finalized.
 
-    {{site.data.alerts.callout_info }}This step is relevant only when upgrading from v19.2.x to v20.1. For upgrades within the v20.1.x series, skip this step.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This step is relevant only when upgrading from v19.2.x to v20.1. For upgrades within the v20.1.x series, skip this step.{{site.data.alerts.end}}
 
     By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain performance improvements and bug fixes introduced in v20.1. After finalization, however, it will no longer be possible to perform a downgrade to v19.2. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade.
 
@@ -1108,7 +1108,7 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 4. Finish the upgrade.
 
-    {{site.data.alerts.callout_info }}This step is relevant only when upgrading from v19.2.x to v20.1. For upgrades within the v20.1.x series, skip this step.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This step is relevant only when upgrading from v19.2.x to v20.1. For upgrades within the v20.1.x series, skip this step.{{site.data.alerts.end}}
 
     If you disabled auto-finalization in step 1 above, monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 
@@ -1282,9 +1282,9 @@ Kubernetes knows how to carry out a safe rolling upgrade process of the Cockroac
 
 1. Open the [AWS CloudFormation console](https://console.aws.amazon.com/cloudformation/home) to verify that the stacks were successfully deleted in each region.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 ## See also

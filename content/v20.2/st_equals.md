@@ -14,18 +14,18 @@ Another way of describing `ST_Equals(A, B)` is that it will return `true` if bot
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
 {% if page.has_prefixed_variant %}
-{{site.data.alerts.callout_info }}
-`{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+`{{page.title}}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{page.title}}` if you do not want any spatial indexes to be used.
+{{site.data.alerts.end}}
 {% endif %}
 
 ## Examples
 
-{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{% include {{< page-version >}}/misc/geojson_geometry_note.md %}
 
 ### True
 
-In this example, `{{ page.title }}` returns `true` because:
+In this example, `{{page.title}}` returns `true` because:
 
 - Every Point in the set of Points that make up Polygon _A_ is also in Polygon _B_, and  every Point in the set of Points that make up Polygon _B_ is also in Polygon _A_
 
@@ -48,7 +48,7 @@ SELECT st_equals(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.9
 
 ### False
 
-In this example, `{{ page.title }}` returns `false` because:
+In this example, `{{page.title}}` returns `false` because:
 
 - It's obvious that not every Point that makes up the set of Points in Polygon _A_ is not also in Polygon _B_.
 

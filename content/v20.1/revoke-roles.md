@@ -6,9 +6,9 @@ toc: true
 
 The `REVOKE <roles>` [statement](sql-statements.html) lets you revoke a [role](authorization.html#create-and-manage-roles) or [user's](authorization.html#create-and-manage-users) membership to a role.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.1</span> <code>REVOKE &lt;roles&gt;</code> is no longer an enterprise feature and is now freely available in the core version of CockroachDB.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 

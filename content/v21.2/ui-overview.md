@@ -29,6 +29,7 @@ The Metrics page provides dashboards for all types of CockroachDB metrics.
 - [Storage Dashboard](ui-storage-dashboard.html) has metrics about storage capacity and file descriptors.
 - [Replication Dashboard](ui-replication-dashboard.html) has metrics about how data is replicated across the cluster, e.g., range status, replicas per store, and replica quiescence.
 - [Changefeeds Dashboard](ui-cdc-dashboard.html) has metrics about the [changefeeds](change-data-capture-overview.html) created across your cluster.
+- {% include_cached new-in.html version="v21.2" %} [Overload Dashboard](ui-overload-dashboard.html) has metrics about the performance of the parts of your cluster relevant to the cluster's [admission control system](architecture/admission-control.html). 
 
 ### Databases
 
@@ -76,7 +77,7 @@ On secure clusters, for each user who should have access to the DB Console, you 
 
 All users have access to data over which they have privileges (e.g., [jobs](ui-jobs-page.html) and [list of sessions](ui-sessions-page.html)), and data that does not require privileges (e.g., [cluster health, node status](ui-cluster-overview-page.html), [metrics](ui-overview-dashboard.html)).
 
-[`admin` users](authorization.html#admin-role) also have access to the following areas. These area display information from privileged HTTP endpoints that operate with `admin` privilege.
+[`admin` users](security-reference/authorization.html#admin-role) also have access to the following areas. These area display information from privileged HTTP endpoints that operate with `admin` privilege.
 
 DB Console area | Privileged information
 -----|-----

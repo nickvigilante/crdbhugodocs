@@ -23,9 +23,9 @@ The following SQL statements control transactions.
 | [`RELEASE SAVEPOINT`](release-savepoint.html)        | Commit a [nested transaction](#nested-transactions); also used for [retryable transactions](advanced-client-side-transaction-retries.html).                              |
 | [`ROLLBACK TO SAVEPOINT`](rollback-transaction.html) | Roll back a [nested transaction](#nested-transactions); also used to handle [retryable transaction errors](advanced-client-side-transaction-retries.html).               |
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you are using a framework or library that does not have [advanced retry logic](advanced-client-side-transaction-retries.html) built in, you should implement an application-level retry loop with exponential backoff. See [Client-side intervention](#client-side-intervention).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
@@ -33,7 +33,7 @@ In CockroachDB, a transaction is set up by surrounding SQL statements with the [
 
 To use [advanced client-side transaction retries](advanced-client-side-transaction-retries.html), you should also include the [`SAVEPOINT`](savepoint.html), [`ROLLBACK TO SAVEPOINT`](rollback-transaction.html) and [`RELEASE SAVEPOINT`](release-savepoint.html) statements.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 
@@ -129,7 +129,7 @@ transaction and so you should write your transactions to use
 
 Your application should include client-side retry handling when the statements are sent individually, such as:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 
@@ -155,7 +155,7 @@ To handle these types of errors, you have the following options:
 
 #### Client-side intervention example
 
-{% include {{ page.version.version }}/misc/client-side-intervention-example.md %}
+{% include {{< page-version >}}/misc/client-side-intervention-example.md %}
 
 ## Transaction contention
 
@@ -201,12 +201,12 @@ You can also set the priority immediately after a transaction is started:
 To set the default transaction priority for all transactions in a session, use the `default_transaction_priority` [session variable](set-vars.html). For example:
 
 ~~~ sql
-> SET default_transaction_priority 'high';
+> SET default_transaction_priority = 'high';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When two transactions contend for the same resources indirectly, they may create a dependency cycle leading to a deadlock situation, where both transactions are waiting on the other to finish. In these cases, CockroachDB allows the transaction with higher priority to abort the other, which must then retry. On retry, the transaction inherits the higher priority. This means that each retry makes a transaction more likely to succeed in the event it again experiences deadlock.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### View transaction priority
 
@@ -282,12 +282,12 @@ statement in addition to the statements subject to the "write" limits. The limit
 apply to `CREATE TABLE AS`, `SELECT`, `IMPORT`, `TRUNCATE`, `DROP`, `ALTER TABLE`, `BACKUP`,
 `RESTORE`, or `CREATE STATISTICS` statements.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Enabling `transaction_rows_read_err` disables the auto commit optimization for mutation statements
 in implicit transactions. For write limits CockroachDB can count how many rows have been modified
 before using the auto commit optimization. However, for read limits CockroachDB doesn't have that
 information on the write path, so must disable the auto commit.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Limit the number of rows written or read in a transaction
 
@@ -308,9 +308,9 @@ statement in addition to the statements subject to the "write" limits. The limit
 apply to `CREATE TABLE AS`, `SELECT`, `IMPORT`, `TRUNCATE`, `DROP`, `ALTER TABLE`, `BACKUP`,
 `RESTORE`, or `CREATE STATISTICS` statements.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Enabling `transaction_rows_read_err` disables a performance optimization for mutation statements in implicit transactions where CockroachDB can auto-commit without additional network round trips.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

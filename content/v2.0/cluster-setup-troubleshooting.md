@@ -81,7 +81,7 @@ Proceed through the following steps until you locate the source of the issue wit
     $ rm -r testStore
     ~~~
 
-    {{site.data.alerts.callout_info }}If you're running all nodes on the same machine, skip this step. Running this command will kill your first node making it impossible to proceed.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}If you're running all nodes on the same machine, skip this step. Running this command will kill your first node making it impossible to proceed.{{site.data.alerts.end}}
 
 2. On each machine, start the CockroachDB node, joining it to the first node:
 
@@ -90,7 +90,7 @@ Proceed through the following steps until you locate the source of the issue wit
     --join=[first node's host]
     ~~~
 
-    {{site.data.alerts.callout_info }}If you're running all nodes on the same machine, you will need to change the <code>--port</code>, <code>--http-port</code>, and <code>--store</code> flags. For an example of this, see <a href="start-a-local-cluster.html#step-2-add-nodes-to-the-cluster">Start a Local Cluster</a>.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}If you're running all nodes on the same machine, you will need to change the <code>--port</code>, <code>--http-port</code>, and <code>--store</code> flags. For an example of this, see <a href="start-a-local-cluster.html#step-2-add-nodes-to-the-cluster">Start a Local Cluster</a>.{{site.data.alerts.end}}
 
     Errors at this stage potentially include:
     - The same port and host issues from [running a single node](#1-start-a-single-node-cluster).

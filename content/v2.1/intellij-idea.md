@@ -8,7 +8,7 @@ toc: true
 
 ## Support
 
-As of CockroachDB {{ page.version.version }}, IntelliJ IDEA only has **partial support**. This means that the application is mostly functional, but its integration still has a few rough edges.
+As of CockroachDB {{< page-version >}}, IntelliJ IDEA only has **partial support**. This means that the application is mostly functional, but its integration still has a few rough edges.
 
 ### Versions
 
@@ -18,9 +18,9 @@ The level of support in this document was tested as of the following versions:
 - IntelliJ IDEA Ultimate 18.1.3
 - PostgreSQL JDBC 41.1
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This feature should also work with other JetBrains IDEs, such as PyCharm, but Cockroach Labs has not yet tested its integration.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Warnings & Errors
 

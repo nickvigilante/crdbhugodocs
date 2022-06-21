@@ -1,5 +1,5 @@
 ---
-title: SHOW (session variables)
+title: SHOW &#123;session variable&#125;
 summary: The SHOW statement displays the current settings for the client session.
 toc: true
 docs_area: reference.sql
@@ -9,7 +9,7 @@ Use the `SHOW` [statement](sql-statements.html) to display the value of one or a
 
 ## Required privileges
 
-No [privileges](authorization.html#assign-privileges) are required to display the session variables.
+No [privileges](security-reference/authorization.html#managing-privileges) are required to display the session variables.
 
 ## Synopsis
 
@@ -17,9 +17,9 @@ No [privileges](authorization.html#assign-privileges) are required to display th
 {{< sql-diagram "show_session.html" >}}
 </div>
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `SHOW` statement for session variables is unrelated to the other `SHOW` statements like [`SHOW CLUSTER SETTING`](show-cluster-setting.html), [`SHOW CREATE`](show-create.html), and [`SHOW DATABASES`](show-databases.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -77,7 +77,7 @@ Special syntax cases supported for compatibility:
 
 ## See also
 
-- [`SET` (session variable)](set-vars.html)
+- [`SET {session variable}`](set-vars.html)
 - [Transactions](transactions.html), including [Priority levels](transactions.html#transaction-priorities)
 - [`SHOW CLUSTER SETTING`](show-cluster-setting.html)
 - [`SHOW COLUMNS`](show-columns.html)

@@ -11,9 +11,9 @@ To view this dashboard, [access the DB Console](ui-overview.html#db-console-acce
 
 {% include {{ page.version.version }}/ui/ui-metrics-navigation.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 All timestamps in the DB Console are shown in Coordinated Universal Time (UTC).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The **Overview** dashboard displays the following time series graphs:
 
@@ -29,6 +29,16 @@ See the [Statements page](ui-statements-page.html) for more details on the clust
 
 {% include {{ page.version.version }}/ui/ui-sql-latency-99th-percentile.md %}
 
+## SQL Statement Contention
+
+The statement contention metric is a counter that represents the number of statements that have experienced contention. If a statement experiences at least one contention "event" (i.e., the statement is forced to wait for another transaction), the counter is incremented at most once.
+
+- In the node view, the graph shows the total number of SQL statements that experienced [contention](transactions.html#transaction-contention) on that node.
+
+- In the cluster view, the graph shows the total number of SQL statements that experienced [contention](transactions.html#transaction-contention) across all nodes in the cluster.
+
+    See the [Statements page](ui-statements-page.html) for more details on the cluster's SQL statements.
+
 ## Replicas per Node
 
 <img src="{{ 'images/v21.2/ui_replicas_per_node.png' | relative_url }}" alt="DB Console Replicas per node graph" style="border:1px solid #eee;max-width:100%" />
@@ -41,9 +51,9 @@ Ranges are subsets of your data, which are replicated to ensure survivability. R
 
 For details about how to control the number and location of replicas, see [Configure Replication Zones](configure-replication-zones.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The timeseries data used to power the graphs in the DB Console is stored within the cluster and accumulates for 30 days before it starts getting truncated. As a result, for the first 30 days or so of a cluster's life, you will see a steady increase in disk usage and the number of ranges even if you aren't writing data to the cluster yourself. For more details, see this [FAQ](operational-faqs.html#why-is-disk-usage-increasing-despite-lack-of-writes).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Capacity
 
@@ -70,9 +80,9 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/ui/ui-summary-events.md %}
 

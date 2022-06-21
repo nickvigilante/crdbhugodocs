@@ -16,22 +16,22 @@ In other words, shape _B_ must completely cover every point in _A_.
 
 
 {% if page.has_prefixed_variant %}
-{{site.data.alerts.callout_info }}
-`{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+`{{page.title}}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{page.title}}` if you do not want any spatial indexes to be used.
+{{site.data.alerts.end}}
 {% endif %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This function is the inverse of [`ST_Covers`](st_covers.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{% include {{< page-version >}}/misc/geojson_geometry_note.md %}
 
 ### True
 
-In this example, `{{ page.title }}` returns `true` because:
+In this example, `{{page.title}}` returns `true` because:
 
 - No Point in the smaller Polygon _A_ lies outside of the larger Polygon _B_.
 
@@ -51,7 +51,7 @@ SELECT ST_CoveredBy(st_geomfromtext('SRID=4326;POLYGON((-87.623177 41.881832, -9
 
 ### False
 
-In this example, `{{ page.title }}` returns `false` because:
+In this example, `{{page.title}}` returns `false` because:
 
 - Many Points in the smaller Polygon _A_ lie outside of the larger Polygon _B_.
 

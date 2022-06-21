@@ -3,9 +3,9 @@ title: Database Page
 toc: true
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On a secure cluster, this area of the Admin UI can only be accessed by an `admin` user. See [Admin UI access](admin-ui-overview.html#admin-ui-access).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The **Databases** page of the Admin UI provides details of the following:
 

@@ -27,7 +27,7 @@ On the **Custom Chart** page, you can set the time span for all charts, add new 
 - To add a chart, click **Add Chart** and customize the new chart.
 
 - To customize each chart, use the **Units** dropdown menu to set the units to display. Then use the table below the chart to select the metrics being queried, and how they'll be combined and displayed. Options include:
-{% include {{ page.version.version }}/admin-ui-custom-chart-debug-page-00.html %}
+{% include {{< page-version >}}/admin-ui-custom-chart-debug-page-00.html %}
 
 ## Examples
 
@@ -46,11 +46,11 @@ Checking **Per Node** displays statistics for each node, which could show whethe
 
 ## Available metrics
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This list is taken directly from the source code and is subject to change. Some of the metrics listed below are already visible in other areas of the [Admin UI](admin-ui-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ page.version.version }}/metric-names.md %}
+{% include {{< page-version >}}/metric-names.md %}
 
 ## See also
 

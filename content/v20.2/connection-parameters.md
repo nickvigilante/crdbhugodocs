@@ -60,22 +60,22 @@ postgres://<username>:<password>@?host=<directory-path>&port=<port>&<parameters>
  `<parameters>` | [Additional connection parameters](#additional-connection-parameters), including SSL/TLS certificate settings. | `options=--cluster=<cluster name>` required for free {{ site.data.products.db }} clusters.
 
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For cockroach commands that accept a URL, you can specify the URL with the command-line flag `--url`.
 If `--url` is not specified but
 the environment variable `COCKROACH_URL` is defined, the environment
 variable is used. Otherwise, the `cockroach` command will use
 [discrete connection parameters](#connect-using-discrete-parameters)
 as described below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `<database>` part is not used for [`cockroach`
 commands](cockroach-commands.html) other than [`cockroach
 sql`](cockroach-sql.html). A warning
 is currently printed if it is mistakenly specified, and
 future versions of CockroachDB may return an error in that case.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Additional connection parameters
 
@@ -103,11 +103,11 @@ Parameter | Description | Recommended for use
 `sslmode=verify-ca` | Force a secure connection and verify that the server certificate is signed by a known CA. |
 `sslmode=verify-full` | Force a secure connection, verify that the server certificate is signed by a known CA, and verify that the server address matches that specified in the certificate. | Use for [secure deployments](secure-a-cluster.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Some client drivers and the `cockroach` commands do not support
 `sslmode=allow` and `sslmode=prefer`. Check the documentation of your
 SQL driver to determine whether these options are supported.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Example URL for an insecure connection
 
@@ -199,11 +199,11 @@ This uses the following components:
   - Client certificate `path/to/client.<user>.crt` (`path/to/certs/client.root.crt` with `--user root`)
   - Client key `path/to/client.<user>.key` (`path/to/certs/client.root.key` with `--user root`)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When using discrete connection parameters, the file names of the CA
 and client certificates and client key are derived automatically from
 the value of `--certs-dir`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Using both URL and client parameters
 

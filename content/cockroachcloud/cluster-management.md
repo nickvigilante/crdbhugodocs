@@ -14,9 +14,7 @@ This page describes the cluster management and cluster deletion workflows for {{
 
 ## Planning your cluster
 
-Before making any changes to your cluster's nodes or regions, review our requirements and recommendations for {{ site.data.products.db }} cluster configuration.
-
-{% include cockroachcloud/planning-your-cluster.md %}
+Before making any changes to your cluster's nodes or regions, review the [requirements and recommendations](plan-your-cluster.html) for {{ site.data.products.db }} cluster configuration.
 
 ## View Clusters page
 
@@ -57,17 +55,13 @@ From the **Overview** page, you can connect to your cluster. For more informatio
 
 ## Scale your cluster
 
-{{site.data.alerts.callout_info }}
-CockroachDB Cloud contract customers cannot scale clusters through the Console. If you need to add or remove nodes, contact [Support](https://support.cockroachlabs.com).
-{{site.data.alerts.end }}
-
 ### Add or remove nodes from a cluster
 
-You can add or remove nodes from your cluster through the Console. See [Planning your cluster](#planning-your-cluster) for cluster requirements and recommendations before proceeding.
+You can add or remove nodes from your cluster through the Console. See [Planning your cluster](plan-your-cluster.html) for cluster requirements and recommendations before proceeding.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You cannot scale a multi-node cluster down to a single-node cluster. If you need to scale down to a single-node cluster, [backup](run-bulk-operations.html?filters=cloud#backup-and-restore-data) your cluster and [restore](run-bulk-operations.html?filters=cloud#restore-a-cluster) it into a new single-node cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To add or remove nodes from your cluster:
 
@@ -84,6 +78,10 @@ To add or remove nodes from your cluster:
 
 ### Increase storage for a cluster
 
+{{site.data.alerts.callout_danger}}
+AWS disks can only be scaled once every six hours.
+{{site.data.alerts.end}}
+
 1. Navigate to the cluster's **Overview** page.
 1. Select **Actions > Edit cluster**.
 
@@ -92,9 +90,9 @@ To add or remove nodes from your cluster:
 1. Navigate to the **Storage** dropdown in the **Hardware per node** section.
 1. Select the new amount of storage per node.
     
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     Storage space cannot be removed from a node once added.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. In the **Summary** sidebar, verify the hourly estimated cost for the cluster.
 1. Click **Next: Payment**.
@@ -111,9 +109,9 @@ To add or remove nodes from your cluster:
 1. Navigate to the **Compute** dropdown in the **Hardware per node** section.
 1. Select the new amount of vCPUs per node.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     When scaling up your cluster, it is generally more effective to increase node size up to 16 vCPUs before adding more nodes. For most production applications, we recommend **at least 4 to 8 vCPUs** per node.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. In the **Summary** sidebar, verify the hourly estimated cost for the cluster.
 1. Click **Next: Payment**.
@@ -123,7 +121,7 @@ To add or remove nodes from your cluster:
 {% comment %}
 ### Add or remove regions from a cluster
 
-You can add or remove up to three regions at a time through the Console. See the [Planning your cluster](#planning-your-cluster) section of this page for cluster requirements and recommendations before proceeding.
+You can add or remove up to three regions at a time through the Console. See the [Planning your cluster](plan-your-cluster.html) section of this page for cluster requirements and recommendations before proceeding.
 
 ### Add a region to your cluster
 
@@ -161,23 +159,23 @@ You can add or remove up to three regions at a time through the Console. See the
 
 Cockroach Labs runs full backups daily and incremental backups hourly for every {{ site.data.products.dedicated }} cluster. The full backups are retained for 30 days and incremental backups for 7 days.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 All databases are not backed up at the same time. Each database is backed up every hour based on the time of creation. For larger databases, you might see an hourly CPU spike while the database is being backed up.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To restore your data, [contact us](https://support.cockroachlabs.com).
 
-Additionally, you can [backup and restore](../{{site.versions["stable"] }}/take-full-and-incremental-backups.html) data on your own.
+Additionally, you can [backup and restore](../{{site.versions["stable"]}}/take-full-and-incremental-backups.html) data on your own.
 
 ## Delete cluster
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Deleting a cluster will delete all cluster data.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You will only be billed for a {{ site.data.products.dedicated }} cluster while it is running. You can delete a cluster at any time to stop charges from accumulating.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Proceed with the following steps only if you are sure you want to delete a cluster:
 

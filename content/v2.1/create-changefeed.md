@@ -10,13 +10,13 @@ Changefeeds target an allowlist of tables, called the "watched rows." Every chan
 
 For more information, see [Change Data Capture](change-data-capture.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This feature is under active development** and only works for a [targeted a use case](change-data-capture.html#usage-examples). Please [file a Github issue](file-an-issue.html) if you have feedback on the interface.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `CREATE CHANGEFEED` is an [enterprise-only](enterprise-licensing.html). There will be a core version in a future version.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -95,9 +95,9 @@ For more information on how to create a changefeed that emits an [Avro](https://
 
 Use the following SQL statements to pause, resume, and cancel a changefeed.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Changefeed-specific SQL statements (e.g., `CANCEL CHANGEFEED`) will be added in the future.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Pause a changefeed
 

@@ -6,7 +6,7 @@ toc: true
 
 The `DROP INDEX` [statement](sql-statements.html) removes indexes from tables.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
@@ -33,7 +33,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Remove an index with no dependencies
 
@@ -82,9 +82,9 @@ You can drop this index with the `DROP INDEX` statement:
 
 ### Remove an index and dependent objects with `CASCADE`
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 <code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Suppose you create a [`UNIQUE`](unique.html) constraint on the `id` and `name` columns of the `users` table:
 

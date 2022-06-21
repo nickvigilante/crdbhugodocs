@@ -6,9 +6,9 @@ toc: true
 
  The `ALTER ROLE` [statement](sql-statements.html) can be used to add, change, or remove a [role's](create-role.html) password and to change the role options for a role.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Since the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `ALTER ROLE` is now an alias for [`ALTER USER`](alter-user.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Considerations
 
@@ -47,9 +47,9 @@ Parameter | Description
 
 ## Examples
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The following statements are run by the `root` user that is a member of the `admin` role and has `ALL` privileges.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Allow a role to log in to the database using a password
 

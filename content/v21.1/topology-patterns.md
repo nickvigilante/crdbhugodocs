@@ -7,9 +7,9 @@ key: cluster-topology-patterns.html
 
 This section provides recommended patterns for running CockroachDB in a cloud environment.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can observe latency for your cluster on the [Network Latency page](ui-network-latency-page.html) of the DB Console.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Single-region
 
@@ -29,9 +29,9 @@ When your clients are in multiple geographic regions, it is important to deploy 
 
 Not doing so can result in unexpected latency and resiliency.  For more information, see the [Multi-Region Capabilities Overview](multiregion-overview.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The multi-region patterns described below are almost always table-specific. For example, you might use [Regional Tables](regional-tables.html) for frequently updated tables that are tied to a specific region, and [Global Tables](global-tables.html) for reference tables that are not tied to a specific region, and that are read frequently but updated infrequently.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 | Pattern                                                  | Latency                                                                                                    |
 |----------------------------------------------------------+------------------------------------------------------------------------------------------------------------|
@@ -40,9 +40,9 @@ The multi-region patterns described below are almost always table-specific. For 
 | [Follower Reads](topology-follower-reads.html)           | Fast regional (historical) reads, slower cross-region writes.                                              |
 | [Follow-the-Workload](topology-follow-the-workload.html) | Fast regional reads in the active region; slower cross-region reads elsewhere. Slower cross-region writes. |
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In [multi-region databases](multiregion-overview.html), the resiliency of each database depends on its [survival goal settings](multiregion-overview.html#survival-goals).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Anti-patterns
 

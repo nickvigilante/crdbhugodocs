@@ -90,15 +90,15 @@ For example, the following correlated subquery is not supported for this reason:
     Because the CBO cannot automatically decorrelate a subquery inside
     an array indexing operation (`x[...]`).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you come across an unsupported correlated subquery, please [file a Github issue](file-an-issue.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Performance best practices
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB is currently undergoing major changes to evolve and improve the performance of subqueries. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - Scalar subqueries currently disable the distribution of the execution of a query. To ensure maximum performance on queries that process a large number of rows, make the client application compute the subquery results ahead of time and pass these results directly in the surrounding query.
 

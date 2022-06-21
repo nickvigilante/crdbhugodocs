@@ -25,7 +25,7 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 - For guidance on cluster topology, clock synchronization, and file descriptor limits, see [Recommended Production Settings](recommended-production-settings.html).
 
-- Set up your Droplets using [private networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking).
+- Set up your Droplets using [private networking](https://docs.digitalocean.com/products/networking/vpc/how-to/create/).
 
 - Decide how you want to access your Admin UI:
     - Only from specific IP addresses, which requires you to set firewall rules to allow communication on port `8080` *(documented on this page)*.
@@ -33,7 +33,7 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 ## Step 1. Create Droplets
 
-[Create Droplets with private networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking) for each node you plan to have in your cluster. We [recommend](recommended-production-settings.html#cluster-topology):
+[Create Droplets with private networking](https://docs.digitalocean.com/products/networking/vpc/how-to/create/) for each node you plan to have in your cluster. We [recommend](recommended-production-settings.html#cluster-topology):
 
 - Running at least 3 nodes to ensure survivability.
 - Selecting the same continent for all of your Droplets for best performance.
@@ -53,7 +53,7 @@ Digital Ocean offers fully-managed load balancers to distribute traffic between 
     - Configure health checks to use HTTP port **8080** and path `/health`.
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see <a href="manual-deployment.html">Manual Deployment</a> for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see <a href="manual-deployment.html">Manual Deployment</a> for guidance.{{site.data.alerts.end}}
 
 ## Step 3. Configure your network
 
@@ -78,7 +78,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
 - A node key pair for each node, issued to its IP addresses and any common names the machine uses, as well as to the IP address provisioned for the Digital Ocean Load Balancer.
 - A client key pair for the `root` user.
 
-{{site.data.alerts.callout_success}}Before beginning, it's useful to collect each of your machine's internal and external IP addresses, as well as any server names you want to issue certificates for.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}Before beginning, it's useful to collect each of your machine's internal and external IP addresses, as well as any server names you want to issue certificates for.{{site.data.alerts.end}}
 
 1. [Install CockroachDB](install-cockroachdb.html) on your local machine, if you haven't already.
 
@@ -153,7 +153,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end}}
 
 7. Create the certificate and key for the second node, issued to all common names you might use to refer to the node as well as to addresses provisioned for the Digital Ocean Load Balancer:
 
@@ -201,7 +201,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {{site.data.alerts.callout_success}}In later steps, you'll use the <code>root</code> user's certificate to run <a href="cockroach-commands.html"><code>cockroach</code></a> client commands from your local machine. If you might also want to run <code>cockroach</code> client commands directly on a node (e.g., for local debugging), you'll need to copy the <code>root</code> user's certificate and key to that node as well.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}In later steps, you'll use the <code>root</code> user's certificate to run <a href="cockroach-commands.html"><code>cockroach</code></a> client commands from your local machine. If you might also want to run <code>cockroach</code> client commands directly on a node (e.g., for local debugging), you'll need to copy the <code>root</code> user's certificate and key to that node as well.{{site.data.alerts.end}}
 
 ## Step 5. Start the first node
 
@@ -400,7 +400,7 @@ To test this, use the [built-in SQL client](use-the-built-in-sql-client.html) lo
 
 View your cluster's Admin UI by going to `https://<any node's external IP address>:8080`.
 
-{{site.data.alerts.callout_info }}Note that your browser will consider the CockroachDB-created certificate invalid; you’ll need to click through a warning message to get to the UI.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Note that your browser will consider the CockroachDB-created certificate invalid; you’ll need to click through a warning message to get to the UI.{{site.data.alerts.end}}
 
 On this page, verify that the cluster is running as expected:
 

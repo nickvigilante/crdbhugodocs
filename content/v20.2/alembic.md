@@ -25,9 +25,9 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
 
     This command creates a virtual cluster and opens a SQL shell to that cluster.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Leave this terminal window open for the duration of the tutorial. Closing the window will destroy the cluster and erase all data in it.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Create the `bank` database:
 
@@ -107,9 +107,9 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
     sqlalchemy.url = cockroachdb://root:admin@127.0.0.1:50040?sslmode=require
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You must use the `cockroachdb://` prefix in the connection string for SQLAlchemy to make sure the CockroachDB dialect is used. Using the `postgresql://` URL prefix to connect to your CockroachDB cluster will not work.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ## Step 4. Create and run a migration script
 
@@ -206,15 +206,20 @@ Before you begin the tutorial, [install CockroachDB](install-cockroachdb.html).
     (2 rows)
     ~~~
 
-1. Run the app to insert, update, and delete rows of data:
-
-    {{site.data.alerts.callout_info }}
-    By default, the app uses the `dbinit.sql` file to initialize the database. Make sure that you use the `--no-init` flag when running the app with Alembic.
-    {{site.data.alerts.end }}
+1. In a different terminal, set the `DATABASE_URL` environment variable to the connection string for your cluster:
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ python main.py 'cockroachdb://root:admin@127.0.0.1:50040?sslmode=require' --no-init
+    $ export DATABASE_URL=cockroachdb://demo:demo72529@127.0.0.1:26257/bank?sslmode=require
+    ~~~
+
+    The sample app reads in `DATABASE_URL` as the connection string to the database.
+
+1. Run the app to insert, update, and delete rows of data:
+
+    {% include_cached copy-clipboard.html %}
+    ~~~ shell
+    $ python main.py
     ~~~
 
     ~~~
@@ -338,7 +343,7 @@ While [Alembic supports most SQL operations](https://alembic.sqlalchemy.org/en/l
 
 {{site.data.alerts.callout_success}}
 Executing DDL statements as raw SQL can be particularly helpful when using SQL syntax for DDL statements specific to CockroachDB, like [`ALTER TABLE ... ALTER PRIMARY KEY`](alter-primary-key.html) statements.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For example, the raw SQL for the second migration would look something like this:
 

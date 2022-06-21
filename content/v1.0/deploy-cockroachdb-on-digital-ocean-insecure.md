@@ -12,7 +12,7 @@ toc_not_nested: true
 
 This page shows you how to manually deploy an insecure multi-node CockroachDB cluster on Digital Ocean, using Digital Ocean's managed load balancing service to distribute client traffic.
 
-{{site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end}}
 
 
 ## Requirements
@@ -29,7 +29,7 @@ You must have [SSH access](https://www.digitalocean.com/community/tutorials/how-
 
 - For guidance on cluster topology, clock synchronization, and file descriptor limits, see [Recommended Production Settings](recommended-production-settings.html).
 
-- Set up your Droplets using [private networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking).
+- Set up your Droplets using [private networking](https://docs.digitalocean.com/products/networking/vpc/how-to/create/).
 
 - Decide how you want to access your Admin UI:
 	- Only from specific IP addresses, which requires you to set firewall rules to allow communication on port `8080` *(documented on this page)*.
@@ -38,7 +38,7 @@ You must have [SSH access](https://www.digitalocean.com/community/tutorials/how-
 
 ## Step 1. Create Droplets
 
-[Create Droplets with private networking](https://www.digitalocean.com/community/tutorials/how-to-set-up-and-use-digitalocean-private-networking) for each node you plan to have in your cluster. We [recommend](recommended-production-settings.html#cluster-topology):
+[Create Droplets with private networking](https://docs.digitalocean.com/products/networking/vpc/how-to/create/) for each node you plan to have in your cluster. We [recommend](recommended-production-settings.html#cluster-topology):
 
 - Running at least 3 nodes to ensure survivability.
 - Selecting the same continent for all of your Droplets for best performance.
@@ -58,7 +58,7 @@ Digital Ocean offers fully-managed load balancers to distribute traffic between 
 	- Configure health checks to use HTTP port **8080** and path `/health`.
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of Digital Ocean's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end}}
 
 ## Step 3. Configure your network
 

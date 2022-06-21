@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v20.1</span>: The `ALTER ROLE` [statement](sql-statements.html) can be used to add, change, or remove a [role's](create-role.html) password and to change the login privileges for a role.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Since the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `ALTER ROLE` is now an alias for [`ALTER USER`](alter-user.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Considerations
 

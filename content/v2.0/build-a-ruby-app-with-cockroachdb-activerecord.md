@@ -16,11 +16,11 @@ We have tested the [Ruby pg driver](https://rubygems.org/gems/pg) and the [Activ
 
 {{site.data.alerts.callout_success}}
 For a more realistic use of ActiveRecord with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the ActiveRecord ORM
 
@@ -31,15 +31,15 @@ To install ActiveRecord as well as the [pg driver](https://rubygems.org/gems/pg)
 $ gem install activerecord pg activerecord-cockroachdb-adapter
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The exact command above will vary depending on the desired version of ActiveRecord. Specifically, version 4.2.x of ActiveRecord requires version 0.1.x of the adapter; version 5.1.x of ActiveRecord requires version 0.2.x of the adapter.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <section class="filter-content" markdown="1" data-scope="secure">
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -59,7 +59,7 @@ Copy the code or
 
 {% include copy-clipboard.html %}
 ~~~ ruby
-{% include {{ page.version.version }}/app/activerecord-basic-sample.rb %}
+{% include {{< page-version >}}/app/activerecord-basic-sample.rb %}
 ~~~
 
 Then run the code:
@@ -108,7 +108,7 @@ Then, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Ruby code
 
@@ -119,7 +119,7 @@ Copy the code or
 
 {% include copy-clipboard.html %}
 ~~~ ruby
-{% include {{ page.version.version }}/app/insecure/activerecord-basic-sample.rb %}
+{% include {{< page-version >}}/app/insecure/activerecord-basic-sample.rb %}
 ~~~
 
 Then run the code:
@@ -168,4 +168,4 @@ Then, issue the following statement:
 
 Read more about using the [ActiveRecord ORM](http://guides.rubyonrails.org/active_record_basics.html), or check out a more realistic implementation of ActiveRecord with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

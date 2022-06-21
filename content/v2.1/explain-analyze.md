@@ -53,9 +53,9 @@ rows routed | How many rows were sent by routers, which can be used to understan
 bytes sent | The number of actual bytes sent (i.e., encoding of the rows). This is only relevant when doing network communication.
 Response | The response back to the client.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Any or all of the above fields may display for a given query plan.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Example
 

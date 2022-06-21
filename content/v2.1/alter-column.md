@@ -6,9 +6,9 @@ toc: true
 
 The `ALTER COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and sets, changes, or drops a column's [`DEFAULT` constraint](default-value.html) or drops the [`NOT NULL` constraint](not-null.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To manage other constraints, see [`ADD CONSTRAINT`](add-constraint.html) and [`DROP CONSTRAINT`](drop-constraint.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Synopsis

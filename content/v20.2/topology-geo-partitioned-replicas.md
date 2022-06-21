@@ -12,7 +12,7 @@ In a multi-region deployment, the geo-partitioned replicas topology is a good ch
 
 {{site.data.alerts.callout_success}}
 **See It In Action** - Read about how an [electronic lock manufacturer](https://www.cockroachlabs.com/case-studies/european-electronic-lock-manufacturer-modernizes-iam-system-with-managed-cockroachdb/) and [multi-national bank](https://www.cockroachlabs.com/case-studies/top-five-multinational-bank-modernizes-its-european-core-banking-services-migrating-from-oracle-to-cockroachdb/) are using the Geo-Partitioned Replicas topology in production for improved performance and regulatory compliance.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -26,9 +26,9 @@ In a multi-region deployment, the geo-partitioned replicas topology is a good ch
 
 ## Configuration
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Geo-partitioning requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Summary
 
@@ -57,9 +57,9 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 > CREATE INDEX users_last_name_index ON users (city, last_name);
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A geo-partitioned table does not require a secondary index. However, if the table does have one or more secondary indexes, each index must be partitioned as well. This means that the indexes must start with the column identifying geography, like the table itself, which impacts the queries they'll be useful for. If you cannot partition all secondary indexes on a table you want to geo-partition, consider the [Geo-Partitioned Leaseholders](topology-geo-partitioned-leaseholders.html) pattern instead.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. If you do not already have one, [request a trial Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
 
@@ -93,7 +93,7 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
 
     {{site.data.alerts.callout_success}}
     The `<table>@*` syntax lets you create zone configurations for all identically named partitions of a table, saving you multiple steps.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ sql
@@ -167,9 +167,9 @@ A geo-partitioned table does not require a secondary index. However, if the tabl
 
 {{site.data.alerts.callout_success}}
 As you scale and add more cities, you can repeat steps 2 and 3 with the new complete list of cities to re-partition the table and its secondary indexes, and then repeat step 4 to create replication zones for the new partitions.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ## Characteristics
 

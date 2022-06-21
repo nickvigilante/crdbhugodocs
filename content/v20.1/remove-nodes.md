@@ -8,9 +8,9 @@ This page shows you how to decommission one or more nodes. Decommissioning a nod
 
 You might do this, for example, when downsizing a cluster or reacting to hardware failures.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Node decommissioning should not be performed when [upgrading your cluster's version of CockroachDB](upgrade-cockroach-version.html) or performing planned maintenance (e.g., upgrading system software). In these scenarios, you will want to temporarily [stop the node](cockroach-quit.html) and restart it later.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -156,7 +156,7 @@ Return to the [**Node List**](admin-ui-cluster-overview-page.html#node-list) on 
 
 {{site.data.alerts.callout_success}}
 Even with zero replicas on a node, its [status](admin-ui-cluster-overview-page.html#node-status) on the Node List will be `DECOMMISSIONING` until you stop the node. It is also counted as a "Suspect" node in the [Cluster Overview panel](admin-ui-cluster-overview-page.html#cluster-overview-panel) until being shut down.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 5. Stop the decommissioning node
 
@@ -220,9 +220,9 @@ Within 5 minutes, you'll see the node move from the Node List to the **Recently 
 
 At this point, the node is `DECOMMISSIONED` and will no longer appear in timeseries graphs unless you view a time range during which the node was live. However, it will never disappear from the historical list of decommissioned nodes, linked beneath Recently Decommissioned Nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to utilize a decommissioned node again, first [recommission](#recommission-nodes) the node to have the cluster rebalance data to the node. Then restart the node so that it accepts new SQL connections.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Remove multiple nodes
 
@@ -309,7 +309,7 @@ Return to the [**Node List**](admin-ui-cluster-overview-page.html#node-list) on 
 
 {{site.data.alerts.callout_success}}
 Even with zero replicas on a node, its [status](admin-ui-cluster-overview-page.html#node-status) on the Node List will be `DECOMMISSIONING` until you stop the node. It is also counted as a "Suspect" node in the [Cluster Overview panel](admin-ui-cluster-overview-page.html#cluster-overview-panel) until being shut down.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 5. Stop the decommissioning nodes
 
@@ -323,9 +323,9 @@ After the duration configured via [`server.time_until_store_dead`](cluster-setti
 
 At this point, the nodes are `DECOMMISSIONED` and will no longer appear in timeseries graphs unless you view a time range during which the nodes were live. However, they will never disappear from the historical list of decommissioned nodes, linked beneath Recently Decommissioned Nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to utilize a decommissioned node again, first [recommission](#recommission-nodes) the node to have the cluster rebalance data to the node. Then restart the node so that it accepts new SQL connections.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Recommission nodes
 
@@ -336,9 +336,9 @@ If you want to utilize a decommissioned node again, first [recommission](#recomm
 
 If you accidentally started decommissioning a node, or have a node with a hung decommissioning process, you can recommission the node. This cancels the process of transferring replicas on the node to other nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Recommissioning is intended to cancel an active decommissioning process. If all ranges have been removed from a node, start a new node instead of reusing the node.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 1. Cancel the decommissioning process
 

@@ -199,9 +199,9 @@ Alternatively, you can use [password authentication](#client-authentication). Re
 
 ### Using split CA certificates
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We do not recommend you use split CA certificates unless your organizational security practices mandate you to do so.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You might encounter situations where you need separate CAs to sign and verify node and client certificates. In that case, you would need two CAs and their respective certificates and keys: `ca.crt` and `ca-client.crt`.
 

@@ -8,11 +8,11 @@ toc: true
 
 For more information about creating, managing, monitoring, and restoring from a scheduled backup, see [Manage a Backup Schedule](manage-a-backup-schedule.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Core users can only use backup scheduling for [full backups](#create-a-schedule-for-full-backups-only-core) of clusters, databases, or tables.
 
 To use the other backup features, you need an [Enterprise license](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -47,9 +47,9 @@ Targets:
 <a name="full-backup-clause"></a>`FULL BACKUP crontab` | Specifies when to take a new full backup. The schedule is specified as a [`STRING`](string.html) in [crontab format](https://en.wikipedia.org/wiki/Cron) or as `ALWAYS`. <br><br>If `FULL BACKUP ALWAYS` is specified, then the backups triggered by the `RECURRING` clause will always be full backups. For free users, `ALWAYS` is the only accepted value of `FULL BACKUP`.<br><br>If the `FULL BACKUP` clause is omitted, CockroachDB will default to the following full backup schedule: <ul><li>`RECURRING` <= 1 hour: Default to `FULL BACKUP '@daily'`</li><li>`RECURRING` <= 1 day: Default to `FULL BACKUP '@weekly'`</li><li>Otherwise: Default to `FULL BACKUP ALWAYS`</li></ul>
 `WITH SCHEDULE OPTIONS schedule_option` | _Experimental feature._ Control the schedule behavior with a comma-separated list of [these options](#schedule-options).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For schedules that include both [full and incremental backups](take-full-and-incremental-backups.html), CockroachDB will create two schedules (one for each type).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Backup options
 
@@ -57,11 +57,11 @@ For schedules that include both [full and incremental backups](take-full-and-inc
 
 ### Schedule options
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature.**  Its interface, options, and outputs are subject to change, and there may be bugs.
 
 If you encounter a bug, please [file an issue](file-an-issue.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
  Option                     | Value                                   | Description
 ----------------------------+-----------------------------------------+------------------------------

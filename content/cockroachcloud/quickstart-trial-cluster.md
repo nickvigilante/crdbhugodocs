@@ -1,22 +1,17 @@
 ---
-title: Quickstart with CockroachDB Cloud
-summary: Learn how to create and use your CockroachDB Cloud cluster.
+title: Quickstart with CockroachDB Dedicated
+summary: Learn how to create and use a CockroachDB Dedicated cluster.
 toc: true
-filter_category: qs_crdb_cloud
-filter_html: CockroachDB Dedicated
-filter_sort: 2
 docs_area: get_started
 ---
 
-{% include filter-tabs.md %}
-
 This page shows you how to deploy a CockroachDB cluster on {{ site.data.products.dedicated }} (free for a 30-day trial for your first cluster), connect to it using a sample workload, and run your first query.
 
-To run CockroachDB on your local machine instead, see [Start a Local Cluster](../stable/secure-a-cluster.html).
+To run CockroachDB on your local machine instead, see [Start a Local Cluster](quickstart.html?filters=local).
 
 ## Step 1. Create a free trial cluster
 
-For this tutorial, we will create a 3-node GCP cluster in the `us-west2` region.
+For this tutorial, you will create a 3-node GCP cluster in the `us-west2` region.
 
 1. If you haven't already, <a href="https://cockroachlabs.cloud/signup?referralId=docs_quickstart_trial" rel="noopener" target="_blank">sign up for a {{ site.data.products.db }} account</a>.
 1. [Log in](https://cockroachlabs.cloud/) to your {{ site.data.products.db }} account.
@@ -25,17 +20,17 @@ For this tutorial, we will create a 3-node GCP cluster in the `us-west2` region.
 1. For **Regions & nodes**, use the default selection of `California (us-west)` region and 3 nodes.
 1. Under **Hardware per node**, select 2vCPU for **Compute** and a 35 GiB disk for **Storage**.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You can select up to 9 nodes, 4 vCPUs of compute, and 150 GiB of storage. The trial code will not apply to larger clusters.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Name the cluster. The cluster name must be 6-20 characters in length, and can include lowercase letters, numbers, and dashes (but no leading or trailing dashes).
 1. Click **Next**.
 1. On the **Summary** page, enter your credit card details.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You will not be charged until after your free trial expires in 30 days.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Click **Create cluster**.
 
@@ -84,9 +79,9 @@ Once your cluster is created, you will be redirected to the **Cluster Overview**
 
 1. In your terminal, run the connection string provided in the third step of the dialog to connect to CockroachDB's built-in SQL client. Your username and cluster name are pre-populated for you in the dialog.
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This connection string contains your password, which will be provided only once. Save it in a secure place (e.g., in a password manager) to connect to your cluster in the future. If you forget your password, you can reset it by going to the [**SQL Users** page](user-authorization.html).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include cockroachcloud/sql-connection-string.md %}
 
@@ -144,9 +139,9 @@ Once your cluster is created, you will be redirected to the **Cluster Overview**
 
 Learn more:
 
-- Use the [built-in SQL client](../{{site.versions["stable"] }}/cockroach-sql.html) to connect to your cluster and [learn CockroachDB SQL](learn-cockroachdb-sql.html).
-- Build a ["Hello World" app with the Django framework](../{{site.versions["stable"] }}/build-a-python-app-with-cockroachdb-django.html), or [install a client driver](../{{site.versions["stable"] }}/install-client-drivers.html) for your favorite language.
-- Use a local cluster to [explore CockroachDB capabilities like fault tolerance and automated repair](../{{site.versions["stable"] }}/demo-fault-tolerance-and-recovery.html).
+- Use the [built-in SQL client](../{{site.versions["stable"]}}/cockroach-sql.html) to connect to your cluster and [learn CockroachDB SQL](learn-cockroachdb-sql.html).
+- Build a ["Hello World" app with the Django framework](../{{site.versions["stable"]}}/build-a-python-app-with-cockroachdb-django.html), or [install a client driver](../{{site.versions["stable"]}}/install-client-drivers.html) for your favorite language.
+- Use a local cluster to [explore CockroachDB capabilities like fault tolerance and automated repair](../{{site.versions["stable"]}}/demo-fault-tolerance-and-recovery.html).
 
 Before you move into production:
 

@@ -13,7 +13,7 @@ In a multi-region deployment, follow-the-workload is the default pattern for tab
 
 {{site.data.alerts.callout_success}}
 If read performance is your main focus for a table, but you want low-latency reads everywhere instead of just in the most active region, consider the [Duplicate Indexes](topology-duplicate-indexes.html) or [Follower Reads](topology-follower-reads.html) pattern.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -31,9 +31,9 @@ Aside from [deploying a cluster across three regions](#cluster-setup) properly, 
 
 <img src="{{ 'images/v20.2/topology-patterns/topology_follower_reads1.png' | relative_url }}" alt="Follower reads topology" style="max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This pattern is also used by [system ranges containing important internal data](configure-replication-zones.html#create-a-replication-zone-for-a-system-range).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Characteristics
 

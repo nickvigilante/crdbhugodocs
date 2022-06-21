@@ -19,22 +19,22 @@ This behavior is similar to [`ST_Covers`](st_covers.html), except that the crite
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
 {% if page.has_prefixed_variant %}
-{{site.data.alerts.callout_info }}
-`{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+`{{page.title}}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{page.title}}` if you do not want any spatial indexes to be used.
+{{site.data.alerts.end}}
 {% endif %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This function is the inverse of [`ST_Within`](st_within.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{% include {{< page-version >}}/misc/geojson_geometry_note.md %}
 
 ### True
 
-In this example, `{{ page.title }}` returns `true` because:
+In this example, `{{page.title}}` returns `true` because:
 
 - No point in the LineString _B_ lies outside of the Polygon _A_, and
 - At least one point in the interior of _B_ lies in the interior of _A_.
@@ -56,7 +56,7 @@ SELECT ST_Contains(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95
 
 ### False
 
-In this example, `{{ page.title }}` returns `false` because:
+In this example, `{{page.title}}` returns `false` because:
 
 - At least one point in the interior of LineString _B_ does not lie in the interior of the Polygon _A_.  
 

@@ -10,11 +10,11 @@ This page provides guidance on batch deleting with the `DELETE` query filter [on
 
 {{site.data.alerts.callout_success}}
 If you want to delete all of the rows in a table (and not just a large subset of the rows), use a [`TRUNCATE` statement](#delete-all-of-the-rows-in-a-table).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Exercise caution when batch deleting rows from tables with foreign key constraints and explicit [`ON DELETE` foreign key actions](foreign-key.html#foreign-key-actions). To preserve `DELETE` performance on tables with foreign key actions, we recommend using smaller batch sizes, as additional rows updated or deleted due to `ON DELETE` actions can make batch loops significantly slower.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -34,9 +34,9 @@ Before reading this page, do the following:
 
 For high-performance batch deletes, we recommending filtering the `DELETE` query on an [indexed column](indexes.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Having an indexed filtering column can make delete operations faster, but it might lead to bottlenecks in execution, especially if the filtering column is a [timestamp](timestamp.html). To reduce bottlenecks, we recommend using a [hash-sharded index](hash-sharded-indexes.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Each iteration of a batch-delete loop should execute a transaction containing a single `DELETE` query. When writing this `DELETE` query:
 
@@ -128,11 +128,11 @@ conn.close()
 
 At each iteration, the selection query returns the primary key values of up to 20,000 rows of matching historical data from 5 seconds in the past, in a read-only transaction. Then, a nested loop iterates over the returned primary key values in smaller batches of 5,000 rows. At each iteration of the nested `DELETE` loop, a batch of rows is deleted. After the nested `DELETE` loop deletes all of the rows from the initial selection query, a time delay ensures that the next selection query reads historical data from the table after the last iteration's `DELETE` final delete.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  CockroachDB records the timestamp of each row created in the database with the `crdb_internal_mvcc_timestamp` metadata column. In the absence of an explicit timestamp column in your table, you can use `crdb_internal_mvcc_timestamp` to filter expired data.
 
 Note that `crdb_internal_mvcc_timestamp` cannot be indexed. As a result, we recommend following the non-indexed column pattern shown above if you plan to use `crdb_internal_mvcc_timestamp` as a filter for large deletes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Batch-delete "expired" data
 
@@ -192,7 +192,7 @@ with conn:
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `TRUNCATE` statement, including additional examples, see the [`TRUNCATE` syntax page](truncate.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

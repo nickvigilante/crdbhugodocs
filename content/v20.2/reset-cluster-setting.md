@@ -25,7 +25,7 @@ Only members of the `admin` role can modify cluster settings. By default, the `r
 
 ## Example
 
-{{site.data.alerts.callout_success}}You can use <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING .. TO DEFAULT</code></a> to reset a cluster setting as well.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="set-cluster-setting.html"><code>SET CLUSTER SETTING .. TO DEFAULT</code></a> to reset a cluster setting as well.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

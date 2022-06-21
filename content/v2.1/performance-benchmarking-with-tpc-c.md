@@ -29,9 +29,9 @@ These two points on the spectrum show how CockroachDB scales from modest-sized p
 
 3. Create a fourth instance for running the TPC-C benchmark.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 This configuration is intended for performance benchmarking only. For production deployments, there are other important considerations, such as ensuring that data is balanced across at least three availability zones for resiliency. See the [Production Checklist](recommended-production-settings.html) for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 2. Start a 3-node cluster
 
@@ -107,7 +107,7 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
     {{site.data.alerts.callout_success}}
     For more `tpcc` options, use `workload run tpcc --help`. For details about other load generators included in `workload`, use `workload run --help`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 4. To monitor the load generator's progress, follow along with the process on the **Admin UI > Jobs** table.
 
@@ -165,9 +165,9 @@ Benchmarking a large cluster uses [partitioning](partitioning.html). You must ha
 
 3. Create a 31st instance for running the TPC-C benchmark.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 This configuration is intended for performance benchmarking only. For production deployments, there are other important considerations, such as ensuring that data is balanced across at least three availability zones for resiliency. See the [Production Checklist](recommended-production-settings.html) for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 2. Start a 30-node cluster
 
@@ -268,7 +268,7 @@ CockroachDB offers a pre-built `workload` binary for Linux that includes several
 
     {{site.data.alerts.callout_success}}
     For more `tpcc` options, use `workload run tpcc --help`. For details about other load generators included in `workload`, use `workload run --help`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 4. To monitor the load generator's progress, follow along with the process on the **Admin UI > Jobs** table.
 

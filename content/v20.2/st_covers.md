@@ -17,22 +17,22 @@ This behavior is similar to [`ST_Contains`](st_contains.html), except that the c
 - [`GEOGRAPHY`](spatial-glossary.html#geography)
 
 {% if page.has_prefixed_variant %}
-{{site.data.alerts.callout_info }}
-`{{ page.title }}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{ page.title }}` if you do not want any spatial indexes to be used.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+`{{page.title}}` will attempt to use any available [spatial index](spatial-indexes.html) to speed up its operation.  Use the prefixed variant `_{{page.title}}` if you do not want any spatial indexes to be used.
+{{site.data.alerts.end}}
 {% endif %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This function is the inverse of [`ST_CoveredBy`](st_coveredby.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/misc/geojson_geometry_note.md %}
+{% include {{< page-version >}}/misc/geojson_geometry_note.md %}
 
 ### True
 
-In this example, `{{ page.title }}` returns `true` because:
+In this example, `{{page.title}}` returns `true` because:
 
 - No Point in the smaller Polygon _B_ lies outside of the larger Polygon _A_.
 
@@ -53,7 +53,7 @@ SELECT ST_Covers(st_geomfromtext('SRID=4326;POLYGON((-87.906471 43.038902, -95.9
 
 ### False
 
-In this example, `{{ page.title }}` returns `false` because:
+In this example, `{{page.title}}` returns `false` because:
 
 - Many Points in the smaller Polygon _B_ lie outside of the larger Polygon _A_.
 

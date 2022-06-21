@@ -175,7 +175,7 @@ To create a view, use the [`CREATE VIEW`](create-view.html) statement:
 CREATE VIEW
 ~~~
 
-{{site.data.alerts.callout_info }}Any <a href="selection-queries.html">selection query</a> is valid as operand to <code>CREATE VIEW</code>, not just <a href="select-clause.html">simple <code>SELECT</code> clauses</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Any <a href="selection-queries.html">selection query</a> is valid as operand to <code>CREATE VIEW</code>, not just <a href="select-clause.html">simple <code>SELECT</code> clauses</a>.{{site.data.alerts.end}}
 
 ### Listing Views
 
@@ -311,7 +311,7 @@ There is an exception to the rule above, however: When [dropping a table](drop-t
 DROP TABLE
 ~~~
 
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end}}
 
 ### Renaming Views
 

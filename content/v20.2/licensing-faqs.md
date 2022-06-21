@@ -15,9 +15,9 @@ Non-CCL core features from version 19.1 and earlier are licensed under [Apache 2
 
 CockroachDB [Enterprise features](enterprise-licensing.html) require a [paid license](#obtain-a-license) from Cockroach and are licensed under the Cockroach Community License.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can find any feature's license by checking the code's file header in the [CockroachDB repository](https://github.com/cockroachdb/cockroach).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Types of licenses
 
@@ -70,13 +70,13 @@ Feature          | BSL | CCL (free)      | CCL (paid)
 
 <a name="footnotes"></a><sup>* Now a core feature in v20.2.</sup>
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Individual feature licensing may change with each release of CockroachDB. You can use the dropdown menu at the top of the page to view documentation for other versions of CockroachDB.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 More information about all Enterprise features can be found [here](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Obtain a license
 
@@ -87,11 +87,11 @@ All CockroachDB code is included in the same binary. No license key is required 
 
 {{site.data.alerts.callout_success}}
 For quick local testing of Enterprise features, you can use the [`cockroach demo`](cockroach-demo.html) command, which starts a temporary, in-memory cluster with a SQL shell open and a trial license applied automatically.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Cockroach Labs is willing to offer self-hosted CockroachDB Enterprise features free of charge and discounted prices for {{ site.data.products.db }} to select non-profit organizations and non-commercial academic projects. To learn more, please [contact us](https://support.cockroachlabs.com/hc/en-us).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Set a license
 

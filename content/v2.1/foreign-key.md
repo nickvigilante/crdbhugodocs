@@ -13,7 +13,7 @@ For example, if you create a foreign key on `orders.customer` that references `c
 
 {{site.data.alerts.callout_success}}
 If you plan to use foreign keys in your schema, consider using [interleaved tables](interleave-in-parent.html), which can dramatically improve query performance.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Details
@@ -72,15 +72,15 @@ We're currently working to improve the performance of these statements, though.
 
 {{site.data.alerts.callout_success}}
 You can improve the performance of some statements that use Foreign Keys by also using [`INTERLEAVE IN PARENT`](interleave-in-parent.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
 Foreign key constraints can be defined at the [table level](#table-level). However, if you only want the constraint to apply to a single column, it can be applied at the [column level](#column-level).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also add the Foreign Key constraint to existing tables through [`ADD CONSTRAINT`](add-constraint.html#add-the-foreign-key-constraint-with-cascade).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Column level
 
@@ -108,9 +108,9 @@ You can also add the Foreign Key constraint to existing tables through [`ADD CON
     INDEX (customer)
   );
 ~~~
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` does not list objects it drops or updates, so it should be used cautiously.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Table level
 

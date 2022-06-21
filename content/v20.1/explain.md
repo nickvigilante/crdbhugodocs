@@ -8,7 +8,7 @@ The `EXPLAIN` [statement](sql-statements.html) returns CockroachDB's query plan 
 
 {{site.data.alerts.callout_success}}
 To actually execute a statement and return a physical query plan with execution statistics, use [`EXPLAIN ANALYZE`](explain-analyze.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Query optimization
 
@@ -47,9 +47,9 @@ The user requires the appropriate [privileges](authorization.html#assign-privile
  `preparable_stmt`  | The [statement](sql-grammar.html#preparable_stmt) you want details about. All preparable statements are explainable.
  `DISTSQL`          | Generate a URL to a [distributed SQL physical query plan tree](explain-analyze.html#distsql-plan-viewer).<br><br>{% include {{ page.version.version }}/sql/physical-plan-url.md %}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `EXPLAIN` also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Success responses
 
@@ -463,9 +463,9 @@ The output shows the different internal functions that will be used to process e
 
 The `DISTSQL` option generates a URL for a physical query plan that provides high level information about how a query will be executed. For details about reading the physical query plan, see [DistSQL Plan Viewer](explain-analyze.html#distsql-plan-viewer). For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/sql/physical-plan-url.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For example, the following `EXPLAIN(DISTSQL)` statement generates a physical plan for a simple query against the [TPC-H database](http://www.tpc.org/tpch/) loaded to a 3-node CockroachDB cluster:
 

@@ -1,10 +1,10 @@
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The CockroachDB Helm chart is undergoing maintenance for compatibility with Kubernetes versions 1.17 through 1.21 (the latest version as of this writing). No new feature development is currently planned. For new production and local deployments, we currently recommend using a manual configuration (**Configs** option). If you are experiencing issues with a Helm deployment on production, contact our [Support team](https://support.cockroachlabs.com/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. [Install the Helm client](https://helm.sh/docs/intro/install) (version 3.0 or higher) and add the `cockroachdb` chart repository:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm repo add cockroachdb https://charts.cockroachdb.com/
     ~~~
@@ -15,7 +15,7 @@ The CockroachDB Helm chart is undergoing maintenance for compatibility with Kube
 
 2. Update your Helm chart repositories to ensure that you're using the [latest CockroachDB chart](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/Chart.yaml):
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm repo update
     ~~~
@@ -24,7 +24,7 @@ The CockroachDB Helm chart is undergoing maintenance for compatibility with Kube
 
     Create a `my-values.yaml` file to override the defaults in `values.yaml`, substituting your own values in this example based on the guidelines below.
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~
     statefulset:
       resources:
@@ -41,23 +41,23 @@ The CockroachDB Helm chart is undergoing maintenance for compatibility with Kube
 
         {{site.data.alerts.callout_success}}
         For example, if you are allocating 8Gi of `memory` to each CockroachDB node, allocate 2Gi to `cache` and 2Gi to `max-sql-memory`.
-        {{site.data.alerts.end }}
+        {{site.data.alerts.end}}
 
     2. You may want to modify `storage.persistentVolume.size` and `storage.persistentVolume.storageClass` for your use case. This chart defaults to 100Gi of disk space per pod. For more details on customizing disks for performance, see [these instructions](kubernetes-performance.html#disk-type).
 
-        {{site.data.alerts.callout_info }}
+        {{site.data.alerts.callout_info}}
         If necessary, you can [expand disk size](operate-cockroachdb-kubernetes.html#expand-disk-size) after the cluster is live.
-        {{site.data.alerts.end }}
+        {{site.data.alerts.end}}
 
 4. Install the CockroachDB Helm chart. 
 
     Provide a "release" name to identify and track this particular deployment of the chart, and override the default values with those in `my-values.yaml`.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This tutorial uses `my-release` as the release name. If you use a different value, be sure to adjust the release name in subsequent commands.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm install my-release --values my-values.yaml cockroachdb/cockroachdb
     ~~~
@@ -66,7 +66,7 @@ The CockroachDB Helm chart is undergoing maintenance for compatibility with Kube
 
 5. Confirm that CockroachDB cluster initialization has completed successfully, with the pods for CockroachDB showing `1/1` under `READY` and the pod for initialization showing `COMPLETED` under `STATUS`:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -81,7 +81,7 @@ The CockroachDB Helm chart is undergoing maintenance for compatibility with Kube
 
 6. Confirm that the persistent volumes and corresponding claims were created successfully for all three pods:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pv
     ~~~
@@ -95,4 +95,4 @@ The CockroachDB Helm chart is undergoing maintenance for compatibility with Kube
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

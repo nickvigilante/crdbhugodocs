@@ -12,13 +12,13 @@ values every time it is evaluated. This default expression in turn
 ensures that inserts that do not specify this column will receive an
 automatically generated value instead of `NULL`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `SERIAL` is provided only for compatibility with PostgreSQL. New applications should use real data types and a suitable `DEFAULT` expression.
 
 In most cases, we recommend using the [`UUID`](uuid.html) data type with the `gen_random_uuid()` function as the default value, which generates 128-bit values (larger than `SERIAL`'s maximum of 64 bits) and more uniformly scatters them across all of a table's underlying key-value ranges. UUIDs ensure more effectively that multiple nodes share the insert load when a UUID column is used in an index or primary key.
 
 See [this FAQ entry](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb) for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Behavior
 
@@ -35,13 +35,13 @@ automatically generated for the column during row insertion.  These
 are not guaranteed to increase monotonically, see [this section
 below](#auto-incrementing-is-not-always-sequential) for details.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The particular choice of `DEFAULT` expression when clients use the
 `SERIAL` keyword is subject to change in future versions of
 CockroachDB. Applications that wish to use `unique_rowid()`
 specifically must use the full explicit syntax `INT DEFAULT
 unique_rowid()` and avoid `SERIAL` altogether.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For compatibility with PostgreSQL, CockroachDB recognizes the following keywords as aliases to `SERIAL`:
 
@@ -51,13 +51,13 @@ For compatibility with PostgreSQL, CockroachDB recognizes the following keywords
 - `SMALLSERIAL`
 - `BIGSERIAL`
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `SERIAL2` and `SERIAL4` are the same as `SERIAL` and store 8-byte values, not 2- or 4-byte values as their names might suggest.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This behavior is updated in CockroachDB v2.1.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Automatically generated values
 

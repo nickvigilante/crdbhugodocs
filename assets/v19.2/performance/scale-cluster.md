@@ -18,7 +18,7 @@
     {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
-    {{ page.certs}} \
+    {{page.certs}} \
     --advertise-host=<node internal address> \
     --join=<same as earlier> \
     --locality=cloud=gce,region=us-west1,zone=us-west1-a \
@@ -49,7 +49,7 @@
     {% include copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
-    {{ page.certs}} \
+    {{page.certs}} \
     --advertise-host=<node1 internal address> \
     --join=<same as earlier> \
     --locality=cloud=gce,region=us-west2,zone=us-west2-a \

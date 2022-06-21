@@ -19,7 +19,7 @@ For example, if you index an `INT` column and then filter it <code>WHERE &lt;ind
 
  To index [spatial data](spatial-data.html), CockroachDB uses *spatial indexes*. For more information about spatial indexes, see [Spatial Indexes](spatial-indexes.html).
 
-{% include {{ page.version.version }}/sql/indexes-regional-by-row.md %}
+{% include {{< page-version >}}/sql/indexes-regional-by-row.md %}
 
 ### Creation
 
@@ -57,26 +57,26 @@ To maximize your indexes' performance, we recommend following the [secondary ind
 
 {{site.data.alerts.callout_success}}
 For more information about how to tune CockroachDB's performance, see [SQL Performance Best Practices](performance-best-practices-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Storing columns
 
 The `STORING` clause specifies columns which are not part of the index key but should be stored in the index. This optimizes queries which retrieve those columns without filtering on them, because it prevents the need to read the [primary index](primary-key.html).
 
-{% include {{ page.version.version }}/sql/covering-index.md %}
+{% include {{< page-version >}}/sql/covering-index.md %}
 
 Note that the synonym `COVERING` is also supported.
 
 For example, say we have a table with three columns, two of which are indexed:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE tbl (col1 INT, col2 INT, col3 INT, INDEX (col1, col2));
 ~~~
 
 If we filter on the indexed columns but retrieve the unindexed column, this requires reading `col3` from the primary index via an "index join."
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN SELECT col3 FROM tbl WHERE col1 = 10 AND col2 > 1;
 ~~~
@@ -97,12 +97,12 @@ If we filter on the indexed columns but retrieve the unindexed column, this requ
 
 However, if we store `col3` in the index, the index join is no longer necessary. This means our query only needs to read from the secondary index, so it will be more efficient.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE tbl (col1 INT, col2 INT, col3 INT, INDEX (col1, col2) STORING (col3));
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN SELECT col3 FROM tbl WHERE col1 = 10 AND col2 > 1;
 ~~~
@@ -125,7 +125,7 @@ For best practices, see [Add a Secondary Index: Best Practices](schema-design-in
 
 ## Indexes on `REGIONAL BY ROW` tables in multi-region databases
 
-{% include {{ page.version.version }}/sql/indexes-regional-by-row.md %}
+{% include {{< page-version >}}/sql/indexes-regional-by-row.md %}
 
 Note that the behavior described above also applies to [GIN indexes](inverted-indexes.html).
 

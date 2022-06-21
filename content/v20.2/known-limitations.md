@@ -5,7 +5,7 @@ toc: true
 keywords: gin, gin index, gin indexes, inverted index, inverted indexes, accelerated index, accelerated indexes
 ---
 
-This page describes newly identified limitations in the CockroachDB {{ page.release_info.version }} release as well as unresolved limitations identified in earlier releases.
+This page describes newly identified limitations in the CockroachDB {{page.release_info.version}} release as well as unresolved limitations identified in earlier releases.
 
 ## New limitations
 
@@ -98,19 +98,19 @@ CockroachDB supports efficiently storing and querying [spatial data](spatial-dat
 
 ### `SET` does not `ROLLBACK` in a transaction
 
-{% include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
+{% include {{< page-version >}}/known-limitations/set-transaction-no-rollback.md %}
 
 ## Unresolved limitations
 
 ### Optimizer stale statistics deletion when columns are dropped
 
-* {% include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
+* {% include {{< page-version >}}/known-limitations/old-multi-col-stats.md %}
 
-* {% include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
+* {% include {{< page-version >}}/known-limitations/single-col-stats-deletion.md %}
 
 ### Automatic statistics refresher may not refresh after upgrade
 
-{% include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
+{% include {{< page-version >}}/known-limitations/stats-refresh-upgrade.md %}
 
 ### Differences in syntax and behavior between CockroachDB and PostgreSQL
 
@@ -174,9 +174,9 @@ As a workaround, take a cluster backup instead, as the `system.comments` table i
 
 ### Cold starts of large clusters may require manual intervention
 
-{{site.data.alerts.callout_info }}
-Resolved as of [v20.2.9](../releases/v20.2.9.html). See [#64567](https://github.com/cockroachdb/cockroach/pull/64567).
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+Resolved as of [v20.2.9](../releases/v20.2.html#v20-2-9). See [#64567](https://github.com/cockroachdb/cockroach/pull/64567).
+{{site.data.alerts.end}}
 
 If a cluster contains a large amount of data (>500GiB / node), and all nodes are stopped and then started at the same time, clusters can enter a state where they're unable to startup without manual intervention. In this state, logs fill up rapidly with messages like `refusing gossip from node x; forwarding to node y`, and data and metrics may become inaccessible.
 
@@ -192,9 +192,9 @@ Once restarted, monitor the Replica Quiescence graph on the [**Replication Dashb
 
 ### Requests to restarted node in need of snapshots may hang
 
-{{site.data.alerts.callout_info }}
-Resolved as of [v20.2.4](../releases/v20.2.4.html). See [#57789](https://github.com/cockroachdb/cockroach/pull/57789).
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+Resolved as of [v20.2.4](../releases/v20.2.html#v20-2-4). See [#57789](https://github.com/cockroachdb/cockroach/pull/57789).
+{{site.data.alerts.end}}
 
 When a node is offline, the [Raft logs](architecture/replication-layer.html#raft-logs) for the ranges on the node get truncated. When the node comes back online, it therefore often needs [Raft snapshots](architecture/replication-layer.html#snapshots) to get many of its ranges back up-to-date. While in this state, requests to a range will hang until its snapshot has been applied, which can take a long time.
 
@@ -556,7 +556,7 @@ CockroachDB v20.1 and earlier would generate index scans for these filters, thou
 The workaround is to rewrite the statement filters to avoid using both JSON fetch values and containment operators. The following statement is index-accelerated and equivalent to the non-accelerated statement above:
 
 ~~~ sql
-SELECT * FROM mytable WHERE j @> '{"a": {"b": "c" }}'
+SELECT * FROM mytable WHERE j @> '{"a": {"b": "c"}}'
 ~~~
 
 [Tracking GitHub Issue](https://github.com/cockroachdb/cockroach/issues/55318)

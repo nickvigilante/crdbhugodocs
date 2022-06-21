@@ -67,9 +67,9 @@ When errors like this occur, the application has the following options:
 - Design the schema and queries to reduce contention. For information on how to avoid contention, see [Understanding and Avoiding Transaction Contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention).
 - Be prepared to retry on uncertainty (and other) errors. For more information, see [Transaction retries](transactions.html#transaction-retries).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Uncertainty errors are a form of transaction conflict. For more information about transaction conflicts, see [Transaction conflicts](architecture/transaction-layer.html#transaction-conflicts).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### transaction deadline exceeded
 
@@ -79,9 +79,9 @@ This error can occur for long-running transactions (with execution time on the o
 
 When this error occurs, the application must retry the transaction. For more information about how to retry transactions, see [Transaction retries](transactions.html#transaction-retries).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For more information about the mechanics of the transaction conflict resolution process described above, see [Life of a Distributed Transaction](architecture/life-of-a-distributed-transaction.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <!-- ### write too old -->
 

@@ -99,9 +99,9 @@ File name | File usage
 
 ## Split CA certificates
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We do not recommend you use split CA certificates unless your organizational security practices mandate you to do so.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you need to use separate CAs to sign node certificates and client certificates, then you need two CAs and their respective certificates and keys: `ca.crt` and `ca-client.crt`.
 

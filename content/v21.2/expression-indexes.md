@@ -6,7 +6,7 @@ keywords: gin, gin index, gin indexes, inverted index, inverted indexes, acceler
 docs_area: develop
 ---
 
-<span class="version-tag">New in v21.2</span>
+{% include_cached new-in.html version="v21.2" %}
 
 An _expression index_ is an index created by applying an [expression](scalar-expressions.html) to a column. For example, to facilitate fast, case insensitive lookups of user names you could create an index by applying the function `lower` to the `name` column: `CREATE INDEX users_name_idx ON users (lower(name))`. The value of the expression is stored only in the expression index, not in the primary family index.
 
@@ -173,8 +173,8 @@ Expression indexes have the following limitations:
 
 - The expression cannot reference columns outside the index's table.
 - Functional expression output must be determined by the input arguments. For example, you can't use the function `now()` to create an index because its output depends on more than just the function arguments.
-- {% include {{ page.version.version }}/sql/expression-indexes-cannot-reference-computed-columns.md %}
-- {% include {{ page.version.version }}/sql/expressions-as-on-conflict-targets.md %}
+- {% include {{< page-version >}}/sql/expression-indexes-cannot-reference-computed-columns.md %}
+- {% include {{< page-version >}}/sql/expressions-as-on-conflict-targets.md %}
 
 ## See also
 

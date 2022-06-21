@@ -14,7 +14,7 @@ This tutorial shows you how build a simple Ruby application with CockroachDB and
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the Ruby pg driver
 
@@ -29,7 +29,7 @@ $ gem install pg
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -52,7 +52,7 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 
 {% include copy-clipboard.html %}
 ~~~ ruby
-{% include {{ page.version.version }}/app/basic-sample.rb %}
+{% include {{< page-version >}}/app/basic-sample.rb %}
 ~~~
 
 Then run the code:
@@ -80,7 +80,7 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 
 {% include copy-clipboard.html %}
 ~~~ ruby
-{% include {{ page.version.version }}/app/txn-sample.rb %}
+{% include {{< page-version >}}/app/txn-sample.rb %}
 ~~~
 
 Then run the code:
@@ -120,7 +120,7 @@ To check the account balances, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Ruby code
 
@@ -134,7 +134,7 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 
 {% include copy-clipboard.html %}
 ~~~ ruby
-{% include {{ page.version.version }}/app/insecure/basic-sample.rb %}
+{% include {{< page-version >}}/app/insecure/basic-sample.rb %}
 ~~~
 
 Then run the code:
@@ -162,7 +162,7 @@ Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/
 
 {% include copy-clipboard.html %}
 ~~~ ruby
-{% include {{ page.version.version }}/app/insecure/txn-sample.rb %}
+{% include {{< page-version >}}/app/insecure/txn-sample.rb %}
 ~~~
 
 Then run the code:
@@ -202,4 +202,4 @@ To check the account balances, issue the following statement:
 
 Read more about using the [Ruby pg driver](https://rubygems.org/gems/pg).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

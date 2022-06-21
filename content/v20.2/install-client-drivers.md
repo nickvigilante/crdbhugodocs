@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports both native drivers and the PostgreSQL wire protocol, so most available PostgreSQL client drivers and ORM frameworks should work with CockroachDB. Choose a language for supported clients, and follow the installation steps. After you install a client library, you can [connect to the database](connect-to-the-database.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Applications may encounter incompatibilities when using advanced or obscure features of a driver or ORM framework with **beta-level** support. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div class="filters clearfix">
   <button class="filter-button page-level" data-scope="python">Python</button>
@@ -17,10 +17,7 @@ Applications may encounter incompatibilities when using advanced or obscure feat
   <button class="filter-button page-level" data-scope="ruby">Ruby</button>
   <button class="filter-button page-level" data-scope="js-ts">JavaScript/TypeScript</button>
   <button class="filter-button page-level" data-scope="c">C</button>
-  <button class="filter-button page-level" data-scope="c++">C++</button>
   <button class="filter-button page-level" data-scope="c-sharp">C# (.NET)</button>
-  <button class="filter-button page-level" data-scope="clojure">Clojure</button>
-  <button class="filter-button page-level" data-scope="php">PHP</button>
 </div>
 
 <section class="filter-content" markdown="1" data-scope="python">
@@ -57,7 +54,7 @@ $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 
 {{site.data.alerts.callout_success}}
 You can substitute psycopg2 for other alternatives that include the psycopg python package.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For other ways to install SQLAlchemy, see the [official documentation](http://docs.sqlalchemy.org/en/latest/intro.html#installation-guide).
 
@@ -91,9 +88,9 @@ After you install the psycopg2 prerequisite, you can install the CockroachDB Dja
 $ pip install django-cockroachdb==3.1.*
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The major version of `django-cockroachdb` must correspond to the major version of `django`. The minor release numbers do not need to match.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a simple but complete example app, see [Build a Python App with CockroachDB and Django](build-a-python-app-with-cockroachdb-django.html).
 
@@ -127,9 +124,9 @@ For instructions on using peewee with CockroachDB, see the [CockroachDatabase pe
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{% include {{ page.version.version }}/app/java-version-note.md %}
+{% include {{< page-version >}}/app/java-version-note.md %}
 
-{% include {{ page.version.version }}/app/java-tls-note.md %}
+{% include {{< page-version >}}/app/java-tls-note.md %}
 
 ## Java Drivers
 
@@ -272,9 +269,9 @@ To install ActiveRecord, the [pg driver](https://rubygems.org/gems/pg), and a [C
 $ gem install activerecord pg activerecord-cockroachdb-adapter
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The exact command above will vary depending on the desired version of ActiveRecord. Specifically, version 5.1.x of ActiveRecord requires version 0.2.x of the adapter; version 5.2.x of ActiveRecord requires version 5.2.x of the adapter; version 6.0.x of ActiveRecord requires version 6.0.0betax of the adapter.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a simple but complete example app, see [Build a Ruby App with CockroachDB and ActiveRecord](build-a-ruby-app-with-cockroachdb-activerecord.html).
 
@@ -295,7 +292,7 @@ To install the [Node.js pg driver](https://www.npmjs.com/package/pg):
 $ npm install pg
 ~~~
 
-Some apps might also requires [`async`](https://www.npmjs.com/package/async):
+Some apps might also require [`async`](https://www.npmjs.com/package/async):
 
 {% include copy-clipboard.html %}
 ~~~ shell
@@ -341,24 +338,6 @@ Install the C libpq driver as described in the [official documentation](https://
 
 </section>
 
-<section class="filter-content" markdown="1" data-scope="c++">
-
-## C++ Drivers
-
-### libpqxx
-
-**Support level:** Beta
-
-Install the C++ libpqxx driver as described in the [official documentation](https://github.com/jtv/libpqxx).
-
-{{site.data.alerts.callout_info }}
-If you are running macOS, you need to install version 4.0.1 or higher of the libpqxx driver.
-{{site.data.alerts.end }}
-
-For a simple but complete example app, see [Build a C++ App with CockroachDB and libpqxx](build-a-c++-app-with-cockroachdb.html).
-
-</section>
-
 <section class="filter-content" markdown="1" data-scope="c-sharp">
 
 ## C# Drivers
@@ -392,43 +371,15 @@ For a simple but complete example app, see [Build a C# App with CockroachDB and 
 
 </section>
 
-<section class="filter-content" markdown="1" data-scope="clojure">
-
-## Clojure Drivers
-
-### leiningen
-
-**Support level:** Beta
-
-Install the Clojure `lein` utility as described in its [official documentation](https://leiningen.org/).
-
-For a simple but complete example app, see [Build a Closure App with CockroachDB and java.jdbc](build-a-clojure-app-with-cockroachdb.html).
-
-</section>
-
-<section class="filter-content" markdown="1" data-scope="php">
-
-## PHP Drivers
-
-### php-pgsql
-
-**Support level:** Beta
-
-Install the php-pgsql driver as described in the [official documentation](https://www.php.net/manual/en/book.pgsql.php).
-
-For a simple but complete example app, see [Build a PHP App with CockroachDB and the PHP pgsql Driver](build-a-php-app-with-cockroachdb.html).
-
-</section>
-
 <section class="filter-content" markdown="1" data-scope="rust">
 
 ## Rust Drivers
 
-### postgres
+### rust-postgres
 
 **Support level:** Beta
 
-Install the Rust Postgres driver as described in the <a href="https://crates.io/crates/postgres" data-proofer-ignore>official documentation</a>.
+Install the Rust Postgres driver as described in the [official documentation](https://crates.io/crates/postgres).
 
 For a simple but complete example app, see [Build a Rust App with CockroachDB and the Rust Postgres Driver](build-a-rust-app-with-cockroachdb.html).
 

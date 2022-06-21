@@ -4,9 +4,9 @@ summary: Back up your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The `BACKUP` feature is only available to [enterprise](https://www.cockroachlabs.com/product/cockroachdb/) users. For non-enterprise backups, see [`cockroach dump`](sql-dump.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 CockroachDB's `BACKUP` [statement](sql-statements.html) allows you to create full or incremental backups of your cluster's schema and data that are consistent as of a given timestamp. Backups can be with or without [revision history](backup.html#backups-with-revision-history).
 
@@ -19,9 +19,9 @@ Because CockroachDB is designed with high fault tolerance, these backups are des
 
 You can backup entire tables (which automatically includes their indexes) or [views](views.html). Backing up a database simply backs up all of its tables and views.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `BACKUP` only offers table-level granularity; it _does not_ support backing up subsets of a table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Object dependencies
 
@@ -105,9 +105,9 @@ After the backup has been initiated, you can control it with [`PAUSE JOB`](pause
 {% include {{ page.version.version }}/sql/diagrams/backup.html %}
 </div>
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `BACKUP` statement cannot be used within a [transaction](transactions.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 

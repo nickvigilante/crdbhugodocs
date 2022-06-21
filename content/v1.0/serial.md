@@ -6,10 +6,10 @@ toc: true
 
 The `SERIAL` [data type](data-types.html) is a column data type that, on insert, generates a default integer from the timestamp and ID of the node executing the insert. This combination is likely to be globally unique except in extreme cases (see this [example](create-table.html#create-a-table-with-auto-generated-unique-row-ids) for more details). Also, because value generation does not require talking to other nodes, it is much faster than sequentially auto-incrementing a value, which requires distributed coordination.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 We believe this data type is a better solution than PostgreSQL's <code>SERIAL</code> and MySQL's <code>AUTO_INCREMENT</code> types, both of which auto-increment integers but not necessarily in a strictly sequential fashion (see the <a href="#auto-incrementing-is-not-always-sequential"> Auto-Incrementing Is Not Always Sequential </a> example below). However, if you find that this feature is incompatible with your application, please <a href="https://github.com/cockroachdb/cockroach/issues">open an
 issue</a>.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Aliases

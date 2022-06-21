@@ -6,7 +6,7 @@ toc: true
 
 The `DROP INDEX` [statement](sql-statements.html) removes indexes from tables.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
@@ -72,7 +72,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ### Remove an index and dependent objects with `CASCADE`
 
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

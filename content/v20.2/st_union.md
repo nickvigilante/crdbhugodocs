@@ -10,13 +10,13 @@ Given a set of shapes (e.g., from a [selection query](selection-queries.html)), 
 
 - [`GEOMETRY`](spatial-glossary.html#geometry)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The non-aggregate version of `ST_Union` is not yet implemented.  For more information, see [cockroach#49064](https://github.com/cockroachdb/cockroach/issues/49064).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Unlike `ST_Collect`, which does not change the shapes it operates on and merely gathers them into a collection, `ST_Union` modifies the shapes it operates on, merging them together.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 

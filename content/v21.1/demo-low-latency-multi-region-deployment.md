@@ -6,7 +6,7 @@ toc_not_nested: true
 key: demo-geo-partitioning.html
 ---
 
-<span class="version-tag">New in v21.1:</span> CockroachDB has improved multi-region capabilities that make it easier to run global applications. For an overview of these capabilities, see the [Multi-region Overview](multiregion-overview.html).
+{% include_cached new-in.html version="v21.1" %} CockroachDB has improved multi-region capabilities that make it easier to run global applications. For an overview of these capabilities, see the [Multi-region Overview](multiregion-overview.html).
 
 In multi-region clusters, the distribution of data becomes a performance consideration. This makes it important to think about the [survival goals](multiregion-overview.html#survival-goals) of each database. Then, for each table in the database, use the right [table locality](multiregion-overview.html#table-locality) to locate data for optimal performance.
 
@@ -53,7 +53,7 @@ For a description of the sequence of SQL statements issued by the MovR applicati
 
 ## Step 1. Simulate a multi-region cluster
 
-{% include {{ page.version.version }}/sql/start-a-multi-region-demo-cluster.md %}
+{% include {{< page-version >}}/sql/start-a-multi-region-demo-cluster.md %}
 
 To verify that the simulated latencies are working as expected, check the [Network Latency Page](ui-network-latency-page.html) in the DB Console. Round trip times between  `us-west1` and `europe-west1` should be in the 150 ms range.
 
@@ -66,7 +66,7 @@ To determine which nodes are in which regions, you will need to refer to two (2)
 
 Here is the output of `\demo ls` from the SQL shell.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > \demo ls
 ~~~
@@ -142,14 +142,14 @@ Follow the steps below to start 3 instances of MovR. Each instance is pointed at
 
 1. In the SQL shell, create the `movr` database:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     CREATE DATABASE movr;
     ~~~
 
 1. Open a second terminal and run the command below to populate the MovR data set. The options are mostly self-explanatory. We limit the application to 1 thread because using multiple threads quickly overloads this small demo cluster's ability to ingest data. As a result, loading the data takes about 90 seconds on a fast laptop.
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
         docker run -it --rm cockroachdb/movr:20.11.1 \
             --app-name "movr-load" \
@@ -184,7 +184,7 @@ Follow the steps below to start 3 instances of MovR. Each instance is pointed at
 
 1. In the same terminal window, run the following command:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     docker run -it --rm cockroachdb/movr:20.11.1 \
         --app-name "movr-us-east" \
@@ -205,7 +205,7 @@ Follow the steps below to start 3 instances of MovR. Each instance is pointed at
 
 1. Open a third terminal and run the following command:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     docker run -it --rm cockroachdb/movr:20.11.1 \
         --app-name "movr-us-west" \
@@ -225,7 +225,7 @@ Follow the steps below to start 3 instances of MovR. Each instance is pointed at
 
 1. Open a fourth terminal and run the following command:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     docker run -it --rm cockroachdb/movr:20.11.1 \
        --app-name "movr-eu-west" \
@@ -274,22 +274,22 @@ The SQL statements described below will tell CockroachDB about:
 
 This information is necessary so that CockroachDB can move data around to optimize access to particular data from particular regions. The main focus is reducing latency in a global deployment. For more information about how this works at a high level, see the [Multi-Region Overview](multiregion-overview.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `ALTER` statements described below will take some seconds to run, since the cluster is under load.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Configure database regions
 
 Back in the SQL shell, switch to the `movr` database:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 USE movr;
 ~~~
 
 Execute the following statements. They will tell CockroachDB about the database's regions. This information is necessary so that CockroachDB can later move data around to optimize access to particular data from particular regions. For more information about how this works at a high level, see [Database Regions](multiregion-overview.html#database-regions).
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER DATABASE movr PRIMARY REGION "us-east1";
 ALTER DATABASE movr ADD REGION "europe-west1";
@@ -300,16 +300,16 @@ ALTER DATABASE movr ADD REGION "us-west1";
 
 #### Configure GLOBAL tables
 
-As mentioned earlier, all of the tables except `promo_codes` are geographically specific. Because the data in `promo_codes` is not updated frequently (a.k.a., "read-mostly"), and needs to be available from any region, the right table locality is [`GLOBAL`](multiregion-overview.html#global-tables).
+All of the tables except `promo_codes` contain rows which are partitioned by region, and updated very frequently. Because the data in `promo_codes` is not updated frequently (a.k.a., "read-mostly"), and needs to be available from any region, the right table locality is [`GLOBAL`](multiregion-overview.html#global-tables).
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE promo_codes SET locality GLOBAL;
 ~~~
 
-Next, alter the `user_promo_codes` table to have a foreign key into the `promo_codes` table. This step is necessary to modify the MovR schema design to take full advantage of the multi-region features in v21.1+.
+Next, alter the `user_promo_codes` table to have a foreign key into the global `promo_codes` table. This will enable fast reads of the `promo_codes.code` column from any region in the cluster.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE user_promo_codes
   ADD CONSTRAINT user_promo_codes_code_fk
@@ -326,7 +326,7 @@ Apply this table locality to the remaining tables. These statements use a `CASE`
 
 - `rides`
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE rides ADD COLUMN region crdb_internal_region AS (
       CASE WHEN city = 'amsterdam' THEN 'europe-west1'
@@ -346,7 +346,7 @@ Apply this table locality to the remaining tables. These statements use a `CASE`
 
 - `user_promo_codes`
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE user_promo_codes ADD COLUMN region crdb_internal_region AS (
       CASE WHEN city = 'amsterdam' THEN 'europe-west1'
@@ -366,7 +366,7 @@ Apply this table locality to the remaining tables. These statements use a `CASE`
 
 - `users`
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE users ADD COLUMN region crdb_internal_region AS (
       CASE WHEN city = 'amsterdam' THEN 'europe-west1'
@@ -386,7 +386,7 @@ Apply this table locality to the remaining tables. These statements use a `CASE`
 
 - `vehicle_location_histories`
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE vehicle_location_histories ADD COLUMN region crdb_internal_region AS (
       CASE WHEN city = 'amsterdam' THEN 'europe-west1'
@@ -406,7 +406,7 @@ Apply this table locality to the remaining tables. These statements use a `CASE`
 
 - `vehicles`
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     ALTER TABLE vehicles ADD COLUMN region crdb_internal_region AS (
       CASE WHEN city = 'amsterdam' THEN 'europe-west1'
@@ -432,9 +432,9 @@ As the multi-region schema changes complete, you should see changes to the follo
 - _Service Latency: SQL, 99th percentile_: In general, even on a small demo cluster like this, the P99 latency should drop and also get less spiky over time, as schema changes finish and data is moved around. For this particular run, **the P99 latency has dropped from ~1200 ms to ~870 ms, an over 25% improvement**.
 - _Replicas per node_: This will increase, since the data needs to be spread across more nodes in order to service the multi-region workload appropriately. There is nothing you need to do about this, except to note that it happens, and is required for CockroachDB's improved multi-region performance features to work.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The small demo cluster used in this example is essentially in a state of overload from the start. The performance numbers shown here only reflect the direction of the performance improvements. You should expect to see much better absolute performance numbers [in a production deployment](recommended-production-settings.html) than those described here.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <img src="{{ 'images/v21.1/geo-partitioning-sql-latency-after-1.png' | relative_url }}" alt="Geo-partitioning SQL latency" style="max-width:100%" />
 

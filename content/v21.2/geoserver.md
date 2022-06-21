@@ -24,7 +24,7 @@ These instructions assume you are running on a UNIX-like system.
 
 {{site.data.alerts.callout_success}}
 Mac users who use [Homebrew](https://brew.sh) can install GeoServer by typing `brew install geoserver`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Start CockroachDB and connect to your cluster
 

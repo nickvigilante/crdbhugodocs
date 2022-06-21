@@ -123,7 +123,7 @@ _elapsed___errors__ops/sec(inst)___ops/sec(cum)__p50(ms)__p95(ms)__p99(ms)_pMax(
 
 {{site.data.alerts.callout_success}}
 For more `tpcc` options, use `cockroach workload run tpcc --help`. For details about other built-in load generators, use `cockroach workload run --help`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 4. Interpret the results
 
@@ -152,9 +152,9 @@ The [TPC-C specification](http://www.tpc.org/tpc_documents_current_versions/pdf/
     $ cockroach quit --insecure --host=localhost:26258
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For the last node, the shutdown process will take longer (about a minute each) and will eventually force the node to stop. This is because, with only 1 of 3 nodes left, all ranges no longer have a majority of replicas available, and so the cluster is no longer operational.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell

@@ -59,7 +59,7 @@ The user must have the `CREATE` [privilege](privileges.html) on each specified t
 
 ### Remove an Index and Dependent Objects with `CASCADE`
 
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end}}
 
 ~~~ sql
 > SHOW INDEX FROM orders;

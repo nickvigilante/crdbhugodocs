@@ -29,9 +29,9 @@ The `cockroach debug zip` [command](cockroach-commands.html) connects to your cl
 
 Additionally, you can run the [`debug merge-logs`](cockroach-debug-merge-logs.html) command to merge the collected logs in one file, making it easier to parse them to locate an issue with your cluster.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The file produced by `cockroach debug zip` can contain highly sensitive, unanonymized information, such as usernames, hashed passwords, and possibly your table's data. You should share this data only with Cockroach Labs developers and only after determining the most secure method of delivery.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Details
 
@@ -108,7 +108,7 @@ $ cockroach debug zip ./cockroach-data/logs/debug.zip --insecure --host=200.100.
 $ cockroach debug zip ./cockroach-data/logs/debug.zip --host=200.100.50.25
 ~~~
 
-{{site.data.alerts.callout_info }}Secure examples assume you have the appropriate certificates in the default certificate directory, <code>${HOME}/.cockroach-certs/</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Secure examples assume you have the appropriate certificates in the default certificate directory, <code>${HOME}/.cockroach-certs/</code>.{{site.data.alerts.end}}
 
 ## See also
 

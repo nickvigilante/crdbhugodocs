@@ -80,9 +80,9 @@ Choose how you want to deploy and maintain the CockroachDB cluster.
 
 To shut down the CockroachDB cluster, delete the resources you created, including the logs:
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This does not include deleting the persistent volumes that were attached to the pods. If you want to delete the persistent volumes and free up the storage used by CockroachDB, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     <section class="filter-content" markdown="1" data-scope="manual">
     {% include_cached copy-clipboard.html %}
@@ -121,7 +121,7 @@ To shut down the CockroachDB cluster, delete the resources you created, includin
     ~~~
     </section>
 
-### Stop Kubernetes:
+### Stop Kubernetes
 
 To delete the Kubernetes cluster:
 

@@ -13,7 +13,7 @@ In a multi-region deployment, the follower reads pattern is a good choice for ta
 
 {{site.data.alerts.callout_success}}
 This pattern is compatible with all of the other multi-region patterns except [Geo-Partitioned Replicas](topology-geo-partitioned-replicas.html). However, if reads from a table must be exactly up-to-date, use the [Duplicate Indexes](topology-duplicate-indexes.html) or [Geo-Partitioned Leaseholders](topology-geo-partitioned-leaseholders.html) pattern instead. Up-to-date reads are required by tables referenced by [foreign keys](foreign-key.html), for example.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -27,9 +27,9 @@ This pattern is compatible with all of the other multi-region patterns except [G
 
 ## Configuration
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Follower reads requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Summary
 
@@ -60,9 +60,9 @@ Insert some data:
 
 2. Configure your app to use `AS OF SYSTEM TIME follower_read_timestamp()` whenever reading from the table:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The `follower_read_timestamp()` [function](functions-and-operators.html) returns the [`TIMESTAMP`](timestamp.html) `statement_timestamp() - 4.8s`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ sql
@@ -90,7 +90,7 @@ Insert some data:
 
 {{site.data.alerts.callout_success}}
 Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use the follower reads feature from [drivers and ORMs](install-client-drivers.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Characteristics
 

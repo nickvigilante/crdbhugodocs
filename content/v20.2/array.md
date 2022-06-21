@@ -11,9 +11,9 @@ The `ARRAY` data type is useful for ensuring compatibility with ORMs and other t
 
  CockroachDB supports indexing array columns with [GIN indexes](inverted-indexes.html). This permits accelerating containment queries ([`@>`](functions-and-operators.html#supported-operations) and [`<@`](functions-and-operators.html#supported-operations)) on array columns by adding an index to them.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB does not support nested arrays.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
@@ -82,9 +82,9 @@ For the list of supported `ARRAY` functions, see [Functions and Operators](funct
 
 ### Accessing an array element using array index
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Arrays in CockroachDB are 1-indexed.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

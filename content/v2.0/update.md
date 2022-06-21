@@ -6,7 +6,7 @@ toc: true
 
 The `UPDATE` [statement](sql-statements.html) updates rows in a table.
 
-{{site.data.alerts.callout_danger }}If you update a row that contains a column referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions-new-in-v2-0"><code>ON UPDATE</code> action</a>, all of the dependent rows will also be updated.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you update a row that contains a column referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions-new-in-v2-0"><code>ON UPDATE</code> action</a>, all of the dependent rows will also be updated.{{site.data.alerts.end}}
 
 
 ## Required Privileges
@@ -153,7 +153,7 @@ Parameter | Description
 
 ### Update All Rows
 
-{{site.data.alerts.callout_danger }}If you do not use the <code>WHERE</code> clause to specify the rows to be updated, the values for all rows will be updated.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you do not use the <code>WHERE</code> clause to specify the rows to be updated, the values for all rows will be updated.{{site.data.alerts.end}}
 
 ~~~ sql
 > UPDATE accounts SET balance = 5000.0;
@@ -176,9 +176,9 @@ Parameter | Description
 
 In this example, the `RETURNING` clause returns the `id` value of the row updated. The language-specific versions assume that you have installed the relevant [client drivers](install-client-drivers.html).
 
-{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>UPDATE</code> statements with <code>RETURNING</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>UPDATE</code> statements with <code>RETURNING</code>.{{site.data.alerts.end}}
 
 <section class="filters clearfix">
     <button class="filter-button" data-scope="shell">Shell</button>

@@ -39,6 +39,6 @@ Assuming the following statements are run at `2016-01-01 12:00:00`, they would e
 
 ## Tech Note
 
-{{site.data.alerts.callout_info }}Although the following format is supported, it is not intended to be used by most users.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Although the following format is supported, it is not intended to be used by most users.{{site.data.alerts.end}}
 
 HLC timestamps can be specified using a [`DECIMAL`](decimal.html). The integer part is the wall time in nanoseconds. The fractional part is the logical counter, a 10-digit integer. This is the same format as produced by the `clutser_logical_timestamp()` function.

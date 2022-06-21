@@ -23,7 +23,7 @@ All CockroachDB clusters include a preloaded database named `defaultdb`. Rather 
 
 For guidance on creating databases, see [Create a Database](schema-design-database.html).
 
-{% include {{ page.version.version }}/sql/db-terms.md %}
+{% include {{< page-version >}}/sql/db-terms.md %}
 
 ### Schemas
 
@@ -33,7 +33,7 @@ All CockroachDB clusters include a preloaded schema named `public`. CockroachDB 
 
 For guidance on creating user-defined schemas, see [Create a User-defined Schema](schema-design-schema.html).
 
-{% include {{ page.version.version }}/sql/schema-terms.md %}
+{% include {{< page-version >}}/sql/schema-terms.md %}
 
 ### Tables
 

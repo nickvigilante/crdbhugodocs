@@ -39,9 +39,9 @@ Term | Definition
 
 ## Hardware
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Mentions of "CPU resources" refer to vCPUs, which are also known as hyperthreads.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Basic hardware recommendations
 
@@ -53,9 +53,9 @@ Nodes should have sufficient CPU, RAM, network, and storage capacity to handle y
 
     More data, complex workloads, higher concurrency, and faster performance require additional resources; as a general rule of thumb, increase the number of vCPUs and additional memory to match the requirements of the workload.
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     Avoid "burstable" or "shared-core" virtual machines that limit the load on CPU resources.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - The ideal configuration is 4-16 vCPUs, 8-64 GB memory nodes (2-4 GB of memory per vCPU).
 
@@ -79,9 +79,9 @@ Nodes should have sufficient CPU, RAM, network, and storage capacity to handle y
 
     This is especially recommended if you are using local disks with no RAID protection rather than a cloud provider's network-attached disks that are often replicated under the hood, because local disks have a greater risk of failure. You can do this for the [entire cluster](configure-replication-zones.html#edit-the-default-replication-zone) or for specific [databases](configure-replication-zones.html#create-a-replication-zone-for-a-database), [tables](configure-replication-zones.html#create-a-replication-zone-for-a-table), or [rows](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition) (enterprise-only).
 
-    {{site.data.alerts.callout_info }}
-    {% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
-    {{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}
+    {% include {{< page-version >}}/known-limitations/system-range-replication.md %}
+    {{site.data.alerts.end}}
 
 - The optimal configuration for striping more than one device is [RAID 10](https://en.wikipedia.org/wiki/Nested_RAID_levels#RAID_10_(RAID_1+0)). RAID 0 and 1 are also acceptable from a performance perspective.
 
@@ -95,9 +95,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 
     For example, Cockroach Labs has used `c5d.4xlarge` (16 vCPUs and 32 GiB of RAM per instance, NVMe SSD) for internal testing. Note that the instance type depends on whether EBS is used or not. If you're using EBS, use a `c5` instance.
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     Do not use ["burstable" `t` instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html), which limit the load on CPU resources.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - Use `c5` instances with EBS as a primary AWS configuration. To simulate bare-metal deployments, use `c5d` with [SSD Instance Store volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html).
 
@@ -110,9 +110,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 - Use storage-optimized [Ls-series](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/sizes-storage) VMs.
     For example, Cockroach Labs has used `Standard_L4s` VMs (4 vCPUs and 32 GiB of RAM per VM) for internal testing.
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     Do not use ["burstable" B-series](https://docs.microsoft.com/en-us/azure/virtual-machines/linux/b-series-burstable) VMs, which limit the load on CPU resources. Also, Cockroach Labs has experienced data corruption issues on A-series VMs and irregular disk performance on D-series VMs, so we recommend avoiding those as well.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - Use [Premium Storage](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage) or local SSD storage with a Linux filesystem such as `ext4` (not the Windows `ntfs` filesystem). Note that [the size of a Premium Storage disk affects its IOPS](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/premium-storage#premium-storage-disk-limits).
 - If you choose local SSD storage, on reboot, the VM can come back with the `ntfs` filesystem. Be sure your automation monitors for this and reformats the disk to the Linux filesystem you chose initially.
@@ -127,9 +127,9 @@ Cockroach Labs recommends the following cloud-specific configurations based on o
 
     For example, Cockroach Labs has used `n1-standard-16` for [performance benchmarking](performance-benchmarking-with-tpc-c.html). We have also found benefits in using the [Skylake platform](https://cloud.google.com/compute/docs/cpu-platforms).
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     Do not use `f1` or `g1` [shared-core machines](https://cloud.google.com/compute/docs/machine-types#sharedcore), which limit the load on CPU resources.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - Use [Local SSDs](https://cloud.google.com/compute/docs/disks/#localssds) or [SSD persistent disks](https://cloud.google.com/compute/docs/disks/#pdspecs). Note that [the IOPS of SSD persistent disks depends both on the disk size and number of vCPUs on the machine](https://cloud.google.com/compute/docs/disks/performance#optimizessdperformance).
 - `nobarrier` can be used with SSDs, but only if it has battery-backed write cache. Without one, data can be corrupted in the event of a crash.
@@ -171,7 +171,7 @@ The effect depends on how these two flags are used in combination:
 
 {{site.data.alerts.callout_success}}
 When using hostnames, make sure they resolve properly (e.g., via DNS or `etc/hosts`). In particular, be careful about the value advertised to other nodes, either via `--advertise-addr` or via `--listen-addr` when `--advertise-addr` is not specified.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Cluster on a single network
 
@@ -200,7 +200,7 @@ Each CockroachDB node is an equally suitable SQL gateway to a cluster, but to en
 - **Reliability:** Load balancers decouple client health from the health of a single CockroachDB node. To ensure that traffic is not directed to failed nodes or nodes that are not ready to receive requests, load balancers should use [CockroachDB's readiness health check](monitoring-and-alerting.html#health-ready-1).
     {{site.data.alerts.callout_success}}
     With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 For guidance on load balancing, see the tutorial for your deployment environment:
 
@@ -234,9 +234,9 @@ To manually increase a node's cache size and SQL memory size, start the node usi
 $ cockroach start --cache=.25 --max-sql-memory=.25 <other start flags>
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Avoid setting `--cache` and `--max-sql-memory` to a combined value of more than 75% of a machine's total RAM. Doing so increases the risk of memory-related failures.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Dependencies
 
@@ -250,9 +250,9 @@ Library | Description
 
 These libraries are found by default on nearly all Linux distributions, with Alpine as the notable exception, but it's nevertheless important to confirm that they are installed and kept up-to-date. For the `tzdata` library in particular, it's important for all nodes to have the same version; when updating the library, do so as quickly as possible across all nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In Docker-based deployments of CockroachDB, these dependencies do not need to be manually addressed. The Docker image for CockroachDB includes them and keeps them up to date with each release of CockroachDB.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## File descriptors limit
 

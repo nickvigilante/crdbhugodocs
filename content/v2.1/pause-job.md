@@ -8,7 +8,7 @@ The `PAUSE JOB` [statement](sql-statements.html) lets you pause [`IMPORT`](impor
 
 After pausing jobs, you can resume them with [`RESUME JOB`](resume-job.html).
 
-{{site.data.alerts.callout_info }}You cannot pause schema changes.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You cannot pause schema changes.{{site.data.alerts.end}}
 
 
 ## Required privileges

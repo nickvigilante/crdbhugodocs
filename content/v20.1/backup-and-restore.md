@@ -18,7 +18,7 @@ If you have an [Enterprise license](enterprise-licensing.html), you can use the 
 
 {{site.data.alerts.callout_success}}
 We recommend [automating daily backups of your cluster](#automated-full-and-incremental-backups). To automate backups, you must have a client send the `BACKUP` statement to the cluster. Once the backup is complete, your client will receive a `BACKUP` response.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Full backups
 
@@ -56,9 +56,9 @@ Or to restore your full cluster:
 > RESTORE FROM '<backup_location>';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A full cluster restore can only be run on a target cluster that has _never_ had user-created databases or tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Full and incremental backups
 
@@ -78,9 +78,9 @@ Then, create nightly incremental backups based off of the full backups you've al
 > BACKUP TO '<backup_location>';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For an example on how to specify the destination of an incremental backup, see [Backup and Restore - Advanced Options](backup-and-restore.html)
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If it's ever necessary, you can then use the [`RESTORE`][restore] command to restore your cluster, database(s), and/or table(s). [Restoring from incremental backups](restore.html#restore-from-incremental-backups) requires previous full and incremental backups. To restore from a destination containing the full backup, as well as the automatically appended incremental backups (that are stored as subdirectories, like in the example above):
 
@@ -174,9 +174,9 @@ In the sample script, configure the day of the week for which you want to create
     $ ./backup.sh
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you miss an incremental backup, delete the `recent_backups.txt` file and run the script. It'll take a full backup for that day and incremental backups for subsequent days.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Advanced examples
 
@@ -208,7 +208,7 @@ $ cockroach sql --database=[database name] < backup.sql
 
 {{site.data.alerts.callout_success}}
 If you created a backup from another database and want to import it into CockroachDB, see the [Migration Overview](migration-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

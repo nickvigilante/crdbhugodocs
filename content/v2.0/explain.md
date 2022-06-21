@@ -67,7 +67,7 @@ The user requires the appropriate [privileges](privileges.html) for the statemen
 | `TYPES` | Include the intermediate [data types](data-types.html) CockroachDB chooses to evaluate intermediate SQL expressions. <br/><br/>`TYPES` also implies `METADATA` and `EXPRS` options.|
 | `explainable_stmt` | The [statement](#explainable-statements) you want details about. |
 
-{{site.data.alerts.callout_danger }}<code>EXPLAIN</code> also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>EXPLAIN</code> also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.{{site.data.alerts.end}}
 
 ## Success Responses
 

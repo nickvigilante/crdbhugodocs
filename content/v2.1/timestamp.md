@@ -15,9 +15,9 @@ The `TIMESTAMP` and `TIMESTAMPTZ` [data types](data-types.html) stores a date an
 
 - `TIMESTAMPTZ` converts `TIMESTAMP` values from UTC to the client's session time zone (unless another time zone is specified for the value). However, it is conceptually important to note that `TIMESTAMPTZ` **does not** store any time zone data.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The default session time zone is UTC, which means that by default `TIMESTAMPTZ` values display in UTC.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 The difference between these two variants is that `TIMESTAMPTZ` uses the client's session time zone, while the other simply does not. This behavior extends to functions like `now()` and `extract()` on `TIMESTAMPTZ` values.
 

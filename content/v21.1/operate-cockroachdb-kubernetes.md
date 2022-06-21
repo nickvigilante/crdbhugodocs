@@ -6,9 +6,9 @@ toc_not_nested: true
 secure: true
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This article assumes you have already [deployed CockroachDB securely on a single Kubernetes cluster](deploy-cockroachdb-with-kubernetes.html). However, it's possible to configure these settings before starting CockroachDB on Kubernetes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You can configure, scale, and upgrade a CockroachDB deployment on Kubernetes by updating its StatefulSet values. This page describes how to:
 
@@ -50,7 +50,7 @@ You can configure, scale, and upgrade a CockroachDB deployment on Kubernetes by 
 
 {{site.data.alerts.callout_success}}
 If you [deployed CockroachDB on Red Hat OpenShift](deploy-cockroachdb-with-kubernetes-openshift.html), substitute `kubectl` with `oc` in the following commands.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="operator">
@@ -103,15 +103,15 @@ On a production cluster, the resources you allocate to CockroachDB should be pro
 
 {{site.data.alerts.callout_success}}
 Run `kubectl describe nodes` to see the available resources on the instances that you have provisioned.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Memory and CPU
 
-You can set the CPU and memory resources allocated to the CockroachDB container on each pod. 
+You can set the CPU and memory resources allocated to the CockroachDB container on each pod.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 1 CPU in Kubernetes is equivalent to 1 vCPU or 1 hyperthread. For best practices on provisioning CPU and memory for CockroachDB, see the [Production Checklist](recommended-production-settings.html#hardware).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <section class="filter-content" markdown="1" data-scope="operator">
 Specify CPU and memory values in `resources.requests` and `resources.limits` in the custom resource:
@@ -174,9 +174,9 @@ $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroac
 
 We recommend using identical values for `resources.requests` and `resources.limits`. When setting the new values, note that not all of a pod's resources will be available to the CockroachDB container. This is because a fraction of the CPU and memory is reserved for Kubernetes. For more information on how Kubernetes handles resource requests and limits, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If no resource limits are specified, the pods will be able to consume the maximum available CPUs and memory. However, to avoid overallocating resources when another memory-intensive workload is on the same instance, always set resource requests and limits explicitly.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <section class="filter-content" markdown="1" data-scope="operator">
 ### Cache and SQL memory size
@@ -195,9 +195,9 @@ spec:
 
 Then [apply](#apply-settings) the new values to the cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Specifying these values is equivalent to using the `--cache` and `--max-sql-memory` flags with [`cockroach start`](cockroach-start.html#flags).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 For more information on resources, see the [Kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/manage-compute-resources-container/).
@@ -264,7 +264,7 @@ spec:
             storage: "100Gi"
 ~~~
 
-Then [apply](#apply-settings) the new values to the cluster. The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new storage capacity. 
+Then [apply](#apply-settings) the new values to the cluster. The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new storage capacity.
 
 To verify that the storage capacity has been updated, run `kubectl get pvc` to view the persistent volume claims (PVCs). It will take a few minutes before the PVCs are completely updated.
 </section>
@@ -280,13 +280,13 @@ To verify that the storage capacity has been updated, run `kubectl get pvc` to v
 <section class="filter-content" markdown="1" data-scope="operator">
 ## Use a custom CA
 
-By default, the Operator will generate and sign 1 client and 1 node certificate to secure the cluster. 
+By default, the Operator will generate and sign 1 client and 1 node certificate to secure the cluster.
 
 To use your own certificate authority instead, add `clientTLSSecret` and `nodeTLSSecret` to the custom resource. These should specify the names of Kubernetes secrets that contain your generated certificates and keys. For details on creating Kubernetes secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl/).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, the Operator requires that the client and node secrets each contain the filenames `tls.crt` and `tls.key`. For an example of working with this, see [Authenticating with `cockroach cert`](#example-authenticating-with-cockroach-cert).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ~~~ yaml
 spec:
@@ -508,9 +508,9 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
     default-token-6js7b       kubernetes.io/service-account-token   3      9h
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Remember that `nodeTLSSecret` and `clientTLSSecret` in the custom resource must specify these secret names. For details, see [Use a custom CA](#use-a-custom-ca).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Trigger a rolling restart of the pods by annotating the cluster (named `cockroachdb` in our [example](#apply-settings)):
 
@@ -523,7 +523,7 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
     If you used a different CA to sign the new certificates, trigger a full restart of the cluster instead: `kubectl annotate {cluster-name} cockroachdb crdb.io/restarttype='fullcluster'`.
 
     **Note:** A full restart will cause a temporary database outage.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     ~~~
     crdbcluster.crdb.cockroachlabs.com/cockroachdb annotated
@@ -607,11 +607,11 @@ These steps demonstrate how to use the [`openssl genrsa`](https://www.openssl.or
 <section class="filter-content" markdown="1" data-scope="helm">
 ## Use a custom CA
 
-By default on secure deployments, the Helm chart will generate and sign 1 client and 1 node certificate to secure the cluster. 
+By default on secure deployments, the Helm chart will generate and sign 1 client and 1 node certificate to secure the cluster.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 If you are running a secure Helm deployment on Kubernetes 1.22 and later, you must migrate away from using the Kubernetes CA for cluster authentication. For details, see [Migration to self-signer](#migration-to-self-signer).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To use your own certificate authority instead, specify the following in a custom [values file](deploy-cockroachdb-with-kubernetes.html?filters=helm#step-2-start-cockroachdb):
 
@@ -639,9 +639,9 @@ $ helm upgrade {release-name} --values {custom-values}.yaml cockroachdb/cockroac
 
 ### Example: Authenticating with `cockroach cert`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly generate and sign the CockroachDB node and client certificates. Read our [Authentication](authentication.html#using-digital-certificates-with-cockroachdb) docs to learn about other methods of signing certificates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Create two directories:
 
@@ -703,9 +703,9 @@ The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly 
     --ca-key=my-safe-directory/ca.key
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This example assumes that you followed our [deployment example](deploy-cockroachdb-with-kubernetes.html?filters=helm), which uses `my-release` as the release name. If you used a different value, be sure to adjust the release name in this command.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Upload the node certificate and key to the Kubernetes cluster as a secret:
 
@@ -792,9 +792,9 @@ If you previously [authenticated with `cockroach cert`](#example-authenticating-
       rotateCerts: true
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     `selfSigner.enabled` and `selfSigner.rotateCerts` are `true` by default in the Helm chart [values](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/values.yaml).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Customize the following `selfSigner` fields to set the frequency of certificate rotation. These should correspond to the durations of the CA, client, and node certificates.
 
@@ -860,7 +860,7 @@ To migrate your Helm deployment to use the self-signer:
 
 1. Confirm that the `init` pod has been created:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -888,7 +888,7 @@ To migrate your Helm deployment to use the self-signer:
 
     All pods will be restarted with new certificates generated by the self-signer. Note that this is not a rolling upgrade, so the cluster will experience some downtime. You can monitor this process:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -919,11 +919,11 @@ spec:
   sqlPort: 5432
 ~~~
 
-Then [apply](#apply-settings) the new values to the cluster. The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new port settings. 
+Then [apply](#apply-settings) the new values to the cluster. The Operator updates the StatefulSet and triggers a rolling restart of the pods with the new port settings.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Currently, only the pods are updated with new ports. To connect to the cluster, you need to ensure that the `public` service is also updated to use the new port. You can do this by deleting the service with `kubectl delete service {cluster-name}-public`. When service is recreated by the Operator, it will use the new port. This is a known limitation that will be fixed in an Operator update.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 ## Scale the cluster
@@ -951,9 +951,9 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. If you are adding nodes after previously [scaling down](#remove-nodes), and have not enabled [automatic PVC pruning](#automatic-pvc-pruning), you must first manually delete any persistent volumes that were orphaned by node removal.
 
-        {{site.data.alerts.callout_info }}
-        Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod. 
-        {{site.data.alerts.end }}
+        {{site.data.alerts.callout_info}}
+        Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod.
+        {{site.data.alerts.end}}
 
         View the PVCs on the cluster:
 
@@ -989,9 +989,9 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
   1. Remove the orphaned persistent volumes by deleting their PVCs:
 
-        {{site.data.alerts.callout_danger }}
+        {{site.data.alerts.callout_danger}}
         Before deleting any persistent volumes, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-        {{site.data.alerts.end }}
+        {{site.data.alerts.end}}
 
         {% include_cached copy-clipboard.html %}
         ~~~ shell
@@ -1010,9 +1010,9 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
     nodes: 6
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Note that you must scale by updating the `nodes` value in the custom resource. Using `kubectl scale statefulset <cluster-name> --replicas=4` will result in new pods immediately being terminated.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. [Apply](#apply-settings) the new value.
 
@@ -1047,20 +1047,20 @@ If your cluster has 3 CockroachDB nodes distributed across 3 availability zones 
 
 ### Remove nodes
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Do **not** scale down to fewer than 3 nodes. This is considered an anti-pattern on CockroachDB and will cause errors.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <section class="filter-content" markdown="1" data-scope="operator">
-{{site.data.alerts.callout_danger }}
-Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod. 
+{{site.data.alerts.callout_danger}}
+Due to a [known issue](https://github.com/cockroachdb/cockroach-operator/issues/542), automatic pruning of PVCs is currently disabled by default. This means that after decommissioning and removing a node, the Operator will not remove the persistent volume that was mounted to its pod.
 
 If you plan to eventually [scale up](#add-nodes) the cluster after scaling down, you will need to manually delete any PVCs that were orphaned by node removal before scaling up. For more information, see [Add nodes](#add-nodes).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to enable the Operator to automatically prune PVCs when scaling down, see [Automatic PVC pruning](#automatic-pvc-pruning). However, note that this workflow is currently unsupported.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Before scaling down CockroachDB, note the following [topology recommendation](recommended-production-settings.html#topology):
 
@@ -1074,14 +1074,14 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
     nodes: 3
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Before removing a node, the Operator first decommissions the node. This lets a node finish in-flight requests, rejects any new requests, and transfers all range replicas and range leases off the node.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. [Apply](#apply-settings) the new value.
 
     The Operator will remove nodes from the cluster one at a time, starting from the pod with the highest number in its address.
-    
+
 1. Verify that the pods were successfully removed:
 
     {% include_cached copy-clipboard.html %}
@@ -1101,15 +1101,15 @@ If your nodes are distributed across 3 availability zones (as in our [deployment
 
 To enable the Operator to automatically remove persistent volumes when [scaling down](#remove-nodes) a cluster, turn on automatic PVC pruning through a feature gate.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 This workflow is unsupported and should be enabled at your own risk.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Download the Operator manifest:
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
+    $ curl -0 https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/operator.yaml
     ~~~
 
 1. Uncomment the following lines in the Operator manifest:
@@ -1157,7 +1157,7 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 <section class="filter-content" markdown="1" data-scope="operator">
 1. Verify that you can upgrade.
 
-    To upgrade to a new major version, you must first be on a production release of the previous version. The release does not need to be the latest production release of the previous version, but it must be a [production release](../releases/index.html#production-releases) and not a [testing release](../releases/index.html#testing-releases) (alpha/beta).
+    To upgrade to a new major version, you must first be on a production release of the previous version. The release does not need to be the latest production release of the previous version, but it must be a production [release](../releases/index.html) and not a testing release (alpha/beta).
 
     Therefore, in order to upgrade to v21.1, you must be on a production release of v20.2.
 
@@ -1174,24 +1174,24 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
         - Make sure all nodes are on the same version. If not all nodes are on the same version, upgrade them to the cluster's highest current version first, and then start this process over.
         - Make sure capacity and memory usage are reasonable for each node. Nodes must be able to tolerate some increase in case the new version uses more resources for your workload. Also go to **Metrics > Dashboard: Hardware** and make sure CPU percent is reasonable across the cluster. If there's not enough headroom on any of these metrics, consider [adding nodes](#add-nodes) to your cluster before beginning your upgrade.
 
-1. Review the [backward-incompatible changes in v21.1](../releases/v21.1.0.html#backward-incompatible-changes) and [deprecated features](../releases/v21.1.0.html#deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.1.
+1. Review the [backward-incompatible changes in v21.1](../releases/v21.1.html#v21-1-0-backward-incompatible-changes) and [deprecated features](../releases/v21.1.html#v21-1-0-deprecations). If any affect your deployment, make the necessary changes before starting the rolling upgrade to v21.1.
 
 1. Change the desired Docker image in the custom resource:
 
     ~~~
     image:
-      name: cockroachdb/cockroach:{{ page.release_info.version }}
+      name: cockroachdb/cockroach:{{page.release_info.version}}
     ~~~
 
 1. [Apply](#apply-settings) the new value. The Operator will perform the staged update.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The Operator automatically sets the `cluster.preserve_downgrade_option` [cluster setting](cluster-settings.html) to the version you are upgrading from. This disables auto-finalization of the upgrade so that you can monitor the stability and performance of the upgraded cluster before manually finalizing the upgrade. This will enable certain [features and performance improvements introduced in v21.1](upgrade-cockroach-version.html#features-that-require-upgrade-finalization).
 
     Note that after finalization, it will no longer be possible to perform a downgrade to v20.2. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from a [backup](take-full-and-incremental-backups.html) created prior to performing the upgrade.
 
     Finalization only applies when performing a major version upgrade (for example, from v20.2.x to v21.1). Patch version upgrades (for example, within the v21.1.x series) can always be downgraded.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. To check the status of the rolling upgrade, run `kubectl get pods`. The pods are restarted one at a time with the new image.
 
@@ -1205,13 +1205,13 @@ The upgrade process on Kubernetes is a [staged update](https://kubernetes.io/doc
 
     You can also check the CockroachDB version of each node in the [DB Console](ui-cluster-overview-page.html#node-details).
 
-1. Monitor the stability and performance of your cluster until you are comfortable with the upgrade (generally at least a day). 
+1. Monitor the stability and performance of your cluster until you are comfortable with the upgrade (generally at least a day).
 
     If you decide to roll back the upgrade, revert the image name in the custom resource and apply the new value.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This is only possible when performing a major version upgrade (for example, from v20.2.x to v21.1). Patch version upgrades (for example, within the v21.1.x series) are auto-finalized.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     To finalize the upgrade, re-enable auto-finalization:
 

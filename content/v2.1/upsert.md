@@ -269,10 +269,10 @@ considered. To force the selection of a particular duplicate, use an
      ORDER BY balance); -- pick the lowest balance as value to update in each account
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Using `DISTINCT ON` incurs a performance cost to search and eliminate duplicates.
 For best performance, avoid using it when the input is known to not contain duplicates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

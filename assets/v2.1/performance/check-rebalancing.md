@@ -17,7 +17,7 @@ To verify even balancing at range level, SSH to one of the instances not running
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SHOW EXPERIMENTAL_RANGES FROM TABLE vehicles;"

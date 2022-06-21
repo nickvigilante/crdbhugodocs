@@ -8,9 +8,9 @@ A view is a stored and named [selection query](selection-queries.html). By defau
 
 <span class="version-tag">New in v20.2:</span> CockroachDB also supports [**materialized views**](#materialized-views). Materialized views are views that store their selection query results.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.2:</span> By default, views created in a database cannot reference objects in a different database. To enable cross-database references for views, set the `sql.cross_db_views.enabled` [cluster setting](cluster-settings.html) to `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Why use views?
 
@@ -185,9 +185,9 @@ To create a view, use the [`CREATE VIEW`](create-view.html) statement:
   ORDER BY episodes.season;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Any [selection query](selection-queries.html) is valid as operand to `CREATE VIEW`, not just [simple `SELECT` clauses](select-clause.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Listing views
 
@@ -351,9 +351,9 @@ When [dropping a table](drop-table.html) or [dropping a view](drop-view.html), y
 DROP TABLE
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` drops **all** dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Renaming views
 
@@ -559,13 +559,13 @@ DROP VIEW
 
 CockroachDB supports session-scoped temporary views. Unlike persistent views, temporary views can only be accessed from the session in which they were created, and they are dropped at the end of the session. You can create temporary views on both persistent tables and [temporary tables](temporary-tables.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature**. The interface and output are subject to change. For details, see the tracking issue [cockroachdb/cockroach#46260](https://github.com/cockroachdb/cockroach/issues/46260).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Temporary tables must be enabled in order to use temporary views. By default, temporary tables are disabled in CockroachDB. To enable temporary tables, set the `experimental_enable_temp_tables` [session variable](set-vars.html) to `on`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Details
 
@@ -576,9 +576,9 @@ Temporary tables must be enabled in order to use temporary views. By default, te
 - Temporary views can be created on both persistent tables and [temporary tables](temporary-tables.html).
 - When you create a view on a temporary table, the view automatically becomes temporary.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Like [temporary tables](temporary-tables.html), temporary views are not in the `public` schema. Instead, when you create the first temporary table, view, or sequence for a session, CockroachDB generates a single temporary schema (`pg_temp_<id>`) for all of the temporary objects in the current session for a database.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Usage
 

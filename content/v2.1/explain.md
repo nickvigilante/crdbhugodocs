@@ -8,7 +8,7 @@ The `EXPLAIN` [statement](sql-statements.html) returns CockroachDB's query plan 
 
 {{site.data.alerts.callout_success}}
 To actually execute a statement and return a physical query plan with execution statistics, use [`EXPLAIN ANALYZE`](explain-analyze.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Query optimization
 
@@ -44,9 +44,9 @@ The user requires the appropriate [privileges](authorization.html#assign-privile
  `DISTSQL`          | <span class="version-tag">New in v2.1:</span> Generate a link to a [distributed SQL physical query plan tree](explain-analyze.html#distsql-plan-viewer).
  `preparable_stmt` | The [statement](sql-grammar.html#preparable_stmt) you want details about. All preparable statements are explainable.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `EXPLAIN` also includes other modes besides query plans that are useful only to CockroachDB developers, which are not documented here.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Success responses
 

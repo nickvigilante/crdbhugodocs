@@ -8,7 +8,7 @@ CockroachDB uses the URL provided in a [`BACKUP`](backup.html), [`RESTORE`](rest
 
 {{site.data.alerts.callout_success}}
 We strongly recommend using cloud/remote storage (Amazon S3, Google Cloud Platform, etc.).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 URLs for the files you want to import must use the format shown below. For examples, see [Example file URLs](#example-file-urls).
 
@@ -27,7 +27,7 @@ S3-compatible services | `s3`        | Bucket name                              
 
 {{site.data.alerts.callout_success}}
 The location parameters often contain special characters that need to be URI-encoded. Use Javascript's [encodeURIComponent](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent) function or Go language's [url.QueryEscape](https://golang.org/pkg/net/url/#QueryEscape) function to URI-encode the parameters. Other languages provide similar functions to URI-encode special characters.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <a name="considerations"></a>
 
@@ -48,13 +48,13 @@ Azure        | `azure://acme-co/employees?AZURE_ACCOUNT_NAME=acme-co&AZURE_ACCOU
 Google Cloud | `gs://acme-co/employees?AUTH=specified&CREDENTIALS=encoded-123`                                                     
 NFS/Local    | `nodelocal://1/path/employees`, `nodelocal://self/nfsmount/backups/employees`&nbsp;[<sup>2</sup>](#considerations)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 URLs for [changefeeds](stream-data-out-of-cockroachdb-using-changefeeds.html) should be prepended with `experimental-`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, cloud storage sinks (for changefeeds) only work with `JSON` and emits newline-delimited `JSON` files.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Example URLs for [`IMPORT`](import.html) given a bucket or container name of `acme-co` and a filename of `employees`:
 
@@ -66,9 +66,9 @@ Google Cloud | `gs://acme-co/employees.sql`
 HTTP         | `http://localhost:8080/employees.sql`                                            
 NFS/Local    | `nodelocal://1/path/employees`, `nodelocal://self/nfsmount/backups/employees`&nbsp;[<sup>2</sup>](#considerations)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 HTTP storage can only be used for [`IMPORT`](import.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Encryption
 

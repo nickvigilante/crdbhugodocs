@@ -5,11 +5,11 @@ toc: true
 toc_not_nested: true
 ---
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `INTERLEAVE IN PARENT` was deprecated in CockroachDB v20.2, disabled by default in v21.1, and permanently removed in v21.2. We do not recommend interleaving tables or indexes in new clusters.
 
 For details, see [Deprecation](#deprecation).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## How interleaved tables work
 
@@ -19,7 +19,7 @@ When tables are interleaved, data written to one table (known as the **child**) 
 
 For interleaved tables to have Primary Keys that can be matched, the child table must use the parent table's entire Primary Key as a prefix of its own Primary Key––these matching columns are referred to as the **interleave prefix**. It's easiest to think of these columns as representing the same data, which is usually implemented with Foreign Keys.
 
-{{site.data.alerts.callout_success}}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To formally enforce the relationship between each table's interleave prefix columns, we recommend using <a href="foreign-key.html">Foreign Key constraints</a>.{{site.data.alerts.end}}
 
 For example, if you want to interleave `orders` into `customers` and the Primary Key of customers is `id`, you need to create a column representing `customers.id` as the first column in the Primary Key of `orders`&mdash;e.g., with a column called `customer`. So the data representing `customers.id` is the interleave prefix, which exists in the `orders` table as the `customer` column.
 
@@ -84,7 +84,7 @@ After [upgrading to v20.2](upgrade-cockroach-version.html), we recommend that yo
 
 {{site.data.alerts.callout_success}}
 Test your [schema changes](online-schema-changes.html) in a non-production environment before implementing them in production.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Convert interleaved tables
 

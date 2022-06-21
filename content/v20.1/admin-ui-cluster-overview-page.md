@@ -14,7 +14,7 @@ If you have an [enterprise license](enterprise-licensing.html), you can enable t
 
 {{site.data.alerts.callout_success}}
 Enter your email in the banner at the top to receive updates on CockroachDB [releases](../releases/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Cluster Overview panel
 
@@ -39,9 +39,9 @@ Usable disk space is constrained by the following:
 
 The Admin UI thus calculates **usable** disk space as the sum of empty disk space, up to the value of the maximum store size, and disk space that is already being **used** by CockroachDB data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Node List
 
@@ -49,7 +49,7 @@ The **Node List** groups nodes by locality. The lowest-level locality tier is us
 
 {{site.data.alerts.callout_success}}
 We recommend [defining `--locality` flags when starting nodes](cockroach-start.html#locality). CockroachDB uses locality to distribute replicas and mitigate [network latency](admin-ui-network-latency-page.html). Locality is also a prerequisite for enabling the [Node Map](#node-map-enterprise).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Node status
 
@@ -68,9 +68,9 @@ Node Status | Description
 `DECOMMISSIONED` | Node has completed decommissioning, has been stopped, and has not [updated its liveness record](cluster-setup-troubleshooting.html#node-liveness-issues) for 5 minutes.
 `DEAD` | Node has not [updated its liveness record](cluster-setup-troubleshooting.html#node-liveness-issues) for 5 minutes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Nodes are considered dead once they have not [updated their liveness record](cluster-setup-troubleshooting.html#node-liveness-issues) for a certain amount of time (5 minutes by default). At this point, the [automated repair process](cockroach-quit.html#how-it-works) starts, wherein CockroachDB rebalances replicas from dead nodes to live nodes, using the unaffected replicas as sources. 
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Node details
 
@@ -95,9 +95,9 @@ Nodes that have been [decommissioned](remove-nodes.html#how-it-works) will be li
 
 <img src="{{ 'images/v20.1/admin-ui-decommissioned-nodes.png' | relative_url }}" alt="CockroachDB Admin UI node list" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When you initiate the [decommissioning process](remove-nodes.html#how-it-works) on a node, CockroachDB transfers all range replicas and range leases off the node so that it can be safely shut down.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Node Map (Enterprise)
 
@@ -119,9 +119,9 @@ For details on how **Capacity Usage** is calculated, see [Capacity metrics](#cap
 
 <img src="{{ 'images/v20.1/admin-ui-region-component.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On multi-core systems, the displayed CPU usage can be greater than 100%. Full utilization of 1 core is considered as 100% CPU usage. If you have _n_ cores, then CPU usage can range from 0% (indicating an idle system) to (_n_ * 100)% (indicating full utilization).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Node component
 
@@ -133,9 +133,9 @@ For details on how **Capacity Usage** is calculated, see [Capacity metrics](#cap
 
 <img src="{{ 'images/v20.1/admin-ui-node-components.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On multi-core systems, the displayed CPU usage can be greater than 100%. Full utilization of 1 core is considered as 100% CPU usage. If you have _n_ cores, then CPU usage can range from 0% (indicating an idle system) to (_n_ * 100)% (indicating full utilization).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

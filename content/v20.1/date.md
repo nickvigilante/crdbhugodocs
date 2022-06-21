@@ -22,9 +22,9 @@ CockroachDB also supports using uninterpreted
 [string literals](sql-constants.html#string-literals) in contexts
 where a `DATE` value is otherwise expected.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `DATE` values in CockroachDB are fully [PostgreSQL-compatible](https://www.postgresql.org/docs/current/datatype-datetime.html), including support for special values (e.g., `+/- infinity`). Existing dates outside of the PostgreSQL date range (`4714-11-24 BC` to `5874897-12-31`) are converted to `+/- infinity` dates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Size
 

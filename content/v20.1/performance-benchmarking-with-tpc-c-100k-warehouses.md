@@ -52,9 +52,9 @@ You should receive your trial license via email within a few minutes. You'll ena
 
 2. Note the internal IP address of each instance. You'll need these addresses when starting the CockroachDB nodes.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 This configuration is intended for performance benchmarking only. For production deployments, there are other important considerations, such as security, load balancing, and data location techniques to minimize network latency. For more details, see the [Production Checklist](recommended-production-settings.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Configure your network
 
@@ -400,9 +400,9 @@ Before running the benchmark, it's important to allocate partitions to workload 
 
 Once the allocations finish, run TPC-C for 30 minutes on each VM with `workload`:
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 It is critical to run the benchmark from the workload nodes in parallel, so start them as simultaneously as possible.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell
@@ -495,9 +495,9 @@ $(cat addrs)
 
 2. Upload the result files to one of the VMs with the `workload` binary:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The commands below assume you're uploading to the VM with the `workload1.histogram.ndjson` file.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell

@@ -20,9 +20,9 @@ The best way to keep a specific data set cordoned off from others in CockroachDB
 
 In a multi-region setting, you can associate that database with only those regions which should accept and store EU user data. Luckily, CockroachDB supports cross-database [selection queries](selection-queries.html), so you can still join this data with other data sets to keep track of what is happening across your application, while meeting the requirement that data is stored on disk in the allowed localities. Depending on your requirements, you may want to further require that even read queries are only generated from the region in which you are allowed to access the data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 As of CockroachDB v21.1 and earlier, some metadata about the user data may be stored in system ranges, system tables, etc. This might result in potential "leakage" outside of the desired domicile if your schema includes table names, etc., that may reveal information about their contents (e.g., `SELECT * FROM germany_users_with_iphones_over_35`, to provide a silly example).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Therefore, make sure to design your schema such that information that must remain domiciled _cannot_ be deduced from the schema design (e.g., primary keys, table names, column names, usernames).
 
@@ -49,9 +49,9 @@ ALTER DATABASE eu_users ADD REGION 'eu-west-2';
 ALTER DATABASE eu_users ADD REGION 'eu-central-1';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In order to be able to add these regions from SQL, you must have started the cluster with these regions using the [`cockroach start --locality`](cockroach-start.html#locality) flag.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 3. Add domiciled data to the right databases
 
