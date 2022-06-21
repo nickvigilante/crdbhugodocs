@@ -36,9 +36,9 @@ Only members of the `admin` role can enable audit logs on a table. By default, t
  `WRITE`      | Log all table writes to the audit log file.              
  `OFF`        | Turn off audit logging.                                  
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 As of version 2.0, this command logs all reads and writes, and both the <code>READ</code> and <code>WRITE</code> parameters are required (as shown in the <a href="#examples">examples</a> below). In a future release, this should change to allow logging only reads, only writes, or both.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Audit log file format
 
@@ -79,7 +79,7 @@ To store the audit log files in a specific directory, pass the `--sql-audit-dir`
 
 {{site.data.alerts.callout_success}}
 If your deployment requires particular lifecycle and access policies for audit log files, point `--sql-audit-dir` at a directory that has permissions set so that only CockroachDB can create/delete files.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
@@ -105,7 +105,7 @@ For a description of the log file format, see the [Audit Log File Format](#audit
 
 {{site.data.alerts.callout_success}}
 For a more detailed example, see [SQL Audit Logging](sql-audit-logging.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Turn off audit logging
 

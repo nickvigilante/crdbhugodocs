@@ -10,11 +10,11 @@ The `DROP CONSTRAINT` [statement](sql-statements.html) is part of [`ALTER TABLE`
 
 {{site.data.alerts.callout_success}}
 When you change a primary key with [`ALTER TABLE ... ALTER PRIMARY KEY`](alter-primary-key.html), the old primary key index becomes a secondary index. If you do not want the old primary key to become a secondary index, use `DROP CONSTRAINT`/[`ADD CONSTRAINT`](add-constraint.html) to change the primary key.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For information about removing other constraints, see [Constraints: Remove Constraints](constraints.html#remove-constraints).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
@@ -39,7 +39,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Drop a foreign key constraint
 

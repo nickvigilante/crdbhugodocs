@@ -97,9 +97,9 @@ A few other recommendations apply for best security practices:
 * Do not copy the encrypted files, as the data keys are not easily available.
 * If encryption is desired, start a node with it enabled from the first run, without ever running in plaintext.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Note that backups taken with the [`BACKUP`](backup.html) statement **are not encrypted** even if Encryption at Rest is enabled. Encryption at Rest only applies to the CockroachDB node's data on the local disk. If you want encrypted backups, you will need to encrypt your backup files using your preferred encryption method.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Examples
 
@@ -156,9 +156,9 @@ Starting a node for the first time using AES-128 encryption can be done using:
 $ cockroach start --store=cockroach-data --enterprise-encryption=path=cockroach-data,key=/path/to/my/aes-128.key,old-key=plain
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Once specified for a given store, the `--enterprise-encryption` flag must always be present.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Checking encryption status
 

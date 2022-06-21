@@ -8,9 +8,9 @@ toc: true
 
 This command takes in a source file to upload and a destination filename. It will then use a SQL connection to upload the file to the node's local file system, at `externalIODir/destination/filename`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The source file is only uploaded to one node, not all of the nodes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/misc/userfile.md %}
 

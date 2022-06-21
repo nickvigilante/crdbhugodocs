@@ -8,7 +8,7 @@ CockroachDB provides a virtual schema called `information_schema` that contains 
 
 The definition of `information_schema` is part of the SQL standard and can therefore be relied on to remain stable over time. This contrasts with CockroachDB's `SHOW` statements, which provide similar data and are meant to be stable in CockroachDB but not standardized. It also contrasts with the virtual schema `crdb_internal`, which reflects the internals of CockroachDB and may thus change across CockroachDB versions.
 
-{{site.data.alerts.callout_info }}The <code>information_schema</code> views typically represent objects that the current user has privilege to access. To ensure you can view all the objects in a database, access it as the <code>root</code> user.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>information_schema</code> views typically represent objects that the current user has privilege to access. To ensure you can view all the objects in a database, access it as the <code>root</code> user.{{site.data.alerts.end}}
 
 
 ## Data Exposed by information_schema
@@ -34,9 +34,9 @@ These differ from regular [SQL views](views.html) in that they are
 not showing data created from the content of other tables. Instead,
 CockroachDB generates the data for virtual tables when they are accessed.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A query can specify a table name without a database name (e.g., `SELECT * FROM information_schema.sequences`). See [Name Resolution](sql-name-resolution.html) for more information.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### administrable_role_authorizations
 
@@ -262,8 +262,8 @@ Column | Description
 
 `user_privileges` identifies global [privileges](privileges.html).
 
-{{site.data.alerts.callout_info }}Currently, CockroachDB does not support global privileges for non-<code>root</code> users. Therefore, this view contains global privileges only for <code>root</code>.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Currently, CockroachDB does not support global privileges for non-<code>root</code> users. Therefore, this view contains global privileges only for <code>root</code>.
+{{site.data.alerts.end}}
 
 Column | Description
 -------|-----------

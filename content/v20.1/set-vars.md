@@ -6,7 +6,7 @@ toc: true
 
 The `SET` [statement](sql-statements.html) can modify one of the session configuration variables. These can also be queried via [`SHOW`](show-vars.html).
 
-{{site.data.alerts.callout_danger }}In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with <code>SET</code> statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the <a href="hello-world-example-apps.html">Build an App with CockroachDB</a> tutorials.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with <code>SET</code> statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the <a href="hello-world-example-apps.html">Build an App with CockroachDB</a> tutorials.{{site.data.alerts.end}}
 
 
 ## Required privileges
@@ -19,7 +19,7 @@ No [privileges](authorization.html#assign-privileges) are required to modify the
   {% include {{ page.version.version }}/sql/diagrams/set_var.html %}
 </div>
 
-{{site.data.alerts.callout_info }}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -110,7 +110,7 @@ The following demonstrates how to assign a list of values:
 
 ### Reset a variable to its default value
 
-{{site.data.alerts.callout_success}}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -160,9 +160,9 @@ The following demonstrates how to assign a list of values:
 
 ## `SET TIME ZONE`
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 As a best practice, we recommend not using this setting and avoid setting a session time for your database. We instead recommend converting UTC values to the appropriate time zone on the client side.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You can control the default time zone for a session with `SET TIME ZONE`. This will apply an offset to all [`TIMESTAMPTZ`/`TIMESTAMP WITH TIME ZONE`](timestamp.html) and [`TIMETZ`/`TIME WITH TIME ZONE`](time.html) values in the session. By default, CockroachDB uses UTC as the time zone for `SET TIME ZONE` offsets.
 
@@ -170,9 +170,9 @@ You can control the default time zone for a session with `SET TIME ZONE`. This w
 
 The input passed to `SET TIME ZONE` indicates the time zone for the current session. This value can be a string representation of a local system-defined time zone (e.g., `'EST'`, `'America/New_York'`) or a positive or negative numeric offset from UTC (e.g., `-7`, `+7`, or `UTC-7`, `UTC+7`) or GMT (e.g., `GMT-7`, `GMT+7`). The numeric offset input can also be colon-delimited (e.g., `-7:00`, `GMT+7:00`).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Only offsets specified by integers (e.g., `-7`, `7`) use the [ISO 8601 time offset](https://en.wikipedia.org/wiki/ISO_8601#Time_offsets_from_UTC) (i.e., the offset input is parsed as hours *east* of UTC). If you explicitly specify `UTC` or `GMT` for the time zone offset (e.g., `UTC-7`,`GMT+7`), or if the numeric input is colon-delimited (e.g.,  `-7:00`, `GMT+7:00`), CockroachDB uses the [POSIX time offset](https://www.postgresql.org/docs/current/datetime-posix-timezone-specs.html) (i.e., hours *west* of the specified time zone). This means that specifying an offset of `-7` (i.e., -7 *east* of UTC) is equivalent to specifying `GMT+7` (i.e., 7 *west* of UTC).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 All timezone abbreviations are case-sensitive and must be uppercase, with the exception of `UTC`, for which `utc` is an alias.
 

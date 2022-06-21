@@ -85,11 +85,11 @@ For example:
 
 #### Force index selection
 
-{% include {{ page.version.version }}/misc/force-index-selection.md %}
+{% include {{< page-version >}}/misc/force-index-selection.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also force index selection for [`DELETE`](delete.html#force-index-selection-for-deletes) and [`UPDATE`](update.html#force-index-selection-for-updates) statements.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Access a common table expression
 
@@ -145,7 +145,7 @@ For example:
 +-----------------------+
 ~~~
 
-{{site.data.alerts.callout_info }}CockroachDB only supports this syntax for compatibility with PostgreSQL. The canonical syntax to evaluate <a href="scalar-expressions.html">scalar functions</a> is as a direct target of <code>SELECT</code>, for example <code>SELECT sin(3.2)</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}CockroachDB only supports this syntax for compatibility with PostgreSQL. The canonical syntax to evaluate <a href="scalar-expressions.html">scalar functions</a> is as a direct target of <code>SELECT</code>, for example <code>SELECT sin(3.2)</code>.{{site.data.alerts.end}}
 
 
 #### Table generator functions
@@ -190,10 +190,10 @@ For example (note that the output of queries against [`information_schema`](info
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently CockroachDB only supports a small set of generator functions compatible with [the PostgreSQL set-generating functions with the same
 names](https://www.postgresql.org/docs/9.6/static/functions-srf.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Operators that extend a table expression
 
@@ -271,9 +271,9 @@ For example:
 +---------+------------+
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `WITH ORDINALITY` necessarily prevents some optimizations of the surrounding query. Use it sparingly if performance is a concern, and always check the output of [`EXPLAIN`](explain.html) in case of doubt.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Join expressions
 
@@ -318,10 +318,10 @@ For example:
 > SELECT firstname || ' ' || lastname FROM (TABLE employees);
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 - See also [Subqueries](subqueries.html) for more details and performance best practices.
 - To use other statements that produce data in a table expression, for example `SHOW`, use the [square bracket notation](#using-the-output-of-other-statements).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div markdown="1"></div>
 
@@ -345,9 +345,9 @@ A [statement](sql-grammar.html#row_source_extension_stmt) between square bracket
 
  `SELECT .. FROM [ <stmt> ]` is equivalent to `WITH table_expr AS ( <stmt> ) SELECT .. FROM table_expr`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This CockroachDB extension syntax complements the [subquery syntax using parentheses](#subqueries-as-table-expressions), which is restricted to [selection queries](selection-queries.html). It was introduced to enable the use of [statements](sql-grammar.html#row_source_extension_stmt) as [subqueries](subqueries.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For example:
 

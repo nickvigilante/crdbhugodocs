@@ -6,9 +6,9 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -71,7 +71,7 @@ deleted rows more frequently.
 
 ## Sorting the output of deletes
 
-{% include {{ page.version.version }}/misc/sorting-delete-output.md %}
+{% include {{< page-version >}}/misc/sorting-delete-output.md %}
 
 For more information about ordering query results in general, see
 [Ordering Query Results](order-by.html) and [Ordering of rows in
@@ -81,9 +81,9 @@ DML statements](order-by.html#ordering-rows-in-dml-statements).
 
 By using the explicit index annotation (also known as "index hinting"), you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for deleting rows of a named table.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Index selection can impact [performance](performance-best-practices-overview.html), but does not change the result of a query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The syntax to force a specific index for a delete is:
 
@@ -117,7 +117,7 @@ To preserve performance over iterative `DELETE` queries, we recommend taking one
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Delete rows using Primary Key/unique columns
 

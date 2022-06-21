@@ -32,13 +32,13 @@ For example, below is a polygon representing a geometry that uses [SRID 4326](sr
 
 `SRID=4326;POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902))`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For more detailed information about the Well Known Text format, see [the OGC specification for WKT](http://docs.opengeospatial.org/is/18-010r7/18-010r7.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB only supports 2-dimensional geometries.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

@@ -1,3 +1,14 @@
-{{ with (resources.GetRemote (.Get 0)).Content }}
-{{ . }} hahah
+{{ $content := (resources.GetRemote (.Get 0)).Content }}
+{{ $start := string (delimit (slice "^.*" (.Get 1)) "") }}
+{{ $end := delimit (slice (.Get 2) "(.)*?$" ) "" }}
+
+{{ if and $start $end }}
+{{ $start }}
+
+
+
+
+{{ $content  }}
+{{ else }}
+goodbye
 {{ end }}

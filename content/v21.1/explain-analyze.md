@@ -6,9 +6,9 @@ toc: true
 
 The `EXPLAIN ANALYZE` [statement](sql-statements.html) **executes a SQL query** and generates a statement plan with execution statistics. The `(DEBUG)` option generates a URL to download a bundle with more details about the statement plan for advanced debugging. Statement plans provide information around SQL execution, which can be used to troubleshoot slow queries by figuring out where time is being spent, how long a processor (i.e., a component that takes streams of input rows and processes them according to a specification) is not doing work, etc. For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/sql/physical-plan-url.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Aliases
 
@@ -44,7 +44,7 @@ Successful `EXPLAIN ANALYZE` statements return tables with the following details
 Node details | The properties, columns, and ordering details for the current statement plan node in the tree.
 Time | The time details for the statement. The total time is the planning and execution time of the statement. The execution time is the time it took for the final statement plan to complete. The network time is the amount of time it took to distribute the statement across the relevant nodes in the cluster. Some statements do not need to be distributed, so the network time is 0ms.
 
-If you use the `DISTSQL` option, the statement will also return a URL generated for a physical statement plan that provides high level information about how a statement will be executed. For details about reading the physical statement plan, see [DistSQL Plan Viewer](#distsql-plan-viewer).<br><br>{{site.data.alerts.callout_info }}{% include {{ page.version.version }}/sql/physical-plan-url.md %} {{site.data.alerts.end }}
+If you use the `DISTSQL` option, the statement will also return a URL generated for a physical statement plan that provides high level information about how a statement will be executed. For details about reading the physical statement plan, see [DistSQL Plan Viewer](#distsql-plan-viewer).<br><br>{{site.data.alerts.callout_info}}{% include {{ page.version.version }}/sql/physical-plan-url.md %} {{site.data.alerts.end}}
 
 If you use the [`DEBUG` option](#debug-option), the statement will return a single `text` column with a URL and instructions to download the `DEBUG` bundle, which includes the physical statement plan.
 
@@ -54,7 +54,7 @@ Global property | Description
 ----------------|------------
 planning time | The total time the planner took to create a statement plan.
 execution time | The time it took for the final statement plan to complete.
-distribution | Shows whether the statement was distributed or local. If `distribution` is `full`, execution of the statement is performed by multiple nodes in parallel, then the final results are returned by the gateway node. If `local`, the execution plan is performed only on the gateway node. Even if the execution plan is `local`, row data may be fetched from remote nodes, but the processing of the data is performed by the local node.
+distribution | Shows whether the statement was distributed or local. If `distribution` is `full`, execution of the statement is performed by multiple nodes in parallel, then the results are returned by the gateway node. If `local`, the execution plan is performed only on the gateway node. Even if the execution plan is `local`, row data may be fetched from remote nodes, but the processing of the data is performed by the local node.
 vectorized | Indicates whether the [vectorized execution engine](vectorized-execution.html) was used in this statement.
 rows read from KV | The number of rows read from the [Storage layer](architecture/storage-layer.html).
 cumulative time spent in KV | The total amount of time spent in the [Storage layer](architecture/storage-layer.html).
@@ -80,15 +80,15 @@ spans | The interval of the key space read by the processor. If `spans` is `FULL
 
 ## Default option
 
-<span class="version-tag">New in v21.1:</span> By default, `EXPLAIN ANALYZE` uses the `PLAN` option. `EXPLAIN ANALYZE` and `EXPLAIN ANALYZE (PLAN)` produce the same output.
+{% include_cached new-in.html version="v21.1" %} By default, `EXPLAIN ANALYZE` uses the `PLAN` option. `EXPLAIN ANALYZE` and `EXPLAIN ANALYZE (PLAN)` produce the same output.
 
 ## `DISTSQL` option
 
 `EXPLAIN ANALYZE (DISTSQL)` generates a physical statement plan diagram in the [DistSQL Plan Viewer](#distsql-plan-viewer). The DistSQL Plan Viewer displays the physical statement plan, as well as execution statistics. The statistics listed depend on the query type and the [execution engine used](vectorized-execution.html). There will be multiple diagrams if the query contains subqueries or post-queries.
 
-{{site.data.alerts.callout_info }}
-<span class="version-tag">New in v21.1:</span> `EXPLAIN ANALYZE (DISTSQL)` can only be used as the top-level statement in a query.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+{% include_cached new-in.html version="v21.1" %} `EXPLAIN ANALYZE (DISTSQL)` can only be used as the top-level statement in a query.
+{{site.data.alerts.end}}
 
 ## `DEBUG` option
 
@@ -165,7 +165,7 @@ Use `EXPLAIN ANALYZE` without an option, or equivalently with the `PLAN` option,
 
 For example, the following `EXPLAIN ANALYZE` statement executes a simple query against the [MovR database](movr.html) and then displays the physical statement plan with execution statistics:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE SELECT city, AVG(revenue) FROM rides GROUP BY city;
 ~~~
@@ -256,7 +256,7 @@ To view the [DistSQL Plan Viewer](#distsql-plan-viewer), point your browser to t
 
 Use the [`DEBUG`](#debug-option) option to generate a ZIP file containing files with information about the query and the database objects referenced in the query. For example:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > EXPLAIN ANALYZE (DEBUG) SELECT city, AVG(revenue) FROM rides GROUP BY city;
 ~~~

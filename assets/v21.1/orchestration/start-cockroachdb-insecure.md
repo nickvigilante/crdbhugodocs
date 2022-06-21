@@ -2,18 +2,18 @@
 
     Download [`cockroachdb-statefulset.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/cockroachdb-statefulset.yaml):
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/cockroachdb-statefulset.yaml
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     By default, this manifest specifies CPU and memory resources that are appropriate for the virtual machines used in this deployment example. On a production cluster, you should substitute values that are appropriate for your machines and workload. For details on configuring your deployment, see [Operate CockroachDB on Kubernetes](operate-cockroachdb-kubernetes.html?filters=manual).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
     
     Use the file to create the StatefulSet and start the cluster:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create -f cockroachdb-statefulset.yaml
     ~~~
@@ -29,7 +29,7 @@
 
     1. Download our [performance version of `cockroachdb-statefulset-insecure.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/performance/cockroachdb-statefulset-insecure.yaml):
 
-        {% include copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         $ curl -O https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/performance/cockroachdb-statefulset-insecure.yaml
         ~~~
@@ -38,7 +38,7 @@
 
     3. Use the file to create the StatefulSet and start the cluster:
 
-        {% include copy-clipboard.html %}
+        {% include_cached copy-clipboard.html %}
         ~~~ shell
         $ kubectl create -f cockroachdb-statefulset-insecure.yaml
         ~~~
@@ -46,7 +46,7 @@
 2. Confirm that three pods are `Running` successfully. Note that they will not
    be considered `Ready` until after the cluster has been initialized:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -60,7 +60,7 @@
 
 3. Confirm that the persistent volumes and corresponding claims were created successfully for all three pods:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get persistentvolumes
     ~~~
@@ -74,7 +74,7 @@
 
 4. Use our [`cluster-init.yaml`](https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/cluster-init.yaml) file to perform a one-time initialization that joins the CockroachDB nodes into a single cluster:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl create \
     -f https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/cluster-init.yaml
@@ -86,7 +86,7 @@
 
 5. Confirm that cluster initialization has completed successfully. The job should be considered successful and the Kubernetes pods should soon be considered `Ready`:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get job cluster-init
     ~~~
@@ -96,7 +96,7 @@
     cluster-init   1/1           7s         27s
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -111,4 +111,4 @@
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

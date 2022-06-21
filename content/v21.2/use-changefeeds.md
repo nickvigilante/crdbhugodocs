@@ -28,7 +28,7 @@ Changefeeds connect to a long-lived request (i.e., a rangefeed), which pushes ch
 
 **Rangefeeds must be enabled for a changefeed to work.** To [enable the cluster setting](set-cluster-setting.html):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET CLUSTER SETTING kv.rangefeed.enabled = true;
 ~~~
@@ -86,11 +86,11 @@ The `kv.closed_timestamp.target_duration` [cluster setting](cluster-settings.htm
     {"__crdb__": {"updated": "1532377312562986715.0000000000"}, "id": 1, "name": "Petee H"}
     {"__crdb__": {"updated": "1532377306108205142.0000000000"}, "id": 2, "name": "Carl"}
     {"__crdb__": {"updated": "1532377358501715562.0000000000"}, "id": 3, "name": "Ernie"}
-    {"__crdb__":{"resolved":"1532379887442299001.0000000000" }}
-    {"__crdb__":{"resolved":"1532379888444290910.0000000000" }}
-    {"__crdb__":{"resolved":"1532379889448662988.0000000000" }}
+    {"__crdb__":{"resolved":"1532379887442299001.0000000000"}}
+    {"__crdb__":{"resolved":"1532379888444290910.0000000000"}}
+    {"__crdb__":{"resolved":"1532379889448662988.0000000000"}}
     ...
-    {"__crdb__":{"resolved":"1532379922512859361.0000000000" }}
+    {"__crdb__":{"resolved":"1532379922512859361.0000000000"}}
     {"__crdb__": {"updated": "1532379923319195777.0000000000"}, "id": 4, "name": "Lucky"}
     ~~~
 
@@ -126,7 +126,7 @@ When schema changes with column backfill (e.g., adding a column with a default, 
 
 For an example of a schema change with column backfill, start with the changefeed created in this [Kafka example](changefeed-examples.html#create-a-changefeed-connected-to-kafka):
 
-~~~ shell
+~~~
 [1]	{"id": 1, "name": "Petee H"}
 [2]	{"id": 2, "name": "Carl"}
 [3]	{"id": 3, "name": "Ernie"}
@@ -134,14 +134,14 @@ For an example of a schema change with column backfill, start with the changefee
 
 Add a column to the watched table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE office_dogs ADD COLUMN likes_treats BOOL DEFAULT TRUE;
 ~~~
 
 The changefeed emits duplicate records 1, 2, and 3 before outputting the records using the new schema:
 
-~~~ shell
+~~~
 [1]	{"id": 1, "name": "Petee H"}
 [2]	{"id": 2, "name": "Carl"}
 [3]	{"id": 3, "name": "Ernie"}
@@ -153,9 +153,11 @@ The changefeed emits duplicate records 1, 2, and 3 before outputting the records
 [3]	{"id": 3, "likes_treats": true, "name": "Ernie"}
 ~~~
 
-{{site.data.alerts.callout_info }}
+When using the [`schema_change_policy = nobackfill` option](create-changefeed.html#schema-policy), the changefeed will still emit duplicate records for the table that is being altered. In the preceding output, the records marked as `# Duplicate` will still emit with this option, but not the new schema records.
+
+{{site.data.alerts.callout_info}}
 Changefeeds will emit [`NULL` values](null-handling.html) for [`VIRTUAL` computed columns](computed-columns.html) and not the column's computed value.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Responses
 
@@ -163,7 +165,7 @@ Changefeeds will emit [`NULL` values](null-handling.html) for [`VIRTUAL` compute
 
 The messages (i.e., keys and values) emitted to a sink are specific to the [`envelope`](create-changefeed.html#options). The default format is `wrapped`, and the output messages are composed of the following:
 
-- **Key**: An array always composed of the row's `PRIMARY KEY` field(s) (e.g., `[1]` for `JSON` or `{"id":{"long":1 }}` for Avro).
+- **Key**: An array always composed of the row's `PRIMARY KEY` field(s) (e.g., `[1]` for `JSON` or `{"id":{"long":1}}` for Avro).
 - **Value**:
     - One of three possible top-level fields:
         - `after`, which contains the state of the row after the update (or `null`' for `DELETE`s).
@@ -176,8 +178,8 @@ For example:
 
 Statement                                      | Response
 -----------------------------------------------+-----------------------------------------------------------------------
-`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }}}}`
-`DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1 }}	{"after":null}`
+`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee"}}` </br>Avro: `{"id":{"long":1}}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee"}}}}`
+`DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1}}	{"after":null}`
 
 For webhook sinks, the response format comes as a batch of changefeed messages with a `payload` and `length`. Batching is done with a per-key guarantee, which means that the messages with the same key are considered for the same batch. Note that batches are only collected for row updates and not [resolved timestamps](create-changefeed.html#resolved-option):
 
@@ -225,9 +227,9 @@ CockroachDB Type | Avro Type | Avro Logical Type
 [`VARBIT`](bit.html)| Array of [`LONG`](https://avro.apache.org/docs/1.8.1/spec.html#schema_primitive) |
 [`COLLATE`](collate.html) | [`STRING`](https://avro.apache.org/docs/1.8.1/spec.html#schema_primitive) |
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `DECIMAL` type is a union between Avro `STRING` and Avro `DECIMAL` types.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

@@ -70,10 +70,10 @@ Next, we ran a couple of [`SPLIT AT`s](split-at.html) on the table and the index
 > ALTER INDEX credit_users@areaCode SPLIT AT VALUES (400), (600), (999);
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In the example output below, a `NULL` in the *Start Key* column means "beginning of table".  
 A `NULL` in the *End Key* column means "end of table".
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Show ranges for a table (primary index)
 

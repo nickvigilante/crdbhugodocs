@@ -13,11 +13,11 @@ The `IMPORT` [statement](sql-statements.html) imports the following types of dat
 
 {{site.data.alerts.callout_success}}
 This page has reference information about the `IMPORT` statement.  For instructions and working examples showing how to migrate data from other databases and formats, see the [Migration Overview](migration-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `IMPORT` only works for creating new tables. It does not support adding data to existing tables. Also, `IMPORT` cannot be used within a [transaction](transactions.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -113,11 +113,11 @@ We also recommend [specifying all secondary indexes you want to use in the `CREA
 
 By default, the [Postgres][postgres] and [MySQL][mysql] import formats support foreign keys. Add the `skip_foreign_keys` [option](#import-options) to speed up data import by ignoring foreign key constraints in the dump file's DDL.  It will also enable you to import individual tables that would otherwise fail due to dependencies on other tables.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The most common dependency issues are caused by unsatisfied foreign key relationships. You can avoid these issues by adding the `skip_foreign_keys` option to your `IMPORT` statement as needed. For more information, see the list of [import options](#import-options).
 
 For example, if you get the error message `pq: there is no unique constraint matching given keys for referenced table tablename`, use `IMPORT ... WITH skip_foreign_keys`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Available storage
 
@@ -154,7 +154,7 @@ After CockroachDB successfully initiates an import, it registers the import as a
 
 After the import has been initiated, you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{site.data.alerts.callout_danger }}Pausing and then resuming an <code>IMPORT</code> job will cause it to restart from the beginning.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}Pausing and then resuming an <code>IMPORT</code> job will cause it to restart from the beginning.{{site.data.alerts.end}}
 
 ## Examples
 

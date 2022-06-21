@@ -4,9 +4,9 @@ summary: The CREATE CHANGEFEED statement creates a changefeed of row-level chang
 toc: true
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `CREATE CHANGEFEED` is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [`EXPERIMENTAL CHANGEFEED FOR`](changefeed-for.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The `CREATE CHANGEFEED` [statement](sql-statements.html) creates a new Enterprise changefeed, which targets an allowlist of tables, called "watched rows".  Every change to a watched row is emitted as a record in a configurable format (`JSON` or Avro) to a configurable sink ([Kafka](https://kafka.apache.org/) or a [cloud storage sink](#cloud-storage-sink)). You can [create](#create-a-changefeed-connected-to-kafka), [pause](#pause-a-changefeed), [resume](#resume-a-paused-changefeed), or [cancel](#cancel-a-changefeed) an Enterprise changefeed.
 
@@ -60,9 +60,9 @@ Example of a Kafka sink URI:
 
 Use a cloud storage sink to deliver changefeed data to OLAP or big data systems without requiring transport via Kafka.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, cloud storage sinks only work with `JSON` and emits newline-delimited `JSON` files.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Example of a cloud storage sink URI:
 
@@ -105,15 +105,15 @@ Option | Value | Description
 `diff` | N/A |  Publish a `before` field with each message, which includes the value of the row before the update was applied.
 `compression` | `gzip` |  Compress changefeed data files written to a [cloud storage sink](#cloud-storage-sink). Currently, only [Gzip](https://www.gnu.org/software/gzip/) is supported for compression.
 `protect_data_from_gc_on_pause` | N/A |  When a [changefeed is paused](pause-job.html), ensure that the data needed to [resume the changefeed](resume-job.html) is not garbage collected.<br><br>Note: If you use this option, changefeeds left paused can prevent garbage collection for long periods of time.
-`schema_change_events` | `default` / `column_changes` |  The type of schema change event that triggers the behavior specified by the `schema_change_policy` option:<ul><li>`default`: Include all [`ADD COLUMN`](add-column.html) events for columns that have a non-`NULL` [`DEFAULT` value](default-value.html) or are [computed](computed-columns.html), and all [`DROP COLUMN`](drop-column.html) events.</li><li>`column_changes`: Include all all schema change events that add or remove any column.</li></ul><br>Default: `schema_change_events=default`
-`schema_change_policy` | `backfill` / `nobackfill` / `stop` |  The behavior to take when an event specified by the `schema_change_events` option occurs:<ul><li>`backfill`: When [schema changes with column backfill](stream-data-out-of-cockroachdb-using-changefeeds.html#schema-changes-with-column-backfill) are finished, output all watched rows using the new schema.</li><li>`nobackfill`: For [schema changes with column backfill](stream-data-out-of-cockroachdb-using-changefeeds.html#schema-changes-with-column-backfill), perform no logical backfills.</li><li>`stop`: [schema changes with column backfill](stream-data-out-of-cockroachdb-using-changefeeds.html#schema-changes-with-column-backfill), wait for all data preceding the schema change to be resolved before exiting with an error indicating the timestamp at which the schema change occurred. An `error: schema change occurred at <timestamp>` will display in the `cockroach.log` file.</li></ul><br>Default: `schema_change_policy=backfill`
+`schema_change_events` | `default` / `column_changes` |  The type of schema change event that triggers the behavior specified by the `schema_change_policy` option:<ul><li>`default`: Include all [`ADD COLUMN`](add-column.html) events for columns that have a non-`NULL` [`DEFAULT` value](default-value.html) or are [computed](computed-columns.html), and all [`DROP COLUMN`](drop-column.html) events.</li><li>`column_changes`: Include all schema change events that add or remove any column.</li></ul><br>Default: `schema_change_events=default`
+<a name="schema-policy"></a>`schema_change_policy` | `backfill` / `nobackfill` / `stop` |  The behavior to take when an event specified by the `schema_change_events` option occurs:<ul><li>`backfill`: When [schema changes with column backfill](stream-data-out-of-cockroachdb-using-changefeeds.html#schema-changes-with-column-backfill) are finished, output all watched rows using the new schema.</li><li>`nobackfill`: For [schema changes with column backfill](stream-data-out-of-cockroachdb-using-changefeeds.html#schema-changes-with-column-backfill), perform no logical backfills. The changefeed will still emit any duplicate records for the table being altered, but will not emit the new schema records.</li><li>`stop`: [schema changes with column backfill](stream-data-out-of-cockroachdb-using-changefeeds.html#schema-changes-with-column-backfill), wait for all data preceding the schema change to be resolved before exiting with an error indicating the timestamp at which the schema change occurred. An `error: schema change occurred at <timestamp>` will display in the `cockroach.log` file.</li></ul><br>Default: `schema_change_policy=backfill`
 `initial_scan` / `no_initial_scan` | N/A |  Control whether or not an initial scan will occur at the start time of a changefeed. `initial_scan` and `no_initial_scan` cannot be used simultaneously. If neither `initial_scan` nor `no_initial_scan` is specified, an initial scan will occur if there is no `cursor`, and will not occur if there is one. This preserves the behavior from previous releases.<br><br>Default: `initial_scan` <br>If used in conjunction with `cursor`, an initial scan will be performed at the cursor timestamp. If no `cursor` is specified, the initial scan is performed at `now()`.
 `full_table_name` | N/A | Use fully-qualified table name in topics, subjects, schemas, and record output instead of the default table name. This can prevent unintended behavior when the same table name is present in multiple databases. <br><br>Example: `CREATE CHANGEFEED FOR foo... WITH full_table_name` will create the topic name `defaultdb.public.foo` instead of `foo`.
 `avro_schema_prefix` | Schema prefix name               | Provide a namespace for the schema of a table in addition to the default, the table name. This allows multiple databases or clusters to share the same schema registry when the same table name is present in multiple databases.<br><br>Example: `CREATE CHANGEFEED FOR foo WITH format=experimental_avro, confluent_schema_registry='registry_url', avro_schema_prefix='super'` will register subjects as `superfoo-key` and `superfoo-value` with the namespace `super`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  Using the `format=experimental_avro`, `envelope=key_only`, and `updated` options together is rejected. `envelope=key_only` prevents any rows with updated fields from being emitted, which makes the `updated` option meaningless.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Avro limitations
 
@@ -147,9 +147,9 @@ By default, a Kafka topic has the same name as the table that a changefeed was c
 
 You can either manually create a topic in your Kafka cluster before starting the changefeed, or the topic will be automatically created when the changefeed connects to your Kafka cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You must have the Kafka cluster setting [`auto.create.topics.enable`](https://kafka.apache.org/documentation/#brokerconfigs_auto.create.topics.enable) set to `true` for automatic topic creation. This will create the topic when the changefeed sends its first message. If you create the consumer before that, you will also need the Kafka consumer configuration [`allow.auto.create.topics`](https://kafka.apache.org/documentation/#consumerconfigs_allow.auto.create.topics) to be set to `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Kafka has the following topic limitations:
 
@@ -164,7 +164,7 @@ Kafka has the following topic limitations:
 
 The messages (i.e., keys and values) emitted to a sink are specific to the [`envelope`](#options). The default format is `wrapped`, and the output messages are composed of the following:
 
-- **Key**: An array always composed of the row's `PRIMARY KEY` field(s) (e.g., `[1]` for `JSON` or `{"id":{"long":1 }}` for Avro).
+- **Key**: An array always composed of the row's `PRIMARY KEY` field(s) (e.g., `[1]` for `JSON` or `{"id":{"long":1}}` for Avro).
 - **Value**:
     - One of three possible top-level fields:
         - `after`, which contains the state of the row after the update (or `null`' for `DELETE`s).
@@ -177,8 +177,8 @@ For example:
 
 Statement                                      | Response
 -----------------------------------------------+-----------------------------------------------------------------------
-`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee" }}` </br>Avro: `{"id":{"long":1 }}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee" }}}}`
-`DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1 }}	{"after":null}`
+`INSERT INTO office_dogs VALUES (1, 'Petee');` | JSON: `[1]	{"after": {"id": 1, "name": "Petee"}}` </br>Avro: `{"id":{"long":1}}	{"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee"}}}}`
+`DELETE FROM office_dogs WHERE name = 'Petee'` | JSON: `[1]	{"after": null}` </br>Avro: `{"id":{"long":1}}	{"after":null}`
 
 ### Files
 
@@ -187,9 +187,9 @@ The files emitted to a sink use the following naming conventions:
 - [General file format](#general-file-format)
 - [Resolved file format](#resolved-file-format)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The timestamp format is `YYYYMMDDHHMMSSNNNNNNNNNLLLLLLLLLL`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### General file format
 
@@ -257,9 +257,9 @@ For more information on how to create a changefeed that emits an [Avro](https://
 
 ### Create a changefeed connected to a cloud storage sink
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature.** The interface and output are subject to change.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -282,9 +282,9 @@ For more information on how to create a changefeed connected to a cloud storage 
 
 Use the following SQL statements to pause, resume, and cancel a changefeed.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Changefeed-specific SQL statements (e.g., `CANCEL CHANGEFEED`) will be added in the future.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Pause a changefeed
 

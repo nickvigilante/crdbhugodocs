@@ -49,9 +49,9 @@ Metrics for scheduled backups fall into two categories:
 
     - `schedules.round.reschedule-skip`: The number of schedules that were skipped due to a currently running job. A value greater than 0 indicates that a previous backup was still running when a new scheduled backup was supposed to start. This corresponds to the [`on_previous_running=skip`](create-schedule-for-backup.html#on-previous-running-option) schedule option.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `schedules.round.reschedule-wait` and `schedules.round.reschedule-skip` are gauge metrics and can be graphed. A continual positive value for either of these metrics may indicate a misconfigured backup cadence, and you should consider adjusting the cadence to avoid waiting for or skipping the next backup.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a tutorial on how to use Prometheus to set up monitoring and alerting, see [Monitor CockroachDB with Prometheus](monitor-cockroachdb-with-prometheus.html).
 
@@ -133,9 +133,9 @@ Or nest a [`SELECT` clause](select-clause.html) that retrieves `id`(s) inside th
 
 For more information, see [`DROP SCHEDULES`](drop-schedules.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `DROP SCHEDULE` does **not** cancel any in-progress jobs started by the schedule. Before you drop a schedule, [cancel any in-progress jobs](cancel-job.html) first, as you will not be able to look up the job ID once the schedule is dropped.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## View and control a backup initiated by a schedule
 

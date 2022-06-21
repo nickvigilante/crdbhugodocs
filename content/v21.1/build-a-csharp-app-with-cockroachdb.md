@@ -11,7 +11,7 @@ We have tested the [.NET Npgsql driver](http://www.npgsql.org/) enough to claim 
 
 ## Step 1. Start CockroachDB
 
-{% include {{ page.version.version }}/app/start-cockroachdb.md %}
+{% include {{< page-version >}}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a .NET project
 
@@ -40,7 +40,7 @@ $ dotnet add package Npgsql
 
 ## Step 4. Create a database
 
-{% include {{ page.version.version }}/app/create-a-database.md %}
+{% include {{< page-version >}}/app/create-a-database.md %}
 
 ## Step 5. Run the C# code
 
@@ -55,9 +55,9 @@ Now that you have set up your project and created a database, in this section yo
 
 Replace the contents of the `Program.cs` file that was automatically generated in your `cockroachdb-test-app` directory with the code below:
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The following examples use the SSL mode `require` because the .NET Npgsql driver validates certificates differently from other PostgreSQL drivers. For other drivers, we recommend using `verify-full` as a security best practice.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <section class="filter-content" markdown="1" data-scope="local">
 
@@ -112,7 +112,7 @@ connStringBuilder.SslMode = SslMode.Require;
 connStringBuilder.Username = "{username}";
 connStringBuilder.Password = "{password}";
 connStringBuilder.Database = "{cluster-name}.bank";
-connStringBuilder.RootCertificate = "~/.postgres/root.crt";
+connStringBuilder.RootCertificate = "~/.postgresql/root.crt";
 connStringBuilder.TrustServerCertificate = true;
 ~~~
 

@@ -14,9 +14,9 @@ Authorize your application server’s network and your local machine’s network
 - In a development environment, you need to authorize your application server’s network and your local machine’s network. If you change your location, you need to authorize the new location’s network, or else the connection from that network will be rejected.
 - In a production environment, you need to authorize your application server’s network.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 While developing and testing your application, you may add `0.0.0.0/0` to the allowlist, which allows all networks. However, before moving into production, make sure you delete the `0.0.0.0/0` network.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You can add up to 20 IP addresses to your allowlist. If your application servers’ IP addresses are not static, or you want to limit your cluster's exposure to the public network, you can connect to your {{ site.data.products.dedicated }} clusters using VPC Peering or AWS PrivateLink instead.
 
@@ -31,9 +31,9 @@ Setting up a VPC peering connection between your {{ site.data.products.dedicated
 1. [Configure the IP range and size while creating the {{ site.data.products.dedicated }} cluster](create-your-cluster.html#step-7-enable-vpc-peering-optional)
 1. [Establish a VPC Peering connection after creating the cluster](connect-to-your-cluster.html#establish-vpc-peering-or-aws-privatelink)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Self-service VPC peering setup is not supported for {{ site.data.products.dedicated }} clusters deployed before March 5, 2020. If your cluster was deployed before March 5, 2020, you will have to [create a new cluster](create-your-cluster.html) with VPC peering enabled, then [export your data](backups-page.html) from the old cluster to the new cluster. If your cluster was deployed on or after March 5, 2020, it will be locked into {{ site.data.products.dedicated }}'s default IP range (`172.28.0.0/14`) unless you explicitly configured a different IP range during cluster creation.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## AWS PrivateLink
 
@@ -50,9 +50,9 @@ There are four steps to setting up an AWS PrivateLink connection between your {{
 
 1.  Use the {{ site.data.products.db }} Console to [create your {{ site.data.products.dedicated }} cluster](create-your-cluster.html) on AWS in the same region as your application.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     If you have a multi-region cluster, you will have to create a PrivateLink connection for each region you are operating in.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1.  Navigate to the **Networking** page.
 1.  Select the **PrivateLink** tab.
@@ -152,5 +152,5 @@ After a short (less than 5 minute) delay, the status will change to Available. Y
 
 ## See also
 
-- [Client Connection Parameters](../{{site.versions["stable"] }}/connection-parameters.html)
+- [Client Connection Parameters](../{{site.versions["stable"]}}/connection-parameters.html)
 - [Connect to Your {{ site.data.products.dedicated }} Cluster](connect-to-your-cluster.html)

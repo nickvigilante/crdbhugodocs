@@ -4,7 +4,7 @@ summary: Learn how to migrate data from MySQL into a CockroachDB cluster.
 toc: true
 ---
 
-{% include {{ page.version.version }}/misc/beta-warning.md %}
+{% include {{< page-version >}}/misc/beta-warning.md %}
 
 This page has instructions for migrating data from MySQL to CockroachDB using [`IMPORT`](import.html)'s support for reading [`mysqldump`][mysqldump] files.
 
@@ -53,7 +53,7 @@ Each node in the CockroachDB cluster needs to have access to the files being imp
 
 {{site.data.alerts.callout_success}}
 We strongly recommend using cloud storage such as Amazon S3 or Google Cloud to host the data files you want to import.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Import the MySQL dump file
 
@@ -152,11 +152,11 @@ The following options are available to `IMPORT ... MYSQLDUMP`:
 
 By default, [`IMPORT ... MYSQLDUMP`][import] supports foreign keys.  **Default: false**.  Add the `skip_foreign_keys` option to speed up data import by ignoring foreign key constraints in the dump file's DDL.  It will also enable you to import individual tables that would otherwise fail due to dependencies on other tables.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The most common dependency issues are caused by unsatisfied foreign key relationships. You can avoid these issues by adding the `skip_foreign_keys` option to your `IMPORT` statement as needed. For more information, see the list of [import options](import.html#import-options).
 
 For example, if you get the error message `pq: there is no unique constraint matching given keys for referenced table tablename`, use `IMPORT ... WITH skip_foreign_keys`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Example usage:
 

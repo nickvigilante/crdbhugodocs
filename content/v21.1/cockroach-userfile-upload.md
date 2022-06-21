@@ -8,13 +8,13 @@ toc: true
 
 This command takes in a source file to upload and a destination filename. It will then use a SQL connection to upload the file to the [destination](#file-destination).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A userfile uses storage space in the cluster, and is replicated with the rest of the cluster's data. We recommended using `cockroach userfile upload` for quick uploads from your client (about 15MB or smaller).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
-If you would like to upload and import data from from a dump file, consider using [`cockroach import`](cockroach-import.html) instead.
-{{site.data.alerts.end }}
+If you would like to upload and import data from a dump file, consider using [`cockroach import`](cockroach-import.html) instead.
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -30,9 +30,9 @@ Upload a file:
 $ cockroach userfile upload <location/of/file> <destination/of/file> [flags]
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You must specify a source path.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 View help:
 
@@ -53,13 +53,13 @@ Userfile operations are backed by two tables: `files` (which holds file metadata
 
 
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Userfile is **not** a filesystem and does not support filesystem semantics. The destination file path must be the same after normalization (i.e., if you pass any path that results in a different path after normalization, it will be rejected).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Files are uploaded with a `.tmp` suffix and are renamed once the userfile upload transaction has committed (i.e, the process ends gracefully). Therefore, if a file you believed had finished uploading has a `.tmp` suffix, then the upload should be retried.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Flags
 
@@ -77,7 +77,7 @@ Files are uploaded with a `.tmp` suffix and are renamed once the userfile upload
 
 To upload a file to the default storage (`userfile://defaultdb.public.userfiles_$user/`):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile upload /Users/maxroach/Desktop/test-data.csv /test-data.csv --certs-dir=certs
 ~~~
@@ -88,7 +88,7 @@ successfully uploaded to userfile://defaultdb.public.userfiles_root/test-data.cs
 
 Also, a file can be uploaded to the default storage if the destination is not specified:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile upload /Users/maxroach/Desktop/test-data2.csv --certs-dir=certs
 ~~~
@@ -103,7 +103,7 @@ Then, you can use the file to [`IMPORT`](import.html) or [`IMPORT INTO`](import-
 
 To upload a file to a specific destination, include the destination in the command:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach userfile upload /Users/maxroach/Desktop/test-data.csv /test-upload/test-data.csv --cert-dir=certs
 ~~~
@@ -116,7 +116,7 @@ Then, you can use the file to [`IMPORT`](import.html) or [`IMPORT INTO`](import-
 
 ### Upload a file to a non-default userfile URI
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 cockroach userfile upload /Users/maxroach/Desktop/test-data.csv userfile://testdb.public.uploads/test-data.csv
 ~~~
@@ -131,9 +131,9 @@ Currently in v21.1 and prior, it's [not possible to use `cockroach userfile uplo
 
 The following example uses `userfile` storage and its features to backup a database and then restore it to a cluster. This workflow provides a way to recover backup data when using `userfile` as your storage option.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Only database and table-level backups are possible when using `userfile` as storage. Restoring [cluster-level backups](backup.html#backup-a-cluster) will not work because `userfile` data is stored in the `defaultdb` database, and you cannot restore a cluster with existing table data.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 After connecting to the cluster that contains the data you would like to backup, run the [`BACKUP`](backup.html) statement:
 

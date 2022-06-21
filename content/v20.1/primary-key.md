@@ -150,9 +150,9 @@ pq: null value in column "warehouse_id" violates not-null constraint
 - Issuing an [`ALTER TABLE ... ALTER PRIMARY KEY`](alter-primary-key.html) statement. When you change a primary key with `ALTER PRIMARY KEY`, the old primary key index becomes a secondary index. This helps optimize the performance of queries that still filter on the old primary key column.
 - Issuing an [`ALTER TABLE ... DROP CONSTRAINT ... PRIMARY KEY`](drop-constraint.html) statement to drop the primary key, followed by an [`ALTER TABLE ... ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) statement, in the same transaction, to add a new primary key. This replaces the existing primary key without creating a secondary index from the old primary key. For examples, see the [`ADD CONSTRAINT`](add-constraint.html#examples) and [`DROP CONSTRAINT`](drop-constraint.html#examples) pages.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can use an [`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) statement without a [`DROP CONSTRAINT ... PRIMARY KEY`](drop-constraint.html) if the primary key was not explicitly defined at [table creation](create-table.html), and the current [primary key is on `rowid`](indexes.html#creation).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

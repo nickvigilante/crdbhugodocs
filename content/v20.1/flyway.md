@@ -42,9 +42,9 @@ Before you begin, do the following:
     ...
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The SSL connection parameters in the connection URL must specify the full path to the certificates that you generated when you [started the secure cluster](secure-a-cluster.html). Also, the user that you specify (e.g., `max`) must also have [admin privileges](grant.html) on the database whose schema you want to change (e.g., `bank`).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ## Step 2. Create a schema migration
 

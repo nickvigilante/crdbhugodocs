@@ -6,9 +6,9 @@ toc: true
 
 This page explains the `cockroach start` [command](cockroach-commands.html), which you use to start nodes as a new cluster or add nodes to an existing cluster. For a full walk-through of the cluster startup and initialization process, see one of the [Manual Deployment](manual-deployment.html) tutorials.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Node-level settings are defined by flags passed to the `cockroach start` command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see [Cluster Settings](cluster-settings.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -35,7 +35,7 @@ allow restarted nodes to join the cluster even if their data directory was destr
 
 {{site.data.alerts.callout_success}}
 When adding a node to an existing cluster, include the `--join` flag.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### General
 
@@ -104,9 +104,9 @@ The `--locality` flag accepts arbitrary key-value pairs that describe the locati
 
 The `--store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In-memory storage is not suitable for production deployments at this time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/misc/multi-store-nodes.md %}
 
@@ -137,8 +137,8 @@ This means, by default, CockroachDB writes all messages to log files, and never 
 When you run `cockroach start`, some helpful details are printed to the standard output:
 
 ~~~ shell
-CockroachDB node starting at {{ page.release_info.start_time }}
-build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }}
+CockroachDB node starting at {{page.release_info.start_time}}
+build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}}
 webui:               http://localhost:8080
 sql:                 postgresql://root@localhost:26257?sslmode=disable
 client flags:        cockroach <client cmd> --listen-addr=localhost:26257 --insecure
@@ -155,7 +155,7 @@ nodeID:              1
 
 {{site.data.alerts.callout_success}}
 These details are also written to the `INFO` log in the `/logs` directory in case you need to refer to them at a later time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Field | Description
 ------|------------

@@ -5,19 +5,19 @@ toc: true
 key: stop-a-node.html
 ---
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `cockroach quit` is no longer recommended, and will be deprecated in v20.2. To stop a node, do one of the following:
 
 {% include {{ page.version.version }}/prod-deployment/node-shutdown.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 This page shows you how to use the `cockroach quit` [command](cockroach-commands.html) to temporarily stop a node that you plan to restart.
 
 You might do this, for example, during the process of [upgrading your cluster's version of CockroachDB](upgrade-cockroach-version.html) or to perform planned maintenance (e.g., upgrading system software).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In other scenarios, such as when downsizing a cluster or reacting to hardware failures, it's best to remove nodes from your cluster entirely. For information about this, see [Decommission Nodes](remove-nodes.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 

@@ -38,9 +38,9 @@ For debugging and development purposes, you can use the [`cockroach demo`](cockr
     root@127.0.0.1:62268/movr>
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Your port number will likely be different than the one shown here.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     Keep this terminal window open. Closing it will shut down the demo cluster.
 
@@ -69,9 +69,9 @@ For debugging and development purposes, you can use the [`cockroach demo`](cockr
     (3 rows)
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In production, you want to start a secure CockroachDB cluster, with nodes on machines located in different areas of the world. For instructions on deploying a multi-region CockroachDB cluster for this application, using [CockroachCloud](https://www.cockroachlabs.com/product/cockroachcloud/), see [Deploy a Multi-Region Web Application](multi-region-deployment.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Set up a virtual development environment
@@ -122,9 +122,9 @@ For debugging, use [`pipenv`](https://docs.pipenv.org/), a tool that manages dep
 
 1. Navigate to the URL provided to test out the application. By default, this should be http://127.0.0.1:5000/.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In production, you want to [containerize](https://www.docker.com/resources/what-container) your application and deploy it with a deployment orchestration tool, like [Kubernetes](https://kubernetes.io/). For instructions on deploying this application in multiple regions, see [Deploy a Multi-Region Web Application](multi-region-deployment.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Next steps
 

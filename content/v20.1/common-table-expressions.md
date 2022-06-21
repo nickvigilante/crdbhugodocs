@@ -32,11 +32,11 @@ Parameter | Description
 
 ## Overview
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The examples on this page use MovR, a fictional vehicle-sharing application, to demonstrate CockroachDB SQL statements. To follow along, run [`cockroach demo`](cockroach-demo.html) from the command line to start a temporary, in-memory cluster with the `movr` dataset preloaded.
 
 For more information about the MovR example application and dataset, see [MovR: A Global Vehicle-sharing App](movr.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 A query or statement of the form `WITH x AS y IN z` creates the
 temporary table name `x` for the results of the subquery `y`, to be
@@ -116,9 +116,9 @@ closest to the table expression. For example:
 In this example, the inner subquery `SELECT * FROM v` will select from
 table `vehicles` (closest `WITH` clause), not from table `users`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.1:</span> CockroachDB does not support nested `WITH` clauses containing [data-modifying statements](#data-modifying-statements). `WITH` clauses containing data-modifying statements must be at the top level of the query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Data-modifying statements
 
@@ -160,7 +160,7 @@ ERROR: WITH clause containing a data-modifying statement must be at the top leve
 SQLSTATE: 0A000
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a common table expression contains
 a data-modifying statement (<code>INSERT</code>, <code>DELETE</code>,
 etc.), the modifications are performed fully even if only part
@@ -168,7 +168,7 @@ of the results are used, e.g., with <a
 href="limit-offset.html"><code>LIMIT</code></a>. See <a
 href="subqueries.html#data-writes-in-subqueries">Data
 Writes in Subqueries</a> for details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Reusing common table expressions
 
@@ -222,9 +222,9 @@ CockroachDB evaluates recursive CTEs as follows:
 1. The initial query is evaluated. Its results are stored to rows in the CTE and copied to a temporary, working table. This working table is updated across iterations of the recursive subquery.
 1. The recursive subquery is evaluated iteratively on the contents of the working table. The results of each iteration replace the contents of the working table. The results are also stored to rows of the CTE. The recursive subquery iterates until no results are returned.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Recursive subqueries must eventually return no results, or the query will run indefinitely.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For example, the following recursive CTE calculates the factorial of the numbers 0 through 9:
 
@@ -305,9 +305,9 @@ SELECT * FROM cte LIMIT 10;
 
 While this practice works for testing and debugging, we do not recommend it in production.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB does not currently support the [Postgres recursive CTE variant](https://www.postgresql.org/docs/10/queries-with.html) with the keyword `UNION`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Known limitations
 

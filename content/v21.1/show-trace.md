@@ -8,9 +8,9 @@ The `SHOW TRACE FOR SESSION` [statement](sql-statements.html) returns details ab
 
 You can use `SHOW TRACE FOR SESSION` to debug why a query is not performing as expected, to add more information to bug reports, or to generally learn more about how CockroachDB works.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Statement traces can be obtained in plaintext, JSON, and [Jaeger-compatible](query-behavior-troubleshooting.html#visualize-statement-traces-in-jaeger) formats by activating [statement diagnostics](ui-statements-page.html#diagnostics) on the DB Console Statements Page or running [`EXPLAIN ANALYZE (DEBUG)`](explain-analyze.html#debug-option).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Usage overview
 
@@ -57,7 +57,7 @@ To further clarify these concepts, let's look at a visualization of a trace for 
 
 ## Response
 
-{{site.data.alerts.callout_info }}The format of the <code>SHOW TRACE FOR SESSION</code> response may change in future versions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The format of the <code>SHOW TRACE FOR SESSION</code> response may change in future versions.{{site.data.alerts.end}}
 
 CockroachDB outputs traces in linear tabular format. Each result row represents either a span start (identified by the `=== SPAN START: <operation> ===` message) or a log message from a span. Rows are generally listed in their timestamp order (i.e., the order in which the events they represent occurred) with the exception that messages from child spans are interleaved in the parent span according to their timing. Messages from sibling spans, however, are not interleaved with respect to one another.
 
@@ -93,13 +93,13 @@ Column | Type | Description
 `operation` | string | The name of the operation (or sub-operation) on whose behalf the message was logged.
 `span` | int | The index of the span within the virtual list of all spans if they were ordered by the span's start time.
 
-{{site.data.alerts.callout_info }}If the <code>COMPACT</code> keyword was specified, only the <code>age</code>, <code>message</code>, <code>tag</code> and <code>operation</code> columns are returned. In addition, the value of the <code>location</code> columns is prepended to <code>message</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If the <code>COMPACT</code> keyword was specified, only the <code>age</code>, <code>message</code>, <code>tag</code> and <code>operation</code> columns are returned. In addition, the value of the <code>location</code> columns is prepended to <code>message</code>.{{site.data.alerts.end}}
 
 ## Examples
 
 ### Trace a session
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET tracing = on;
 ~~~
@@ -108,7 +108,7 @@ Column | Type | Description
 SET TRACING
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TRACE FOR SESSION;
 ~~~
@@ -133,19 +133,19 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 1. In terminal 1, create a table:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE t (k INT);
     ~~~
 
 2. Still in terminal 1, open a transaction and perform a write without closing the transaction:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO t VALUES (1);
     ~~~
@@ -160,7 +160,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4.  Still in terminal 2, execute a conflicting read:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM t;
     ~~~
@@ -169,7 +169,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 4. Back in terminal 1, finish the transaction:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > COMMIT;
     ~~~
@@ -185,12 +185,12 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 6. Still in terminal 2, stop tracing and then view the completed trace:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SET tracing = off;
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SHOW TRACE FOR SESSION;
     ~~~

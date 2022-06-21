@@ -8,9 +8,9 @@ This page shows you how to decommission one or more nodes. Decommissioning a nod
 
 You might do this, for example, when downsizing a cluster or reacting to hardware failures.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Node decommissioning should not be performed when [upgrading your cluster's version of CockroachDB](upgrade-cockroach-version.html) or performing planned maintenance (e.g., upgrading system software). In these scenarios, you will want to temporarily [stop the node](cockroach-quit.html) and restart it later.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -150,7 +150,7 @@ Return to the [**Node List**](ui-cluster-overview-page.html#node-list) on the Ov
 
 {{site.data.alerts.callout_success}}
 Even with zero replicas on a node, its [status](ui-cluster-overview-page.html#node-status) on the Node List will be `DECOMMISSIONING` until you stop the node. It is also counted as a "Suspect" node in the [Cluster Overview panel](ui-cluster-overview-page.html#cluster-overview-panel) until being shut down.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 4. Stop the decommissioning node
 
@@ -177,7 +177,7 @@ To prevent the cluster from rebalancing data to a dead node if it comes back onl
 
 {{site.data.alerts.callout_success}}
 You can check that a node is dead and find its internal ID by either running [`cockroach node status`](cockroach-node.html) or opening the DB Console and scrolling to the [**Node List**](ui-cluster-overview-page.html#node-list) on the **Overview** page.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 1. Mark the dead node as decommissioned
 
@@ -299,7 +299,7 @@ Return to the [**Node List**](ui-cluster-overview-page.html#node-list) on the Ov
 
 {{site.data.alerts.callout_success}}
 Even with zero replicas on a node, its [status](ui-cluster-overview-page.html#node-status) on the Node List will be `DECOMMISSIONING` until you stop the node. It is also counted as a "Suspect" node in the [Cluster Overview panel](ui-cluster-overview-page.html#cluster-overview-panel) until being shut down.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 4. Stop the decommissioning nodes
 
@@ -322,9 +322,9 @@ At this point, the nodes are `DECOMMISSIONED` and will no longer appear in times
 
 If you accidentally started decommissioning a node, or have a node with a hung decommissioning process, you can recommission the node. This cancels the process of transferring replicas on the node to other nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Recommissioning is intended to cancel an active decommissioning process. If all ranges have been removed from a node, you must start a new node. As of v20.2, a fully decommissioned node is permanently decommissioned, and cannot be recommissioned.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 1. Cancel the decommissioning process
 

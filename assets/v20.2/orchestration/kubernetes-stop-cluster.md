@@ -12,26 +12,26 @@ To shut down the CockroachDB cluster:
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ kubectl delete -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version }}/install/operator.yaml
+    $ kubectl delete -f https://raw.githubusercontent.com/cockroachdb/cockroach-operator/{{site.operator_version}}/install/operator.yaml
     ~~~
 
     This will delete the StatefulSet but will not delete the persistent volumes that were attached to the pods. 
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     If you want to delete the persistent volumes and free up the storage used by CockroachDB, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
     
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This does not delete the secrets you created. For more information on managing secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="manual">
 1. Delete the resources associated with the `cockroachdb` label, including the logs and Prometheus and Alertmanager resources:
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This does not include deleting the persistent volumes that were attached to the pods. If you want to delete the persistent volumes and free up the storage used by CockroachDB, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -74,9 +74,9 @@ This does not delete the secrets you created. For more information on managing s
     pod "cockroachdb-client-secure" deleted
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This does not delete the secrets you created. For more information on managing secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
@@ -137,7 +137,7 @@ This does not delete the secrets you created. For more information on managing s
     certificatesigningrequest "default.node.my-release-cockroachdb-3" deleted
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This does not delete the secrets you created. For more information on managing secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 </section>

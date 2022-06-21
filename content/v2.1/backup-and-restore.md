@@ -137,9 +137,9 @@ In the sample script, configure the day of the week for which you want to create
     $ ./backup.sh
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you miss an incremental backup, delete the `recent_backups.txt` file and run the script. It'll take a full backup for that day and incremental backups for subsequent days.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Perform Core backup and restore
 
@@ -159,7 +159,7 @@ $ cockroach sql --database=[database name] < backup.sql
 
 {{site.data.alerts.callout_success}}
 If you created a backup from another database and want to import it into CockroachDB, see [Import data](migration-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

@@ -4,9 +4,9 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
 
 1. Decide how the upgrade will be finalized.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This step is relevant only when upgrading from v19.2.x to v20.1. For upgrades within the v20.1.x series, skip this step.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     By default, after all nodes are running the new version, the upgrade process will be **auto-finalized**. This will enable certain performance improvements and bug fixes introduced in v20.1. After finalization, however, it will no longer be possible to perform a downgrade to v19.2. In the event of a catastrophic failure or corruption, the only option will be to start a new cluster using the old binary and then restore from one of the backups created prior to performing the upgrade.
 
@@ -87,7 +87,7 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
     {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl patch statefulset cockroachdb \
-    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2 }}}}'
+    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":2}}}}'
     ~~~
 
     ~~~
@@ -112,7 +112,7 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
     ~~~ shell
     $ kubectl patch statefulset cockroachdb \
     --type='json' \
-    -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"cockroachdb/cockroach:{{ page.release_info.version }}"}]'
+    -p='[{"op": "replace", "path": "/spec/template/spec/containers/0/image", "value":"cockroachdb/cockroach:{{page.release_info.version}}"}]'
     ~~~
 
     ~~~
@@ -122,9 +122,9 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
 
     <section class="filter-content" markdown="1" data-scope="helm">
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For Helm, you must remove the cluster initialization job from when the cluster was created before the cluster version can be changed.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell
@@ -136,7 +136,7 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
     $ helm upgrade \
     my-release \
     cockroachdb/cockroachdb \
-    --set image.tag={{ page.release_info.version }} \
+    --set image.tag={{page.release_info.version}} \
     --reuse-values
     ~~~
     </section>
@@ -168,9 +168,9 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
     ...
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Ignore the pod for cluster initialization. It is re-created as a byproduct of the StatefulSet configuration but does not impact your existing cluster.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
     </section>    
 
 1. After the pod has been restarted with the new image, get a shell into the pod and start the CockroachDB [built-in SQL client](cockroach-sql.html):
@@ -253,7 +253,7 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
     {% include copy-clipboard.html %}
     ~~~ shell
     $ kubectl patch statefulset cockroachdb \
-    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":1 }}}}'
+    -p='{"spec":{"updateStrategy":{"type":"RollingUpdate","rollingUpdate":{"partition":1}}}}'
     ~~~
 
     ~~~
@@ -283,18 +283,18 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
 
     <section class="filter-content" markdown="1" data-scope="manual">
     ~~~
-    cockroachdb-0   cockroachdb/cockroach:{{ page.release_info.version }}
-    cockroachdb-1   cockroachdb/cockroach:{{ page.release_info.version }}
-    cockroachdb-2   cockroachdb/cockroach:{{ page.release_info.version }}
+    cockroachdb-0   cockroachdb/cockroach:{{page.release_info.version}}
+    cockroachdb-1   cockroachdb/cockroach:{{page.release_info.version}}
+    cockroachdb-2   cockroachdb/cockroach:{{page.release_info.version}}
     ...
     ~~~
     </section>
 
     <section class="filter-content" markdown="1" data-scope="helm">
     ~~~
-    my-release-cockroachdb-0    cockroachdb/cockroach:{{ page.release_info.version }}
-    my-release-cockroachdb-1    cockroachdb/cockroach:{{ page.release_info.version }}
-    my-release-cockroachdb-2    cockroachdb/cockroach:{{ page.release_info.version }}
+    my-release-cockroachdb-0    cockroachdb/cockroach:{{page.release_info.version}}
+    my-release-cockroachdb-1    cockroachdb/cockroach:{{page.release_info.version}}
+    my-release-cockroachdb-2    cockroachdb/cockroach:{{page.release_info.version}}
     ...
     ~~~
     </section>
@@ -304,9 +304,9 @@ The corresponding process on Kubernetes is a [staged update](https://kubernetes.
 
 1. Finish the upgrade.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This step is relevant only when upgrading from v19.2.x to v20.1. For upgrades within the v20.1.x series, skip this step.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     If you disabled auto-finalization in step 1 above, monitor the stability and performance of your cluster for as long as you require to feel comfortable with the upgrade (generally at least a day). If during this time you decide to roll back the upgrade, repeat the rolling restart procedure with the old binary.
 

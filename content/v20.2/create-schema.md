@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v20.2</span>: The `CREATE SCHEMA` [statement](sql-statements.html) creates a user-defined [schema](sql-name-resolution.html#naming-hierarchy) in the current database.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also create a user-defined schema by converting an existing database to a schema using [`ALTER DATABASE ... CONVERT TO SCHEMA`](convert-to-schema.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -32,7 +32,7 @@ Parameter | Description
 
 ## Example
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Create a schema
 

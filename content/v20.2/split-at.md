@@ -60,7 +60,7 @@ Note that when a table is [truncated](truncate.html), it is essentially re-creat
 
 ### Setup
 
-{% include {{ page.version.version }}/sql/movr-statements-partitioning.md %}
+{% include {{< page-version >}}/sql/movr-statements-partitioning.md %}
 
 ### Split a table
 

@@ -16,11 +16,11 @@ We have tested the [Java JDBC driver](https://jdbc.postgresql.org/) and the [Hib
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The examples on this page assume you are using a Java version <= 9. They do not work with Java 10.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Install the Java JDBC driver
 
@@ -30,7 +30,7 @@ Download and set up the Java JDBC driver as described in the [official documenta
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -93,7 +93,7 @@ The contents of [`BasicSample.java`](https://raw.githubusercontent.com/cockroach
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/BasicSample.java %}
+{% include {{< page-version >}}/app/BasicSample.java %}
 ~~~
 
 <a name="txn1"></a>
@@ -128,7 +128,7 @@ To run it:
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/TxnSample.java %}
+{% include {{< page-version >}}/app/TxnSample.java %}
 ~~~
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
@@ -161,7 +161,7 @@ To check the account balances, issue the following statement:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -196,7 +196,7 @@ The contents of [`BasicSample.java`](https://raw.githubusercontent.com/cockroach
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/insecure/BasicSample.java %}
+{% include {{< page-version >}}/app/insecure/BasicSample.java %}
 ~~~
 
 <a name="txn2"></a>
@@ -224,7 +224,7 @@ To run it:
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/insecure/TxnSample.java %}
+{% include {{< page-version >}}/app/insecure/TxnSample.java %}
 ~~~
 
 To verify that funds were transferred from one account to another, start the [built-in SQL client](use-the-built-in-sql-client.html):
@@ -257,4 +257,4 @@ To check the account balances, issue the following statement:
 
 Read more about using the [Java JDBC driver](https://jdbc.postgresql.org/).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

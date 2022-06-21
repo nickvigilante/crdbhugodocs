@@ -149,9 +149,9 @@ Back in the Admin UI, you'll now see 5 nodes listed. At first, the replica count
 
 <img src="{{ 'images/v2.1/scalability2.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 After scaling to 5 nodes, the Admin UI will call out a number of under-replicated ranges. This is due to the cluster preferring 5 replicas for important [internal system data](configure-replication-zones.html#for-system-data) by default. When the cluster is less than 5 nodes, this preference is ignored in reporting, but as soon as there are more than 3 nodes, the cluster recognizes this preference and reports the under-replicated state in the UI. As those ranges are up-replicated, the under-replicated range count will decrease to 0.  
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 8.  Stop the cluster
 
@@ -159,7 +159,7 @@ Once you're done with your test cluster, stop each node by switching to its term
 
 {{site.data.alerts.callout_success}}
 For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press **CTRL-C** a second time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 

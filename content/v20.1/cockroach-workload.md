@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB comes with built-in load generators for simulating different types of client workloads, printing per-operation statistics and totals after a specific duration or max number of operations. To run one of these load generators, use the `cockroach workload` [command](cockroach-commands.html) as described below.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The `cockroach workload` command is experimental. The interface and output are subject to change.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -68,15 +68,15 @@ Workload | Description
 [`tpcc`](#tpcc-workload) | Simulates a transaction processing workload using a rich schema of multiple tables.<br><br>For this workload, you run `workload init` to load the schema and then `workload run` to generate data.
 [`ycsb`](#ycsb-workload) | Simulates a high-scale key value workload, either read-heavy, write-heavy, or scan-based, with additional customizations.<br><br>For this workload, you run `workload init` to load the schema and then `workload run` to generate data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.1:</span> `cockroach workload` sets the [`application_name`](set-vars.html#supported-variables) for its workload queries to the name of the workload that is used. You can filter queries on `application_name` on the [Statements page of the Admin UI](admin-ui-statements-page.html#search-and-filter-by-application), or in a [`SHOW QUERIES`](show-queries.html#filter-for-specific-queries) statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Flags
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `cockroach workload` command does not support connection or security flags like other [`cockroach` commands](cockroach-commands.html). Instead, you must use a [connection string](connection-parameters.html) at the end of the command.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `bank` workload
 
@@ -101,9 +101,9 @@ Flag | Description
 
 ### `intro` and `startrek` workloads
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 These workloads generate data but do not offer the ability to run continuous load. Thus, only the `init` subcommand is supported.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Flag | Description
 -----|------------

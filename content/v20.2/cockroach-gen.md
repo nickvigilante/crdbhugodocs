@@ -179,7 +179,7 @@ You can now use `tab` to autocomplete `cockroach` commands.
 
 {{site.data.alerts.callout_success}}
 You can also use the [`cockroach workload`](cockroach-workload.html) command to generate these sample datasets in a persistent cluster and the [`cockroach demo <dataset>`](cockroach-demo.html) command to generate these datasets in a temporary, in-memory cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To test out CockroachDB, you can generate an example `startrek` database, which contains 2 tables, `episodes` and `quotes`.
 
@@ -385,9 +385,9 @@ Field | Description
 `option httpchk` | The HTTP endpoint that HAProxy uses to check node health. [`/health?ready=1`](monitoring-and-alerting.html#health-ready-1) ensures that HAProxy doesn't direct traffic to nodes that are live but not ready to receive requests.
 `server` | For each included node, this field specifies the address the node advertises to other nodes in the cluster, i.e., the addressed pass in the [`--advertise-addr` flag](cockroach-start.html#networking) on node startup. Make sure hostnames are resolvable and IP addresses are routable from HAProxy.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For full details on these and other configuration settings, see the [HAProxy Configuration Manual](http://cbonte.github.io/haproxy-dconv/1.7/configuration.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

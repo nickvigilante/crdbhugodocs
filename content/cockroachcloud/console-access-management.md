@@ -7,6 +7,8 @@ docs_area: manage
 
 The **Access** page displays the name, email address, role, and invite acceptance status of the Team Members with access to your {{ site.data.products.db }} organization. To view the **Access** page, [log in](https://cockroachlabs.cloud/) and click **Access**.
 
+{% include cockroachcloud/prefer-sso.md %}
+
 ## Organization
 
 An **organization** allows you to manage your clusters under a shared [billing](billing-management.html) account and collaborate with team members. You can belong to multiple organizations.
@@ -16,13 +18,17 @@ To switch between the organizations:
 1. [Log in](https://cockroachlabs.cloud/).
 2. From the drop-down box in the top-right corner, select the organization you want to access.
 
+The settings and information about the organization are found on the **Settings** page. The organization ID and organization label used by the `ccloud` CLI are listed under **Organization settings**. 
+
 ## SQL users
 
 [Console Admins](#console-admin) can [create and manage SQL users](user-authorization.html#create-a-sql-user). A SQL user can interact with a CockroachDB database using the built-in SQL shell or through an application.
 
-SQL users created in the Console have admin privileges on the database by default, even if the user has [Developer](#developer) privileges for the organization. Therefore, anyone with the username and password of a default SQL user has privileges for all database objects across the cluster.
+SQL users created in the Console have the [`admin` role](../{{site.versions["stable"]}}/security-reference/authorization.html#admin-role) on the cluster by default, even if the user has [Developer](#developer) privileges for the organization. Therefore, anyone with the username and password of a default SQL user has privileges for all resources across the cluster.
 
-Anyone with database admin privileges can [change a SQL user's databases privileges](../{{site.versions["stable"] }}/authorization.html#assign-privileges).
+For this reason, while creating SQL users in the Console is quick and easy, it is also dangerously powerful, and on clusters with any data of value, users should generally be be [created](../{{site.versions["stable"]}}/create-user.html) from the SQL client instead, and have their database resource access granted explicitly, precisely, and in keeping with the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege).
+
+Learn more about [managing SQL users' privileges](../{{site.versions["stable"]}}/security-reference/authorization.html#users-and-roles).
 
 ## Roles
 
@@ -47,8 +53,6 @@ A Console Admin is an all-access role. A Console Admin can perform the following
 - [Delete an organization](#delete-an-organization)
 
 ## Service accounts
-
-{% include_cached cockroachcloud/experimental-warning.md %}
 
 Service accounts are used by applications accessing the [Cloud API](cloud-api.html) to manage {{ site.data.products.db }} clusters within the organization. Service accounts are not for human users.
 
@@ -86,8 +90,6 @@ To modify the name, description, or permissions of a service account:
 
 ### API access
 
-{% include_cached cockroachcloud/experimental-warning.md %}
-
 Each service account can have one or more API keys. API keys are used to authenticate and authorize service accounts when using the API. All API keys created by the account are listed under **API Access**.
 
 We recommend creating service accounts with the [principle of least privilege](https://en.wikipedia.org/wiki/Principle_of_least_privilege), and giving each application that accesses the API its own API key. This allows fine-grained permission and API key access to the cluster.
@@ -104,9 +106,9 @@ To create an API key:
 
     The secret key contains the API key and secret. It should never be shared or publicly accessible. Anyone with the secret key can use the API with the permissions of the service account.
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     The secret key will not be available after closing the **Create API key** dialog. If you have lost your secret key, you should [delete the API key](#delete-api-keys) and create a new one.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Click **Done**.
 
@@ -146,15 +148,15 @@ As a Console Admin, you can invite Team Members to {{ site.data.products.db }}. 
 
 {{site.data.alerts.callout_success}}
 We recommend [creating a SQL user](user-authorization.html) for each Team Member you invite.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Manage Team Members
 
 As a Console Admin, you can change Team Members' roles, delete Team Members, and revoke pending invites.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you are a member of multiple [organizations](console-access-management.html#organization), make sure you are looking at the same organization as the Team Member you want to manage. You can navigate to the correct organization by using the drop-down box in the top-right corner.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Change a Team Member's role
 
@@ -162,9 +164,9 @@ If you are a member of multiple [organizations](console-access-management.html#o
 2. In the **Action** column, click the three dots to view the allowed actions.
 3. If the Team Member is a Developer, click **Change to Admin** to grant them Admin access. If the Team Member is an Admin, click **Change to Developer** to grant them only Developer access.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 As a Console Admin, you can change your own access to a Developer role; however, you will not be able to change yourself back to the Admin role. If you are the only Team Member with Console Admin access, you will not be allowed to change your role until you assign another Team Member to be the Console Admin.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Delete a Team Member
 
@@ -185,9 +187,9 @@ This is not currently available through the Console. To remove an email address 
 
 ### Delete an organization
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Deleting an organization will delete all clusters and user data within the organization. This action cannot be reversed. To delete a single cluster instead, see [Cluster Management](cluster-management.html#delete-cluster).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you are sure you want to delete the organization, proceed with the following steps:
 

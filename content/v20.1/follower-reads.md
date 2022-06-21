@@ -12,9 +12,9 @@ A follower read is a read taken from the closest [replica](architecture/overview
 
 For instructions showing how to use follower reads to get low latency, historical reads in multi-region deployments, see the [Follower Reads Topology Pattern](topology-follower-reads.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This is an [enterprise feature](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Watch the demo
 
@@ -52,9 +52,9 @@ Use [`SET CLUSTER SETTING`](set-cluster-setting.html) to set `kv.closed_timestam
 
 If you have follower reads enabled, you may want to [verify that follower reads are happening](#verify-that-follower-reads-are-happening).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If follower reads are enabled, but the time-travel query is not using [`AS OF SYSTEM TIME`](as-of-system-time.html) far enough in the past (as defined by the [follower read timestamp](#run-queries-that-use-follower-reads)), CockroachDB does not perform a follower read. Instead, the read accesses the [leaseholder replica](architecture/overview.html#architecture-leaseholder). This adds network latency if the leaseholder is not the closest replica to the gateway node.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Verify that follower reads are happening
 
@@ -93,7 +93,7 @@ Note that follower reads are "read-only" operations; they cannot be used in any 
 
 {{site.data.alerts.callout_success}}
 Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use the follower reads feature from [drivers and ORMs](install-client-drivers.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Follower reads and long-running writes
 

@@ -16,7 +16,7 @@ We have tested the [Go pq driver](https://godoc.org/github.com/lib/pq) and the [
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the Go pq driver
 
@@ -31,7 +31,7 @@ $ go get -u github.com/lib/pq
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -128,7 +128,7 @@ $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --databa
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Go code
 

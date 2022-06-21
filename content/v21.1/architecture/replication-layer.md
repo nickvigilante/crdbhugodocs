@@ -6,9 +6,9 @@ toc: true
 
 The replication layer of CockroachDB's architecture copies data between nodes and ensures consistency between these copies by implementing our consensus algorithm.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -35,7 +35,7 @@ Raft is a consensus protocol––an algorithm which makes sure that your data i
 
 Raft organizes all nodes that contain a replica of a range into a group--unsurprisingly called a Raft group. Each replica in a Raft group is either a "leader" or a "follower". The leader, which is elected by Raft and long-lived, coordinates all writes to the Raft group. It heartbeats followers periodically and keeps their logs replicated. In the absence of heartbeats, followers become candidates after randomized election timeouts and proceed to hold new leader elections.
 
-<span class="version-tag">New in v21.1:</span> A third replica type is introduced, the "non-voting" replica. These replicas do not participate in Raft elections, but are useful for unlocking use cases that require low-latency multi-region reads. For more information, see [Non-voting replicas](#non-voting-replicas).
+{% include_cached new-in.html version="v21.1" %} A third replica type is introduced, the "non-voting" replica. These replicas do not participate in Raft elections, but are useful for unlocking use cases that require low-latency multi-region reads. For more information, see [Non-voting replicas](#non-voting-replicas).
 
 Once a node receives a `BatchRequest` for a range it contains, it converts those KV operations into Raft commands. Those commands are proposed to the Raft group leader––which is what makes it ideal for the [leaseholder](#leases) and the Raft leader to be one in the same––and written to the Raft log.
 
@@ -51,7 +51,7 @@ Because this log is treated as serializable, it can be replayed to bring a node 
 
 In versions prior to v21.1, CockroachDB only supported _voting_ replicas: that is, [replicas](overview.html#glossary) that participate as voters in the [Raft consensus protocol](#raft). However, the need for all replicas to participate in the consensus algorithm meant that increasing the [replication factor](../configure-replication-zones.html#num_replicas) came at a cost of increased write latency, since the additional replicas needed to participate in Raft [quorum](overview.html#architecture-overview-consensus).
 
-<span class="version-tag">New in v21.1:</span> In order to provide [better support for multi-region clusters](../multiregion-overview.html), (including the features that make [fast multi-region reads](../multiregion-overview.html#global-tables) and [surviving region failures](../multiregion-overview.html#surviving-region-failures) possible), a new type of replica is introduced: the _non-voting_ replica.
+{% include_cached new-in.html version="v21.1" %} In order to provide [better support for multi-region clusters](../multiregion-overview.html), (including the features that make [fast multi-region reads](../multiregion-overview.html#global-tables) and [surviving region failures](../multiregion-overview.html#surviving-region-failures) possible), a new type of replica is introduced: the _non-voting_ replica.
 
 Non-voting replicas follow the [Raft log](#raft-logs) (and are thus able to serve [follower reads](../follower-reads.html)), but do not participate in quorum. They have almost no impact on write latencies.
 
@@ -114,11 +114,11 @@ Finally, note that the process described above is lazily initiated: it only occu
 
 Because CockroachDB serves reads from a range's leaseholder, it benefits your cluster's performance if the replica closest to the primary geographic source of traffic holds the lease. However, as traffic to your cluster shifts throughout the course of the day, you might want to dynamically shift which nodes hold leases.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 
 This feature is also called [Follow-the-Workload](../topology-follow-the-workload.html) in our documentation.
 
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Periodically (every 10 minutes by default in large clusters, but more frequently in small clusters), each leaseholder considers whether it should transfer the lease to another replica by considering the following inputs:
 

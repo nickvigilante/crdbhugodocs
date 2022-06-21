@@ -15,9 +15,9 @@ It consists of the following sublayers:
 - [Physical planner](#physical-planning), which converts the logical query plan into a physical query plan for execution by one or more nodes in the cluster.
 - [SQL execution engine](#query-execution), which executes the physical plan by making read and write requests to the underlying key-value store.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 

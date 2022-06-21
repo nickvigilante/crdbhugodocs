@@ -25,7 +25,7 @@ You can use any file server software that supports `GET`, `PUT` and `DELETE` met
 - [Caddy](#using-caddy-as-a-file-server)
 - [nginx](#using-nginx-as-a-file-server)
 
-{{site.data.alerts.callout_info }}We do not recommend using any machines running <code>cockroach</code> as file servers. Using machines that are running cockroach as file servers could negatively impact performance if I/O operations exceed capacity.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}We do not recommend using any machines running <code>cockroach</code> as file servers. Using machines that are running cockroach as file servers could negatively impact performance if I/O operations exceed capacity.{{site.data.alerts.end}}
 
 ### Using Caddy as a File Server
 

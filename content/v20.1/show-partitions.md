@@ -8,7 +8,7 @@ Use the `SHOW PARTITIONS` [statement](sql-statements.html) to view details about
 
 {% include enterprise-feature.md %}
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ## Synopsis
 
@@ -45,7 +45,7 @@ Field | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{% include {{< page-version >}}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 The `movr` database in this example is pre-partitioned. For information about partitioning tables, see [Define Table Partitions](partitioning.html) or [`PARTION BY`](partition-by.html).
 
@@ -228,7 +228,7 @@ If a partitioned table has no zones configured, the `SHOW CREATE TABLE` output i
 (24 rows)
 ~~~
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions-example.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions-example.md %}
 
 ## See also
 

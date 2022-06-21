@@ -6,9 +6,9 @@ toc: true
 
 The `EXPLAIN ANALYZE` [statement](sql-statements.html) **executes a SQL query** and generates a URL for a physical query plan with execution statistics, or a URL to download a bundle with more details about the query plan. Query plans provide information around SQL execution, which can be used to troubleshoot slow queries by figuring out where time is being spent, how long a processor (i.e., a component that takes streams of input rows and processes them according to a specification) is not doing work, etc. For more information about distributed SQL queries, see the [DistSQL section of our SQL Layer Architecture docs](architecture/sql-layer.html#distsql).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/sql/physical-plan-url.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Aliases
 

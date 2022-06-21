@@ -10,7 +10,7 @@ To exit the interactive shell, use `\q` or `ctrl-d`.
 
 {{site.data.alerts.callout_success}}
 If you want to experiment with CockroachDB SQL but do not have a cluster already running, you can use the [`cockroach demo`](cockroach-demo.html) command to open a shell to a temporary, in-memory cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -91,7 +91,7 @@ When the SQL shell connects (or reconnects) to a CockroachDB node, it prints a w
 # All statements must be terminated by a semicolon.
 # To exit: CTRL + D.
 #
-# Server version: CCL {{ page.release_info.version }} (darwin amd64, built 2017/07/13 11:43:06, go1.10.1) (same version as client)
+# Server version: CCL {{page.release_info.version}} (darwin amd64, built 2017/07/13 11:43:06, go1.10.1) (same version as client)
 # Cluster ID: 7fb9f5b4-a801-4851-92e9-c0db292d03f1
 #
 # Enter \? for a brief introduction.
@@ -512,7 +512,7 @@ INSERT 2
 
 In this example, we use `\!` to look at the rows in a CSV file before creating a table and then using `\|` to insert those rows into the table.
 
-{{site.data.alerts.callout_info }}This example works only if the values in the CSV file are numbers. For values in other formats, use an online CSV-to-SQL converter or make your own import program.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}This example works only if the values in the CSV file are numbers. For values in other formats, use an online CSV-to-SQL converter or make your own import program.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -603,9 +603,9 @@ This tells libedit to translate `C-x C-e` into the following commands:
 3. Paste the line into your editor via `vipe`.
 4. Pass the edited file back to the SQL client when `vipe` exits.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Future versions of the SQL client may opt to use a different back-end for reading input, in which case please refer to this page for additional updates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Allow potentially unsafe SQL statements
 
@@ -655,7 +655,7 @@ $ cockroach sql --insecure --safe-updates=false --execute="DELETE FROM db1.t1"
 DELETE 10
 ~~~
 
-{{site.data.alerts.callout_info }}Potentially unsafe SQL statements can also be allowed/disallowed for an entire session via the <code>sql_safe_updates</code> <a href="set-vars.html">session variable</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Potentially unsafe SQL statements can also be allowed/disallowed for an entire session via the <code>sql_safe_updates</code> <a href="set-vars.html">session variable</a>.{{site.data.alerts.end}}
 
 ### Reveal the SQL statements sent implicitly by the command-line utility
 

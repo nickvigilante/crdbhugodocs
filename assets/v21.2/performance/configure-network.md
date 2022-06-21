@@ -13,6 +13,6 @@ Source IP ranges | Your local network's IP ranges
 Allowed protocols | **tcp:8080**
 Target tags | `cockroachdb`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The **tag** feature will let you easily apply the rule to your instances.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

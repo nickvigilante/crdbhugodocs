@@ -39,9 +39,9 @@ Ranges are subsets of your data, which are replicated to ensure survivability. R
 
 For details about how to control the number and location of replicas, see [Configure Replication Zones](configure-replication-zones.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The timeseries data used to power the graphs in the Admin UI is stored within the cluster and accumulates for 30 days before it starts getting truncated. As a result, for the first 30 days or so of a cluster's life, you will see a steady increase in disk usage and the number of ranges even if you aren't writing data to the cluster yourself. For more details, see this [FAQ](operational-faqs.html#why-is-disk-usage-increasing-despite-lack-of-writes).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Capacity
 
@@ -61,9 +61,9 @@ Metric | Description
 **Available** | The free storage capacity available to CockroachDB.
 **Used** | Disk space used by the data in the CockroachDB store. Note that this value is less than (**Capacity** - **Available**) because **Capacity** and **Available** metrics consider the entire disk and all applications on the disk, including CockroachDB, whereas **Used** metric tracks only the store's disk usage.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include v2.1/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

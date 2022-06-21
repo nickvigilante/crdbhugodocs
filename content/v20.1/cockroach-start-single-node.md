@@ -8,7 +8,7 @@ This page explains the `cockroach start-single-node` [command](cockroach-command
 
 {{site.data.alerts.callout_success}}
 To run a multi-node cluster with replicated data for availability and consistency, use [`cockroach start`](cockroach-start.html) and [`cockroach init`](cockroach-init.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -30,9 +30,9 @@ The `cockroach start-single-node` command supports the following [general-use](#
 
 Many flags have useful defaults that can be overridden by specifying the flags explicitly. If you specify flags explicitly, however, be sure to do so each time the node is restarted, as they will not be remembered.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `cockroach start-single-node` flags are identical to [`cockroach start`](cockroach-start.html#flags) flags. However, many of them are not relevant for single-node clusters but are provided for users who want to test concepts that appear in multi-node clusters. These flags are called out as such. In most cases, accepting most defaults is sufficient (see the [examples](#examples) below).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### General
 
@@ -71,9 +71,9 @@ Flag | Description
 
 The `--store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In-memory storage is not suitable for production deployments at this time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Field | Description
 ------|------------
@@ -102,8 +102,8 @@ This means, by default, CockroachDB writes all messages to log files, and never 
 When you run `cockroach start-single-node`, some helpful details are printed to the standard output:
 
 ~~~ shell
-CockroachDB node starting at {{ page.release_info.start_time }}
-build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }} (go1.12.6)
+CockroachDB node starting at {{page.release_info.start_time}}
+build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}} (go1.12.6)
 webui:               http://localhost:8080
 sql:                 postgresql://root@localhost:26257?sslmode=disable
 RPC client flags:    cockroach <client cmd> --host=localhost:26257 --insecure
@@ -118,7 +118,7 @@ nodeID:              1
 
 {{site.data.alerts.callout_success}}
 These details are also written to the `INFO` log in the `/logs` directory. You can retrieve them with a command like `grep 'node starting' node1/logs/cockroach.log -A 11`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Field | Description
 ------|------------

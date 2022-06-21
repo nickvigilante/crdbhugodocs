@@ -16,7 +16,7 @@ This tutorial shows you how build a simple Go application with CockroachDB and t
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the pgx driver
 
@@ -40,7 +40,7 @@ $ go get -u github.com/cockroachdb/cockroach-go/crdb
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Generate a certificate for the `maxroach` user
 
@@ -137,7 +137,7 @@ $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --databa
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Run the Go code
 

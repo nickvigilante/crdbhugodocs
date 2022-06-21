@@ -37,13 +37,13 @@ Do the following:
 
 <section class="filter-content" markdown="1" data-scope="sql">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --url='postgres://{username}:{password}@{globalhost}:26257/{cluster_name}.{database}?sslmode=verify-full&sslrootcert={path to the CA certificate}'
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
 For more information about how to use the built-in SQL client, see the [`cockroach sql`](cockroach-sql.html) reference docs.
 
@@ -51,7 +51,7 @@ For more information about how to use the built-in SQL client, see the [`cockroa
 
 <section class="filter-content" markdown="1" data-scope="go">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ go
 import (
     "database/sql"
@@ -68,15 +68,15 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="java">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ java
 import java.sql.*;
 import javax.sql.DataSource;
@@ -94,15 +94,15 @@ ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg con
 ds.setApplicationName("BasicExample");
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
 <section class="filter-content" markdown="1" data-scope="python">
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
 import psycopg2
 
@@ -118,9 +118,9 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

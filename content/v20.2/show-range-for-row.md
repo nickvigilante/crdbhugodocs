@@ -8,9 +8,9 @@ The `SHOW RANGE ... FOR ROW` [statement](sql-statements.html) shows information 
 
 {% include {{ page.version.version }}/misc/experimental-warning.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To show information about the ranges for all data in a table, index, or database, use the [`SHOW RANGES`](show-ranges.html) statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
@@ -47,7 +47,7 @@ Field | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Show range information for a row in a table
 

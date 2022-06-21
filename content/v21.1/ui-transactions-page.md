@@ -4,9 +4,9 @@ summary: The Transactions page helps you identify frequently retried or high lat
 toc: true
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
  The **Transactions** page helps you:
 
@@ -15,7 +15,7 @@ On a secure cluster, this area of the DB Console can only be accessed by an `adm
 
 {{site.data.alerts.callout_success}}
 In contrast with the [**Statements** page](ui-statements-page.html), which displays [SQL statement fingerprints](ui-statements-page.html#sql-statement-fingerprints), the **Transactions** page displays SQL statement fingerprints grouped by [transaction](transactions.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To view this page, [access the DB Console](ui-overview.html#db-console-access) and click **Transactions** in the left-hand navigation.
 
@@ -40,7 +40,7 @@ Use this page to identify transactions that you may want to [troubleshoot](query
 
 {{site.data.alerts.callout_success}}
 If you haven't yet run any transactions in the cluster as a user, this page will display a blank table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Column | Description
 -----|------------
@@ -55,9 +55,9 @@ Network | Amount of [data transferred over the network](architecture/reads-and-w
 Retries | Cumulative number of [retries](transactions.html#transaction-retries) of this transaction within the last hour or specified [time interval](#time-interval).
 Statements | Number of SQL statements in the transaction.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Significant transactions on your database are likely to have a high execution count or number of rows read.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Time interval
 

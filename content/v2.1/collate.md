@@ -35,7 +35,7 @@ Collated strings are used as normal strings in SQL, but have a `COLLATE` clause 
     > CREATE TABLE foo (a STRING COLLATE en PRIMARY KEY);
     ~~~
 
-    {{site.data.alerts.callout_info }}You can also use any of the <a href="string.html#aliases">aliases for <code>STRING</code></a>.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}You can also use any of the <a href="string.html#aliases">aliases for <code>STRING</code></a>.{{site.data.alerts.end}}
 
 - **Value syntax**: `<STRING value> COLLATE <collation>`. For example:
 

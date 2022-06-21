@@ -7,9 +7,9 @@ toc: true
 
 The `SHOW TABLES` [statement](sql-statements.html) lists the tables or [views](views.html) in a schema or database.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 While a table or view is being [dropped](drop-table.html), `SHOW TABLES` will list the object with a `(dropped)` suffix.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -34,7 +34,7 @@ When a `database_name` and `schema_name` are omitted, the tables of the [current
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Show tables in the current database
 

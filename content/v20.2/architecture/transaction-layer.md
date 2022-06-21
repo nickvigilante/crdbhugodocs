@@ -6,9 +6,9 @@ toc: true
 
 The transaction layer of CockroachDB's architecture implements support for ACID transactions by coordinating concurrent operations.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -174,9 +174,9 @@ The manager accommodates this by allowing transactional requests to acquire lock
 
 However, not all locks are stored directly under the manager's control, so not all locks are discoverable during sequencing. Specifically, write intents (replicated, exclusive locks) are stored inline in the MVCC keyspace, so they are not detectable until request evaluation time. To accommodate this form of lock storage, the manager integrates information about external locks with the concurrency manager structure.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, the concurrency manager operates on an unreplicated lock table structure. In the future, we intend to pull all locks, including those associated with [write intents](#write-intents), into the concurrency manager directly through a replicated lock table structure.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Fairness is ensured between requests. In general, if any two requests conflict then the request that arrived first will be sequenced first. As such, sequencing guarantees first-in, first-out (FIFO) semantics. The primary exception to this is that a request that is part of a transaction which has already acquired a lock does not need to wait on that lock during sequencing, and can therefore ignore any queue that has formed on the lock. For other exceptions to this sequencing guarantee, see the [lock table](#lock-table) section below.
 
@@ -188,9 +188,9 @@ The database is read and written using "requests". Transactions are composed of 
 
 Locks outlive the requests themselves and thereby extend the duration of the isolation provided over specific keys to the lifetime of the lock-holder transaction itself. They are (typically) only released when the transaction commits or aborts. Other requests that find these locks while being sequenced wait on them to be released in a queue before proceeding. Because locks are checked during sequencing, requests are guaranteed access to all declared keys after they have been sequenced. In other words, locks do not need to be checked again during evaluation.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, not all locks are stored directly under lock table control. Some locks are stored as [write intents](#write-intents) in the MVCC layer, and are thus not discoverable during sequencing. Specifically, write intents (replicated, exclusive locks) are stored inline in the MVCC keyspace, so they are often not detectable until request evaluation time. To accommodate this form of lock storage, the lock table adds information about these locks as they are encountered during evaluation. In the future, we intend to pull all locks, including those associated with write intents, into the lock table directly.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The lock table also provides fairness between requests. If two requests conflict then the request that arrived first will typically be sequenced first. There are some exceptions:
 
@@ -308,9 +308,9 @@ The transaction coordinator is able to do this while maintaining correctness gua
 
 For an example showing how the Parallel Commits feature works in more detail, see [Parallel Commits - step by step](#parallel-commits-step-by-step).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The latency until intents are resolved is unchanged by the introduction of Parallel Commits: two rounds of consensus are still required to resolve intents. This means that [contended workloads](../performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention) are expected to profit less from this feature.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Parallel Commits - step by step
 
@@ -320,7 +320,7 @@ This section contains a step by step example of a transaction that writes its da
 
 The client starts the transaction. A transaction coordinator is created to manage the state of that transaction.
 
-![parallel-commits-00.png](../../images/{{ page.version.version }}/parallel-commits-00.png "Parallel Commits Diagram #1")
+![parallel-commits-00.png](../../images/{{< page-version >}}/parallel-commits-00.png "Parallel Commits Diagram #1")
 
 ##### Step 2
 
@@ -328,11 +328,11 @@ The client issues a write to the "Apple" key. The transaction coordinator begins
 
 The coordinator avoids creating the record for as long as possible in the transaction's lifecycle as an optimization. The fact that the transaction record does not yet exist is denoted in the diagram by its dotted lines.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The coordinator does not need to wait for write intents to replicate from leaseholders before moving on to the next statement from the client, since that is handled in parallel by [Transaction Pipelining](#transaction-pipelining).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-![parallel-commits-01.png](../../images/{{ page.version.version }}/parallel-commits-01.png "Parallel Commits Diagram #2")
+![parallel-commits-01.png](../../images/{{< page-version >}}/parallel-commits-01.png "Parallel Commits Diagram #2")
 
 ##### Step 3
 
@@ -340,7 +340,7 @@ The client issues a write to the "Berry" key. The transaction coordinator lays d
 
 As before, the coordinator does not need to wait for write intents to replicate from leaseholders before moving on to the next statement from the client.
 
-![parallel-commits-02.png](../../images/{{ page.version.version }}/parallel-commits-02.png "Parallel Commits Diagram #3")
+![parallel-commits-02.png](../../images/{{< page-version >}}/parallel-commits-02.png "Parallel Commits Diagram #3")
 
 ##### Step 4
 
@@ -348,13 +348,13 @@ The client issues a request to commit the transaction's writes. The transaction 
 
 It does this without waiting to see whether the writes from Steps [2](#step-2) and [3](#step-3) have succeeded.
 
-![parallel-commits-03.png](../../images/{{ page.version.version }}/parallel-commits-03.png "Parallel Commits Diagram #4")
+![parallel-commits-03.png](../../images/{{< page-version >}}/parallel-commits-03.png "Parallel Commits Diagram #4")
 
 ##### Step 5
 
 The transaction coordinator, having received the client's `COMMIT` request, waits for the pending writes to succeed (i.e., be replicated across the cluster). Once all of the pending writes have succeeded, the coordinator returns a message to the client, letting it know that its transaction has committed successfully.
 
-![parallel-commits-04.png](../../images/{{ page.version.version }}/parallel-commits-04.png "Parallel Commits Diagram #4")
+![parallel-commits-04.png](../../images/{{< page-version >}}/parallel-commits-04.png "Parallel Commits Diagram #4")
 
 The transaction is now considered atomically committed, even though the state of its transaction record is still `STAGING`. The reason this is still considered an atomic commit condition is that a transaction is considered committed if it is one of the following logically equivalent states:
 

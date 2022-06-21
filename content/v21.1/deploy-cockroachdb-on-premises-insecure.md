@@ -49,7 +49,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 - **Performance:** Load balancers spread client traffic across nodes. This prevents any one node from being overwhelmed by requests and improves overall cluster performance (queries per second).
 
 - **Reliability:** Load balancers decouple client health from the health of a single CockroachDB node. In cases where a node fails, the load balancer redirects client traffic to available nodes.
-  {{site.data.alerts.callout_success}}With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.{{site.data.alerts.end }}
+  {{site.data.alerts.callout_success}}With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.{{site.data.alerts.end}}
 
 [HAProxy](http://www.haproxy.org/) is one of the most popular open-source TCP load balancers, and CockroachDB includes a built-in command for generating a configuration file that is preset to work with your running cluster, so we feature that tool here.
 
@@ -57,14 +57,14 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 2. Install HAProxy:
 
-  {% include copy-clipboard.html %}
+  {% include_cached copy-clipboard.html %}
   ~~~ shell
   $ apt-get install haproxy
   ~~~
 
 3. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, and extract the binary:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
@@ -72,7 +72,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 4. Copy the binary into the `PATH`:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
@@ -81,7 +81,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 5. Run the [`cockroach gen haproxy`](cockroach-gen.html) command, specifying the address of any CockroachDB node:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach gen haproxy --insecure \
     --host=<address of any node> \
@@ -92,7 +92,7 @@ Each CockroachDB node is an equally suitable SQL gateway to your cluster, but to
 
 6. Start HAProxy, with the `-f` flag pointing to the `haproxy.cfg` file:
 
-  {% include copy-clipboard.html %}
+  {% include_cached copy-clipboard.html %}
   ~~~ shell
   $ haproxy -f haproxy.cfg
   ~~~

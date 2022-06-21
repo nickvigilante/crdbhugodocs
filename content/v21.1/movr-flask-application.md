@@ -5,9 +5,9 @@ toc: true
 redirect_from: multi-region-application.html
 ---
 
-This page walks you through developing a globally-available web application. It is the fourth section of the [Develop and Deploy a Global Application](movr-flask-overview.html) tutorial.
+This page guides you through developing a globally-available web application. It is the fourth section of the [Develop and Deploy a Global Application](movr-flask-overview.html) tutorial.
 
-{% include {{ page.version.version }}/misc/movr-live-demo.md %}
+<!-- {% include {{ page.version.version }}/misc/movr-live-demo.md %} -->
 
 ## Before you begin
 
@@ -179,7 +179,7 @@ The [`sqlalchemy-cockroachdb`](https://github.com/cockroachdb/sqlalchemy-cockroa
 
 {{site.data.alerts.callout_success}}
 We recommend that you use a `sessionmaker` object, bound to an existing `Engine`, as the `transactor` that you pass to `run_transaction()`. This protects you from accidentally reusing objects via any sessions created outside the transaction. Every time `run_transaction()` is called, it uses the `sessionmaker` object to create a new [`Session`](https://docs.sqlalchemy.org/en/13/orm/session.html) object for the callback. If the `sessionmaker` is bound to an existing `Engine`, the same database connection can be reused.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 `transactions.py` imports all of the table classes that we defined in [`movr/models.py`](https://github.com/cockroachlabs/movr-flask/blob/master/movr/models.py), in addition to some standard Python data structures needed to generate correctly-typed row values that the ORM can write to the database.
 
@@ -383,7 +383,7 @@ After you finish developing and debugging your application, you can start [deplo
 
 ## See also
 
-- [MovR (live demo)](https://movr.cloud)
+<!-- [MovR (live demo)](https://movr.cloud)-->
 - [SQLAlchemy documentation](https://docs.sqlalchemy.org/en/latest/)
 - [Transactions](transactions.html)
 - [Flask documentation](https://flask.palletsprojects.com/en/1.1.x/)

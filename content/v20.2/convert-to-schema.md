@@ -8,9 +8,9 @@ toc: true
 
 In CockroachDB versions < v20.2, [user-defined schemas](create-schema.html) are not supported, and all stored objects in a given database use the `public` schema. To provide a [multi-level structure for stored objects](sql-name-resolution.html) in earlier versions of CockroachDB, we've recommended using [database](create-database.html) namespaces instead of schema namespaces. The `CONVERT TO SCHEMA` statement is meant to help users who are upgrading to v20.2 and want to use schema namespaces in a way that is more similar to [PostgreSQL](http://www.postgresql.cn/docs/current/ddl-schemas.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `CONVERT TO SCHEMA` is a subcommand of [`ALTER DATABASE`](alter-database.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -39,7 +39,7 @@ A database cannot be converted to a schema if:
 
 ## Example
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Convert a database to a schema
 

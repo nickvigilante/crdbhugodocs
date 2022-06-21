@@ -7,9 +7,9 @@ docs_area: reference.sql
 
 The `BEGIN` [statement](sql-statements.html) initiates a [transaction](transactions.html), which either successfully executes all of the statements it contains or none at all.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 When using transactions, your application should include logic to [retry transactions](transactions.html#transaction-retries) that are aborted to break a dependency cycle between concurrent transactions.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Synopsis
@@ -20,7 +20,7 @@ When using transactions, your application should include logic to [retry transac
 
 ## Required privileges
 
-No [privileges](authorization.html#assign-privileges) are required to initiate a transaction. However, privileges are required for each statement within a transaction.
+No [privileges](security-reference/authorization.html#managing-privileges) are required to initiate a transaction. However, privileges are required for each statement within a transaction.
 
 ## Aliases
 
@@ -48,77 +48,77 @@ In CockroachDB, the following are aliases for the `BEGIN` statement:
 
 Without modifying the `BEGIN` statement, the transaction uses `SERIALIZABLE` isolation and `NORMAL` priority.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SAVEPOINT cockroach_restart;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > UPDATE products SET inventory = 0 WHERE sku = '8675309';
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO orders (customer, sku, status) VALUES (1001, '8675309', 'new');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RELEASE SAVEPOINT cockroach_restart;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > COMMIT;
 ~~~
 
-{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end}}
 
 #### Change priority
 
 You can set a transaction's priority to `LOW` or `HIGH`.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN PRIORITY HIGH;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SAVEPOINT cockroach_restart;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > UPDATE products SET inventory = 0 WHERE sku = '8675309';
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO orders (customer, sku, status) VALUES (1001, '8675309', 'new');
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > RELEASE SAVEPOINT cockroach_restart;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > COMMIT;
 ~~~
 
 You can also set a transaction's priority with [`SET TRANSACTION`](set-transaction.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 This example assumes you're using [client-side intervention to handle transaction retries](transactions.html#client-side-intervention).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Use the `AS OF SYSTEM TIME` option
 
@@ -128,7 +128,7 @@ You can execute the transaction using the database contents "as of" a specified 
 
 {{site.data.alerts.callout_success}}
 You can also use the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement inside the transaction to achieve the same results. This syntax is easier to use from [drivers and ORMs](install-client-drivers.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Begin a transaction with automatic retries
 
@@ -136,7 +136,7 @@ CockroachDB will [automatically retry](transactions.html#transaction-retries) al
 
 From the perspective of CockroachDB, a transaction sent as a batch looks like this:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > BEGIN;
 

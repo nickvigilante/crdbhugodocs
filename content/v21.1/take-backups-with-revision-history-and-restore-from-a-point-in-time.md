@@ -4,13 +4,11 @@ summary: Learn about the advanced options you can use when you backup and restor
 toc: true
 ---
 
-The ability to [backup a full cluster](backup.html#backup-a-cluster) has been added and the syntax for [incremental backups](backup.html#create-incremental-backups) is simplified. Because of these two changes, [basic backup usage](take-full-and-incremental-backups.html) is now sufficient for most CockroachDB clusters. However, you may want to control your backup and restore options more explicitly.
-
 This doc provides information about how to take backups with revision history and restore from a point-in-time.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [`BACKUP`](backup.html) with revision history is an [Enterprise-only](https://www.cockroachlabs.com/product/cockroachdb/) feature. However, you can take [full backups](take-full-and-incremental-backups.html) without an Enterprise license.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You can create full or incremental backups [with revision history](backup.html#with-revision-history):
 

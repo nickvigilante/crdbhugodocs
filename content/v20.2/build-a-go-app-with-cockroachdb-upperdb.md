@@ -16,13 +16,13 @@ This tutorial shows you how build a simple Go application with CockroachDB and t
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 <section class="filter-content" markdown="1" data-scope="secure">
 
 ## Step 1. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 2. Generate a certificate for the `maxroach` user
 
@@ -62,7 +62,7 @@ To clone a version of the code below that connects to insecure clusters, run the
 `git clone https://github.com/cockroachlabs/hello-world-go-upperdb/`
 
 Note that you will need to edit the connection string to use the certificates that you generated when you set up your secure cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 </section>
 
@@ -70,7 +70,7 @@ Note that you will need to edit the connection string to use the certificates th
 
 ## Step 1. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 2. Run the Go code
 
@@ -97,7 +97,7 @@ Copy the code or <a href="https://raw.githubusercontent.com/cockroachdb/docs/mas
 To clone a version of the code below that connects to insecure clusters, run the following command:
 
 `git clone https://github.com/cockroachlabs/hello-world-go-upperdb/`
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 </section>
 

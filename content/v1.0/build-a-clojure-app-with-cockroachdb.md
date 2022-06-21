@@ -5,7 +5,7 @@ toc: true
 twitter: false
 ---
 
-This tutorial shows you how build a simple Clojure application with CockroachDB using [leiningen](https://leiningen.org/) and a PostgreSQL-compatible driver. We've tested and can recommend the [Clojure java.jdbc driver](http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html) in conjunction with the [PostgreSQL JDBC driver](https://jdbc.postgresql.org/), so that driver is featured here.
+This tutorial shows you how build a simple Clojure application with CockroachDB using [leiningen](https://leiningen.org/) and a PostgreSQL-compatible driver. We've tested and can recommend the [Clojure java.jdbc driver](https://clojure-doc.org/articles/ecosystem/java_jdbc/home/) in conjunction with the [PostgreSQL JDBC driver](https://jdbc.postgresql.org/), so that driver is featured here.
 
 
 ## Before You Begin
@@ -71,7 +71,7 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 Copy the code below to `myapp/src/test/test.clj` or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.clj" download>download it directly</a>. Again, preserve the file name `test.clj`.
 
-{{site.data.alerts.callout_info }}With the default <code>SERIALIZABLE</code> isolation level, CockroachDB may require the <a href="transactions.html#transaction-retries">client to retry a transaction</a> in case of read/write contention. CockroachDB provides a generic <strong>retry function</strong> that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}With the default <code>SERIALIZABLE</code> isolation level, CockroachDB may require the <a href="transactions.html#transaction-retries">client to retry a transaction</a> in case of read/write contention. CockroachDB provides a generic <strong>retry function</strong> that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ clojure
@@ -104,7 +104,7 @@ $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 
 ## What's Next?
 
-Read more about using the [Clojure java.jdbc driver](http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html).
+Read more about using the [Clojure java.jdbc driver](https://clojure-doc.org/articles/ecosystem/java_jdbc/home/).
 
 You might also be interested in using a local cluster to explore the following core CockroachDB features:
 

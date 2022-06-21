@@ -66,11 +66,11 @@ however, it can be transformed to the equivalent query:
 
 See also [this question on Stack Overflow: Procedurally transform subquery into join](https://stackoverflow.com/questions/1772609/procedurally-transform-subquery-into-join).
 
-{{site.data.alerts.callout_info }}CockroachDBs is currently undergoing major changes to introduce support for correlated subqueries. This limitation is expected to be lifted in a future release.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}CockroachDBs is currently undergoing major changes to introduce support for correlated subqueries. This limitation is expected to be lifted in a future release.{{site.data.alerts.end}}
 
 ## Performance Best Practices
 
-{{site.data.alerts.callout_info }}CockroachDBs is currently undergoing major changes to evolve and improve the performance of subqueries. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}CockroachDBs is currently undergoing major changes to evolve and improve the performance of subqueries. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{site.data.alerts.end}}
 
 - Scalar subqueries currently disable the distribution of the execution of a query. To ensure maximum performance on queries that process a large number of rows, make the client application compute the subquery results ahead of time and pass these results directly in the surrounding query.
 

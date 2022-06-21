@@ -15,9 +15,9 @@ This guide is broken out into pages detailing each layer of CockroachDB. We reco
 
 If you're looking for a high-level understanding of CockroachDB, you can read the **Overview** section of each layer. For more technical detail—for example, if you're interested in [contributing to the project](https://cockroachlabs.atlassian.net/wiki/x/QQFdB)—you should read the **Components** sections as well.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This guide details how CockroachDB is built, but does not explain how to build an application using CockroachDB. For more information about how to develop applications that use CockroachDB, check out our [Developer Guide](../developer-guide-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Goals of CockroachDB
 

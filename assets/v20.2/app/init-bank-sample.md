@@ -19,9 +19,9 @@ Where `<connection-string>` is the connection string you obtained earlier from t
 cat dbinit.sql | cockroach sql --url "postgresql://root@localhost:26257?sslmode=disable"
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `postgresql://root@localhost:26257?sslmode=disable` is the `sql` connection string you obtained earlier from the `cockroach` welcome text.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 </div>
 

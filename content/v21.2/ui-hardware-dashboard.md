@@ -21,9 +21,9 @@ The **Hardware** dashboard displays the following time series graphs:
 
 <img src="{{ 'images/v21.2/ui_memory_usage_new.png' | relative_url }}" alt="DB Console Memory Usage graph" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This graph shows the memory consumption by the CockroachDB process only and is useful as long as there are no other processes consuming significant memory on the node. In case you have other processes running on the node, use a separate monitoring tool to measure the total memory consumption across all processes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - In the node view, the graph shows the memory in use by CockroachDB for the selected node.
 
@@ -67,13 +67,13 @@ This graph shows the memory consumption by the CockroachDB process only and is u
 
 - In the cluster view, the graph shows the number of disk reads and writes in queue for all processes, including CockroachDB, across all nodes in the cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/prod-deployment/healthy-disk-ops-in-progress.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On macOS, this graph is currently not populated and shows zero disk ops in progress.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Available Disk Capacity
 
@@ -92,9 +92,9 @@ The **available** disk capacity equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Available Disk Capacity** graph.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Network Bytes Received
 

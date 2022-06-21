@@ -23,7 +23,7 @@ No [privileges](authorization.html#assign-privileges) are required to reset a se
 
 ## Example
 
-{{site.data.alerts.callout_success}}You can use <a href="set-vars.html#reset-a-variable-to-its-default-value"><code>SET .. TO DEFAULT</code></a> to reset a session variable as well.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="set-vars.html#reset-a-variable-to-its-default-value"><code>SET .. TO DEFAULT</code></a> to reset a session variable as well.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

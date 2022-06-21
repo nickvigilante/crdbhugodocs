@@ -16,15 +16,15 @@ We have tested the [Sequelize ORM](https://sequelize.org/) enough to claim **bet
 
 {{site.data.alerts.callout_success}}
 For a more realistic use of Sequelize with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms)repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 1. Start CockroachDB
 
-{% include {{ page.version.version }}/app/start-cockroachdb.md %}
+{% include {{< page-version >}}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database
 
-{% include {{ page.version.version }}/app/create-a-database.md %}
+{% include {{< page-version >}}/app/create-a-database.md %}
 
 ## Step 3. Install the Sequelize ORM
 

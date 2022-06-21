@@ -26,7 +26,7 @@ This increases the speed of reads, but it doesn't guarantee that the range lease
 
 However, you can cause the cluster to actively move range leases for even better read performance by starting each node with the [`--locality`](start-a-node.html#locality) flag. With this flag specified, the cluster knows about the location of each node, so when there's high latency between nodes, the cluster will move active range leases to a node closer to the origin of the majority of the workload. This is especially helpful for applications with workloads that move around throughout the day (e.g., most of the traffic is in the US East in the morning and in the US West in the evening).
 
-{{site.data.alerts.callout_success}}To enable "follow-the-workload", you just need to start each node of the cluster with the <code>--locality</code> flag, as shown in the tutorial below. No additional user action is required.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}To enable "follow-the-workload", you just need to start each node of the cluster with the <code>--locality</code> flag, as shown in the tutorial below. No additional user action is required.{{site.data.alerts.end}}
 
 ### Example
 
@@ -200,9 +200,9 @@ The load generator created a `tpcc` database with several tables that map to und
 
 2. Let the workload run to completion. This is necessary since the system will still "remember" the earlier requests to the other locality.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The latency numbers printed by the workload will be over 200 milliseconds because the 100 millisecond delay in each direction (200ms round-trip) caused by the `comcast` tool also applies to the traffic going from the `tpcc` process to the `cockroach` process. If you were to set up more advanced rules that excluded the `tpcc` process's traffic or to run this on a real network with real network delay, these numbers would be down in the single-digit milliseconds.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ### Step 8. Check the location of the range lease
 
@@ -237,7 +237,7 @@ Once you're done with your cluster, press **CTRL-C** in each node's terminal.
 
 {{site.data.alerts.callout_success}}
 For the last node, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 node still online, a majority of replicas are no longer available (2 of 3), and so the cluster is not operational. To speed up the process, press **CTRL-C** a second time.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 

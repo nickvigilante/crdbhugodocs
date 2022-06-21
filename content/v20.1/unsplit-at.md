@@ -32,7 +32,7 @@ The user must have the `INSERT` [privilege](authorization.html#assign-privileges
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements-nodes.md %}
+{% include {{< page-version >}}/sql/movr-statements-nodes.md %}
 
 ### Unsplit a table
 

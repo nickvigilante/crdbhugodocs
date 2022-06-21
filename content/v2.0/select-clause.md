@@ -22,7 +22,7 @@ with other constructs to form more complex [selection queries](selection-queries
 
 <div markdown="1"></div>
 
-{{site.data.alerts.callout_success}}The simple <code>SELECT</code> clause also has other applications not covered here, such as executing <a href="functions-and-operators.html">functions</a> like <code>SELECT current_timestamp();</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}The simple <code>SELECT</code> clause also has other applications not covered here, such as executing <a href="functions-and-operators.html">functions</a> like <code>SELECT current_timestamp();</code>.{{site.data.alerts.end}}
 
 ## Required Privileges
 
@@ -418,7 +418,7 @@ in the result, you can combine it with `ORDER BY` or `LIMIT` /
 See [Ordering Query Results](query-order.html) and [Limiting Query
 Results](limit-offset.html) for more details.
 
-{{site.data.alerts.callout_info }}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.<br><br>Also, CockroachDB sorts <a href="null-handling.html#nulls-and-sorting"><code>NULL</code> values</a> first with <code>ASC</code> and last with <code>DESC</code>. This differs from PostgreSQL, which sorts <code>NULL</code> values last with <code>ASC</code> and first with <code>DESC</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}When <code>ORDER BY</code> is not included in a query, rows are not sorted by any consistent criteria. Instead, CockroachDB returns them as the coordinating node receives them.<br><br>Also, CockroachDB sorts <a href="null-handling.html#nulls-and-sorting"><code>NULL</code> values</a> first with <code>ASC</code> and last with <code>DESC</code>. This differs from PostgreSQL, which sorts <code>NULL</code> values last with <code>ASC</code> and first with <code>DESC</code>.{{site.data.alerts.end}}
 
 ### Combining Results From Multiple Queries
 

@@ -6,9 +6,9 @@ toc: true
 
 The `DROP USER` [statement](sql-statements.html) removes one or more SQL users.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  Since the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `DROP USER` is now an alias for [`DROP ROLE`](drop-role.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Consideration
 
@@ -16,7 +16,7 @@ Users that [own objects](authorization.html#object-ownership) (such as databases
 
 ## Required privileges
 
-Non-admin users cannot drop admin users. To drop non-admin users, the user must be a member of the `admin role` or have the [`CREATEROLE`](create-user.html#create-a-user-that-can-create-other-users-and-manage-authentication-methods-for-the-new-users) parameter set.
+Non-admin users cannot drop admin users. To drop non-admin users, the user must be a member of the `admin` role or have the [`CREATEROLE`](create-user.html#create-a-user-that-can-create-other-users-and-manage-authentication-methods-for-the-new-users) parameter set.
 
 ## Synopsis
 

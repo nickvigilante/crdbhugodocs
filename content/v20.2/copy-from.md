@@ -6,9 +6,9 @@ toc: true
 
 The `COPY FROM` statement copies data from third-party clients to tables in your cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB currently only supports `COPY FROM` statements issued from third-party clients, for compatibility with PostgreSQL drivers and ORMs. `COPY FROM` statements cannot be issued from the [`cockroach` SQL shell](cockroach-sql.html). To copy data from a file to your cluster, we recommend using an [`IMPORT`](import.html) statement instead.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 

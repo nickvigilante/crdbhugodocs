@@ -8,7 +8,7 @@ The `CREATE USER` [statement](sql-statements.html) creates SQL users, which let 
 
 {{site.data.alerts.callout_success}}
 You can also use the [`cockroach user set`](create-and-manage-users.html) command to create and manage users.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Considerations
 

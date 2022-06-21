@@ -8,13 +8,13 @@ The `CREATE INDEX` [statement](sql-statements.html) creates an index for a table
 
 To create an index on the schemaless data in a [`JSONB`](jsonb.html) column, use an [inverted index](inverted-indexes.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Indexes are automatically created for a table's [`PRIMARY KEY`](primary-key.html) and [`UNIQUE`](unique.html) columns.
 
 When querying a table, CockroachDB uses the fastest index. For more information about that process, see [Index Selection in CockroachDB](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 

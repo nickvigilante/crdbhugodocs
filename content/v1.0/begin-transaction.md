@@ -6,7 +6,7 @@ toc: true
 
 The `BEGIN` [statement](sql-statements.html) initiates a [transaction](transactions.html), which either successfully executes all of the statements it contains or none at all.
 
-{{site.data.alerts.callout_danger }}When using transactions, your application should include logic to <a href="transactions.html#transaction-retries">retry transactions</a> that are aborted to break a dependency cycle between concurrent transactions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}When using transactions, your application should include logic to <a href="transactions.html#transaction-retries">retry transactions</a> that are aborted to break a dependency cycle between concurrent transactions.{{site.data.alerts.end}}
 
 
 ## Synopsis
@@ -60,7 +60,7 @@ Without modifying the `BEGIN` statement, the transaction uses `SERIALIZABLE` iso
 > COMMIT;
 ~~~
 
-{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end}}
 
 #### Change Isolation Level & Priority
 
@@ -82,7 +82,7 @@ You can set a transaction's isolation level to `SNAPSHOT`, as well as its priori
 
 You can also set a transaction's isolation level and priority with [`SET TRANSACTION`](set-transaction.html).
 
-{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end}}
 
 ### Begin a Transaction with Automatic Retries
 

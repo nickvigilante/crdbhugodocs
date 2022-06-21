@@ -1,6 +1,6 @@
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to use a different certificate authority than the one Kubernetes uses, or if your Kubernetes cluster doesn't fully support certificate-signing requests (e.g., in Amazon EKS), use [these configuration files](https://github.com/cockroachdb/cockroach/tree/master/cloud/kubernetes/bring-your-own-certs) instead of the ones referenced below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. From your local workstation, use our [`cockroachdb-statefulset-secure.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/cockroachdb-statefulset-secure.yaml) file to create the StatefulSet that automatically creates 3 pods, each with a CockroachDB node running inside it:
 
@@ -179,4 +179,4 @@ If you want to use a different certificate authority than the one Kubernetes use
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

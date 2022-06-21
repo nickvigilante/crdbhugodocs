@@ -6,7 +6,7 @@ toc: true
 
 The `DROP INDEX` [statement](sql-statements.html) removes indexes from tables.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Synopsis
 
@@ -33,18 +33,18 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Remove an index with no dependencies
 
 Suppose you create an index on the `name` and `city` columns of the `users` table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE INDEX ON users (name, city);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~
@@ -62,12 +62,12 @@ Suppose you create an index on the `name` and `city` columns of the `users` tabl
 
 You can drop this index with the `DROP INDEX` statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP INDEX users@users_name_city_idx;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM users;
 ~~~
@@ -82,18 +82,18 @@ You can drop this index with the `DROP INDEX` statement:
 
 ### Remove an index and dependent objects with `CASCADE`
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 <code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Suppose you create a [`UNIQUE`](unique.html) constraint on the `id` and `name` columns of the `users` table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ADD CONSTRAINT id_name_unique UNIQUE (id, name);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS from users;
 ~~~
@@ -108,7 +108,7 @@ Suppose you create a [`UNIQUE`](unique.html) constraint on the `id` and `name` c
 
 If no index exists on `id` and `name`, CockroachDB automatically creates an index:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES from users;
 ~~~
@@ -126,7 +126,7 @@ If no index exists on `id` and `name`, CockroachDB automatically creates an inde
 
 The `UNIQUE` constraint is dependent on the `id_name_unique` index, so you cannot drop the index with a simple `DROP INDEX` statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP INDEX id_name_unique;
 ~~~
@@ -139,12 +139,12 @@ HINT: use CASCADE if you really want to drop it.
 
 To drop an index and its dependent objects, you can use `CASCADE`:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > DROP INDEX id_name_unique CASCADE;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES from users;
 ~~~
@@ -157,7 +157,7 @@ To drop an index and its dependent objects, you can use `CASCADE`:
 (2 rows)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CONSTRAINTS from users;
 ~~~

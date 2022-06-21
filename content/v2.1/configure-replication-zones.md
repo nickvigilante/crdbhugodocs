@@ -23,9 +23,9 @@ For each of the above objects you can control:
 
 This page explains how replication zones work and how to use the [`CONFIGURE ZONE`](configure-zone.html) statement to manage them.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, only members of the `admin` role can configure replication zones. By default, the `root` user belongs to the `admin` role.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -71,9 +71,9 @@ When replicating data, whether table or system, CockroachDB always uses the most
 4. If there's no applicable table replication zone, CockroachDB uses the database replication zone.
 5. If there's no applicable database replication zone, CockroachDB uses the `.default` cluster-wide replication zone.
 
-{{site.data.alerts.callout_info }}
-{% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+{% include {{< page-version >}}/known-limitations/system-range-replication.md %}
+{{site.data.alerts.end}}
 
 ## Manage replication zones
 
@@ -94,7 +94,7 @@ Use the [`ALTER ... CONFIGURE ZONE`](configure-zone.html) [statement](sql-statem
 
 The location of replicas, both when they are first added and when they are rebalanced to maintain cluster equilibrium, is based on the interplay between descriptive attributes assigned to nodes and constraints set in zone configurations.
 
-{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end}}
 
 #### Descriptive attributes assigned to nodes
 

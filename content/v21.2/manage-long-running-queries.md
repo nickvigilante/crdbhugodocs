@@ -7,14 +7,14 @@ docs_area: manage
 
 This page shows you how to identify and, if necessary, cancel SQL queries that are taking longer than expected to process.
 
-{{site.data.alerts.callout_success}} Schema changes are treated differently than other SQL queries. You can use <a href="show-jobs.html"><code>SHOW JOBS</code></a> to monitor the progress of schema changes and <a href="cancel-job.html"><code>CANCEL JOB</code></a> to cancel schema changes that are taking longer than expected. {{site.data.alerts.end }}
+{{site.data.alerts.callout_success}} Schema changes are treated differently than other SQL queries. You can use <a href="show-jobs.html"><code>SHOW JOBS</code></a> to monitor the progress of schema changes and <a href="cancel-job.html"><code>CANCEL JOB</code></a> to cancel schema changes that are taking longer than expected. {{site.data.alerts.end}}
 
 
 ## Identify long-running queries
 
 Use the [`SHOW STATEMENTS`](show-statements.html) statement to list details about currently active SQL queries, including each query's `start` timestamp:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER STATEMENTS]
       WHERE application_name != '$ cockroach sql';
@@ -31,7 +31,7 @@ Use the [`SHOW STATEMENTS`](show-statements.html) statement to list details abou
 
 You can also filter for queries that have been running for a certain amount of time. For example, to find queries that have been running for more than 3 hours, you would run the following:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW CLUSTER STATEMENTS]
       WHERE start < (now() - INTERVAL '3 hours');
@@ -41,7 +41,7 @@ You can also filter for queries that have been running for a certain amount of t
 
 Once you've identified a long-running query via [`SHOW STATEMENTS`](show-statements.html), note the `query_id` and use it with the [`CANCEL QUERY`](cancel-query.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CANCEL QUERY '15f92c0dd24bec200000000000000003';
 ~~~
@@ -65,7 +65,7 @@ After cancelling a long-running query, use the [`EXPLAIN`](explain.html) stateme
 
 {{site.data.alerts.callout_success}}
 For guidance on optimizing SQL performance, see [SQL Performance Best Practices](performance-best-practices-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

@@ -6,11 +6,11 @@ toc: true
 
 <span class="version-tag">New in v20.2</span>: The `SET SCHEMA` [statement](sql-statements.html) changes the [schema](sql-name-resolution.html) of a [table](create-table.html), [sequence](create-sequence.html), or [view](create-view.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `SET SCHEMA` is a subcommand of [`ALTER TABLE`](alter-table.html), [`ALTER SEQUENCE`](alter-sequence.html), and [`ALTER VIEW`](alter-view.html).
 
 CockroachDB also supports `SET SCHEMA` as an [alias for setting the `search_path` session variable](set-vars.html#supported-variables).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -45,7 +45,7 @@ ALTER [MATERIALIZED] VIEW [IF EXISTS] <name> SET SCHEMA <newschemaname>
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Change the schema of a table
 

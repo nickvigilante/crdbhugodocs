@@ -1,6 +1,6 @@
 1. [Install the Helm client](https://helm.sh/docs/intro/install) (version 3.0 or higher) and add the `cockroachdb` chart repository:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm repo add cockroachdb https://charts.cockroachdb.com/
     ~~~
@@ -11,7 +11,7 @@
 
 2. Update your Helm chart repositories to ensure that you're using the [latest CockroachDB chart](https://github.com/cockroachdb/helm-charts/blob/master/cockroachdb/Chart.yaml):
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm repo update
     ~~~
@@ -20,11 +20,11 @@
 
     Provide a "release" name to identify and track this particular deployment of the chart.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This tutorial uses `my-release` as the release name. If you use a different value, be sure to adjust the release name in subsequent commands.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ helm install my-release cockroachdb/cockroachdb
     ~~~
@@ -33,7 +33,7 @@
 
 4. Confirm that CockroachDB cluster initialization has completed successfully, with the pods for CockroachDB showing `1/1` under `READY` and the pod for initialization showing `COMPLETED` under `STATUS`:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pods
     ~~~
@@ -48,7 +48,7 @@
 
 5. Confirm that the persistent volumes and corresponding claims were created successfully for all three pods:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ kubectl get pv
     ~~~
@@ -62,4 +62,4 @@
 
 {{site.data.alerts.callout_success}}
 The StatefulSet configuration sets all CockroachDB nodes to log to `stderr`, so if you ever need access to a pod/node's logs to troubleshoot, use `kubectl logs <podname>` rather than checking the log on the persistent volume.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}

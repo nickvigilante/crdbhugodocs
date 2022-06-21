@@ -11,7 +11,7 @@ toc: true
 
 Once you’ve [installed CockroachDB](install-cockroachdb.html), it’s simple to start a secure multi-node cluster locally, using [TLS certificates](create-security-certificates.html) to encrypt network communication.
 
-{{site.data.alerts.callout_info }}Running multiple nodes on a single host is useful for testing out CockroachDB, but it's not recommended for production deployments. To run a physically distributed cluster in production, see <a href="manual-deployment.html">Manual Deployment</a>, <a href="cloud-deployment.html">Cloud Deployment</a>, or <a href="orchestration.html">Orchestration</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Running multiple nodes on a single host is useful for testing out CockroachDB, but it's not recommended for production deployments. To run a physically distributed cluster in production, see <a href="manual-deployment.html">Manual Deployment</a>, <a href="cloud-deployment.html">Cloud Deployment</a>, or <a href="orchestration.html">Orchestration</a>.{{site.data.alerts.end}}
 
 
 ## Before You Begin
@@ -60,8 +60,8 @@ $ cockroach start \
 ~~~
 
 ~~~
-CockroachDB node starting at {{ page.release_info.start_time }}
-build:      CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }}
+CockroachDB node starting at {{page.release_info.start_time}}
+build:      CCL {{page.release_info.version}} @ {{page.release_info.build_time}}
 admin:      https://ROACHs-MBP:8080
 sql:        postgresql://root@ROACHs-MBP:26257?sslcert=%2FUsers%2F...
 logs:       cockroach-data/logs
@@ -79,7 +79,7 @@ This command starts a node in secure mode, accepting most [`cockroach start`](st
 - Node data is stored in the `cockroach-data` directory.
 - The [standard output](start-a-node.html#standard-output) gives you helpful details such as the CockroachDB version, the URL for the admin UI, and the SQL URL for clients.
 
-{{site.data.alerts.callout_success}}By default, each node's cache is limited to 25% of available memory. This default is reasonable when running one node per host. When you run multiple nodes on a single host, however, this default may lead to out-of-memory errors, especially if you test in a serious way. To avoid such errors, you can limit each node's cache size by setting the <code>--cache</code> flag in the <code>start</code> command.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}By default, each node's cache is limited to 25% of available memory. This default is reasonable when running one node per host. When you run multiple nodes on a single host, however, this default may lead to out-of-memory errors, especially if you test in a serious way. To avoid such errors, you can limit each node's cache size by setting the <code>--cache</code> flag in the <code>start</code> command.{{site.data.alerts.end}}
 
 ## Step 3. Add nodes to the cluster
 
@@ -117,7 +117,7 @@ The main difference in these commands is that you use the `--join` flag to conne
 
 Now that you've scaled to 3 nodes, you can use any node as a SQL gateway to the cluster. To demonstrate this, open a new terminal and connect the [built-in SQL client](use-the-built-in-sql-client.html) to node 1:
 
-{{site.data.alerts.callout_info }}The SQL client is built into the <code>cockroach</code> binary, so nothing extra is needed.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The SQL client is built into the <code>cockroach</code> binary, so nothing extra is needed.{{site.data.alerts.end}}
 
 ~~~ shell
 $ cockroach sql \
@@ -165,7 +165,7 @@ $ cockroach sql \
 # To exit: CTRL + D.
 ~~~
 
-{{site.data.alerts.callout_info }}In a real deployment, all nodes would likely use the default port <code>26257</code>, and so you wouldn't need to set the <code>--port</code> flag.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}In a real deployment, all nodes would likely use the default port <code>26257</code>, and so you wouldn't need to set the <code>--port</code> flag.{{site.data.alerts.end}}
 
 Now run the same `SELECT` query:
 
@@ -204,7 +204,7 @@ As mentioned earlier, CockroachDB automatically replicates your data behind-the-
 
 The replica count on each node is identical, indicating that all data in the cluster was replicated 3 times (the default).
 
-{{site.data.alerts.callout_success}}For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our <a href="demo-data-replication.html">replication</a>, <a href="demo-automatic-rebalancing.html">rebalancing</a>, <a href="demo-fault-tolerance-and-recovery.html">fault tolerance</a> demos.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For more insight into how CockroachDB automatically replicates and rebalances data, and tolerates and recovers from failures, see our <a href="demo-data-replication.html">replication</a>, <a href="demo-automatic-rebalancing.html">rebalancing</a>, <a href="demo-fault-tolerance-and-recovery.html">fault tolerance</a> demos.{{site.data.alerts.end}}
 
 ## Step 6.  Stop the cluster
 
@@ -242,7 +242,7 @@ Exit the SQL shell:
 
 Now stop nodes 2 and 3 by switching to their terminals and pressing **CTRL-C**.
 
-{{site.data.alerts.callout_success}}For node 3, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 of 3 nodes left, a majority of replicas are not available, and so the cluster is no longer operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For node 3, the shutdown process will take longer (about a minute) and will eventually force stop the node. This is because, with only 1 of 3 nodes left, a majority of replicas are not available, and so the cluster is no longer operational. To speed up the process, press <strong>CTRL-C</strong> a second time.{{site.data.alerts.end}}
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
@@ -263,8 +263,8 @@ $ cockroach start \
 --http-host=localhost
 ~~~
 
-{{site.data.alerts.callout_info }}With only 1 node back online, the cluster will not yet be operational, so you will not see a response to the above command until after you restart the second node.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}With only 1 node back online, the cluster will not yet be operational, so you will not see a response to the above command until after you restart the second node.
+{{site.data.alerts.end}}
 
 In a new terminal, restart the second node from the parent directory of `node2/`:
 

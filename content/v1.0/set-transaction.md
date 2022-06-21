@@ -6,7 +6,7 @@ toc: true
 
 The `SET TRANSACTION` [statement](sql-statements.html) sets the transaction isolation level or priority after you [`BEGIN`](begin-transaction.html) it but before executing the first statement that manipulates a database.
 
-{{site.data.alerts.callout_info }}You can also set the session's default isolation level.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You can also set the session's default isolation level.{{site.data.alerts.end}}
 
 
 ## Synopsis
@@ -46,7 +46,7 @@ You can set a transaction's isolation level to `SNAPSHOT`, as well as its priori
 > COMMIT;
 ~~~
 
-{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end}}
 
 ### Set Session's Default Isolation
 

@@ -9,7 +9,7 @@ This page provides best-practice guidance on creating indexes, with a simple exa
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `CREATE INDEX` statement, including additional examples, see the [`CREATE INDEX` syntax page](create-index.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -26,7 +26,7 @@ Before reading this page, do the following:
 
 Indexes are [logical objects in a cluster](schema-design-overview.html#database-schema-objects) that help [CockroachDB queries](query-data.html) find data more efficiently. When you create an index, CockroachDB creates a copy of the columns selected for the index, and then sorts the rows of data by indexed column values, without sorting the values in the table itself.
 
-CockroachDB automatically creates an index on the table's [primary key](primary-key.html) key columns. This index is called the *primary index*. The primary index helps CockroachDB more efficiently scan rows, as sorted by the table's primary key columns, but it does not help find values as identified by any other columns.
+CockroachDB automatically creates an index on the table's [primary key](primary-key.html) columns. This index is called the *primary index*. The primary index helps CockroachDB more efficiently scan rows, as sorted by the table's primary key columns, but it does not help find values as identified by any other columns.
 
 *Secondary indexes* (i.e., all indexes that are not the primary index) improve the performance of queries that identify rows with columns that are not in a table's primary key. CockroachDB automatically creates secondary indexes for columns with a [`UNIQUE` constraint](unique.html).
 
@@ -61,11 +61,11 @@ To add a secondary index to a table, do one of the following, following the [bes
 
 For an example, see [below](#example).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you do not specify a name for an index, CockroachDB will generate a name.
 
 After creation, the notation for referring to indexes in CockroachDB is `{table_name}@{index_name}`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Best practices
 
@@ -73,7 +73,7 @@ Here are some best practices for creating indexes:
 
 - Index all columns that you plan to use for [sorting](order-by.html) or [filtering](select-clause.html#filter-rows) data.
 
-    {% include {{ page.version.version }}/sql/covering-index.md %}
+    {% include {{< page-version >}}/sql/covering-index.md %}
 
     Note that columns listed in a filtering [`WHERE` clause](select-clause.html#parameters) with the equality operators (`=` or `IN`) should come first in the index, before those referenced with inequality operators (`<`, `>`).
 
@@ -101,9 +101,9 @@ Here are some best practices for creating indexes:
 
 - Do not create indexes as the `root` user. Instead, create indexes as a [different user](schema-design-overview.html#controlling-access-to-objects), with fewer privileges, following [authorization best practices](authorization.html#authorization-best-practices). This will likely be the same user that created the table to which the index belongs.
 
-- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {% include {{< page-version >}}/sql/dev-schema-changes.md %}
 
-- {% include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
+- {% include {{< page-version >}}/sql/dev-schema-change-limits.md %}
 
 ### Example
 
@@ -113,7 +113,7 @@ Recall that the `vehicles` table that you created in [Create a Table](schema-des
 
 Open `max_init.sql`, and, under the `CREATE TABLE` statement for the `vehicles` table, add a `CREATE INDEX` statement for an index on the `type` and `available` columns of the `vehicles` table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE INDEX type_available_idx ON movr.vehicles (type, available));
 ~~~
@@ -124,7 +124,7 @@ The MovR app might also need to display the vehicle's location and ID, but the a
 
 To help avoid unnecessary full table scans, add a `STORING` clause to the index:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE INDEX type_available_idx ON movr.vehicles (type, available) STORING (last_location);
 ~~~
@@ -133,7 +133,7 @@ The index will now store the values in `last_location`, which will improve the p
 
 The `max_init.sql` file should now look similar to the following:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 CREATE TABLE movr.max_schema.users (
     first_name STRING,
@@ -166,7 +166,7 @@ CREATE TABLE movr.max_schema.rides (
 
 If you executed this file when following the [Create a Table](schema-design-table.html) example, then all of these objects already exist. To clear the database and re-initialize the schemas, first execute the statements in the `dbinit.sql` file as the `root` user:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -176,7 +176,7 @@ $ cockroach sql \
 
 Then, execute the statements in the `max_init.sql` and `abbey_init.sql` files:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -185,7 +185,7 @@ $ cockroach sql \
 -f max_init.sql
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -198,7 +198,7 @@ After the statements have been executed, you can see the new index in the [Cockr
 
 Open the SQL shell to your cluster:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
 --certs-dir={certs-directory} \
@@ -208,7 +208,7 @@ $ cockroach sql \
 
 To view the indexes in the `vehicles` table, issue a [`SHOW INDEXES`](show-index.html) statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW INDEXES FROM movr.max_schema.vehicles;
 ~~~
@@ -230,7 +230,7 @@ Note that the `last_location` column's `storing` value is `true` in the `type_av
 
 To see an index definition, use a [`SHOW CREATE`](show-create.html) statement on the table that contains the index:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE movr.max_schema.vehicles;
 ~~~

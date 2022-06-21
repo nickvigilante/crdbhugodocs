@@ -9,7 +9,7 @@ The `COLLATE` feature lets you sort [`STRING`](string.html) values according to 
 
 Collated strings are important because different languages have [different rules for alphabetic order](https://en.wikipedia.org/wiki/Alphabetical_order#Language-specific_conventions), especially with respect to accented letters. For example, in German accented letters are sorted with their unaccented counterparts, while in Swedish they are placed at the end of the alphabet. A collation is a set of rules used for ordering and usually corresponds to a language, though some languages have multiple collations with different rules for sorting; for example Portuguese has separate collations for Brazilian and European dialects (`pt-BR` and `pt-PT` respectively).
 
-{% include {{ page.version.version }}/sql/vectorized-support.md %}
+{% include {{< page-version >}}/sql/vectorized-support.md %}
 
 ## Details
 
@@ -25,9 +25,9 @@ Collated strings are important because different languages have [different rules
 
 CockroachDB supports collations identified by [Unicode locale identifiers](https://cldr.unicode.org/development/core-specification#h.vgyyng33o798). For example, `en-US` identifies US English, `es` identifies Spanish, and `fr-CA` identifies Canadian French. Collation names are case-insensitive, and hyphens and underscores are interchangeable.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a hyphen is used in a SQL query, the collation name must be enclosed in double quotes, as single quotes are used for SQL string literals.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 A list of supported collations can be found in the `pg_catalog.pg_collation` table:
 
@@ -78,7 +78,7 @@ Collated strings are used as normal strings in SQL, but have a `COLLATE` clause 
     > CREATE TABLE foo (a STRING COLLATE en PRIMARY KEY);
     ~~~
 
-    {{site.data.alerts.callout_info }}You can also use any of the <a href="string.html#aliases">aliases for <code>STRING</code></a>.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}You can also use any of the <a href="string.html#aliases">aliases for <code>STRING</code></a>.{{site.data.alerts.end}}
 
 - **Value syntax**: `<STRING value> COLLATE <collation>`. For example:
 

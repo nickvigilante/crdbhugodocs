@@ -15,7 +15,7 @@ As a command generates messages, CockroachDB uses the [command](#commands)'s [lo
 
 Each node's logs detail only the internal activity of that node without visibility into the behavior of other nodes in the cluster. When troubleshooting, this means that you must identify the node where the problem occurred or [collect the logs from all active nodes in your cluster](debug-zip.html).
 
-{{site.data.alerts.callout_info }}You can also <a href="#log-queries">log queries</a> your cluster receives.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You can also <a href="#log-queries">log queries</a> your cluster receives.{{site.data.alerts.end}}
 
 ### Commands
 
@@ -65,7 +65,7 @@ Default Severity Level Threshold | `INFO` | *N/A*
 Change Severity Threshold | `--log-file-verbosity=[severity level]` | `--log-file-verbosity=[severity level]`
 Disabled by | `--log-dir=""`<sup>1</sup> | Default
 
-{{site.data.alerts.callout_info }}<sup>1</sup> If the <code>cockroach</code> process does not have access to on-disk storage, <code>cockroach start</code> does not write messages to log files; instead it prints all messages to <code>stderr</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<sup>1</sup> If the <code>cockroach</code> process does not have access to on-disk storage, <code>cockroach start</code> does not write messages to log files; instead it prints all messages to <code>stderr</code>.{{site.data.alerts.end}}
 
 #### Print to `stderr`
 
@@ -78,7 +78,7 @@ Default Severity Level Threshold | *N/A* | `WARNING`
 Change Severity Threshold | `--logtostderr=[severity level]` | `--logtostderr=[severity level]`
 Disabled by | Default<sup>2</sup> | `--logtostderr=NONE`
 
-{{site.data.alerts.callout_info }}<sup>2</sup> <code>cockroach start</code> does not print any messages to <code>stderr</code> unless the <code>cockroach</code> process does not have access to on-disk storage, in which case it defaults to <code>--logtostderr=INFO</code> and prints all messages to <code>stderr</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<sup>2</sup> <code>cockroach start</code> does not print any messages to <code>stderr</code> unless the <code>cockroach</code> process does not have access to on-disk storage, in which case it defaults to <code>--logtostderr=INFO</code> and prints all messages to <code>stderr</code>.{{site.data.alerts.end}}
 
 #### Discard Message
 
@@ -96,7 +96,7 @@ The `--log-backtrace-at`, `--verbosity`, and `--v` flags are intended for intern
 
 To help troubleshoot [query performance issues](query-behavior-troubleshooting.html#performance-issues), you can use [cluster-wide settings](cluster-settings.html) to enable logging for long-running SQL transactions or all queries, regardless of time.
 
-{{site.data.alerts.callout_danger }}These settings makes <em>all</em> queries slower and causes nodes to consume more memory. You should <a href="#disable-query-logging">disable query logging</a> as soon as you're done troubleshooting the query's issues.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}These settings makes <em>all</em> queries slower and causes nodes to consume more memory. You should <a href="#disable-query-logging">disable query logging</a> as soon as you're done troubleshooting the query's issues.{{site.data.alerts.end}}
 
 ### Enable Query Logging
 

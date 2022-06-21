@@ -40,7 +40,7 @@ Where:
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `DELETE` statement, including additional examples, see the [`DELETE` syntax page](delete.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Best practices
 
@@ -135,7 +135,7 @@ with conn.cursor() as cur:
 
 {{site.data.alerts.callout_success}}
 If the `WHERE` clause evaluates to `TRUE` for a large number of rows (i.e., tens of thousands of rows), use a [batch-delete loop](bulk-delete-data.html#batch-delete-on-an-indexed-column) instead of executing a simple `DELETE` query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Delete rows filtered on a unique column
 

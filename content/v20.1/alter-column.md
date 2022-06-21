@@ -10,9 +10,9 @@ The `ALTER COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and
 - Set or drop a column's [`NOT NULL` constraint](not-null.html)
 - Increase the precision of the column's [data type](data-types.html)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To manage other constraints, see [`ADD CONSTRAINT`](add-constraint.html) and [`DROP CONSTRAINT`](drop-constraint.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 

@@ -11,7 +11,7 @@ We have tested the <a href="https://crates.io/crates/postgres/" data-proofer-ign
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 <section class="filter-content" markdown="1" data-scope="secure">
 
@@ -23,7 +23,7 @@ Additionally, include the <a href="https://crates.io/crates/openssl" data-proofe
 
 ## Step 2. Create the `maxroach` users and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -55,9 +55,9 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.rs" download><code>txn-sample.rs</code></a> file, or create the file yourself and copy the code into it.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic <strong>retry function</strong> that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ rust
@@ -91,7 +91,7 @@ Update your `Cargo.toml` file to specify a dependency on the Rust Postgres drive
 
 ## Step 2. Create the `maxroach` users and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Create a table in the new database
 
@@ -126,9 +126,9 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.rs" download><code>txn-sample.rs</code></a> file, or create the file yourself and copy the code into it.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic <strong>retry function</strong> that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ rust

@@ -8,7 +8,7 @@ By default, each node of a CockroachDB cluster shares anonymous usage details wi
 
 This page explains the details that get shared and how to opt out of sharing.
 
-{{site.data.alerts.callout_success}}For insights into your cluster's performance and health, use the built-in <a href="explore-the-admin-ui.html">Admin UI</a> or a third-party monitoring tool like <a href="monitor-cockroachdb-with-prometheus.html">Prometheus</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For insights into your cluster's performance and health, use the built-in <a href="explore-the-admin-ui.html">Admin UI</a> or a third-party monitoring tool like <a href="monitor-cockroachdb-with-prometheus.html">Prometheus</a>.{{site.data.alerts.end}}
 
 
 ## What Gets Shared
@@ -62,7 +62,7 @@ This JSON example shows what storage details look like when sent to Cockroach La
 
 Each node of a CockroachDB cluster shares the following details about the structure of each table stored on the node on an hourly basis:
 
-{{site.data.alerts.callout_info }}No actual table data or table/column names are shared, just metadata about the structure of tables. All names and other string values are scrubbed and replaced with underscores.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}No actual table data or table/column names are shared, just metadata about the structure of tables. All names and other string values are scrubbed and replaced with underscores.{{site.data.alerts.end}}
 
 Detail | Description
 -------|------------
@@ -115,7 +115,7 @@ This JSON example shows an excerpt of what table structure details look like whe
 
 Each node of a CockroachDB cluster shares the following statistics about the SQL queries it has executed on an hourly basis:
 
-{{site.data.alerts.callout_info }}No query results are shared, just the queries themselves, with all names and other strings scrubbed and replaced with underscores, and statistics about the queries.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}No query results are shared, just the queries themselves, with all names and other strings scrubbed and replaced with underscores, and statistics about the queries.{{site.data.alerts.end}}
 
 Detail | Description
 -------|------------

@@ -69,9 +69,9 @@ SET FEEDBACK ON
 SET TERMOUT ON
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In the example SQL script, `|` is used as a delimiter. Choose a delimiter that will not also occur in the rows themselves. For more information, see [`IMPORT`](import.html#delimiter).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To extract the data, we ran the script for each table in SQL*Plus:
 
@@ -179,7 +179,7 @@ Each node in the CockroachDB cluster needs to have access to the files being imp
 
 {{site.data.alerts.callout_success}}
 We strongly recommend using cloud storage such as Amazon S3 or Google Cloud to host the data files you want to import.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 7. Map Oracle to CockroachDB data types
 

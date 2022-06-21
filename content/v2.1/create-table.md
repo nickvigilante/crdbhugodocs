@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -68,7 +68,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 </div>
 
 {{site.data.alerts.callout_success}}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -91,7 +91,7 @@ By default, tables are created in the default replication zone but can be placed
 
 CockroachDB allows [enterprise users](enterprise-licensing.html) to [define table partitions](partitioning.html), thus providing row-level control of how and where the data is stored. See [Create a Replication Zone for a Table Partition](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition) for more information.
 
-{{site.data.alerts.callout_info }}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end}}
 
 ## Examples
 
@@ -99,7 +99,7 @@ CockroachDB allows [enterprise users](enterprise-licensing.html) to [define tabl
 
 In CockroachDB, every table requires a [primary key](primary-key.html). If one is not explicitly defined, a column called `rowid` of the type `INT` is added automatically as the primary key, with the `unique_rowid()` function used to ensure that new rows always default to unique `rowid` values. The primary key is automatically indexed.
 
-{{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -381,9 +381,9 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with partitions
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See [Partition using Primary Key](partitioning.html#partition-using-primary-key) for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Create a table with partitions by list
 

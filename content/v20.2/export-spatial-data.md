@@ -8,7 +8,7 @@ toc: true
 
 This page has instructions for exporting spatial data from CockroachDB and converting it to other spatial formats using the [`ogr2ogr`](https://gdal.org/programs/ogr2ogr.html) command.
 
-{% include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
+{% include {{< page-version >}}/spatial/ogr2ogr-supported-version.md %}
 
 ## Step 1. Export data to CSV
 
@@ -30,9 +30,9 @@ EXPORT INTO CSV 'nodelocal://self/tornadoes' WITH nullas = '' FROM SELECT * from
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This example uses local file storage.  For more information about other locations where you can export your data (such as cloud storage), see [`EXPORT`](export.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 2. Combine multiple CSV files into one, as needed
 
@@ -81,7 +81,7 @@ Note that the options `-oo GEOM_POSSIBLE_NAMES=<geom_column_name> -oo KEEP_GEOM_
 
 For more information about the formats supported by `ogr2ogr`, see the [`ogr2ogr` documentation](https://gdal.org/programs/ogr2ogr.html).
 
-{% include {{ page.version.version }}/spatial/ogr2ogr-supported-version.md %}
+{% include {{< page-version >}}/spatial/ogr2ogr-supported-version.md %}
 
 Finally, note that SQL type information is lost in the conversion to CSV, such that the `tornadoes.sql` file output by the `ogr2ogr` command above lists every non-geometry field as a [`VARCHAR`](string.html).
 

@@ -6,7 +6,7 @@ toc: true
 
 This page explains the `cockroach start` [command](cockroach-commands.html), which you use to start nodes as a new cluster or add nodes to an existing cluster. For a full walk-through of the cluster startup and initialization process, see one of the [Manual Deployment](manual-deployment.html) tutorials.
 
-{{site.data.alerts.callout_info }}Node-level settings are defined by flags passed to the <code>cockroach start</code> command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see <a href="cluster-settings.html">Cluster Settings</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Node-level settings are defined by flags passed to the <code>cockroach start</code> command and cannot be changed without stopping and restarting the node. In contrast, some cluster-wide settings are defined via SQL statements and can be updated anytime after a cluster has been started. For more details, see <a href="cluster-settings.html">Cluster Settings</a>.{{site.data.alerts.end}}
 
 
 ## Synopsis
@@ -36,7 +36,7 @@ _all_ flags every time, including the `--join` flag, as that will
 allow restarted nodes to join the cluster even if their data directory
 was destroyed.
 
-{{site.data.alerts.callout_success}}When adding a node to an existing cluster, include the <code>--join</code> flag.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}When adding a node to an existing cluster, include the <code>--join</code> flag.{{site.data.alerts.end}}
 
 ### General
 
@@ -90,7 +90,7 @@ The `--locality` flag accepts arbitrary key-value pairs that describe the locati
 
 The `--store` flag supports the following fields. Note that commas are used to separate fields, and so are forbidden in all field values.
 
-{{site.data.alerts.callout_info }}In-memory storage is not suitable for production deployments at this time.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}In-memory storage is not suitable for production deployments at this time.{{site.data.alerts.end}}
 
 Field | Description
 ------|------------
@@ -119,8 +119,8 @@ This means, by default, CockroachDB writes all messages to log files, and never 
 When you run `cockroach start`, some helpful details are printed to the standard output:
 
 ~~~ shell
-CockroachDB node starting at {{ page.release_info.start_time }}
-build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }}
+CockroachDB node starting at {{page.release_info.start_time}}
+build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}}
 admin:               http://ROACHs-MBP:8080
 sql:                 postgresql://root@ROACHs-MBP:26257?sslmode=disable
 logs:                node1/logs
@@ -134,7 +134,7 @@ clusterID:           7b9329d0-580d-4035-8319-53ba8b74b213
 nodeID:              1
 ~~~
 
-{{site.data.alerts.callout_success}}These details are also written to the <code>INFO</code> log in the <code>/logs</code> directory in case you need to refer to them at a later time.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}These details are also written to the <code>INFO</code> log in the <code>/logs</code> directory in case you need to refer to them at a later time.{{site.data.alerts.end}}
 
 Field | Description
 ------|------------

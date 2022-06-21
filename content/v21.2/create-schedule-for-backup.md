@@ -9,15 +9,15 @@ docs_area: reference.sql
 
 For more information about creating, managing, monitoring, and restoring from a scheduled backup, see [Manage a Backup Schedule](manage-a-backup-schedule.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Core users can only use backup scheduling for [full backups](#create-a-schedule-for-full-backups-only-core) of clusters, databases, or tables.
 
 To use the other backup features, you need an [Enterprise license](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
-- Only members of the [`admin` role](authorization.html#default-roles) can run `CREATE SCHEDULE FOR BACKUP`. By default, the `root` user belongs to the `admin` role.
+- Only members of the [`admin` role](security-reference/authorization.html#default-roles) can run `CREATE SCHEDULE FOR BACKUP`. By default, the `root` user belongs to the `admin` role.
 - `BACKUP` requires full read and write (including delete and overwrite) permissions to its target destination.
 
 ## Synopsis
@@ -49,9 +49,9 @@ Targets:
 <a name="full-backup-clause"></a>`FULL BACKUP crontab` | Specifies when to take a new full backup. The schedule is specified as a [`STRING`](string.html) in [crontab format](https://en.wikipedia.org/wiki/Cron) or as `ALWAYS`. <br><br>If `FULL BACKUP ALWAYS` is specified, then the backups triggered by the `RECURRING` clause will always be full backups. For free users, `ALWAYS` is the only accepted value of `FULL BACKUP`.<br><br>If the `FULL BACKUP` clause is omitted, CockroachDB will default to the following full backup schedule: <ul><li>`RECURRING` <= 1 hour: Default to `FULL BACKUP '@daily'`</li><li>`RECURRING` <= 1 day: Default to `FULL BACKUP '@weekly'`</li><li>Otherwise: Default to `FULL BACKUP ALWAYS`</li></ul>
 `WITH SCHEDULE OPTIONS schedule_option` | _Experimental feature._ Control the schedule behavior with a comma-separated list of [these options](#schedule-options).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For schedules that include both [full and incremental backups](take-full-and-incremental-backups.html), CockroachDB will create two schedules (one for each type).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Backup options
 
@@ -59,11 +59,11 @@ For schedules that include both [full and incremental backups](take-full-and-inc
 
 ### Schedule options
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature.**  Its interface, options, and outputs are subject to change, and there may be bugs.
 
 If you encounter a bug, please [file an issue](file-an-issue.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
  Option                     | Value                                   | Description
 ----------------------------+-----------------------------------------+------------------------------
@@ -111,7 +111,7 @@ You can also visit the [**Jobs** page](ui-jobs-page.html) of the DB Console to v
 
 Core users can only use backup scheduling for full backups of clusters, databases, or tables. Full backups are taken with the `FULL BACKUP ALWAYS` clause, for example:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE core_schedule_label
   FOR BACKUP INTO 's3://test/schedule-test-core?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -132,7 +132,7 @@ To use the other backup features, you need an [Enterprise license](enterprise-li
 
 This example creates a schedule for a cluster backup with revision history that's taken every day at midnight:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE schedule_label
   FOR BACKUP INTO 's3://test/backups/schedule_test?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -154,7 +154,7 @@ Because the [`FULL BACKUP` clause](#full-backup-clause) was not included, Cockro
 
 This example creates a schedule for a backup of the database `movr` with revision history that's taken every day 1 minute past midnight (`00:00:01`):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE schedule_database
   FOR BACKUP DATABASE movr INTO 's3://test/schedule-database?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -176,7 +176,7 @@ Because the [`FULL BACKUP` clause](#full-backup-clause) was not included, Cockro
 
 This example creates a schedule for a backup of the table `movr.vehicles` with revision history that's taken every hour:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE schedule_table
   FOR BACKUP TABLE movr.vehicles INTO 's3://test/schedule-table?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'
@@ -198,7 +198,7 @@ Because the [`FULL BACKUP` clause](#full-backup-clause) was not included, Cockro
 
 This example creates a schedule for a backup of the table `movr.vehicles` with revision history that's taken every hour, with its first run scheduled for `2020-09-15 00:00:00.00` (UTC):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE SCHEDULE scheduled_first_run
   FOR BACKUP TABLE movr.vehicles INTO 's3://test/schedule-table?AWS_ACCESS_KEY_ID=x&AWS_SECRET_ACCESS_KEY=x'

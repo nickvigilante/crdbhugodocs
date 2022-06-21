@@ -4,9 +4,9 @@ You'll start with a 3-node CockroachDB cluster in a single Google Compute Engine
 
 <img src="{{ 'images/v19.2/perf_tuning_single_region_topology.png' | relative_url }}" alt="Perf tuning topology" style="max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Within a single GCE zone, network latency between instances should be sub-millisecond.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You'll then scale the cluster to 9 nodes running across 3 GCE regions, with an extra instance in each region for a client application workload:
 

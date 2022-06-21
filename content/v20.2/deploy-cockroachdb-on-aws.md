@@ -93,7 +93,7 @@ AWS offers fully-managed load balancing to distribute traffic between instances.
     - Register your instances with the target group you created, specifying port **26257**. You can add and remove instances later.
 2. To test load balancing and connect your application to the cluster, you will need the provisioned internal (private) **IP address** for the load balancer. To find this, open the Network Interfaces section of the Amazon EC2 console and look up the load balancer by its name.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end}}
 
 ## Step 5. Generate certificates
 

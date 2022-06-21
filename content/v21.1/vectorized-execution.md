@@ -23,7 +23,7 @@ For information about setting session variables, see [`SET` &lt;session variable
 
 {{site.data.alerts.callout_success}}
 To see if CockroachDB will use the vectorized execution engine for a query, run a simple [`EXPLAIN`](explain.html) statement on the query. If `vectorize` is `true`, the query will be executed with the vectorized engine. If it is `false`, the row-oriented execution engine is used instead.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Setting the row threshold for vectorized execution
 
@@ -39,7 +39,7 @@ When you issue a query, the gateway node (i.e., the node from which you issue th
 
 {{site.data.alerts.callout_success}}
 To see a detailed view of the vectorized execution plan for a query, run the [`EXPLAIN(VEC)`](explain.html#vec-option) statement on the query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For information about vectorized execution in the context of the CockroachDB architecture, see [Query Execution](architecture/sql-layer.html#query-execution).
 

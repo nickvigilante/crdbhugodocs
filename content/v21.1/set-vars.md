@@ -6,7 +6,7 @@ toc: true
 
 The `SET` [statement](sql-statements.html) can modify one of the session configuration variables. These can also be queried via [`SHOW`](show-vars.html).
 
-{{site.data.alerts.callout_danger }}In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with <code>SET</code> statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the <a href="hello-world-example-apps.html">Build an App with CockroachDB</a> tutorials.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}In some cases, client drivers can drop and restart the connection to the server. When this happens, any session configurations made with <code>SET</code> statements are lost. It is therefore more reliable to configure the session in the client's connection string. For examples in different languages, see the <a href="hello-world-example-apps.html">Build an App with CockroachDB</a> tutorials.{{site.data.alerts.end}}
 
 
 ## Required privileges
@@ -19,7 +19,7 @@ No [privileges](authorization.html#assign-privileges) are required to modify the
 {% include {{ page.version.version }}/sql/generated/diagrams/set_var.html %}
 </div>
 
-{{site.data.alerts.callout_info }}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>SET</code> statement for session settings is unrelated to the other <a href="set-transaction.html"><code>SET TRANSACTION</code></a> and <a href="cluster-settings.html#change-a-cluster-setting"><code>SET CLUSTER SETTING</code></a> statements.{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -49,12 +49,12 @@ Special syntax cases:
 The following demonstrates how `SET` can be used to configure the
 default database for the current session:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET database = movr;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW database;
 ~~~
@@ -70,12 +70,12 @@ default database for the current session:
 
 The following demonstrates how to use quoting to use values containing spaces:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET database = "database name with spaces";
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW database;
 ~~~
@@ -91,12 +91,12 @@ The following demonstrates how to use quoting to use values containing spaces:
 
 The following demonstrates how to assign a list of values:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET search_path = pg_catalog,public;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -110,9 +110,9 @@ The following demonstrates how to assign a list of values:
 
 ### Reset a variable to its default value
 
-{{site.data.alerts.callout_success}}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="reset-vars.html"><code>RESET</code></a> to reset a session variable as well.{{site.data.alerts.end}}
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -124,12 +124,12 @@ The following demonstrates how to assign a list of values:
 (1 row)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET search_path = 'app';
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -141,12 +141,12 @@ The following demonstrates how to assign a list of values:
 (1 row)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET search_path = DEFAULT;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW search_path;
 ~~~
@@ -160,9 +160,9 @@ The following demonstrates how to assign a list of values:
 
 ## `SET TIME ZONE`
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 As a best practice, we recommend not using this setting and avoid setting a session time for your database. We instead recommend converting UTC values to the appropriate time zone on the client side.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You can control the default time zone for a session with `SET TIME ZONE`. This will apply an offset to all [`TIMESTAMPTZ`/`TIMESTAMP WITH TIME ZONE`](timestamp.html) and [`TIMETZ`/`TIME WITH TIME ZONE`](time.html) values in the session. By default, CockroachDB uses UTC as the time zone for `SET TIME ZONE` offsets.
 
@@ -182,12 +182,12 @@ When setting a time zone, note the following:
 
 ### Example: Set the default time zone via `SET TIME ZONE`
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET TIME ZONE 'EST'; -- same as SET "timezone" = 'EST'
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TIME ZONE;
 ~~~
@@ -199,12 +199,12 @@ When setting a time zone, note the following:
 (1 row)
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SET TIME ZONE DEFAULT; -- same as SET "timezone" = DEFAULT
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW TIME ZONE;
 ~~~
@@ -230,7 +230,7 @@ When setting a time zone, note the following:
 
 ## Known Limitations
 
-{% include {{ page.version.version }}/known-limitations/set-transaction-no-rollback.md %}
+{% include {{< page-version >}}/known-limitations/set-transaction-no-rollback.md %}
 
 ## See also
 

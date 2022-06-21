@@ -11,7 +11,7 @@
 
     {{site.data.alerts.callout_success}}
     Resource `requests` and `limits` should have identical values. 
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     ~~~
     resources:
@@ -23,9 +23,9 @@
         memory: "8Gi"
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     If no resource limits are specified, the pods will be able to consume the maximum available CPUs and memory. However, to avoid overallocating resources when another memory-intensive workload is on the same instance, always set resource requests and limits explicitly.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. In the `volumeClaimTemplates` specification, you may want to modify `resources.requests.storage` for your use case. This configuration defaults to 100Gi of disk space per pod. For more details on customizing disks for performance, see [these instructions](kubernetes-performance.html#disk-type).
 
@@ -37,9 +37,9 @@
 
 #### Initialize the cluster
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The below steps use [`cockroach cert` commands](cockroach-cert.html) to quickly generate and sign the CockroachDB node and client certificates. If you use a different method of generating certificates, make sure to update `secret.secretName` in the StatefulSet configuration with the name of your node secret.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. Create two directories:
 

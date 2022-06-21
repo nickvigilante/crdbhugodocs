@@ -4,7 +4,7 @@ summary: Learn about newly identified limitations in CockroachDB as well as unre
 toc: true
 ---
 
-This page describes newly identified limitations in the CockroachDB {{ page.release_info.version }} release as well as unresolved limitations identified in earlier releases.
+This page describes newly identified limitations in the CockroachDB {{page.release_info.version}} release as well as unresolved limitations identified in earlier releases.
 
 ## New limitations
 
@@ -16,7 +16,7 @@ This page describes newly identified limitations in the CockroachDB {{ page.rele
 
 Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{% include {{ page.version.version }}/known-limitations/cdc.md %}
+{% include {{< page-version >}}/known-limitations/cdc.md %}
 
 ### Cold starts of large clusters may require manual intervention
 
@@ -146,7 +146,7 @@ Currently, the built-in SQL shell provided with CockroachDB (`cockroach sql` / `
 
 ### Importing an interleaved table from a `cockroach dump` output
 
-{% include {{ page.version.version }}/known-limitations/import-interleaved-table.md %}
+{% include {{< page-version >}}/known-limitations/import-interleaved-table.md %}
 
 ## Unresolved limitations
 
@@ -166,7 +166,7 @@ Specifically, when run inside a [`BEGIN`](begin-transaction.html) ... [`COMMIT`]
 
 ### Changes to the default replication zone are not applied to existing replication zones
 
-{% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
+{% include {{< page-version >}}/known-limitations/system-range-replication.md %}
 
 ### Silent validation error with `DECIMAL` values
 
@@ -234,15 +234,15 @@ SQLSTATE: 0A000
 
 ### Available capacity metric in the Admin UI
 
-{% include {{ page.version.version }}/misc/available-capacity-metric.md %}
+{% include {{< page-version >}}/misc/available-capacity-metric.md %}
 
 ### Schema changes within transactions
 
-{% include {{ page.version.version }}/misc/schema-changes-within-transactions.md %}
+{% include {{< page-version >}}/misc/schema-changes-within-transactions.md %}
 
 ### Schema changes between executions of prepared statements
 
-{% include {{ page.version.version }}/misc/schema-changes-between-prepared-statements.md %}
+{% include {{< page-version >}}/misc/schema-changes-between-prepared-statements.md %}
 
 ### `INSERT ON CONFLICT` vs. `UPSERT`
 
@@ -342,6 +342,6 @@ Every [`DELETE`](delete.html) or [`UPDATE`](update.html) statement constructs a 
 
 ### `cockroach dump` does not support cyclic foreign key references
 
-{{site.data.alerts.callout_info }}Resolved as of <a href="../releases/v2.1.0-alpha.20180507.html">v2.1.0-alpha.20180507</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24716">#24716</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Resolved as of <a href="../releases/v2.1.0-alpha.20180507.html">v2.1.0-alpha.20180507</a>. See <a href="https://github.com/cockroachdb/cockroach/pull/24716">#24716</a>.{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/known-limitations/dump-cyclic-foreign-keys.md %}

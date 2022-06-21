@@ -6,9 +6,9 @@ toc: true
 
 The distribution layer of CockroachDB's architecture provides a unified view of your cluster's data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you haven't already, we recommend reading the [Architecture Overview](overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -32,7 +32,7 @@ The locations of all ranges in your cluster are stored in a two-level index at t
 
 This two-level index plus user data can be visualized as a tree, with the root at `meta1`, the second level at `meta2`, and the leaves of the tree made up of the ranges that hold user data.
 
-![range-lookup.png](../../images/{{ page.version.version }}/range-lookup.png "Meta ranges plus user data tree diagram")
+![range-lookup.png](../../images/{{< page-version >}}/range-lookup.png "Meta ranges plus user data tree diagram")
 
 Importantly, every node has information on where to locate the `meta1` range (known as its range descriptor, detailed below), and the range is never split.
 

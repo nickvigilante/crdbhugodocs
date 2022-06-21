@@ -99,9 +99,9 @@ File name | File usage
 
 ## Split CA certificates
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We do not recommend you use split CA certificates unless your organizational security practices mandate you to do so.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you need to use separate CAs to sign node certificates and client certificates, then you need two CAs and their respective certificates and keys: `ca.crt` and `ca-client.crt`.
 
@@ -161,9 +161,9 @@ To enable certificate revocation:
 
       For production clusters, you might want to set the setting to `strict`.
 
-      {{site.data.alerts.callout_info }}
+      {{site.data.alerts.callout_info}}
       In the `strict` mode, all certificates are presumed to be invalid if the OCSP server is not reachable. Setting the cluster setting `security.ocsp.mode` to `strict` will lock you out of your CockroachDB database if your OCSP server goes down.
-      {{site.data.alerts.end }}
+      {{site.data.alerts.end}}
 
 
 ## See also

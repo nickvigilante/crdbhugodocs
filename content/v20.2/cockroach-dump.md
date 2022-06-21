@@ -5,9 +5,9 @@ toc: true
 key: sql-dump.html
 ---
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `cockroach dump` is no longer recommended and has been deprecated in v20.2. Instead, back up your data in a [full backup](take-full-and-incremental-backups.html), [export](export.html) your data in plain text format, or view table schema in plaintext with [`SHOW CREATE TABLE`](show-create.html).</li></ul>
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The `cockroach dump` [command](cockroach-commands.html) outputs the SQL statements required to recreate tables, views, and sequences. This command can be used to back up or export each database in a cluster. The output should also be suitable for importing into other relational databases, with minimal adjustments.
 
@@ -20,9 +20,9 @@ When `cockroach dump` is executed:
 - If the dump takes longer than the [`ttlseconds`](configure-replication-zones.html) replication setting for the table (25 hours by default), the dump may fail.
 - Reads, writes, and schema changes can happen while the dump is in progress, but will not affect the output of the dump.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The user must have the `SELECT` privilege on the target table(s).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -99,9 +99,9 @@ Flag | Description
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The user specified with `--user` must have the `SELECT` privilege on the target tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Logging
 
@@ -111,9 +111,9 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
 ## Examples
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 These examples use our sample `startrek` database, which you can add to a cluster via the [`cockroach gen`](cockroach-gen.html#generate-example-data) command. Also, the examples assume that the `maxroach` user has been [granted](grant.html) the `SELECT` privilege on all target tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Dump a table's schema and data
 

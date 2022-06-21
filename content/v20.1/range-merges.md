@@ -32,11 +32,11 @@ To reduce the number of small ranges, your cluster can have any range below a ce
 
 If the combined size of the small range and its neighbor is less than the maximum range size, the ranges merge into a single range. In our example, this would create a new range of keys `[1000, 3000)`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 
 Ranges only attempt to merge with their right-hand neighbor. Ranges do not currently attempt to merge with their left-hand neighbor (i.e., the range that ends where this range begins).
 
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Why range merges improve performance
 

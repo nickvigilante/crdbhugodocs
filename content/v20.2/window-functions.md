@@ -10,7 +10,7 @@ For a complete list of supported window functions, see [Functions and Operators]
 
 {{site.data.alerts.callout_success}}
 All [aggregate functions][aggregate-functions] can also be used as [window functions][window-functions]. For more information, see the [Examples](#examples) below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Window definitions
 
@@ -111,11 +111,11 @@ Because of this, you should be aware of the behavior of any [aggregate function]
 
 {{site.data.alerts.callout_success}}
 If you are running separate window functions over the same window frame, you can define the window frame once in a `WINDOW` clause, and then refer to the window by its name when you call the window function. For an example, see [Customers taking the most rides and generating the most revenue](#customers-taking-the-most-rides-and-generating-the-most-revenue).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{% include {{< page-version >}}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 ### Customers taking the most rides
 

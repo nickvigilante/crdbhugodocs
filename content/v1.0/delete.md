@@ -6,7 +6,7 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end}}
 
 
 ## Required Privileges

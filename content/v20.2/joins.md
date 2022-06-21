@@ -10,7 +10,7 @@ toc: true
 
 {{site.data.alerts.callout_success}}
 The [cost-based optimizer](cost-based-optimizer.html) supports hint syntax to force the use of a specific join algorithm.  For more information, see [Join hints](cost-based-optimizer.html#join-hints).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -94,7 +94,7 @@ CockroachDB supports the following conditions to match rows in a join:
   column names that are present in both the left and right table
   expressions.
 
-<section>{{site.data.alerts.callout_danger }}<code>NATURAL</code> is supported for compatibility with PostgreSQL; its use in new applications is discouraged because its results can silently change in unpredictable ways when new columns are added to one of the join operands.{{site.data.alerts.end }}</section>
+<section>{{site.data.alerts.callout_danger}}<code>NATURAL</code> is supported for compatibility with PostgreSQL; its use in new applications is discouraged because its results can silently change in unpredictable ways when new columns are added to one of the join operands.{{site.data.alerts.end}}</section>
 
 ## Join algorithms
 
@@ -142,9 +142,9 @@ Lookup joins are performed on two tables as follows:
 
 You can override the use of lookup joins using [join hints](cost-based-optimizer.html#join-hints).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.2:</span> To make the optimizer prefer lookup joins to merge joins when performing foreign key checks, set the `prefer_lookup_joins_for_fks` [session variable](set-vars.html) to `on`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The output of [`EXPLAIN (VERBOSE)`](explain.html#verbose-option) shows whether `equality cols are key` for lookup joins, which means that the lookup columns form a key in the target table such that each lookup has at most one result.
 
@@ -154,7 +154,7 @@ CockroachDB supports `LATERAL` subquery joins for `INNER` and `LEFT` cross joins
 
 ## Performance best practices
 
-{{site.data.alerts.callout_info }}CockroachDB is currently undergoing major changes to evolve and improve the performance of queries using joins. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}CockroachDB is currently undergoing major changes to evolve and improve the performance of queries using joins. The restrictions and workarounds listed in this section will be lifted or made unnecessary over time.{{site.data.alerts.end}}
 
 - When no indexes can be used to satisfy a join, CockroachDB may load all the rows in memory that satisfy the condition one of the join operands before starting to return result rows. This may cause joins to fail if the join condition or other `WHERE` clauses are insufficiently selective.
 - Outer joins (i.e., [left outer joins](#left-outer-joins), [right outer joins](#right-outer-joins), and [full outer joins](#full-outer-joins)) are generally processed less efficiently than [inner joins](#inner-joins). Use inner joins whenever possible. Full outer joins are the least optimized.

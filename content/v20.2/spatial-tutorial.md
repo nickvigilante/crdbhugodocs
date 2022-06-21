@@ -37,7 +37,7 @@ For more information about how this data set is put together, see the [Data set 
 
 ## Step 2. Start CockroachDB
 
-This tutorial can be accomplished in any CockroachDB cluster running [v20.2](../releases/v20.2.0.html) or later.
+This tutorial can be accomplished in any CockroachDB cluster running [v20.2](../releases/v20.2.html#v20-2-0) or later.
 
 The simplest way to get up and running is with [`cockroach demo`](cockroach-demo.html), which starts a temporary, in-memory CockroachDB cluster and opens an interactive SQL shell:
 
@@ -370,9 +370,9 @@ To answer this question:
 2. Build another CTE that returns information about the habitats of birds observed in NY state, and collects the habitat geometries together into one geometry.
 3. Join the results of the above CTEs and query the count of birds whose habitats contain the location of the bookstore.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The final [`SELECT`](selection-queries.html) in the query below is doing a join that will not benefit from [spatial indexing](spatial-indexes.html), since both sides of the join are the results of [CTEs](common-table-expressions.html), and are therefore not indexed.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -442,9 +442,9 @@ To answer this question:
 1. Build a CTE that returns some information about the bookstore you want to visit.
 2. Join the results of the above CTE and a query against the `birds` database that lists the names and observation totals (sums) of birds whose habitats are within 10 miles of the location of the bookstore.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The query below can also be written using an explicit `ST_DWithin`, which is an [index-accelerated function](spatial-data.html#performance). CockroachDB optimizes `ST_Distance(...) < $some_value` to use `ST_DWithin` (see this query's [`EXPLAIN`](explain.html) output for details).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -710,9 +710,9 @@ To answer this question:
 1. Build a CTE that returns the route between the two stores of interest (a geometry).
 2. Join the results of the above CTE with a query against [the `birds` database](#the-birds-database) that checks whether the distance between the route geometry and the location of the bird observation (`birds.routes.geom`) bookstore's location is less than the desired length of 10 miles. Note that because the call to `ST_Distance` is operating on shapes cast to `GEOGRAPHY` data type, the results are in meters, which then have to be converted to miles by dividing the result by 1609 (the number of meters in a mile).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The query below can also be written using an explicit `ST_DWithin`, which is an [index-accelerated function](spatial-data.html#performance). CockroachDB optimizes `ST_Distance(...) < $some_value` to use `ST_DWithin` (see this query's [`EXPLAIN`](explain.html) output for details).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -893,9 +893,9 @@ To answer this question:
 2. Build another CTE called `nearby_roads` that joins the results of the subquery above with [the `roads` table](#the-roads-table) and pulls out the roads in NY state that are within a degree (about 60 nautical miles). Order the roads returned by their distance from a loon sighting. This will return some duplicate roads (since loons can be sighted multiple times along a single road), which is why you need to `LIMIT` to 20 here so you can get the list down to 10 later. Because the data in the `roads` table has an SRID of 0, you need to use `ST_SetSRID` to set its SRID to [4326](srid-4326.html). This step is necessary because `ST_Distance` cannot operate on geometries with differing SRIDs.
 3. Finally, query the results of the `nearby_roads` subquery to get a list of 10 distinct road names that you can plan to visit.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The query below can also be written using an explicit `ST_DWithin`, which is an [index-accelerated function](spatial-data.html#performance). CockroachDB optimizes `ST_Distance(...) < $some_value` to use `ST_DWithin` (see this query's [`EXPLAIN`](explain.html) output for details).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -1189,9 +1189,9 @@ To answer this:
 1. Build a CTE that returns the [convex hull](st_convexhull.html) of Common Loon habitat.
 2. Join the results of the above CTE and a query against [the `roads` table](#the-roads-table) that sums the mileage of all roads that are contained within the convex hull of loon habitat.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Because you are using `ST_Contains`, the query below only sums the road mileages of roads whose geometries lie entirely within the loon habitat.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -1735,13 +1735,13 @@ Similarly, the paths (specifically [MultiLinestrings](multilinestring.html)) bet
 5. Do _R_<sub>A'</sub> and _R_<sub>B</sub> intersect?  If so, the algorithm is done. You have arrived at your destination.
 6. If the algorithm has arrived at this step without finishing, it goes back to step 4 and applies that step to the current "closest road to destination" _R_<sub>A'</sub>, and keeps operating steps 4-6 recursively until it has found a complete path or it hits some kind of heuristic timeout.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For more information about production quality map routing software that uses OpenStreetMap, see [the OpenStreetMap wiki page on Routing](https://wiki.openstreetmap.org/wiki/Routing).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 There are multiple ways to do geocoding. You can use REST API-based services or do the geocoding yourself by processing [TIGER/LINE address data](https://www2.census.gov/geo/tiger/tigerua/) using a library for that purpose. For more information about some of the options available to you, see [this OpenStreetMap wiki page on geocoders](https://wiki.openstreetmap.org/wiki/Search_engines) or [this list of open source geocoding software](http://www.tsusiatsoftware.net/geocode.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ##### The `roads` table
 
@@ -1751,9 +1751,9 @@ Meanwhile, the `roads` table has many columns; the most important ones used in t
 
 For more information about what the other columns in `roads` mean, see the [full data set description](https://www.sciencebase.gov/catalog/file/get/581d052be4b08da350d524ce?f=__disk__60%2F6b%2F4e%2F606b4e564884da8cca57ffeb229cd817006616e0&transform=1&allowOpen=true).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `roads` table was imported from a [shapefile](https://prd-tnm.s3.amazonaws.com/StagedProducts/Small-scale/data/Transportation/roadtrl010g.shp_nt00920.tar.gz) using the method described in [Migrate from Shapefiles](migrate-from-shapefiles.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### The `birds` database
 
@@ -1790,9 +1790,9 @@ VALUES
 	);
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This data is stored in a separate `birds` database due to the fact that it is split into several tables. It could also have been added to the `tutorial` database by naming the tables something like `bird_species`, `bird_routes`, and `bird_observations`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

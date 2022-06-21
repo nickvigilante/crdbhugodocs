@@ -53,7 +53,7 @@ To further clarify these concepts, let's look at a visualization of a trace for 
 
 ## Response
 
-{{site.data.alerts.callout_info }}The format of the <code>SHOW TRACE FOR SESSION</code> response may change in future versions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The format of the <code>SHOW TRACE FOR SESSION</code> response may change in future versions.{{site.data.alerts.end}}
 
 CockroachDB outputs traces in linear tabular format. Each result row represents either a span start (identified by the `=== SPAN START: <operation> ===` message) or a log message from a span. Rows are generally listed in their timestamp order (i.e., the order in which the events they represent occurred) with the exception that messages from child spans are interleaved in the parent span according to their timing. Messages from sibling spans, however, are not interleaved with respect to one another.
 
@@ -89,7 +89,7 @@ Column | Type | Description
 `operation` | string | The name of the operation (or sub-operation) on whose behalf the message was logged.
 `span` | int | The index of the span within the virtual list of all spans if they were ordered by the span's start time.
 
-{{site.data.alerts.callout_info }}If the <code>COMPACT</code> keyword was specified, only the <code>age</code>, <code>message</code>, <code>tag</code> and <code>operation</code> columns are returned. In addition, the value of the <code>location</code> columns is prepended to <code>message</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If the <code>COMPACT</code> keyword was specified, only the <code>age</code>, <code>message</code>, <code>tag</code> and <code>operation</code> columns are returned. In addition, the value of the <code>location</code> columns is prepended to <code>message</code>.{{site.data.alerts.end}}
 
 ## Examples
 
@@ -195,7 +195,7 @@ In this example, we use two terminals concurrently to generate conflicting trans
 
 6. Still in terminal 2, stop tracing and then view the completed trace:
 
-    {{site.data.alerts.callout_success}}Check the lines starting with <code>#Annotation</code> for insights into how the conflict is traced.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}Check the lines starting with <code>#Annotation</code> for insights into how the conflict is traced.{{site.data.alerts.end}}
 
     ~~~
     +--------------------+------+--------------------------------------------------------------------------+
@@ -395,7 +395,7 @@ In this example, we use session tracing to show an [automatic transaction retry]
   	> SELECT age, message FROM [SHOW TRACE FOR SESSION];
   	~~~
 
-    {{site.data.alerts.callout_success}}Check the lines starting with <code>#Annotation</code> for insights into how the retry is traced.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}Check the lines starting with <code>#Annotation</code> for insights into how the retry is traced.{{site.data.alerts.end}}
 
   	~~~ shell
   	+--------------------+---------------------------------------------------------------------------------------------------------------+

@@ -53,9 +53,9 @@ CockroachDB supports the following `ALTER` statements:
 
 - For `ALTER TABLE` statements, combine multiple subcommands in a single `ALTER TABLE` statement, where possible.
 
-- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {% include {{< page-version >}}/sql/dev-schema-changes.md %}
 
-- {% include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
+- {% include {{< page-version >}}/sql/dev-schema-change-limits.md %}
 
 ### Altering objects examples
 
@@ -232,9 +232,9 @@ CockroachDB supports the following `DROP` statements:
 - [`DROP VIEW`](drop-view.html)
 - [`DROP USER/ROLE`](drop-user.html)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To drop columns and column constraints from a table, use the `DROP COLUMN` and `DROP CONSTRAINT` subcommands of the [`ALTER TABLE`](alter-table.html) statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Drop best practices
 
@@ -290,9 +290,9 @@ Create a new file, and add the `DROP` statement:
 $ touch drop_unique_users_idx.sql
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 After creation, the notation for referring to indexes in CockroachDB is `[table_name]@[index_name]`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~

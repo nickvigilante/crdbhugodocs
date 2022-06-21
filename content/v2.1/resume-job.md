@@ -6,7 +6,7 @@ toc: true
 
  The `RESUME JOB` [statement](sql-statements.html) lets you resume [paused](pause-job.html) [`IMPORT`](import.html) jobs, enterprise [`BACKUP`](backup.html) and [`RESTORE`](restore.html) jobs, and, as of v2.1, [`changefeeds`](change-data-capture.html).
 
-{{site.data.alerts.callout_info }}You cannot pause schema changes.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You cannot pause schema changes.{{site.data.alerts.end}}
 
 
 ## Required privileges

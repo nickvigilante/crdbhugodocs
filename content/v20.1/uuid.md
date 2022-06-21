@@ -8,7 +8,7 @@ The `UUID` (Universally Unique Identifier) [data type](data-types.html) stores a
 
 {{site.data.alerts.callout_success}}
 To auto-generate unique row IDs, we recommend using [`UUID`](uuid.html) with the `gen_random_uuid()` function as the default value. See the [example](#create-a-table-with-auto-generated-unique-row-ids) below for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Syntax

@@ -14,9 +14,9 @@ The `SHOW QUERIES` [statement](sql-statements.html) lists details about currentl
 
 These details let you monitor the progress of active queries and, if necessary, identify those that may need to be [cancelled](cancel-query.html) to prevent unwanted resource consumption.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Schema changes and [`BACKUP`](backup.html)/[`RESTORE`](restore.html) statements are not executed as queries internally and so are not listed by `SHOW QUERIES`. To monitor such statements, use [`SHOW JOBS`](show-jobs.html) instead.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 

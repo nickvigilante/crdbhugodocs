@@ -127,9 +127,9 @@ Note the following:
     extendedKeyUsage = clientAuth
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     The `keyUsage` and `extendedkeyUsage` parameters are vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration and you can add additional usages, but do not omit `keyUsage` and `extendedkeyUsage` parameters or remove the listed usages.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 3. Create the CA key using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 
@@ -192,9 +192,9 @@ In the following steps, replace the placeholder text in the code with the actual
     subjectAltName = critical,DNS:<node-hostname>,DNS:<node-domain>,IP:<IP Address>
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     The `subjectAltName` parameter is vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the `subjectAltName` parameter.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 2. Create the key for the first node using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 
@@ -270,9 +270,9 @@ In the following steps, replace the placeholder text in the code with the actual
     subjectAltName = DNS:root
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     The `commonName` and `subjectAltName` parameters are vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the `commonName` parameter or modify the `subjectAltName` parameter.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 2. Create the key for the first client using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 
@@ -372,8 +372,8 @@ In the following steps, replace the placeholder text in the code with the actual
     commonName = <username_2>
     ~~~
 
-    {{site.data.alerts.callout_danger }}
-    The `commonName` parameter is vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the `commonName` parameter.  {{site.data.alerts.end }}
+    {{site.data.alerts.callout_danger}}
+    The `commonName` parameter is vital for CockroachDB functions. You can modify or omit other parameters as per your preferred OpenSSL configuration, but do not omit the `commonName` parameter.  {{site.data.alerts.end}}
 
 2. Create the key for the first client using the [`openssl genrsa`](https://www.openssl.org/docs/manmaster/man1/genrsa.html) command:
 

@@ -4,23 +4,23 @@
 
 2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, extract the binary, and copy it into the `PATH`:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 3. Run the [`cockroach start`](cockroach-start.html) command:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ cockroach start \
-    {{ page.certs}} \
+    {{page.certs}} \
     --advertise-host=<node1 internal address> \
     --join=<node1 internal address>:26257,<node2 internal address>:26257,<node3 internal address>:26257 \
     --locality=cloud=gce,region=us-east1,zone=us-east1-b \
@@ -37,7 +37,7 @@
 
 2. Download the [CockroachDB archive](https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz) for Linux, and extract the binary:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ curl https://binaries.cockroachdb.com/cockroach-{{ page.release_info.version }}.linux-amd64.tgz \
     | tar -xz
@@ -45,16 +45,16 @@
 
 3. Copy the binary into the `PATH`:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ sudo cp -i cockroach-{{ page.release_info.version }}.linux-amd64/cockroach /usr/local/bin/
     ~~~
 
 4. Run the [`cockroach init`](cockroach-init.html) command:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
-    $ cockroach init {{ page.certs}} --host=<address of any node>
+    $ cockroach init {{page.certs}} --host=<address of any node>
     ~~~
 
     Each node then prints helpful details to the [standard output](cockroach-start.html#standard-output), such as the CockroachDB version, the URL for the DB Console, and the SQL URL for clients.

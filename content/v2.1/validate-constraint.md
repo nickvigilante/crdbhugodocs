@@ -42,9 +42,9 @@ In order to ensure that the data added to the `orders` table prior to the creati
 > ALTER TABLE orders VALIDATE CONSTRAINT customer_fk;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If present in a [`CREATE TABLE`](create-table.html) statement, the table is considered validated because an empty table trivially meets its constraints.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

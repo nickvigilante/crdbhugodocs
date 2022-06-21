@@ -32,7 +32,7 @@ Parameter       | Description
 ----------------|------------
 `ALL`           | Revoke all [privileges](#supported-privileges).
 `privileges`    | A comma-separated list of privileges to revoke. For a list of supported privileges, see [Supported privileges](#supported-privileges).
-`targets`       | A comma-separated list of database, schema, table, or user-defined type names.<br><br>{{site.data.alerts.callout_info }}To revoke privileges from all tables in a database or schema, you can use `REVOKE ... ON TABLE *`. For an example, see [Revoke privileges on all tables in a database or schema](#revoke-privileges-on-all-tables-in-a-database-or-schema).{{site.data.alerts.end }}
+`targets`       | A comma-separated list of database, schema, table, or user-defined type names.<br><br>{{site.data.alerts.callout_info}}To revoke privileges from all tables in a database or schema, you can use `REVOKE ... ON TABLE *`. For an example, see [Revoke privileges on all tables in a database or schema](#revoke-privileges-on-all-tables-in-a-database-or-schema).{{site.data.alerts.end}}
 `grantees`         | A comma-separated list of [users](authorization.html#create-and-manage-users) and/or [roles](authorization.html#create-and-manage-roles) from whom to revoke privileges.
 
 ## Supported privileges
@@ -49,7 +49,7 @@ In addition to the `GRANT` privilege, the user revoking privileges must have the
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Revoke privileges on databases
 
@@ -115,9 +115,9 @@ In addition to the `GRANT` privilege, the user revoking privileges must have the
 (10 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Any tables that previously inherited the database-level privileges retain the privileges.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Revoke privileges on specific tables in a database
 

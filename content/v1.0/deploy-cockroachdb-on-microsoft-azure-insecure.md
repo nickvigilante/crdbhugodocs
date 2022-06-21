@@ -12,7 +12,7 @@ toc_not_nested: true
 
 This page shows you how to manually deploy an insecure multi-node CockroachDB cluster on Microsoft Azure, using Azure's managed load balancing service to distribute client traffic.
 
-{{site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end}}
 
 
 ## Requirements
@@ -62,7 +62,7 @@ To enable this in Azure, you must create a Resource Group, Virtual Network, and 
         | Priority | Any value > 1000 |
     - **Application support**:
 
-        {{site.data.alerts.callout_success}}If your application is also hosted on the same Azure     Virtual Network, you will not need to create a firewall rule for your application to communicate     with your load balancer.{{site.data.alerts.end }}
+        {{site.data.alerts.callout_success}}If your application is also hosted on the same Azure     Virtual Network, you will not need to create a firewall rule for your application to communicate     with your load balancer.{{site.data.alerts.end}}
 
         | Field | Recommended Value |
         |-------|-------------------|
@@ -101,7 +101,7 @@ Microsoft Azure offers fully-managed load balancing to distribute traffic betwee
 
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of Azure's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of Azure's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end}}
 
 ## Step 4. Start the first node
 
@@ -133,7 +133,7 @@ Microsoft Azure offers fully-managed load balancing to distribute traffic betwee
 	--advertise-host=<node1 internal IP address>
 	~~~
 
-	{{site.data.alerts.callout_info }}You can find the VM's internal IP address listed in the Resource Group's Virtual Network.{{site.data.alerts.end }}
+	{{site.data.alerts.callout_info}}You can find the VM's internal IP address listed in the Resource Group's Virtual Network.{{site.data.alerts.end}}
 
 ## Step 5. Add nodes to the cluster
 

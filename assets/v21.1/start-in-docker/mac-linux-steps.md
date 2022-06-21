@@ -2,7 +2,7 @@
 
 Since you'll be running multiple Docker containers on a single host, with one CockroachDB node per container, you need to create what Docker refers to as a [bridge network](https://docs.docker.com/engine/userguide/networking/#/a-bridge-network). The bridge network will enable the containers to communicate as a single cluster while keeping them isolated from external networks.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ docker network create -d bridge roachnet
 ~~~
@@ -13,7 +13,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
 1. Start the first node:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker run -d \
     --name=roach1 \
@@ -21,7 +21,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
     --net=roachnet \
     -p 26257:26257 -p 8080:8080  \
     -v "${PWD}/cockroach-data/roach1:/cockroach/cockroach-data"  \
-    {{ page.release_info.docker_image }}:{{ page.release_info.version }} start \
+    {{page.release_info.docker_image}}:{{page.release_info.version}} start \
     --insecure \
     --join=roach1,roach2,roach3
     ~~~
@@ -34,37 +34,37 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
     - `--net`: The bridge network for the container to join. See step 1 for more details.
     - `-p 26257:26257 -p 8080:8080`: These flags map the default port for inter-node and client-node communication (`26257`) and the default port for HTTP requests to the DB Console (`8080`) from the container to the host. This enables inter-container communication and makes it possible to call up the DB Console from a browser.
     - `-v "${PWD}/cockroach-data/roach1:/cockroach/cockroach-data"`: This flag mounts a host directory as a data volume. This means that data and logs for this node will be stored in `${PWD}/cockroach-data/roach1` on the host and will persist after the container is stopped or deleted. For more details, see Docker's <a href="https://docs.docker.com/engine/admin/volumes/bind-mounts/">Bind Mounts</a> topic.
-    - `{{ page.release_info.docker_image }}:{{ page.release_info.version }} start --insecure --join`: The CockroachDB command to [start a node](cockroach-start.html) in the container in insecure mode. The `--join` flag specifies the `hostname` of each node that will initially comprise your cluster. Otherwise, all [`cockroach start`](cockroach-start.html) defaults are accepted. Note that since each node is in a unique container, using identical default ports won’t cause conflicts.
+    - `{{page.release_info.docker_image}}:{{page.release_info.version}} start --insecure --join`: The CockroachDB command to [start a node](cockroach-start.html) in the container in insecure mode. The `--join` flag specifies the `hostname` of each node that will initially comprise your cluster. Otherwise, all [`cockroach start`](cockroach-start.html) defaults are accepted. Note that since each node is in a unique container, using identical default ports won’t cause conflicts.
 
 3. Start two more nodes:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker run -d \
     --name=roach2 \
     --hostname=roach2 \
     --net=roachnet \
     -v "${PWD}/cockroach-data/roach2:/cockroach/cockroach-data" \
-    {{ page.release_info.docker_image }}:{{ page.release_info.version }} start \
+    {{page.release_info.docker_image}}:{{page.release_info.version}} start \
     --insecure \
     --join=roach1,roach2,roach3
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker run -d \
     --name=roach3 \
     --hostname=roach3 \
     --net=roachnet \
     -v "${PWD}/cockroach-data/roach3:/cockroach/cockroach-data" \
-    {{ page.release_info.docker_image }}:{{ page.release_info.version }} start \
+    {{page.release_info.docker_image}}:{{page.release_info.version}} start \
     --insecure \
     --join=roach1,roach2,roach3
     ~~~
 
 4. Perform a one-time initialization of the cluster:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker exec -it roach1 ./cockroach init --insecure
     ~~~
@@ -77,7 +77,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
     At this point, each node also prints helpful [startup details](cockroach-start.html#standard-output) to its log. For example, the following command retrieves node 1's startup details:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker exec -it roach1 grep 'node starting' cockroach-data/logs/cockroach.log -A 11
     ~~~
@@ -86,7 +86,7 @@ We've used `roachnet` as the network name here and in subsequent steps, but feel
 
     ~~~
     CockroachDB node starting at {{ now | date: "%Y-%m-%d %H:%M:%S.%6 +0000 UTC" }}
-    build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }} (go1.12.6)
+    build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}} (go1.12.6)
     webui:               http://roach1:8080
     sql:                 postgresql://root@roach1:26257?sslmode=disable
     client flags:        /cockroach/cockroach <client cmd> --host=roach1:26257 --insecure
@@ -105,29 +105,29 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 1. Start the SQL shell in the first container:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker exec -it roach1 ./cockroach sql --insecure
     ~~~
 
 2. Run some basic [CockroachDB SQL statements](learn-cockroachdb-sql.html):
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE DATABASE bank;
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > CREATE TABLE bank.accounts (id INT PRIMARY KEY, balance DECIMAL);
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > INSERT INTO bank.accounts VALUES (1, 1000.50);
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -141,19 +141,19 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 3. Now exit the SQL shell on node 1 and open a new shell on node 2:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > \q
     ~~~
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker exec -it roach2 ./cockroach sql --insecure
     ~~~
 
 4. Run the same `SELECT` query as before:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT * FROM bank.accounts;
     ~~~
@@ -169,7 +169,7 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
 
 5. Exit the SQL shell on node 2:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > \q
     ~~~
@@ -180,7 +180,7 @@ CockroachDB also comes with a number of [built-in workloads](cockroach-workload.
 
 1. Load the initial dataset:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker exec -it roach1 ./cockroach workload init movr \
     'postgresql://root@roach1:26257?sslmode=disable'
@@ -188,7 +188,7 @@ CockroachDB also comes with a number of [built-in workloads](cockroach-workload.
 
 2. Run the workload for 5 minutes:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ shell
     $ docker exec -it roach1 ./cockroach workload run movr \
     --duration=5m \
@@ -207,9 +207,9 @@ The CockroachDB [DB Console](ui-overview.html) gives you insight into the overal
 
     This demonstrates CockroachDB's [automated replication](demo-replication-and-rebalancing.html) of data via the Raft consensus protocol.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this [limitation](known-limitations.html#available-capacity-metric-in-the-db-console).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 3. Click [**Metrics**](ui-overview-dashboard.html) to access a variety of time series dashboards, including graphs of SQL queries and service latency over time:
 
@@ -221,19 +221,19 @@ The CockroachDB [DB Console](ui-overview.html) gives you insight into the overal
 
 Use the `docker stop` and `docker rm` commands to stop and remove the containers (and therefore the cluster):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ docker stop roach1 roach2 roach3
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ docker rm roach1 roach2 roach3
 ~~~
 
 If you do not plan to restart the cluster, you may want to remove the nodes' data stores:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ rm -rf cockroach-data
 ~~~

@@ -8,7 +8,7 @@ The `ALTER USER` [statement](sql-statements.html) can be used to add or change a
 
 {{site.data.alerts.callout_success}}
 You can also use the [`cockroach user`](create-and-manage-users.html#update-a-users-password) command to add or change a user's password.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 ## Considerations

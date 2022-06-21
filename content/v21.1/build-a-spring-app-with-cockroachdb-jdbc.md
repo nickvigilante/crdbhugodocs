@@ -216,7 +216,7 @@ datasource:
 ...
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
 </section>
 
@@ -596,7 +596,7 @@ For more information about actuator endpoints, see the [Spring Boot Actuator End
 
 ## Implementation details
 
-This section walks you through the different components of the application project in detail.
+This section guides you through the different components of the application project in detail.
 
 ### Main application process
 
@@ -665,9 +665,9 @@ $ cockroach sql --certs-dir=certs
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Liquibase does not [retry transactions](transactions.html#transaction-retries) automatically. If a changeset fails at startup, you might need to restart the application manually to complete the changeset.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Liquibase configuration
 

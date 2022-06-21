@@ -371,9 +371,9 @@ $ cockroach quit --insecure --host=localhost:26261
     $ cockroach quit --insecure --host=localhost:26257
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For the final 2 nodes, the shutdown process will take longer (about a minute each) and will eventually force the nodes to stop. This is because, with only 2 of 5 nodes left, a majority of replicas are not available, and so the cluster is no longer operational.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell

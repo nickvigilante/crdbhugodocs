@@ -6,13 +6,13 @@ toc: true
 
 <span class="version-tag">New in v2.1:</span> Change data capture (CDC) provides efficient, distributed, row-level change feeds into Apache Kafka for downstream processing such as reporting, caching, or full-text indexing.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This feature is under active development** and only works for a [targeted use case](#usage-examples). Please [file a Github issue](file-an-issue.html) if you have feedback on the roadmap.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CDC is an [enterprise-only](enterprise-licensing.html). There will be a core version in a future release.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## What is change data capture?
 
@@ -69,11 +69,11 @@ The core feature of CDC is the [changefeed](create-changefeed.html). Changefeeds
     {"__crdb__": {"updated": "1532377312562986715.0000000000"}, "id": 1, "name": "Petee H"}
     {"__crdb__": {"updated": "1532377306108205142.0000000000"}, "id": 2, "name": "Carl"}
     {"__crdb__": {"updated": "1532377358501715562.0000000000"}, "id": 3, "name": "Ernie"}
-    {"__crdb__":{"resolved":"1532379887442299001.0000000000" }}
-    {"__crdb__":{"resolved":"1532379888444290910.0000000000" }}
-    {"__crdb__":{"resolved":"1532379889448662988.0000000000" }}
+    {"__crdb__":{"resolved":"1532379887442299001.0000000000"}}
+    {"__crdb__":{"resolved":"1532379888444290910.0000000000"}}
+    {"__crdb__":{"resolved":"1532379889448662988.0000000000"}}
     ...
-    {"__crdb__":{"resolved":"1532379922512859361.0000000000" }}
+    {"__crdb__":{"resolved":"1532379922512859361.0000000000"}}
     {"__crdb__": {"updated": "1532379923319195777.0000000000"}, "id": 4, "name": "Lucky"}
     ~~~
 
@@ -178,9 +178,9 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
     (1 row)
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can use the high-water timestamp to [start a new changefeed where another ended](create-changefeed.html#start-a-new-changefeed-where-another-ended).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Usage examples
 
@@ -220,9 +220,9 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 6. As the `root` user, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
@@ -377,9 +377,9 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic office_dogs
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 6. As the `root` user, open the [built-in SQL client](use-the-built-in-sql-client.html):
 
@@ -463,8 +463,8 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     ~~~
 
     ~~~ shell
-    {"id":1}    {"id":1,"name":{"string":"Petee H" }}
-    {"id":2}    {"id":2,"name":{"string":"Carl" }}
+    {"id":1}    {"id":1,"name":{"string":"Petee H"}}
+    {"id":2}    {"id":2,"name":{"string":"Carl"}}
     ~~~
 
     Note that the initial scan displays the state of the table as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
@@ -479,7 +479,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 14. Back in the terminal where you're watching the Kafka topic, the following output has appeared:
 
     ~~~ shell
-    {"id":3}    {"id":3,"name":{"string":"Ernie" }}
+    {"id":3}    {"id":3,"name":{"string":"Ernie"}}
     ~~~
 
 15. When you are done, exit the SQL shell (`\q`).

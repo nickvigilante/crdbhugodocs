@@ -12,4 +12,4 @@ Environment | Featured Approach
 [Digital Ocean](deploy-cockroachdb-on-digital-ocean.html#step-2-synchronize-clocks) | Use NTP with Google's external NTP service.
 [GCE](deploy-cockroachdb-on-google-cloud-platform.html#step-3-synchronize-clocks) | Use NTP with Google's internal NTP service.
 
-{{site.data.alerts.callout_info }}In most cases, we recommend Google's external NTP service because they handle <a href="https://developers.google.com/time/smear">"smearing" the leap second</a>. If you use a different NTP service that doesn't smear the leap second, you must configure client-side smearing manually and do so in the same way on each machine.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}In most cases, we recommend Google's external NTP service because they handle <a href="https://developers.google.com/time/smear">"smearing" the leap second</a>. If you use a different NTP service that doesn't smear the leap second, you must configure client-side smearing manually and do so in the same way on each machine.{{site.data.alerts.end}}

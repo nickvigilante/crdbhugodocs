@@ -21,9 +21,9 @@ To install the Liquibase binary on your machine:
 
 1. Download the latest version of the [Liquibase command-line tool](https://www.liquibase.org/download). CockroachDB is fully compatible with Liquibase versions 4.2.0 and greater. We use the binary download of Liquibase 4.20, for macOS.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     In this tutorial, we go through a manual installation, using a download of the binary version of the Liquibase command-line tool. If you are new to Liquibase, you can also use the [Liquibase Installer](https://www.liquibase.org/get-started/using-the-liquibase-installer) to get started. The installer comes with some example properties and changelog files, an example H2 database, and a distribution of AdoptOpenJDK.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Make a new directory for your Liquibase installation:
 
@@ -51,9 +51,9 @@ To install the Liquibase binary on your machine:
     $ source ~/.bash_profile
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     If your terminal does not run `.bash_profile` at start-up, you can alternatively append the `liquibase` path to the `PATH` definition in `.bashrc` or `.profile`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. To verify that the installation was successful, run the following command:
 
@@ -103,7 +103,7 @@ To install the driver for Liquibase:
 
 {{site.data.alerts.callout_success}}
 If you are using Liquibase in the context of a separate Java application, we recommend that you use a dependency management tool, like [Maven](https://docs.liquibase.com/tools-integrations/maven/home.html), to download the driver.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Generate TLS certificates for the `max` user
 
@@ -135,7 +135,6 @@ Let's define a changelog with the [XML format](https://docs.liquibase.com/concep
 
     {% include copy-clipboard.html %}
     ~~~ xml
-    <?xml version="1.0" encoding="UTF-8"?>
     <databaseChangeLog
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
             xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
@@ -154,7 +153,7 @@ Let's define a changelog with the [XML format](https://docs.liquibase.com/concep
 
     {{site.data.alerts.callout_success}}
     CockroachDB has [limited support for online schema changes in transactions](online-schema-changes.html#limited-support-for-schema-changes-within-transactions). To avoid running into issues with incomplete transactions, we recommend setting the [`runInTransaction` attribute](https://docs.liquibase.com/concepts/basic/changeset.html#available-attributes) to `"false"` on all changesets.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 
 1. In the same directory, create the SQL file specified by the first changeset:
@@ -217,15 +216,15 @@ When the application is started, all of the queries specified by the changesets 
 
 {{site.data.alerts.callout_success}}
 When possible, we recommend limiting each changeset to a single statement, per the **one change per changeset** [Liquibase best practice](https://docs.liquibase.com/concepts/bestpractices.html). This is especially important for [online schema changes](online-schema-changes.html). For more information, see [Liquibase and transactions](#liquibase-and-transactions).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 5. Configure a Liquibase properties file
 
 Liquibase properties are defined in a file named [`liquibase.properties`](https://docs.liquibase.com/workflows/liquibase-community/creating-config-properties.html). These properties define the database connection information.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also set Liquibase properties with the `liquibase` command-line tool.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To configure Liquibase properties:
 
@@ -246,9 +245,9 @@ To configure Liquibase properties:
     username: max
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For `url`, the SSL connection parameters must specify the full paths of the certificates that you generated.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ## Step 6. Run Liquibase
 
@@ -322,9 +321,9 @@ You can also query the `account` table directly to see the latest changes reflec
 (4 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Liquibase does not [retry transactions](transactions.html#transaction-retries) automatically. If a changeset fails at startup, you might need to restart the application manually to complete the changeset.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 7. Add additional changesets
 
@@ -339,7 +338,7 @@ Suppose that you want to change the primary key of the `accounts` table from a s
 
     {{site.data.alerts.callout_success}}
     Using [SQL files](https://docs.liquibase.com/concepts/basic/sql-format.html) to define statements can be helpful when you want to execute statements that use syntax specific to CockroachDB.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. Add the following SQL statement to `add_uuid.sql`:
 
@@ -481,9 +480,9 @@ By default, Liquibase wraps each changeset within a single transaction. If the t
 
 CockroachDB has [limited support for online schema changes within transactions](online-schema-changes.html#limited-support-for-schema-changes-within-transactions). If a schema change fails, automatic rollbacks can lead to unexpected results. To avoid running into issues with incomplete transactions, we recommend setting the `runInTransaction` attribute on each of your changesets to `"false"`, as demonstrated throughout this tutorial.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If `runInTransaction="false"` for a changeset, and an error occurs while Liquid is running the changeset, the `databasechangelog` table might be left in an invalid state and need to be fixed manually.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Transaction retries
 

@@ -13,7 +13,7 @@ For more information about the integration, see the [Cockroach Labs blog post](h
 
 {{site.data.alerts.callout_success}}
 For more information about using DBmarlin, see the [DBmarlin documentation](https://docs.dbmarlin.com/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 

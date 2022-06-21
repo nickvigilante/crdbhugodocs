@@ -16,9 +16,9 @@ The **Hardware** dashboard displays the following time series graphs:
 
 - In the cluster view, the graph shows the percentage of CPU in use by the CockroachDB process across all nodes.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For multi-core systems, the percentage of CPU usage is calculated by normalizing the CPU usage across all cores, whereby 100% utilization indicates that all cores are fully utilized. 
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Memory Usage
 
@@ -68,9 +68,9 @@ For multi-core systems, the percentage of CPU usage is calculated by normalizing
 
 - In the cluster view, the graph shows the number of disk reads and writes in queue for all processes, including CockroachDB, across all nodes in the cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For Mac OS, this graph is not populated and shows zero disk IOPS in progress. This is a [known limitation](https://github.com/cockroachdb/cockroach/issues/27927) that may be lifted in the future.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Available Disk Capacity
 
@@ -80,9 +80,9 @@ For Mac OS, this graph is not populated and shows zero disk IOPS in progress. Th
 
 - In the cluster view, the graph shows the available storage capacity across all nodes in the cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include v2.1/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Network Bytes Received
 

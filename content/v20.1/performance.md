@@ -11,7 +11,7 @@ For instructions to reproduce the TPC-C results listed here, see [Performance Be
 
 {{site.data.alerts.callout_success}}
 This document is about CockroachDB’s performance on benchmarks. For guidance on tuning real workloads, see [SQL Best Practices](performance-best-practices-overview.html), and for guidance on data location techniques to minimize network latency, see [Topology Patterns](topology-patterns.html).  
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Scale
 

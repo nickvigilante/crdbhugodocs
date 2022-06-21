@@ -13,9 +13,9 @@ In this tutorial, you'll work through a hypothetical scenario that demonstrates 
 2. You'll then execute the scenario at one of the weaker isolation levels, `READ COMMITTED`, observing the write skew anomaly and its implications. Because CockroachDB always uses `SERIALIZABLE` isolation, you'll run this portion of the tutorial on Postgres, which defaults to `READ COMMITTED`.
 3. You'll finish by executing the scenario at `SERIALIZABLE` isolation, observing how it guarantees correctness. You'll use CockroachDB for this portion.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For a deeper discussion of transaction isolation and the write skew anomaly, see the [Real Transactions are Serializable](https://www.cockroachlabs.com/blog/acid-rain/) and [What Write Skew Looks Like](https://www.cockroachlabs.com/blog/what-write-skew-looks-like/) blog posts.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -455,7 +455,7 @@ When you repeat the scenario on CockroachDB, you'll see that the anomaly is prev
 
     {{site.data.alerts.callout_success}}
     For this kind of error, CockroachDB recommends a [client-side transaction retry loop](transactions.html#client-side-intervention) that would transparently observe that the one doctor cannot take time off because the other doctor already succeeded in asking for it. You can find generic transaction retry functions for various languages in our [Build an App](hello-world-example-apps.html) tutorials.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. In the terminal for doctor 2, the application tries to commit the transaction:
 

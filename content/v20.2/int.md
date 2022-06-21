@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports various signed integer [data types](data-types.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For instructions showing how to auto-generate integer values (e.g., to auto-number rows in a table), see [this FAQ entry](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Names and Aliases
 
@@ -48,7 +48,7 @@ If your application needs to use an integer size that is different than the Cock
 
 {{site.data.alerts.callout_success}}
 If your application requires arbitrary precision numbers, use the [`DECIMAL`](decimal.html) data type.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 

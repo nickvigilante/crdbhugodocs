@@ -12,7 +12,7 @@ twitter: false
 
 This tutorial shows you how build a simple Node.js application with CockroachDB using a PostgreSQL-compatible driver or ORM. We've tested and can recommend the [Node.js pg driver](https://www.npmjs.com/package/pg) and the [Sequelize ORM](https://sequelize.org/), so those are featured here.
 
-{{site.data.alerts.callout_success}}For a more realistic use of Sequelize with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a more realistic use of Sequelize with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end}}
 
 
 ## Before You Begin

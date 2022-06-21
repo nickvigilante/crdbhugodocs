@@ -11,7 +11,7 @@ We have tested the [.NET Npgsql driver](http://www.npgsql.org/) enough to claim 
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Create a .NET project
 
@@ -40,7 +40,7 @@ $ dotnet add package Npgsql
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Generate a certificate for the `maxroach` user
 
@@ -99,7 +99,7 @@ Initial balances:
 
 Open `cockroachdb-test-app/Program.cs` again and replace the contents with the code shown below.
 
-{% include {{ page.version.version }}/client-transaction-retry.md %}
+{% include {{< page-version >}}/client-transaction-retry.md %}
 
 {% include copy-clipboard.html %}
 ~~~ csharp
@@ -145,7 +145,7 @@ $ cockroach sql --certs-dir=certs --database=bank -e 'SELECT id, balance FROM ac
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Run the C# code
 
@@ -186,7 +186,7 @@ Initial balances:
 
 Open `cockroachdb-test-app/Program.cs` again and replace the contents with the code shown below.
 
-{% include {{ page.version.version }}/client-transaction-retry.md %}
+{% include {{< page-version >}}/client-transaction-retry.md %}
 
 {% include copy-clipboard.html %}
 ~~~ csharp

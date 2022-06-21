@@ -84,7 +84,7 @@ All of the database operations are wrapped in a helper function named `retryTxn`
 
     {{site.data.alerts.callout_success}}
     `postgresql://root@localhost:26257?sslmode=disable` should be the `sql` connection URL provided in the `cockroach` welcome text.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     </section>
 
@@ -92,11 +92,11 @@ All of the database operations are wrapped in a helper function named `retryTxn`
 
     {{site.data.alerts.callout_success}}
     Use the connection string provided in the **Connection info** window of the {{ site.data.products.db }} Console.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You need to provide a SQL user password in order to securely connect to a {{ site.data.products.db }} cluster. The connection string should have a placeholder for the password (`<ENTER-PASSWORD>`).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     </section>
 
@@ -125,4 +125,4 @@ New account balances:
 
 Read more about using the [node-postgres driver](https://www.npmjs.com/package/pg).
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

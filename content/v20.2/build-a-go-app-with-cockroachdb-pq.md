@@ -17,11 +17,11 @@ This tutorial shows you how build a simple Go application with CockroachDB and t
 
 ## Step 1. Start CockroachDB
 
-{% include {{ page.version.version }}/app/start-cockroachdb.md %}
+{% include {{< page-version >}}/app/start-cockroachdb.md %}
 
 ## Step 2. Create a database
 
-{% include {{ page.version.version }}/app/create-a-database.md %}
+{% include {{< page-version >}}/app/create-a-database.md %}
 
 ## Step 3. Run the Go code
 
@@ -36,7 +36,7 @@ You can now run the code sample (`main.go`) provided in this tutorial to do the 
 
 ### Get the code
 
-You can copy the code below, <a href="https://raw.githubusercontent.com/cockroachlabs/hello-world-go-pq/master/main.go">download the code directly</a>, or clone [the code's GitHub repository](https://github.com/cockroachlabs/hello-world-go-pq).
+You can copy the code below, [download the code directly](https://raw.githubusercontent.com/cockroachlabs/hello-world-go-pq/master/main.go), or clone [the code's GitHub repository](https://github.com/cockroachlabs/hello-world-go-pq).
 
 Here are the contents of `main.go`:
 
@@ -67,7 +67,7 @@ The function call should look similar to the following:
 db, err := sql.Open("postgres", "postgresql://{user}:{password}@{globalhost}:26257/bank?sslmode=verify-full&sslrootcert={path to the CA certificate}&options=--cluster={cluster_name}")
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
 </section>
 

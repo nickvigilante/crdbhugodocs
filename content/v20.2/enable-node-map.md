@@ -12,9 +12,9 @@ The **Node Map** is useful for:
 
 This page walks you through the process of setting up and enabling the Node Map.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On a secure cluster, this area of the DB Console can only be accessed by an `admin` user. See [DB Console access](ui-overview.html#db-console-access).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include enterprise-feature.md %}
 
@@ -24,9 +24,9 @@ On a secure cluster, this area of the DB Console can only be accessed by an `adm
 
 To enable the Node Map, you need to start the cluster with the correct [`--locality`](cockroach-start.html#locality) flags and assign the latitude and longitude for each locality.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The Node Map will not be displayed until *all* nodes are started with the correct `--locality` flags and all localities are assigned the corresponding latitude and longitude.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Consider a four-node geo-distributed cluster with the following configuration:
 
@@ -110,9 +110,9 @@ After [setting the Enterprise license](enterprise-licensing.html), the Node Map 
 
 <img src="{{ 'images/v20.2/ui-node-map-after-license.png' | relative_url }}" alt="DB Console" style="border:1px solid #eee;max-width:100%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To be displayed on the world map, localities must be assigned a corresponding latitude and longitude.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Step 3. Set the latitudes and longitudes for the localities
 

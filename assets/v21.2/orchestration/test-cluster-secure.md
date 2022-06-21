@@ -73,34 +73,37 @@ pod/cockroachdb-client-secure created
     This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other [`cockroach` client commands](cockroach-commands.html) (e.g., `cockroach node`), repeat step 2 using the appropriate `cockroach` command.
 
     If you'd prefer to delete the pod and recreate it when needed, run `kubectl delete pod cockroachdb-client-secure`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/orchestration/kubernetes-basic-sql.md %}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
-1. From your local workstation, use our [`client-secure.yaml`](https://github.com/cockroachdb/cockroach/blob/master/cloud/kubernetes/client-secure.yaml) file to launch a pod and keep it running indefinitely.
+From your local workstation, use our [`client-secure.yaml`](https://github.com/cockroachdb/helm-charts/blob/master/examples/client-secure.yaml) file to launch a pod and keep it running indefinitely.
 
-    1. Download the file:
+1. Download the file:
 
-        {% include_cached copy-clipboard.html %}
-        ~~~ shell
-        $ curl -OOOOOOOOO \
-        https://raw.githubusercontent.com/cockroachdb/cockroach/master/cloud/kubernetes/client-secure.yaml
-        ~~~
+    {% include_cached copy-clipboard.html %}
+    ~~~ shell
+    $ curl -OOOOOOOOO \
+    https://raw.githubusercontent.com/cockroachdb/helm-charts/master/examples/client-secure.yaml
+    ~~~
 
-    1. In the file, change `serviceAccountName: cockroachdb` to `serviceAccountName: my-release-cockroachdb`.
+1. In the file, set the following values:
+    - `spec.serviceAccountName: my-release-cockroachdb`
+    - `spec.image: cockroachdb/cockroach: {your CockroachDB version}`
+    - `spec.volumes[0].project.sources[0].secret.name: my-release-cockroachdb-client-secret`
 
-    1. Use the file to launch a pod and keep it running indefinitely:
+1. Use the file to launch a pod and keep it running indefinitely:
 
-        {% include_cached copy-clipboard.html %}
-        ~~~ shell
-        $ kubectl create -f client-secure.yaml
-        ~~~
+    {% include_cached copy-clipboard.html %}
+    ~~~ shell
+    $ kubectl create -f client-secure.yaml
+    ~~~
 
-        ~~~
-        pod "cockroachdb-client-secure" created
-        ~~~
+    ~~~
+    pod "cockroachdb-client-secure" created
+    ~~~
 
 1. Get a shell into the pod and start the CockroachDB [built-in SQL client](cockroach-sql.html):
 
@@ -108,7 +111,7 @@ pod/cockroachdb-client-secure created
     ~~~ shell
     $ kubectl exec -it cockroachdb-client-secure \
     -- ./cockroach sql \
-    --certs-dir=/cockroach-certs \
+    --certs-dir=./cockroach-certs \
     --host=my-release-cockroachdb-public
     ~~~
 
@@ -131,7 +134,7 @@ pod/cockroachdb-client-secure created
     This pod will continue running indefinitely, so any time you need to reopen the built-in SQL client or run any other [`cockroach` client commands](cockroach-commands.html) (e.g., `cockroach node`), repeat step 2 using the appropriate `cockroach` command.
 
     If you'd prefer to delete the pod and recreate it when needed, run `kubectl delete pod cockroachdb-client-secure`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/orchestration/kubernetes-basic-sql.md %}
 </section>

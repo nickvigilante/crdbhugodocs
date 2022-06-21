@@ -6,7 +6,7 @@ toc: true
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -74,7 +74,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 </div>
 
 {{site.data.alerts.callout_success}}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -86,7 +86,7 @@ Parameter | Description
 `index_def` | An optional, comma-separated list of [index definitions](indexes.html). For each index, the column(s) to index must be specified; optionally, a name can be specified. Index names must be unique within the table and follow these [identifier rules](keywords-and-identifiers.html#identifiers). See the [Create a Table with Secondary Indexes and Inverted Indexes](#create-a-table-with-secondary-and-inverted-indexes) example below.<br><br><span class="version-tag">New in v20.1:</span> To enable [hash-sharded indexes](indexes.html#hash-sharded-indexes), set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`. For examples, see [Create a table with hash-sharded indexes](#create-a-table-with-a-hash-sharded-primary-index) below.<br><br>The [`CREATE INDEX`](create-index.html) statement can be used to create an index separate from table creation.
 `family_def` | An optional, comma-separated list of [column family definitions](column-families.html). Column family names must be unique within the table but can have the same name as columns, constraints, or indexes.<br><br>A column family is a group of columns that are stored as a single key-value pair in the underlying key-value store. CockroachDB automatically groups columns into families to ensure efficient storage and performance. However, there are cases when you may want to manually assign columns to families. For more details, see [Column Families](column-families.html).
 `table_constraint` | An optional, comma-separated list of [table-level constraints](constraints.html). Constraint names must be unique within the table but can have the same name as columns, column families, or indexes.
-`opt_interleave` | You can potentially optimize query performance by [interleaving tables](interleave-in-parent.html), which changes how CockroachDB stores your data.<br>{{site.data.alerts.callout_info }}[Hash-sharded indexes](indexes.html#hash-sharded-indexes) cannot be interleaved.{{site.data.alerts.end }}
+`opt_interleave` | You can potentially optimize query performance by [interleaving tables](interleave-in-parent.html), which changes how CockroachDB stores your data.<br>{{site.data.alerts.callout_info}}[Hash-sharded indexes](indexes.html#hash-sharded-indexes) cannot be interleaved.{{site.data.alerts.end}}
 `opt_partition_by` | An [enterprise-only](enterprise-licensing.html) option that lets you define table partitions at the row level. You can define table partitions by list or by range. See [Define Table Partitions](partitioning.html) for more information.
 `opt_temp_create_table` | <span class="version-tag">New in v20.1:</span> Defines the table as a session-scoped temporary table. For more information, see [Temporary Tables](temporary-tables.html).<br><br>**Support for temporary tables is [experimental](experimental-features.html#temporary-objects)**.
 
@@ -98,7 +98,7 @@ By default, tables are created in the default replication zone but can be placed
 
 CockroachDB allows [enterprise users](enterprise-licensing.html) to [define table partitions](partitioning.html), thus providing row-level control of how and where the data is stored. See [Create a Replication Zone for a Table Partition](configure-replication-zones.html#create-a-replication-zone-for-a-partition) for more information.
 
-{{site.data.alerts.callout_info }}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end}}
 
 ## Examples
 
@@ -108,11 +108,11 @@ In this example, we create the `users` table with a single [primary key](primary
 
 For performance recommendations on primary keys, see the [Primary Key Constraint](primary-key.html#performance-considerations) page and the [SQL Performance Best Practices](performance-best-practices-overview.html#use-multi-column-primary-keys) page.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  <span class="version-tag">New in v20.1:</span> If no primary key is explicitly defined in a `CREATE TABLE` statement, you can add a primary key to the table with [`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) or [`ALTER PRIMARY KEY`](alter-primary-key.html). If the `ADD` or `ALTER` statement follows the `CREATE TABLE` statement, and is part of the same transaction, no default primary key will be created. If the table has already been created and the transaction committed, the `ADD` or `ALTER` statements replace the default primary key.
- {{site.data.alerts.end }}
+ {{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -424,9 +424,9 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with partitions
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See [Partition using Primary Key](partitioning.html#partition-using-primary-key) for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Create a table with partitions by list
 
@@ -522,7 +522,7 @@ To show the definition of a table, use the [`SHOW CREATE`](show-create.html) sta
 
 ### Create a table with a hash-sharded primary index
 
-{% include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+{% include {{< page-version >}}/performance/use-hash-sharded-indexes.md %}
 
 {% include copy-clipboard.html %}
 ~~~ sql

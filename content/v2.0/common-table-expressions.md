@@ -129,7 +129,7 @@ statements. The example above is valid, but the following is not:
 This is not valid because the `WITH` clause that defines an `INSERT`
 common table expression is not at the top level of the query.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a common table expression contains
 a data-modifying statement (<code>INSERT</code>, <code>DELETE</code>,
 etc.), the modifications are performed fully even if only part
@@ -137,16 +137,16 @@ of the results are used, e.g., with <a
 href="limit-offset.html"><code>LIMIT</code></a>. See <a
 href="subqueries.html#data-writes-in-subqueries">Data
 Writes in Subqueries</a> for details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div markdown="1"></div>
 
 ## Known Limitations
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The following limitations may be lifted
 in a future version of CockroachDB.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div markdown="1"></div>
 

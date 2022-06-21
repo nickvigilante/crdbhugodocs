@@ -96,7 +96,7 @@ table td:first-child {
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Create a table from a `SELECT` query
 

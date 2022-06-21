@@ -59,14 +59,14 @@ You can expand certain [types of persistent volumes](https://kubernetes.io/docs/
 
 3. Edit one of the persistent volume claims to request more space:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The requested `storage` value must be larger than the previous value. You cannot use this method to decrease the disk size.
-	{{site.data.alerts.end }}
+	{{site.data.alerts.end}}
 
 	<section class="filter-content" markdown="1" data-scope="helm">
 	{% include copy-clipboard.html %}
     ~~~ shell
-    $ kubectl patch pvc datadir-my-release-cockroachdb-0 -p '{"spec": {"resources": {"requests": {"storage": "200Gi" }}}}'
+    $ kubectl patch pvc datadir-my-release-cockroachdb-0 -p '{"spec": {"resources": {"requests": {"storage": "200Gi"}}}}'
     ~~~
 
     ~~~
@@ -77,7 +77,7 @@ You can expand certain [types of persistent volumes](https://kubernetes.io/docs/
 	<section class="filter-content" markdown="1" data-scope="manual">
 	{% include copy-clipboard.html %}
     ~~~ shell
-    $ kubectl patch pvc datadir-cockroachdb-0 -p '{"spec": {"resources": {"requests": {"storage": "200Gi" }}}}'
+    $ kubectl patch pvc datadir-cockroachdb-0 -p '{"spec": {"resources": {"requests": {"storage": "200Gi"}}}}'
     ~~~
 
     ~~~
@@ -115,7 +115,7 @@ You can expand certain [types of persistent volumes](https://kubernetes.io/docs/
 
     {{site.data.alerts.callout_success}}
     Running `kubectl get pv` will display the persistent volumes with their *requested* capacity and not their actual capacity. This can be misleading, so it's best to use `kubectl get pvc`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 5. Examine the persistent volume claim. If the volume has a file system, you will see a `FileSystemResizePending` condition with an accompanying message:
 

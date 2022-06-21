@@ -252,9 +252,9 @@ $ cockroach node status --host=165.227.60.76 --certs-dir=certs
 (3 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You need to run the `node status` command on a live node to identify the other live nodes in an unavailable cluster. Figuring out a live node to run the command is a trial-and-error process, so run the command against each node until you get one that responds.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Decommission nodes
 

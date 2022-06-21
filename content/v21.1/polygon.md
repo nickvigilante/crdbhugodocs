@@ -8,7 +8,7 @@ A `POLYGON` is a shape with a closed exterior that is made up of lines. Polygons
 
 The coordinates of each Point and line that make up the Polygon are translated according to the current [spatial reference system](spatial-glossary.html#spatial-reference-system) (denoted by an [SRID](spatial-glossary.html#srid)) to determine what the point "is", or what it "means" relative to the [other spatial objects](spatial-features.html#spatial-objects) (if any) in the data set.
 
-{% include {{ page.version.version }}/spatial/zmcoords.md %}
+{% include {{< page-version >}}/spatial/zmcoords.md %}
 
 ## Examples
 
@@ -16,7 +16,7 @@ The coordinates of each Point and line that make up the Polygon are translated a
 
 A Polygon can be created from SQL by calling the `st_geomfromtext` function on a LineString definition expressed in the [Well Known Text (WKT)](spatial-glossary.html#wkt) format as shown below.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT ST_GeomFromText('POLYGON((0 0, 0 1024, 1024 1024, 1024 0, 0 0))');
 ~~~
@@ -32,7 +32,7 @@ SELECT ST_GeomFromText('POLYGON((0 0, 0 1024, 1024 1024, 1024 0, 0 0))');
 
 To represent a polygon with holes in [WKT](spatial-glossary.html#wkt), add one or more additional lists of coordinates that define the boundaries of the holes as shown below:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT ST_GeomFromText('POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75.704722 36.076944, -87.906471 43.038902), (-87.623177 41.881832, -90.199402 38.627003, -82.446732 38.413651, -87.623177 41.881832))');
 ~~~
@@ -48,7 +48,7 @@ SELECT ST_GeomFromText('POLYGON((-87.906471 43.038902, -95.992775 36.153980, -75
 
 You can also use the `st_makepolygon` function on a LineString that defines the outer boundary of the Polygon, e.g.:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 SELECT ST_MakePolygon('LINESTRING(0 0, 0 1024, 1024 1024, 1024 0, 0 0)');
 ~~~

@@ -5,11 +5,11 @@ toc: true
 docs_area: reference.sql
 ---
 
-The `SHOW RANGES` [statement](sql-statements.html) shows information about the [ranges](architecture/overview.html#glossary) that comprise the data for a table, index, or entire database. This information is useful for verifying how SQL data maps to underlying ranges, and where the replicas for ranges are located. If `SHOW RANGES` displays `NULL` for both the start and end keys of a range, the range is empty and has no splits.
+The `SHOW RANGES` [statement](sql-statements.html) shows information about the [ranges](architecture/overview.html#architecture-range) that comprise the data for a table, index, or entire database. This information is useful for verifying how SQL data maps to underlying ranges, and where the replicas for ranges are located. If `SHOW RANGES` displays `NULL` for both the start and end keys of a range, the range is empty and has no splits.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To show range information for a specific row in a table or index, use the [`SHOW RANGE ... FOR ROW`](show-range-for-row.html) statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -19,7 +19,7 @@ To show range information for a specific row in a table or index, use the [`SHOW
 
 ## Required privileges
 
-Only members of the [`admin` role](authorization.html#admin-role) can run `SHOW RANGES`. By default, the `root` user belongs to the `admin` role.
+Only members of the [`admin` role](security-reference/authorization.html#admin-role) can run `SHOW RANGES`. By default, the `root` user belongs to the `admin` role.
 
 ## Parameters
 
@@ -40,22 +40,22 @@ Field | Description
 `end_key` | The end key for the range.
 `range_id` | The range ID.
 `range_size_mb` | The size of the range.
-`lease_holder` | The node that contains the range's [leaseholder](architecture/overview.html#glossary).
+`lease_holder` | The node that contains the range's [leaseholder](architecture/overview.html#architecture-leaseholder).
 `lease_holder_locality` | The [locality](cockroach-start.html#locality) of the leaseholder.
-`replicas` | The nodes that contain the range [replicas](architecture/overview.html#glossary).
+`replicas` | The nodes that contain the range [replicas](architecture/overview.html#architecture-replica).
 `replica_localities` | The [locality](cockroach-start.html#locality) of the range.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If both `start_key` and `end_key` show `NULL`, the range is empty and has no splits.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{% include {{< page-version >}}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 ### Show ranges for a table (primary index)
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW RANGES FROM TABLE vehicles] WHERE "start_key" NOT LIKE '%Prefix%';
 ~~~
@@ -76,7 +76,7 @@ If both `start_key` and `end_key` show `NULL`, the range is empty and has no spl
 
 ### Show ranges for an index
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW RANGES FROM INDEX vehicles_auto_index_fk_city_ref_users] WHERE "start_key" NOT LIKE '%Prefix%';
 ~~~
@@ -97,7 +97,7 @@ If both `start_key` and `end_key` show `NULL`, the range is empty and has no spl
 
 ### Show ranges for a database
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM [SHOW RANGES FROM database movr] WHERE "start_key" NOT LIKE '%Prefix%';
 ~~~

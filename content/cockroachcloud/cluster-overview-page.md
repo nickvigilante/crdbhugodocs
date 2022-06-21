@@ -25,7 +25,7 @@ The **Usage this month** panel displays your cluster usage statistics for the cu
 |---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | Spend limit   | The spend limit you entered when [creating the cluster](create-a-serverless-cluster.html#step-3-enter-a-spend-limit). Click the **edit** icon to change the spend limit.                                                                                                         |
 | Storage       | The amount of data currently stored in the cluster. This value does not account for compression or replication. The total available storage is determined by your spend limit and Burst RU usage. For details, see [CockroachCloud Architecture](architecture.html#performance). |
-| Request Units | The CPU and I/O resources being used by queries on the cluster, and whether throttling is in effect. The total available RUs are determined by your spend limit and storage usage. For more context, see [CockroachCloud Architecture](architecture.html#concepts).              |
+| Request Units | The CPU and I/O resources being used by queries on the cluster, and whether throttling is in effect. The total available RUs are determined by your spend limit and storage usage. For more context, see [CockroachCloud Architecture](architecture.html#cockroachdb-cloud-terms).              |
 
 ## Cluster statistics panel
 
@@ -55,4 +55,4 @@ The **Request Units** graph displays the CPU and I/O resources being used by que
 
 ### SQL Statements
 
-The **SQL Statements** graph displays an average of the number of [`SELECT`](../{{site.versions["stable"] }}/select-clause.html), [`INSERT`](../{{site.versions["stable"] }}/insert.html), [`UPDATE`](../{{site.versions["stable"] }}/update.html), and [`DELETE`](../{{site.versions["stable"] }}/delete.html) statements successfully executed per second.
+The **SQL Statements** graph displays an average of the number of [`SELECT`](../{{site.versions["stable"]}}/select-clause.html), [`INSERT`](../{{site.versions["stable"]}}/insert.html), [`UPDATE`](../{{site.versions["stable"]}}/update.html), and [`DELETE`](../{{site.versions["stable"]}}/delete.html) statements successfully executed per second.

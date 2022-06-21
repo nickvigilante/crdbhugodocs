@@ -20,7 +20,7 @@ Parameter       | Description
 ----------------|------------
 `ALL`           | Grant all [privileges](#supported-privileges).
 `privileges`    | A comma-separated list of privileges to grant. For a list of supported privileges, see [Supported privileges](#supported-privileges).
-`targets`       | A comma-separated list of database, schema, table, or user-defined type names.<br><br>{{site.data.alerts.callout_info }}To grant privileges on all tables in a database or schema, you can use `GRANT ... ON TABLE *`. For an example, see [Grant privileges on all tables in a database or schema](#grant-privileges-on-all-tables-in-a-database-or-schema).{{site.data.alerts.end }}
+`targets`       | A comma-separated list of database, schema, table, or user-defined type names.<br><br>{{site.data.alerts.callout_info}}To grant privileges on all tables in a database or schema, you can use `GRANT ... ON TABLE *`. For an example, see [Grant privileges on all tables in a database or schema](#grant-privileges-on-all-tables-in-a-database-or-schema).{{site.data.alerts.end}}
 `users`         | A comma-separated list of [users](authorization.html#create-and-manage-users) and/or [roles](authorization.html#create-and-manage-roles) to whom you want to grant privileges.
 
 ## Supported privileges
@@ -37,9 +37,9 @@ The user granting privileges must also have the privilege being granted on the t
 
 - When a role or user is granted privileges for a database, new tables created in the database will inherit the privileges, but the privileges can then be changed.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The user does not get privileges to existing tables in the database. To grant privileges to a user on all existing tables in a database, see [Grant privileges on all tables in a database](#grant-privileges-on-all-tables-in-a-database-or-schema)
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - When a role or user is granted privileges for a table, the privileges are limited to the table.
 - The `root` user automatically belongs to the `admin` role and has the `ALL` privilege for new databases.
@@ -47,7 +47,7 @@ The user granting privileges must also have the privilege being granted on the t
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Grant privileges on databases
 

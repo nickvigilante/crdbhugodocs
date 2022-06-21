@@ -14,7 +14,7 @@ Make sure you have already:
 - [Installed a Postgres client](install-client-drivers.html).
 - [Connected to the database](connect-to-the-database.html).
 
-{% include {{ page.version.version }}/app/retry-errors.md %}
+{% include {{< page-version >}}/app/retry-errors.md %}
 
 ## Insert rows
 
@@ -52,7 +52,7 @@ if _, err := db.Exec(
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -78,7 +78,7 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -94,7 +94,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

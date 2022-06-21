@@ -41,7 +41,7 @@ CockroachDB supports explicit type conversions using the following methods:
     To create constant values, consider using a
     <a href="scalar-expressions.html#explicitly-typed-expressions">type annotation</a>
     instead of a cast, as it provides more predictable results.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - Other [built-in conversion functions](functions-and-operators.html) when the type is not a SQL type, for example `from_ip()`, `to_ip()` to convert IP addresses between `STRING` and `BYTES` values.
 

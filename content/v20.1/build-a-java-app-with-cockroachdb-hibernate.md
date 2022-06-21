@@ -14,17 +14,17 @@ twitter: false
 
 This tutorial shows you how build a simple Java application with CockroachDB and the Hibernate ORM.
 
-{% include {{ page.version.version }}/app/java-version-note.md %}
+{% include {{< page-version >}}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For a sample app and tutorial that uses Spring Data JPA (Hibernate) and CockroachDB, see [Build a Spring App with CockroachDB and JPA](build-a-spring-app-with-cockroachdb-jpa.html).
 
 For another use of Hibernate with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the Gradle build tool
 
@@ -57,7 +57,7 @@ For other ways to install Gradle, see [its official documentation](https://gradl
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -87,9 +87,9 @@ To run it:
 
 1. Download and extract [hibernate-basic-sample.tgz](https://github.com/cockroachdb/docs/raw/master/_includes/{{ page.version.version }}/app/hibernate-basic-sample/hibernate-basic-sample.tgz). The settings in [`hibernate.cfg.xml`](https://github.com/cockroachdb/docs/raw/master/_includes/{{ page.version.version }}/app/hibernate-basic-sample/hibernate.cfg.xml) specify how to connect to the database.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The version of the CockroachDB Hibernate dialect in `hibernate.cfg.xml` corresponds to a version of CockroachDB. For more information, see [Install Client Drivers: Hibernate](install-client-drivers.html).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 2. Compile and run the code using [`build.gradle`](https://github.com/cockroachdb/docs/raw/master/_includes/{{ page.version.version }}/app/hibernate-basic-sample/build.gradle), which will also download the dependencies.
 
@@ -102,13 +102,13 @@ To run it:
 To clone a version of the code below that connects to insecure clusters, run the command below. Note that you will need to edit the connection string to use the certificates that you generated when you set up your secure cluster.
 
 `git clone https://github.com/cockroachlabs/example-app-java-hibernate/`
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-The contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/hibernate-basic-sample/Sample.java):
+The contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{< page-version >}}/app/hibernate-basic-sample/Sample.java):
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/hibernate-basic-sample/Sample.java %}
+{% include {{< page-version >}}/app/hibernate-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -168,7 +168,7 @@ SELECT id, balance FROM accounts;
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Java code
 
@@ -199,11 +199,11 @@ To run it:
     $ gradle run
     ~~~
 
-The contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java):
+The contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{< page-version >}}/app/insecure/hibernate-basic-sample/Sample.java):
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/insecure/hibernate-basic-sample/Sample.java %}
+{% include {{< page-version >}}/app/insecure/hibernate-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -287,4 +287,4 @@ Note that interleaved execution (partial execution of multiple statements within
 
 Read more about using the [Hibernate ORM](http://hibernate.org/orm/), or check out a more realistic implementation of Hibernate with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

@@ -21,6 +21,10 @@ The `IMPORT` [statement](sql-statements.html) imports the following types of dat
 - `IMPORT` cannot be used during a [rolling upgrade](upgrade-cockroach-version.html).
 - <span class="version-tag">New in v20.2:</span> `IMPORT` cannot be used with [user-defined types](create-type.html). Use [`IMPORT INTO`](import-into.html) instead.
 
+{{site.data.alerts.callout_info}}
+Optimize import operations in your applications by following our [Import Performance Best Practices](import-performance-best-practices.html).
+{{site.data.alerts.end}}
+
 ## Required privileges
 
 #### Table privileges
@@ -135,13 +139,13 @@ Your `IMPORT` statement must reference a `CREATE TABLE` statement representing t
 
 We also recommend [specifying all secondary indexes you want to use in the `CREATE TABLE` statement](create-table.html#create-a-table-with-secondary-and-gin-indexes). It is possible to [add secondary indexes later](create-index.html), but it is significantly faster to specify them during import.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.2:</span> `IMPORT` supports [computed columns](computed-columns.html) for Avro and Postgres dump files only. To import CSV data to a table with a computed column or `DEFAULT` expression, use [`IMPORT INTO`](import-into.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 By default, the [Postgres][postgres] and [MySQL][mysql] import formats support foreign keys. However, the most common dependency issues during import are caused by unsatisfied foreign key relationships that cause errors like `pq: there is no unique constraint matching given keys for referenced table tablename`. You can avoid these issues by adding the [`skip_foreign_keys`](#import-options) option to your `IMPORT` statement as needed. Ignoring foreign constraints will also speed up data import.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Available storage
 
@@ -171,11 +175,11 @@ Imported tables are treated as new tables, so you must [`GRANT`](grant.html) pri
 
 After CockroachDB initiates an import, you can view its progress with [`SHOW JOBS`](show-jobs.html) and on the [**Jobs** page](ui-jobs-page.html) of the DB Console, and you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If initiated correctly, the statement returns when the import is finished or if it encounters an error. In some cases, the import can continue after an error has been returned (the error message will tell you that the import has resumed in the background).
 
  When [resumed](resume-job.html), [paused](pause-job.html) imports now continue from their internally recorded progress instead of starting over.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
@@ -418,9 +422,9 @@ For more detailed information about importing data from MySQL, see [Migrate from
     fields_escaped_by='"';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import a table from a delimited data file
 
@@ -438,9 +442,9 @@ If the table schema specifies foreign keys into tables that do not exist yet, th
 
 You can import a file to `nodelocal`, which is the external IO directory on a node's local file system. To import to `nodelocal`,  a `nodeID` is required and the data files will be in the `extern` directory of the specified node.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The file system backup location on the NFS drive is relative to the path specified by the `--external-io-dir` flag set while [starting the node](cockroach-start.html). If the flag is set to `disabled`, then imports from local directories and NFS drives are disabled. Use `self` if you do not want to specify a `nodeID`, and the individual data files will be in the `extern` directories of arbitrary nodes; however, to work correctly, each node must have the [`--external-io-dir` flag](cockroach-start.html#general) point to the same NFS mount or other network-backed, shared storage.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If a `nodeID` is provided, the data files to import will be in the `extern` directory of the specified node:
 
@@ -745,9 +749,9 @@ For more detailed information about importing data from MySQL, see [Migrate from
     fields_escaped_by='"';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import a table from a delimited data file
 
@@ -765,9 +769,9 @@ If the table schema specifies foreign keys into tables that do not exist yet, th
 
 You can import a file to `nodelocal`, which is the external IO directory on a node's local file system. To import to `nodelocal`,  a `nodeID` is required and the data files will be in the `extern` directory of the specified node.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The file system backup location on the NFS drive is relative to the path specified by the `--external-io-dir` flag set while [starting the node](cockroach-start.html). If the flag is set to `disabled`, then imports from local directories and NFS drives are disabled. Use `self` if you do not want to specify a `nodeID`, and the individual data files will be in the `extern` directories of arbitrary nodes; however, to work correctly, each node must have the [`--external-io-dir` flag](cockroach-start.html#general) point to the same NFS mount or other network-backed, shared storage.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If a `nodeID` is provided, the data files to import will be in the `extern` directory of the specified node:
 
@@ -1073,9 +1077,9 @@ For more detailed information about importing data from MySQL, see [Migrate from
     fields_escaped_by='"';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import a table from a delimited data file
 
@@ -1093,9 +1097,9 @@ If the table schema specifies foreign keys into tables that do not exist yet, th
 
 You can import a file from `nodelocal`, which is the external IO directory on a node's local file system. To import from `nodelocal`,  a `nodeID` is required and the data files will be in the `extern` directory of the specified node.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The file system backup location on the NFS drive is relative to the path specified by the `--external-io-dir` flag set while [starting the node](cockroach-start.html). If the flag is set to `disabled`, then imports from local directories and NFS drives are disabled. Use `self` if you do not want to specify a `nodeID`, and the individual data files will be in the `extern` directories of arbitrary nodes; however, to work correctly, each node must have the [`--external-io-dir` flag](cockroach-start.html#general) point to the same NFS mount or other network-backed, shared storage.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If a `nodeID` is provided, the data files to import will be in the `extern` directory of the specified node:
 

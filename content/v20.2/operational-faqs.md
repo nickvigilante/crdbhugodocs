@@ -32,9 +32,9 @@ The time-series data used in the [DB Console](ui-overview-dashboard.html) is sto
 
 Yes, you can either [reduce the interval for time-series storage](#reduce-the-interval-for-time-series-storage) or [disable time-series storage entirely](#disable-time-series-storage-entirely).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 After reducing or disabling time-series storage, it can take up to 24 hours for time-series data to be deleted and for the change to be reflected in DB Console metrics.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Reduce the interval for time-series storage
 
@@ -69,9 +69,9 @@ To reduce the interval for storage of time-series data:
 
 ### Disable time-series storage entirely
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Disabling time-series storage is recommended only if you exclusively use a third-party tool such as [Prometheus](monitor-cockroachdb-with-prometheus.html) for time-series monitoring. Prometheus and other such tools do not rely on CockroachDB-stored time-series data; instead, they ingest metrics exported by CockroachDB from memory and then store the data themselves.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To disable the storage of time-series data entirely, run the following command:
 
@@ -108,9 +108,9 @@ If you want all existing time-series data to be deleted, also change both the `t
 
 When a node runs out of disk space, it shuts down and cannot be restarted until space is freed up. To prepare for this case, place a [ballast file](cockroach-debug-ballast.html) in each node's storage directory that can be deleted to free up enough space to be able to restart the node. If you did not create a ballast file, look for other files that can be deleted, such as [log files](debug-and-error-logs.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In addition to using ballast files, it is important to actively [monitor remaining disk space](monitoring-and-alerting.html#events-to-alert-on).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Why would increasing the number of nodes not result in more operations per second?
 

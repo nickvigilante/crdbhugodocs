@@ -71,7 +71,7 @@ Parameter | Description
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}Any tables that previously inherited the database-level privileges retain the privileges.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Any tables that previously inherited the database-level privileges retain the privileges.{{site.data.alerts.end}}
 
 ### Revoke privileges on specific tables in a database
 

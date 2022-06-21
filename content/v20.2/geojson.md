@@ -23,11 +23,11 @@ GeoJSON introduces the following additional concepts, which are not part of WKT 
 
 {{site.data.alerts.callout_success}}
 For more detailed information, see the [GeoJSON RFC](https://www.rfc-editor.org/rfc/rfc7946.txt).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 GeoJSON should only be used for spatial data that uses the [WGS84](spatial-glossary.html) geographic spatial reference system.  For more information, see [SRID 4326](srid-4326.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Example
 

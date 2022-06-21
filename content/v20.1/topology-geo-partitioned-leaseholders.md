@@ -13,7 +13,7 @@ In a multi-region deployment, the geo-partitioned [leaseholders](architecture/re
 
 {{site.data.alerts.callout_success}}
 **See It In Action** - Read about how a [large telecom provider](https://www.cockroachlabs.com/case-studies/telecom-provider-replaces-amazon-aurora-with-cockroachdb-to-attain-analways-on-customer-experience/) with millions of customers across the United States is using the Geo-Partitioned Leaseholders topology in production for strong resiliency and performance.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -27,9 +27,9 @@ In a multi-region deployment, the geo-partitioned [leaseholders](architecture/re
 
 ## Configuration
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Geo-partitioning requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Summary
 
@@ -193,9 +193,9 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 {{site.data.alerts.callout_success}}
 As you scale and add more cities, you can repeat steps 2 and 3 with the new complete list of cities to re-partition the table and its secondary indexes, and then repeat step 4 to create replication zones for the new partitions.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ## Characteristics
 

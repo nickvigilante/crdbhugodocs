@@ -16,7 +16,7 @@ This tutorial shows you how build a simple Go application with CockroachDB and t
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the Go pq driver
 
@@ -31,7 +31,7 @@ $ go get -u github.com/lib/pq
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -54,7 +54,7 @@ To clone a version of the code below that connects to insecure clusters, run the
 `git clone https://github.com/cockroachlabs/hello-world-go-pq/`
 
 Note that you will need to edit the connection string to use the certificates that you generated when you set up your secure cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Basic statements
 
@@ -144,7 +144,7 @@ $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --databa
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the Go code
 
@@ -156,7 +156,7 @@ To clone a version of the code below that connects to insecure clusters, run the
 `git clone https://github.com/cockroachlabs/hello-world-go-pq/`
 
 Note that you will need to edit the connection string to use the certificates that you generated when you set up your secure cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Basic statements
 

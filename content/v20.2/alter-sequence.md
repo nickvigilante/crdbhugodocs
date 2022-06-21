@@ -7,11 +7,11 @@ toc: true
 The `ALTER SEQUENCE` [statement](sql-statements.html) applies a [schema change](online-schema-changes.html) to a sequence.
 
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This page documents all supported sequence changes except for changing the name of a sequence and changing the schema of a sequence. For information about changing the name of a sequence, see [`RENAME SEQUENCE`](rename-sequence.html). For information about changing the schema of a sequence, see [`SET SCHEMA`](set-schema.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 

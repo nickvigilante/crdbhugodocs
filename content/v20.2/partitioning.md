@@ -7,9 +7,9 @@ keywords: gin, gin index, gin indexes, inverted index, inverted indexes, acceler
 
 CockroachDB allows you to define table partitions, thus giving you row-level control of how and where your data is stored. Partitioning enables you to reduce latencies and costs and can assist in meeting regulatory requirements for your data.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Table partitioning is an [Enterprise-only](enterprise-licensing.html) feature. For insight into how to use this feature to get low latency reads and writes in multi-region deployments, see the [Geo-Partitioned Replicas](topology-geo-partitioned-replicas.html) and [Geo-Partitioned Leaseholders](topology-geo-partitioned-leaseholders.html) topology patterns.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Why use table partitioning
 
@@ -76,7 +76,7 @@ See [Partition by List](#define-table-partitions-by-list) example below for more
 
 To define a table partition by range, use the [`PARTITION BY RANGE`](partition-by.html) syntax while creating the table.  While defining a range partition, you can use CockroachDB-defined `MINVALUE` and `MAXVALUE` parameters to define the lower and upper bounds of the ranges respectively.
 
-{{site.data.alerts.callout_info }}The lower bound of a range partition is inclusive, while the upper bound is exclusive. For range partitions, <code>NULL</code> is considered less than any other data, which is consistent with our key encoding ordering and <code>ORDER BY</code> behavior.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The lower bound of a range partition is inclusive, while the upper bound is exclusive. For range partitions, <code>NULL</code> is considered less than any other data, which is consistent with our key encoding ordering and <code>ORDER BY</code> behavior.{{site.data.alerts.end}}
 
 Partition values can be any SQL expression, but it’s only evaluated once. If you create a partition with value `< (now() - '1d')` on 2017-01-30, it would be contain all values less than 2017-01-29. It would not update the next day, it would continue to contain values less than 2017-01-29.
 
@@ -123,7 +123,7 @@ On their own, partitions are inert and simply apply a label to the rows of the t
 CockroachDB uses the most granular zone config available. Zone configs that target a partition are considered more granular than those that target a table or index, which in turn are considered more granular than those that target a database.
 
 
-{% include {{ page.version.version }}/sql/querying-partitions.md %}
+{% include {{< page-version >}}/sql/querying-partitions.md %}
 
 ## Examples
 
@@ -443,7 +443,7 @@ To retrieve table partitions, you can use the [`SHOW PARTITIONS`](show-partition
 
 You can also view partitions by [database](show-partitions.html#show-partitions-by-database) and [index](show-partitions.html#show-partitions-by-index).
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ### Define table partitions by range
 
@@ -541,7 +541,7 @@ You should see the following output:
 
 A list partition can itself be partitioned, forming a subpartition. There is no limit on the number of levels of subpartitioning; that is, list partitions can be infinitely nested.
 
-{{site.data.alerts.callout_info }}Range partitions cannot be subpartitioned.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Range partitions cannot be subpartitioned.{{site.data.alerts.end}}
 
 Going back to RoachLearn's scenario, suppose we want to do all of the following:
 

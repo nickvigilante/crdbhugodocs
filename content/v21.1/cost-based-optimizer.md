@@ -29,9 +29,9 @@ By default, CockroachDB automatically generates table statistics when tables are
 
 By default, CockroachDB also automatically collects [multi-column statistics](create-statistics.html#create-statistics-on-multiple-columns) on columns that prefix an index.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [Schema changes](online-schema-changes.html) trigger automatic statistics collection for the affected table(s).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Control automatic statistics
 
@@ -53,9 +53,9 @@ Statistics are refreshed in the following cases:
     | `sql.stats.automatic_collection.fraction_stale_rows` |           0.2 | Target fraction of stale rows per table that will trigger a statistics refresh       |
     | `sql.stats.automatic_collection.min_stale_rows`      |           500 | Target minimum number of stale rows per table that will trigger a statistics refresh |
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Because the formula for statistics refreshes is probabilistic, you will not see statistics update immediately after changing these settings, or immediately after exactly 500 rows have been updated.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 #### Turn off statistics
 
@@ -85,10 +85,10 @@ To see how to manually generate statistics, see the [`CREATE STATISTICS` example
 
 By default, the optimizer collects histograms for all index columns (specifically the first column in each index) during automatic statistics collection. If a single column statistic is explicitly requested using manual invocation of [`CREATE STATISTICS`](create-statistics.html), a histogram will be collected, regardless of whether or not the column is part of an index.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 - CockroachDB does not support histograms on [`ARRAY`-typed](array.html) columns. As a result, statistics created on `ARRAY`-typed columns do not include histograms.
 - CockroachDB does not support multi-column histograms.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you are an advanced user and need to disable histogram collection for troubleshooting or performance tuning reasons, change the [`sql.stats.histogram_collection.enabled` cluster setting](cluster-settings.html) by running [`SET CLUSTER SETTING`](set-cluster-setting.html) as follows:
 
@@ -131,9 +131,9 @@ To change this setting, which is controlled by the `reorder_joins_limit` [sessio
 > SET reorder_joins_limit = 6;
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We strongly recommend not setting this value higher than 8 to avoid performance degradation. If set too high, the cost of generating and costing execution plans can end up dominating the total execution time of the query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For more information about the difficulty of selecting an optimal join ordering, see our blog post [An Introduction to Join Ordering](https://www.cockroachlabs.com/blog/join-ordering-pt1/).
 
@@ -148,9 +148,9 @@ To force the use of a specific join algorithm even if the optimizer determines t
 - `INNER INVERTED JOIN`
 - `LEFT INVERTED JOIN`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Due to SQL's implicit `AS` syntax, you cannot specify a join hint with only the join algorithm keyword (e.g., `MERGE`). For example, `a MERGE JOIN b` will be interpreted as having an implicit `AS` and be executed as `a AS MERGE JOIN b`, which is equivalent to `a JOIN b`. Because the resulting query might execute without returning any hint-related error (because it is valid SQL), it will seem like the join hint "worked", but actually it didn't affect which join algorithm was used. The correct syntax is `a INNER MERGE JOIN b`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a join hint example, see [Use the right join type](make-queries-fast.html#rule-3-use-the-right-join-type).
 
@@ -164,15 +164,15 @@ For a join hint example, see [Use the right join type](make-queries-fast.html#ru
 
 - `INVERTED`:  Forces an inverted join into the right side; the right side must be a table with a suitable [GIN index](inverted-indexes.html). Note that `INVERTED` can only be used with `INNER` and `LEFT` joins.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You cannot use inverted joins on [partial GIN indexes](inverted-indexes.html#partial-gin-indexes).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 If it is not possible to use the algorithm specified in the hint, an error is signaled.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To make the optimizer prefer lookup joins to merge joins when performing foreign key checks, set the `prefer_lookup_joins_for_fks` [session variable](set-vars.html) to `on`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Additional considerations
 
@@ -190,17 +190,15 @@ To make the optimizer prefer lookup joins to merge joins when performing foreign
 
 - You should reconsider hint usage with each new release of CockroachDB. Due to improvements in the optimizer, hints specified to work with an older version may cause decreased performance in a newer version.
 
-## Examples
-
-### Inverted join examples
+## Inverted join examples
 
 {% include {{ page.version.version }}/sql/inverted-joins.md %}
 
 ## Known Limitations
 
-* {% include {{ page.version.version }}/known-limitations/old-multi-col-stats.md %}
-* {% include {{ page.version.version }}/known-limitations/single-col-stats-deletion.md %}
-* {% include {{ page.version.version }}/known-limitations/stats-refresh-upgrade.md %}
+* {% include {{< page-version >}}/known-limitations/old-multi-col-stats.md %}
+* {% include {{< page-version >}}/known-limitations/single-col-stats-deletion.md %}
+* {% include {{< page-version >}}/known-limitations/stats-refresh-upgrade.md %}
 
 ## See also
 

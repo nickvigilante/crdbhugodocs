@@ -69,17 +69,17 @@ The Node Map consists of the following components:
 
 <img src="{{ 'images/v2.1/admin-ui-region-component.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For multi-core systems, the user CPU percent can be greater than 100%. Full utilization of one core is considered as 100% CPU usage. If you have n cores, then the user CPU percent can range from 0% (indicating an idle system) to (n*100)% (indicating full utilization).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Node component
 
 <img src="{{ 'images/v2.1/admin-ui-node-components.png' | relative_url }}" alt="CockroachDB Admin UI Summary Panel" style="border:1px solid #eee;max-width:90%" />
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For multi-core systems, the user CPU percent can be greater than 100%. Full utilization of one core is considered as 100% CPU usage. If you have n cores, then the user CPU percent can range from 0% (indicating an idle system) to (n*100)% (indicating full utilization).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For guidance on enabling and using the node map, see [Enable Node Map](enable-node-map.html).
 

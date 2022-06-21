@@ -6,7 +6,7 @@ toc: true
 
 The `IMPORT` [statement](sql-statements.html) imports tabular data (e.g., CSVs) into a single table.
 
-{{site.data.alerts.callout_info }}For details about importing SQL dumps, see <a href="import-data.html">Import Data</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}For details about importing SQL dumps, see <a href="import-data.html">Import Data</a>.{{site.data.alerts.end}}
 
 
 ## Requirements
@@ -83,7 +83,7 @@ After CockroachDB successfully initiates an import, it registers the import as a
 
 After the import has been initiated, you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{site.data.alerts.callout_danger }}Pausing and then resuming an <code>`IMPORT`</code> job will cause it to restart from the beginning.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}Pausing and then resuming an <code>`IMPORT`</code> job will cause it to restart from the beginning.{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -91,7 +91,7 @@ After the import has been initiated, you can control it with [`PAUSE JOB`](pause
 {% include {{ page.version.version }}/sql/diagrams/import.html %}
 </div>
 
-{{site.data.alerts.callout_info }}The <code>IMPORT</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>IMPORT</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end}}
 
 ## Required Privileges
 

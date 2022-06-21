@@ -103,7 +103,7 @@ When measuring SQL performance, it's best to run a given statement multiple time
 
     {{site.data.alerts.callout_success}}
     To get similar help directly in your shell, use `./tuning.py --help`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ### Step 6. Test/tune read performance
 
@@ -511,9 +511,9 @@ $ cockroach sql \
 --execute="CREATE INDEX ON rides (start_time) STORING (rider_id);"
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `rides` table contains 1 million rows, so adding this index will take a few minutes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Adding the secondary index reduced the query time from 1573ms to 61.56ms:
 
@@ -764,9 +764,9 @@ This approach reduced the query time from 2489.85ms (query with subquery) to 220
 
 Moving on to writes, let's imagine that you have a batch of 100 new users to insert into the `users` table. The most obvious approach is to insert each row using 100 separate [`INSERT`](insert.html) statements:  
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell

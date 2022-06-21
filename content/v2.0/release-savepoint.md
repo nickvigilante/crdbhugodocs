@@ -10,7 +10,7 @@ If statements in the transaction [generated any non-retryable errors](transactio
 
 Despite committing the transaction, you must still issue a [`COMMIT`](commit-transaction.html) statement to prepare the connection for the next transaction.
 
-{{site.data.alerts.callout_danger }}CockroachDB’s <code>SAVEPOINT</code> implementation only supports the <code>cockroach_restart</code> savepoint and does not support all savepoint functionality, such as nested transactions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}CockroachDB’s <code>SAVEPOINT</code> implementation only supports the <code>cockroach_restart</code> savepoint and does not support all savepoint functionality, such as nested transactions.{{site.data.alerts.end}}
 
 
 ## Synopsis
@@ -43,7 +43,7 @@ After declaring `SAVEPOINT cockroach_restart`, commit the transaction with `RELE
 > COMMIT;
 ~~~
 
-{{site.data.alerts.callout_danger }}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}This example assumes you're using <a href="transactions.html#client-side-intervention">client-side intervention to handle transaction retries</a>.{{site.data.alerts.end}}
 
 ## See Also
 

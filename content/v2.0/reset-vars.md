@@ -23,7 +23,7 @@ No [privileges](privileges.html) are required to reset a session setting.
 
 ## Example
 
-{{site.data.alerts.callout_success}}You can use <a href="set-vars.html#reset-a-variable-to-its-default-value"><code>SET .. TO DEFAULT</code></a> to reset a session variable as well.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can use <a href="set-vars.html#reset-a-variable-to-its-default-value"><code>SET .. TO DEFAULT</code></a> to reset a session variable as well.{{site.data.alerts.end}}
 
 ~~~ sql
 > SET default_transaction_isolation = SNAPSHOT;

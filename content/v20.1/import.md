@@ -15,11 +15,11 @@ The `IMPORT` [statement](sql-statements.html) imports the following types of dat
 
 {{site.data.alerts.callout_success}}
 `IMPORT` only works for creating new tables. For information on how to import into existing tables, see [`IMPORT INTO`](import-into.html). Also, for instructions and working examples on how to migrate data from other databases, see the [Migration Overview](migration-overview.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `IMPORT` is a blocking statement and cannot be used within a [transaction](transactions.html). Also, `IMPORT` cannot be used during a [rolling upgrade](upgrade-cockroach-version.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -138,9 +138,9 @@ We also recommend [specifying all secondary indexes you want to use in the `CREA
 
 {% include {{ page.version.version }}/sql/import-default-value.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 By default, the [Postgres][postgres] and [MySQL][mysql] import formats support foreign keys. However, the most common dependency issues during import are caused by unsatisfied foreign key relationships that cause errors like `pq: there is no unique constraint matching given keys for referenced table tablename`. You can avoid these issues by adding the [`skip_foreign_keys`](#import-options) option to your `IMPORT` statement as needed. Ignoring foreign constraints will also speed up data import.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Available storage
 
@@ -177,11 +177,11 @@ Imported tables are treated as new tables, so you must [`GRANT`](grant.html) pri
 
 After CockroachDB initiates an import, you can view its progress with [`SHOW JOBS`](show-jobs.html) and on the [**Jobs** page](admin-ui-jobs-page.html) of the Admin UI, and you can control it with [`PAUSE JOB`](pause-job.html), [`RESUME JOB`](resume-job.html), and [`CANCEL JOB`](cancel-job.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If initiated correctly, the statement returns when the import is finished or if it encounters an error. In some cases, the import can continue after an error has been returned (the error message will tell you that the import has resumed in the background).
 
 <span class="version-tag">Changed in v20.1:</span> When [resumed](resume-job.html), [paused](pause-job.html) imports now continue from their internally recorded progress instead of starting over.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
@@ -820,9 +820,9 @@ Google Cloud:
     fields_escaped_by='"';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you want to escape special symbols, use `fields_escaped_by`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Import a table from a delimited data file
 

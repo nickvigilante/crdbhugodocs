@@ -34,7 +34,7 @@ Each node in the CockroachDB cluster needs to have access to the files being imp
 
 {{site.data.alerts.callout_success}}
 We strongly recommend using cloud storage such as Amazon S3 or Google Cloud to host the data files you want to import.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 3. Import the CSV
 

@@ -14,7 +14,7 @@ This page describes the cluster management and cluster deletion workflows for {{
 
 ## Planning your cluster
 
-{% include cockroachcloud/planning-your-serverless-cluster.md %}
+Before making any changes to your cluster's configuration, review the [requirements and recommendations](plan-your-cluster.html) for {{ site.data.products.db }} cluster configuration.
 
 ## View Clusters page
 
@@ -47,7 +47,7 @@ For more information, see [Cluster Overview Page](cluster-overview-page.html).
 
 ## Edit your spend limit  
 
-You can edit your spend limit from the **Overview** page. The change in your spend limit will affect current and upcoming billing cycles. See [Planning your cluster](#planning-your-cluster) for more information on resource usage.
+You can edit your spend limit from the **Overview** page. The change in your spend limit will affect current and upcoming billing cycles. See [Planning your cluster](plan-your-cluster.html) for more information on resource usage.
 
 1. Navigate to the **Overview** page for the cluster you want to edit.
 1. Click the pencil icon (or **Add a spend limit** if you haven't set one before) next to your **Spend limit** in the **Usage this month** section.
@@ -64,13 +64,13 @@ You can [backup and restore](run-bulk-operations.html#backup-and-restore-data) y
 
 ## Delete cluster
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Deleting a cluster will delete all cluster data.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Free {{ site.data.products.serverless-plan }} clusters are subject to deletion after 6 months of no activity.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Proceed with the following steps only if you are sure you want to delete a cluster:
 

@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports the PostgreSQL wire protocol, so most available PostgreSQL client drivers and ORMs should work with CockroachDB. Choose a language for supported clients and installation steps.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Applications may encounter incompatibilities when using advanced or obscure features of a driver or ORM with **beta-level** support. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div class="filters clearfix">
   <button class="filter-button page-level" data-scope="python">Python</button>
@@ -58,7 +58,7 @@ $ pip install sqlalchemy sqlalchemy-cockroachdb psycopg2
 
 {{site.data.alerts.callout_success}}
 You can substitute psycopg2 for other alternatives that include the psycopg python package.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For other ways to install SQLAlchemy, see the [official documentation](http://docs.sqlalchemy.org/en/latest/intro.html#installation-guide).
 
@@ -92,9 +92,9 @@ After you install the psycopg2 prerequisite, you can install the CockroachDB Dja
 $ python -m pip install django-cockroachdb==3.0.*
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The major version of `django-cockroachdb` must correspond to the major version of `django`. The minor release numbers do not need to match.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a simple but complete "Hello World" example app, see [Build a Python App with CockroachDB and Django](build-a-python-app-with-cockroachdb-django.html).
 
@@ -130,7 +130,7 @@ For instructions on using peewee with CockroachDB, see the [CockroachDatabase pe
 
 ## Drivers
 
-{% include {{ page.version.version }}/app/java-version-note.md %}
+{% include {{< page-version >}}/app/java-version-note.md %}
 
 ### JDBC
 
@@ -269,9 +269,9 @@ To install ActiveRecord, the [pg driver](https://rubygems.org/gems/pg), and a [C
 $ gem install activerecord pg activerecord-cockroachdb-adapter
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The exact command above will vary depending on the desired version of ActiveRecord. Specifically, version 4.2.x of ActiveRecord requires version 0.1.x of the adapter; version 5.1.x of ActiveRecord requires version 0.2.x of the adapter; version 5.2.x of ActiveRecord requires version 5.2.x of the adapter; version 6.0.x of ActiveRecord requires version 6.0.0betax of the adapter.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a simple but complete "Hello World" example app, see [Build a Ruby App with CockroachDB and ActiveRecord](build-a-ruby-app-with-cockroachdb-activerecord.html).
 
@@ -340,9 +340,9 @@ Install the C libpq driver as described in the [official documentation](https://
 
 Install the C++ libpqxx driver as described in the [official documentation](https://github.com/jtv/libpqxx).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you are running macOS, you need to install version 4.0.1 or higher of the libpqxx driver.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For a simple but complete "Hello World" example app, see [Build a C++ App with CockroachDB and libpqxx](build-a-c++-app-with-cockroachdb.html).
 

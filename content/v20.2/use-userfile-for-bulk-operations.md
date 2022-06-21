@@ -68,9 +68,9 @@ CSV DATA (
 );
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `userfile:///` (note the three slashes) references the default path (`userfile://defaultdb.public.userfiles_$user/`).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ~~~
         job_id       |  status   | fraction_completed |  rows  | index_entries |  bytes

@@ -287,9 +287,9 @@ At first, the replica count will be lower for nodes 4 and 5. Very soon, however,
 
 1. When you're done with your test cluster, press `ctrl-c` in each terminal where a node is running.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For the last 2 nodes, the shutdown process will take longer (about a minute each) and will eventually force the nodes to stop. This is because, with only 2 of 5 nodes left, a majority of replicas are not available, and so the cluster is no longer operational. To speed up this process, you can press `ctrl-c` a second time.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 2. To restart the cluster at a later time, run the same `cockroach start` commands as earlier from the directory containing the nodes' data stores.  
 

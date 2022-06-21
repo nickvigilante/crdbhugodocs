@@ -6,7 +6,7 @@ toc: true
 
 To create, manage, and remove your cluster's users (which lets you control SQL-level [privileges](authorization.html#assign-privileges), use the `cockroach user` [command](cockroach-commands.html) with appropriate flags.
 
-{{site.data.alerts.callout_success}}You can also use the <a href="create-user.html"><code>CREATE USER</code></a> and <a href="drop-user.html"><code>DROP USER</code></a> statements to create and remove users.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can also use the <a href="create-user.html"><code>CREATE USER</code></a> and <a href="drop-user.html"><code>DROP USER</code></a> statements to create and remove users.{{site.data.alerts.end}}
 
 
 ## Considerations
@@ -66,9 +66,9 @@ See [Client Connection Parameters](connection-parameters.html) for more details.
 
 Currently, only members of the `admin` role can create users. By default, the `root` user belongs to the `admin` role.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Password creation is supported only in secure clusters for non-<code>root</code> users. The <code>root</code> user must authenticate with a client certificate and key.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Logging
 
@@ -95,7 +95,7 @@ Usernames are case-insensitive; must start with either a letter or underscore; m
 $ cockroach user set jpointsman --certs-dir=certs
 ~~~
 
-{{site.data.alerts.callout_success}}If you want to allow password authentication for the user, include the <code>--password</code> flag and then enter and confirm the password at the command prompt.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}If you want to allow password authentication for the user, include the <code>--password</code> flag and then enter and confirm the password at the command prompt.{{site.data.alerts.end}}
 
 After creating users, you must:
 
@@ -199,14 +199,14 @@ $ cockroach user get jpointsman --insecure
 
 ### Remove a user
 
-{{site.data.alerts.callout_danger }}{% include {{ page.version.version }}/misc/remove-user-callout.html %}{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}{% include {{ page.version.version }}/misc/remove-user-callout.html %}{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach user rm jpointsman --insecure
 ~~~
 
-{{site.data.alerts.callout_success}}You can also use the <a href="drop-user.html"><code>DROP USER</code></a> SQL statement to remove users.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}You can also use the <a href="drop-user.html"><code>DROP USER</code></a> SQL statement to remove users.{{site.data.alerts.end}}
 
 ### Reveal the SQL statements sent implicitly by the command-line utility
 

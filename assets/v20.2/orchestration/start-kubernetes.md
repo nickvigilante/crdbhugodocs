@@ -3,13 +3,13 @@ You can use the hosted [Google Kubernetes Engine (GKE)](#hosted-gke) service or 
 - [Hosted GKE](#hosted-gke)
 - [Hosted EKS](#hosted-eks)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 GKE or EKS are not required to run CockroachDB on Kubernetes. A manual GCE or AWS cluster with the [minimum recommended Kubernetes version](#kubernetes-version) and at least 3 pods, each presenting [sufficient resources](#resources) to start a CockroachDB node, can also be used.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
-You can also use the CockroachDB Kubernetes Operator on platforms such as [Red Hat OpenShift](../{{site.versions["stable"] }}/deploy-cockroachdb-with-kubernetes-openshift.html) and [IBM Cloud Pak for Data](https://www.ibm.com/products/cloud-pak-for-data).
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}
+You can also use the CockroachDB Kubernetes Operator on platforms such as [Red Hat OpenShift](../{{site.versions["stable"]}}/deploy-cockroachdb-with-kubernetes-openshift.html) and [IBM Cloud Pak for Data](https://www.ibm.com/products/cloud-pak-for-data).
+{{site.data.alerts.end}}
 
 ### Hosted GKE
 
@@ -19,13 +19,13 @@ You can also use the CockroachDB Kubernetes Operator on platforms such as [Red H
 
     {{site.data.alerts.callout_success}}
     The documentation offers the choice of using Google's Cloud Shell product or using a local shell on your machine. Choose to use a local shell if you want to be able to view the DB Console using the steps in this guide.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 2. From your local workstation, start the Kubernetes cluster, specifying one of the available [regions](https://cloud.google.com/compute/docs/regions-zones#available) (e.g., `us-east1`):
 
     {{site.data.alerts.callout_success}}
     Since this region can differ from your default `gcloud` region, be sure to include the `--region` flag to run `gcloud` commands against this cluster.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -53,9 +53,9 @@ You can also use the CockroachDB Kubernetes Operator on platforms such as [Red H
     Account: [your.google.cloud.email@example.org]
     ~~~
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This command returns your email address in all lowercase. However, in the next step, you must enter the address using the accurate capitalization. For example, if your address is YourName@example.com, you must use YourName@example.com and not yourname@example.com.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 4. [Create the RBAC roles](https://cloud.google.com/kubernetes-engine/docs/how-to/role-based-access-control#prerequisites_for_using_role-based_access_control) CockroachDB needs for running on GKE, using the address from the previous step:
 
@@ -80,7 +80,7 @@ You can also use the CockroachDB Kubernetes Operator on platforms such as [Red H
 
     {{site.data.alerts.callout_success}}
     To ensure that all 3 nodes can be placed into a different availability zone, you may want to first [confirm that at least 3 zones are available in the region](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html#availability-zones-describe) for your account.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell

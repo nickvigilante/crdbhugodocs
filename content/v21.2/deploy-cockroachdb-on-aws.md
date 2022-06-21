@@ -8,7 +8,7 @@ filter_category: deploy_crdb_aws
 filter_html: Secure
 filter_sort: 1
 
-docs_area: 
+docs_area:
 ---
 
 {% include filter-tabs.md %}
@@ -21,9 +21,9 @@ If you are only testing CockroachDB, or you are not concerned with protecting ne
 
 {% include cockroachcloud/use-cockroachcloud-instead.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you need a license to use [{{ site.data.products.enterprise }} features](enterprise-licensing.html), obtain a private offer link on the [AWS Marketplace](https://aws.amazon.com/marketplace/pp/prodview-ph5bx6fhm4nlq) or see [CockroachDB Pricing](https://www.cockroachlabs.com/pricing/) to learn about custom pricing.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -31,9 +31,9 @@ If you need a license to use [{{ site.data.products.enterprise }} features](ente
 
 {% include {{ page.version.version }}/prod-deployment/secure-requirements.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB is supported in all [AWS regions](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Recommendations
 
@@ -50,7 +50,7 @@ CockroachDB is supported in all [AWS regions](https://docs.aws.amazon.com/AWSEC2
 
 - All Amazon EC2 instances running CockroachDB should be members of the same [security group](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html). For an example, see [AWS architecture](#aws-architecture).
 
-- Follow the [AWS IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) to harden the AWS environment. Use [roles](authorization.html#roles) to grant access to the deployment, following a [policy of least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
+- Follow the [AWS IAM best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html) to harden the AWS environment. Use [roles](security-reference/authorization.html#roles) to grant access to the deployment, following a [policy of least privilege](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html#grant-least-privilege).
 
 - The [AWS root user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_root-user.html) is _not_ necessary.
 
@@ -70,9 +70,9 @@ Open the [Amazon EC2 console](https://console.aws.amazon.com/ec2/) and [launch a
 
 - Your instances will rely on Amazon Time Sync Service for clock synchronization. When choosing an AMI, note that some machines are preconfigured to use Amazon Time Sync Service (e.g., Amazon Linux AMIs) and others are not.
 
-- Use `m` (general purpose), `c` (compute-optimized), or `i` (storage-optimized) instance types, with SSD-backed [EBS volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html) or [Instance Store volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html). For example, Cockroach Labs has used `c5d.4xlarge` (16 vCPUs and 32 GiB of RAM per instance, EBS) for internal testing.
+- Use `m5` instances, ranging from `m5.xlarge` to `m5.8xlarge`, with SSD-backed [EBS volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volume-types.html). To simulate bare-metal deployments, use `m5d` with [SSD Instance Store volumes](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html). `m5a`, `m6i`, and `m6a` instances are also acceptable. CockroachDB does **not** support Arm-based `m6g` instances.
 
-	- **Do not** use ["burstable" `t2` instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html), which limit the load on a single core.
+  - **Do not** use [burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html), which limit the load on a single core.
 
 - Note the ID of the VPC you select. You will need to look up its IP range when setting inbound rules for your security group.
 
@@ -125,7 +125,7 @@ AWS offers fully-managed load balancing to distribute traffic between instances.
     - Register your instances with the target group you created, specifying port **26257**. You can add and remove instances later.
 2. To test load balancing and connect your application to the cluster, you will need the provisioned internal (private) **IP address** for the load balancer. To find this, open the Network Interfaces section of the Amazon EC2 console and look up the load balancer by its name.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of AWS's managed load balancing, see the <a href="deploy-cockroachdb-on-premises.html">On-Premises</a> tutorial for guidance.{{site.data.alerts.end}}
 
 ## Step 5. Generate certificates
 

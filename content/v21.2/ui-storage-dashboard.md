@@ -38,9 +38,9 @@ The **available** capacity thus equals the amount of empty disk space, up to the
 
 The disk usage of the Cockroach binary, operating system, and other system files is not shown on the **Capacity** graph.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/misc/available-capacity-metric.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Live Bytes
 
@@ -53,9 +53,9 @@ Metric | Description
 **Live** | Number of logical bytes stored in live [key-value pairs](architecture/distribution-layer.html#table-data). Live data excludes historical and deleted data.
 **System** | Number of physical bytes stored in [system key-value pairs](architecture/distribution-layer.html#meta-ranges). This includes historical and deleted data that has not been [garbage collected](architecture/storage-layer.html#garbage-collection).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 {% include {{ page.version.version }}/ui/logical-bytes.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## File Descriptors
 
@@ -67,9 +67,9 @@ Metric | Description
 
 If the Open count is almost equal to the Limit count, increase [File Descriptors](recommended-production-settings.html#file-descriptors-limit).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you are running multiple nodes on a single machine (not recommended), the actual number of open file descriptors are considered open on each node. Thus the limit count value displayed on the DB Console is the actual value of open file descriptors multiplied by the number of nodes, compared with the file descriptor limit.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For Windows systems, you can ignore the File Descriptors graph because the concept of file descriptors is not applicable to Windows.
 
@@ -81,7 +81,7 @@ The **Storage** dashboard shows other time series graphs that are important for 
 - Log Commit Latency: 50th Percentile
 - Command Commit Latency: 99th Percentile
 - Command Commit Latency: 50th Percentile
-- Read Amplification
+- [read amplification](architecture/storage-layer.html#read-amplification)
 - SSTables
 - Compactions/Flushes
 - Time Series Writes

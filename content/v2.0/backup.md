@@ -4,7 +4,7 @@ summary: Back up your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{site.data.alerts.callout_danger }}The <code>BACKUP</code> feature is only available to <a href="https://www.cockroachlabs.com/product/cockroachdb/">enterprise</a> users. For non-enterprise backups, see <a href="sql-dump.html"><code>cockroach dump</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}The <code>BACKUP</code> feature is only available to <a href="https://www.cockroachlabs.com/product/cockroachdb/">enterprise</a> users. For non-enterprise backups, see <a href="sql-dump.html"><code>cockroach dump</code></a>.{{site.data.alerts.end}}
 
 CockroachDB's `BACKUP` [statement](sql-statements.html) allows you to create full or incremental backups of your cluster's schema and data that are consistent as of a given timestamp. Backups can be with or without [revision history](backup.html#backups-with-revision-history-new-in-v2-0).
 
@@ -17,7 +17,7 @@ Because CockroachDB is designed with high fault tolerance, these backups are des
 
 You can backup entire tables (which automatically includes their indexes) or [views](views.html). Backing up a database simply backs up all of its tables and views.
 
-{{site.data.alerts.callout_info }}<code>BACKUP</code> only offers table-level granularity; it <em>does not</em> support backing up subsets of a table.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<code>BACKUP</code> only offers table-level granularity; it <em>does not</em> support backing up subsets of a table.{{site.data.alerts.end}}
 
 ### Object Dependencies
 
@@ -102,7 +102,7 @@ After the backup has been initiated, you can control it with [`PAUSE JOB`](pause
   {% include {{ page.version.version }}/sql/diagrams/backup.html %}
 </div>
 
-{{site.data.alerts.callout_info }}The <code>BACKUP</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>BACKUP</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end}}
 
 ## Required Privileges
 

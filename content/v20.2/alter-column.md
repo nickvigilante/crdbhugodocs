@@ -10,9 +10,9 @@ The `ALTER COLUMN` [statement](sql-statements.html) is part of `ALTER TABLE` and
 - Set or drop a column's [`NOT NULL` constraint](not-null.html)
 - Increase the precision of the column's [data type](data-types.html)
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To manage other constraints, see [`ADD CONSTRAINT`](add-constraint.html) and [`DROP CONSTRAINT`](drop-constraint.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/sql/combine-alter-table-commands.md %}
 
@@ -100,6 +100,10 @@ If the column has the [`NOT NULL` constraint](not-null.html) applied to it, you 
 ### Convert a computed column into a regular column
 
 {% include {{ page.version.version }}/computed-columns/convert-computed-column.md %}
+
+### Alter the formula for a computed column
+
+{% include {{ page.version.version }}/computed-columns/alter-computed-column.md %}
 
 ### Increase a column type's precision
 

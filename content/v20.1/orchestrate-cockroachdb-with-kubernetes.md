@@ -52,9 +52,9 @@ CSR names contain the StatefulSet or Helm chart `name`, so if you customize that
 
 To start your CockroachDB cluster, you can either use our StatefulSet configuration and related files directly, or you can use the [Helm](https://helm.sh/) package manager for Kubernetes to simplify the process.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Secure CockroachDB deployments on Amazon EKS via Helm are [not yet supported](https://github.com/cockroachdb/cockroach/issues/38847). In the meantime, use a StatefulSet configuration to deploy on EKS.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 <div class="filters filters-big clearfix">
     <button class="filter-button" data-scope="helm">Use Helm</button>
@@ -116,9 +116,9 @@ To shut down the CockroachDB cluster:
 <section class="filter-content" markdown="1" data-scope="manual">
 1. Delete the resources associated with the `cockroachdb` label, including the logs and Prometheus and Alertmanager resources:
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     This does not include deleting the persistent volumes that were attached to the pods. If you want to delete the persistent volumes and free up the storage used by CockroachDB, be sure you have a backup copy of your data. Data **cannot** be recovered once the persistent volumes are deleted. For more information, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/run-application/delete-stateful-set/#persistent-volumes).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include_cached copy-clipboard.html %}
     ~~~ shell
@@ -161,9 +161,9 @@ To shut down the CockroachDB cluster:
     pod "cockroachdb-client-secure" deleted
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This does not delete the secrets you created. For more information on managing secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 </section>
 
 <section class="filter-content" markdown="1" data-scope="helm">
@@ -224,9 +224,9 @@ This does not delete the secrets you created. For more information on managing s
     certificatesigningrequest "default.node.my-release-cockroachdb-3" deleted
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This does not delete the secrets you created. For more information on managing secrets, see the [Kubernetes documentation](https://kubernetes.io/docs/tasks/configmap-secret/managing-secret-using-kubectl).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 </section>
 
 1. Stop Kubernetes:
@@ -243,9 +243,9 @@ This does not delete the secrets you created. For more information on managing s
         $ eksctl delete cluster --name cockroachdb
         ~~~   
 
-    {{site.data.alerts.callout_danger }}
+    {{site.data.alerts.callout_danger}}
     If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ## See also
 

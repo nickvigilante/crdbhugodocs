@@ -4,7 +4,7 @@ summary: Learn how to use CockroachDB's improved multi-region user experience.
 toc: false
 ---
 
-<span class="version-tag">New in v21.1:</span> [_Table Localities_](multiregion-overview.html#table-locality) tell CockroachDB how to optimize access to a table's data in a multi-region cluster.  CockroachDB uses the table locality setting to determine how to optimize access to the table's data from that locality.
+{% include_cached new-in.html version="v21.1" %} [_Table Localities_](multiregion-overview.html#table-locality) tell CockroachDB how to optimize access to a table's data in a multi-region cluster.  CockroachDB uses the table locality setting to determine how to optimize access to the table's data from that locality.
 
 The following table localities are available:
 
@@ -24,8 +24,8 @@ Use [`GLOBAL` tables](multiregion-overview.html#global-tables) if:
 For more information about how to choose an overall multi-region configuration, see [Choosing a multi-region configuration](choosing-a-multi-region-configuration.html).
 
 {{site.data.alerts.callout_success}}
-{% include {{ page.version.version }}/misc/multiregion-max-offset.md %}
-{{site.data.alerts.end }}
+{% include {{< page-version >}}/misc/multiregion-max-offset.md %}
+{{site.data.alerts.end}}
 
 {% include enterprise-feature.md %}
 

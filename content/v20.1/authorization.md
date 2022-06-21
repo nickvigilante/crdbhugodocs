@@ -6,9 +6,9 @@ toc: true
 
 User authorization is the act of defining access policies for authenticated CockroachDB users. CockroachDB allows you to create, manage, and remove your cluster's SQL [users](#sql-users) and assign SQL-level [privileges](#assign-privileges) to the users. Additionally, you can use [role-based access management (RBAC)](#roles) for simplified user management.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.1</span>: Role-based access management (RBAC) is no longer an enterprise feature and is now freely available in the core version of CockroachDB. Also, for enhanced PostgreSQL compatibility, the keywords `ROLE` and `USER` can now be used interchangeably in SQL statements. Note that even though the keywords are now interchangeable, it is still helpful to understand the distinction between the concepts (a "user" refers to an individual database user and a "role" refers to a group of database users).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Users and roles
 
@@ -16,8 +16,7 @@ There is no technical distinction between a role or user in CockroachDB. A role/
 
 - be permitted to log in to the [SQL shell](cockroach-sql.html).
 - be granted [privileges](#privileges) to specific actions and database objects.
-- be a member of other users/roles, inheriting their privileges.
-- have other users/roles as members that inherit its privileges.
+- belong to other users or roles, inheriting their privileges.
 
 We refer to these as "roles" when they are created for managing the privileges of their member "users" and not for logging in directly, which is typically reserved for "users".
 
@@ -35,9 +34,9 @@ Use the [`CREATE USER`](create-user.html) and [`DROP USER`](drop-user.html) stat
 
 A new user must be granted the required privileges for each database and table that the user needs to access.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 By default, a new user belongs to the `public` role and has no privileges other than those assigned to the `public` role. For more information, see [Public role](#public-role).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `root` user
 
@@ -47,9 +46,9 @@ For secure clusters, in addition to [generating the client certificate](authenti
 
 ## Roles
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.1</span> Role-based access management is no longer an enterprise feature and is now freely available in the core version of CockroachDB.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 A role is a group of users and/or other roles for which you can grant or revoke privileges as a whole. To simplify access management, create a role and grant privileges to the role, then create SQL users and grant them membership to the role.
 
@@ -97,7 +96,7 @@ A `role admin` is a member of the role that's allowed to grant or revoke role me
 
 {{site.data.alerts.callout_success}}
 The terms “`admin` role” and “`role admin`” can be confusing. A user who is a member of the `admin` role has all privileges on all database objects across the entire cluster, whereas a `role admin` has privileges limited to the role they are a member of. Assign the `admin` role to a SQL user if you want the user to have privileges across the cluster. Make a SQL user the `role admin` if you want to limit the user’s privileges to its current role, but with an option to grant or revoke role membership to other users. This applies to the `admin` role as well - only admin users with the `WITH ADMIN OPTION` can add or remove other users from the `admin` role.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Direct member
 
@@ -123,9 +122,9 @@ Take the following points into consideration while granting privileges to roles 
 
 - When a role or user is granted privileges for a database, new tables created in the database will inherit the privileges, but the privileges can then be changed. To grant privileges to a user on all existing tables in a database, see [Grant privileges on all tables in a database](grant.html#grant-privileges-on-all-tables-in-a-database)
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The user does not get privileges to existing tables in the database.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 - When a role or user is granted privileges for a table, the privileges are limited to the table.
 - In CockroachDB, privileges are granted to users and roles at the database and table levels. They are not yet supported for other granularities such as columns or rows.

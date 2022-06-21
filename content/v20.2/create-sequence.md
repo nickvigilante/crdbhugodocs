@@ -6,13 +6,13 @@ toc: true
 
 The `CREATE SEQUENCE` [statement](sql-statements.html) creates a new sequence in a database. Use a sequence to auto-increment integers in a table.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Considerations
 
 - Using a sequence is slower than [auto-generating unique IDs with the `gen_random_uuid()`, `uuid_v4()` or `unique_rowid()` built-in functions](sql-faqs.html#how-do-i-auto-generate-unique-row-ids-in-cockroachdb). Incrementing a sequence requires a write to persistent storage, whereas auto-generating a unique ID does not. Therefore, use auto-generated unique IDs unless an incremental sequence is preferred or required.
 - A column that uses a sequence can have a gap in the sequence values if a transaction advances the sequence and is then rolled back. Sequence updates are committed immediately and aren't rolled back along with their containing transaction. This is done to avoid blocking concurrent transactions that use the same sequence.
-- {% include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+- {% include {{< page-version >}}/performance/use-hash-sharded-indexes.md %}
 - If a table references a sequence, and the reference explicitly specifies a database name, that [database cannot be renamed](rename-database.html). In this case, you can drop the column in the table that references the sequence, or you can modify the reference so that it does not specify the database name.
 - <span class="version-tag">New in v20.2</span> By default, you cannot create sequences that are [owned by](authorization.html#object-ownership) columns in tables in other databases. You can enable such sequence creation by setting the `sql.cross_db_sequence_owners.enabled` [cluster setting](cluster-settings.html) to `true`.
 
@@ -59,13 +59,13 @@ We support the following [SQL sequence functions](functions-and-operators.html):
 
  CockroachDB supports session-scoped temporary sequences. Unlike persistent sequences, temporary sequences can only be accessed from the session in which they were created, and they are dropped at the end of the session. You can create temporary sequences on both persistent tables and [temporary tables](temporary-tables.html).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature**. The interface and output are subject to change. For details, see the tracking issue [cockroachdb/cockroach#46260](https://github.com/cockroachdb/cockroach/issues/46260).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Temporary tables must be enabled in order to use temporary sequences. By default, temporary tables are disabled in CockroachDB. To enable temporary tables, set the `experimental_enable_temp_tables` [session variable](set-vars.html) to `on`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Details
 
@@ -74,9 +74,9 @@ Temporary tables must be enabled in order to use temporary sequences. By default
 - Temporary sequences persist across transactions in the same session.
 - Temporary sequences cannot be converted to persistent sequences.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Like [temporary tables](temporary-tables.html), temporary sequences are not in the `public` schema. Instead, when you create the first temporary table, view, or sequence for a session, CockroachDB generates a single temporary schema (`pg_temp_<id>`) for all of the temporary objects in the current session for a database.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Usage
 
@@ -178,7 +178,7 @@ To view the current value without incrementing the sequence, use:
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>log_cnt</code> and <code>is_called</code> columns are returned only for PostgreSQL compatibility; they are not stored in the database.{{site.data.alerts.end}}
 
 If a value has been obtained from the sequence in the current session, you can also use the `currval('seq_name')` function to get that most recently obtained value:
 
@@ -197,9 +197,9 @@ If a value has been obtained from the sequence in the current session, you can a
 
 In this example, we're going to change the next value of `customer_seq` using the [`setval()` function](functions-and-operators.html#sequence-functions). Currently, the next value will be `3` (i.e., `2` + `INCREMENT 1`). We will change the next value to `5`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You cannot set a value outside the <code>MAXVALUE</code> or <code>MINVALUE</code> of the sequence.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -213,9 +213,9 @@ You cannot set a value outside the <code>MAXVALUE</code> or <code>MINVALUE</code
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `setval('seq_name', value, is_called)` function in CockroachDB SQL mimics the `setval()` function in PostgreSQL, but it does not store the `is_called` flag. Instead, it sets the value to `val - increment` for `false` or `val` for `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Let's add another record to the table to check that the new record adheres to the new next value.
 

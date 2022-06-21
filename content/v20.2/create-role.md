@@ -10,9 +10,9 @@ There is no distinct "user" entity in CockroachDB. A role with the `LOGIN` optio
 
 You can [assign privileges](authorization.html#assign-privileges) to the role and [set other roles as members](grant-roles.html) of the role. A role's [privileges](authorization.html#privileges) are inherited by its members and any further members of members ([indirect members](authorization.html#indirect-member)).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  `CREATE USER` is equivalent to the statement `CREATE ROLE`, with one exception: `CREATE ROLE` sets the [`NOLOGIN`](#parameters) option by default, preventing the new role from being used to log in to the database. You can use `CREATE ROLE` and specify the [`LOGIN`](#parameters) option to achieve the same result as `CREATE USER`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 See [Authorization](authorization.html) for more information on privilege management and role membership.
 
@@ -77,9 +77,9 @@ root     |         | {admin}
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The following statements are run by the `root` user that is a member of the `admin` role and has `ALL` privileges.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Create a role
 

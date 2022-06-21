@@ -6,9 +6,9 @@ toc: true
 
 The `STRING` [data type](data-types.html) stores a string of Unicode characters.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `STRING` is not a data type supported by PostgreSQL. For PostgreSQL compatibility, CockroachDB supports additional [aliases](#aliases) and [`STRING`-related types](#related-types).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Aliases
 

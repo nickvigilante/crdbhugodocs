@@ -8,7 +8,7 @@ The **Node Map** visualizes the geographical configuration of a multi-regional c
 
 This page walks you through the process of setting up and enabling the **Node Map**.
 
-{{site.data.alerts.callout_info }}The <b>Node Map</b> is an <a href="enterprise-licensing.html">enterprise-only</a> feature. However, you can <a href="https://www.cockroachlabs.com/get-cockroachdb/enterprise">request a trial license</a>  to try it out. {{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <b>Node Map</b> is an <a href="enterprise-licensing.html">enterprise-only</a> feature. However, you can <a href="https://www.cockroachlabs.com/get-cockroachdb/enterprise">request a trial license</a>  to try it out. {{site.data.alerts.end}}
 
 <img src="{{ 'images/v2.1/admin-ui-node-map.png' | relative_url }}" alt="CockroachDB Admin UI" style="border:1px solid #eee;max-width:100%" />
 
@@ -16,7 +16,7 @@ This page walks you through the process of setting up and enabling the **Node Ma
 
 To enable the **Node Map**, you need to start the cluster with the correct `--locality` flags and assign the latitudes and longitudes for each locality.
 
-{{site.data.alerts.callout_info }}The <b>Node Map</b> will not be displayed until <i>all</i> nodes are started with the correct <code>--locality</code> flags and all localities are assigned the corresponding latitudes and longitudes. {{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <b>Node Map</b> will not be displayed until <i>all</i> nodes are started with the correct <code>--locality</code> flags and all localities are assigned the corresponding latitudes and longitudes. {{site.data.alerts.end}}
 
 Consider a scenario of a four-node geo-distributed cluster with the following configuration:
 
@@ -119,7 +119,7 @@ Insert the approximate latitudes and longitudes of each region into the `system.
   ('region', 'eu-west-1', 53.142367, -7.692054);
 ~~~
 
-{{site.data.alerts.callout_info }}The <b>Node Map</b> will not be displayed until all regions are assigned the corresponding latitudes and longitudes. {{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <b>Node Map</b> will not be displayed until all regions are assigned the corresponding latitudes and longitudes. {{site.data.alerts.end}}
 
 For the latitudes and longitudes of AWS, Azure, and Google Cloud regions, see [Location Coordinates for Reference](#location-coordinates-for-reference).
 

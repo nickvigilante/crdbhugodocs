@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v20.2</span>: `OWNER TO` is a subcommand of [`ALTER DATABASE`](alter-database.html), [`ALTER TABLE`](alter-table.html), [`ALTER SCHEMA`](alter-schema.html), and [`ALTER TYPE`](alter-type.html), and is used to change the owner of an object in a cluster.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This page documents `ALTER DATABASE ... OWNER TO` and `ALTER TABLE ... OWNER TO`. For details on the `ALTER SCHEMA ... OWNER TO` and `ALTER TYPE ... OWNER TO`, see the [`ALTER SCHEMA`](alter-schema.html) and [`ALTER TYPE`](alter-type.html) pages.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -38,7 +38,7 @@ Parameter | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Change a database's owner
 
@@ -63,9 +63,9 @@ To verify that the owner is now `max`, query the `pg_catalog.pg_database` and `p
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If the user running the command is not an admin user, they must own the database and be a member of the new owning role. They must also have the `CREATEDB` [privilege](authorization.html#assign-privileges).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Change a table's owner
 
@@ -90,9 +90,9 @@ To verify that the owner is now `max`, query the `pg_catalog.pg_tables` table:
 (1 row)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If the user running the command is not an admin user, they must own the table and be a member of the new owning role. Also, the new owner role must also have the `CREATE` [privilege](authorization.html#assign-privileges) on the schema to which the table belongs.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 

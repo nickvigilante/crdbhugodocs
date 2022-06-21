@@ -17,7 +17,7 @@ In general, this pattern is suited well for immutable/reference tables that are 
 
 {{site.data.alerts.callout_success}}
 **See It In Action** - Read about how a [financial software company](https://www.cockroachlabs.com/case-studies/top-u-s-financial-software-company-turns-to-cockroachdb-to-improve-its-application-login-experience/) is using the Duplicate Indexes topology for low latency reads in their identity access management layer.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -31,9 +31,9 @@ In general, this pattern is suited well for immutable/reference tables that are 
 
 ## Configuration
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Pinning secondary indexes requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Summary
 

@@ -8,7 +8,7 @@ This page provides best-practice guidance on creating tables, with some simple e
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `CREATE TABLE` statement, including additional examples, see the [`CREATE TABLE` syntax page](create-table.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -166,7 +166,7 @@ CREATE TYPE movr.max_schema.vtype AS ENUM ('bike', 'scooter', 'skateboard');
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `CREATE TYPE` statement, including additional examples, see the [`CREATE TYPE` syntax page](create-type.html).<br>For detailed reference documentation on enumerated data types, including additional examples, see [`ENUM`](enum.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 You can then use `vtype` as the `type` column's data type:
 
@@ -199,7 +199,7 @@ For examples, see [below](#primary-key-examples).
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `PRIMARY KEY` constraint, including additional examples, see the [`PRIMARY KEY` constraint page](primary-key.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Primary key best practices
 
@@ -270,7 +270,7 @@ For guidance and examples for each constraint, see the sections below.
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation for each supported constraint, see [the constraint's syntax page](constraints.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Populate with default values
 
@@ -295,7 +295,7 @@ When a row is inserted into the `vehicles` table, CockroachDB generates a random
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `DEFAULT` constraint, including additional examples, see [the `DEFAULT` syntax page](default-value.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Reference other tables
 
@@ -346,13 +346,13 @@ CREATE TABLE movr.abbey_schema.user_promo_codes (
 
 This new table references the `email` column of the `users` table in `max_schema`. Because the `user_promo_codes` table depends on the `users` table, you'll need to execute `max_init.sql` before `abbey_init.sql`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Foreign key dependencies can significantly impact query performance, as queries involving tables with foreign keys, or tables referenced by foreign keys, require CockroachDB to check two separate tables. We recommend using them sparingly.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `FOREIGN KEY` constraint, including additional examples, see [the `FOREIGN KEY` syntax page](foreign-key.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Prevent duplicates
 
@@ -372,15 +372,15 @@ CREATE TABLE movr.max_schema.users (
 
 Attempting to insert `email` values that already exist in the `users` table will return an error.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When you add a `UNIQUE` constraint to a column, CockroachDB creates a secondary index on that column, to help speed up checks on a column value's uniqueness.
 
 Also note that the `UNIQUE` constraint is implied by the `PRIMARY KEY` constraint.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `UNIQUE` constraint, including additional examples, see [the `UNIQUE` syntax page](unique.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Prevent `NULL` values
 
@@ -398,13 +398,13 @@ CREATE TABLE movr.max_schema.users (
 );
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that the `NOT NULL` constraint is implied by the `PRIMARY KEY` constraint.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 For detailed reference documentation on the `NOT NULL` constraint, including additional examples, see [the `NOT NULL` syntax page](not-null.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Execute `CREATE TABLE` statements
 
@@ -416,9 +416,9 @@ Here are some general best practices to follow when executing `CREATE TABLE` sta
 
 - Do not create tables as the `root` user. Instead, create tables as a [different user](schema-design-overview.html#controlling-access-to-objects), with fewer privileges, following [authorization best practices](authorization.html#authorization-best-practices). The user that creates an object becomes that [object's owner](authorization.html#object-ownership).
 
-- {% include {{ page.version.version }}/sql/dev-schema-changes.md %}
+- {% include {{< page-version >}}/sql/dev-schema-changes.md %}
 
-- {% include {{ page.version.version }}/sql/dev-schema-change-limits.md %}
+- {% include {{< page-version >}}/sql/dev-schema-change-limits.md %}
 
 #### Execute the example `CREATE TABLE` statements
 

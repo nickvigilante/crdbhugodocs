@@ -9,7 +9,7 @@ The `cockroach dump` [command](cockroach-commands.html) outputs the SQL statemen
 
 {{site.data.alerts.callout_success}}
 CockroachDB [enterprise license](https://www.cockroachlabs.com/pricing/) users can also back up their cluster's data using [`BACKUP`](backup.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Considerations
 
@@ -20,9 +20,9 @@ When `cockroach dump` is executed:
 - If the dump takes longer than the [`ttlseconds`](configure-replication-zones.html) replication setting for the table (25 hours by default), the dump may fail.
 - Reads, writes, and schema changes can happen while the dump is in progress, but will not affect the output of the dump.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The user must have the `SELECT` privilege on the target table(s).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -92,9 +92,9 @@ Flag | Description
 
 See [Client Connection Parameters](connection-parameters.html) for more details.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The user specified with `--user` must have the `SELECT` privilege on the target tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Logging
 
@@ -104,9 +104,9 @@ If you need to troubleshoot this command's behavior, you can change its [logging
 
 ## Examples
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 These examples use our sample `startrek` database, which you can add to a cluster via the [`cockroach gen`](cockroach-gen.html#generate-example-data) command. Also, the examples assume that the `maxroach` user has been [granted](grant.html) the `SELECT` privilege on all target tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Dump a table's schema and data
 
@@ -394,11 +394,11 @@ As you can see, the results of the dump are identical to the earlier time-travel
 
 ### Dumping a table with no user-visible columns
 
-{% include {{ page.version.version }}/known-limitations/dump-table-with-no-columns.md %}
+{% include {{< page-version >}}/known-limitations/dump-table-with-no-columns.md %}
 
 ### Dumping a table with collations
 
-{% include {{ page.version.version }}/known-limitations/dump-table-with-collations.md %}
+{% include {{< page-version >}}/known-limitations/dump-table-with-collations.md %}
 
 ## See also
 

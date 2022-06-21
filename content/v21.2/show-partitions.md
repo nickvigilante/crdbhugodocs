@@ -7,11 +7,11 @@ docs_area: reference.sql
 
 Use the `SHOW PARTITIONS` [statement](sql-statements.html) to view details about existing [partitions](partitioning.html).
 
-{% include {{ page.version.version }}/sql/use-multiregion-instead-of-partitioning.md %}
+{% include {{< page-version >}}/sql/use-multiregion-instead-of-partitioning.md %}
 
 {% include enterprise-feature.md %}
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ## Synopsis
 
@@ -21,7 +21,7 @@ Use the `SHOW PARTITIONS` [statement](sql-statements.html) to view details about
 
 ## Required privileges
 
-No [privileges](authorization.html#assign-privileges) are required to list partitions.
+No [privileges](security-reference/authorization.html#managing-privileges) are required to list partitions.
 
 ## Parameters
 
@@ -48,13 +48,13 @@ Field | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{% include {{< page-version >}}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 The `movr` database in this example is pre-partitioned. For information about partitioning tables, see [Define Table Partitions](partitioning.html) or [`PARTION BY`](partition-by.html).
 
 ### Show table partitions
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW PARTITIONS FROM TABLE users;
 ~~~
@@ -85,7 +85,7 @@ The `movr` database in this example is pre-partitioned. For information about pa
 
 You can also use [`SHOW CREATE TABLE`](show-create.html) to view partitions on a table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -117,14 +117,14 @@ You can also use [`SHOW CREATE TABLE`](show-create.html) to view partitions on a
 
 If a partitioned table has no zones configured, the `SHOW CREATE TABLE` output includes a warning.
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER PARTITION us_west OF TABLE users CONFIGURE ZONE DISCARD;
   ALTER PARTITION us_east OF TABLE users CONFIGURE ZONE DISCARD;
   ALTER PARTITION europe_west OF TABLE users CONFIGURE ZONE DISCARD;
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~
@@ -152,7 +152,7 @@ If a partitioned table has no zones configured, the `SHOW CREATE TABLE` output i
 
 ### Show partitions by index
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW PARTITIONS FROM INDEX vehicles@vehicles_auto_index_fk_city_ref_users;
 ~~~
@@ -183,7 +183,7 @@ If a partitioned table has no zones configured, the `SHOW CREATE TABLE` output i
 
 ### Show partitions by database
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW PARTITIONS FROM DATABASE movr;
 ~~~
@@ -231,7 +231,7 @@ If a partitioned table has no zones configured, the `SHOW CREATE TABLE` output i
 (24 rows)
 ~~~
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions-example.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions-example.md %}
 
 ## See also
 

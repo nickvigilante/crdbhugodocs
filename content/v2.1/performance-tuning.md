@@ -71,7 +71,7 @@ Locally, you'll need to [create the following certificates and keys](create-secu
 
 {{site.data.alerts.callout_success}}
 As mentioned above, before beginning, it's useful to collect each instance's internal and external IP addresses, as well as any server names you want to issue certificates for.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. [Install CockroachDB](install-cockroachdb.html) on your local machine, if you haven't already.
 
@@ -94,7 +94,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
     {% include copy-clipboard.html %}
   	~~~ shell
   	$ cockroach cert create-ca \
-  	{{ page.certs}} \
+  	{{page.certs}} \
   	--ca-key=my-safe-directory/ca.key
   	~~~
 
@@ -109,7 +109,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
   	<other common names for node1> \
   	localhost \
   	127.0.0.1 \
-  	{{ page.certs}} \
+  	{{page.certs}} \
   	--ca-key=my-safe-directory/ca.key
   	~~~
 
@@ -137,9 +137,9 @@ As mentioned above, before beginning, it's useful to collect each instance's int
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This is necessary because the certificates and keys for additional nodes will also be named `node.crt` and `node.key`. As an alternative to deleting these files, you can run the next `cockroach cert create-node` commands with the `--overwrite` flag.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 7. Create the certificate and key for the second node, issued to all common names you might use to refer to the node:
 
@@ -152,7 +152,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
   	<other common names for node2> \
   	localhost \
   	127.0.0.1 \
-  	{{ page.certs}} \
+  	{{page.certs}} \
   	--ca-key=my-safe-directory/ca.key
   	~~~
 
@@ -181,7 +181,7 @@ As mentioned above, before beginning, it's useful to collect each instance's int
   	~~~ shell
   	$ cockroach cert create-client \
   	root \
-  	{{ page.certs}} \
+  	{{page.certs}} \
   	--ca-key=my-safe-directory/ca.key
   	~~~
 
@@ -202,9 +202,9 @@ As mentioned above, before beginning, it's useful to collect each instance's int
     <username>@<instance4 address>:~/certs
     ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On accessing the Admin UI in a later step, your browser will consider the CockroachDB-created certificate invalid and you’ll need to click through a warning message to get to the UI. You can avoid this issue by [using a certificate issued by a public CA](create-security-certificates-custom-ca.html#accessing-the-admin-ui-for-a-secure-cluster).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/performance/start-cluster.md %}
 
@@ -249,8 +249,8 @@ When measuring SQL performance, it's best to run a given statement multiple time
     When run, the client prints the median time in seconds across all repetitions of the statement. Optionally, you can pass two other flags, `--time` to print the execution time in seconds for each repetition of the statement, and `--cumulative` to print the cumulative time in seconds for all repetitions. `--cumulative` is particularly useful when testing writes.
 
     {{site.data.alerts.callout_success}}
-    To get similar help directly in your shell, use `{{ page.app }} --help`.
-    {{site.data.alerts.end }}
+    To get similar help directly in your shell, use `{{page.app}} --help`.
+    {{site.data.alerts.end}}
 
 ### Step 6. Test/tune read performance
 
@@ -268,7 +268,7 @@ Retrieving a single row based on the primary key will usually return in 2ms or l
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT * FROM rides WHERE city = 'boston' AND id = '000007ef-fa0f-4a6e-a089-ce74aa8d2276'" \
 --repeat=50 \
@@ -291,7 +291,7 @@ Retrieving a subset of columns will usually be even faster:
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT rider_id, vehicle_id \
 FROM rides \
@@ -318,7 +318,7 @@ You'll get generally poor performance when retrieving a single row based on a co
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT * FROM users WHERE name = 'Natalie Cunningham'" \
 --repeat=50 \
@@ -342,7 +342,7 @@ To understand why this query performs poorly, use the SQL client built into the 
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT * FROM users WHERE name = 'Natalie Cunningham';"
@@ -366,7 +366,7 @@ To speed up this query, add a secondary index on `name`:
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="CREATE INDEX on users (name);"
@@ -376,7 +376,7 @@ The query will now return much faster:
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT * FROM users WHERE name = 'Natalie Cunningham'" \
 --repeat=50 \
@@ -400,7 +400,7 @@ To understand why performance improved from 4.51ms (without index) to 1.72ms (wi
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT * FROM users WHERE name = 'Natalie Cunningham';"
@@ -430,7 +430,7 @@ For example, let's say you frequently retrieve a user's name and credit card num
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT name, credit_card FROM users WHERE name = 'Natalie Cunningham'" \
 --repeat=50 \
@@ -454,7 +454,7 @@ With the current secondary index on `name`, CockroachDB still needs to scan the 
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT name, credit_card FROM users WHERE name = 'Natalie Cunningham';"
@@ -477,7 +477,7 @@ Let's drop and recreate the index on `name`, this time storing the `credit_card`
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="DROP INDEX users_name_idx;"
@@ -486,7 +486,7 @@ $ cockroach sql \
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="CREATE INDEX ON users (name) STORING (credit_card);"
@@ -497,7 +497,7 @@ Now that `credit_card` values are stored in the index on `name`, CockroachDB onl
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT name, credit_card FROM users WHERE name = 'Natalie Cunningham';"
@@ -516,7 +516,7 @@ This results in even faster performance, reducing latency from 1.77ms (index wit
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT name, credit_card FROM users WHERE name = 'Natalie Cunningham'" \
 --repeat=50 \
@@ -543,7 +543,7 @@ For example, let's say you want to count the number of users who started rides o
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT count(DISTINCT users.id) \
 FROM users \
@@ -570,7 +570,7 @@ To understand what's happening, use [`EXPLAIN`](explain.html) to see the query p
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT count(DISTINCT users.id) \
@@ -607,7 +607,7 @@ To track this specifically, let's use the [`SHOW EXPERIMENTAL_RANGES`](show-expe
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SHOW EXPERIMENTAL_RANGES FROM TABLE rides;"
@@ -629,7 +629,7 @@ $ cockroach sql \
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SHOW EXPERIMENTAL_RANGES FROM TABLE users;"
@@ -652,21 +652,21 @@ Now, given the `WHERE` condition of the join, the full table scan of `rides`, ac
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="CREATE INDEX ON rides (start_time) STORING (rider_id);"
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `rides` table contains 1 million rows, so adding this index will take a few minutes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Adding the secondary index reduced the query time from 1573ms to 61.56ms:
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT count(DISTINCT users.id) \
 FROM users \
@@ -693,7 +693,7 @@ To understand why performance improved, again use [`EXPLAIN`](explain.html) to s
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT count(DISTINCT users.id) \
@@ -728,7 +728,7 @@ Let's check the ranges for the new index:
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SHOW EXPERIMENTAL_RANGES FROM INDEX rides@rides_start_time_idx;"
@@ -750,7 +750,7 @@ Now let's say you want to get the latest ride of each of the 5 most used vehicle
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT vehicle_id, max(end_time) \
 FROM rides \
@@ -787,7 +787,7 @@ However, as you can see, this query is slow because, currently, when the `WHERE`
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="EXPLAIN SELECT vehicle_id, max(end_time) \
@@ -836,7 +836,7 @@ Because CockroachDB will not use an available secondary index when using `IN (li
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT vehicle_id \
 FROM rides \
@@ -867,7 +867,7 @@ And then put the results into the `IN` list to get the most recent rides of the 
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT vehicle_id, max(end_time) \
 FROM rides \
@@ -911,13 +911,13 @@ This approach reduced the query time from 2489.85ms (query with subquery) to 220
 
 Moving on to writes, let's imagine that you have a batch of 100 new users to insert into the `users` table. The most obvious approach is to insert each row using 100 separate [`INSERT`](insert.html) statements:  
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For the purpose of demonstration, the command below inserts the same user 100 times, each time with a different unique ID. Note also that you're now adding the `--cumulative` flag to print the total time across all 100 inserts.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="INSERT INTO users VALUES (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347')" \
 --repeat=100 \
@@ -940,7 +940,7 @@ The 100 inserts took 910.98ms to complete, which isn't bad. However, it's signif
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="INSERT INTO users VALUES \
 (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), (gen_random_uuid(), 'new york', 'Max Roach', '411 Drum Street', '173635282937347'), \
@@ -976,7 +976,7 @@ Let's consider the `users` table:
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="SHOW INDEXES FROM users;"
@@ -1000,7 +1000,7 @@ To make this more concrete, let's count how many rows have a name that starts wi
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT count(*) \
 FROM users \
@@ -1018,7 +1018,7 @@ Median time (milliseconds):
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="UPDATE users \
 SET name = 'Carl Kimball' \
@@ -1038,7 +1038,7 @@ Now, assuming that the `users_name_idx` index is no longer needed, lets drop the
 {% include copy-clipboard.html %}
 ~~~ shell
 $ cockroach sql \
-{{ page.certs}} \
+{{page.certs}} \
 --host=<address of any node> \
 --database=movr \
 --execute="DROP INDEX users_name_idx;"
@@ -1046,7 +1046,7 @@ $ cockroach sql \
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="UPDATE users \
 SET name = 'Peedie Hirata' \
@@ -1067,7 +1067,7 @@ Now let's focus on the common case of inserting a row into a table and then retr
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="INSERT INTO users VALUES (gen_random_uuid(), 'new york', 'Toni Brooks', '800 Camden Lane, Brooklyn, NY 11218', '98244843845134960')" \
 --repeat=1
@@ -1080,7 +1080,7 @@ Median time (milliseconds):
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="SELECT id FROM users WHERE name = 'Toni Brooks'" \
 --repeat=1
@@ -1099,7 +1099,7 @@ Combined, these statements are relatively fast, at 15.96ms, but an even more per
 
 {% include copy-clipboard.html %}
 ~~~ shell
-$ {{ page.app }} \
+$ {{page.app}} \
 --host=<address of any node> \
 --statement="INSERT INTO users VALUES (gen_random_uuid(), 'new york', 'Brian Brooks', '800 Camden Lane, Brooklyn, NY 11218', '98244843845134960') \
 RETURNING id" \
@@ -1178,7 +1178,7 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
   	<other common names for node> \
   	localhost \
   	127.0.0.1 \
-  	{{ page.certs}} \
+  	{{page.certs}} \
   	--ca-key=my-safe-directory/ca.key
   	~~~
 
@@ -1206,9 +1206,9 @@ Given that Movr is active on both US coasts, you'll now scale the cluster into t
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     This is necessary because the certificates and keys for additional nodes will also be named `node.crt` and `node.key`. As an alternative to deleting these files, you can run the next `cockroach cert create-node` commands with the `--overwrite` flag.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 4. Repeat steps 1 - 3 for each new node.
 

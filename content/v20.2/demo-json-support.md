@@ -197,7 +197,7 @@ Now, retrieve all the current entries where the link is pointing to somewhere on
 {% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id FROM programming \
-WHERE posts @> '{"data": {"domain": "github.com" }}';
+WHERE posts @> '{"data": {"domain": "github.com"}}';
 ~~~
 
 ~~~
@@ -219,9 +219,9 @@ WHERE posts @> '{"data": {"domain": "github.com" }}';
 Time: 103.748ms
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Since you are querying live data, your results for this and the following steps may vary from the results documented in this tutorial.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Step 8. Create a GIN index to optimize performance
 
@@ -239,7 +239,7 @@ Now that there is a GIN index, the same query will run much faster:
 {% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id FROM programming \
-WHERE posts @> '{"data": {"domain": "github.com" }}';
+WHERE posts @> '{"data": {"domain": "github.com"}}';
 ~~~
 ~~~
 (109 rows)

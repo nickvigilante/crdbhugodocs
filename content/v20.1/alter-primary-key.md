@@ -26,7 +26,7 @@ toc: true
 
 {{site.data.alerts.callout_success}}
 To change an existing primary key without creating a secondary index from that primary key, use [`DROP CONSTRAINT ... PRIMARY KEY`/`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html#changing-primary-keys-with-add-constraint-primary-key). For examples, see the [`ADD CONSTRAINT`](add-constraint.html#examples) and [`DROP CONSTRAINT`](drop-constraint.html#examples) pages.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -40,8 +40,8 @@ To change an existing primary key without creating a secondary index from that p
 -----------|-------------
  `table_name` | The name of the table with the primary key that you want to modify.
  `index_params` | The name of the column(s) that you want to use for the primary key. These columns replace the current primary key column(s).
- `opt_interleave` | You can potentially optimize query performance by [interleaving tables](interleave-in-parent.html), which changes how CockroachDB stores your data.<br>{{site.data.alerts.callout_info }}[Hash-sharded indexes](indexes.html#hash-sharded-indexes) cannot be interleaved.{{site.data.alerts.end }}
- `USING HASH WITH BUCKET COUNT` | Creates a [hash-sharded index](indexes.html#hash-sharded-indexes) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info }}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end }}
+ `opt_interleave` | You can potentially optimize query performance by [interleaving tables](interleave-in-parent.html), which changes how CockroachDB stores your data.<br>{{site.data.alerts.callout_info}}[Hash-sharded indexes](indexes.html#hash-sharded-indexes) cannot be interleaved.{{site.data.alerts.end}}
+ `USING HASH WITH BUCKET COUNT` | Creates a [hash-sharded index](indexes.html#hash-sharded-indexes) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info}}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -127,9 +127,9 @@ When you geo-partition a database, you [partition the database on a primary key 
 ~~~ sql
 > ALTER TABLE users ALTER PRIMARY KEY USING COLUMNS (region, id);
 ~~~
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The order of the primary key columns is important when geo-partitioning. For performance, always place the partition column first.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

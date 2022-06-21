@@ -6,16 +6,16 @@ toc: true
 
 The `JSONB` [data type](data-types.html) stores JSON (JavaScript Object Notation) data as a binary representation of the `JSONB` value, which eliminates whitespace, duplicate keys, and key ordering. `JSONB` supports [inverted indexes](inverted-indexes.html).
 
-{{site.data.alerts.callout_success}}For a hands-on demonstration of storing and querying JSON data from a third-party API, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a hands-on demonstration of storing and querying JSON data from a third-party API, see the <a href="demo-json-support.html">JSON tutorial</a>.{{site.data.alerts.end}}
 
-{% include {{ page.version.version }}/sql/vectorized-support.md %}
+{% include {{< page-version >}}/sql/vectorized-support.md %}
 
 ## Alias
 
 In CockroachDB, `JSON` is an alias for `JSONB`.
 
-{{site.data.alerts.callout_info }}In PostgreSQL, <code>JSONB</code> and <code>JSON</code> are two different data types. In CockroachDB, the <code>JSONB</code> / <code>JSON</code> data type is similar in behavior to the <a href="https://www.postgresql.org/docs/current/static/datatype-json.html"><code>JSONB</code> data type in PostgreSQL</a>.
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}In PostgreSQL, <code>JSONB</code> and <code>JSON</code> are two different data types. In CockroachDB, the <code>JSONB</code> / <code>JSON</code> data type is similar in behavior to the <a href="https://www.postgresql.org/docs/current/static/datatype-json.html"><code>JSONB</code> data type in PostgreSQL</a>.
+{{site.data.alerts.end}}
 
 ## Considerations
 
@@ -45,7 +45,7 @@ Examples:
 - `'{"type": "account creation", "username": "harvestboy93"}'`
 - `'{"first_name": "Ernie", "status": "Looking for treats", "location" : "Brooklyn"}'`
 
-{{site.data.alerts.callout_info }}If duplicate keys are included in the input, only the last value is kept.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If duplicate keys are included in the input, only the last value is kept.{{site.data.alerts.end}}
 
 ## Size
 
@@ -58,7 +58,7 @@ Function | Description | Example |
 `jsonb_array_elements(<jsonb>)` | Expands a `JSONB` array to a set of `JSONB` values. | `SELECT jsonb_array_elements('[1,true, 2,false]');`
 `jsonb_build_object(<any_element>...)` | Builds a `JSONB` object out of a variadic argument list that alternates between keys and values. | `SELECT json_build_object('Zoo',1,'Enter',2);`
 `jsonb_each(<jsonb>)` | Expands the outermost `JSONB` object into a set of key-value pairs. | `SELECT * from json_each('{"a":"Apple", "b":"ball"}');`
-`jsonb_object_keys(<jsonb>)` | Returns sorted set of keys in the outermost `JSONB` object. | `SELECT * from jsonb_object_keys('{"fb1":"abc123","fb2":{"fb3":"ant", "f4":"ball" }}');`
+`jsonb_object_keys(<jsonb>)` | Returns sorted set of keys in the outermost `JSONB` object. | `SELECT * from jsonb_object_keys('{"fb1":"abc123","fb2":{"fb3":"ant", "f4":"ball"}}');`
 `jsonb_pretty(<jsonb>)` | Returns the given `JSONB` value as a `STRING` indented and with newlines. | See the [example](#retrieve-formatted-jsonb-data) below.
 
 For the full list of supported `JSONB` functions, see [Functions and Operators](functions-and-operators.html#jsonb-functions).
@@ -69,7 +69,7 @@ Operator | Description | Example |
 ---------|-------------|---------|
 `->` | Access a `JSONB` field, returning a `JSONB` value. | `SELECT '[{"foo":"bar"}]'::JSONB->0->'foo' = '"bar"'::JSONB;`
 `->>` | Access a `JSONB` field, returning a string. | `SELECT '{"foo":"bar"}'::JSONB->>'foo' = 'bar'::STRING;`
-`@>` | Tests whether the left `JSONB` field contains the right `JSONB` field. | `SELECT ('{"foo": {"baz": 3}, "bar": 2}'::JSONB @> '{"foo": {"baz":3 }}'::JSONB ) = true;`
+`@>` | Tests whether the left `JSONB` field contains the right `JSONB` field. | `SELECT ('{"foo": {"baz": 3}, "bar": 2}'::JSONB @> '{"foo": {"baz":3}}'::JSONB ) = true;`
 
 For the full list of supported `JSONB` operators, see [Functions and Operators](functions-and-operators.html).
 

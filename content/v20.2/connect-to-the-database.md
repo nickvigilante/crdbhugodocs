@@ -63,7 +63,7 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -89,10 +89,10 @@ ds.setApplicationName("BasicExample");
 ~~~
 
 {{site.data.alerts.callout_success}}
-{% include {{ page.version.version }}/app/pkcs8-gen.md %}
-{{site.data.alerts.end }}
+{% include {{< page-version >}}/app/pkcs8-gen.md %}
+{{site.data.alerts.end}}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -114,7 +114,7 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

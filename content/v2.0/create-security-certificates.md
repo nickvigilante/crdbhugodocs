@@ -11,7 +11,7 @@ toc: true
 
 A secure CockroachDB cluster uses [TLS](https://en.wikipedia.org/wiki/Transport_Layer_Security) for encrypted inter-node and client-node communication, which requires CA, node, and client certificates and keys. To create these certificates and keys, use the `cockroach cert` [commands](cockroach-commands.html) with the appropriate subcommands and flags, or use [`openssl` commands](https://wiki.openssl.org/index.php/).
 
-{{site.data.alerts.callout_success}}For details about when and how to change security certificates without restarting nodes, see <a href="rotate-certificates.html">Rotate Security Certificates</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For details about when and how to change security certificates without restarting nodes, see <a href="rotate-certificates.html">Rotate Security Certificates</a>.{{site.data.alerts.end}}
 
 
 ## How Security Certificates Work
@@ -192,7 +192,7 @@ If you need to troubleshoot this command's behavior, you can change its [logging
     $ rm certs/node.crt certs/node.key
     ~~~
 
-    {{site.data.alerts.callout_info }}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}This is necessary because the certificates and keys for additional nodes will also be named <code>node.crt</code> and <code>node.key</code> As an alternative to deleting these files, you can run the next <code>cockroach cert create-node</code> commands with the <code>--overwrite</code> flag.{{site.data.alerts.end}}
 
 4. Create the certificate and key for the second node:
 

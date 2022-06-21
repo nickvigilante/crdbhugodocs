@@ -5,9 +5,9 @@ toc: true
 docs_area: reference.sql
 ---
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `EXPERIMENTAL CHANGEFEED FOR` is the core implementation of changefeeds. For the [Enterprise-only](enterprise-licensing.html) version, see [`CREATE CHANGEFEED`](create-changefeed.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The `EXPERIMENTAL CHANGEFEED FOR` [statement](sql-statements.html) creates a new core changefeed, which streams row-level changes to the client indefinitely until the underlying connection is closed or the changefeed is canceled. A core changefeed can watch one table or multiple tables in a comma-separated list.
 
@@ -19,7 +19,7 @@ For more information, see [Stream Data Out of CockroachDB Using Changefeeds](cha
 
 ## Required privileges
 
-Changefeeds can only be created by superusers, i.e., [members of the `admin` role](authorization.html#create-and-manage-roles). The admin role exists by default with `root` as the member.
+Changefeeds can only be created by superusers, i.e., [members of the `admin` role](security-reference/authorization.html#admin-role). The admin role exists by default with `root` as the member.
 
 ## Considerations
 
@@ -83,4 +83,4 @@ You can pause a changefeed by -->
 ## See also
 
 - [Change Data Capture Overview](change-data-capture-overview.html)
-- [Other SQL Statements](sql-statements.html)
+- [SQL Statements](sql-statements.html)

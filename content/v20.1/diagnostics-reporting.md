@@ -10,7 +10,7 @@ This page summarizes the details that get shared, how to view the details yourse
 
 {{site.data.alerts.callout_success}}
 For insights into your cluster's performance and health, use the built-in [Admin UI](admin-ui-overview.html) or a third-party monitoring tool like [Prometheus](monitor-cockroachdb-with-prometheus.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## What gets shared
 
@@ -21,9 +21,9 @@ When diagnostics reporting is on, each node of a CockroachDB cluster shares anon
 
 To view the full diagnostics details that a node reports to Cockroach Labs, use the `http://<node-address>:<http-port>/_status/diagnostics/local` JSON endpoint.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In all cases, names and other string values are scrubbed and replaced with underscores. Also, the details that get shared may change over time, but as that happens, we will announce the changes in release notes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Opt out of diagnostics reporting
 

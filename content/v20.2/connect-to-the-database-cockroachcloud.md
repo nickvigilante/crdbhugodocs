@@ -43,7 +43,7 @@ $ cockroach sql \
 --url='postgres://{username}:{password}@{globalhost}:26257/{cluster_name}.{database}?sslmode=verify-full&sslrootcert={path to the CA certificate}'
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
 For more information about how to use the built-in SQL client, see the [`cockroach sql`](cockroach-sql.html) reference docs.
 
@@ -68,9 +68,9 @@ if err != nil {
 defer db.Close()
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -94,9 +94,9 @@ ds.setReWriteBatchedInserts(true); // add `rewriteBatchedInserts=true` to pg con
 ds.setApplicationName("BasicExample");
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -118,9 +118,9 @@ conn = psycopg2.connect(
 )
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

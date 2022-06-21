@@ -86,11 +86,11 @@ The `kv.closed_timestamp.target_duration` [cluster setting](cluster-settings.htm
     {"__crdb__": {"updated": "1532377312562986715.0000000000"}, "id": 1, "name": "Petee H"}
     {"__crdb__": {"updated": "1532377306108205142.0000000000"}, "id": 2, "name": "Carl"}
     {"__crdb__": {"updated": "1532377358501715562.0000000000"}, "id": 3, "name": "Ernie"}
-    {"__crdb__":{"resolved":"1532379887442299001.0000000000" }}
-    {"__crdb__":{"resolved":"1532379888444290910.0000000000" }}
-    {"__crdb__":{"resolved":"1532379889448662988.0000000000" }}
+    {"__crdb__":{"resolved":"1532379887442299001.0000000000"}}
+    {"__crdb__":{"resolved":"1532379888444290910.0000000000"}}
+    {"__crdb__":{"resolved":"1532379889448662988.0000000000"}}
     ...
-    {"__crdb__":{"resolved":"1532379922512859361.0000000000" }}
+    {"__crdb__":{"resolved":"1532379922512859361.0000000000"}}
     {"__crdb__": {"updated": "1532379923319195777.0000000000"}, "id": 4, "name": "Lucky"}
     ~~~
 
@@ -150,6 +150,8 @@ The changefeed emits duplicate records 1, 2, and 3 before outputting the records
 [2]	{"id": 2, "likes_treats": true, "name": "Carl"}
 [3]	{"id": 3, "likes_treats": true, "name": "Ernie"}
 ~~~
+
+When using the [`schema_change_policy = nobackfill` option](create-changefeed.html#schema-policy), the changefeed will still emit duplicate records for the table that is being altered. In the preceding output, the records marked as `# Duplicate` will still emit with this option, but not the new schema records.
 
 ## Create a changefeed (Core)
 
@@ -220,9 +222,9 @@ For more information, see [`CANCEL JOB`](cancel-job.html).
 
 ## Monitor a changefeed
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Monitoring is only available for Enterprise changefeeds.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Changefeed progress is exposed as a high-water timestamp that advances as the changefeed progresses. This is a guarantee that all changes before or at the timestamp have been emitted. You can monitor a changefeed:
 
@@ -243,9 +245,9 @@ Changefeed progress is exposed as a high-water timestamp that advances as the ch
 
 - Setting up an alert on the `changefeed.max_behind_nanos` metric to track when a changefeed's high-water mark timestamp is at risk of falling behind the cluster's [garbage collection window](configure-replication-zones.html#replication-zone-variables). For more information, see [Monitoring and Alerting](monitoring-and-alerting.html#changefeed-is-experiencing-high-latency).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can use the high-water timestamp to [start a new changefeed where another ended](create-changefeed.html#start-a-new-changefeed-where-another-ended).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Debug a changefeed
 
@@ -300,9 +302,9 @@ For more information, see [`SHOW JOBS`](show-jobs.html).
 
 ### Create a changefeed connected to Kafka
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [`CREATE CHANGEFEED`](create-changefeed.html) is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [the `CHANGEFEED FOR` example above](#create-a-core-changefeed).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 In this example, you'll set up a changefeed for a single-node cluster that is connected to a Kafka sink. The changefeed will watch two tables.
 
@@ -348,9 +350,9 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic employees
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 6. As the `root` user, open the [built-in SQL client](cockroach-sql.html):
 
@@ -456,10 +458,10 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     ~~~
 
     ~~~ shell
-    {"after": {"id": 1, "name": "Petee H" }}
-    {"after": {"id": 2, "name": "Carl" }}
-    {"after": {"id": 1, "name": "Lauren", "rowid": 528514320239329281 }}
-    {"after": {"id": 2, "name": "Spencer", "rowid": 528514320239362049 }}
+    {"after": {"id": 1, "name": "Petee H"}}
+    {"after": {"id": 2, "name": "Carl"}}
+    {"after": {"id": 1, "name": "Lauren", "rowid": 528514320239329281}}
+    {"after": {"id": 2, "name": "Spencer", "rowid": 528514320239362049}}
     ~~~
 
     The initial scan displays the state of the tables as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
@@ -476,7 +478,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 16. Back in the terminal where you're watching the Kafka topics, the following output has appeared:
 
     ~~~ shell
-    {"after": {"id": 3, "name": "Ernie" }}
+    {"after": {"id": 3, "name": "Ernie"}}
     ~~~
 
 17. When you are done, exit the SQL shell (`\q`).
@@ -497,9 +499,9 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 ### Create a changefeed connected to Kafka using Avro
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [`CREATE CHANGEFEED`](create-changefeed.html) is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [the `CHANGEFEED FOR` example above](#create-a-core-changefeed-using-avro).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 In this example, you'll set up a changefeed for a single-node cluster that is connected to a Kafka sink and emits [Avro](https://avro.apache.org/docs/1.8.2/spec.html) records. The changefeed will watch two tables.
 
@@ -545,9 +547,9 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     --topic employees
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You are expected to create any Kafka topics with the necessary number of replications and partitions. [Topics can be created manually](https://kafka.apache.org/documentation/#basic_ops_add_topic) or [Kafka brokers can be configured to automatically create topics](https://kafka.apache.org/documentation/#topicconfigs) with a default partition count and replication factor.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 6. As the `root` user, open the [built-in SQL client](cockroach-sql.html):
 
@@ -653,10 +655,10 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
     ~~~
 
     ~~~ shell
-    {"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee H" }}}}
-    {"after":{"office_dogs":{"id":{"long":2},"name":{"string":"Carl" }}}}
-    {"after":{"employees":{"dog_id":{"long":1},"employee_name":{"string":"Lauren"},"rowid":{"long":528537452042682369 }}}}
-    {"after":{"employees":{"dog_id":{"long":2},"employee_name":{"string":"Spencer"},"rowid":{"long":528537452042747905 }}}}
+    {"after":{"office_dogs":{"id":{"long":1},"name":{"string":"Petee H"}}}}
+    {"after":{"office_dogs":{"id":{"long":2},"name":{"string":"Carl"}}}}
+    {"after":{"employees":{"dog_id":{"long":1},"employee_name":{"string":"Lauren"},"rowid":{"long":528537452042682369}}}}
+    {"after":{"employees":{"dog_id":{"long":2},"employee_name":{"string":"Spencer"},"rowid":{"long":528537452042747905}}}}
     ~~~
 
     The initial scan displays the state of the table as of when the changefeed started (therefore, the initial value of `"Petee"` is omitted).
@@ -673,7 +675,7 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 16. Back in the terminal where you're watching the Kafka topics, the following output has appeared:
 
     ~~~ shell
-    {"after":{"office_dogs":{"id":{"long":3},"name":{"string":"Ernie" }}}}
+    {"after":{"office_dogs":{"id":{"long":3},"name":{"string":"Ernie"}}}}
     ~~~
 
 17. When you are done, exit the SQL shell (`\q`).
@@ -694,9 +696,9 @@ In this example, you'll set up a changefeed for a single-node cluster that is co
 
 ### Create a changefeed connected to a cloud storage sink
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [`CREATE CHANGEFEED`](create-changefeed.html) is an [Enterprise-only](enterprise-licensing.html) feature. For the core version, see [the `CHANGEFEED FOR` example above](#create-a-core-changefeed).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include {{ page.version.version }}/misc/experimental-warning.md %}
 

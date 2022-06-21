@@ -29,9 +29,9 @@ This page is meant to provide information about specific transaction retry error
 
 5. [High priority transactions](transactions.html#transaction-priorities) are less likely to experience serialization errors than low priority transactions. Adjusting transaction priorities usually does not change how many serialization errors occur, but it can help control which transactions experience them.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Note that your application's retry logic does not need to distinguish between the different types of serialization errors. They are listed here for reference during advanced troubleshooting.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -105,9 +105,9 @@ _Action_:
    3. Design your schema and queries to reduce contention. For more information about how contention occurs and how to avoid it, see [Understanding and avoiding transaction contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention). In particular, if you are able to [send all of the statements in your transaction in a single batch](transactions.html#batched-statements), CockroachDB can usually automatically retry the entire transaction for you.
    3. Use historical reads with [`SELECT ... AS OF SYSTEM TIME`](as-of-system-time.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you increase the `kv.closed_timestamp.target_duration` setting, it means that you are increasing the amount of time by which the data available in [Follower Reads](follower-reads.html) and [CDC changefeeds](change-data-capture.html) lags behind the current state of the cluster. In other words, there is a trade-off here: if you absolutely must execute long-running transactions that execute concurrently with other transactions that are writing to the same data, you may have to settle for longer delays on Follower Reads and/or CDC to avoid frequent serialization errors. The anomaly that would be exhibited if these transactions were not retried is called [write skew](https://www.cockroachlabs.com/blog/what-write-skew-looks-like/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### RETRY_ASYNC_WRITE_FAILURE
 
@@ -138,9 +138,9 @@ The `ReadWithinUncertaintyIntervalError` can occur when two transactions which s
 
 For example, if the clock on node _A_ is ahead of the clock on node _B_, a transaction started on node _A_ may be able to commit a write with a timestamp that is still in the "future" from the perspective of node _B_. A later transaction that starts on node _B_ should be able to see the earlier write from node _A_, even if _B_'s clock has not caught up to _A_. The "read within uncertainty interval" occurs if we discover this situation in the middle of a transaction, when it is too late for the database to handle it automatically. When node _B_'s transaction retries, it will unambiguously occur after the transaction from node _A_.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This behavior is non-deterministic: it depends on which node is the [leaseholder](architecture/life-of-a-distributed-transaction.html#leaseholder-node) of the underlying data range. It’s generally a sign of contention. Uncertainty errors are always possible with near-realtime reads under contention.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 _Action_:
 
@@ -151,9 +151,9 @@ The solution is to do one of the following:
 3. Design your schema and queries to reduce contention. For more information about how contention occurs and how to avoid it, see [Understanding and avoiding transaction contention](performance-best-practices-overview.html#understanding-and-avoiding-transaction-contention). In particular, if you are able to [send all of the statements in your transaction in a single batch](transactions.html#batched-statements), CockroachDB can usually automatically retry the entire transaction for you.
 4. If you [trust your clocks](operational-faqs.html#what-happens-when-node-clocks-are-not-properly-synchronized), you can try lowering the [`--max-offset` option to `cockroach start`](cockroach-start.html#flags), which provides an upper limit on how long a transaction can continue to restart due to uncertainty.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Uncertainty errors are a form of transaction conflict. For more information about transaction conflicts, see [Transaction conflicts](architecture/transaction-layer.html#transaction-conflicts).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### RETRY_COMMIT_DEADLINE_EXCEEDED
 
@@ -165,9 +165,9 @@ _Description_:
 
 The `RETRY_COMMIT_DEADLINE_EXCEEDED` error means that the transaction timed out due to being pushed by other concurrent transactions. This error is most likely to happen to long-running transactions. The conditions that trigger this error are very similar to the conditions that lead to a [`RETRY_SERIALIZABLE`](#retry_serializable) error, except that a transaction that hits this error got pushed for several minutes, but did not hit any of the conditions that trigger a `RETRY_SERIALIZABLE` error. In other words, the conditions that trigger this error are a subset of those that trigger `RETRY_SERIALIZABLE`, and that this transaction ran for too long (several minutes).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Read-only transactions do not get pushed, so they do not run into this error.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 This error occurs in the cases described below.
 
@@ -182,9 +182,9 @@ _Action_:
 1. The `RETRY_COMMIT_DEADLINE_EXCEEDED` error is one case where the standard advice to add a retry loop to your application may not be advisable. A transaction that runs for long enough to get pushed beyond its deadline is quite likely to fail again on retry for the same reasons. Therefore, the best thing to do in this case is to shrink the running time of your transactions so they complete more quickly and do not hit the deadline.
 2. If you encounter case 3 above, you can increase the `kv.closed_timestamp.target_duration` setting to a higher value. Unfortunately, there is no indication from this error code that a too-low closed timestamp setting is the issue. Therefore, you may need to rule out cases 1 and 2 (or experiment with increasing the closed timestamp interval, if that is possible for your application - see the note below).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you increase the `kv.closed_timestamp.target_duration` setting, it means that you are increasing the amount of time by which the data available in [Follower Reads](follower-reads.html) and [CDC changefeeds](change-data-capture.html) lags behind the current state of the cluster. In other words, there is a trade-off here: if you absolutely must execute long-running transactions that execute concurrently with other transactions that are writing to the same data, you may have to settle for longer delays on Follower Reads and/or CDC to avoid frequent serialization errors. The anomaly that would be exhibited if these transactions were not retried is called [write skew](https://www.cockroachlabs.com/blog/what-write-skew-looks-like/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### ABORT_REASON_ABORTED_RECORD_FOUND
 

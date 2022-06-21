@@ -8,9 +8,9 @@ toc: true
 
 Using the [CockroachDB distributed execution engine](architecture/sql-layer.html#distsql), `EXPORT` parallelizes CSV creation across all nodes in the cluster, making it possible to quickly get large sets of data out of CockroachDB in a format that can be ingested by downstream systems. If you do not need distributed exports, you can use the [non-enterprise feature to export tabular data in CSV format](#non-distributed-export-using-the-sql-shell).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 This is an [enterprise feature](enterprise-licensing.html). Also, it is in **beta** and is currently undergoing continued testing. Please [file a Github issue](file-an-issue.html) with us if you identify a bug.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Export file location
 
@@ -26,7 +26,7 @@ After the export has been initiated, you can cancel it with [`CANCEL QUERY`](can
 
 <div>{% include {{ page.version.version }}/sql/diagrams/export.html %}</div>
 
-{{site.data.alerts.callout_info }}The <code>EXPORT</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>EXPORT</code> statement cannot be used within a <a href=transactions.html>transaction</a>.{{site.data.alerts.end}}
 
 ## Required privileges
 

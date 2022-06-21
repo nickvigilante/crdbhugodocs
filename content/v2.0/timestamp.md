@@ -13,7 +13,7 @@ The `TIMESTAMP` and `TIMESTAMPTZ` [data types](data-types.html) stores a date an
 
 - `TIMESTAMP WITH TIME ZONE` converts `TIMESTAMP` values from UTC to the client's session time zone (unless another time zone is specified for the value). However, it is conceptually important to note that `TIMESTAMP WITH TIME ZONE` *does not* store any time zone data.
 
-   {{site.data.alerts.callout_info }}The default session time zone is UTC, which means that by default `TIMESTAMP WITH TIME ZONE` values display in UTC.{{site.data.alerts.end }}
+   {{site.data.alerts.callout_info}}The default session time zone is UTC, which means that by default `TIMESTAMP WITH TIME ZONE` values display in UTC.{{site.data.alerts.end}}
 
 - `TIMESTAMP WITHOUT TIME ZONE` presents all `TIMESTAMP` values in UTC.
 

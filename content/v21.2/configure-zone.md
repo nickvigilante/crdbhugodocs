@@ -9,9 +9,9 @@ docs_area: reference.sql
 
 In CockroachDB, you can use **replication zones** to control the number and location of replicas for specific sets of data, both when replicas are first added and when they are rebalanced to maintain cluster equilibrium.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Adding replication zones for secondary indexes and partitions is an [Enterprise-only](enterprise-licensing.html) feature.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -47,13 +47,13 @@ Adding replication zones for secondary indexes and partitions is an [Enterprise-
 
 ## Required privileges
 
-If the target is a [`system` range](#create-a-replication-zone-for-a-system-range), the [`system` database](show-databases.html#preloaded-databases), or a table in the `system` database, the user must be a member of the [`admin` role](authorization.html#create-and-manage-roles). For all other databases and tables, the user must have been granted either the [`CREATE`](grant.html#supported-privileges) or the [`ZONECONFIG`](grant.html#supported-privileges) privilege on the target database or table.
+If the target is a [`system` range](#create-a-replication-zone-for-a-system-range), the [`system` database](show-databases.html#preloaded-databases), or a table in the `system` database, the user must be a member of the [`admin` role](security-reference/authorization.html#admin-role). For all other databases and tables, the user must have been granted either the [`CREATE`](grant.html#supported-privileges) or the [`ZONECONFIG`](grant.html#supported-privileges) privilege on the target database or table.
 
 ## Parameters
 
  Parameter | Description
 -----------+-------------
-`range_name` | The name of the system [range](architecture/overview.html#glossary) whose [replication zone configurations](configure-replication-zones.html) you want to change.
+`range_name` | The name of the system [range](architecture/overview.html#architecture-range) whose [replication zone configurations](configure-replication-zones.html) you want to change.
 `database_name` | The name of the [database](create-database.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.<br> If you directly change a database's zone configuration with `ALTER DATABASE ... CONFIGURE ZONE`, CockroachDB will block all [`ALTER DATABASE ... SET PRIMARY REGION`](set-primary-region.html) statements on the database.
 `table_name` | The name of the [table](create-table.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.
 `partition_name` | The name of the [partition](partitioning.html) whose [replication zone configurations](configure-replication-zones.html) you want to change.
@@ -76,7 +76,7 @@ If the target is a [`system` range](#create-a-replication-zone-for-a-system-rang
 
 ### Edit a replication zone
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 4;
 ~~~
@@ -129,4 +129,4 @@ CONFIGURE ZONE 1
 - [`ALTER RANGE`](alter-range.html)
 - [`SHOW JOBS`](show-jobs.html)
 - [Table Partitioning](partitioning.html)
-- [Other SQL Statements](sql-statements.html)
+- [SQL Statements](sql-statements.html)

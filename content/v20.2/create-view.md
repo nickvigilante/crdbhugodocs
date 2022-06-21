@@ -6,11 +6,11 @@ toc: true
 
 The `CREATE VIEW` statement creates a new [view](views.html), which is a stored query represented as a virtual table.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.2:</span> By default, views created in a database cannot reference objects in a different database. To enable cross-database references for views, set the `sql.cross_db_views.enabled` [cluster setting](cluster-settings.html) to `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -36,7 +36,7 @@ Parameter | Description
 
 {{site.data.alerts.callout_success}}
 This example highlights one key benefit to using views: simplifying complex queries. For additional benefits and examples, see [Views](views.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Setup
 

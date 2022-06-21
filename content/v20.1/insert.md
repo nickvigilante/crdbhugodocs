@@ -11,9 +11,9 @@ The `INSERT` [statement](sql-statements.html) inserts one or more rows into a ta
 
 - To bulk-insert data into an existing table, batch multiple rows in one [multi-row `INSERT`](#insert-multiple-rows-into-an-existing-table) statement and do not include the `INSERT` statements within a transaction. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows).
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 - To bulk-insert data into a new table, the [`IMPORT`](import.html) statement performs better than `INSERT`.
 - In traditional SQL databases, generating and retrieving unique IDs involves using `INSERT` with `SELECT`. In CockroachDB, use `RETURNING` clause with `INSERT` instead. See [Insert and Return Values](#insert-and-return-values) for more details.
 
@@ -71,7 +71,7 @@ key. Using `ON CONFLICT` is therefore more flexible.
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Insert a single row
 
@@ -180,9 +180,9 @@ Multi-row inserts are faster than multiple single-row `INSERT` statements. As a 
 (12 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Insert multiple rows into a new table
 
@@ -290,9 +290,9 @@ pq: null value in column "city" violates not-null constraint
 
 In this example, the `RETURNING` clause returns the `id` values of the rows inserted, which are generated server-side by the `gen_random_uuid()` function. The language-specific versions assume that you have installed the relevant [client drivers](install-client-drivers.html).
 
-{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>INSERT</code> statements with <code>RETURNING</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>INSERT</code> statements with <code>RETURNING</code>.{{site.data.alerts.end}}
 
 <div class="filters clearfix">
     <button class="filter-button" data-scope="shell">Shell</button>
@@ -702,10 +702,10 @@ considered. To force the selection of a particular duplicate, use an
     DO NOTHING;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Using `DISTINCT ON` incurs a performance cost to search and eliminate duplicates.
 For best performance, avoid using it when the input is known to not contain duplicates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

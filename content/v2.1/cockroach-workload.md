@@ -6,9 +6,9 @@ toc: true
 
 <span class="version-tag">New in v2.1:</span> CockroachDB comes with built-in load generators for simulating different types of client workloads, printing out per-operation statistics every second and totals after a specific duration or max number of operations. To run one of these load generators, use the `cockroach workload` [command](cockroach-commands.html) as described below.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 The `cockroach workload` command is experimental. The interface and output are subject to change.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -53,9 +53,9 @@ Workload | Description
 
 ## Flags
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `cockroach workload` command does not support connection or security flags like other [`cockroach` commands](cockroach-commands.html). Instead, you must use a [connection string](connection-parameters.html) at the end of the command.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### `bank` workload
 
@@ -78,9 +78,9 @@ Flag | Description
 
 ### `intro` and `startrek` workloads
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 These workloads generate data but do not offer the ability to run continuous load. Thus, only the `init` subcommand is supported.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Flag | Description
 -----|------------

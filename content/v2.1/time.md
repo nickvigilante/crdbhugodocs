@@ -74,7 +74,7 @@ A `TIME` column supports values up to 8 bytes in width, but the total storage si
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}The <code>cockroach sql</code> shell displays the date and time zone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and time zone are not relevant and are not stored in the database.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The <code>cockroach sql</code> shell displays the date and time zone due to the Go SQL driver it uses. Other client drivers may behave similarly. In such cases, however, the date and time zone are not relevant and are not stored in the database.{{site.data.alerts.end}}
 
 Comparing `TIME` values:
 

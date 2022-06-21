@@ -6,9 +6,9 @@ toc: true
 
 CockroachDB supports parallel execution of [independent](parallel-statement-execution.html#when-to-use-parallel-statement-execution) [`INSERT`](insert.html), [`UPDATE`](update.html), [`UPSERT`](upsert.html), and [`DELETE`](delete.html) statements within a single [transaction](transactions.html). Executing statements in parallel helps reduce aggregate latency and improve performance. 
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v2.1:</span> Built-in performance optimizations such as [transaction pipelining](architecture/transaction-layer.html#transaction-pipelining) provide the same performance benefits as parallel statement execution with better SQL semantics, and without limitations such as the [error message mismatch](#error-message-mismatch). Parallel statement execution may increase performance in a few very subtle cases, but it is not recommended for most users. If you believe you need to use this feature, please contact someone at CockroachDB first.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Why use parallel statement execution?
 
@@ -126,7 +126,7 @@ The following pairs of statements are dependent since reordering them will affec
 ~~~
 
 
-{{site.data.alerts.callout_info }}Parallel statement execution in CockroachDB is different than parallel query execution in PostgreSQL. For PostgreSQL, parallel query execution refers to “creating multiple query processes that divide the workload of a single SQL statement and executing them in parallel”. For CockroachDB’s parallel statement execution, an individual SQL statement is not divided into processes. Instead, multiple independent SQL statements within a single <a href='transactions.html'>transaction</a> are executed in parallel.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Parallel statement execution in CockroachDB is different than parallel query execution in PostgreSQL. For PostgreSQL, parallel query execution refers to “creating multiple query processes that divide the workload of a single SQL statement and executing them in parallel”. For CockroachDB’s parallel statement execution, an individual SQL statement is not divided into processes. Instead, multiple independent SQL statements within a single <a href='transactions.html'>transaction</a> are executed in parallel.{{site.data.alerts.end}}
 
 ## See also
 

@@ -8,14 +8,14 @@ docs_area: reference.cli
 
 To view version details for a specific `cockroach` binary, run the `cockroach version` [command](cockroach-commands.html), or run `cockroach --version`:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ shell
 $ cockroach version
 ~~~
 
 ~~~
-Build Tag:        {{ page.release_info.version }}
-Build Time:       {{ page.release_info.build_time }}
+Build Tag:        {{page.release_info.version}}
+Build Time:       {{page.release_info.build_time}}
 Distribution:     CCL
 Platform:         darwin amd64 (x86_64-apple-darwin19)
 Go Version:       go1.15.11
@@ -37,7 +37,7 @@ Field | Description
 `Go Version` | The version of Go in which the source code is written.
 `C Compiler` | The C compiler used to build the binary.
 `Build Commit ID` | The SHA-1 hash of the commit used to build the binary.
-`Build Type` | The type of release. If `release`, `release-gnu`, or `release-musl`, the binary is for a [production release](../releases/#production-releases). If `development`, the binary is for a [testing release](../releases/#testing-releases).
+`Build Type` | The type of release. If `release`, `release-gnu`, or `release-musl`, the binary is for a production [release](../releases/). If `development`, the binary is for a testing release.
 
 ## See also
 

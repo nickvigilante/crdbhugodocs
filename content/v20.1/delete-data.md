@@ -15,7 +15,7 @@ Make sure you have already:
 - [Connected to the database](connect-to-the-database.html).
 - [Inserted data](insert-data.html) that you now want to delete.
 
-{% include {{ page.version.version }}/app/retry-errors.md %}
+{% include {{< page-version >}}/app/retry-errors.md %}
 
 ## Delete a single row
 
@@ -48,7 +48,7 @@ if _, err := db.Exec("DELETE FROM accounts WHERE id = 1"); err != nil {
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -67,7 +67,7 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -82,7 +82,7 @@ with conn.cursor() as cur:
 conn.commit()
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 
@@ -106,9 +106,9 @@ You can delete multiple rows from a table in several ways:
 
 - Using [`TRUNCATE`](truncate.html) instead of [`DELETE`](delete.html) to delete all of the rows from a table, as recommended in our [performance best practices](performance-best-practices-overview.html#use-truncate-instead-of-delete-to-delete-all-rows-in-a-table).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Before deleting large amounts of data, see [Performance considerations](#performance-considerations).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Performance considerations
 

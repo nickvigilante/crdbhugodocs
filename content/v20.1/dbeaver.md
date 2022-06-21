@@ -16,7 +16,7 @@ In this tutorial, you'll work through the process of using DBeaver with a secure
 For more information about using DBeaver, see the [DBeaver documentation](https://dbeaver.io/docs/).
 
 If you run into problems, please file an issue on the [DBeaver issue tracker](https://github.com/dbeaver/dbeaver/issues).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before You Begin
 

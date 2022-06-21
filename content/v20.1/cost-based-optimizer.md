@@ -26,9 +26,9 @@ By default, CockroachDB generates table statistics automatically when tables are
 - Columns that are part of the primary key or an index (in other words, all indexed columns).
 - Up to 100 non-indexed columns.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 [Schema changes](online-schema-changes.html) trigger automatic statistics collection for the affected table(s).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Controlling automatic statistics
 
@@ -47,9 +47,9 @@ Statistics are refreshed in the following cases:
 | `sql.stats.automatic_collection.fraction_stale_rows` |           0.2 | Target fraction of stale rows per table that will trigger a statistics refresh       |
 | `sql.stats.automatic_collection.min_stale_rows`      |           500 | Target minimum number of stale rows per table that will trigger a statistics refresh |
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Because the formula for statistics refreshes is probabilistic, you should not expect to see statistics update immediately after changing these settings, or immediately after exactly 500 rows have been updated.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Turning off statistics
 
@@ -79,9 +79,9 @@ For instructions showing how to manually generate statistics, see the examples i
 
 By default, the optimizer collects histograms for all index columns (specifically the first column in each index) during automatic statistics collection. If a single column statistic is explicitly requested using manual invocation of [`CREATE STATISTICS`](create-statistics.html), a histogram will be collected, regardless of whether or not the column is part of an index.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB does not support histograms on [`ARRAY`-typed](array.html) columns. As a result, statistics created on `ARRAY`-typed columns do not include histograms.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If you are an advanced user and need to disable histogram collection for troubleshooting or performance tuning reasons, change the [`sql.stats.histogram_collection.enabled` cluster setting](cluster-settings.html) by running [`SET CLUSTER SETTING`](set-cluster-setting.html) as follows:
 
@@ -90,9 +90,9 @@ If you are an advanced user and need to disable histogram collection for trouble
 SET CLUSTER SETTING sql.stats.histogram_collection.enabled = false;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 When `sql.stats.histogram_collection.enabled` is set to `false`, histograms are never collected, either as part of automatic statistics collection or by manual invocation of [`CREATE STATISTICS`](create-statistics.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Query plan cache
 
@@ -126,9 +126,9 @@ To change this setting, which is controlled by the `reorder_joins_limit` [sessio
 > SET reorder_joins_limit = 6;
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 We strongly recommend not setting this value higher than 8 to avoid performance degradation. If set too high, the cost of generating and costing execution plans can end up dominating the total execution time of the query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For more information about the difficulty of selecting an optimal join ordering, see our blog post [An Introduction to Join Ordering](https://www.cockroachlabs.com/blog/join-ordering-pt1/).
 
@@ -143,9 +143,9 @@ The optimizer supports hint syntax to force the use of a specific join algorithm
 
 Note that the hint cannot be specified with a bare hint keyword (e.g., `MERGE`) - in that case, the `INNER` keyword must be added. For example, `a INNER MERGE JOIN b` will work, but `a MERGE JOIN b` will not work.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Join hints cannot be specified with a bare hint keyword (e.g., `MERGE`) due to SQL's implicit `AS` syntax. If you're not careful, you can make `MERGE` be an alias for a table; for example, `a MERGE JOIN b` will be interpreted as having an implicit `AS` and be executed as `a AS MERGE JOIN b`, which is just a long way of saying `a JOIN b`. Because the resulting query might execute without returning any hint-related error (because it is valid SQL), it will seem like the join hint "worked", but actually it didn't affect which join algorithm was used. In this case, the correct syntax is `a INNER MERGE JOIN b`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Supported join algorithms
 
@@ -177,9 +177,9 @@ If it is not possible to use the algorithm specified in the hint, an error is si
 
 Given multiple identical [indexes](indexes.html) that have different locality constraints using [replication zones](configure-replication-zones.html), the optimizer will prefer the index that is closest to the gateway node that is planning the query. In a properly configured geo-distributed cluster, this can lead to performance improvements due to improved data locality and reduced network traffic.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This feature is only available to users with an [enterprise license](enterprise-licensing.html). For insight into how to use this feature to get low latency, consistent reads in multi-region deployments, see the [Duplicate Indexes](topology-follower-reads.html) topology pattern.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 This feature enables scenarios such as:
 
@@ -195,9 +195,9 @@ To take advantage of this feature, you need to:
 
 With the above pieces in place, the optimizer will automatically choose the index nearest the gateway node that is planning the query.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The optimizer does not actually understand geographic locations, i.e., the relative closeness of the gateway node to other nodes that are located to its "east" or "west". It is matching against the [node locality constraints](configure-replication-zones.html#descriptive-attributes-assigned-to-nodes) you provided when you configured your replication zones.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Examples
 
@@ -296,13 +296,13 @@ ALTER INDEX postal_codes@idx_apac CONFIGURE ZONE USING constraints='["+region=ap
 
 To verify this feature is working as expected, we'll query the database from each of our local nodes as shown below. Each node has been configured to be in a different region, and it should now be using the index pinned to that region.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 In a geo-distributed scenario with a cluster that spans multiple datacenters, it may take time for the optimizer to fetch schemas from other nodes the first time a query is planned; thereafter, the schema should be cached locally.
 
 For example, if you have 11 nodes, you may see 11 queries with high latency due to schema cache misses.  Once all nodes have cached the schema locally, the latencies will drop.
 
 This behavior may also cause the [Statements page of the Web UI](admin-ui-statements-page.html) to show misleadingly high latencies until schemas are cached locally.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 As expected, the node in the USA region uses the primary key index.
 
@@ -465,9 +465,9 @@ Enter zone configurations to distribute replicas across the cluster as follows:
 
 The idea is that, for example, `token_id_east_idx` will have sufficient replicas (2/5) so that even if one replica goes down, the leaseholder will stay in the East region. That way, if a query comes in that accesses the columns covered by that index from the East gateway node, the optimizer will select `token_id_east_idx` for fast reads.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `ALTER TABLE` statement below is not required since it's later made redundant by the `token_id_west_idx` index. In production, you might go with the `ALTER TABLE` to put your table's lease preferences in the West, and then create only 2 indexes (for East and Central); however, the use of 3 indexes makes the example easier to understand.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -523,9 +523,9 @@ INDEX auth.public.token@token_id_west_idx    | ALTER INDEX auth.public.token@tok
 
 Now that we've set up our indexes the way we want them, we need to insert some data. The first statement below inserts 10,000 rows of placeholder data; the second inserts a row with a specific UUID string that we'll later query against to check which index is used.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 On a freshly created cluster like this one, you may need to wait a moment after adding the data to give [automatic statistics](#table-statistics) time to update. Then, the optimizer can generate a query plan that uses the expected index.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

@@ -23,9 +23,9 @@ For each of the above objects you can control:
 
 This page explains how replication zones work and how to use the [`CONFIGURE ZONE`](configure-zone.html) statement to manage them.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To configure replication zones, a user must be a member of the [`admin` role](authorization.html#admin-role) or have been granted [`CREATE`](authorization.html#supported-privileges) or [`ZONECONFIG`](authorization.html#supported-privileges) privileges. To configure [`system` objects](#for-system-data), the user must be a member of the `admin` role.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Overview
 
@@ -84,13 +84,13 @@ Use the [`ALTER ... CONFIGURE ZONE`](configure-zone.html) [statement](sql-statem
 > ALTER TABLE t CONFIGURE ZONE USING range_min_bytes = 0, range_max_bytes = 90000, gc.ttlseconds = 89999, num_replicas = 5, constraints = '[-region=west]';
 ~~~
 
-{% include {{ page.version.version }}/zone-configs/variables.md %}
+{% include {{< page-version >}}/zone-configs/variables.md %}
 
 ### Replication constraints
 
 The location of replicas, both when they are first added and when they are rebalanced to maintain cluster equilibrium, is based on the interplay between descriptive attributes assigned to nodes and constraints set in zone configurations.
 
-{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end}}
 
 #### Descriptive attributes assigned to nodes
 
@@ -140,7 +140,7 @@ Use the [`SHOW ZONE CONFIGURATIONS`](#view-all-replication-zones) statement to v
 
 You can also use the [`SHOW PARTITIONS`](show-partitions.html) statement to view the zone constraints on existing table partitions, or [`SHOW CREATE TABLE`](show-create.html) to view zone configurations for a table.
 
-{% include {{ page.version.version }}/sql/crdb-internal-partitions.md %}
+{% include {{< page-version >}}/sql/crdb-internal-partitions.md %}
 
 ## Basic examples
 

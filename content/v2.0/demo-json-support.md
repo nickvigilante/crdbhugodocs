@@ -195,7 +195,7 @@ Now, retrieve all the current entries where the link is pointing to somewhere on
 {% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id FROM programming \
-WHERE posts @> '{"data": {"domain": "github.com" }}';
+WHERE posts @> '{"data": {"domain": "github.com"}}';
 ~~~
 ~~~
 +--------------------------------------+
@@ -222,7 +222,7 @@ WHERE posts @> '{"data": {"domain": "github.com" }}';
 Time: 105.877736ms
 ~~~
 
-{{site.data.alerts.callout_info }}Since you are querying live data, your results for this and the following steps may vary from the results documented in this tutorial.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Since you are querying live data, your results for this and the following steps may vary from the results documented in this tutorial.{{site.data.alerts.end}}
 
 ## Step 8. Create an inverted index to optimize performance
 
@@ -240,7 +240,7 @@ Now that there is an inverted index, the same query will run much faster:
 {% include copy-clipboard.html %}
 ~~~ sql
 > SELECT id FROM programming \
-WHERE posts @> '{"data": {"domain": "github.com" }}';
+WHERE posts @> '{"data": {"domain": "github.com"}}';
 ~~~
 ~~~
 (334 rows)

@@ -44,12 +44,12 @@ An expression in a query can refer to columns in the current data source in two 
 
   *This is a CockroachDB SQL extension.*
 
-  {{site.data.alerts.callout_danger }}
+  {{site.data.alerts.callout_danger}}
   Ordinal references should be used with care in production
   code! During schema updates, column ordinal positions can change and
   invalidate existing queries that use ordinal positions based on a
   previous version of the schema.
-  {{site.data.alerts.end }}
+  {{site.data.alerts.end}}
 
 ## Unary and Binary Operations
 
@@ -469,7 +469,7 @@ and `OR` is not evaluated in any particular order. Some operand may
 not even be evaluated at all if the result can be fully ascertained using
 only the other operand.
 
-{{site.data.alerts.callout_info }}This is different from the left-to-right "short-circuit logic" found in other programming languages. When it is essential to force evaluation order, use <a href="#conditional-expressions">a conditional expression</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}This is different from the left-to-right "short-circuit logic" found in other programming languages. When it is essential to force evaluation order, use <a href="#conditional-expressions">a conditional expression</a>.{{site.data.alerts.end}}
 
 ### Typing rule
 

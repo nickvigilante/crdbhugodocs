@@ -47,13 +47,13 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
   - No primary key was explicitly defined at [table creation](create-table.html). In this case, the table is created with a default [primary key on `rowid`](indexes.html#creation). Using `ADD CONSTRAINT ... PRIMARY KEY` drops the default primary key and replaces it with a new primary key.
   - A [`DROP CONSTRAINT`](drop-constraint.html) statement precedes the `ADD CONSTRAINT ... PRIMARY KEY` statement, in the same transaction. For an example, see [Drop and add the primary key constraint](#drop-and-add-a-primary-key-constraint) below.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `ALTER TABLE ... ADD PRIMARY KEY` is an alias for `ALTER TABLE ... ADD CONSTRAINT ... PRIMARY KEY`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Add the `UNIQUE` constraint
 
@@ -90,12 +90,12 @@ ALTER TABLE
 COMMIT
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The entire transaction will be rolled back, including any new columns that were added, in the following cases:
 
 - If an existing column is found containing values that violate the new constraint.
 - If a new column has a default value or is a [computed column](computed-columns.html) that would have contained values that violate the new constraint.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Add the foreign key constraint with `CASCADE`
 
@@ -150,18 +150,18 @@ You can include a [foreign key action](foreign-key.html#foreign-key-actions) to 
 
 Using `ON DELETE CASCADE` will ensure that when the referenced row is deleted, all dependent objects are also deleted.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` does not list the objects it drops or updates, so it should be used with caution.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE vehicles ADD CONSTRAINT users_fk FOREIGN KEY (city, owner_id) REFERENCES users (city, id) ON DELETE CASCADE;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.2:</span> By default, referenced columns must be in the same database as the referencing foreign key column. To enable cross-database foreign key references, set the `sql.cross_db_fks.enabled` [cluster setting](cluster-settings.html) to `true`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Drop and add a primary key constraint
 

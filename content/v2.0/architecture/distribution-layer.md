@@ -6,7 +6,7 @@ toc: true
 
 The Distribution Layer of CockroachDB's architecture provides a unified view of your cluster's data.
 
-{{site.data.alerts.callout_info }}If you haven't already, we recommend reading the <a href="overview.html">Architecture Overview</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you haven't already, we recommend reading the <a href="overview.html">Architecture Overview</a>.{{site.data.alerts.end}}
 
 
 ## Overview

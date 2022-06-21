@@ -4,7 +4,7 @@ summary: Back up your CockroachDB cluster to a cloud storage services such as AW
 toc: true
 ---
 
-{{site.data.alerts.callout_danger }}The <code>BACKUP</code> feature is only available to <a href="https://www.cockroachlabs.com/pricing/">enterprise license</a> users. For non-enterprise backups, see <a href="sql-dump.html"><code>cockroach dump</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}The <code>BACKUP</code> feature is only available to <a href="https://www.cockroachlabs.com/pricing/">enterprise license</a> users. For non-enterprise backups, see <a href="sql-dump.html"><code>cockroach dump</code></a>.{{site.data.alerts.end}}
 
 CockroachDB's `BACKUP` [statement](sql-statements.html) creates full or incremental backups of your cluster's schemas and data that are consistent as of a given timestamp. These backups can be stored on the platforms you're already using, including AWS S3, Google Cloud Storage, NFS, or HTTP storage.
 
@@ -17,7 +17,7 @@ Because CockroachDB is designed with high fault tolerance, these backups are des
 
 You can backup entire tables (which automatically includes their indexes) or [views](views.html). Backing up a database simply backs up all of its tables and views.
 
-{{site.data.alerts.callout_info }}<code>BACKUP</code> only offers table-level granularity; it <em>does not</em> support backing up subsets of a table.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}<code>BACKUP</code> only offers table-level granularity; it <em>does not</em> support backing up subsets of a table.{{site.data.alerts.end}}
 
 ### Object Dependencies
 

@@ -4,11 +4,11 @@ summary: The REASSIGN OWNED statement changes the ownership of all objects in th
 toc: true
 ---
 
-<span class="version-tag">New in v21.1:</span> The `REASSIGN OWNED` statement changes the [ownership](authorization.html#object-ownership) of all database objects (i.e., tables, types, or schemas) in the current database that are currently owned by a specific [role](authorization.html#roles) or [user](authorization.html#sql-users).
+{% include_cached new-in.html version="v21.1" %} The `REASSIGN OWNED` statement changes the [ownership](authorization.html#object-ownership) of all database objects (i.e., tables, types, or schemas) in the current database that are currently owned by a specific [role](authorization.html#roles) or [user](authorization.html#sql-users).
 
 {{site.data.alerts.callout_success}}
 To change the ownership of any single object (e.g., a table or a database), use the [`OWNER TO`](owner-to.html) subcommand of the object's [`ALTER` statement](sql-statements.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -30,7 +30,7 @@ Parameter | Description
 
 ## Example
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Change the owner of all tables in a database
 

@@ -6,9 +6,9 @@ toc: true
 
 The `SHOW USERS` [statement](sql-statements.html) lists the users for all databases.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
  Since the keywords `ROLES` and `USERS` can now be used interchangeably in SQL statements for enhanced Postgres compatibility, `SHOW USERS` is now an alias for [`SHOW ROLES`](show-roles.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 

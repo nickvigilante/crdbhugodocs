@@ -7,7 +7,7 @@ toc: true
 The `BIT` and `VARBIT` [data types](data-types.html) stores bit arrays.
 With `BIT`, the length is fixed; with `VARBIT`, the length can be variable.
 
-{% include {{ page.version.version }}/sql/vectorized-support.md %}
+{% include {{< page-version >}}/sql/vectorized-support.md %}
 
 ## Aliases
 

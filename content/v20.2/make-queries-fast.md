@@ -10,17 +10,17 @@ This page provides an overview for optimizing query performance in CockroachDB. 
 - [Schema design](#schema-design): Depending on your SQL schema and the data access patterns of your workload, you may need to make changes to avoid creating "hotspots".
 - [Cluster topology](#cluster-topology): As a distributed system, CockroachDB requires you to trade off latency vs. resiliency. This requires choosing the right cluster topology for your needs.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you aren't sure whether SQL query performance needs to be improved on your cluster, see [Identify slow queries](query-behavior-troubleshooting.html#identify-slow-queries).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## SQL query performance
 
 To get good SQL query performance, follow the rules below (in approximate order of importance):
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 These rules apply to an environment where thousands of [OLTP](https://en.wikipedia.org/wiki/Online_transaction_processing) queries are being run per second, and each query needs to run in milliseconds. These rules are not intended to apply to analytical queries.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 - [Rule 1. Scan as few rows as possible](#rule-1-scan-as-few-rows-as-possible). If your application is scanning more rows than necessary for a given query, it's going to be difficult to scale.
 - [Rule 2. Use the right index](#rule-2-use-the-right-index): Your query should use an index on the columns in the `WHERE` clause. You want to avoid the performance hit of a full table scan.

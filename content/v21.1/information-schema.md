@@ -35,13 +35,13 @@ Currently, there are some `information_schema` tables that are empty but provide
 - `routines`
 - `parameters`
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A query can specify a table name without a database name (e.g., `SELECT * FROM information_schema.sequences`). See [Name Resolution](sql-name-resolution.html) for more information.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 The virtual tables in `information_schema` contain useful comments with links to further documentation. To view these comments, use `SHOW TABLES FROM information_schema WITH COMMENT`:
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### administrable_role_authorizations
 
@@ -65,7 +65,7 @@ Column | Description
 
 ### character_sets
 
-<span class="version-tag">New in v21.1:</span> `character_sets` identifies the character sets available in the current database.
+{% include_cached new-in.html version="v21.1" %} `character_sets` identifies the character sets available in the current database.
 
 Column | Description
 -------|-----------
@@ -91,7 +91,7 @@ Column | Description
 
 ### collations
 
-<span class="version-tag">New in v21.1:</span> `collations` identifies the collations available in the current database.
+{% include_cached new-in.html version="v21.1" %} `collations` identifies the collations available in the current database.
 
 Column | Description
 -------|-----------
@@ -102,7 +102,7 @@ Column | Description
 
 ### collation_character_set_applicability
 
-<span class="version-tag">New in v21.1:</span> `collation_character_set_applicability` identifies which character set the available collations are applicable to.
+{% include_cached new-in.html version="v21.1" %} `collation_character_set_applicability` identifies which character set the available collations are applicable to.
 
 Column | Description
 -------|-----------
@@ -443,7 +443,7 @@ Column | Description
 
 ### session_variables
 
-<span class="version-tag">New in v21.1:</span> `session_variables` contains information about the [session variable settings](set-vars.html) for your session. `session_variables` contains a `variable` column and a `value` column. The `value` column corresponds to the output of the [`SHOW (session settings)`](show-vars.html) statement.
+{% include_cached new-in.html version="v21.1" %} `session_variables` contains information about the [session variable settings](set-vars.html) for your session. `session_variables` contains a `variable` column and a `value` column. The `value` column corresponds to the output of the [`SHOW (session settings)`](show-vars.html) statement.
 
 For a list of the session variables, see [supported variables](show-vars.html#supported-variables).
 
@@ -556,15 +556,15 @@ You can run [`SELECT` queries](selection-queries.html) on the tables in `informa
 
 {{site.data.alerts.callout_success}}
 The `information_schema` views typically represent objects that the current user has privilege to access. To ensure you can view all the objects in a database, access it as a user with [`admin` privileges](authorization.html#admin-role).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Unless specified otherwise, queries to `information_schema` assume the [current database](sql-name-resolution.html#current-database).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 For example, to retrieve all columns from the `table_constraints` table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM movr.information_schema.table_constraints;
 ~~~
@@ -582,7 +582,7 @@ For example, to retrieve all columns from the `table_constraints` table:
 
 And to retrieve specific columns from the `table_constraints` table:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT table_name, constraint_name FROM movr.information_schema.table_constraints;
 ~~~

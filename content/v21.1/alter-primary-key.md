@@ -26,7 +26,7 @@ toc: true
 
 {{site.data.alerts.callout_success}}
 To change an existing primary key without creating a secondary index from that primary key, use [`DROP CONSTRAINT ... PRIMARY KEY`/`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html#changing-primary-keys-with-add-constraint-primary-key). For examples, see the [`ADD CONSTRAINT`](add-constraint.html#examples) and [`DROP CONSTRAINT`](drop-constraint.html#examples) pages.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -40,7 +40,7 @@ To change an existing primary key without creating a secondary index from that p
 -----------|-------------
  `table_name` | The name of the table with the primary key that you want to modify.
  `index_params` | The name of the column(s) that you want to use for the primary key. These columns replace the current primary key column(s).
- `USING HASH WITH BUCKET COUNT` | Creates a [hash-sharded index](hash-sharded-indexes.html) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info }}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end }}
+ `USING HASH WITH BUCKET COUNT` | Creates a [hash-sharded index](hash-sharded-indexes.html) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info}}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end}}
  `opt_interleave` | [Interleave table into parent object](interleave-in-parent.html).<br>{% include {{ page.version.version }}/misc/interleave-deprecation-note.md %}
 
 ## Required privileges
@@ -57,7 +57,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 
 Suppose that you are storing the data for users of your application in a table called `users`, defined by the following `CREATE TABLE` statement:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE users (
   name STRING PRIMARY KEY,
@@ -69,17 +69,17 @@ The primary key of this table is on the `name` column. This is a poor choice, as
 
 You can add a column and change the primary key with a couple of `ALTER TABLE` statements:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ADD COLUMN id UUID NOT NULL DEFAULT gen_random_uuid();
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > ALTER TABLE users ALTER PRIMARY KEY USING COLUMNS (id);
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SHOW CREATE TABLE users;
 ~~~

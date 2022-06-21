@@ -12,7 +12,7 @@ twitter: false
 
 This tutorial shows you how build a simple Java application with CockroachDB using a PostgreSQL-compatible driver or ORM. We've tested and can recommend the [Java jdbc driver](https://jdbc.postgresql.org/) and the [Hibernate ORM](http://hibernate.org/), so those are featured here.
 
-{{site.data.alerts.callout_success}}For a more realistic use of Hibernate with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For a more realistic use of Hibernate with CockroachDB, see our <a href="https://github.com/cockroachdb/examples-orms"><code>examples-orms</code></a> repository.{{site.data.alerts.end}}
 
 
 ## Before You Begin

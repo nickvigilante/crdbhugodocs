@@ -8,7 +8,7 @@ While developing an application against CockroachDB, it's sufficient to deploy a
 
 {{site.data.alerts.callout_success}}
 If you haven't already, [review the full range of topology patterns](topology-patterns.html) to ensure you choose the right one for your use case.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 

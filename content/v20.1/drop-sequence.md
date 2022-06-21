@@ -6,7 +6,7 @@ toc: true
 
 The `DROP SEQUENCE` [statement](sql-statements.html) removes a sequence from a database.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -83,7 +83,7 @@ DROP SEQUENCE
 
 In this example, a table depends on the sequence that's being dropped. Therefore, it's only possible to drop the sequence while simultaneously dropping the dependent table using `CASCADE`.
 
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> drops <em>all</em> dependent objects without listing them, which can lead to inadvertent and difficult-to-recover losses. To avoid potential harm, we recommend dropping objects individually in most cases.{{site.data.alerts.end}}
 
 ~~~ sql
 > DROP SEQUENCE customer_seq CASCADE;

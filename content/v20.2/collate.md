@@ -22,9 +22,9 @@ Collated strings are important because different languages have [different rules
 
 CockroachDB supports collations identified by [Unicode locale identifiers](https://cldr.unicode.org/development/core-specification#h.vgyyng33o798). For example, `en-US` identifies US English, `es` identifies Spanish, and `fr-CA` identifies Canadian French. Collation names are case-insensitive, and hyphens and underscores are interchangeable.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a hyphen is used in a SQL query, the collation name must be enclosed in double quotes, as single quotes are used for SQL string literals.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 A list of supported collations can be found in the `pg_catalog.pg_collation` table:
 
@@ -75,7 +75,7 @@ Collated strings are used as normal strings in SQL, but have a `COLLATE` clause 
     > CREATE TABLE foo (a STRING COLLATE en PRIMARY KEY);
     ~~~
 
-    {{site.data.alerts.callout_info }}You can also use any of the <a href="string.html#aliases">aliases for <code>STRING</code></a>.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}You can also use any of the <a href="string.html#aliases">aliases for <code>STRING</code></a>.{{site.data.alerts.end}}
 
 - **Value syntax**: `<STRING value> COLLATE <collation>`. For example:
 

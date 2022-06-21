@@ -56,7 +56,7 @@ pq: cannot drop column "customer" because view "customer_view" depends on it
 
 If you want to drop the column and all of its dependent options, include the `CASCADE` clause.
 
-{{site.data.alerts.callout_danger }}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}<code>CASCADE</code> does not list objects it drops, so should be used cautiously.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql

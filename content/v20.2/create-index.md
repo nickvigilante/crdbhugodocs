@@ -15,11 +15,11 @@ The following types cannot be included in an index key, but can be stored (and u
 
 To create an index on the schemaless data in a [`JSONB`](jsonb.html) column, or on the data in an [`ARRAY`](array.html), use a [GIN index](inverted-indexes.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Indexes are automatically created for a table's [`PRIMARY KEY`](primary-key.html) and [`UNIQUE`](unique.html) columns. When querying a table, CockroachDB uses the fastest index. For more information about that process, see [Index Selection in CockroachDB](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -50,7 +50,7 @@ Parameter | Description
 `STORING ...`| Store (but do not sort) each column whose name you include.<br><br>For information on when to use `STORING`, see  [Store Columns](#store-columns).  Note that columns that are part of a table's [`PRIMARY KEY`](primary-key.html) cannot be specified as `STORING` columns in secondary indexes on the table.<br><br>`COVERING` and `INCLUDE` are aliases for `STORING` and work identically.
 `opt_partition_by` | An [Enterprise-only](enterprise-licensing.html) option that lets you [define index partitions at the row level](partitioning.html).
 `opt_where_clause` | <span class="version-tag">New in v20.2:</span> An optional `WHERE` clause that defines the predicate boolean expression of a [partial index](partial-indexes.html).
-`USING HASH WITH BUCKET COUNT` |  Creates a [hash-sharded index](hash-sharded-indexes.html) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info }}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end }}
+`USING HASH WITH BUCKET COUNT` |  Creates a [hash-sharded index](hash-sharded-indexes.html) with `n_buckets` number of buckets.<br>{{site.data.alerts.callout_info}}To enable hash-sharded indexes, set the `experimental_enable_hash_sharded_indexes` [session variable](set-vars.html) to `on`.{{site.data.alerts.end}}
 `WITH storage_parameter` | <span class="version-tag">New in v20.2:</span> A comma-separated list of [spatial index tuning parameters](spatial-indexes.html#index-tuning-parameters). Supported parameters include `fillfactor`, `s2_max_level`, `s2_level_mod`, `s2_max_cells`, `geometry_min_x`, `geometry_max_x`, `geometry_min_y`, and `geometry_max_y`. The `fillfactor` parameter is a no-op, allowed for PostgreSQL-compatibility.<br><br>For details, see [Spatial index tuning parameters](spatial-indexes.html#index-tuning-parameters). For an example, see [Create a spatial index that uses all of the tuning parameters](spatial-indexes.html#create-a-spatial-index-that-uses-all-of-the-tuning-parameters).
 `CONCURRENTLY` |  Optional, no-op syntax for PostgreSQL compatibility. All indexes are created concurrently in CockroachDB.
 `opt_interleave` | [Interleave index into parent object](interleave-in-parent.html).<br>{% include {{ page.version.version }}/misc/interleave-deprecation-note.md %}
@@ -61,7 +61,7 @@ Parameter | Description
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Create standard indexes
 
@@ -146,9 +146,9 @@ CREATE INDEX geom_idx_2
   WITH (s2_max_cells = 20, s2_max_level = 12, s2_level_mod = 3);
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Most users should not change the default spatial index settings. There is a risk that you will get worse performance by changing the default settings. For more information , see [Spatial indexes](spatial-indexes.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Store columns
 
@@ -210,7 +210,7 @@ Normally, CockroachDB selects the index that it calculates will scan the fewest 
 
 ### Create a hash-sharded secondary index
 
-{% include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+{% include {{< page-version >}}/performance/use-hash-sharded-indexes.md %}
 
 {% include copy-clipboard.html %}
 ~~~ sql

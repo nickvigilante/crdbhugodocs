@@ -16,7 +16,7 @@ Before reading this page, do the following:
 - [Connect to the database](connect-to-the-database.html).
 - [Insert data](insert-data.html) that you now want to run queries against.
 
-{% include {{ page.version.version }}/app/retry-errors.md %}
+{% include {{< page-version >}}/app/retry-errors.md %}
 
 ## Simple selects
 
@@ -59,7 +59,7 @@ for rows.Next() {
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-go.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-go.md %}
 
 </section>
 
@@ -86,7 +86,7 @@ try (Connection connection = ds.getConnection()) {
 }
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-java.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-java.md %}
 
 </section>
 
@@ -103,7 +103,7 @@ with conn.cursor() as cur:
         print([str(cell) for cell in row])
 ~~~
 
-{% include {{ page.version.version }}/app/for-a-complete-example-python.md %}
+{% include {{< page-version >}}/app/for-a-complete-example-python.md %}
 
 </section>
 

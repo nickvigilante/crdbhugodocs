@@ -9,7 +9,7 @@ In CockroachDB, you use **replication zones** to control the number and location
 
 This page explains how replication zones work and how to use the `cockroach zone` [command](cockroach-commands.html) to configure them.
 
-{{site.data.alerts.callout_info }}Currently, only the <code>root</code> user can configure replication zones.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Currently, only the <code>root</code> user can configure replication zones.{{site.data.alerts.end}}
 
 
 ## Overview
@@ -51,7 +51,7 @@ Field | Description
 
 The location of replicas, both when they are first added and when they are rebalanced to maintain cluster equilibrium, is based on the interplay between descriptive attributes assigned to nodes and constraints set in zone configurations.
 
-{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end}}
 
 #### Descriptive Attributes Assigned to Nodes
 

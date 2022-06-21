@@ -9,9 +9,9 @@ The `AS OF SYSTEM TIME timestamp` clause causes statements to execute using the 
 
 This clause can be used to read historical data (also known as "[time travel queries](https://www.cockroachlabs.com/blog/time-travel-queries-select-witty_subtitle-the_future/)") and can also be advantageous for performance as it decreases transaction conflicts. For more details, see [SQL Performance Best Practices](performance-best-practices-overview.html#use-as-of-system-time-to-decrease-conflicts-with-long-running-queries).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Historical data is available only within the garbage collection window, which is determined by the `ttlseconds` field in the [replication zone configuration](configure-replication-zones.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 
@@ -39,7 +39,7 @@ negative [`INTERVAL`](interval.html) | Added to `statement_timestamp()`, and thu
 
 {{site.data.alerts.callout_success}}
  To set `AS OF SYSTEM TIME follower_read_timestamp()` on all implicit and explicit read-only transactions by default, set the `default_transaction_use_follower_reads` [session variable](set-vars.html) to `on`. When `default_transaction_use_follower_reads=on` and follower reads are enabled, all read-only transactions use follower reads.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Examples
 
@@ -47,7 +47,7 @@ negative [`INTERVAL`](interval.html) | Added to `statement_timestamp()`, and thu
 
 Imagine this example represents the database's current data:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT name, balance
     FROM accounts
@@ -64,7 +64,7 @@ Imagine this example represents the database's current data:
 
 We could instead retrieve the values as they were on October 3, 2016 at 12:45 UTC:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT name, balance
     FROM accounts
@@ -85,36 +85,36 @@ We could instead retrieve the values as they were on October 3, 2016 at 12:45 UT
 
 Assuming the following statements are run at `2016-01-01 12:00:00`, they would execute as of `2016-01-01 08:00:00`:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME '2016-01-01 08:00:00'
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME 1451635200000000000
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME '1451635200000000000'
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM t AS OF SYSTEM TIME '-4h'
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > SELECT * FROM t AS OF SYSTEM TIME INTERVAL '-4h'
 ~~~
 
 ### Selecting from multiple tables
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 It is not yet possible to select from multiple tables at different timestamps. The entire query runs at the specified time in the past.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 When selecting over multiple tables in a single `FROM` clause, the `AS
 OF SYSTEM TIME` clause must appear at the very end and applies to the
@@ -122,17 +122,17 @@ entire `SELECT` clause.
 
 For example:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM t, u, v AS OF SYSTEM TIME '-4h';
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM t JOIN u ON t.x = u.y AS OF SYSTEM TIME '-4h';
 ~~~
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM (SELECT * FROM t), (SELECT * FROM u) AS OF SYSTEM TIME '-4h';
 ~~~
@@ -158,7 +158,7 @@ following conditions:
 
 For example:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM (SELECT * FROM t AS OF SYSTEM TIME '-4h') tp
            JOIN u ON tp.x = u.y
@@ -180,7 +180,7 @@ Alternatively, you can use the [`SET`](set-transaction.html) statement to execut
 
 It is possible to recover lost data as a result of an online schema change prior to when [garbage collection](architecture/storage-layer.html#garbage-collection) begins:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > CREATE DATABASE foo;
 ~~~
@@ -190,7 +190,7 @@ CREATE DATABASE
 
 Time: 3ms total (execution 3ms / network 0ms)
 ~~~
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > CREATE TABLE foo.bar (id INT PRIMARY KEY);
 ~~~
@@ -200,7 +200,7 @@ CREATE TABLE
 
 Time: 4ms total (execution 3ms / network 0ms)
 ~~~
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > INSERT INTO foo.bar VALUES (1), (2);
 ~~~
@@ -210,7 +210,7 @@ INSERT 2
 
 Time: 5ms total (execution 5ms / network 0ms)
 ~~~
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT now();
 ~~~
@@ -223,7 +223,7 @@ Time: 5ms total (execution 5ms / network 0ms)
 
 Time: 1ms total (execution 0ms / network 0ms)
 ~~~
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > DROP TABLE foo.bar;
 ~~~
@@ -233,7 +233,7 @@ DROP TABLE
 
 Time: 45ms total (execution 45ms / network 0ms)
 ~~~
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM foo.bar AS OF SYSTEM TIME '2022-02-01 21:11:53.63771+00';
 ~~~
@@ -247,7 +247,7 @@ Time: 45ms total (execution 45ms / network 0ms)
 
 Time: 2ms total (execution 2ms / network 0ms)
 ~~~
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~sql
 > SELECT * FROM foo.bar;
 ~~~
@@ -256,9 +256,9 @@ ERROR: relation "foo.bar" does not exist
 SQLSTATE: 42P01
 ~~~
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Once garbage collection has occurred, `AS OF SYSTEM TIME` will no longer be able to recover lost data. For more long-term recovery solutions, consider taking either a [full or incremental backup](take-full-and-incremental-backups.html) of your cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 
@@ -269,9 +269,9 @@ Once garbage collection has occurred, `AS OF SYSTEM TIME` will no longer be able
 
 ## Tech note
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Although the following format is supported, it is not intended to be used by most users.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 HLC timestamps can be specified using a [`DECIMAL`](decimal.html). The
 integer part is the wall time in nanoseconds. The fractional part is

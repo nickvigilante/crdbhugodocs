@@ -152,7 +152,7 @@ You can use either [`cockroach cert`](cockroach-cert.html) commands or [`openssl
 
     ~~~
     CockroachDB node starting at {{ now | date: "%Y-%m-%d %H:%M:%S.%6 +0000 UTC" }}
-    build:               CCL {{ page.release_info.version }} @ {{ page.release_info.build_time }} (go1.12.6)
+    build:               CCL {{page.release_info.version}} @ {{page.release_info.build_time}} (go1.12.6)
     webui:               https://localhost:8080
     sql:                 postgresql://root@localhost:26257?sslcert=certs%2Fclient.root.crt&sslkey=certs%2Fclient.root.key&sslmode=verify-full&sslrootcert=certs%2Fca.crt
     RPC client flags:    cockroach <client cmd> --host=localhost:26257 --certs-dir=certs
@@ -217,9 +217,9 @@ Now that your cluster is live, you can use any node as a SQL gateway. To test th
     $ cockroach sql --certs-dir=certs --host=localhost:26258
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     In a real deployment, all nodes would likely use the default port `26257`, and so you wouldn't need to set the port portion of `--host`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 4. Run the same `SELECT` query as before:
 
@@ -319,9 +319,9 @@ The CockroachDB [DB Console](ui-overview.html) gives you insight into the overal
 
     This demonstrates CockroachDB's [automated replication](demo-replication-and-rebalancing.html) of data via the Raft consensus protocol.    
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     Capacity metrics can be incorrect when running multiple nodes on a single machine. For more details, see this [limitation](known-limitations.html#available-capacity-metric-in-the-db-console).
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 7. Click [**Metrics**](ui-overview-dashboard.html) to access a variety of time series dashboards, including graphs of SQL queries and service latency over time:
 
@@ -412,9 +412,9 @@ Adding capacity is as simple as starting more nodes with `cockroach start`.
     $ cockroach quit --certs-dir=certs --host=localhost:26259
     ~~~
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     For nodes 4 and 5, the shutdown process will take longer (about a minute each) and will eventually force the nodes to stop. This is because, with only 2 of 5 nodes left, a majority of replicas are not available, and so the cluster is no longer operational.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ shell

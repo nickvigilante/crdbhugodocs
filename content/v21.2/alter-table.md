@@ -13,7 +13,7 @@ The `ALTER TABLE` [statement](sql-statements.html) applies a schema change to a 
 
 {{site.data.alerts.callout_success}}
 Some subcommands can be used in combination in a single `ALTER TABLE` statement. For example, you can [atomically rename a column and add a new column with the old name of the existing column](rename-column.html#add-and-rename-columns-atomically).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Subcommand | Description | Can combine with other subcommands?
 -----------|-------------|------------------------------------

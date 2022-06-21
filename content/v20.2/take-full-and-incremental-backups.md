@@ -17,7 +17,7 @@ You can use the [`BACKUP`](backup.html) statement to efficiently back up your cl
 
 {{site.data.alerts.callout_success}}
 <span class="version-tag">New in v20.2:</span> You can create [schedules for periodic backups](manage-a-backup-schedule.html) in CockroachDB. We recommend using scheduled backups to automate daily backups of your cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Full backups
 
@@ -57,17 +57,17 @@ Or to restore your full cluster:
 > RESTORE FROM '<backup_location>';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A full cluster restore can only be run on a target cluster that has _never_ had user-created databases or tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Incremental backups
 
 If your cluster grows too large for nightly full backups, you can take less frequent full backups (e.g., weekly) with nightly incremental backups. Incremental backups are storage efficient and faster than full backups for larger clusters.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To take incremental backups, you need an [Enterprise license](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Periodically run the [`BACKUP`][backup] command to take a full backup of your cluster:
 
@@ -83,9 +83,9 @@ Then, create nightly incremental backups based off of the full backups you've al
 > BACKUP TO '<backup_location>';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 For an example on how to specify the destination of an incremental backup, see [Take Full and Incremental Backups](take-full-and-incremental-backups.html#incremental-backups-with-explicitly-specified-destinations)
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 If it's ever necessary, you can then use the [`RESTORE`][restore] command to restore your cluster, database(s), and/or table(s). [Restoring from incremental backups](restore.html#restore-from-incremental-backups) requires previous full and incremental backups. To restore from a destination containing the full backup, as well as the automatically appended incremental backups (that are stored as subdirectories, like in the example above):
 
@@ -94,11 +94,11 @@ If it's ever necessary, you can then use the [`RESTORE`][restore] command to res
 > RESTORE FROM '<backup_location>';
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 `RESTORE` will re-validate [indexes](indexes.html) when [incremental backups](take-full-and-incremental-backups.html) are created from an older version, but restored from a newer version.
 
 Incremental backups created by v20.2.2 and prior v20.2.x releases or v20.1.4 and prior v20.1.x releases may include incomplete data for indexes that were in the process of being created. Therefore, when incremental backups taken by these versions are restored by v20.2.8+, any indexes created during those incremental backups will be re-validated by `RESTORE`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Incremental backups with explicitly specified destinations
 
@@ -112,9 +112,9 @@ AS OF SYSTEM TIME '-10s' \
 INCREMENTAL FROM 'gs://acme-co-backup/database-bank-2017-03-27-weekly', 'gs://acme-co-backup/database-bank-2017-03-28-nightly' WITH revision_history;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To take incremental backups, you need an [Enterprise license](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Examples
 
@@ -143,9 +143,9 @@ For more examples on how to schedule backups that take full and incremental back
 
 {% include {{ page.version.version }}/backups/advanced-examples-list.md %}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 To take incremental backups, backups with revision history, locality-aware backups, and encrypted backups, you need an [Enterprise license](enterprise-licensing.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

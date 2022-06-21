@@ -10,9 +10,9 @@ To update a large number of rows (i.e., tens of thousands of rows or more), we r
 
 This page provides guidance on writing batch-update loops with a pattern that executes `SELECT` and `UPDATE` statements at different levels of a nested loop.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Exercise caution when batch-updating rows from tables with foreign key constraints and explicit [`ON UPDATE` foreign key actions](foreign-key.html#foreign-key-actions). To preserve `UPDATE` performance on tables with foreign key actions, we recommend using smaller batch sizes, as additional rows updated due to `ON UPDATE` actions can make batch loops significantly slower.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
@@ -54,7 +54,7 @@ In this case, you will also need to add a new column to the `rides` table that s
 
 For example, you could create a column named `discounted`, of data type [`BOOL`](bool.html):
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 ALTER TABLE rides ADD COLUMN discounted BOOL DEFAULT false;
 ~~~
@@ -63,7 +63,7 @@ ALTER TABLE rides ADD COLUMN discounted BOOL DEFAULT false;
 
 In Python, a batch-update script might look similar to the following:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ python
 #!/usr/bin/env python3
 

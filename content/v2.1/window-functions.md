@@ -10,11 +10,11 @@ For a complete list of supported window functions, see [Functions and Operators]
 
 {{site.data.alerts.callout_success}}
 All [aggregate functions][aggregate-functions] can also be used as [window functions][window-functions]. For more information, see the [Examples](#examples) below.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The examples on this page use the `users`, `rides`, and `vehicles` tables from our open-source, fictional peer-to-peer ride-sharing application,[MovR](https://github.com/cockroachdb/movr).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## How window functions work
 

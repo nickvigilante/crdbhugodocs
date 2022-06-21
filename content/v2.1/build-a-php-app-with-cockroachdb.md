@@ -11,7 +11,7 @@ We have tested the [php-pgsql driver](https://www.php.net/manual/en/book.pgsql.p
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install the php-pgsql driver
 
@@ -21,7 +21,7 @@ Install the php-pgsql driver as described in the [official documentation](https:
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Generate a certificate for the `maxroach` user
 
@@ -61,9 +61,9 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.php" download><code>txn-sample.php</code></a> file, or create the file yourself and copy the code into it.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ php
@@ -101,7 +101,7 @@ $ cockroach sql --certs-dir=certs -e 'SELECT id, balance FROM accounts' --databa
 
 ## Step 2. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 3. Run the PHP code
 
@@ -132,9 +132,9 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 
 Download the <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/txn-sample.php" download><code>txn-sample.php</code></a> file, or create the file yourself and copy the code into it.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB may require the [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ php

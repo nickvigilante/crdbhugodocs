@@ -17,7 +17,7 @@ To learn more about the basics of foreign keys, watch the video below:
 
 {{site.data.alerts.callout_success}}
 To read more about how foreign keys work, see our [What is a Foreign Key? (With SQL Examples)](https://www.cockroachlabs.com/blog/what-is-a-foreign-key/) blog post.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Details
 
@@ -40,11 +40,11 @@ To read more about how foreign keys work, see our [What is a Foreign Key? (With 
 
     {{site.data.alerts.callout_success}}
     Using the foreign key columns as the prefix of an index's columns also satisfies the requirement for an index. For example, if you create foreign key columns `(A, B)`, an index of columns `(A, B, C)` satisfies the requirement for an index.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     <span class="version-tag">New in v20.1:</span> You can drop the index on foreign key columns if another index exists on the same columns and fulfills the indexing requirement described above.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 **Referenced Columns**
 
@@ -58,11 +58,11 @@ To read more about how foreign keys work, see our [What is a Foreign Key? (With 
 
     {{site.data.alerts.callout_success}}
     Using the referenced columns as the prefix of an index's columns also satisfies the requirement for an index. For example, if you create foreign key that references the columns `(A, B)`, an index of columns `(A, B, C)` satisfies the requirement for an index.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     <span class="version-tag">New in v20.1:</span> You can drop the index on the referenced columns if another index exists on the same columns and fulfills the indexing requirement described above.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 ### Null values
 
@@ -77,9 +77,9 @@ For more information about composite foreign keys, see the [composite foreign ke
 
 Note that allowing null values in either your foreign key or referenced columns can degrade their referential integrity, since any key with a null value is never checked against the referenced table. To avoid this, you can use a [`NOT NULL` constraint](not-null.html) on foreign keys when [creating your tables](create-table.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A `NOT NULL` constraint cannot be added to existing tables.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Composite foreign key matching
 
@@ -115,9 +115,9 @@ For matching purposes, composite foreign keys can be in one of three states:
 
 For examples showing how these key matching algorithms work, see [Match composite foreign keys with `MATCH SIMPLE` and `MATCH FULL`](#match-composite-foreign-keys-with-match-simple-and-match-full).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB does not support `MATCH PARTIAL`. For more information, see issue [#20305](https://github.com/cockroachdb/cockroach/issues/20305).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Foreign key actions
 
@@ -132,9 +132,9 @@ Parameter | Description
 `ON DELETE SET NULL` / `ON UPDATE SET NULL` | When a referenced foreign key is deleted or updated, respectively, the columns of all rows referencing that key will be set to `NULL`. The column must allow `NULL` or this update will fail.
 `ON DELETE SET DEFAULT` / `ON UPDATE SET DEFAULT` | When a referenced foreign key is deleted or updated, the columns of all rows referencing that key are set to the default value for that column. <br/><br/> If the default value for the column is null, or if no default value is provided and the column does not have a [`NOT NULL`](not-null.html) constraint, this will have the same effect as `ON DELETE SET NULL` or `ON UPDATE SET NULL`. The default value must still conform with all other constraints, such as `UNIQUE`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 <span class="version-tag">New in v20.1:</span> If a foreign key column has multiple constraints that reference the same column, the foreign key action that is specified by the first foreign key takes precedence. For an example, see [Add multiple foreign key constraints to a single column](#add-multiple-foreign-key-constraints-to-a-single-column).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Performance
 
@@ -142,17 +142,17 @@ Because the foreign key constraint requires per-row checks on two tables, statem
 
 You can improve the performance of some statements that use foreign keys by also using [`INTERLEAVE IN PARENT`](interleave-in-parent.html), but there are tradeoffs. For more information about the performance implications of interleaved tables (as well as the limitations), see the **Interleave tables** section of [Performance best practices](performance-best-practices-overview.html#interleave-tables).
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Using [`IMPORT INTO`](import-into.html) will invalidate foreign keys without a [`VALIDATE CONSTRAINT`](validate-constraint.html) statement.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Syntax
 
 Foreign key constraints can be defined at the [table level](#table-level). However, if you only want the constraint to apply to a single column, it can be applied at the [column level](#column-level).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also add the `FOREIGN KEY` constraint to existing tables through [`ADD CONSTRAINT`](add-constraint.html#add-the-foreign-key-constraint-with-cascade).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Column level
 
@@ -180,9 +180,9 @@ You can also add the `FOREIGN KEY` constraint to existing tables through [`ADD C
     INDEX (customer)
   );
 ~~~
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 `CASCADE` does not list objects it drops or updates, so it should be used cautiously.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Table level
 

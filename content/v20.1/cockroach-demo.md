@@ -55,7 +55,7 @@ $ cockroach demo --help
 
 {{site.data.alerts.callout_success}}
 To start a demo cluster without a pre-loaded dataset, pass the `--empty` flag.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Workload | Description
 ---------|------------
@@ -141,9 +141,9 @@ node 3:
 ...
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The `\demo ls` command is **experimental feature**. The interface and output are subject to change.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Admin UI
 
@@ -153,9 +153,9 @@ The `\demo ls` command is **experimental feature**. The interface and output are
 
 You can connect to the demo cluster using a URL connection parameter (e.g., with the [`cockroach sql --url`](cockroach-sql.html#client-connection) command). To establish a [Unix domain socket connection](cockroach-sql.html#connect-to-a-cluster-listening-for-unix-domain-socket-connections) with a client that is installed on the same machine, use the **sql** URL . For standard TCP connections, use the **sql/tcp** URL.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You do not need to create or specify node and client certificates in the connection URL to a secure demo cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Diagnostics reporting
 

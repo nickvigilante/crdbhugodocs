@@ -1,12 +1,12 @@
 CockroachDB comes with a number of [built-in workloads](cockroach-workload.html) for simulating client traffic. This step features CockroachDB's version of the [TPC-C](http://www.tpc.org/tpcc/) workload.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Be sure that you have configured your network to allow traffic from the application to the load balancer. In this case, you will run the sample workload on one of your machines. The traffic source should therefore be the **internal (private)** IP address of that machine.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {{site.data.alerts.callout_success}}
 For comprehensive guidance on benchmarking CockroachDB with TPC-C, see [Performance Benchmarking](performance-benchmarking-with-tpcc-local.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 1. SSH to the machine where you want to run the sample TPC-C workload.
 
@@ -72,7 +72,7 @@ For comprehensive guidance on benchmarking CockroachDB with TPC-C, see [Performa
 
     {{site.data.alerts.callout_success}}
     For more `tpcc` options, use `cockroach workload run tpcc --help`. For details about other workloads built into the `cockroach` binary, use `cockroach workload --help`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 1. To monitor the load generator's progress, open the [DB Console](ui-overview.html) by pointing a browser to the address in the `admin` field in the standard output of any node on startup.
 

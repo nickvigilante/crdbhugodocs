@@ -11,15 +11,15 @@ Several new and updated tables (listed below) are available to help you query th
 - Show which of your localities (if any) are critical. A locality is "critical" for a range if all of the nodes in that locality becoming unreachable would cause the range to become unavailable. In other words, the locality contains a majority of the range's replicas.
 - See if any of your cluster's data placement constraints are being violated.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The information on this page assumes you are familiar with [replication zones](configure-replication-zones.html) and [partitioning](partitioning.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 **This is an experimental feature.**  The interface and output are subject to change.
 
 In particular, the direct access to `system` tables shown here will not be a supported way to inspect CockroachDB in future versions. We're committed to adding stable ways to inspect these replication reports in the future, likely via `SHOW` statements and/or [views](views.html) and [built-in functions](functions-and-operators.html) in the `crdb_internal` schema.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Conformance reporting tables
 
@@ -42,7 +42,7 @@ Only members of the `admin` role can access these tables. By default, the `root`
 
 <a name="necessary-attributes"></a>
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The replication reports are only generated for zones that meet the following criteria:
 
 - The zone overrides some replication attributes compared to their parent zone. Ranges in zones for which a report is not generated are counted in the report of the first ancestor zone for which a report is generated.
@@ -56,7 +56,7 @@ The attributes that must be overridden to trigger each report to run are:
 | `replication_stats`               | `constraints`, `num_replicas`  |
 
 In addition to the above, the system's `default` zone always gets a report.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### system.replication_stats
 
@@ -102,9 +102,9 @@ For an example using this table, see [Find out which databases and tables have r
 | report_id      | [`INT8`](int.html)      | The ID of the [report](#system-reports_meta) that generated all of the rows in this table.                                          |
 | at_risk_ranges | [`INT8`](int.html)      | The [ranges](architecture/overview.html#architecture-range) that are at risk of becoming unavailable as of the time of this report. |
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you have not [defined any localities](configure-replication-zones.html#zone-config-node-locality), this report will not return any results. It only reports on localities that have been explicitly defined.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### system.replication_constraint_stats
 
@@ -167,7 +167,7 @@ SHOW COLUMNS FROM crdb_internal.zones;
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements-geo-partitioned-replicas.md %}
+{% include {{< page-version >}}/sql/movr-statements-geo-partitioned-replicas.md %}
 
 ### Find out which of your tables have a constraint violation
 

@@ -6,7 +6,7 @@ toc: true
 
 The `RENAME TABLE` [statement](sql-statements.html) changes the name of a table. It can also be used to move a table from one database to another.
 
-{{site.data.alerts.callout_info }}It is not possible to rename a table referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}It is not possible to rename a table referenced by a view. For more details, see <a href="views.html#view-dependencies">View Dependencies</a>.{{site.data.alerts.end}}
 
 
 ## Required Privileges

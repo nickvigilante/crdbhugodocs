@@ -89,7 +89,7 @@ The [primary key](primary-key.html) of tables created with `CREATE TABLE ... AS`
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Create a table from a `SELECT` query
 

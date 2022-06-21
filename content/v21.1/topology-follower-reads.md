@@ -13,7 +13,7 @@ In a multi-region deployment, [Follower Reads](follower-reads.html) are a good c
 
 {{site.data.alerts.callout_success}}
 If reads from a table must be exactly up-to-date, use [Global Tables](global-tables.html) or [Regional Tables](regional-tables.html) instead. Up-to-date reads are required by tables referenced by [foreign keys](foreign-key.html), for example.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Prerequisites
 
@@ -27,9 +27,9 @@ If reads from a table must be exactly up-to-date, use [Global Tables](global-tab
 
 ## Configuration
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Follower reads requires an [Enterprise license](https://www.cockroachlabs.com/get-cockroachdb).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Summary
 
@@ -41,7 +41,7 @@ You configure your application to use [follower reads](follower-reads.html) by a
 
 Assuming you have a [cluster deployed across three regions](#cluster-setup) and a table like the following:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > CREATE TABLE postal_codes (
     id INT PRIMARY KEY,
@@ -51,7 +51,7 @@ Assuming you have a [cluster deployed across three regions](#cluster-setup) and 
 
 Insert some data:
 
-{% include copy-clipboard.html %}
+{% include_cached copy-clipboard.html %}
 ~~~ sql
 > INSERT INTO postal_codes (ID, code) VALUES (1, '10001'), (2, '10002'), (3, '10003'), (4,'60601'), (5,'60602'), (6,'60603'), (7,'90001'), (8,'90002'), (9,'90003');
 ~~~
@@ -60,11 +60,11 @@ Insert some data:
 
 2. Configure your app to use `AS OF SYSTEM TIME follower_read_timestamp()` whenever reading from the table:
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The `follower_read_timestamp()` [function](functions-and-operators.html) returns the [`TIMESTAMP`](timestamp.html) `statement_timestamp() - 4.8s`.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > SELECT code FROM postal_codes
         AS OF SYSTEM TIME follower_read_timestamp()
@@ -73,7 +73,7 @@ Insert some data:
 
     Alternately, instead of modifying individual read queries on the table, you can set the `AS OF SYSTEM TIME` value for all operations in a read-only transaction:
 
-    {% include copy-clipboard.html %}
+    {% include_cached copy-clipboard.html %}
     ~~~ sql
     > BEGIN;
 
@@ -90,7 +90,7 @@ Insert some data:
 
 {{site.data.alerts.callout_success}}
 Using the [`SET TRANSACTION`](set-transaction.html#use-the-as-of-system-time-option) statement as shown in the example above will make it easier to use the follower reads feature from [drivers and ORMs](install-client-drivers.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Characteristics
 

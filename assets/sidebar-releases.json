@@ -1,6 +1,11 @@
 {% assign today = "today" | date: "%Y-%m-%d" %}
-{% assign v_prod = site.data.versions | where_exp: "v_prod", "v_prod.asst_supp_exp_date > today" | where_exp: "v_prod", "v_prod.release_date < today" | sort: "release_date" | reverse | map: "major_version" %}
+{% comment %} set today's date {% endcomment %}
+
+{% assign v_prod = site.data.versions | where_exp: "v_prod", "v_prod.asst_supp_exp_date > today" | where_exp: "v_prod", "v_prod.release_date <= today" | sort: "release_date" | reverse | map: "major_version" %}
+{% comment %} v_prod iterates through the list of major versions (e.g., v21.2) in _data/versions.csv and returns all releases within the assistance support period, sorted in reverse chronological order. We then pull only the major version name instead of the whole dictionary with map: "major_version" {% endcomment %}
+
 {% assign v_test = site.data.versions | where_exp: "v_test", "v_test.release_date > today or v_test.release_date == 'N/A'" | sort: "release_date" | last | map: "major_version" %}
+{% comment %} v_test iterates through the list of major versions in _data/versions.csv and returns the single latest testing version (if the release date is in the future or not otherwise specified). It's possible there is no testing release (in between GA of a version and the first alpha of the following version). {% endcomment %}
 {
   "title": "CockroachDB Releases",
   "items": [
@@ -10,25 +15,20 @@
         "/releases/index.html"
       ]
     },
-    {% for x in v_prod %}
-      {% assign r_latest = site.data.releases | where_exp: "r_latest", "r_latest.major_version == x" | where: "withdrawn", "false" | sort: "release_date" | last | map: "version" %}
+    {% for x in v_prod %} {% comment %} iterate through all supported versions {% endcomment %}
       {
-        "title": "Latest {{ x }}",
+        "title": "{{ x }}",
         "urls": [
-          "/releases/{{ r_latest }}.html"
+          "/releases/{{ x }}.html"
         ]
       },
     {% endfor %}
-    {% if v_test[0] %}
+    {% if v_test[0] %} {% comment %} check if a testing version is available {% endcomment %}
     {
-      "title": "Testing Releases",
+      "title": "Latest Testing Release",
       "urls": [
-          {% assign r = site.data.releases | where_exp: "r", "r.major_version == v_test[0]" | where: "withdrawn", "false" | where: "release_type", "Testing" | map: "version" %}
-          "/releases/{{ r }}.html"
-          {% assign s = site.data.releases | where_exp: "s", "s.major_version == v_prod[0]" | where: "withdrawn", "false" | where: "release_type", "Testing" | map: "version" %}
-          {% for x in s %}
-          ,"/releases/{{ x }}.html"
-          {% endfor %}
+          {% comment %} check if a testing version is available and pull the latest testing version {% endcomment %}
+          "/releases/{{ v_test[0] }}.html"
       ]
     },
     {% endif %}
@@ -48,31 +48,10 @@
       "title": "Technical Advisories",
       "urls": [
         "/advisories/index.html",
-        "/advisories/a30821.html",
-        "/advisories/a42567.html",
-        "/advisories/a43870.html",
-        "/advisories/a44166.html",
-        "/advisories/a44299.html",
-        "/advisories/a44348.html",
-        "/advisories/a48860.html",
-        "/advisories/a50587.html",
-        "/advisories/a54418.html",
-        "/advisories/a56116.html",
-        "/advisories/a58932.html",
-        "/advisories/a62842.html",
-        "/advisories/a63162.html",
-        "/advisories/a64325.html",
-        "/advisories/a68005.html",
-        "/advisories/a69874.html",
-        "/advisories/a71002.html",
-        "/advisories/a71655.html",
-        "/advisories/a71553.html",
-        "/advisories/a72839.html",
-        "/advisories/a73024.html",
-        "/advisories/a73629.html",
-        "/advisories/aCVE-2021-44228.html",
-        "/advisories/a74385.html",
-        "/advisories/a74736.html"
+        {% for x in site.data.advisories %}
+          "/advisories/{{ x.advisory }}.html",
+        {% endfor %}
+        "/advisories/index.html"
       ]
     }
   ]

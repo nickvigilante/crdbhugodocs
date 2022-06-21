@@ -7,7 +7,7 @@ keywords: gin, gin index, gin indexes, inverted index, inverted indexes, acceler
 
 The `CREATE TABLE` [statement](sql-statements.html) creates a new table in a database.
 
-{% include {{ { page.version.version }}/misc/schema-change-stmt-note.md %}
+{% include {{{ page.version.version }}/misc/schema-change-stmt-note.md %}
 
 ## Required privileges
 
@@ -82,7 +82,7 @@ The user must have the `CREATE` [privilege](authorization.html#assign-privileges
 </div>
 
 {{site.data.alerts.callout_success}}To create a table from the results of a <code>SELECT</code> statement, use <a href="create-table-as.html"><code>CREATE TABLE AS</code></a>.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Parameters
 
@@ -110,7 +110,7 @@ By default, tables are created in the default replication zone but can be placed
 
 CockroachDB allows [Enterprise users](enterprise-licensing.html) to [define table partitions](partitioning.html), thus providing row-level control of how and where the data is stored. See [Create a Replication Zone for a Table Partition](configure-replication-zones.html#create-a-replication-zone-for-a-partition) for more information.
 
-{{site.data.alerts.callout_info }}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See <a href=partitioning.html#partition-using-primary-key>Partition using Primary Key</a> for more details.{{site.data.alerts.end}}
 
 ## Create a table like an existing table
 
@@ -126,11 +126,11 @@ The following options are supported:
 
 To exclude specifiers, use the `EXCLUDING` keyword. Excluding specifiers can be useful if you want to use `INCLUDING ALL`, and exclude just one or two specifiers. The last `INCLUDING`/`EXCLUDING` keyword for a given specifier takes priority.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Column families, partitioning, interleavings, and foreign key constraints
 cannot be preserved from the old table and will have to be recreated
 manually in the new table if the user wishes.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Supported `LIKE` specifiers can also be mixed with ordinary `CREATE TABLE` specifiers. For example:
 
@@ -153,11 +153,11 @@ In this example, we create the `users` table with a single [primary key](primary
 
 For performance recommendations on primary keys, see the [Schema Design: Create a Table](schema-design-table.html) page and the [SQL Performance Best Practices](performance-best-practices-overview.html#use-multi-column-primary-keys) page.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
   If no primary key is explicitly defined in a `CREATE TABLE` statement, you can add a primary key to the table with [`ADD CONSTRAINT ... PRIMARY KEY`](add-constraint.html) or [`ALTER PRIMARY KEY`](alter-primary-key.html). If the `ADD` or `ALTER` statement follows the `CREATE TABLE` statement, and is part of the same transaction, no default primary key will be created. If the table has already been created and the transaction committed, the `ADD` or `ALTER` statements replace the default primary key.
- {{site.data.alerts.end }}
+ {{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Strictly speaking, a primary key's unique index is not created; it is derived from the key(s) under which the data is stored, so it takes no additional space. However, it appears as a normal unique index when using commands like <code>SHOW INDEX</code>.{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -465,9 +465,9 @@ You can use the [`CREATE TABLE AS`](create-table-as.html) statement to create a 
 
 ### Create a table with partitions
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 The primary key required for partitioning is different from the conventional primary key. To define the primary key for partitioning, prefix the unique identifier(s) in the primary key with all columns you want to partition and subpartition the table on, in the order in which you want to nest your subpartitions. See [Partition using Primary Key](partitioning.html#partition-using-primary-key) for more details.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 #### Create a table with partitions by list
 
@@ -563,7 +563,7 @@ To show the definition of a table, use the [`SHOW CREATE`](show-create.html) sta
 
 ### Create a table with a hash-sharded primary index
 
-{% include {{ page.version.version }}/performance/use-hash-sharded-indexes.md %}
+{% include {{< page-version >}}/performance/use-hash-sharded-indexes.md %}
 
 {% include copy-clipboard.html %}
 ~~~ sql

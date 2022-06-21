@@ -281,7 +281,7 @@ $ cockroach start \
     +------------+--------+-----------+-------+------------+
     ~~~
 
-    {{site.data.alerts.callout_info }}All of a role or user's privileges must be revoked before it can be dropped.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_info}}All of a role or user's privileges must be revoked before it can be dropped.{{site.data.alerts.end}}
 
     {% include copy-clipboard.html %}
     ~~~ sql

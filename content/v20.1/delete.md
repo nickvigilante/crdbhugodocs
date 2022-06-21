@@ -6,9 +6,9 @@ toc: true
 
 The `DELETE` [statement](sql-statements.html) deletes rows from a table.
 
-{{site.data.alerts.callout_danger }}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you delete a row that is referenced by a <a href="foreign-key.html">foreign key constraint</a> and has an <a href="foreign-key.html#foreign-key-actions"><code>ON DELETE</code> action</a>, all of the dependent rows will also be deleted or updated.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}To delete columns, see <a href="drop-column.html"><code>DROP COLUMN</code></a>.{{site.data.alerts.end}}
 
 ## Required privileges
 
@@ -70,7 +70,7 @@ deleted rows more frequently.
 
 ## Sorting the output of deletes
 
-{% include {{ page.version.version }}/misc/sorting-delete-output.md %}
+{% include {{< page-version >}}/misc/sorting-delete-output.md %}
 
 For more information about ordering query results in general, see
 [Ordering Query Results](query-order.html) and [Ordering of rows in
@@ -80,9 +80,9 @@ DML statements](query-order.html#ordering-rows-in-dml-statements).
 
 By using the explicit index annotation (also known as "index hinting"), you can override [CockroachDB's index selection](https://www.cockroachlabs.com/blog/index-selection-cockroachdb-2/) and use a specific [index](indexes.html) for deleting rows of a named table.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Index selection can impact [performance](performance-best-practices-overview.html), but does not change the result of a query.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The syntax to force a specific index for a delete is:
 
@@ -108,17 +108,17 @@ To delete a large number of rows (i.e., tens of thousands of rows or more), we r
 
 In the sections below, we provide guidance on batch deleting with the `DELETE` query filter [on an indexed column](#batch-delete-on-an-indexed-column) and [on a non-indexed column](#batch-delete-on-a-non-indexed-column). Filtering on an indexed column is both simpler to implement and more efficient, but adding an index to a table can slow down insertions to the table and may cause bottlenecks. Queries that filter on a non-indexed column must perform at least one full-table scan, a process that takes time proportional to the size of the entire table.
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 Exercise caution when batch deleting rows from tables with foreign key constraints and explicit [`ON DELETE` foreign key actions](foreign-key.html#foreign-key-actions). To preserve `DELETE` performance on tables with foreign key actions, we recommend using smaller batch sizes, as additional rows updated or deleted due to `ON DELETE` actions can make batch loops significantly slower.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Batch delete on an indexed column
 
 For high-performance batch deletes, we recommending filtering the `DELETE` query on an [indexed column](indexes.html).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Having an indexed filtering column can make delete operations faster, but it might lead to bottlenecks in execution, especially if the filtering column is a [timestamp](timestamp.html). To reduce bottlenecks, we recommend using a [hash-sharded index](indexes.html#hash-sharded-indexes).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Each iteration of a batch-delete loop should execute a transaction containing a single `DELETE` query. When writing this `DELETE` query:
 
@@ -251,7 +251,7 @@ To preserve performance over iterative `DELETE` queries, we recommend taking one
 
 ## Examples
 
-{% include {{ page.version.version }}/sql/movr-statements.md %}
+{% include {{< page-version >}}/sql/movr-statements.md %}
 
 ### Delete rows using Primary Key/unique columns
 

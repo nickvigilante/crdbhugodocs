@@ -226,7 +226,7 @@ datasource:
 ...
 ~~~
 
-{% include {{ page.version.version }}/app/cc-free-tier-params.md %}
+{% include {{< page-version >}}/app/cc-free-tier-params.md %}
 
 </section>
 

@@ -25,4 +25,4 @@
 
     </div>
 
-    {{site.data.alerts.callout_danger }}If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_danger}}If you stop Kubernetes without first deleting the persistent volumes, they will still exist in your cloud project.{{site.data.alerts.end}}

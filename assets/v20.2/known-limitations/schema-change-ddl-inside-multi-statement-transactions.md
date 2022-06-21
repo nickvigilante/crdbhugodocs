@@ -8,13 +8,13 @@ HINT: Some of the non-DDL statements may have committed successfully, but some o
 Manual inspection may be required to determine the actual state of the database.
 ```
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This limitation exists in versions of CockroachDB prior to 19.2.  In these older versions, CockroachDB returned the Postgres error code `40003`, `"statement completion unknown"`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_danger }}
+{{site.data.alerts.callout_danger}}
 If you must execute schema change DDL statements inside a multi-statement transaction, we **strongly recommend** checking for this error code and handling it appropriately every time you execute such transactions.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 This error will occur in various scenarios, including but not limited to:
 

@@ -44,7 +44,7 @@ Term | Definition
 - Nodes should have sufficient CPU, RAM, network, and storage capacity to handle your workload. It's important to test and tune your hardware setup before deploying to production.
 
 - At a bare minimum, each node should have **2 GB of RAM and one entire core**. More data, complex workloads, higher concurrency, and faster performance require additional resources.
-    {{site.data.alerts.callout_danger }}Avoid "burstable" or "shared-core" virtual machines that limit the load on a single core.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_danger}}Avoid "burstable" or "shared-core" virtual machines that limit the load on a single core.{{site.data.alerts.end}}
 
 - For best performance:
     - Use SSDs over HDDs.
@@ -53,9 +53,9 @@ Term | Definition
 - For best resilience:
     - Use many smaller nodes instead of fewer larger ones. Recovery from a failed node is faster when data is spread across more nodes.
     - Use [zone configs](configure-replication-zones.html) to increase the replication factor from 3 (the default) to 5. This is especially recommended if you are using local disks rather than a cloud providers' network-attached disks that are often replicated underneath the covers, because local disks have a greater risk of failure. You can do this for the [entire cluster](configure-replication-zones.html#edit-the-default-replication-zone) or for specific [databases](configure-replication-zones.html#create-a-replication-zone-for-a-database), [tables](configure-replication-zones.html#create-a-replication-zone-for-a-table), or [rows](configure-replication-zones.html#create-a-replication-zone-for-a-table-or-secondary-index-partition-new-in-v2-0) (enterprise-only).
-        {{site.data.alerts.callout_danger }}
-        {% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
-        {{site.data.alerts.end }}
+        {{site.data.alerts.callout_danger}}
+        {% include {{< page-version >}}/known-limitations/system-range-replication.md %}
+        {{site.data.alerts.end}}
 
 ### Cloud-Specific Recommendations
 
@@ -119,7 +119,7 @@ The effect depends on how these two flags are used in combination:
 
 {{site.data.alerts.callout_success}}
 When using hostnames, make sure they resolve properly (e.g., via DNS or `etc/hosts`). In particular, be careful about the value advertised to other nodes, either via `--advertise-host` or via `--host` when `--advertise-host` is not specified.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Cluster on a single network
 
@@ -146,7 +146,7 @@ Each CockroachDB node is an equally suitable SQL gateway to a cluster, but to en
 - **Performance:** Load balancers spread client traffic across nodes. This prevents any one node from being overwhelmed by requests and improves overall cluster performance (queries per second).
 
 - **Reliability:** Load balancers decouple client health from the health of a single CockroachDB node. To ensure that traffic is not directed to failed nodes or nodes that are not ready to receive requests, load balancers should use [CockroachDB's readiness health check](monitoring-and-alerting.html#health-ready-1).
-    {{site.data.alerts.callout_success}}With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.{{site.data.alerts.end }}
+    {{site.data.alerts.callout_success}}With a single load balancer, client connections are resilient to node failure, but the load balancer itself is a point of failure. It's therefore best to make load balancing resilient as well by using multiple load balancing instances, with a mechanism like floating IPs or DNS to select load balancers for clients.{{site.data.alerts.end}}
 
 For guidance on load balancing, see the tutorial for your deployment environment:
 

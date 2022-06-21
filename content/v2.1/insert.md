@@ -133,7 +133,7 @@ If you do not list column names, the statement will use the columns of the table
 
 ### Insert multiple rows into an existing table
 
-{{site.data.alerts.callout_success}} Multi-row inserts are faster than multiple single-row <code>INSERT</code> statements. As a performance best practice, we recommend batching multiple rows in one multi-row <code>INSERT</code> statement instead of using multiple single-row <code>INSERT</code> statements. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). {{site.data.alerts.end }}
+{{site.data.alerts.callout_success}} Multi-row inserts are faster than multiple single-row <code>INSERT</code> statements. As a performance best practice, we recommend batching multiple rows in one multi-row <code>INSERT</code> statement instead of using multiple single-row <code>INSERT</code> statements. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). {{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ sql
@@ -258,9 +258,9 @@ The [`IMPORT`](import.html) statement performs better than `INSERT` when inserti
 
 In this example, the `RETURNING` clause returns the `id` values of the rows inserted, which are generated server-side by the `unique_rowid()` function. The language-specific versions assume that you have installed the relevant [client drivers](install-client-drivers.html).
 
-{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}This use of <code>RETURNING</code> mirrors the behavior of MySQL's <code>last_insert_id()</code> function.{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>INSERT</code> statements with <code>RETURNING</code>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}When a driver provides a <code>query()</code> method for statements that return results and an <code>exec()</code> method for statements that do not (e.g., Go), it's likely necessary to use the <code>query()</code> method for <code>INSERT</code> statements with <code>RETURNING</code>.{{site.data.alerts.end}}
 
 <div class="filters clearfix">
     <button class="filter-button" data-scope="shell">Shell</button>
@@ -695,10 +695,10 @@ considered. To force the selection of a particular duplicate, use an
     DO NOTHING;
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Using `DISTINCT ON` incurs a performance cost to search and eliminate duplicates.
 For best performance, avoid using it when the input is known to not contain duplicates.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## See also
 

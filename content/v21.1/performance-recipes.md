@@ -7,9 +7,9 @@ toc_not_nested: true
 
 This page provides recipes for fixing performance issues in your clusters.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you aren't sure whether SQL query performance needs to be improved on your cluster, see [Identify slow queries](query-behavior-troubleshooting.html#identify-slow-statements).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 
 <table>

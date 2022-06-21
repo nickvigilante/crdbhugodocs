@@ -14,9 +14,9 @@ The `TIMESTAMP` and `TIMESTAMPTZ` [data types](data-types.html) store a date and
 
 - `TIMESTAMPTZ` converts `TIMESTAMP` values from UTC to the client's session time zone (unless another time zone is specified for the value). However, it is conceptually important to note that `TIMESTAMPTZ` **does not** store any time zone data.
 
-    {{site.data.alerts.callout_info }}
+    {{site.data.alerts.callout_info}}
     The default session time zone is UTC, which means that by default `TIMESTAMPTZ` values display in UTC.
-    {{site.data.alerts.end }}
+    {{site.data.alerts.end}}
 
 The difference between these two variants is that `TIMESTAMPTZ` uses the client's session [time zone](set-vars.html#set-time-zone), while the other simply does not. This behavior extends to functions like `now()` and `extract()` on `TIMESTAMPTZ` values.
 
@@ -64,9 +64,9 @@ PostgreSQL wire protocol.
 
 <span class="version-tag">New in v20.2:</span> For PostgreSQL compatibility, CockroachDB bounds `TIMESTAMP` values by the lowest and highest `TIMESTAMP` values supported by PostgreSQL. The minimum allowable `TIMESTAMP` value is `4714-11-24 00:00:00+00 BC`, and the highest allowable `TIMESTAMP` value is `294276-12-31 23:59:59.999999`.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 A time zone offset of `+00:00` is displayed for all [`TIME`](time.html) and `TIMESTAMP` values, but is not stored in the database.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Size
 
@@ -204,9 +204,9 @@ ALTER TABLE
 (2 rows)
 ~~~
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If a non-default precision level has already been specified, you cannot change the precision to a lower level.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 In this case, the `b` column, which is of type `TIMESTAMPTZ(5)`, cannot be changed to a precision level below `5`:
 

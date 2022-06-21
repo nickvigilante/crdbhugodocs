@@ -12,7 +12,7 @@ When creating users, it's important to note:
 - After creating users, you must [grant them privileges to databases and tables](grant.html).
 - On secure clusters, users must [authenticate their access to the cluster](#user-authentication).
 
-{{site.data.alerts.callout_info }}You can also create and manage users through the <a href="create-and-manage-users.html"><code>cockroach user</code></a> command. Notably, this is the most efficient way to <a href="create-and-manage-users.html#remove-a-user">remove users</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}You can also create and manage users through the <a href="create-and-manage-users.html"><code>cockroach user</code></a> command. Notably, this is the most efficient way to <a href="create-and-manage-users.html#remove-a-user">remove users</a>.{{site.data.alerts.end}}
 
 
 ## Required Privileges
@@ -43,7 +43,7 @@ Secure clusters require users to authenticate their access to databases and tabl
 - [Client certificate and key authentication](#secure-clusters-with-client-certificates), which is available to all users. To ensure the highest level of security, we recommend only using client certificate and key authentication.
 - [Password authentication](#secure-clusters-with-passwords), which is available only to users who you've created passwords for. To create a user with a password, use the `WITH PASSWORD` clause of `CREATE USER`. <br/><br/>You can use this password to authenticate users without supplying their client certificate and key; however, we recommend instead using client certificate and key authentication whenever possible. <br/><br/>To add a password to an existing user, use the [`cockroach user` command](create-and-manage-users.html#update-a-users-password).
 
-{{site.data.alerts.callout_info }}Insecure clusters do not support user authentication, but you can still create passwords for users (besides <code>root</code>) through the <code>WITH PASSWORD</code> clause.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}Insecure clusters do not support user authentication, but you can still create passwords for users (besides <code>root</code>) through the <code>WITH PASSWORD</code> clause.{{site.data.alerts.end}}
 
 ## Examples
 
@@ -65,7 +65,7 @@ For users on secure clusters, you also need to generate [client certificates and
 > CREATE USER jpointsman WITH PASSWORD 'Q7gc8rEdS';
 ~~~
 
-{{site.data.alerts.callout_info }}We strongly recommend also creating <a href="create-security-certificates.html#create-the-certificate-and-key-pair-for-a-client">client certificates and keys</a> and using them to <a href="#secure-clusters-with-client-certificates">authenticate the user's access to the cluster</a>.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}We strongly recommend also creating <a href="create-security-certificates.html#create-the-certificate-and-key-pair-for-a-client">client certificates and keys</a> and using them to <a href="#secure-clusters-with-client-certificates">authenticate the user's access to the cluster</a>.{{site.data.alerts.end}}
 
 ### Manage Users
 

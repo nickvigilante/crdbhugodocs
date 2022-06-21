@@ -9,9 +9,9 @@ In CockroachDB, you use **replication zones** to control the number and location
 
 This page explains how replication zones work and how to use the `cockroach zone` [command](cockroach-commands.html) to configure them.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Currently, only the `root` user can configure replication zones.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Replication Zone Levels
 
@@ -46,9 +46,9 @@ When replicating data, whether table or system, CockroachDB always uses the most
 4. If there's no applicable table replication zone, CockroachDB uses the database replication zone.
 5. If there's no applicable database replication zone, CockroachDB uses the `.default` cluster-wide replication zone.
 
-{{site.data.alerts.callout_danger }}
-{% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}
+{% include {{< page-version >}}/known-limitations/system-range-replication.md %}
+{{site.data.alerts.end}}
 
 ## Replication Zone Format
 
@@ -75,7 +75,7 @@ Field | Description
 
 The location of replicas, both when they are first added and when they are rebalanced to maintain cluster equilibrium, is based on the interplay between descriptive attributes assigned to nodes and constraints set in zone configurations.
 
-{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end }}
+{{site.data.alerts.callout_success}}For demonstrations of how to set node attributes and replication constraints in different scenarios, see <a href="#scenario-based-examples">Scenario-based Examples</a> below.{{site.data.alerts.end}}
 
 ### Descriptive Attributes Assigned to Nodes
 
@@ -246,9 +246,9 @@ constraints: []
 
 ### Edit the Default Replication Zone
 
-{{site.data.alerts.callout_danger }}
-{% include {{ page.version.version }}/known-limitations/system-range-replication.md %}
-{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}
+{% include {{< page-version >}}/known-limitations/system-range-replication.md %}
+{{site.data.alerts.end}}
 
 To edit the default replication zone, create a YAML file defining only the values you want to change (other values will be copied from the `.default` zone), and use the `cockroach zone set .default -f <file.yaml>` command with appropriate flags:
 
@@ -352,9 +352,9 @@ $ echo 'num_replicas: 7' | cockroach zone set db1.t1 --insecure -f -
 
 ### Create a Replication Zone for a Secondary Index
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This is an [enterprise-only](enterprise-licensing.html) feature.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 The [secondary indexes](indexes.html) on a table will automatically use the replication zone for the table. However, with an enterprise license, you can add distinct replication zones for secondary indexes.
 
@@ -362,7 +362,7 @@ To control replication for a specific secondary index, create a YAML file defini
 
 {{site.data.alerts.callout_success}}
 To get the name of a secondary index, which you need for the `cockroach zone set` command, use the [`SHOW INDEX`](show-index.html) or [`SHOW CREATE TABLE`](show-create-table.html) statements.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ shell
@@ -402,9 +402,9 @@ $ echo 'num_replicas: 7' | cockroach zone set db1.table@idx1 \
 
 ### Create a Replication Zone for a Table or Secondary Index Partition <span class="version-tag">New in v2.0</span>
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 This is an [enterprise-only](enterprise-licensing.html) feature.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 To [control replication for table partitions](partitioning.html#replication-zones), create a YAML file defining only the values you want to change (other values will not be affected), and use the `cockroach zone set <database.table.partition> -f <file.yaml>` command with appropriate flags:
 
@@ -429,7 +429,7 @@ $ cockroach zone set roachlearn.students_by_list.australia \
 
 {{site.data.alerts.callout_success}}
 Since the syntax is the same for defining a replication zone for a table or index partition (`database.table.partition`), give partitions names that communicate what they are partitioning, e.g., `australia_table` vs `australia_idx1`.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Create a Replication Zone for a System Range
 

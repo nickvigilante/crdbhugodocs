@@ -16,15 +16,15 @@ This tutorial shows you how build a simple Java application with CockroachDB and
 
 CockroachDB is supported in jOOQ [Professional and Enterprise editions](https://www.jooq.org/download/#databases).
 
-{% include {{ page.version.version }}/app/java-version-note.md %}
+{% include {{< page-version >}}/app/java-version-note.md %}
 
 {{site.data.alerts.callout_success}}
 For another use of jOOQ with CockroachDB, see our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Before you begin
 
-{% include {{ page.version.version }}/app/before-you-begin.md %}
+{% include {{< page-version >}}/app/before-you-begin.md %}
 
 ## Step 1. Install Maven
 
@@ -66,7 +66,7 @@ $ ./maven-install.sh
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Generate a certificate for the `maxroach` user
 
@@ -111,11 +111,11 @@ To run it:
     $ mvn exec:java -Dexec.mainClass=com.cockroachlabs.Sample
     ~~~
 
-Here are the contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/jooq-basic-sample/Sample.java), the Java file containing the main `Sample` class:
+Here are the contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{< page-version >}}/app/jooq-basic-sample/Sample.java), the Java file containing the main `Sample` class:
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/jooq-basic-sample/Sample.java %}
+{% include {{< page-version >}}/app/jooq-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -175,7 +175,7 @@ SELECT id, balance FROM accounts;
 
 ## Step 3. Create the `maxroach` user and `bank` database
 
-{% include {{ page.version.version }}/app/insecure/create-maxroach-user-and-bank-database.md %}
+{% include {{< page-version >}}/app/insecure/create-maxroach-user-and-bank-database.md %}
 
 ## Step 4. Run the Java code
 
@@ -208,11 +208,11 @@ To run it:
     $ mvn exec:java -Dexec.mainClass=com.cockroachlabs.Sample
     ~~~
 
-Here are the contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/insecure/jooq-basic-sample/Sample.java), the Java file containing the main `Sample` class:
+Here are the contents of [`Sample.java`](https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{< page-version >}}/app/insecure/jooq-basic-sample/Sample.java), the Java file containing the main `Sample` class:
 
 {% include copy-clipboard.html %}
 ~~~ java
-{% include {{ page.version.version }}/app/insecure/jooq-basic-sample/Sample.java %}
+{% include {{< page-version >}}/app/insecure/jooq-basic-sample/Sample.java %}
 ~~~
 
 Toward the end of the output, you should see:
@@ -273,4 +273,4 @@ SELECT id, balance FROM accounts;
 
 Read more about using [jOOQ](https://www.jooq.org/), or check out a more realistic implementation of jOOQ with CockroachDB in our [`examples-orms`](https://github.com/cockroachdb/examples-orms) repository.
 
-{% include {{ page.version.version }}/app/see-also-links.md %}
+{% include {{< page-version >}}/app/see-also-links.md %}

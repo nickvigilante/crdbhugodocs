@@ -12,7 +12,7 @@ toc_not_nested: true
 
 This page shows you how to manually deploy an insecure multi-node CockroachDB cluster on Amazon's AWS EC2 platform, using AWS's managed load balancing service to distribute client traffic.
 
-{{site.data.alerts.callout_danger }}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end }}
+{{site.data.alerts.callout_danger}}If you plan to use CockroachDB in production, we strongly recommend using a secure cluster instead. Select <strong>Secure</strong> above for instructions.{{site.data.alerts.end}}
 
 
 ## Requirements
@@ -93,7 +93,7 @@ AWS offers fully-managed load balancing to distribute traffic between instances.
 	- Configure health checks to use HTTP port **8080** and path `/health`.
 2. Note the provisioned **IP Address** for the load balancer. You'll use this later to test load balancing and to connect your application to the cluster.
 
-{{site.data.alerts.callout_info }}If you would prefer to use HAProxy instead of AWS's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end }}
+{{site.data.alerts.callout_info}}If you would prefer to use HAProxy instead of AWS's managed load balancing, see <a href="manual-deployment-insecure.html">Manual Deployment</a> for guidance.{{site.data.alerts.end}}
 
 ## Step 4. Start the first node
 

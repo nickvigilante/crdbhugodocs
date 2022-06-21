@@ -7,7 +7,7 @@ twitter: false
 
 This tutorial shows you how build a simple Clojure application with CockroachDB using [leiningen](https://leiningen.org/) and a PostgreSQL-compatible driver.
 
-We have tested the [Clojure java.jdbc driver](http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html) in conjunction with the [PostgreSQL JDBC driver](https://jdbc.postgresql.org/) enough to claim **beta-level** support, so that combination is featured here. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
+We have tested the [Clojure java.jdbc driver](https://clojure-doc.org/articles/ecosystem/java_jdbc/home/) in conjunction with the [PostgreSQL JDBC driver](https://jdbc.postgresql.org/) enough to claim **beta-level** support, so that combination is featured here. If you encounter problems, please [open an issue](https://github.com/cockroachdb/cockroach/issues/new) with details to help us make progress toward full support.
 
 
 ## Before you begin
@@ -72,10 +72,10 @@ Next, use the following code to again connect as the `maxroach` user but this ti
 
 Copy the code below to `myapp/src/test/test.clj` or
 <a href="https://raw.githubusercontent.com/cockroachdb/docs/master/_includes/{{ page.version.version }}/app/txn-sample.clj" download>download it directly</a>. Again, preserve the file name `test.clj`.
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 CockroachDB may require the
 [client to retry a transaction](transactions.html#transaction-retries) in case of read/write contention. CockroachDB provides a generic **retry function** that runs inside a transaction and retries it as needed. You can copy and paste the retry function from here into your code.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 {% include copy-clipboard.html %}
 ~~~ clojure
@@ -108,6 +108,6 @@ $ cockroach sql --insecure -e 'SELECT id, balance FROM accounts' --database=bank
 
 ## What's next?
 
-Read more about using the [Clojure java.jdbc driver](http://clojure-doc.org/articles/ecosystem/java_jdbc/home.html).
+Read more about using the [Clojure java.jdbc driver](https://clojure-doc.org/articles/ecosystem/java_jdbc/home/).
 
 {% include {{ page.version.version }}/app/see-also-links.md %}

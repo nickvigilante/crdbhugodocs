@@ -8,9 +8,9 @@ toc: true
 
 In CockroachDB, you can use **replication zones** to control the number and location of replicas for specific sets of data, both when replicas are first added and when they are rebalanced to maintain cluster equilibrium.
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 Adding replication zones for secondary indexes and partitions is an [Enterprise-only](enterprise-licensing.html) feature.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Synopsis
 

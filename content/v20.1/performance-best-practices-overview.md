@@ -8,11 +8,11 @@ This page provides best practices for optimizing SQL performance in CockroachDB.
 
 {{site.data.alerts.callout_success}}
 For a demonstration of some of these techniques, see [Performance Tuning](performance-tuning.html). For guidance on deployment and data location techniques to minimize network latency, see [Topology Patterns](topology-patterns.html).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 If you aren't sure whether SQL query performance needs to be improved on your cluster, see [Identify slow queries](query-behavior-troubleshooting.html#identify-slow-queries).
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ## Multi-row DML best practices
 
@@ -37,9 +37,9 @@ The [`TRUNCATE`](truncate.html) statement removes all rows from a table by dropp
 
 To bulk-insert data into an existing table, batch multiple rows in one multi-row `INSERT` statement and do not include the `INSERT` statements within a transaction. Experimentally determine the optimal batch size for your application by monitoring the performance for different batch sizes (10 rows, 100 rows, 1000 rows). For more information, see [Insert Multiple Rows](insert.html#insert-multiple-rows-into-an-existing-table).
 
-{{site.data.alerts.callout_info }}
+{{site.data.alerts.callout_info}}
 You can also use the [`IMPORT INTO`](import-into.html) statement to bulk-insert CSV data into an existing table.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 ### Use `IMPORT` instead of `INSERT` for bulk inserts into new tables
 
@@ -350,7 +350,7 @@ However, because `AS OF SYSTEM TIME` returns historical data, your reads might b
 
 {{site.data.alerts.callout_success}}
 You can use a [statement trace](query-behavior-troubleshooting.html#visualize-statement-traces-in-jaeger) to identify transaction contention on a running cluster.
-{{site.data.alerts.end }}
+{{site.data.alerts.end}}
 
 Transaction contention occurs when the following three conditions are met:
 
